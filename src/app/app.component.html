@@ -1,0 +1,22 @@
+<div [class]="(route.url != '/login' && route.url != '/login2' && route.url != '/login3' && route.url != '/login4') ? 'container-scroller' : ' '">
+  <!-- partial:partials/_navbar.html -->
+  <app-header *ngIf="(route.url != '/login' && route.url != '/login2' && route.url != '/login3' && route.url != '/login4')"></app-header>
+
+  <!-- partial -->
+  <div [class]="(route.url != '/login' && route.url != '/login2' && route.url != '/login3' && route.url != '/login4') ? 'container-fluid page-body-wrapper' : ' '">
+
+    <!-- partial:partials/_sidebar.html -->
+    <app-sidebar *ngIf="(route.url != '/login' && route.url != '/login2' && route.url != '/login3' && route.url != '/login4')"></app-sidebar>
+    <!-- partial -->
+    <div [class]="(route.url != '/login' && route.url != '/login2' && route.url != '/login3' && route.url != '/login4') ? 'main-panel' : ' '">
+    
+      <!-- dynamic router -->
+      <router-outlet></router-outlet>
+
+      <app-footer *ngIf="(route.url != '/login' && route.url != '/login2' && route.url != '/login3' && route.url != '/login4')"></app-footer>
+    
+    </div>
+
+  </div>
+
+</div>

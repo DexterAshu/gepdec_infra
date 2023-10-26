@@ -1,0 +1,147 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/dashboard">
+        <i class="mdi mdi-view-grid menu-icon"></i>
+        <span class="menu-title">Dashboard</span>
+      </a>
+    </li>
+    <!-- <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#dash" aria-expanded="false" aria-controls="dash">
+        <i class="mdi mdi-view-grid menu-icon"></i>
+        <span class="menu-title">Dashboard</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="dash">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="/dashboard">Dashboard</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/dashboard-4">Dashboard-4</a></li>
+        </ul>
+      </div>
+    </li> -->
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#ui-master" aria-expanded="false" aria-controls="ui-master">
+        <i class="mdi mdi-briefcase menu-icon"></i>
+        <span class="menu-title">Master</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="ui-master">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/company">Company</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/state">State</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/district">District</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/electricity-board">Electricity Board</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/circle">Circle</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/meter">Meter</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/segment">Segment</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/bill-package">Bill Package</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/meter-pricing">Meter Pricing</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/customer">Customer</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#hes" aria-expanded="false" aria-controls="hes">
+        <i class="mdi mdi-calendar-export menu-icon"></i>
+        <span class="menu-title">HES</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="hes">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="/hes/meter-data">Meter Data (Raw)</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Firmware Upgrade</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Meter Tempering</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Disconnect Meter</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#mdm" aria-expanded="false" aria-controls="mdm">
+        <i class="mdi mdi-file-document-box menu-icon"></i>
+        <span class="menu-title">MDM</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="mdm">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Notifications</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Critical Alerts</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Revenue Collection</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Revenue Outstanding</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#customerRegistration" aria-expanded="false" aria-controls="customerRegistration">
+        <i class="mdi mdi-account-plus menu-icon"></i>
+        <span class="menu-title">Customer Registration</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="customerRegistration">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="/customer-registration/process-1">Registration</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/customer-registration/process-2">Approval</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/customer-registration/process-3">Payment</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/customer-registration/process-4">Installation</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#customer" aria-expanded="false" aria-controls="customerRegistration">
+        <i class="mdi mdi-account-multiple menu-icon"></i>
+        <span class="menu-title">Customer</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="customer">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="/customer/customer-data-usage">Customer Data Usage</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/customer/customer-billing-data">Customer Billing Data</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/customer/account-information">Account Information</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/customer/consumption-calculator">Consumption Calculator</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/customer/customer-faq">Customer FAQ</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#transactions" aria-expanded="false" aria-controls="transactions">
+        <i class="mdi mdi-view-list menu-icon"></i>
+        <span class="menu-title">Transactions</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="transactions">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="/transactions/link-meter-with-customer">Link Meter-Customer</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/transactions/billing-date-configuration">Bill Date Configuration</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/transactions/firmware-upgrade">Firmware Upgrade</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#userManagement" aria-expanded="false" aria-controls="userManagement">
+        <i class="mdi mdi-account-card-details menu-icon"></i>
+        <span class="menu-title">User Management</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="userManagement">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-master">User</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-logs">User Logs</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-roles">User Roles</a></li>
+        </ul>
+      </div>
+    </li>
+    <!-- <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#transactions" aria-expanded="false" aria-controls="transactions">
+        <i class="mdi mdi-swap-horizontal menu-icon"></i>
+        <span class="menu-title">Transactions</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="transactions">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Firmware Upgrade</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Meter tempering</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="#">Discount Meter</a></li>
+        </ul>
+      </div>
+    </li> -->
+  </ul>
+</nav>

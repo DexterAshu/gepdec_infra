@@ -1,0 +1,139 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Customer FAQ</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                        </div>
+                        <div class="col-lg-8 d-flex align-items-center justify-content-end">
+                            <!-- <a href="#" class="" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Expand All | Collapse ALL</a> -->
+                        </div>
+                    </div>
+                    <div class="list-group w-100 mt-3">
+                        <a data-bs-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1" class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Question 1</h5>
+                          </div>
+                          <p class="mb-1">
+                            What is Lorem Ipsum?
+                          </p>
+                          <small><u>View Ans:</u></small>
+                          <!-- Collapsed content -->
+                          <div class="collapse mt-3" id="collapse1">
+                            Detailed and comprehensive answer goes here. pariatur cliche reprehenderit, enim eiusmod
+                            high
+                            life accusamus terry richardson ad
+                            squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                            sapiente ea proident.
+                          </div>
+                        </a>
+                        <a data-bs-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2" class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Question 2</h5>
+                          </div>
+                          <p class="mb-1">
+                            Where does it come from?
+                          </p>
+                          <small class="text-muted"><u>View Ans</u></small>
+                          <!-- Collapsed content -->
+                          <div class="collapse mt-3" id="collapse2">
+                            Detailed and comprehensive answer goes here. pariatur cliche reprehenderit, enim eiusmod
+                            high
+                            life accusamus terry richardson ad
+                            squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                            sapiente ea proident.
+                          </div>
+                        </a>
+                        <a data-bs-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3" class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Question 3</h5>
+                          </div>
+                          <p class="mb-1">
+                            Where can I get some?
+                          </p>
+                          <small class="text-muted"><u>View Ans</u></small>
+                          <!-- Collapsed content -->
+                          <div class="collapse mt-3" id="collapse3">
+                            Detailed and comprehensive answer goes here. pariatur cliche reprehenderit, enim eiusmod
+                            high
+                            life accusamus terry richardson ad
+                            squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                            sapiente ea proident.
+                          </div>
+                        </a>
+                    </div>
+
+                    <div class="collapseMain2 mt-3">
+                        <div class="row">
+                            <div class="d-flex justify-content-end align-items-center">
+                                <a href="#" class="me-3 col-btn" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2 multiCollapseExample3">Expand ALL</a>
+                                <a href="#" class="col-btn" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2 multiCollapseExample3">Collapse ALL</a>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <h5 class="mb-1">Question 1</h5>
+                                <p class="mb-1">
+                                    Where can I get some?
+                                    <a href="#" class="" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2 multiCollapseExample3">Expand</a>
+                                </p>
+                                <div class="cust-ans">
+                                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                      <div class="card card-body">
+                                            <span class="ans">Ans: </span>1 Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <h5 class="mb-1">Question 2</h5>
+                                <p class="mb-1">
+                                    Where does it come from?
+                                    <a href="#" class="" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Expand</a>
+                                </p>
+                                <div class="cust-ans">
+                                    <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                        <div class="card card-body">
+                                            <span class="ans">Ans: </span>2 Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <h5 class="mb-1">Question 3</h5>
+                                <p class="mb-1">
+                                    Where can I get some?
+                                    <a href="#" class="" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Expand</a>
+                                </p>
+                                <div class="cust-ans">
+                                    <div class="collapse multi-collapse" id="multiCollapseExample3">
+                                        <div class="card card-body">
+                                            <span class="ans">Ans: </span>3 Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

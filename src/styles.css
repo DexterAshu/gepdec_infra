@@ -1,0 +1,216 @@
+/* @import '~ngx-toastr/toastr.css'; */
+
+/* You can add global styles to this file, and also import other style files */
+.float-right {
+    float: right; 
+}
+
+.page-title {
+    color: #4a4a4a;
+    /* margin-bottom: 1.5rem; */
+    /* text-transform: uppercase; */
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    cursor: pointer
+}
+.w-s-nowrap {
+    white-space: nowrap;
+ }
+.required-asterisk {
+    color: red;
+    font-weight: bold;
+    margin-left: 3px;
+    font-size: 1.1em;
+}
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+    border: 1px solid red;
+    box-shadow: 0 0 13px inset #ff000017;
+}
+.modal-btns{
+    text-align: right;
+}
+.modal-header{
+    background-color: #476fb0;
+    color: #ffffff;
+    font-size: 20px;
+}
+.btn-close{
+    font-size: 12px;
+}
+.ngx-pagination{ 
+    margin-bottom: 0 !important;
+}
+.ngx-pagination li {
+    padding: 0.1rem 0.625rem !important;
+}
+.ngx-pagination .current {
+    border-radius: 50%;
+    background: #476fb0 !important;
+  } 
+.pagination-sec {
+    margin-top: auto;
+    border-top: 1px dashed #ccc;
+    padding-top: .6rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.modal-header .btn-close {
+    padding: calc(var(--bs-modal-header-padding-y) * .8) calc(var(--bs-modal-header-padding-x) * .5);
+}
+
+.form-select-sm {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+    padding-left: 0.5rem;
+    font-size: 0.8rem;
+    border-radius: var(--bs-border-radius-sm);
+}
+
+.card:hover {
+    box-shadow: 0px 0px 15px -6px #000;
+    transition: 0.5s;
+    border: 1px solid #315ca4d1;
+}
+
+.auth-link {
+    font-size: .798rem;
+}
+
+text {
+    font-size: 13px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.mdi-2 {
+    font-size: 1.25rem;
+}
+
+.head-ul {
+    margin: 0rem;
+    float: right;
+}
+
+.head-ul li {
+    display: inline-block;
+    margin: -5px 5px 0px 0px;
+    height: 0px; 
+}
+
+.table-primary {
+    --bs-table-color: #fff;
+    --bs-table-bg: #476fb0;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #476fb0;
+    border-color: #476fb0;
+}
+
+.table-footer td {
+    background-color: #B4D0FF !important;
+}
+
+/* charts changes start */
+ul.legend-labels {
+    width: auto !important;
+}
+
+header.legend-title.ng-star-inserted {
+    display: none !important;
+}
+
+.chart-legend .legend-wrap {
+    /* width: calc(100% - 10px); */
+    margin-top: 30% !important;
+}
+
+/* charts changes End */
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.input-group .dropdown-menu li .dropdown-item{
+    font-size: 13px;
+}
+
+.model-custom-title {
+    font-size: 0.9rem;
+    margin-left: 0.3rem;
+    margin-top: 0.1rem;
+}
+
+.border-gray {
+    border-color: #bfbfbf !important;
+}
+
+.t-background-2 {
+    background: linear-gradient(90deg, rgba(120,183,245,1) 19%, rgba(188,211,228,1) 74%) !important;
+}
+
+.t-background-3 {
+    background-image: url('./assets/images/wave-background-3.svg') !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
+.header-banner {
+    background-image: url('./assets/images/wave-background-2.svg') !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
+.header-banner-gradient {
+    background: linear-gradient(90deg, rgb(92 107 185) 0%, rgb(232 240 254) 40%, rgb(79 120 187) 100%) !important;
+}
+
+.my-10 {
+    margin: 0px -10px;
+}
+
+.custom-table tbody tr th{
+    font-size: 0.8rem;
+}
+
+
+/* Customize the scrollbar for WebKit-based browsers */
+/* You can adjust these styles to match your design preferences */
+
+/* Track (background) */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the entire scrollbar */
+    height: 8px;
+}
+
+/* Handle (thumb) */
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1; /* Color of the thumb */
+    border-radius: 6px; /* Rounded corners */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #a9a9a9; /* Color of the thumb on hover */
+}
+
+.navbar .navbar-brand-wrapper {
+    background: #5a67ad;
+    border-bottom: 1px solid #e3e3e3;
+    transition: width 0.25s ease, background 0.25s ease;
+    -webkit-transition: width 0.25s ease, background 0.25s ease;
+    -moz-transition: width 0.25s ease, background 0.25s ease;
+    -ms-transition: width 0.25s ease, background 0.25s ease;
+    width: 257px;
+    height: 60px;
+    border-right: 1px solid #e3e3e3;
+}

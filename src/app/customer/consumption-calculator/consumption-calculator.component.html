@@ -1,0 +1,142 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Consumption Calculator</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <form [formGroup]="tableForm" (ngSubmit)="onTableFormSubmit()">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Appliance<span class="required-asterisk">*</span></label>
+                                            <input formControlName="appliance" placeholder="Appliance" type="text" class="form-control form-control-sm">
+                                            <div *ngIf="f['appliance'].touched && f['appliance'].invalid">
+                                                <small class="text-danger" *ngIf="f['appliance'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="form-label">Watt<span class="required-asterisk">*</span></label>
+                                            <input formControlName="watt" placeholder="Watt" type="text" class="form-control form-control-sm" appNumberOnly>
+                                            <div *ngIf="f['watt'].touched && f['watt'].invalid">
+                                                <small class="text-danger" *ngIf="f['watt'].errors?.['required']">*Required</small>
+                                            </div>                        
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="form-label">Equipment Count<span class="required-asterisk">*</span></label>
+                                            <select formControlName="equipmentCount" class="form-select form-select-sm">
+                                                <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                <option *ngFor="let c of countData" value="{{c.no}}">{{c.no}}</option>
+                                            </select>
+                                            <div *ngIf="f['equipmentCount'].touched && f['equipmentCount'].invalid">
+                                                <small class="text-danger" *ngIf="f['equipmentCount'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="form-label">Usage Hours<span class="required-asterisk">*</span></label>
+                                            <select formControlName="usageHours" class="form-select form-select-sm">
+                                                <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                <option *ngFor="let c of countData" value="{{c.no}}">{{c.no}}</option>
+                                            </select>
+                                            <div *ngIf="f['usageHours'].touched && f['usageHours'].invalid">
+                                                <small class="text-danger" *ngIf="f['usageHours'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="form-label">Day use / month<span class="required-asterisk">*</span></label>
+                                            <select formControlName="dayUse" class="form-select form-select-sm me-2">
+                                                <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                <option *ngFor="let c of countData" value="{{c.no}}">{{c.no}}</option>
+                                            </select>
+                                            <div *ngIf="f['dayUse'].touched && f['dayUse'].invalid">
+                                                <small class="text-danger" *ngIf="f['dayUse'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 d-flex justify-content-center align-items-center">
+                                        <button type="submit" [disabled]="!tableForm.valid" class="btn btn-primary btn-fw btn-sm">Add</button>
+                                    </div>
+                                </div>   
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Appliance</th>
+                                <th>Watt</th>
+                                <th>Equipment Count</th>
+                                <th>Usage Hours</th>
+                                <th>Day use / month</th>
+                                <th>Total Consumption(KWH)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of consCalData; index as i">
+                                <td>{{ i+1 }}</td>
+                                <td>{{ a.appliance }}</td>
+                                <td>{{ a.watt }}</td>
+                                <td>{{ a.equipmentCount }}</td>
+                                <td>{{ a.usageHours }}</td>
+                                <td>{{ a.dayUse }}</td>
+                                <td>{{ a.totalConsumption }}</td>
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="6" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="consCalData.length > 0">
+                                <td></td>
+                                <td class="fw-semibold" colspan="5">All Total</td>
+                                <td class="fw-semibold">514.56</td>
+                            </tr>
+                            <tr *ngIf="consCalData.length > 0">
+                                <td></td>
+                                <td class="fw-semibold" colspan="5">Appx Bill</td>
+                                <td class="fw-semibold">3087.36</td>
+                            </tr>
+                            <tr *ngIf="consCalData?.length == 0">
+                                <td colspan="5" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </app-responsive-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

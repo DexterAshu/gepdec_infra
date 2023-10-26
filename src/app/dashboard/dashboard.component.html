@@ -1,0 +1,710 @@
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+        <form action="">
+          <div class="d-flex float-right">
+              <div class="col-md-3">
+                  <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Country:</label>
+                  <div class="col-sm-8">
+                      <select class="form-select form-select-sm">
+                          <option>India</option>
+                      </select>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">State:</label>
+                  <div class="col-sm-8">
+                      <select class="form-select form-select-sm">
+                          <option>All</option>
+                      </select>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">District:</label>
+                  <div class="col-sm-8">
+                      <select class="form-select form-select-sm">
+                          <option>All</option>
+                      </select>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">ECB:</label>
+                  <div class="col-sm-8">
+                      <select class="form-select form-select-sm">
+                          <option>All</option>
+                      </select>
+                  </div>
+                  </div>
+              </div>
+          </div>
+        </form>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="banner-sec">
+          <div class="banner-overlay">
+          <img class="img-fluid banner" src="../../assets/images/banner1.jpg" alt="">
+          </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body dashboard-tabs p-0">
+          <ul class="nav nav-tabs px-4" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="preference-tab" data-toggle="tab" href="#preference" role="tab" aria-controls="preference" aria-selected="false">Preference</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" id="duration-tab" data-toggle="tab" href="#duration" role="tab" aria-controls="duration" aria-selected="false">Duration</a>
+            </li> -->
+          </ul>
+          <div class="tab-content py-0 px-0"> 
+            <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+              <div class="d-flex flex-wrap justify-content-xl-between">
+                <!-- <div class="d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                  <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="mb-1 text-muted">Start date</small>
+                    <div class="dropdown">
+                      <a class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0 text-dark shadow-none font-weight-medium" href="#" role="button" id="dropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <h5 class="mb-0 d-inline-block">26 Jul 2023</h5>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLinkA">
+                        <a class="dropdown-item" href="#">12 Aug 2023</a>
+                        <a class="dropdown-item" href="#">22 Sep 2023</a>
+                        <a class="dropdown-item" href="#">21 Oct 2023</a>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+
+                <!-- <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 me-1 item t-1">
+                  <i class="mdi mdi-account-multiple mr-3 icon-lg text-secondary"></i>
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="mb-1 text-muted">Total Customer</small>
+                    <h5 class="mr-2 mb-0">77545</h5>
+                  </div>
+                </div> -->
+
+                <div class="border-md-right flex-grow-1 align-items-center justify-content-center me-1 item t-1">
+                  <!-- <i class="mdi mdi-account-multiple mr-3 icon-lg text-secondary"></i> -->
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="text-light text-center t-heading py-2">CUSTOMERS <small>(LACS)</small></small>
+                    <div class="d-flex text-center">
+                      <div class="col-lg-4 py-2" style="background: #315CA4;">
+                        <h5 class="m-1 text-light">98,709</h5>
+                        <small class="text-light">Total</small>
+                      </div>
+                      <div class="col-lg-4 py-2" style="background: #4676C6;">
+                        <h5 class="m-1 text-light">8,700</h5>
+                        <small class="text-light">LM</small>
+                      </div>
+                      <div class="col-lg-4 py-2" style="background: #6093E8;">
+                        <h5 class="m-1 text-light">6,890</h5>
+                        <small class="text-light">MTD</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-md-right flex-grow-1 align-items-center justify-content-center me-1 item t-2">
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="text-light text-center t-heading py-2">LOAD <small>(MWH)</small></small>
+                    <div class="d-flex text-center">
+                      <div class="col-lg-4 py-2" style="background: #9968b5;">
+                        <h5 class="m-1 text-light">98,765</h5>
+                        <small class="text-light">Total</small>
+                      </div>
+                      <div class="col-lg-4 py-2" style="background: #b47fd2;">
+                        <h5 class="m-1 text-light">8,091</h5>
+                        <small class="text-light">LM</small>
+                      </div>
+                      <div class="col-lg-4 py-2" style="background: #cf97ef;">
+                        <h5 class="m-1 text-light">7,750</h5>
+                        <small class="text-light">MTD</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-md-right flex-grow-1 align-items-center justify-content-center me-1 item t-3">
+                  <!-- <i class="mdi mdi-infinity mr-3 icon-lg text-danger"></i>
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="mb-1 text-muted">Total Outstanding</small>
+                    <h5 class="mr-2 mb-0">₹17,83 Cr.</h5>
+                  </div> -->
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="text-light text-center t-heading py-2">REVENUE <small>(INR LACS)</small></small>
+                    <div class="d-flex text-center">
+                      <div class="col-lg-4 py-2" style="background: #FFA333;">
+                        <h5 class="m-1 text-light">54,500</h5>
+                        <small class="text-light">Total</small>
+                      </div>
+                      <div class="col-lg-4 py-2" style="background: #FFB761;">
+                        <h5 class="m-1 text-light">4,589</h5>
+                        <small class="text-light">LM</small>
+                      </div>
+                      <div class="col-lg-4 py-2" style="background: #FFCC8F;">
+                        <h5 class="m-1 text-light">4,090</h5>
+                        <small class="text-light">MTD</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-4">
+                  <!-- <i class="mdi mdi-ticket-account mr-3 icon-lg text-success"></i>
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="mb-1 text-muted">Total Tickets</small>
+                    <h5 class="mr-2 mb-0">7843</h5>
+                  </div> -->
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="text-light text-center t-heading py-2">OUTSTANDING <small>(INR LACS)</small></small>
+                    <div class="d-flex text-center">
+                      <div class="col-lg-4 py-2" style="background: #56BAFF;">
+                        <h5 class="m-1 text-light">80,790</h5>
+                        <small class="text-light">Total</small>
+                      </div>
+                      <div class="col-lg-4 py-2" style="background: #7CC9FF;">
+                        <h5 class="m-1 text-light">9,032</h5>
+                        <small class="text-light">LM</small>
+                      </div>
+                      <div class="col-lg-4 py-2" style="background: #A2D9FF;">
+                        <h5 class="m-1 text-light">5,691</h5>
+                        <small class="text-light">MTD</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="preference" role="tabpanel" aria-labelledby="preference-tab">
+              <div class="d-flex flex-wrap justify-content-xl-between t-background-2">
+                <div class="d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center pt-3 pb-1 item">
+                  <div class="d-flex flex-column justify-content-around align-items-center">
+                    <form>
+                      <div class="d-flex">
+                        <i class="mdi mdi-source-branch mdi-36px mr-2" style="color: #315CA4;"></i>
+                        <div class="form-group position-relative">
+                          <small class="mb-1 label-under-border" style="background-color: #7dbaf4;">Meter Type</small>
+                          <select class="form-select form-select-sm bg-transparent text-dark shadow-none font-weight-medium border border-secondary">
+                            <option>ALL</option>
+                            <option>Electricity</option>
+                          </select>
+                        </div>
+                        <i class="mdi mdi-power-plug mdi-36px mr-2 ml-4" style="color: #9968b5;"></i>
+                        <div class="form-group position-relative">
+                          <small class="mb-1 label-under-border" style="background-color: #99c5ed;">Meter Phase</small>
+                          <select class="form-select form-select-sm bg-transparent text-dark shadow-none font-weight-medium border border-secondary">
+                            <option>ALL</option>
+                            <option>Phase 1</option>
+                            <option>Phase 3</option>
+                          </select>
+                        </div>
+                        <i class="mdi mdi-file-tree mdi-36px mr-2 ml-4" style="color: #FFA333;"></i>
+                        <div class="form-group position-relative">
+                          <small class="mb-1 label-under-border" style="background-color: #a9cbe9;">Segments</small>
+                          <select class="form-select form-select-sm bg-transparent text-dark shadow-none font-weight-medium border border-secondary">
+                            <option>ALL</option>
+                            <option *ngFor="let s of segmentData">{{ s.name }}</option>
+                          </select>
+                        </div>
+                        <i class="mdi mdi-filter mdi-36px mr-2 ml-4" style="color: #56BAFF;"></i>
+                        <div class="form-group position-relative">
+                          <small class="mb-1 label-under-border" style="background-color: #bcd3e4;">Duration</small>
+                          <select class="form-select form-select-sm bg-transparent text-dark shadow-none font-weight-medium border border-secondary">
+                            <option [value]="d" *ngFor="let d of fiveYear">{{ d }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </form>
+                    
+                    <!-- <small class="mb-1 text-muted">Segments</small>
+                    <div class="dropdown">
+                      <a class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0 text-dark shadow-none font-weight-medium" href="#" role="button" id="dropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <h5 class="mb-0 d-inline-block">26 Jul 2023</h5>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLinkA">
+                        <a class="dropdown-item" href="#">12 Aug 2023</a>
+                        <a class="dropdown-item" href="#">22 Sep 2023</a>
+                        <a class="dropdown-item" href="#">21 Oct 2023</a>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+                <!-- <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                  <i class="mdi mdi-coins mr-3 icon-lg text-success"></i>
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="mb-1 text-muted">Total Revenue</small>
+                    <h5 class="mr-2 mb-0">₹22,337 Cr.</h5>
+                  </div>
+                </div>
+                <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                  <i class="mdi mdi-arrow-down mr-3 icon-lg text-success"></i>
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="mb-1 text-muted">This Month Revenue</small>
+                    <h5 class="mr-2 mb-0">₹3,550 Cr.</h5>
+                  </div>
+                </div>
+                <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                  <i class="mdi mdi-checkbox-marked-circle-outline mr-3 icon-lg text-danger"></i>
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="mb-1 text-muted">Last Month Revenue</small>
+                    <h5 class="mr-2 mb-0">₹3,445 Cr.</h5>
+                  </div>
+                </div>
+                <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                  <i class="mdi mdi-flag mr-3 icon-lg text-danger"></i>
+                  <div class="d-flex flex-column justify-content-around">
+                    <small class="mb-1 text-muted">Last 6 Month Revenue</small>
+                    <h5 class="mr-2 mb-0">₹12,843 Cr.</h5>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-7 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Customer <small>(Lacs)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef>
+            <ngx-charts-bar-vertical-2d
+            [view]="[containerRef.offsetWidth, 190]"
+            [scheme]="mainColorScheme"
+            [results]="multi"
+            [xAxis]="showXAxis"
+            [gradient]="true"
+            [yAxis]="showYAxis"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabelBar"
+            [yAxisLabel]="yAxisLabelBar"
+            [barPadding]="5"
+            [groupPadding]="7">
+          </ngx-charts-bar-vertical-2d>
+          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
+            <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Customer Segment <small>(Lacs)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef2>
+            <ngx-charts-pie-chart
+              [view]="[containerRef2.offsetWidth - 30, 220]"
+              [scheme]="pieColorsCust"
+              [labels]="showLabelsPie"
+              [gradient]="true"
+              [legend]="true"
+              [results]="pieDataCust">
+            </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-5 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Load <small>(MWH)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef3>
+            <ngx-charts-pie-chart
+            [view]="[containerRef3.offsetWidth - 35, 220]"
+            [scheme]="colorSchemeLoad"
+            [labels]="showLabelsPie"
+            [doughnut]="true"
+            [gradient]="true"
+            [legend]="true"
+            [results]="pieDataCust">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Load <small>(MWH)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef4>
+            <ngx-charts-bar-vertical-2d
+            [view]="[containerRef4.offsetWidth, 190]"
+            [scheme]="colorSchemeLoad"
+            [results]="multi"
+            [xAxis]="showXAxis"
+            [gradient]="true"
+            [yAxis]="showYAxis"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabelBarLoad"
+            [yAxisLabel]="yAxisLabelBarLoad"
+            [barPadding]="5"
+            [groupPadding]="7">
+          </ngx-charts-bar-vertical-2d>
+          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank load_box1"></i> Last Year</li>
+            <li><i class="mdi mdi-checkbox-blank load_box2"></i> This Year</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-7 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Revenue <small>(INR Lacs)</small></p>
+          <div class="chartBar" #containerRef5>
+            <ngx-charts-line-chart
+            [view]="[containerRef5.offsetWidth, 210]"
+            [scheme]="lineColorScheme"
+            [results]="lineChart"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [showXAxisLabel]="showYAxisLabelLine"
+            [gradient]="true"
+            [showYAxisLabel]="showYAxisLabelLine"
+            [xAxisLabel]="xAxisLabelLine"
+            [yAxisLabel]="yAxisLabelLine">
+          </ngx-charts-line-chart>
+          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank l_box1"></i> Last Year</li>
+            <li><i class="mdi mdi-checkbox-blank l_box2"></i> This Year</li>
+          </ul>
+                           
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Revenue Segment <small>(INR Lacs)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef6>
+            <ngx-charts-pie-chart
+            [view]="[containerRef6.offsetWidth - 35, 220]"
+            [scheme]="lineColorScheme"
+            [labels]="showLabelsPie"
+            [gradient]="true"
+            [doughnut]="true"
+            [legend]="true"
+            [results]="pieDataCust">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-5 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Outstanding <small>(Days)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef7>
+            <ngx-charts-pie-chart
+            [view]="[containerRef7.offsetWidth, 240]"
+            [scheme]="pieColorsOL"
+            [labels]="true"
+            [legend]="true"
+            [gradient]="true"
+            [results]="pieData">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Outstanding <small>(INR Lacs)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef8>
+            <ngx-charts-bar-vertical-2d
+            [view]="[containerRef8.offsetWidth, 195]"
+            [scheme]="colorSchemeOS"
+            [results]="multi"
+            [xAxis]="showXAxis"
+            [gradient]="true"
+            [yAxis]="showYAxis"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [legend]="false"
+            [xAxisLabel]="xAxisLabelBarOS"
+            [yAxisLabel]="yAxisLabelBarOS"
+            [barPadding]="5"
+            [groupPadding]="7">
+          </ngx-charts-bar-vertical-2d>
+          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank o_box1"></i> Last Year</li>
+            <li><i class="mdi mdi-checkbox-blank o_box2"></i> This Year</li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Tickets</p>
+          <div class="table-responsive ht-auto">
+            <table class="table table-hover table-striped">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                    <th>Status</th>
+                    <th>Critical</th>
+                    <th>Major</th>
+                    <th>Minor</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr>
+                    <td>Open</td>
+                    <td>410</td>
+                    <td>110</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>Close</td>
+                    <td>520</td>
+                    <td>30</td>
+                    <td>490</td>
+                </tr>
+                <tr>
+                    <td>Pending</td>
+                    <td>522</td>
+                    <td>222</td>
+                    <td>300</td>
+                </tr>
+                <tr class="table-footer fw-bold">
+                    <td>Total</td>
+                    <td>5,020</td>
+                    <td>2,020</td>
+                    <td>3,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+                           
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Tickets <small>(Segment)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef9>
+            <ngx-charts-pie-chart
+            [view]="[containerRef9.offsetWidth - 35, 180]"
+            [scheme]="pieColorsSegment"
+            [gradient]="true"
+            [legend]="true"
+            [results]="pieDataSegment">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Tickets <small>(Status)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef10>
+            <ngx-charts-pie-chart
+            [view]="[containerRef10.offsetWidth - 40, 180]"
+            [scheme]="pieColorsType"
+            [gradient]="true"
+            [legend]="true"
+            [doughnut]="true"
+            [results]="pieDataType">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-3 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Alert & Alarms <small>(Segment)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef11>
+            <ngx-charts-pie-chart
+            [view]="[containerRef11.offsetWidth - 35, 180]"
+            [scheme]="pieColorsSegment"
+            [gradient]="true"
+            [legend]="true"
+            [results]="pieDataSegment">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Alert & Alarms <small>(Status)</small></p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef12>
+            <ngx-charts-pie-chart
+            [view]="[containerRef12.offsetWidth - 40, 180]"
+            [scheme]="pieColorsType"
+            [gradient]="true"
+            [legend]="true"
+            [doughnut]="true"
+            [results]="pieDataType">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Alert & Alarms</p>
+          <div class="table-responsive ht-auto">
+            <table class="table table-hover table-striped">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                    <th>Status</th>
+                    <th>Critical</th>
+                    <th>Major</th>
+                    <th>Minor</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr>
+                    <td>Open</td>
+                    <td>410</td>
+                    <td>110</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>Close</td>
+                    <td>520</td>
+                    <td>30</td>
+                    <td>490</td>
+                </tr>
+                <tr>
+                    <td>Pending</td>
+                    <td>522</td>
+                    <td>222</td>
+                    <td>300</td>
+                </tr>
+                <tr class="table-footer fw-bold">
+                    <td>Total</td>
+                    <td>5,020</td>
+                    <td>2,020</td>
+                    <td>3,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+                           
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <div class="row">
+    <div class="col-lg-12 my-2">
+      <small class="text-secondary">
+        <b>Note:- All amount values in INR Lacs.</b>
+      </small>
+    </div>
+  </div> -->
+</div>
