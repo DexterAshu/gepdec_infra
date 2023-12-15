@@ -20,6 +20,10 @@ import { DistrictComponent } from './district/district.component';
 import { StateComponent } from './state/state.component';
 import { TitleMasterComponent } from './title-master/title-master.component';
 import { RoleMasterComponent } from './role-master/role-master.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectMilestoneComponent } from './project-milestone/project-milestone.component';
+import { MilestoneTasksComponent } from './milestone-tasks/milestone-tasks.component';
+import { ProjectDocumentsComponent } from './project-documents/project-documents.component';
 
 
 
@@ -40,6 +44,10 @@ const routes: Routes = [
   { path: 'bidder', component: BiderCompanyComponent },
   { path: 'title', component: TitleMasterComponent },
   { path: 'role', component: RoleMasterComponent },
+  { path: 'project', component: ProjectsComponent },
+  { path: 'proj-milestone', component: ProjectMilestoneComponent },
+  { path: 'milestone-task', component: MilestoneTasksComponent },
+  { path: 'project-doc', component: ProjectDocumentsComponent },
   
 ];
 
@@ -55,7 +63,8 @@ const routes: Routes = [
    
   ],
   declarations: [
-    
+    // MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
+    // ,TitleMasterComponent,RoleMasterComponent,ProjectsComponent,ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent,
   ]
 })
 export class MasterModule { }
