@@ -20,6 +20,7 @@ export class DistrictComponent implements OnInit {
   countryData: any;
   isSubmitted:boolean = false
   searchText:any;
+  distCount: any;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -30,52 +31,36 @@ export class DistrictComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      country: [null, Validators.required],
-      state: [null, Validators.required],
-      districtName: [null, Validators.required],
-      districtCode: [null, Validators.required],
+      state_id: [null, Validators.required],
+      district_name: [null, Validators.required],
     });
 
     this.getDistrictData();
-    this.getCountryData();
+    this.getStateData();
+    // this.getCountryData();
   }
 
   get f() { return this.form.controls; }
 
-  getCountryData() {
-    this.countryData = [];
-    let apiLink = "/master/market/getMarket"
-    this.apiService.getDataList(apiLink).subscribe((res:any) => {
-      if (res.status === true) {
-        this.countryData = res.data;
-      } else {
-        this.alertService.warning("Looks like no data available in country data.");
-      }
-    });
-  }
-  
   getStateData() {
-    this.stateData = [];
-    let data = {
-      marketCode: this.form.value.country
-    }
-    let apiLink = "/master/state/getStatesByCountry"
-    this.apiService.postData(apiLink, data).subscribe((res:any) => {
-      if (res.status === true) {
-        this.stateData = res.data;
+    this.masterService.getStateData().subscribe((res: any) => {
+      if (res.status === 200) {
+        this.stateData = res.result;
       } else {
-        this.alertService.warning(`Looks like no state available related to ${this.form.value.country}.`);
+        this.alertService.warning(`Looks like no state available related to the selected state.`);
       }
     });
   }
+ 
 
   getDistrictData() {
     this.isNotFound = true;
     this.masterService.getDistrictData().subscribe((res:any) => {
       this.isNotFound = false;
-      this.districtData = [];
-      if (res.status === true) {
-        this.districtData = res.data.filter((data:any) => data.active == 'Y');
+      if (res.status == 200) {
+        this.distCount = res;
+      this.districtData = res.result;
+        // this.districtData = res.data.filter((data:any) => data.active == 'Y');
       } else {
         this.alertService.warning("Looks like no data available!");
       }
@@ -89,18 +74,29 @@ export class DistrictComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
+      //passing state id
+      if (this.form.value.state_id != '') {
+        if (this.form.value.state_id) {
+          var stat = this.stateData.filter((item: any) => {
+            return item.state_id == this.form.value.state_id;
+          });
+          this.form.value.state_id = stat[0]['state_id'];
+        }
+      } else {
+        this.form.value.state_id = null;
+      }
       let params = {
-        countryID: this.form.value.country,
-        stateCode: this.form.value.state,
-        name: this.form.value.districtName,
-        code: this.form.value.districtCode.toUpperCase(),
+        state_id: this.form.value.state_id,
+        district_name: this.form.value.district_name,
       };
-      let apiLink = '/master/district/createDistrict';
-      this.apiService.postData(apiLink, params).subscribe(res => {
+      // let apiLink = '/master/district/createDistrict';
+      this.apiService.addMasterDistrict(params).subscribe((res:any )=> {
+        console.log(res);
+        
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
-        if (response.status == true) {
+        if (response.status == 200) {
           this.getDistrictData();
           this.form.reset();
           this.alertService.success(response.message);

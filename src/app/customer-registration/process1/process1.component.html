@@ -123,7 +123,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="country" class="form-select form-select-sm" (change)="getStateData()">
+                                                    <select formControlName="country" class="form-select form-select-sm">
                                                         <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
                                                         <option *ngFor="let c of countryData" [value]="c.code">{{ c.name }}</option>
                                                     </select>
@@ -135,7 +135,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">State<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="state" class="form-select form-select-sm" (change)="getDistrictData()">
+                                                    <select formControlName="state" class="form-select form-select-sm">
                                                         <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
                                                         <option *ngFor="let s of stateData" [value]="s.code">{{ s.name }}</option>
                                                     </select>
@@ -147,7 +147,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">District<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="district" class="form-select form-select-sm" (change)="getECBData()">
+                                                    <select formControlName="district" class="form-select form-select-sm">
                                                         <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
                                                         <option *ngFor="let d of districtData" [value]="d.code">{{ d.name }}</option>
                                                     </select>
@@ -159,7 +159,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Electricity Board<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="ecb" class="form-select form-select-sm" (change)="getCircleData()">
+                                                    <select formControlName="ecb" class="form-select form-select-sm" >
                                                         <option [selected]="true" [disabled]="true" [value]="null">Select ECB</option>
                                                         <option *ngFor="let e of ecbData" [value]="e.code">{{ e.name }}</option>
                                                     </select>
@@ -312,7 +312,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="countryCustomer" class="form-select form-select-sm" (change)="getStateList()">
+                                                    <select formControlName="countryCustomer" class="form-select form-select-sm">
                                                         <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
                                                         <option *ngFor="let c of countryData" [value]="c.code">{{ c.name }}</option>
                                                     </select>
@@ -324,7 +324,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">State<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="stateCustomer" class="form-select form-select-sm" (change)="getDistrictList()">
+                                                    <select formControlName="stateCustomer" class="form-select form-select-sm" >
                                                         <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
                                                         <option *ngFor="let s of stateList" [value]="s.code">{{ s.name }}</option>
                                                     </select>

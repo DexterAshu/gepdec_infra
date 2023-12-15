@@ -10398,7 +10398,7 @@ select.form-control:focus::-ms-value, .dataTables_wrapper select:focus::-ms-valu
 }
 
 .form-control-sm {
-  height: 2rem;
+  height: 2.2rem;
   padding: 0.5rem 0.81rem;
   font-size: 0.825rem;
   line-height: 1.5;
@@ -18707,7 +18707,7 @@ code {
 
 /* Footer */
 .footer {
-  background: #315CA4;
+  background: #1a1a6f;
   padding: 10px 1rem;
   transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
@@ -18795,6 +18795,7 @@ code {
   box-shadow: 0px 0px 15px -10px #000;
   transition: 0.5s;  
 }
+
 
 @media (min-width: 576px) {
   .border-right-sm {
@@ -20355,7 +20356,9 @@ code {
 }
 
 .form-control, .dataTables_wrapper select {
-  border: 1px solid #cbcbcb;
+  /* border: 1px solid #cbcbcb; */
+  border: 1px solid #c2ccd5;
+    border-radius: 4px;
   font-weight: normal;
   font-size: 0.75rem;
 }
@@ -21133,7 +21136,7 @@ dl li {
 }
 
 .content-wrapper {
-  background: #f3f3f3;
+  background: #f6f8fc;
   padding: 0.5rem 0.5rem;;
   width: 100%;
   -webkit-flex-grow: 1;
@@ -21149,7 +21152,7 @@ dl li {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 60px);
-  background: #ffffff;
+  background: #f6f8fc;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   padding: 0;
@@ -21195,7 +21198,9 @@ dl li {
   align-items: center;
   white-space: nowrap;
   padding: 0.75rem 2.5rem 0.75rem 1.25rem;
-  color: #000;
+  color: #2b2b2b;
+  font-family: system-ui;
+  font-weight: 600;
   -webkit-transition-duration: 0.45s;
   -moz-transition-duration: 0.45s;
   -o-transition-duration: 0.45s;
@@ -21312,14 +21317,14 @@ dl li {
   margin-bottom: 0;
   margin-top: 0;
   list-style: none;
-  padding: 0.25rem 0 0.6rem 3.55rem;
+  /* padding: 0.25rem 0 0.6rem 3.55rem; */
 }
 
 .sidebar .nav.sub-menu .nav-item {
   padding: 0;
 }
 
-.sidebar .nav.sub-menu .nav-item::before {
+/* .sidebar .nav.sub-menu .nav-item::before {
   content: '';
   position: absolute;
   width: 5px;
@@ -21327,10 +21332,13 @@ dl li {
   border-radius: 50%;
   background: #000;
   margin-top: 15px;
-}
+} */
 
 .sidebar .nav.sub-menu .nav-item .nav-link {
   color: #656565;
+  margin-left: 20px;
+  font-weight: 500;
+  font-family: system-ui;
   padding: 0.6rem 1rem;
   position: relative;
   font-size: 0.875rem;
@@ -21338,9 +21346,13 @@ dl li {
   height: auto;
   border-top: 0;
 }
+.sub-sub-menu{
+margin-left: 20px;
+}
 
 .sidebar .nav.sub-menu .nav-item .nav-link:hover {
   color: #000;
+  /* background-color: #f6fafd; */
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link.active {
@@ -21380,7 +21392,7 @@ dl li {
 }
 
 .navbar .navbar-brand-wrapper {
-  background: #315CA4;
+  background: #1a1a6f;
   border-bottom: 1px solid #e3e3e3;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
@@ -21719,6 +21731,7 @@ dl li {
 }
 
 @media (min-width: 992px) {
+  
   .navbar .navbar-menu-wrapper .navbar-nav.navbar-nav-right {
     margin-left: auto;
   }

@@ -10,12 +10,12 @@ export class LineBreakPipe implements PipeTransform {
     let currentLine = '';
 
     return words.reduce((result:any, word:any) => {
-      if (currentLine.length + word.length + 1 <= maxLength) {
-        currentLine += (currentLine === '' ? '' : ' ') + word;
-      } else {
-        result.push(currentLine);
-        currentLine = word;
-      }
+      // if (currentLine.length + word.length + 1 <= maxLength) {
+      //   currentLine += (currentLine === '' ? '' : ' ') + word;
+      // } else {
+      //   result.push(currentLine);
+      //   currentLine = word;
+      // }
       return result;
     }, [currentLine]).join('\n');
   }

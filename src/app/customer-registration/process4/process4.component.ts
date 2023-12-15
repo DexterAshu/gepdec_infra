@@ -28,21 +28,21 @@ export class Process4Component implements OnInit {
 
   getCustomerData() {
     this.isNotFound = true;
-    let apiLink = "/master/customerMaster/getCustomer";
-    this.apiService.getDataList(apiLink).subscribe((res:any) => {
-      this.isNotFound = false;
-      this.customerData = [];
-      if (res.status === true) {
-        // this.meterData = res.data.filter((data:any) => data.active == 'Y');
-        this.customerData = res.data.filter((data:any) => data.stage == 4);
-      } else {
-        this.alertService.warning("Looks like no data available!");
-      }
-    }, error => {
-      this.customerData = [];
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
-    });
+    // let apiLink = "/master/customerMaster/getCustomer";
+    // this.apiService.getDataList(apiLink).subscribe((res:any) => {
+    //   this.isNotFound = false;
+    //   this.customerData = [];
+    //   if (res.status === true) {
+    //     // this.meterData = res.data.filter((data:any) => data.active == 'Y');
+    //     this.customerData = res.data.filter((data:any) => data.stage == 4);
+    //   } else {
+    //     this.alertService.warning("Looks like no data available!");
+    //   }
+    // }, error => {
+    //   this.customerData = [];
+    //   this.isNotFound = false;
+    //   this.alertService.error("Error: " + error.statusText)
+    // });
   }
 
 }

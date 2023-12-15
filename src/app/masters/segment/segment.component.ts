@@ -64,23 +64,23 @@ export class SegmentComponent implements OnInit {
         code: this.form.value.code.toUpperCase(),
         name: this.form.value.name,
       };
-      let apiLink = '/master/segmentMaster/createSegment';
-      this.apiService.postData(apiLink, params).subscribe(res => {
-        let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (response.status == true) {
-          this.getSegmentData();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      }, (error) => {
-          this.isSubmitted = false;
-          document.getElementById('cancel')?.click();
-          this.alertService.error("Error: " + error.statusText);
-        })
+      // let apiLink = '/master/segmentMaster/createSegment';
+      // this.apiService.postData(apiLink, params).subscribe(res => {
+      //   let response: any = res;
+      //   document.getElementById('cancel')?.click();
+      //   this.isSubmitted = false;
+      //   if (response.status == true) {
+      //     this.getSegmentData();
+      //     this.form.reset();
+      //     this.alertService.success(response.message);
+      //   } else {
+      //     this.alertService.warning(response.message);
+      //   }
+      // }, (error) => {
+      //     this.isSubmitted = false;
+      //     document.getElementById('cancel')?.click();
+      //     this.alertService.error("Error: " + error.statusText);
+      //   })
     } else { 
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }

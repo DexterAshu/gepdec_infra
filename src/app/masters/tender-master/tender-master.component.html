@@ -1,0 +1,278 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Tender Master Info</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                        </div>
+                        <div class="col-lg-8">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
+                        </div>
+                    </div>
+                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <!-- <th>Company ID</th> -->
+                                <th>Company Name</th>
+                                <th>Company Type</th>
+                                <th>Contact Person</th>
+                                <th>Contact No</th>
+                                <th>Email ID</th>
+                                <th>DOI</th>
+                                <th>GST No</th>
+                                <th>PAN No</th>
+                                <th>Created By</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap" *ngIf="companyData.length">
+                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <!-- <td>{{ a.company_id }}</td> -->
+                                <td>{{ a.company_name }}</td>
+                                <td>{{ a.mstcompanytype }}</td>
+                                <td>{{ a.name }}</td>
+                                <td>{{ a.contactno1 }}</td>
+                                <td>{{ a.email }}</td>
+                                <td>{{ a.doi | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ a.gst }}</td>
+                                <td>{{ a.pan }}</td>
+                                <td>{{ a.created }}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
+                                </td>
+                              </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="companyData?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tender Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <!-- <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Company ID<span class="required-asterisk">*</span></label>
+                                    <input formControlName="companyId" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
+                                    <div *ngIf="f['companyId'].touched && f['companyId'].invalid">
+                                        <small class="text-danger" *ngIf="f['companyId'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div> -->
+                          
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Item Name<span class="required-asterisk">*</span></label>
+                                    <input formControlName="company_name" type="text" class="form-control form-control-sm" placeholder="Enter company name" appWordCapitalize>
+                                    <div *ngIf="f['company_name'].touched && f['company_name'].invalid">
+                                        <small class="text-danger" *ngIf="f['company_name'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Company Type<span class="required-asterisk">*</span></label>
+                                    <select formControlName="company_type" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Company Type</option>
+                                        <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
+                                    </select>
+                                    <div *ngIf="f['company_type'].touched && f['company_type'].invalid">
+                                        <small class="text-danger" *ngIf="f['company_type'].errors?.['required']">*Required</small>
+                                    </div>
+
+                                    <!-- <input formControlName="company_type" type="text" placeholder="Enter company type" class="form-control form-control-sm" appWordCapitalize>
+                                    <div *ngIf="f['company_type'].touched && f['company_type'].invalid">
+                                        <small class="text-danger" *ngIf="f['company_type'].errors?.['required']">*Type Required</small>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Contact Person<span class="required-asterisk">*</span></label>
+                                    <input formControlName="name" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
+                                    <div *ngIf="f['name'].touched && f['name'].invalid">
+                                        <small class="text-danger" *ngIf="f['name'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Primary Contact No<span class="required-asterisk">*</span></label>
+                                    <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
+                                    maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">
+                                        <small class="text-danger" *ngIf="f['contactno1'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f['contactno1'].errors?.['pattern']">*Please enter 10 digit Contact No</small>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Secondary Contact No</label>
+                                    <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
+                                    maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
+                                    <input formControlName="email" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
+                                    <div *ngIf="f['email'].touched && f['email'].invalid">
+                                        <small class="text-danger" *ngIf="f['email'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f['email'].errors?.['pattern']">*Email must be a valid Email ID</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">GST No<span class="required-asterisk">*</span></label>
+                                    <input formControlName="gst" placeholder="Enter GST NO." minlength="15"
+                                    maxlength="15" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                                    <div *ngIf="f['gst'].touched && f['gst'].invalid">
+                                        <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">PAN No<span class="required-asterisk">*</span></label>
+                                    <input formControlName="pan" placeholder="Enter Pan No." minlength="10"
+                                    maxlength="10" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                                    <div *ngIf="f['pan'].touched && f['pan'].invalid">
+                                        <small class="text-danger" *ngIf="f['pan'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">DOI (Date of Incorporation)<span
+                                            class="required-asterisk">*</span></label>
+                                    <input formControlName="doi" type="date" class="form-control form-control-sm">
+                                    <div *ngIf="f['doi'].touched && f['doi'].invalid">
+                                        <small class="text-danger" *ngIf="f['doi'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Country<span class="required-asterisk">*</span></label>
+                                    <select formControlName="country_id" class="form-select form-select-sm" (ngModelChange)="getStateData()">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
+                                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                                    </select>
+                                    <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">State<span class="required-asterisk">*</span></label>
+                                    <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData()">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
+                                        <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
+                                    </select>
+                                    <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">District<span class="required-asterisk">*</span></label>
+                                    <select formControlName="district_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
+                                        <option *ngFor="let d of districtData" value="{{d.district_id}}">{{ d.district_name }}</option>
+                                    </select>
+                                    <div *ngIf="f['district_id'].touched && f['district_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="form-label">Lane/Area<span class="required-asterisk">*</span></label>
+                                    <input type="text" formControlName="area" class="form-control form-control-sm" placeholder="Enter lane/area details">
+                                    <div *ngIf="f['area'].touched && f['area'].invalid">
+                                        <small class="text-danger" *ngIf="f['area'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
+                                    <input type="text" formControlName="pincode" maxlength="6" minlength="6" placeholder="Enter Pin Code" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['pincode'].touched && f['pincode'].invalid">
+                                        <small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f['pincode'].errors?.['pattern']">*Please enter 6 digit only.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Address<span class="required-asterisk">*</span></label>
+                                    <textarea formControlName="address" class="form-control form-control-sm"></textarea>
+                                    <div *ngIf="f.address.touched && f.address.invalid">
+                                        <small class="text-danger" *ngIf="f.address.errors?.required">*Required</small>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="modal-btns">
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->

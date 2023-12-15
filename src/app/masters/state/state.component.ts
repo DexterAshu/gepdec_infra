@@ -12,14 +12,14 @@ import { ApiService } from 'src/app/_services/api.service';
 })
 export class StateComponent implements OnInit {
   form!: FormGroup;
-   
   p: number = 1;
   searchText:any;
   limit = environment.pageLimit;
-  stateData: any;
+  stateData: any ;
   isNotFound:boolean = false;
   countryData: any;
   isSubmitted: boolean = false;
+  stateCount: any;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -30,37 +30,26 @@ export class StateComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      stateName: [null, Validators.required],
-      stateCode: [null, Validators.required],
-      country: [null, Validators.required],
+      state_name: [null, Validators.required],
+      // stateCode: [null, Validators.required],
+      country_id: [null, Validators.required],
     });
     
     this.getStateData();
-    this.getCountryData();
+     this.getCountryData();
   }
 
   get f() { return this.form.controls; }
-
-  getCountryData() {
-    this.countryData = [];
-    let apiLink = "/master/market/getMarket"
-    this.apiService.getDataList(apiLink).subscribe((res:any) => {
-      if (res.status === true) {
-        this.countryData = res.data;
-      } else {
-        this.alertService.warning("Looks like no data available in country data.");
-      }
-    });
-  }
 
   getStateData() {
     this.isNotFound = true;
     this.masterService.getStateData().subscribe((res:any) => {
       this.isNotFound = false;
-      this.stateData = [];
-      if (res.status === true) {
-        this.stateData = res.data.filter((data:any) => data.active == 'Y');
-      } else {
+      if (res.status == 200) {
+      this.stateCount = res;
+      this.stateData = res.result;
+          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
+      }else {
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
@@ -70,32 +59,55 @@ export class StateComponent implements OnInit {
     }); 
   }
 
+  getCountryData() {
+    this.apiService.getCountryDataList().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.countryData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in country data.");
+      }
+    });
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
+
+      if (this.form.value.country_id !== null) {
+        var countryVal = this.countryData.filter((item: any) => {
+          return item.country_id == this.form.value.country_id;
+        });
+        this.form.value.country_id = countryVal[0]['country_id'];
+      }
+      else {
+        this.form.value.country_id = null;
+      } 
+
       let params = {
-        name: this.form.value.stateName,
-        code: this.form.value.stateCode.toUpperCase(),
-        marketCode: this.form.value.country,
+        country_id: this.form.value.country_id,
+        state_name: this.form.value.state_name,
+        // code: this.form.value.stateCode.toUpperCase(),
       };
-      let apiLink = '/master/state/createState';
-      this.apiService.postData(apiLink, params).subscribe(res => {
+      // let apiLink = '/master/state/createState';
+      this.apiService.createMasterState( params).subscribe((res:any) => {
+        console.log(res);
+        
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
-        if (response.status == true) {
+        if (response.status == 200) {
           this.getStateData();
           this.form.reset();
           this.alertService.success(response.message);
         } else {
           this.alertService.warning(response.message);
         }
-      }, (error) => {
+      }, (error:any) => {
           document.getElementById('cancel')?.click();
           this.alertService.error("Error: " + error.statusText);
         })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
-    }
+     }
   }
 }

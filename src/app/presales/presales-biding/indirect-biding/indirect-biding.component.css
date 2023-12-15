@@ -1,0 +1,44 @@
+.card1{
+    padding: 2px;
+    background-color: #f8faff;
+    border-bottom: #2f528b solid;
+    border-radius: 5px;
+    border-top: 1px solid #e4e8eb;
+    border-left: 1px solid #e4e8eb;
+    border-right: 1px solid #e4e8eb;
+}
+.card1:hover{
+   
+    background-color: #edf2ff;
+    border-bottom: #3c63a3 solid;
+    cursor: pointer;
+    box-shadow: 0 3px 9px 0px #696969;
+    
+}
+
+::webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+  }
+
+  /* Track styles */
+  ::webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+  }
+
+  /* Handle styles */
+  ::webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar handle */
+  }
+
+  /* Handle on hover */
+  ::webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar handle on hover */
+  }
+
+  /* Optional: Set styles for the container with the scrollbar */
+  .scroll-container {
+    height: 500px; /* Set a fixed height for the container */
+    overflow-y: scroll; /* Enable vertical scrollbar */
+    padding: 10px; /* Optional padding for the container */
+  }
+  

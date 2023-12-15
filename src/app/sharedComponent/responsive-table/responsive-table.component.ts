@@ -8,7 +8,6 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class ResponsiveTableComponent implements OnInit {
 
   tableHeight: any;
-
   constructor() { }
 
   ngOnInit(): void {

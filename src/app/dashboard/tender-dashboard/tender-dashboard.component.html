@@ -1,0 +1,455 @@
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-lg-12">
+        <div class="mr-md-3 mr-xl-5">
+            <h3 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>GEPDEC Sales and Marketing</h3>
+          </div>
+      
+    </div>
+</div>
+
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title mb-2">Warehouse | Store Module </p>
+            <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+            <!-- <canvas id="cash-deposits-chart"></canvas> -->
+            <div class="chartBar" #containerRef4>
+              <ngx-charts-bar-vertical-2d
+              [view]="[containerRef4.offsetWidth, 190]"
+              [scheme]="colorSchemeLoad"
+              [results]="multi"
+              [xAxis]="showXAxis"
+              [gradient]="true"
+              [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="xAxisLabelBarLoad"
+              [yAxisLabel]="yAxisLabelBarLoad"
+              [barPadding]="5"
+              [groupPadding]="7">
+            </ngx-charts-bar-vertical-2d>
+            </div>
+            <ul class="cust-legend">
+              <li><i class="mdi mdi-checkbox-blank load_box1"></i> Last Year</li>
+              <li><i class="mdi mdi-checkbox-blank load_box2"></i> This Year</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <div class="col-md-6 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Procurement Module </p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef3>
+            <ngx-charts-pie-chart
+            [view]="[containerRef3.offsetWidth - 35, 220]"
+            [scheme]="colorSchemeLoad"
+            [labels]="showLabelsPie"
+            [doughnut]="true"
+            [gradient]="true"
+            [legend]="true"
+            [results]="pieDataCust">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Execution Module</p>
+          <div class="chartBar" #containerRef5>
+            <ngx-charts-line-chart
+            [view]="[containerRef5.offsetWidth, 210]"
+            [scheme]="lineColorScheme"
+            [results]="lineChart"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [showXAxisLabel]="showYAxisLabelLine"
+            [gradient]="true"
+            [showYAxisLabel]="showYAxisLabelLine"
+            [xAxisLabel]="xAxisLabelLine"
+            [yAxisLabel]="yAxisLabelLine">
+          </ngx-charts-line-chart>
+          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank l_box1"></i> Last Year</li>
+            <li><i class="mdi mdi-checkbox-blank l_box2"></i> This Year</li>
+          </ul>
+                           
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Quality & Safety Module</p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef6>
+            <ngx-charts-pie-chart
+            [view]="[containerRef6.offsetWidth - 35, 220]"
+            [scheme]="lineColorScheme"
+            [labels]="showLabelsPie"
+            [gradient]="true"
+            [doughnut]="true"
+            [legend]="true"
+            [results]="pieDataCust">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Design Segment </p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef2>
+            <ngx-charts-pie-chart
+              [view]="[containerRef2.offsetWidth - 30, 220]"
+              [scheme]="pieColorsCust"
+              [labels]="showLabelsPie"
+              [gradient]="true"
+              [legend]="true"
+              [results]="pieDataCust">
+            </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title mb-2">Pre Sales | Biding Process</p>
+            <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+            <!-- <canvas id="cash-deposits-chart"></canvas> -->
+            <div class="chartBar" #containerRef>
+              <ngx-charts-bar-vertical-2d
+              [view]="[containerRef.offsetWidth, 190]"
+              [scheme]="mainColorScheme"
+              [results]="multi"
+              [xAxis]="showXAxis"
+              [gradient]="true"
+              [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="xAxisLabelBar"
+              [yAxisLabel]="yAxisLabelBar"
+              [barPadding]="5"
+              [groupPadding]="7">
+            </ngx-charts-bar-vertical-2d>
+            </div>
+            <ul class="cust-legend">
+              <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
+              <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
+            </ul>
+            
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Project Handover Module</p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef7>
+            <ngx-charts-pie-chart
+            [view]="[containerRef7.offsetWidth, 240]"
+            [scheme]="pieColorsOL"
+            [labels]="true"
+            [legend]="true"
+            [gradient]="true"
+            [results]="pieData">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Payment Module</p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef8>
+            <ngx-charts-bar-vertical-2d
+            [view]="[containerRef8.offsetWidth, 195]"
+            [scheme]="colorSchemeOS"
+            [results]="multi"
+            [xAxis]="showXAxis"
+            [gradient]="true"
+            [yAxis]="showYAxis"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [legend]="false"
+            [xAxisLabel]="xAxisLabelBarOS"
+            [yAxisLabel]="yAxisLabelBarOS"
+            [barPadding]="5"
+            [groupPadding]="7">
+          </ngx-charts-bar-vertical-2d>
+          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank o_box1"></i> Last Year</li>
+            <li><i class="mdi mdi-checkbox-blank o_box2"></i> This Year</li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Financial Module</p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef10>
+            <ngx-charts-bar-vertical
+              [view]="view2" 
+              [scheme] ="colorSchemeFin" 
+              [results]="financial" 
+              [gradient]="gradient2"
+              [xAxis]="showXAxis2"
+              [yAxis]="showYAxis2"
+              [legend]="showLegend2" 
+              [showXAxisLabel]="showXAxisLabel2" 
+              [showYAxisLabel]="showYAxisLabel2"
+              [xAxisLabel]="xAxisLabel2"
+              [yAxisLabel]="yAxisLabel2"
+              (select)="onSelect($event)">
+           </ngx-charts-bar-vertical>
+            <!-- <ngx-charts-pie-chart
+            [view]="[containerRef10.offsetWidth - 40, 180]"
+            [scheme]="pieColorsType"
+            [gradient]="true"
+            [legend]="true"
+            [doughnut]="true"
+            [results]="pieDataType">
+          </ngx-charts-pie-chart> -->
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Project Closure</p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef9>
+            <ngx-charts-pie-chart
+            [view]="[containerRef9.offsetWidth - 35, 180]"
+            [scheme]="pieColorsSegment"
+            [gradient]="true"
+            [legend]="true"
+            [results]="pieDataSegment">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+   
+   
+   
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Performance</p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar">
+            <ngx-charts-bar-vertical
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="single"
+            [gradient]="gradient"
+            [xAxis]="showXAxis1"
+            [yAxis]="showYAxis1"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel1"
+            [showYAxisLabel]="showYAxisLabel1"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel">
+          </ngx-charts-bar-vertical>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Alert & Alarms</p>
+          <!-- <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div> -->
+          <!-- <canvas id="cash-deposits-chart"></canvas> -->
+          <div class="chartBar" #containerRef12>
+            <ngx-charts-pie-chart
+            [view]="[containerRef12.offsetWidth - 40, 180]"
+            [scheme]="pieColorsAlarmType"
+            [gradient]="true"
+            [legend]="true"
+            [doughnut]="true"
+            [results]="pieDataAlarmType">
+          </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+          </ul> -->
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Alert & Alarms</p>
+          <div class="table-responsive ht-auto">
+            <table class="table table-hover table-striped">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                    <th>Status</th>
+                    <th>Critical</th>
+                    <th>Major</th>
+                    <th>Minor</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr>
+                    <td>Open</td>
+                    <td>410</td>
+                    <td>110</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>Close</td>
+                    <td>520</td>
+                    <td>30</td>
+                    <td>490</td>
+                </tr>
+                <tr>
+                    <td>Pending</td>
+                    <td>522</td>
+                    <td>222</td>
+                    <td>300</td>
+                </tr>
+                <tr class="table-footer fw-bold">
+                    <td>Total</td>
+                    <td>5,020</td>
+                    <td>2,020</td>
+                    <td>3,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+                           
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title mb-2">Closure Data</p>
+            <div class="table-responsive ht-auto">
+              <table class="table table-hover table-striped">
+                <thead class="table-primary text-nowrap">
+                  <tr>
+                      <th>Status</th>
+                      <th>Critical</th>
+                      <th>Major</th>
+                      <th>Minor</th>
+                  </tr>
+                </thead>
+                <tbody class="text-nowrap">
+                  <tr>
+                      <td>Open</td>
+                      <td>410</td>
+                      <td>110</td>
+                      <td>300</td>
+                  </tr>
+                  <tr>
+                      <td>Close</td>
+                      <td>520</td>
+                      <td>30</td>
+                      <td>490</td>
+                  </tr>
+                  <tr>
+                      <td>Pending</td>
+                      <td>522</td>
+                      <td>222</td>
+                      <td>300</td>
+                  </tr>
+                  <tr class="table-footer fw-bold">
+                      <td>Total</td>
+                      <td>5,020</td>
+                      <td>2,020</td>
+                      <td>3,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+                             
+          </div>
+        </div>
+      </div>
+  </div>

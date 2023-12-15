@@ -1,0 +1,65 @@
+/* @import "dhtmlx-gantt/codebase/dhtmlxgantt.css"; */
+@import "../../../../assets/css/dhtmlxgantt_material.css";
+
+.gantt-chart {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 67vh;
+}
+
+input[type=button] {
+  margin-right: 5px;
+  padding: 10px 5px;
+  background-color: #448aff;
+  color: #ffffff;
+  border: none;
+  border-radius: .5rem;
+}
+
+.week-end {
+  background: #efefef;
+}
+
+.gantt_task_progress {
+  text-align: left;
+  padding-left: 10px;
+  box-sizing: border-box;
+  color: white;
+  font-weight: bold;
+}
+
+.gantt_task_line {
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.gantt_task_line .gantt_task_progress {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* high */
+.gantt_task_line.high {
+  background-color: #f10707;
+}
+
+.gantt_task_line.high .gantt_task_content {
+  color: #fff;
+}
+
+/* medium */
+.gantt_task_line.medium {
+  background-color: #f57730;
+}
+
+.gantt_task_line.medium .gantt_task_content {
+  color: #fff;
+}
+
+/* low */
+.gantt_task_line.low {
+  background-color: #3cdd57;
+}
+
+.gantt_task_line.low .gantt_task_content {
+  color: #fff;
+}

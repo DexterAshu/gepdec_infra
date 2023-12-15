@@ -1,11 +1,67 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/dashboard">
-        <i class="mdi mdi-view-grid menu-icon"></i>
-        <span class="menu-title">Dashboard</span>
-      </a>
+    <li class="nav-item" >
+      <div routerLink="/dashboard">
+        <a class="nav-link"   data-toggle="collapse" href="#ui-dashboard" aria-expanded="false" aria-controls="ui-dashboard">
+          <i class="mdi mdi-view-grid menu-icon"></i>
+          <span class="menu-title" >Dashboard</span>
+          <i class="menu-arrow"></i>
+        </a>
+
+      </div>
+      <div class="collapse scroll-container" id="ui-dashboard">
+        <ul class="nav flex-column sub-menu">
+          <!-- <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/presales-dashboard">
+            <i class="mdi mdi-sale menu-icon"></i>
+            <span class="menu-title">Presales</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/design-dashboard">
+              <i class="mdi mdi-cube-outline menu-icon"></i>
+              <span class="menu-title">Design</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/procurement-dashboard">
+              <i class="mdi mdi-animation menu-icon"></i>
+              <span class="menu-title">Procurement</span>
+            </a></li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/dashboard/warehouse-dashboard">
+                <i class="mdi mdi-home-map-marker menu-icon"></i>
+                <span class="menu-title">Warehouse</span>
+              </a>
+            </li>
+           
+            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/execution-dashboard">
+              <i class="mdi mdi-decagram-outline menu-icon"></i>
+              <span class="menu-title">Execution</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/quality-dashboard">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Quality</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/fin-dashboard">
+              <i class="mdi mdi-polymer menu-icon"></i>
+              <span class="menu-title">Finance</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/performance-dashboard">
+              <i class="mdi mdi-chart-donut-variant menu-icon"></i>
+              <span class="menu-title">Performance</span>
+              </a></li> -->
+            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/report-dashboard">
+              <i class="mdi mdi-folder-open menu-icon"></i>
+              <span class="menu-title">Dashboard 1</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/ticket-dashboard">
+              <i class="mdi mdi-ticket-confirmation menu-icon"></i>
+              <span class="menu-title">Dashboard 2</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/alert-dashboard">
+              <i class="mdi mdi-alert-outline menu-icon"></i>
+              <span class="menu-title">Dashboard 3</span>
+            </a></li>
+        </ul>
+      </div>
     </li>
+  
     <!-- <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#dash" aria-expanded="false" aria-controls="dash">
         <i class="mdi mdi-view-grid menu-icon"></i>
@@ -25,52 +81,342 @@
         <span class="menu-title">Master</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="ui-master">
+      <div class="collapse scroll-container" id="ui-master">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/company">Company</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/state">State</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/district">District</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/electricity-board">Electricity Board</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/circle">Circle</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/meter">Meter</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/segment">Segment</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/bill-package">Bill Package</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/meter-pricing">Meter Pricing</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/customer">Customer</a></li>
+          <!-- <li class="nav-item"> <a class="nav-link" routerLink="/master/biders-company">
+             <i class="mdi mdi-checkbox-multiple-marked-outline menu-icon"></i>
+            <span class="menu-title">Bidders Company</span>
+            </a></li> -->
+         
+          <li class="nav-item"> <a class="nav-link" routerLink="/master/district">
+            <i class="mdi mdi-checkbox-multiple-marked-outline menu-icon"></i>
+            <span class="menu-title">District</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/department">
+              <i class="mdi mdi-chemical-weapon menu-icon"></i>
+              <span class="menu-title">Department</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/designation">
+              <i class="mdi mdi-camera-front-variant menu-icon"></i>
+              <span class="menu-title">Designation</span>
+            </a></li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/l2-bulkdata">
+                <i class="mdi mdi-file-export menu-icon"></i>
+                <span class="menu-title">L2 Schedule</span>
+              </a>
+            </li>
+            <!-- <li class="nav-item"> <a class="nav-link" routerLink="/master/employee">
+              <i class="mdi mdi-account-multiple menu-icon"></i>
+              <span class="menu-title">Employee</span>
+            </a></li> -->
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/item">
+              <i class="mdi mdi-sitemap menu-icon"></i>
+              <span class="menu-title">Item</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/title">
+              <i class="mdi mdi-format-title menu-icon"></i>
+              <span class="menu-title">Title</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/tender">
+              <i class="mdi mdi-tooltip-text menu-icon"></i>
+              <span class="menu-title">Tender</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/tendering-company">
+              <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
+              <span class="menu-title">Tendering Company</span>
+              </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/role">
+              <i class="mdi mdi-clipboard-account menu-icon"></i>
+              <span class="menu-title">Role</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master">
+              <i class="mdi mdi-home-automation menu-icon"></i>
+              <span class="menu-title">My Company</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/machine">
+              <i class="mdi mdi-watch-vibrate menu-icon"></i>
+              <span class="menu-title">Machine</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/material">
+              <i class="mdi mdi-file-document-box menu-icon"></i>
+              <span class="menu-title">Material</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/state">
+              <i class="mdi mdi-format-align-bottom menu-icon"></i>
+              <span class="menu-title">State</span>
+              </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/spare">
+              <i class="mdi mdi-file-tree menu-icon"></i>
+              <span class="menu-title">Spare Parts</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/vendor">
+              <i class="mdi mdi-human-male-female menu-icon"></i>
+              <span class="menu-title">Vendor</span>
+            </a></li>
+         
+        
         </ul>
       </div>
     </li>
+
+    
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#business_process" aria-expanded="false" aria-controls="business_process">
+      <i class="mdi mdi-chart-bar-stacked menu-icon"></i>
+      <span class="menu-title">Business Process</span>
+      <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse scroll-container" id="business_process" >
+      <ul class="nav flex-column sub-menu"  >
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#Biding" aria-expanded="false" aria-controls="Biding">
+            <i class="mdi mdi-kodi menu-icon"></i>
+            <span class="menu-title">PreSales</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="Biding">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/presales-biding">
+                <i class="mdi mdi-chart-gantt menu-icon"></i>
+                <span class="menu-title">Bid Process</span>
+                </a>
+              </li>
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="presales/presales-biding/direct-biding">
+                <i class="mdi mdi-chart-donut-variant menu-icon"></i>
+                <span class="menu-title">Direct Bid</span>
+                </a></li>
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="presales/presales-biding/indirect-biding">
+                <i class="mdi mdi-chart-donut menu-icon"></i>
+                <span class="menu-title">Indirect Bid</span>
+               </a></li>
+            
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#design" aria-expanded="false" aria-controls="design">
+            <i class="mdi mdi-cube-outline menu-icon"></i>
+            <span class="menu-title">Design</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="design">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/design-module">
+                <i class="mdi mdi-chart-donut menu-icon"></i>
+                <span class="menu-title">Design</span>
+                </a></li>
+             
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#Procurement" aria-expanded="false" aria-controls="Procurement">
+            <i class="mdi mdi-google-circles-extended menu-icon"></i>
+            <span class="menu-title">Procurement</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="Procurement">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/procurement">
+                <i class="mdi mdi-timer-sand-empty menu-icon"></i>
+                <span class="menu-title">Procurement</span>
+                </a></li>
+             
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#warehouse" aria-expanded="false" aria-controls="warehouse">
+            <i class="mdi mdi-home-assistant menu-icon"></i>
+            <span class="menu-title">Warehouse</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="warehouse">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/warehouse">
+                <i class="mdi mdi-home-variant menu-icon"></i>
+                <span class="menu-title">Warehouse</span>
+                 </a></li>
+             
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#execution" aria-expanded="false" aria-controls="execution">
+            <i class="mdi mdi-settings menu-icon"></i>
+            <span class="menu-title">Execution</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="execution">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/execution">
+                <i class="mdi mdi-currency-eur menu-icon"></i>
+                <span class="menu-title">Execution</span>
+                </a></li>
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/proj-handover">
+                <i class="mdi mdi-paw menu-icon"></i>
+                <span class="menu-title">Project Handover</span>
+                </a></li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/proj-closure">
+                  <i class="mdi mdi-close-network menu-icon"></i>
+                  <span class="menu-title">Project Closure</span>
+                  </a></li>
+    
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#qs" aria-expanded="false" aria-controls="qs">
+            <i class="mdi mdi-marker-check menu-icon"></i>
+            <span class="menu-title">Quality | Safety</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="qs">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/quality-safety">
+                <i class="mdi mdi-currency-eth menu-icon"></i>
+                <span class="menu-title">Quality</span>
+                </a></li>
+             
+            </ul>
+          </div>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#projHandOver" aria-expanded="false" aria-controls="projHandOver">
+            <i class="mdi mdi-houzz menu-icon"></i>
+            <span class="menu-title">Project Handover</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="projHandOver">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/proj-handover">
+                <i class="mdi mdi-asterisk menu-icon"></i>
+                <span class="menu-title">Project Handover</span>
+                </a></li>
+             
+            </ul>
+          </div>
+        </li> -->
+        <!-- <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#payment" aria-expanded="false" aria-controls="payment">
+            <i class="mdi mdi-currency-inr menu-icon"></i>
+            <span class="menu-title ">Payment</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="payment">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/payment">
+                <i class="mdi mdi-dropbox menu-icon"></i>
+                <span class="menu-title">Payment</span>
+                </a></li>
+             
+            </ul>
+          </div>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#finance" aria-expanded="false" aria-controls="finance">
+            <i class="mdi mdi-currency-usd menu-icon"></i>
+            <span class="menu-title">Finance</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="finance">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/finance">
+                <i class="mdi mdi-format-strikethrough-variant menu-icon"></i>
+                <span class="menu-title">Finance</span>
+                </a></li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/payment">
+                  <i class="mdi mdi-dropbox menu-icon"></i>
+                  <span class="menu-title">Payment</span>
+                  </a></li>
+             
+            </ul>
+          </div>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#projClosure" aria-expanded="false" aria-controls="projClosure">
+            <i class="mdi mdi-playlist-check menu-icon"></i>
+            <span class="menu-title">Project Closure</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="projClosure">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/proj-closure">
+                <i class="mdi mdi-close-network menu-icon"></i>
+                <span class="menu-title">Project Closure</span>
+                </a></li>
+             
+            </ul>
+          </div>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#projPerformance" aria-expanded="false" aria-controls="projPerformance">
+            <i class="mdi mdi-trending-up menu-icon"></i>
+            <span class="menu-title">Performance</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="projPerformance">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/performance">
+                <i class="mdi mdi-google-analytics menu-icon"></i>
+                <span class="menu-title">Performance</span>
+                </a></li>
+             
+            </ul>
+          </div>
+        </li>
+        </ul>
+    </div>
+  </li>
+
+
+  
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#hes" aria-expanded="false" aria-controls="hes">
-        <i class="mdi mdi-calendar-export menu-icon"></i>
-        <span class="menu-title">HES</span>
+      <a class="nav-link" data-toggle="collapse" href="#userManagement" aria-expanded="false" aria-controls="userManagement">
+        <i class="mdi mdi-account-circle menu-icon"></i>
+        <span class="menu-title">User Management</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="hes">
+      <div class="collapse" id="userManagement">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="/hes/meter-data">Meter Data (Raw)</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Firmware Upgrade</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Meter Tempering</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Disconnect Meter</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-master">
+            <i class="mdi mdi-account-check menu-icon"></i>
+            <span class="menu-title">User</span>
+            User</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-logs">
+            <i class="mdi mdi-account-card-details menu-icon"></i>
+            <span class="menu-title">User Logs</span>
+            </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-roles">
+            <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+            <span class="menu-title">User Roles</span>
+            </a></li>
         </ul>
       </div>
     </li>
+   
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#mdm" aria-expanded="false" aria-controls="mdm">
-        <i class="mdi mdi-file-document-box menu-icon"></i>
-        <span class="menu-title">MDM</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="mdm">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Notifications</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Critical Alerts</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Revenue Collection</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Revenue Outstanding</a></li>
-        </ul>
-      </div>
+      <a class="nav-link" data-toggle="collapse" routerLink="/presales/alert-alarm" aria-expanded="false" aria-controls="alertAlarm">
+        <i class="mdi mdi-ticket-account menu-icon"></i>
+        <span class="menu-title">Tickets</span> </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" routerLink="/presales/alert-alarm" aria-expanded="false" aria-controls="alertAlarm">
+        <i class="mdi mdi-format-list-checks menu-icon"></i>
+        <span class="menu-title">Reports</span> </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" routerLink="/presales/alert-alarm" aria-expanded="false" aria-controls="alertAlarm">
+        <i class="mdi mdi-bell-ring-outline menu-icon"></i>
+        <span class="menu-title">Alert & Alarm</span> </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" routerLink="/presales/alert-alarm" aria-expanded="false" aria-controls="alertAlarm">
+        <i class="mdi mdi-headset menu-icon"></i>
+        <span class="menu-title">Help & Support</span> </a>
+    </li>
+    <!-- <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#customerRegistration" aria-expanded="false" aria-controls="customerRegistration">
         <i class="mdi mdi-account-plus menu-icon"></i>
         <span class="menu-title">Customer Registration</span>
@@ -114,21 +460,8 @@
           <li class="nav-item"> <a class="nav-link" routerLink="/transactions/firmware-upgrade">Firmware Upgrade</a></li>
         </ul>
       </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#userManagement" aria-expanded="false" aria-controls="userManagement">
-        <i class="mdi mdi-account-card-details menu-icon"></i>
-        <span class="menu-title">User Management</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="userManagement">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-master">User</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-logs">User Logs</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-roles">User Roles</a></li>
-        </ul>
-      </div>
-    </li>
+    </li> -->
+   
     <!-- <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#transactions" aria-expanded="false" aria-controls="transactions">
         <i class="mdi mdi-swap-horizontal menu-icon"></i>

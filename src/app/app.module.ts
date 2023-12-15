@@ -11,11 +11,9 @@ import { SidebarComponent } from './sharedComponent/sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CompanyComponent } from './masters/company/company.component';
 import { StateComponent } from './masters/state/state.component';
-import { ElectricityBoardComponent } from './masters/electricity-board/electricity-board.component';
 import { DistrictComponent } from './masters/district/district.component';
-import { CircleComponent } from './masters/circle/circle.component';
 import { CustomerComponent } from './masters/customer/customer.component';
-import { MeterComponent } from './masters/meter/meter.component';
+
 import { LoginComponent } from './account/login/login.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,13 +29,9 @@ import { MeterLinkComponent } from './transactions/meter-link/meter-link.compone
 import { BillDateConfigComponent } from './transactions/bill-date-config/bill-date-config.component';
 import { FirmwareUpgradeComponent } from './transactions/firmware-upgrade/firmware-upgrade.component';
 import { UserMasterComponent } from './user-management/user-master/user-master.component';
-import { Login4Component } from './account/login4/login4.component';
 import { ResponsiveTableComponent } from './sharedComponent/responsive-table/responsive-table.component';
 import { LineBreakPipe } from './_pipes/line-break.pipe';
 import { SegmentComponent } from './masters/segment/segment.component';
-import { BillLinesComponent } from './masters/bill-lines/bill-lines.component';
-import { MeterPriceComponent } from './masters/meter-price/meter-price.component';
-
 import { WordCapitalizeDirective } from './_directive/word-capitalize.directive';
 import { AlphabetOnlyDirective } from './_directive/alphabet-only.directive';
 import { NumberOnlyDirective } from './_directive/number-only.directive';
@@ -53,11 +47,58 @@ import { CustomerFaqComponent } from './customer/customer-faq/customer-faq.compo
 import { NgxPrintModule } from 'ngx-print';
 import { AlphaWithSpaceDirective } from './_directive/alpha-with-space.directive';
 import { DatePipe } from '@angular/common';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+//import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FilterPipe } from './_pipes/filter.pipe';
+import { PresalesBidingComponent } from './presales/presales-biding/presales-biding.component';
+import { DesignModuleComponent } from './presales/design-module/design-module.component';
+import { ProcurementComponent } from './presales/procurement/procurement.component';
+import { WarehouseStoreComponent } from './presales/warehouse-store/warehouse-store.component';
+import { ExecutionComponent } from './presales/execution/execution.component';
+import { QualitySafetyComponent } from './presales/quality-safety/quality-safety.component';
+import { ProjHandoverComponent } from './presales/proj-handover/proj-handover.component';
+import { PaymentComponent } from './presales/payment/payment.component';
+import { FinanceComponent } from './presales/finance/finance.component';
+import { ProjClosureComponent } from './presales/proj-closure/proj-closure.component';
+import { PerformanceComponent } from './presales/performance/performance.component';
+import { AlertAlarmComponent } from './presales/alert-alarm/alert-alarm.component';
+//dashboard-import section
+import { CompanyDashboardComponent } from './dashboard/company-dashboard/company-dashboard.component';
+import { FinanceDashboardComponent } from './dashboard/finance-dashboard/finance-dashboard.component';
+import { PerformanceDashboardComponent } from './dashboard/performance-dashboard/performance-dashboard.component';
+import { TenderDashboardComponent } from './dashboard/tender-dashboard/tender-dashboard.component';
+import { ProcurementDashboardComponent } from './dashboard/procurement-dashboard/procurement-dashboard.component';
+import { DesignDashboardComponent } from './dashboard/design-dashboard/design-dashboard.component';
+import { WarehouseDashboardComponent } from './dashboard/warehouse-dashboard/warehouse-dashboard.component';
+import { ExecutionDashboardComponent } from './dashboard/execution-dashboard/execution-dashboard.component';
+import { QualityDashboardComponent } from './dashboard/quality-dashboard/quality-dashboard.component';
+import { TicketDashboardComponent } from './dashboard/ticket-dashboard/ticket-dashboard.component';
+import { ReportDashboardComponent } from './dashboard/report-dashboard/report-dashboard.component';
+import { AlertDashboardComponent } from './dashboard/alert-dashboard/alert-dashboard.component';
 
-
-
+import { DirectBidingComponent } from './presales/presales-biding/direct-biding/direct-biding.component';
+import { IndirectBidingComponent } from './presales/presales-biding/indirect-biding/indirect-biding.component';
+import { PresalesDashboardComponent } from './dashboard/presales-dashboard/presales-dashboard.component';
+import { TenderPublishedComponent } from './dashboard/presales-dashboard/tender-published/tender-published.component';
+import { UnderEvaluationComponent } from './dashboard/presales-dashboard/under-evaluation/under-evaluation.component';
+import { ParticipationsComponent } from './dashboard/presales-dashboard/participations/participations.component';
+import { AbandonedComponent } from './dashboard/presales-dashboard/abandoned/abandoned.component';
+import { TenderWinsComponent } from './dashboard/presales-dashboard/tender-wins/tender-wins.component';
+import { CompletedComponent } from './dashboard/presales-dashboard/completed/completed.component';
+import { BiderCompanyComponent } from './masters/bider-company/bider-company.component';
+import { L2ScheduleBulkdataComponent } from './l2-schedule-bulkdata/l2-schedule-bulkdata.component';
+//master-import-section
+import { DepartmentMasterComponent } from './masters/department-master/department-master.component';
+import { DesignationMasterComponent } from './masters/designation-master/designation-master.component';
+import { EmployeeMasterComponent } from './masters/employee-master/employee-master.component';
+import { ItemMasterComponent } from './masters/item-master/item-master.component';
+import { MachineMasterComponent } from './masters/machine-master/machine-master.component';
+import { MaterialMasterComponent } from './masters/material-master/material-master.component';
+import { MyCompanyComponent } from './masters/my-company/my-company.component';
+import { SpareMasterComponent } from './masters/spare-master/spare-master.component';
+import { TenderMasterComponent } from './masters/tender-master/tender-master.component';
+import { VendorMasterComponent } from './masters/vendor-master/vendor-master.component';
+import { RoleMasterComponent } from './masters/role-master/role-master.component';
+import { TitleMasterComponent } from './masters/title-master/title-master.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,11 +108,8 @@ import { FilterPipe } from './_pipes/filter.pipe';
     DashboardComponent,
     CompanyComponent,
     StateComponent,
-    ElectricityBoardComponent,
     DistrictComponent,
-    CircleComponent,
     CustomerComponent,
-    MeterComponent,
     LoginComponent,
     UserLogsComponent,
     UserRolesComponent,
@@ -83,12 +121,9 @@ import { FilterPipe } from './_pipes/filter.pipe';
     BillDateConfigComponent,
     FirmwareUpgradeComponent,
     UserMasterComponent,
-    Login4Component,
     ResponsiveTableComponent,
     LineBreakPipe,
     SegmentComponent,
-    BillLinesComponent,
-    MeterPriceComponent,
     WordCapitalizeDirective,
     AlphabetOnlyDirective,
     NumberOnlyDirective,
@@ -103,8 +138,38 @@ import { FilterPipe } from './_pipes/filter.pipe';
     CustomerFaqComponent,
     AlphaWithSpaceDirective,
     FilterPipe,
+    PresalesBidingComponent,
+    DesignModuleComponent,
+    ProcurementComponent,
+    WarehouseStoreComponent,
+    ExecutionComponent,
+    QualitySafetyComponent,
+    ProjHandoverComponent,
+    PaymentComponent,
+    FinanceComponent,
+    ProjClosureComponent,
+    PerformanceComponent,
+    AlertAlarmComponent,
+    CompanyDashboardComponent,
+    FinanceDashboardComponent,
+    PerformanceDashboardComponent,
+    TenderDashboardComponent,
+    ProcurementDashboardComponent,
+    DirectBidingComponent,
+    IndirectBidingComponent,
+    PresalesDashboardComponent,
+    TenderPublishedComponent,
+    UnderEvaluationComponent,
+    ParticipationsComponent,
+    AbandonedComponent,
+    TenderWinsComponent,
+    CompletedComponent,
+    BiderCompanyComponent,
+    L2ScheduleBulkdataComponent,
     
-
+    //master-component
+    MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
+    ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent,
   ],
   
   imports: [
@@ -117,11 +182,11 @@ import { FilterPipe } from './_pipes/filter.pipe';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    Ng2SearchPipeModule,
-    NgxPrintModule,
-  
+    //Ng2SearchPipeModule,
+    NgxPrintModule
   ],
   providers: [
+    
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: HeaderInterceptor,

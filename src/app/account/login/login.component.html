@@ -1,80 +1,53 @@
-<div class="container-fluid pSpace">
-    <div class="row gx-0">
-        <div class="col-md-8 px-0">
-            <div class="slider">
-                <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img src="../../assets/images/slide_1.jpg" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="../../assets/images/slide_2.jpg" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="../../assets/images/slide_3.jpg" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="../../assets/images/slide_4.jpg" class="d-block w-100" alt="...">
-                      </div>
-                      <!-- <div class="carousel-item">
-                        <img src="../../assets/images/slide_5.jpg" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="../../assets/images/slide_6.jpg" class="d-block w-100" alt="...">
-                      </div> -->
-                    </div>
-                </div>
-            </div>
+<div class="container-fluid page-body-wrapper full-page-wrapper">
+  <div class="content-wrapper d-flex align-items-center auth px-0 header-banner-gradient">
+    <div class="row w-100 mx-5">
+      <div class="col-lg-12 mx-auto d-flex">
+        <div class="col-lg-6 p-0 s-size">
+          <div class="auth-form-light login-shadow text-left py-5 px-4 px-sm-5 b-radius-1 t-background-3" style="
+          margin-left: 45%;">
+            <h2 class="my-5 box-1-header">Welcome to &nbsp;&nbsp;&nbsp;&nbsp;Business &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Automation </h2>
+            <h6 class="font-weight-light box-1-footer my-5" style="font-size: 12px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Empowering the future with AI, automation, and technology.</h6>
+          </div>
         </div>
-        <div class="col-md-4 my-auto">
-            <div class="right-content my-2">
-                <div class="brand-logo text-center">
-                    <img src="../../../assets/images/logo.png" class="img-fluid" alt="logo">
+        <div class="col-lg-6 p-0 s-size">
+          <div class="auth-form-light login-shadow text-left py-5 px-4 px-sm-5 b-radius-2">
+            <div class="brand-logo text-center">
+              <img src="../../../assets/images/logo.png" alt="logo">
+            </div>
+            <h5>Welcome to Business Process Automation !</h5>
+            <form class="pt-3" [formGroup]="loginForm" (ngSubmit)="proceedLogin()">
+              <div class="form-group">
+                <label>Username</label>
+                <input type="text" formControlName="loginName" class="form-control form-control-sm login-input" style="border-radius: 6px;" placeholder="Enter Username">
+                <div *ngIf="f['loginName'].touched && f['loginName'].invalid">
+                  <small class="text-danger" *ngIf="f['loginName'].errors?.['required']">Username is Required</small>
+              </div>
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" formControlName="password" class="form-control form-control-sm login-input" style="border-radius: 6px;" placeholder="Enter Password">
+                <div *ngIf="f['password'].touched && f['password'].invalid">
+                  <small class="text-danger" *ngIf="f['password'].errors?.['required']">Password is Required</small>
+              </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="form-check m-0">
                 </div>
-                  <h4 class="text-center titleTxt">Welcome to Business Process Automation</h4>
-                  <form class="pt-3" [formGroup]="loginForm" (ngSubmit)="proceedLogin()">
-                    <div class="form-group">
-                      <label for="exampleInputEmail">Username</label>
-                      <div class="input-group login-input-border">
-                        <div class="input-group-prepend bg-transparent">
-                          <span class="input-group-text bg-transparent border-right-0 login-input-icon">
-                            <i class="mdi mdi-account-outline text-primary"></i>
-                          </span>
-                        </div>
-                        <input type="text" formControlName="loginName" style="border-radius: 6px;" class="form-control form-control-sm login-input border-left-0" id="exampleInputEmail" placeholder="Enter Username">
-                      </div>
-                    </div>
-                    <div class="form-group mb-0">
-                      <label for="exampleInputPassword">Password</label>
-                      <div class="input-group login-input-border">
-                        <div class="input-group-prepend bg-transparent">
-                          <span class="input-group-text bg-transparent border-right-0 login-input-icon">
-                            <i class="mdi mdi-lock-outline text-primary"></i>
-                          </span>
-                        </div>
-                        <input type="password" formControlName="password" style="border-radius: 6px;" class="form-control form-control-sm login-input border-left-0" id="exampleInputPassword" placeholder="Enter Password">                        
-                      </div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="form-check">
-                        <!-- <label class="form-check-label text-muted">
-                          <input type="checkbox" class="form-check-input">
-                          Keep me signed in
-                        </label> -->
-                      </div>
-                      <a href="#" class="auth-link text-primary">Forgot password?</a>
-                    </div>
-                    <div class="my-2 mx-30">
-                      <button type="submit" [hidden]='loading == true ? true : false' class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn" [disabled]="!loginForm.valid">Sign In</button>
+                <a href="#" class="auth-link text-black">Forgot password?</a>
+              </div>
+              <div class="mt-2">
+                <button type="submit" *ngIf='!loading' class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn" [disabled]="!loginForm.valid">Sign In</button>
 
-                      <button type="button" [hidden]='loading == true ? false : true' disabled class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                              LOGGING IN...
-                      </button>
-                    </div>
-                  </form>
-            </div>
+                <button type="button" *ngIf='loading' disabled class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        LOGGING IN...
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
+</div>

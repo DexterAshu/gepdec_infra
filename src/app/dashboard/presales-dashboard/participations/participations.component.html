@@ -1,0 +1,122 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Participation Details</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" [(ngModel)]="searchText" class="form-control form-control-sm" placeholder="Search">
+                        </div>
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                           <h5 class="mt-1"> Total Number of Participation Bids : {{stateCount.count}} </h5>
+                        </div>
+                        <!-- <div class="col-lg-2">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Tender</button>
+                        </div> -->
+                    </div>
+                  
+                    <div class="col-md-12">
+                        <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                            <thead class="table-primary text-nowrap">
+                                <tr>
+                                    <th>S No</th>
+                                    <th>Tenderer Name</th>
+                                    <th>Tender Reference</th>
+                                    <th>Published Date</th>
+                                    <th>Type of Tender</th>
+                                    <th>Issuing Date</th>
+                                    <th>Estimated Cost (INR)</th>
+                                    <th>Location</th>
+                                    <th>Submission Date</th>
+                                    <th>EMD</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-nowrap" *ngIf="stateData.length">
+                                <tr *ngFor="let a of stateData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                    <td>{{limit*(p-1)+i+1}}</td>
+                                    <td>{{a.state_id}}</td>
+                                    <td>{{a.state_name}}</td>
+                                    <td>{{a.name}}</td>
+                                    <td>{{a.name}}</td>
+                                    <td>{{a.name}}</td>
+                                    <td>{{a.name}}</td>
+                                    <td>{{a.active}}</td>
+                                    <td>{{a.active}}</td>
+                                    <td>{{a.createdby_name}}</td>
+                                    <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
+                                </tr>
+                                <tr *ngIf="isNotFound == true">
+                                    <td colspan="15" class="text-center">
+                                        <div class="spinner-border"> </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="stateData?.length == 0">
+                                    <td colspan="15" class="text-center">
+                                        <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </app-responsive-table>
+                        <div class="pagination-sec text-center">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <!-- gantt chart -->
+                    <div class="col-md-12 mt-2">
+                        <h4 class="page-title fw-bolder">Participation Graph</h4>
+
+                        <div class="row mt-2">
+                            <div class="col-md-2 col-xs-12 col-sm-12">
+                              <label class="fs-6 page-title">Participation List :</label>
+                            </div>
+                            <div class="col-md-4 col-xs-12 col-sm-12">
+                               
+                            <select class="form-control form-select f-10" [(ngModel)]="project" (ngModelChange)="getData(project)">
+                              <option value="" hidden selected>Select Tenders</option>
+                              <option *ngFor="let data of tendersList" value="{{data.tenderid}}">{{data.tenderName}}</option>
+                            </select>
+                          </div>
+                          <div class="col-md-6 text-end">
+                            <input readonly class="btn btn-primary p-2 me-1 rounded-pill" value="Export to PDF" onclick='gantt.exportToPDF()'>
+                            <input readonly class="btn btn-primary p-2 rounded-pill" value="Export to Excel" onclick='gantt.exportToExcel()'>
+                          </div>
+                        </div>
+                        <div #gantt_here class='gantt-chart mt-2'></div>
+                        <div class="row mt-2">
+                         <div class="col-md-12 text-center">
+                            <label class="fs-6 fw-bolder">Zoom Scale</label><br>
+                            <label><input readonly class="btn btn-primary p-2 me-1 rounded-pill radiobtn" name="scale" value="Day scale" checked/></label>
+                            <label><input readonly class="btn btn-primary p-2 me-1 rounded-pill radiobtn" name="scale" value="Week scale"/></label>
+                            <label><input readonly class="btn btn-primary p-2 me-1 rounded-pill radiobtn" name="scale" value="Month scale"/></label>
+                            <label><input readonly class="btn btn-primary p-2 me-1 rounded-pill radiobtn" name="scale" value="Year scale"/></label>
+                           
+                        </div>
+                        </div>
+                     
+
+                    </div>
+               
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

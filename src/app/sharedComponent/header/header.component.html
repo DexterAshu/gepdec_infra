@@ -25,6 +25,9 @@
       </li>
     </ul> -->
     <ul class="navbar-nav navbar-nav-right">
+      <li class="nav-item dropdown mr-1">
+        <p class="text-light mt-2">{{ currentDateTime }}</p>
+      </li>
       <!-- <li class="nav-item dropdown mr-1">
         <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center"
           id="messageDropdown" href="#" data-toggle="dropdown">
@@ -120,19 +123,16 @@
           </a>
         </div>
       </li> -->
-      <li class="nav-item dropdown mr-1">
-        <i class="mdi mdi-fullscreen mdi-36px text-light cursor-pointer" (click)="toggleFullScreen()" *ngIf="isFullScreenMode == false"></i>
-        <i class="mdi mdi-fullscreen-exit mdi-36px text-light cursor-pointer" (click)="toggleFullScreen()" *ngIf="isFullScreenMode == true"></i>
-      </li>
-      <li class="nav-item nav-profile dropdown">
-        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+    
+      <li class="nav-item nav-profile dropdown" >
+        <a class="nav-link " href="#" data-toggle="dropdown" id="profileDropdown">
           <img src="assets/images/profile.png" alt="profile" />
-          <span class="nav-profile-name">{{ storedData?.loginName }}</span>
+          <span class="nav-profile-name">{{ storedData.loginname }}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
           <a class="dropdown-item">
             <i class="mdi mdi-account-circle text-primary"></i>
-            User: {{ storedData?.loginName }}
+            User: {{ storedData.loginname }}
           </a>
           <a class="dropdown-item">
             <i class="mdi mdi-lock text-primary"></i>
@@ -143,6 +143,10 @@
             Logout
           </a>
         </div>
+      </li>
+      <li class="nav-item dropdown make-top">
+        <i class="mdi mdi-arrow-expand mdi-30px text-light cursor-pointer" (click)="toggleFullScreen()" *ngIf="isFullScreenMode == false"></i>
+        <i class="mdi mdi-fullscreen-exit mdi-30px text-light cursor-pointer" (click)="toggleFullScreen()" *ngIf="isFullScreenMode == true"></i>
       </li>
     </ul>
     <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"

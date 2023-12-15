@@ -1,0 +1,101 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import { MasterService } from 'src/app/_services/master.service';
+import { AlertService } from 'src/app/_services/alert.service';
+import { ApiService } from 'src/app/_services/api.service';
+
+@Component({
+  selector: 'app-role-master',
+  templateUrl: './role-master.component.html',
+  styleUrls: ['./role-master.component.css']
+})
+export class RoleMasterComponent {
+  form!: FormGroup;
+  p: number = 1;
+  searchText:any;
+  limit = environment.pageLimit;
+  isNotFound:boolean = false;
+  countryData: any;
+  isSubmitted: boolean = false;
+  rolCount: any;
+  rolData: any;
+  
+  constructor(
+    private formBuilder: FormBuilder,
+    private masterService: MasterService,
+    private alertService: AlertService,
+    private apiService: ApiService
+  ) { }
+
+  ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      name: [null, Validators.required],
+      description: [null],
+    
+    });
+    
+    this.roleData();
+ 
+  }
+
+  get f() { return this.form.controls; }
+
+  roleData() {
+    this.isNotFound = true;
+    this.masterService.getUserMaster().subscribe((res:any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+      this.rolCount = res;
+      this.rolData = res.role;
+      }else {
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.rolData = [];
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
+    }); 
+  }
+
+
+
+  onSubmit() {
+    if (this.form.valid) {
+      this.isSubmitted = true;
+
+      // if (this.form.value.country_id !== null) {
+      //   var countryVal = this.countryData.filter((item: any) => {
+      //     return item.country_id == this.form.value.country_id;
+      //   });
+      //   this.form.value.country_id = countryVal[0]['country_id'];
+      // }
+      // else {
+      //   this.form.value.country_id = null;
+      // } 
+
+      let params = {
+        name: this.form.value.name,
+        description: this.form.value.description,
+      };
+      this.apiService.createMasterRole( params).subscribe((res:any) => {
+        console.log(res);
+        let response: any = res;
+        document.getElementById('cancel')?.click();
+        this.isSubmitted = false;
+        if (response.status == 200) {
+          this.roleData();
+          this.form.reset();
+          this.alertService.success(response.message);
+        } else {
+          this.alertService.warning(response.message);
+        }
+      }, (error:any) => {
+          document.getElementById('cancel')?.click();
+          this.alertService.error("Error: " + error.statusText);
+        })
+    } else {
+      this.alertService.warning("Form is invalid, Please fill the form correctly.");
+     }
+  }
+}

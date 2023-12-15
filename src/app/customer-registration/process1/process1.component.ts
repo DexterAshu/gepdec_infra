@@ -83,8 +83,8 @@ export class Process1Component implements OnInit {
       bankUpload: [null, Validators.required],
     });
 
-    this.getCustomerData();
-    this.getCountryData();
+    // this.getCustomerData();
+    // this.getCountryData();
   }
 
 
@@ -98,133 +98,133 @@ export class Process1Component implements OnInit {
    
   get f() { return this.form.controls; }
 
-  getCountryData() {
-    this.countryData = [];
-    let apiLink = "/master/market/getMarket"
-    this.apiService.getDataList(apiLink).subscribe((res:any) => {
-      if (res.status === true) {
-        this.countryData = res.data;
-      } else {
-        this.alertService.warning("Looks like no data available in country data.");
-      }
-    });
-  }
+  // getCountryData() {
+  //   this.countryData = [];
+  //   let apiLink = "/master/market/getMarket"
+  //   this.apiService.getDataList(apiLink).subscribe((res:any) => {
+  //     if (res.status === true) {
+  //       this.countryData = res.data;
+  //     } else {
+  //       this.alertService.warning("Looks like no data available in country data.");
+  //     }
+  //   });
+  // }
   
-  getStateData() {
-    this.stateData = [];
-    this.districtData = [];
-    this.ecbData = [];
-    this.circleData = [];
-    this.f['state'].setValue(null);
-    this.f['district'].setValue(null);
-    this.f['ecb'].setValue(null);
-    this.f['circle'].setValue(null);
-    let data = {
-      marketCode: this.form.value.country
-    }
-    let apiLink = "/master/state/getStatesByCountry"
-    this.apiService.postData(apiLink, data).subscribe((res:any) => {
-      if (res.status === true) {
-        this.stateData = res.data;
-      } else {
-        this.alertService.warning(`Looks like no state available related to ${this.form.value.country}.`);
-      }
-    });
-  }
+  // getStateData() {
+  //   this.stateData = [];
+  //   this.districtData = [];
+  //   this.ecbData = [];
+  //   this.circleData = [];
+  //   this.f['state'].setValue(null);
+  //   this.f['district'].setValue(null);
+  //   this.f['ecb'].setValue(null);
+  //   this.f['circle'].setValue(null);
+  //   let data = {
+  //     marketCode: this.form.value.country
+  //   }
+  //   let apiLink = "/master/state/getStatesByCountry"
+  //   this.apiService.postData(apiLink, data).subscribe((res:any) => {
+  //     if (res.status === true) {
+  //       this.stateData = res.data;
+  //     } else {
+  //       this.alertService.warning(`Looks like no state available related to ${this.form.value.country}.`);
+  //     }
+  //   });
+  // }
   
-  getDistrictData() {
-    this.districtData = [];
-    this.ecbData = [];
-    this.circleData = [];
-    this.f['district'].setValue(null);
-    this.f['ecb'].setValue(null);
-    this.f['circle'].setValue(null);
-    let data = {
-      stateCode: this.form.value.state
-    }
-    let apiLink = "/master/district/getDistrictByState"
-    this.apiService.postData(apiLink, data).subscribe((res:any) => {
-      if (res.status === true) {
-        this.districtData = res.data;
-      } else {
-        this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
-      }
-    });
-  }
+  // getDistrictData() {
+  //   this.districtData = [];
+  //   this.ecbData = [];
+  //   this.circleData = [];
+  //   this.f['district'].setValue(null);
+  //   this.f['ecb'].setValue(null);
+  //   this.f['circle'].setValue(null);
+  //   let data = {
+  //     stateCode: this.form.value.state
+  //   }
+  //   let apiLink = "/master/district/getDistrictByState"
+  //   this.apiService.postData(apiLink, data).subscribe((res:any) => {
+  //     if (res.status === true) {
+  //       this.districtData = res.data;
+  //     } else {
+  //       this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
+  //     }
+  //   });
+  // }
   
-  getECBData() {
-    this.ecbData = [];
-    this.circleData = [];
-    this.f['ecb'].setValue(null);
-    this.f['circle'].setValue(null);
-    let data = {
-      countryCode: this.form.value.country,
-      stateCode: this.form.value.state,
-      districtCode: this.form.value.district,
-    }
-    let apiLink = "/master/ecbMaster/getECBBystateCodeDistrictCode"
-    this.apiService.postData(apiLink, data).subscribe((res:any) => {
-      if (res.status === true) {
-        this.ecbData = res.data;
-      } else {
-        this.alertService.warning(`Looks like no electricity board available related to ${this.form.value.district}.`);
-      }
-    });
-  }
+  // getECBData() {
+  //   this.ecbData = [];
+  //   this.circleData = [];
+  //   this.f['ecb'].setValue(null);
+  //   this.f['circle'].setValue(null);
+  //   let data = {
+  //     countryCode: this.form.value.country,
+  //     stateCode: this.form.value.state,
+  //     districtCode: this.form.value.district,
+  //   }
+  //   let apiLink = "/master/ecbMaster/getECBBystateCodeDistrictCode"
+  //   this.apiService.postData(apiLink, data).subscribe((res:any) => {
+  //     if (res.status === true) {
+  //       this.ecbData = res.data;
+  //     } else {
+  //       this.alertService.warning(`Looks like no electricity board available related to ${this.form.value.district}.`);
+  //     }
+  //   });
+  // }
 
-  getCircleData() {
-    this.circleData = [];
-    this.f['circle'].setValue(null);
-    let data = {
-      stateCode: this.form.value.state,
-      districtCode: this.form.value.district,
-      ecbCode: this.form.value.ecb,
-    }
-    let apiLink = "/master/circleMaster/getCircleBystateCodeDistrictCode"
-    this.apiService.postData(apiLink, data).subscribe((res:any) => {
-      if (res.status === true) {
-        this.circleData = res.data;
-      } else {
-        this.alertService.warning(`Looks like no electricity board available related to ${this.form.value.ecb}.`);
-      }
-    });
-  }
+  // getCircleData() {
+  //   this.circleData = [];
+  //   this.f['circle'].setValue(null);
+  //   let data = {
+  //     stateCode: this.form.value.state,
+  //     districtCode: this.form.value.district,
+  //     ecbCode: this.form.value.ecb,
+  //   }
+  //   let apiLink = "/master/circleMaster/getCircleBystateCodeDistrictCode"
+  //   this.apiService.postData(apiLink, data).subscribe((res:any) => {
+  //     if (res.status === true) {
+  //       this.circleData = res.data;
+  //     } else {
+  //       this.alertService.warning(`Looks like no electricity board available related to ${this.form.value.ecb}.`);
+  //     }
+  //   });
+  // }
 
   // Method For customer details start
   
-  getStateList() {
-    this.stateList = [];
-    this.districtList = [];
-    this.f['stateCustomer'].setValue(null);
-    this.f['districtCustomer'].setValue(null);
-    let data = {
-      marketCode: this.form.value.countryCustomer
-    }
-    let apiLink = "/master/state/getStatesByCountry"
-    this.apiService.postData(apiLink, data).subscribe((res:any) => {
-      if (res.status === true) {
-        this.stateList = res.data;
-      } else {
-        this.alertService.warning(`Looks like no state available related to ${this.form.value.country}.`);
-      }
-    });
-  }
+  // getStateList() {
+  //   this.stateList = [];
+  //   this.districtList = [];
+  //   this.f['stateCustomer'].setValue(null);
+  //   this.f['districtCustomer'].setValue(null);
+  //   let data = {
+  //     marketCode: this.form.value.countryCustomer
+  //   }
+  //   let apiLink = "/master/state/getStatesByCountry"
+  //   this.apiService.postData(apiLink, data).subscribe((res:any) => {
+  //     if (res.status === true) {
+  //       this.stateList = res.data;
+  //     } else {
+  //       this.alertService.warning(`Looks like no state available related to ${this.form.value.country}.`);
+  //     }
+  //   });
+  // }
   
-  getDistrictList() {
-    this.districtList = [];
-    this.f['districtCustomer'].setValue(null);
-    let data = {
-      stateCode: this.form.value.stateCustomer
-    }
-    let apiLink = "/master/district/getDistrictByState"
-    this.apiService.postData(apiLink, data).subscribe((res:any) => {
-      if (res.status === true) {
-        this.districtList = res.data;
-      } else {
-        this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
-      }
-    });
-  }
+  // getDistrictList() {
+  //   this.districtList = [];
+  //   this.f['districtCustomer'].setValue(null);
+  //   let data = {
+  //     stateCode: this.form.value.stateCustomer
+  //   }
+  //   let apiLink = "/master/district/getDistrictByState"
+  //   this.apiService.postData(apiLink, data).subscribe((res:any) => {
+  //     if (res.status === true) {
+  //       this.districtList = res.data;
+  //     } else {
+  //       this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
+  //     }
+  //   });
+  // }
 
   // Method For customer details end
   
@@ -238,25 +238,25 @@ export class Process1Component implements OnInit {
     }
   }
 
-  getCustomerData() {
-    this.isNotFound = true;
-    let apiLink = "/master/customerMaster/getCustomer";
-    this.apiService.getDataList(apiLink).subscribe((res:any) => {
-      this.isNotFound = false;
-      this.customerData = [];
-      if (res.status === true) {
-        // this.meterData = res.data.filter((data:any) => data.active == 'Y');
-        this.customerData = res.data.filter((data:any) => data.stage == 1);
+  // getCustomerData() {
+  //   this.isNotFound = true;
+  //   let apiLink = "/master/customerMaster/getCustomer";
+  //   this.apiService.getDataList(apiLink).subscribe((res:any) => {
+  //     this.isNotFound = false;
+  //     this.customerData = [];
+  //     if (res.status === true) {
+  //       // this.meterData = res.data.filter((data:any) => data.active == 'Y');
+  //       this.customerData = res.data.filter((data:any) => data.stage == 1);
         
-      } else {
-        this.alertService.warning("Looks like no data available!");
-      }
-    }, error => {
-      this.customerData = [];
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
-    });
-  }
+  //     } else {
+  //       this.alertService.warning("Looks like no data available!");
+  //     }
+  //   }, error => {
+  //     this.customerData = [];
+  //     this.isNotFound = false;
+  //     this.alertService.error("Error: " + error.statusText)
+  //   });
+  // }
 
   onSubmit() {
     if (this.form.valid) {
@@ -296,25 +296,25 @@ export class Process1Component implements OnInit {
         }
       }
 
-      let apiLink = "/master/customerMaster/createCustomer";
-      this.apiService.postData(apiLink, data).subscribe((res:any) => {
-        this.isFormSubmitted = false;
-        this.customerData = [];
-        if (res.status === true) {
-          this.alertService.success("Customer Data added. Please upload required documents for Kyc!");
-          this.customerID = res.id;
-          this.getCustomerData();
-          this.next();
-        } else {
-          document.getElementById('cancel')?.click();
-          this.alertService.warning(res.message);
-        }
-      }, error => {
-        this.customerData = [];
-        this.isFormSubmitted = false;
-        document.getElementById('cancel')?.click();
-        this.alertService.error("Error: " + error.statusText)
-      });
+      // let apiLink = "/master/customerMaster/createCustomer";
+      // this.apiService.postData(apiLink, data).subscribe((res:any) => {
+      //   this.isFormSubmitted = false;
+      //   this.customerData = [];
+      //   if (res.status === true) {
+      //     this.alertService.success("Customer Data added. Please upload required documents for Kyc!");
+      //     this.customerID = res.id;
+      //     this.getCustomerData();
+      //     this.next();
+      //   } else {
+      //     document.getElementById('cancel')?.click();
+      //     this.alertService.warning(res.message);
+      //   }
+      // }, error => {
+      //   this.customerData = [];
+      //   this.isFormSubmitted = false;
+      //   document.getElementById('cancel')?.click();
+      //   this.alertService.error("Error: " + error.statusText)
+      // });
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }
@@ -326,7 +326,7 @@ export class Process1Component implements OnInit {
   }
 
   addressProofUpload(event:any) {
-    debugger
+  
     this.addressProof = [];
     let file = event.target.files;
     let type = /(\.jpg|\.jpeg|\.png)$/i;
@@ -372,7 +372,7 @@ export class Process1Component implements OnInit {
   }
   
   onUpload() {
-    debugger
+   
     if(this.uploadForm.valid) {
       this.isUploadSubmitted = true;
       let uploadFiles:any = [];
@@ -395,7 +395,7 @@ export class Process1Component implements OnInit {
         document.getElementById('cancel')?.click();
         this.customerData = [];
         if (res.status === true) {
-          this.getCustomerData();
+          // this.getCustomerData();
           this.prev();
           this.customerID = [];
           this.alertService.success("Kyc document uploaded successfully and send for approval.");

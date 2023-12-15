@@ -4,40 +4,21 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
-
-  transform(value: any, searchText: any): any[] {
+  transform(items: any[], searchText: string): any[] {
+    if (!items) return [];
+    if (!searchText) return items;
     searchText = searchText.toLowerCase();
-  
-    return value.filter((search: any) => {
-      return search.meterID.toLowerCase().includes(searchText.toLowerCase());
+    return items.filter((it: any) => {
+      for (const key in it) {
+        if (it.hasOwnProperty(key) && typeof it[key] === 'string') {
+          if (it[key].toLowerCase().includes(searchText)) {
+            return true; // Return true if any property contains the search text
+          }
+        }
+      }
+      return false; // Return false if no match is found
     });
   }
-  
-  // transform(value: any, maxLength: number = 50): any {
-  //   debugger
-  //   const words = value.split(' ');
-  //   let currentLine = '';
-  
-  //   return words.reduce((result:any, word:any) => {
-  //     if (currentLine.length + word.length + 1 <= maxLength) {
-  //       currentLine += (currentLine === '' ? '' : ' ') + word;
-  //     } else {
-  //       result.push(currentLine);
-  //       currentLine = word;
-  //     }
-  //     return result;
-  //   }, [currentLine]).join('\n');
-  // }
-
-  // transform(value: any, searchText: any): any {
-  //   if (typeof value !== 'string') {
-  //     return value; 
-  //   }
-  
-  //   return value.split(' ')
-  //               .filter(word => word.toLowerCase().includes(searchText.toLowerCase()))
-  //               .join(' ');
-  // }
-  
+ 
 
 }

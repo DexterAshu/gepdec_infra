@@ -4,7 +4,7 @@
           <div class="d-flex justify-content-between flex-wrap">
             <div class="d-flex align-items-end flex-wrap">
               <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>District</h4>
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>District's Master Info</h4>
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -23,7 +23,11 @@
                         <div class="col-lg-4">
                             <input type="search" [(ngModel)]="searchText" class="form-control form-control-sm" placeholder="Search">
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-4">
+                           <h5> Total Number of District : {{distCount.count}} </h5>
+                        </div>
+                        <div class="col-lg-2">
                             <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ District</button>
                         </div>
                     </div>
@@ -31,25 +35,25 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>District Code</th>
+                                <!-- <th>District Code</th> -->
                                 <th>District Name</th>
                                 <th>State</th>
-                                <th>Country</th>
-                                <th>Active</th>
+                                <!-- <th>Country</th>
+                                <th>Active</th> -->
                                 <th>Created By</th>
                                 <th>Created On</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap">
-                            <tr *ngFor="let a of districtData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                        <tbody class="text-nowrap" *ngIf="districtData.length">
+                            <tr *ngFor="let a of districtData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
-                                <td>{{a.code}}</td>
-                                <td>{{a.name}}</td>
-                                <td>{{a.stateName}}</td>
-                                <td>{{a.countryName}}</td>
-                                <td>{{a.active}}</td>
-                                <td>{{a.createdBy}}</td>
-                                <td>{{a.createdAt | date:'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
+                                <!-- <td>{{a.district_id}}</td> -->
+                                <td>{{a.district_name}}</td>
+                                <td>{{a.state_name}}</td>
+                                <!-- <td>{{a.countryName}}</td>
+                                <td>{{a.active}}</td> -->
+                                <td>{{a.createdby_name}}</td>
+                                <td>{{a.created | date:'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
                             </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
@@ -87,50 +91,30 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                                    <select class="form-select form-select-sm" formControlName="country" (change)="getStateData()">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
-                                        <option *ngFor="let c of countryData" [value]="c.code">{{ c.name }}</option>
-                                    </select>
-                                    <div *ngIf="f['country'].touched && f['country'].invalid">
-                                        <small class="text-danger" *ngIf="f['country'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
                                     <label class="form-label">State<span class="required-asterisk">*</span></label>
-                                    <select formControlName="state" class="form-select form-select-sm" (change)="getDistrictData()">
+                                    <select formControlName="state_id" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
-                                        <option *ngFor="let s of stateData" [value]="s.code">{{ s.name }}</option>
+                                        <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
                                     </select>
-                                    <div *ngIf="f['state'].touched && f['state'].invalid">
-                                        <small class="text-danger" *ngIf="f['state'].errors?.['required']">*Required</small>
+                                    <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">District Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="districtName" appWordCapitalize>
-                                    <div *ngIf="f['districtName'].touched && f['districtName'].invalid">
-                                        <small class="text-danger" *ngIf="f['districtName'].errors?.['required']">*Required</small>
+                                    <input type="text" placeholder="Enter new District name" class="form-control form-control-sm" formControlName="district_name" appWordCapitalize>
+                                    <div *ngIf="f['district_name'].touched && f['district_name'].invalid">
+                                        <small class="text-danger" *ngIf="f['district_name'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">District Code<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="districtCode" appNoSpace appUpperCase>
-                                    <div *ngIf="f['districtCode'].touched && f['districtCode'].invalid">
-                                        <small class="text-danger" *ngIf="f['districtCode'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
+                          
                             <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-rounded btn-fw btn-sm mr-2">Add</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-rounded btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-rounded btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary  btn-fw btn-sm mr-2">Add</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary  btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </form>

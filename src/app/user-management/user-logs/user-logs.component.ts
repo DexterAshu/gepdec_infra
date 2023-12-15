@@ -37,7 +37,7 @@ export class UserLogsComponent implements OnInit {
   }
 
   showChanges(e:any) {
-    debugger
+   
     if(e.target.checked == true) {
       this.showAll = true;
     } else {
