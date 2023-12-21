@@ -43,23 +43,16 @@ export class ProjectsComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      // companyId: [null, Validators.required],
-      name: [null, Validators.required],
-      company_name: [null, Validators.required],
-      company_type: [null, Validators.required],
-      contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      contactno2: [null, [ Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      email: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      gst: [null, [Validators.required]] ,
-      pan: [null, Validators.required],
-      cinNo:[null, Validators.required],
-      doi: [null, Validators.required],  
-      area: [null, Validators.required],
-      country_id: [null, Validators.required],
-      state_id: [null, Validators.required],
-      district_id: [null, Validators.required],
-      websiteUrl: [null],
-      pincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
+      customer_name: [null, Validators.required],
+      project_name: [null, Validators.required],
+      project_type: [null, Validators.required],
+      proj_manager: [null, [Validators.required]] ,
+      priority: [null, Validators.required],
+      budget:[null],
+      hours: [null],  
+      start_date: [null, Validators.required],
+      end_date: [null, Validators.required],
+     
     });
 
     this.getCompanyData();
@@ -85,19 +78,16 @@ export class ProjectsComponent {
       this.custDetails = res.result[0];
      
         this.form.patchValue({
-          name: this.custDetails.name,
-          company_name: this.custDetails.company_name,
-          company_type: this.custDetails.company_type,
-          contactno1: this.custDetails.contactno1,
-          contactno2: this.custDetails.contactno2,
-          email: this.custDetails.email,
-          gst: this.custDetails.gst,
-          pan: this.custDetails.pan,
-          cinNo: this.custDetails.cinNo,
-          doi: this.custDetails.doi,
-          area: this.custDetails.area,
-          websiteUrl: this.custDetails.websiteUrl,
-          pincode: this.custDetails.pincode,
+          customer_name: this.custDetails.customer_name,
+          project_name: this.custDetails.project_name,
+          project_type: this.custDetails.project_type,
+          proj_manager: this.custDetails.proj_manager,
+          priority: this.custDetails.priority,
+          budget: this.custDetails.budget,
+          hours: this.custDetails.hours,
+          start_date: this.custDetails.start_date,
+          end_date: this.custDetails.end_date,
+         
           
         }); 
         this.form.controls['country_id'].setValue(this.custDetails.country_id);
@@ -221,69 +211,7 @@ export class ProjectsComponent {
         this.form.value.company_type = null;
       } 
   
-      //passing all values
-      if (this.form.value.company_name != '') {
-        this.form.value.company_name == '';
-      } else {
-        this.form.value.company_name = null;
-      }
-    
-      if (this.form.value.name != '') {
-        this.form.value.name == '';
-      } else {
-        this.form.value.name = null;
-      }
-      if (this.form.value.contactno1 != '') {
-        this.form.value.contactno1 == '';
-      } else {
-        this.form.value.contactno1 = null;
-      }
-      if (this.form.value.contactno2 != '') {
-        this.form.value.contactno2 == '';
-      } else {
-        this.form.value.contactno2 = null;
-      }
-      if (this.form.value.email != '') {
-        this.form.value.email == '';
-      } else {
-        this.form.value.email = null;
-      }
-      if (this.form.value.gst != '') {
-        this.form.value.gst == '';
-      } else {
-        this.form.value.gst = null;
-      }
-      if (this.form.value.pan != '') {
-        this.form.value.pan == '';
-      } else {
-        this.form.value.pan = null;
-      }
-      if (this.form.value.websiteUrl != '') {
-        this.form.value.websiteUrl == '';
-      } else {
-        this.form.value.websiteUrl = null;
-      }
-      if (this.form.value.cinNo != '') {
-        this.form.value.cinNo == '';
-      } else {
-        this.form.value.cinNo = null;
-      }
-      if (this.form.value.doi != '') {
-        this.form.value.doi == '';
-      } else {
-        this.form.value.doi = null;
-      }
-      if (this.form.value.area != '') {
-        this.form.value.area == '';
-      } else {
-        this.form.value.area = null;
-      }
-      if (this.form.value.pincode != '') {
-        this.form.value.pincode == '';
-      } else {
-        this.form.value.pincode = null;
-      }
-
+     
         this.loading = true;
     if (this.update) {  
       this.companyUpdate();

@@ -99,6 +99,10 @@ import { TenderMasterComponent } from './masters/tender-master/tender-master.com
 import { VendorMasterComponent } from './masters/vendor-master/vendor-master.component';
 import { RoleMasterComponent } from './masters/role-master/role-master.component';
 import { TitleMasterComponent } from './masters/title-master/title-master.component';
+import { MilestoneTasksComponent } from './masters/milestone-tasks/milestone-tasks.component';
+import { ProjectDocumentsComponent } from './masters/project-documents/project-documents.component';
+import { ProjectMilestoneComponent } from './masters/project-milestone/project-milestone.component';
+import { ProjectsComponent } from './masters/projects/projects.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -170,6 +174,7 @@ import { TitleMasterComponent } from './masters/title-master/title-master.compon
     //master-component
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent,
+    ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent
   ],
   
   imports: [

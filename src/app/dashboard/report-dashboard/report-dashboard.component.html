@@ -68,99 +68,100 @@
 </div>
 </div> -->
 
-<!-- filter data country state project wise -->
-<div class="col-md-12">
-  <div class="row module-wise ">
-  <div class="col-md-1" style="font-size: 16px;"> 
-    <i class="mdi mdi-filter-outline mdi-26px "></i> Filter:
-  </div>
-  <div class="col-md-11">
-      <form  [formGroup]="form">
-        <div class=" d-flex">
-            <div class="col-md-2">
-              <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
-                <div class="form-group row">
-                <label class="col-sm-4 col-form-label"  style="font-size: 11px; font-weight: 600;">Country</label>
-                <div class="col-sm-8">
-                  <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
-                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                    <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
-                </select>
-                  
-                </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group row">
-                <label class="col-sm-4 col-form-label"  style="font-size: 11px; font-weight: 600;">State</label>
-                <div class="col-sm-8">
-                  <select formControlName="state_id" class="form-select form-select-sm">
-                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                    <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
-                </select>
-                </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group row">
-                <label class="col-sm-4 col-form-label"  style="font-size: 11px; font-weight: 600;">Dt</label>
-                <div class="col-sm-8">
-                    <select class="form-select form-select-sm">
-                      <option>All</option>
-                        <option>April 22 - March 23</option>
-                        <option>April 23 - March 24</option>
-                        <option>April 24 - March 25</option>
-                        <option>April 25 - March 26</option>
-                      
-                    </select>
-                </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group row">
-                <label class="col-sm-4 col-form-label"  style="font-size: 11px; font-weight: 600;">Company</label>
-                <div class="col-sm-8">
-                    <select class="form-select form-select-sm">
-                        <option>All</option>
-                        <option>GEPDEC Energy Project</option>
-                        <option>GEPDEC Infra Project</option>
-                    </select>
-                </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group row">
-                <label class="col-sm-4 col-form-label"  style="font-size: 11px; font-weight: 600;"> Ctgy</label>
-                <div class="col-sm-8">
-                    <select class="form-select form-select-sm">
-                        <option>All</option>
-                        <option>Meter</option>
-                        <option>220/33kV, 80MVA Power Transformer</option>
-                    </select>
-                </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group row">
-                <label class="col-sm-4 col-form-label"  style="font-size: 11px; font-weight: 600;"> Proj</label>
-                <div class="col-sm-8">
-                    <select class="form-select form-select-sm">
-                        <option>All</option>
-                        <option>Jaunpur Project</option>
-                        <option>Noida project</option>
-                    </select>
-                </div>
-                </div>
-            </div>
+  <!-- filter data country state project wise -->
+  <div class="col-md-12">
+    <div class="row module-wise ">
+    <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
+      <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
         </div>
-      </form>
-    </div>
-
-</div>
-</div>
+    <div class="col-md-11" style="font-family:'Times New Roman', Times, serif">
+        <form  [formGroup]="form">
+          <div class=" d-flex">
+              <div class="col-md-2">
+                <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
+                  <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Country</label>
+                  <div class="col-sm-8">
+                    <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
+                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                  </select>
+                    
+                  </div>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">State</label>
+                  <div class="col-sm-9">
+                    <select formControlName="state_id" class="form-select form-select-sm">
+                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
+                  </select>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group row">
+                  <label class="col-sm-5 col-form-label">Duration</label>
+                  <div class="col-sm-7">
+                      <select class="form-select form-select-sm">
+                        <option>All</option>
+                          <option>April 22 - March 23</option>
+                          <option>April 23 - March 24</option>
+                          <option>April 24 - March 25</option>
+                          <option>April 25 - March 26</option>
+                        
+                      </select>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group row">
+                  <label class="col-sm-5 col-form-label">Company</label>
+                  <div class="col-sm-7">
+                      <select class="form-select form-select-sm">
+                          <option>All</option>
+                          <option>GEPDEC Energy Project</option>
+                          <option>GEPDEC Infra Project</option>
+                      </select>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group row">
+                  <label class="col-sm-5 col-form-label"> Category</label>
+                  <div class="col-sm-7">
+                      <select class="form-select form-select-sm">
+                          <option>All</option>
+                          <option>Meter</option>
+                          <option>220/33kV, 80MVA Power Transformer</option>
+                      </select>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Project</label>
+                  <div class="col-sm-8">
+                      <select class="form-select form-select-sm">
+                          <option>All</option>
+                          <option>Jaunpur Project</option>
+                          <option>Noida project</option>
+                      </select>
+                  </div>
+                  </div>
+              </div>
+          </div>
+        </form>
+      </div>
+  
+  </div>
+  </div>
+  
 
 <!-- over all company summary report start -->
-  <div class="row mt-2">
+  <div class="row">
     <div class="col-md-12 flex-grow-1 align-items-center justify-content-center">
         <!-- row 1 -->
         <div class="row ">

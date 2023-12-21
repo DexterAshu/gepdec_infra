@@ -11,7 +11,7 @@ import { SharedService } from 'src/app/_services/shared.service';
   styleUrls: ['./alert-dashboard.component.css']
 })
 export class AlertDashboardComponent {
-
+  animations: boolean = true;
   fitContainer: boolean = false;
   view: any = [500, 250];
   showXAxis1 = true;
@@ -19,9 +19,11 @@ export class AlertDashboardComponent {
   gradient = true;
   showLegend = true;
   showXAxisLabel1 = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = '';
+  xAxisLabelProc = 'Number';
   showYAxisLabel1 = true;
-  yAxisLabel = 'Sales';
+  yAxisLabel = 'Number';
+  yAxisLabelProc = '';
   timeline = true;
   showLabels = true;
   doughnut = true;
@@ -33,7 +35,7 @@ export class AlertDashboardComponent {
   gradient2 = false;
   showLegend2 = true;
   showXAxisLabel2 = true;
-  xAxisLabel2 = 'Country';
+  xAxisLabel2 = '';
   showYAxisLabel2 = true;
   yAxisLabel2 = 'Data Value';
 
@@ -47,7 +49,7 @@ export class AlertDashboardComponent {
    showXAxisLabelf: boolean = true;
    xAxisLabelf: string = '';
    yAxisLabelf: string = 'Value';
-   timelinef: boolean = true;
+  //  timelinef: boolean = true;
   
   financial = [
   {
@@ -99,81 +101,19 @@ export class AlertDashboardComponent {
     "value": 204617
   }
   ];
+
+  execution=[
   
-  execution = [
     {
-      "name": "Total",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Complete",
-          "value": 12
-        },
-       
-     
-      ]
+      "name": "Pending",
+      "value": 8
     },
     {
-      "name": "Q1",
-      "series": [
-        {
-          "name": "Total",
-          "value": 10
-        },
-        {
-          "name": "Complete",
-          "value": 5
-        },
-       
-     
-      ]
+      "name": "Completed",
+      "value": 12
     },
-    
-    {
-      "name": "Q2",
-      "series": [
-        {
-          "name": "Total",
-          "value": 8
-        },
-        {
-          "name": "Complete",
-          "value": 6
-        },
-      ]
-    },
-    {
-      "name": "Q3",
-      "series": [
-        {
-          "name": "Total",
-          "value": 14
-        },
-        {
-          "name": "Complete",
-          "value": 10
-        },
-      ]
-    },
-    {
-      "name": "Q4",
-      "series": [
-        {
-          "name": "Total",
-          "value": 10
-        },
-        {
-          "name": "Complete",
-          "value": 8
-        },
-      
-      ]
-    },
-  ];
-  
+   
+    ];
   
   presales = [
   {
@@ -279,13 +219,18 @@ export class AlertDashboardComponent {
   {
     "name": "Total",
     "series": [
+     
       {
         "name": "In-House",
-        "value": 700
+        "value": 12
       },
       {
-        "name": "Others",
-        "value": 200
+        "name": "3rd Party",
+        "value": 8
+      },
+      {
+        "name": "Total",
+        "value": 20
       },
     ]
   },
@@ -293,28 +238,37 @@ export class AlertDashboardComponent {
   {
     "name": "Q1",
     "series": [
+     
       {
         "name": "In-House",
-        "value": 500
+        "value": 6
       },
       {
-        "name": "Others",
-        "value": 200
+        "name": "3rd Party",
+        "value": 14
       },
-   
+      {
+        "name": "Total",
+        "value": 20
+      },
     ]
   },
   
   {
     "name": "Q2",
     "series": [
+    
       {
         "name": "In-House",
-        "value": 400
+        "value": 4
       },
       {
-        "name": "Others",
-        "value": 100
+        "name": "3rd Party",
+        "value": 7
+      },
+      {
+        "name": "Total",
+        "value": 11
       },
     
     ]
@@ -322,13 +276,18 @@ export class AlertDashboardComponent {
   {
     "name": "Q3",
     "series": [
+     
       {
         "name": "In-House",
-        "value": 600
+        "value": 9
       },
       {
-        "name": "Others",
-        "value": 200
+        "name": "3rd Party",
+        "value": 13
+      },
+      {
+        "name": "Total",
+        "value": 22
       },
    
     ]
@@ -336,13 +295,18 @@ export class AlertDashboardComponent {
   {
     "name": "Q4",
     "series": [
+     
       {
         "name": "In-House",
-        "value": 560
+        "value": 10
       },
       {
-        "name": "Others",
-        "value": 200
+        "name": "3rd Party",
+        "value": 15
+      },
+      {
+        "name": "Total",
+        "value": 25
       },
     
     ]
@@ -350,81 +314,104 @@ export class AlertDashboardComponent {
  
   
   ];
-
   ProcurementGraph = [
-    {
-      "name": "Total",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "PO",
-          "value": 12
-        },
-       
+  {
+    "name": "Total",
+    "series": [
      
-      ]
-    },
-    {
-      "name": "Q1",
-      "series": [
-        {
-          "name": "Total",
-          "value": 10
-        },
-        {
-          "name": "PO",
-          "value": 5
-        },
-       
+      {
+        "name": "PO",
+        "value": 8
+      },
+      {
+        "name": "Pending",
+        "value": 4
+      },
+      {
+        "name": "Total",
+        "value": 12
+      },
+    ]
+  },
+  
+  {
+    "name": "Q1",
+    "series": [
      
-      ]
-    },
+      {
+        "name": "PO",
+        "value": 8
+      },
+      {
+        "name": "Pending",
+        "value": 4
+      },
+      {
+        "name": "Total",
+        "value": 12
+      },
+    ]
+  },
+  
+  {
+    "name": "Q2",
+    "series": [
     
-    {
-      "name": "Q2",
-      "series": [
-        {
-          "name": "Total",
-          "value": 8
-        },
-        {
-          "name": "PO",
-          "value": 6
-        },
-      ]
-    },
-    {
-      "name": "Q3",
-      "series": [
-        {
-          "name": "Total",
-          "value": 14
-        },
-        {
-          "name": "PO",
-          "value": 10
-        },
-      ]
-    },
-    {
-      "name": "Q4",
-      "series": [
-        {
-          "name": "Total",
-          "value": 10
-        },
-        {
-          "name": "PO",
-          "value": 8
-        },
-      
-      ]
-    },
+      {
+        "name": "PO",
+        "value": 7
+      },
+      {
+        "name": "Pending",
+        "value": 7
+      },
+      {
+        "name": "Total",
+        "value": 14
+      },
     
-    ];
+    ]
+  },
+  {
+    "name": "Q3",
+    "series": [
+     
+      {
+        "name": "PO",
+        "value": 12
+      },
+      {
+        "name": "Pending",
+        "value": 4
+      },
+      {
+        "name": "Total",
+        "value": 16
+      },
+   
+    ]
+  },
+  {
+    "name": "Q4",
+    "series": [
+     
+      {
+        "name": "PO",
+        "value": 6
+      },
+      {
+        "name": "Pending",
+        "value": 6
+      },
+      {
+        "name": "Total",
+        "value": 12
+      },   
+    ]
+  }, 
+  ];
+
+ 
   Store = [
     {
       "name": "Total",
@@ -434,8 +421,12 @@ export class AlertDashboardComponent {
           "value": 20
         },
         {
-          "name": "Issue",
-          "value": 6
+          "name": "Pending",
+          "value": 8
+        },
+        {
+          "name": "Issued",
+          "value": 12
         },
       ]
     },
@@ -445,11 +436,15 @@ export class AlertDashboardComponent {
       "series": [
         {
           "name": "Total",
-          "value": 12
+          "value": 20
         },
         {
-          "name": "Issue",
-          "value": 6
+          "name": "Pending",
+          "value": 8
+        },
+        {
+          "name": "Issued",
+          "value": 12
         },
       ]
     },
@@ -459,11 +454,15 @@ export class AlertDashboardComponent {
       "series": [
         {
           "name": "Total",
-          "value": 10
+          "value": 20
         },
         {
-          "name": "Issue",
-          "value": 6
+          "name": "Pending",
+          "value": 8
+        },
+        {
+          "name": "Issued",
+          "value": 12
         },
        
       
@@ -474,11 +473,15 @@ export class AlertDashboardComponent {
       "series": [
         {
           "name": "Total",
+          "value": 20
+        },
+        {
+          "name": "Pending",
           "value": 8
         },
         {
-          "name": "Issue",
-          "value": 4
+          "name": "Issued",
+          "value": 12
         },
       ]
     },
@@ -487,10 +490,14 @@ export class AlertDashboardComponent {
       "series": [
         {
           "name": "Total",
-          "value": 16
+          "value": 20
         },
         {
-          "name": "Issue",
+          "name": "Pending",
+          "value": 8
+        },
+        {
+          "name": "Issued",
           "value": 12
         },
       
@@ -645,7 +652,7 @@ export class AlertDashboardComponent {
     ];
   performancePDPEQ = [
     {
-      "name": "PreSales",
+      "name": "Presales",
       "series": [
         {
           "name": "Total",
@@ -689,7 +696,7 @@ export class AlertDashboardComponent {
       ]
     },
     {
-      "name": "SL",
+      "name": "Store",
       "series": [
         {
           "name": "Total",
@@ -702,7 +709,7 @@ export class AlertDashboardComponent {
       ]
     },
     {
-      "name": "Execution",
+      "name": "Exec",
       "series": [
         {
           "name": "Total",
@@ -716,7 +723,7 @@ export class AlertDashboardComponent {
       ]
     },
     {
-      "name": "QS",
+      "name": "Quality",
       "series": [
         {
           "name": "Total",
@@ -928,24 +935,24 @@ export class AlertDashboardComponent {
     "series": [
       {
         "name": "Total",
-        "value": 800
+        "value": 600
       },
      
       {
         "name": "Q1",
-        "value": 590
+        "value": 390
       },
       {
         "name": "Q2",
-        "value": 380
+        "value": 280
       },
       {
         "name": "Q3",
-        "value": 500
+        "value": 400
       },
       {
         "name": "Q4",
-        "value": 710
+        "value": 510
       },
      
     ]
@@ -955,7 +962,7 @@ export class AlertDashboardComponent {
     "series": [
       {
         "name": "Total",
-        "value": 400
+        "value": 300
       },
      
       {
@@ -968,11 +975,11 @@ export class AlertDashboardComponent {
       },
       {
         "name": "Q3",
-        "value": 300
+        "value": 200
       },
       {
         "name": "Q4",
-        "value": 510
+        "value": 310
       },
      
     ]
@@ -983,77 +990,81 @@ export class AlertDashboardComponent {
   ];
   lineChart = [
   {
-    "name": "2022",
+    "name": "Bid",
     "series": [
       {
-        "name": "Jan",
-        "value": 400
+        "name": "Total",
+        "value": 400,
       },
       {
-        "name": "Feb",
+        "name": "Q1",
         "value": 380
       },
       {
-        "name": "Mar",
-        "value": 950
+        "name": "Q2",
+        "value": 350
       },
       {
-        "name": "Apr",
+        "name": "Q3",
         "value": 410
       },
       {
-        "name": "May",
+        "name": "Q4",
         "value": 530
       },
-      {
-        "name": "Jun",
-        "value": 670
-      },
-      {
-        "name": "July",
-        "value": 580
-      },
-      {
-        "name": "Aug",
-        "value": 810
-      },
+     
     ]
   },
   {
-    "name": "2023",
+    "name": "Win",
     "series": [
       {
-        "name": "Jan",
+        "name": "Total",
         "value": 300
       },
       {
-        "name": "Feb",
+        "name": "Q1",
         "value": 440
       },
       {
-        "name": "Mar",
-        "value": 620
+        "name": "Q2",
+        "value": 320
       },
       {
-        "name": "Apr",
+        "name": "Q3",
         "value": 510
       },
       {
-        "name": "May",
+        "name": "Q4",
         "value": 430
       },
+    
+    ]
+  },
+  {
+    "name": "Loss",
+    "series": [
       {
-        "name": "Jun",
-        "value": 570
+        "name": "Total",
+        "value": 200
       },
       {
-        "name": "July",
-        "value": 610
+        "name": "Q1",
+        "value": 340
       },
       {
-        "name": "Aug",
-        "value": 710
+        "name": "Q2",
+        "value": 220
       },
+      {
+        "name": "Q3",
+        "value": 510
+      },
+      {
+        "name": "Q4",
+        "value": 430
+      },
+    
     ]
   },
   ];
@@ -1077,46 +1088,60 @@ export class AlertDashboardComponent {
   },
   ];
   pieDataDesign=[
+  
   {
     "name": "In-House",
-    "value": 700
+    "value": 400
   },
   {
-    "name": "Others",
-    "value": 200
+    "name": "3rd Party",
+    "value": 300
+  },
+  {
+    "name": "Pending",
+    "value": 400
   },
  
   ];
   pieDataProc=[
-  {
-    "name": "Total",
-    "value": 20
-  },
+ 
   {
     "name": "PO",
     "value": 12
+  },
+  {
+    "name": "Pending",
+    "value": 8
+  },
+  {
+    "name": "Total",
+    "value": 20
   },
  
   ];
   pieDataStore=[
   {
     "name": "Total",
-    "value": 900
+    "value": 20
   },
   {
-    "name": "Issue",
-    "value": 500
+    "name": "Pending",
+    "value": 8
+  },
+  {
+    "name": "Issued",
+    "value": 12
   },
  
   ];
   pieDataExe=[
   {
-    "name": "Total",
-    "value": 900
+    "name": "AT Pending",
+    "value": 4
   },
   {
-    "name": "Complete",
-    "value": 500
+    "name": "AT Success",
+    "value": 8
   },
  
   ];
@@ -1144,29 +1169,29 @@ export class AlertDashboardComponent {
   ];
   pieDataCust=[
   {
-    "name": "Revenue",
+    "name": "Loss",
+    "value": 400
+  },
+  {
+    "name": "Bid",
     "value": 900
   },
   {
-    "name": "Expenditure",
+    "name": "Win",
     "value": 500
-  },
-  {
-    "name": "Profit",
-    "value": 400
   },
   ];
   pieColorsCust:any = {
   domain: ['#660066', '#990099', '#6600FF']
   };
   lineColorScheme:any ={
-  domain: ['#fd4747' , '#3f4fa9', '#447f00']
+  domain: ['#fd4747' , '#251ef7', '#069108']
   }
   lineColorSchemeFinance:any ={
-  domain: ['#315CA4', '#e5e500', '#447f00']
+  domain: ['#251ef7', '#f7f01e', '#069108']
   }
   mainColorScheme:any ={
-  domain: ['#447f00', '#315CA4']
+  domain: ['#309d15' ,'#f7f01e','#251ef7']
   }
   total = this.performancePDPEQ.reduce((acc:any, item:any) => acc + item.value, 0);
   showXAxis = true;
@@ -1174,31 +1199,31 @@ export class AlertDashboardComponent {
   showXAxisLabel = true;
   showYAxisLabel = true;
   showLabelsPie: boolean = true;
-  yAxisLabelBar: string = 'Value';
+  yAxisLabelBar: string = 'Number';
   xAxisLabelBar = '';
   showXAxisLabelLine: boolean = true;
   showYAxisLabelLine: boolean = true;
   xAxisLabelLine: string = '';
-  yAxisLabelLine: string = 'Value';
+  yAxisLabelLine: string = 'Number';
   colorSchemeOS:any ={
   domain: ['#cee27d', '#63830c']
   }
   yAxisLabelBarOS: string = 'Amount';
   xAxisLabelBarOS = '';
   
-  yAxisLabelBarLoad: string = 'Value';
+  yAxisLabelBarLoad: string = 'Number';
   xAxisLabelBarLoad = '';
   colorSchemeStore:any ={
-  domain: ['#fd4747', '#ffc100']
+  domain: ['#a284e0', '#ff8d64', '#81f181']
   }
   colorSchemeQS:any ={
   domain: [ '#447f00','#fd4747']
   }
   colorSchemeProcure:any ={
-  domain: ['#f1db8b', '#447f00']
+  domain: ['#309d15' ,'#fad73c','#9e3cfa']
   }
   colorSchemeLoadQuarter:any ={
-  domain: ['#fd4747' , '#3f4fa9']
+  domain: ['#135df0' , '#069108', '#f71616']
   }
   
   colorSchemeFin:any = {
@@ -1206,7 +1231,7 @@ export class AlertDashboardComponent {
   };
   
   colorSchemeExecution:any = {
-  domain: ['#9370DB', '#87CEFA']
+  domain: ['#fad946', '#54ae3e']
   };
   colorScheme:any = {
   domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
@@ -1248,12 +1273,12 @@ export class AlertDashboardComponent {
   ]
 
   colorSchemeState:any = {
-    domain: [ '#3f4fa9','#fd4747', '#447f00', '#e5e500', '#edc085','#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB' ]
+    domain: [ '#05d4eb','#009423', '#f7f705', '#f205c3', '#f5810c','#2216fa', '#70f205', '#9616f7', '#f74a53', '#6d7a14' ]
   };
  
 
   bpColorScheme:any ={
-    domain: ['#447f00', '#e5e500','#fd4747']
+    domain: ['#069108', '#e5e500','#fd4747']
   }
   
 
@@ -1341,7 +1366,7 @@ export class AlertDashboardComponent {
       ]
     },
     {
-      "name": "Warehouse",
+      "name": "Store",
       "series": [
         {
           "name": 'High',
@@ -1528,5 +1553,4 @@ export class AlertDashboardComponent {
   getSegmentData() {
   this.segmentData = [];
 
-  }
-}
+  }}
