@@ -114,13 +114,16 @@ export class UserMasterComponent implements OnInit {
       this.isExcelDownload = true;
     });
   }
-
+  
   userDetail(data:any) {
+    debugger
+    this.form.controls['password'].clearValidators();
     this.form.reset();
     this.button = 'Update';
     this.update = true;
     this.masterService.getuserdetail(data.user_id).subscribe((res:any) => {
       this.userDetails = res.result[0];
+      // this.form.controls['usctit_id'].setValue(this.userDetails.usctit_id);
       this.form.patchValue({
         user_id: this.userDetails.user_id,
         first_name: this.userDetails.first_name,
@@ -136,6 +139,7 @@ export class UserMasterComponent implements OnInit {
         reporting_to:this.userDetails.reporting_to,
         usrl_id:this.userDetails.usrl_id,
       });  
+
      
     });
   }
@@ -257,6 +261,7 @@ export class UserMasterComponent implements OnInit {
     this.masterService.userUpdation(this.formData).subscribe((res: any) => {
     if (res.status == 200) {
       this.ngOnInit();
+      this.form.controls['password'].setValidators([Validators.required]);
       document.getElementById('closed')?.click();
       this.alertService.success('User Updated Successfully');
     } else {

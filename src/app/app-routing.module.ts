@@ -52,6 +52,7 @@ import { TenderWinsComponent } from './dashboard/presales-dashboard/tender-wins/
 import { CompletedComponent } from './dashboard/presales-dashboard/completed/completed.component';
 import { L2ScheduleBulkdataComponent } from './l2-schedule-bulkdata/l2-schedule-bulkdata.component';
 
+import { BidQualifyComponent } from './presales/presales-biding/bid-qualify/bid-qualify.component';
 import { DirectBidingComponent } from './presales/presales-biding/direct-biding/direct-biding.component';
 import { IndirectBidingComponent } from './presales/presales-biding/indirect-biding/indirect-biding.component';
 
@@ -110,6 +111,7 @@ const routes: Routes = [
   {path: 'presales/alert-alarm', component:AlertAlarmComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/direct-biding', component:DirectBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/indirect-biding', component:IndirectBidingComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/bid-qualify', component:BidQualifyComponent, canActivate:[AuthGuard]},
 //Customer
   {path: 'customer-registration/process-1', component:Process1Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-2', component:Process2Component, canActivate:[AuthGuard]},

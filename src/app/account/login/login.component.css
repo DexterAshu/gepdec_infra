@@ -1,12 +1,12 @@
-/* .login_bg {
-    background-image: url('../../../assets/images/login_bg4.jpg');
+.login_bg {
+    background-image: url('../../../assets/images/login.avif');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-} */
+}
 
 .login-shadow {
-    box-shadow: 0px 0px 10px -2px #000000;
+    box-shadow: 0px 0px 6px -2px #bbc5c8;
 }
 
 .auth .brand-logo img {
@@ -22,8 +22,9 @@
 }
 
 .auth .auth-form-light {
-    background: #ffffff;
-    /* background: #fff; */
+    /* background: #fefefe; */
+   border-radius: 4px;
+    background: #fafafab8;
     /* border: 1px solid #000000b3; */
 }
 
@@ -55,3 +56,12 @@
     height: 32px;
     line-height: normal;
 }
+
+.text-heading:hover{
+    transition: transform 0.2s;
+    transform: scale(1.2);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+  }

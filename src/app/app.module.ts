@@ -103,6 +103,8 @@ import { MilestoneTasksComponent } from './masters/milestone-tasks/milestone-tas
 import { ProjectDocumentsComponent } from './masters/project-documents/project-documents.component';
 import { ProjectMilestoneComponent } from './masters/project-milestone/project-milestone.component';
 import { ProjectsComponent } from './masters/projects/projects.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { BidQualifyComponent } from './presales/presales-biding/bid-qualify/bid-qualify.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -174,7 +176,7 @@ import { ProjectsComponent } from './masters/projects/projects.component';
     //master-component
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent,
-    ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent
+    ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent
   ],
   
   imports: [
@@ -188,7 +190,8 @@ import { ProjectsComponent } from './masters/projects/projects.component';
     HttpClientModule,
     ReactiveFormsModule,
     //Ng2SearchPipeModule,
-    NgxPrintModule
+    NgxPrintModule,
+    NgSelectModule
   ],
   providers: [
     

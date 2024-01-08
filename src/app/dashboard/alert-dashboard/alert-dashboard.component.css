@@ -3,18 +3,20 @@
  color: #ffffff;
   background: #000428;
   background: -webkit-linear-gradient(to right, #004e92, #000428);
-  background: linear-gradient(to right, #004e92, #000428);
+  background: linear-gradient(to right, #c0c6d5, #0d3fa5);
+ 
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 .business-card:hover{
-  /* width:300px;
+  /* width:260px; */
   transition: transform 0.2s;
-  transform: scale(1.1); */
+  transform: scale(1.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  background: linear-gradient(to right, #0d3fa5, #c0c6d5);
+
   /* background: linear-gradient(90deg, rgb(247 242 242) 0%, #f1f0f0 50%, #e1e3e9 100%); */
   overflow: hidden;
   position: relative;
@@ -25,7 +27,7 @@
   color: #ffffff;
   background: #000428;
   background: -webkit-linear-gradient(to right, #004e92, #000428);
-  background: linear-gradient(to right, #004e92, #000428);
+  background: linear-gradient(to right, #d5d54f, #b36304);
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
@@ -34,12 +36,12 @@
   
 }
 .cust-card:hover{
-  /* width:300px;
+  /* width:260px; */
   transition: transform 0.2s;
-  transform: scale(1.1); */
+  transform: scale(1.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   /* background: linear-gradient(90deg, rgb(255 251 236) 0%, #f7efd3 50%, #f1db8b 100%); */
-  background-color: #ffffff;
+  background: linear-gradient(to right, #b36304, #d5d54f);
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -50,7 +52,7 @@
   color: #ffffff;
   background: #000428;
   background: -webkit-linear-gradient(to right, #004e92, #000428);
-  background: linear-gradient(to right, #004e92, #000428);
+  background: linear-gradient(to right, #d5bebe, #570c87);
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
@@ -58,11 +60,11 @@
   
 }
 .Profit-card:hover{
-  /* width:300px;
+  /* width:260px; */
   transition: transform 0.2s;
-  transform: scale(1.1); */
+  transform: scale(1.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  background: linear-gradient(to right,  #570c87,#d5bebe);
   /* background: linear-gradient(90deg,  #e1fdf8 0%, #a6eee2 50%, #94e4d6 100%); */
   overflow: hidden;
   position: relative;
@@ -74,7 +76,7 @@
   color: #ffffff;
   background: #000428;
   background: -webkit-linear-gradient(to right, #004e92, #000428);
-  background: linear-gradient(to right, #004e92, #000428);
+  background: linear-gradient(to right, #5ca8e9, #01644d);
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
@@ -82,11 +84,12 @@
   
 }
 .loss-card:hover{
-  /* width:300px;
+  /* width:260px; */
   transition: transform 0.2s;
-  transform: scale(1.1); */
+  transform: scale(1.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
+  background: linear-gradient(to right,  #01644d,#5ca8e9);
   /* background: linear-gradient(90deg, #c8d7f7 0%, #97b3eb 50%, #64a2e5 100%); */
   overflow: hidden;
   position: relative;
@@ -128,6 +131,22 @@
 
 .cust-legend li .box2 {
   color: #315CA4;
+}
+.cust-legend li .per_box1 {
+  font-size: 16px;
+  padding-right: 0.5rem;
+  color: #251ef7;
+}
+
+.cust-legend li .per_box2 {
+  font-size: 16px;
+  padding-right: 0.5rem;
+  color: #f7f01e;
+}
+.cust-legend li .per_box3 {
+  font-size: 16px;
+  padding-right: 0.5rem;
+  color: #069108;
 }
 
 .cust-legend li .l_box1 {

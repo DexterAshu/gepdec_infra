@@ -4,10 +4,10 @@
   <!-- filter data country state project wise -->
   <div class="col-md-12">
     <div class="row module-wise ">
-    <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
+    <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
       <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
-        </div>
-    <div class="col-md-11" style="font-family:'Times New Roman', Times, serif">
+        </div> -->
+    <div class="col-md-12" style="font-family:'Times New Roman', Times, serif">
         <form  [formGroup]="form">
           <div class=" d-flex">
               <div class="col-md-2">
@@ -121,7 +121,7 @@
         <div class="col-md-9">
         <h3> 12  </h3>
           <hr>
-         <h6> Win  </h6>
+         <h6>Project Win  </h6>
         </div>
   
       </div>
@@ -169,12 +169,12 @@
         <div class="col-md-5 ">
           <h6> 120 Cr </h6>
           <hr>
-          <small>Previous</small>
+          <small>Previous yr</small>
         </div>
         <div class="col-md-5">
           <h6> 150% </h6>
           <hr>
-          <small>change</small>
+          <small>Change</small>
         </div>
         <div class="col-md-2">
           <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #752727;"></i>
@@ -190,12 +190,12 @@
         <div class="col-md-5">
           <h6> 6 </h6>
           <hr>
-          <small>Previous</small>
+          <small>Previous Yr</small>
         </div>
         <div class="col-md-5">
           <h6> 100% </h6>
           <hr>
-          <small>change</small>
+          <small>Change</small>
         </div>
         <div class="col-md-2">
           <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #c3970d;"></i>
@@ -210,12 +210,12 @@
         <div class="col-md-5">
           <h6> 14 </h6>
           <hr>
-          <small>Previous</small>
+          <small>Previous Yr</small>
         </div>
         <div class="col-md-5">
           <h6> -2% </h6>
           <hr>
-          <small>change</small>
+          <small>Change</small>
         </div>
         <div class="col-md-2">
           <i class="mdi mdi-arrow-down mdi-36px text-center" style="color: #447f00;"></i>
@@ -230,12 +230,12 @@
         <div class="col-md-5">
           <h6> 5 </h6>
           <hr>
-          <small>Previous</small>
+          <small>Previous Yr</small>
         </div>
         <div class="col-md-5">
           <h6> 100% </h6>
           <hr>
-          <small>change</small>
+          <small>Change</small>
         </div>
         <div class="col-md-2">
           <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #0b2043;"></i>
@@ -259,7 +259,7 @@
             [results]="performancePDPEQ"
             [xAxis]="showXAxis"
             [yAxis]="showYAxis"
-            [gradient]="true"
+            [gradient]="gradient"
             [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel"
             [xAxisLabel]="xAxisLabelBarLoad"
@@ -423,7 +423,7 @@
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-              <p class="card-title mb-2">Top 10: State Wise Performance</p>
+              <p class="card-title mb-2">Top 5: State Wise Performance</p>
             <div class="chartBar" #containerRef>
               <ngx-charts-pie-chart
               [view]="[containerRef.offsetWidth, 220]"

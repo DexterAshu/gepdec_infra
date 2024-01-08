@@ -31,15 +31,11 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Company ID</th>
-                                <th>Meter ID</th>
-                                <th>Device ID</th>
-                                <th>Model</th>
-                                <th>Firmware</th>
-                                <th>Type</th>
-                                <th>IMEI No</th>
-                                <th>IP Address</th>
-                                <th>Category</th>
+                                <th>Project Name</th>
+                                <th>Owner</th>
+                                <th>Status</th>
+                                <th>Start Date</th>
+                                <th>End date</th>
                                 <th>Created On</th>
                                 <th>Action</th>
                             </tr>
@@ -51,18 +47,8 @@
                                 <td>{{a.meterID}}</td>
                                 <td>{{a.deviceID}}</td>
                                 <td>{{a.model}}</td>
-                                <td>{{a.firmwareVer}}</td>
                                 <td>{{a.type}}</td>
-                                <td>{{a.IMEINo}}</td>
-                                <td>
-                                    <div *ngIf="!!a.IPAddress; else elseBlock">
-                                        {{a.IPAddress | slice:0:20}} <span *ngIf="a.IPAddress.length > 20">...<i class="mdi mdi-information" title="{{a.IPAddress}}"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock>
-                                        {{a.IPAddress}}
-                                    </ng-template>
-                                </td>
-                                <td>{{a.category}}</td>
+                                <!-- <td>{{a.category}}</td> -->
                                 <td>{{a.createdAt | date:'dd/MM/yyyy hh:mm a'}}</td>
                                 <!-- <td>
                                     <a class="pr-2 mr-2" data-bs-toggle="modal" data-bs-target="#detailModal" title="Detail Data" (click)="meterDetail(a)"><span class="mdi mdi-format-list-bulleted text-warning cursor-pointer mdi-18px"></span></a>

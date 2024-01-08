@@ -43,23 +43,12 @@ export class ProjectMilestoneComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      // companyId: [null, Validators.required],
-      name: [null, Validators.required],
-      company_name: [null, Validators.required],
-      company_type: [null, Validators.required],
-      contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      contactno2: [null, [ Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      email: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      gst: [null, [Validators.required]] ,
-      pan: [null, Validators.required],
-      cinNo:[null, Validators.required],
-      doi: [null, Validators.required],  
-      area: [null, Validators.required],
-      country_id: [null, Validators.required],
-      state_id: [null, Validators.required],
-      district_id: [null, Validators.required],
-      websiteUrl: [null],
-      pincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
+      project: [null, Validators.required],
+      milestone_name: [null, Validators.required],
+      msd: [null, Validators.required],
+      med: [null, [Validators.required]] ,
+      status: [null, Validators.required],
+      description: [null, Validators.required],
     });
 
     this.getCompanyData();
@@ -85,28 +74,13 @@ export class ProjectMilestoneComponent {
       this.custDetails = res.result[0];
      
         this.form.patchValue({
-          name: this.custDetails.name,
-          company_name: this.custDetails.company_name,
-          company_type: this.custDetails.company_type,
-          contactno1: this.custDetails.contactno1,
-          contactno2: this.custDetails.contactno2,
-          email: this.custDetails.email,
-          gst: this.custDetails.gst,
-          pan: this.custDetails.pan,
-          cinNo: this.custDetails.cinNo,
-          doi: this.custDetails.doi,
-          area: this.custDetails.area,
-          websiteUrl: this.custDetails.websiteUrl,
-          pincode: this.custDetails.pincode,
-          
+          project: this.custDetails.project,
+          milestone_name: this.custDetails.milestone_name,
+          msd: this.custDetails.msd,
+          med: this.custDetails.med,
+          status: this.custDetails.status,
+          description: this.custDetails.description,
         }); 
-        this.form.controls['country_id'].setValue(this.custDetails.country_id);
-        this.form.controls['state_id'].setValue(this.custDetails.state_id);
-        this.form.controls['district_id'].setValue(this.custDetails.district_id);
-        setTimeout(() => {
-          this.getStateData();
-          this.getDistrictData();
-        }, 500);
   })
   }
   OnlyNumbersAllowed(event: any): boolean {

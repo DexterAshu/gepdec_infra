@@ -1184,13 +1184,13 @@ export class DashboardComponent implements OnInit {
   domain: ['#660066', '#990099', '#6600FF']
   };
   lineColorScheme:any ={
-  domain: ['#fd4747' , '#251ef7', '#069108']
+  domain: ['#fc030b' , '#135df0', '#069108']
   }
   lineColorSchemeFinance:any ={
-  domain: ['#251ef7', '#f7f01e', '#069108']
+  domain: ['#135df0', '#f7f01e', '#069108']
   }
   mainColorScheme:any ={
-  domain: ['#309d15' ,'#f7f01e','#251ef7']
+  domain: ['#309d15' ,'#f7f01e','#135df0']
   }
   total = this.performancePDPEQ.reduce((acc:any, item:any) => acc + item.value, 0);
   showXAxis = true;
@@ -1258,21 +1258,17 @@ export class DashboardComponent implements OnInit {
 
 
   data = [
-    { 'name' : "UP", 'value' : 15 },
+    {'name' : "UP", 'value' : 15 },
     {'name' : "MP", 'value' : 10},
     {'name' : "Delhi", 'value' : 10},
-    {'name' : "Bihar", 'value' : 16},
-    {'name': 'Gujarat', 'value': 12},
-    {'name': 'Goa', 'value': 18},
-    {'name': 'Haryana', 'value': 12},
-    {'name': 'Karnataka', 'value': 10},
     {'name': 'Maharashtra', 'value': 13},
-    {'name': 'Punjab', 'value': 10},
+    {'name': 'GOA', 'value': 8},
+    {'name': 'Others', 'value': 10},
 
   ]
 
   colorSchemeState:any = {
-    domain: [ '#05d4eb','#009423', '#f7f705', '#f205c3', '#f5810c','#2216fa', '#70f205', '#9616f7', '#f74a53', '#6d7a14' ]
+    domain: ['#9370DB' ,'#FF7F50', '#87CEFA' , '#71c016', '#FA8072', '#90EE90', '#9370DB']
   };
  
 

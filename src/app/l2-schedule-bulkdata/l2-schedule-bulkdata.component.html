@@ -219,9 +219,23 @@
                     <div class="row">
 
                         <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Project<span class="required-asterisk">*</span></label>
+                                <select formControlName="project" class="form-select form-select-sm">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
+                                    <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
+                                </select>
+                                <div *ngIf="f['project'].touched && f['project'].invalid">
+                                    <small class="text-danger" *ngIf="f['project'].errors?.['required']">*Required</small>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-1">
                     <input id="cin" name="cin" type="file" (change)="fileChangeEvent($event)" placeholder="Upload a file..." multiple/>
                     <br>
-                    <button type="button" class="btn btn-success btn-s mt-3" (click)="bulUpload()">
+                    <button type="button" [disabled]="!form.valid" class="btn btn-success btn-s mt-3" (click)="bulUpload()">
                         <i class="mdi mdi-folder-upload menu-icon"></i>&nbsp;Upload
                     </button>
                     
