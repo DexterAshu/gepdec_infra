@@ -1197,7 +1197,7 @@ export class ReportDashboardComponent {
   domain: ['#387df3' , '#FFBF00', '#FF7F50']
   }
   lineColorSchemeFinance:any ={
-  domain: ['#387df3' , '#db8320', '#6dcd6d']
+  domain: ['#75a5f8' , '#fb958a', '#85e785']
   }
   mainColorScheme:any ={
   domain: ['#43e943' ,'#fad73c','#9775dc']
