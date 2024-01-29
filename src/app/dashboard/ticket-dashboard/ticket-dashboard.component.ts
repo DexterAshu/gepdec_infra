@@ -86,7 +86,7 @@ export class TicketDashboardComponent {
   gradient = true;
   showLegend = true;
   showXAxisLabel1 = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = '';
   showYAxisLabel1 = true;
   yAxisLabel = 'Sales';
   timeline = true;
@@ -100,7 +100,7 @@ export class TicketDashboardComponent {
  gradient2 = false;
  showLegend2 = true;
  showXAxisLabel2 = true;
- xAxisLabel2 = 'Country';
+ xAxisLabel2 = '';
  showYAxisLabel2 = true;
  yAxisLabel2 = 'Data Value';
 
@@ -156,29 +156,39 @@ onSelect(event:any) {
   ];
   single = [
     {
-      "name": "China",
-      "value": 2243772
+      "name": "Total",
+      "value": 220
     },
     {
-      "name": "USA",
-      "value": 1126000
+      "name": "Presales",
+      "value": 60
     },
     {
-      "name": "Norway",
-      "value": 296215
+      "name": "Design",
+      "value": 40
     },
     {
-      "name": "Japan",
-      "value": 257363
+      "name": "Procurement",
+      "value": 20
     },
     {
-      "name": "Germany",
-      "value": 196750
+      "name": "Warehouse",
+      "value": 30
     },
     {
-      "name": "France",
-      "value": 204617
-    }
+      "name": "Execution",
+      "value": 20
+    },
+    {
+      "name": "Quality",
+      "value": 10
+    },
+    {
+      "name": "Finance",
+      "value": 20
+    },
+   
+  
   ];
 
 //department wise performance
@@ -613,7 +623,7 @@ onSelect(event:any) {
     domain: ['#6093E8', '#315CA4']
   }
   bpColorScheme:any ={
-    domain: ['#84c835', '#f6f66f','#fe5e5e']
+    domain: ['#90EE90', '#FF7F50', '#FA8072']
   }
   //bpDepartment wise
   bpshowXAxis = true;
@@ -656,7 +666,7 @@ onSelect(event:any) {
   };
 
   colorScheme:any = {
-    domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
+    domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90']
   };
   //all tenders color
   colorTenderScheme:any = {

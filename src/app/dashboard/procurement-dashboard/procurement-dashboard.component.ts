@@ -34,7 +34,125 @@ showXAxisLabel2 = true;
 xAxisLabel2 = 'Country';
 showYAxisLabel2 = true;
 yAxisLabel2 = 'Data Value';
+xAxisLabelProc = 'Number';
+yAxisLabelProc = '';
+animations: boolean = true;
 
+colorSchemeProcure:any ={
+  domain: ['#05E513' ,'#fad73c','#4b55df']
+  }
+
+  pieDataProc=[
+ 
+    {
+      "name": "PO",
+      "value": 12
+    },
+    {
+      "name": "Pending",
+      "value": 8
+    },
+    {
+      "name": "Total",
+      "value": 20
+    },
+  ]
+  ProcurementGraph = [
+    {
+      "name": "Total",
+      "series": [
+       
+        {
+          "name": "PO",
+          "value": 8
+        },
+        {
+          "name": "Pending",
+          "value": 4
+        },
+        {
+          "name": "Total",
+          "value": 12
+        },
+      ]
+    },
+    
+    {
+      "name": "Q1",
+      "series": [
+       
+        {
+          "name": "PO",
+          "value": 8
+        },
+        {
+          "name": "Pending",
+          "value": 4
+        },
+        {
+          "name": "Total",
+          "value": 12
+        },
+      ]
+    },
+    
+    {
+      "name": "Q2",
+      "series": [
+      
+        {
+          "name": "PO",
+          "value": 7
+        },
+        {
+          "name": "Pending",
+          "value": 7
+        },
+        {
+          "name": "Total",
+          "value": 14
+        },
+      
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+       
+        {
+          "name": "PO",
+          "value": 12
+        },
+        {
+          "name": "Pending",
+          "value": 4
+        },
+        {
+          "name": "Total",
+          "value": 16
+        },
+     
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+       
+        {
+          "name": "PO",
+          "value": 6
+        },
+        {
+          "name": "Pending",
+          "value": 6
+        },
+        {
+          "name": "Total",
+          "value": 12
+        },   
+      ]
+    }, 
+    ];
 
 financial = [
 {

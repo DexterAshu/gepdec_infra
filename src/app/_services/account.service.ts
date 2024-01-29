@@ -85,4 +85,11 @@ export class AccountService {
     this.route.navigate(['/login']);
     this.alertService.success("Logout Successfully.");
   }
+
+  //forget password
+  getpwd(data:any){
+    return this.http.put<any>(
+    `${environment.apiUrl}/user/api/v1/updatepassword1`, data);
+    }
+
 }

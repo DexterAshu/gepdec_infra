@@ -149,16 +149,25 @@ export class TenderMasterComponent {
       }
     });
   }
-
   getCompanyType() {
-    this.apiService.getCompData().subscribe((res:any) => {
+    this.apiService.getCompanyData().subscribe((res:any) => {
       if (res.status === 200) {
-        this.compData = res.result;
+        this.compData = res.companytype;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
     });
   }
+
+  // getCompanyType() {
+  //   this.apiService.getCompData().subscribe((res:any) => {
+  //     if (res.status === 200) {
+  //       this.compData = res.result;
+  //     } else {
+  //       this.alertService.warning("Looks like no data available in type.");
+  //     }
+  //   });
+  // }
   
   getCompanyData() {
     this.apiService.getCompanyList().subscribe((res: any) => {

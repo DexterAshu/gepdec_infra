@@ -1,0 +1,126 @@
+.search-head{
+    margin: -200px 0 0 400px;
+    z-index: 9999; 
+
+}
+.search-text{
+    color: #fff;
+    font-size: 35px;
+    margin-left: -75px;
+	margin-top: -150px;
+    font-weight: bold;
+    font-family: "Open Sans", sans-serif;
+}
+
+
+.se{
+    margin-left: -100px;
+}
+
+
+
+/* search-box */
+
+/* *{
+	box-sizing: border-box;
+}
+body{
+	background: #25283D;
+	font-family: roboto,Arial;
+}
+.container{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+} */
+h1{
+	color: #fff;
+	font-weight: 400;
+}
+input, button{
+	border: none;
+	background: none;
+	outline: none;
+}
+button{
+	cursor: pointer;
+}
+.search-box{
+	display: flex;
+	background: #f6f8fc;
+	border-radius: 4em;
+    margin-top: 25px;
+    width: 38%;
+    margin-left: -100px;
+	
+}
+.search-box-input{
+	width: 0px;
+	font-size: 1em;
+	color: #000;
+	transition: .5s;
+}
+.search-box-btn{
+	display: flex;
+    border-radius: 50%;
+    width: 4em;
+    height: 3em;
+    background: #f6f8fc;
+    transition: .3s;
+}
+.search-box-icon{
+	margin: auto;
+	color: black;
+}
+.search-box-input::placeholder{
+	color: #000;
+	opacity: .7;
+}
+.search-box:hover .search-box-input{
+	padding-left: 2em;
+	padding-right: 1em;
+	width: 340px;
+}
+.search-box-btn:active{
+	transform: scale(.75);
+}
+
+.lab-name{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgb(202 202 202);
+    border: 1px solid rgb(105 105 105);
+
+}
+.plus{
+	border-radius: 50%;
+    background-color: rgb(202 202 202);
+    border: 1px solid rgb(105 105 105);
+	text-align: center;
+	padding: 13px;
+
+}
+.plus:focus{
+	border-radius: 50%;
+    background-color: rgb(202 202 202);
+    border: 1px solid rgb(105 105 105);
+	text-align: center;
+	padding: 13px;
+
+}
+.name-p{
+    font-weight: bold;
+    font-family: "Open Sans", sans-serif;
+    margin-left: 5px;
+}
+.dropdown-item:hover{
+	background-color: rgb(90, 90, 194);
+	color: white;
+	
+}

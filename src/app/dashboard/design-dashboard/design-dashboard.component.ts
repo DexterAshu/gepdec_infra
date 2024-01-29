@@ -33,7 +33,7 @@ export class DesignDashboardComponent {
   xAxisLabel2 = 'Country';
   showYAxisLabel2 = true;
   yAxisLabel2 = 'Data Value';
-  
+  animations :boolean =false;
   
   financial = [
   {
@@ -58,6 +58,23 @@ export class DesignDashboardComponent {
   onSelect(event:any) {
   console.log(event);
   }
+
+  pieDataDesign=[
+  
+    {
+      "name": "In-House",
+      "value": 400
+    },
+    {
+      "name": "3rd Party",
+      "value": 300
+    },
+    {
+      "name": "Pending",
+      "value": 400
+    },
+   
+    ];
   
   single = [
   {
@@ -257,6 +274,106 @@ export class DesignDashboardComponent {
   
   
   ];
+
+  Design = [
+    {
+      "name": "Total",
+      "series": [
+       
+        {
+          "name": "In-House",
+          "value": 12
+        },
+        {
+          "name": "3rd Party",
+          "value": 8
+        },
+        {
+          "name": "Total",
+          "value": 20
+        },
+      ]
+    },
+    
+    {
+      "name": "Q1",
+      "series": [
+       
+        {
+          "name": "In-House",
+          "value": 6
+        },
+        {
+          "name": "3rd Party",
+          "value": 14
+        },
+        {
+          "name": "Total",
+          "value": 20
+        },
+      ]
+    },
+    
+    {
+      "name": "Q2",
+      "series": [
+      
+        {
+          "name": "In-House",
+          "value": 4
+        },
+        {
+          "name": "3rd Party",
+          "value": 7
+        },
+        {
+          "name": "Total",
+          "value": 11
+        },
+      
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+       
+        {
+          "name": "In-House",
+          "value": 9
+        },
+        {
+          "name": "3rd Party",
+          "value": 13
+        },
+        {
+          "name": "Total",
+          "value": 22
+        },
+     
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+       
+        {
+          "name": "In-House",
+          "value": 10
+        },
+        {
+          "name": "3rd Party",
+          "value": 15
+        },
+        {
+          "name": "Total",
+          "value": 25
+        },
+      
+      ]
+    },
+   
+    
+    ];
   
   lineChart = [
   {
@@ -374,8 +491,8 @@ export class DesignDashboardComponent {
   domain: ['#315CA4', '#FFA333', '#FFCC8F']
   }
   mainColorScheme:any ={
-  domain: ['#6093E8', '#315CA4']
-  }
+    domain: ['#43e943' ,'#fad73c','#9775dc']
+    }
   showXAxis = true;
   showYAxis = true;
   showXAxisLabel = true;

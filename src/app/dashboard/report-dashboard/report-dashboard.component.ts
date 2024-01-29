@@ -76,32 +76,41 @@ export class ReportDashboardComponent {
   }
   
   single = [
-  {
-    "name": "China",
-    "value": 2243772
-  },
-  {
-    "name": "USA",
-    "value": 1126000
-  },
-  {
-    "name": "Norway",
-    "value": 296215
-  },
-  {
-    "name": "Japan",
-    "value": 257363
-  },
-  {
-    "name": "Germany",
-    "value": 196750
-  },
-  {
-    "name": "France",
-    "value": 204617
-  }
+    {
+      "name": "Total",
+      "value": 220
+    },
+    {
+      "name": "Presales",
+      "value": 60
+    },
+    {
+      "name": "Design",
+      "value": 40
+    },
+    {
+      "name": "Procurement",
+      "value": 20
+    },
+    {
+      "name": "Warehouse",
+      "value": 30
+    },
+    {
+      "name": "Execution",
+      "value": 20
+    },
+    {
+      "name": "Quality",
+      "value": 10
+    },
+    {
+      "name": "Finance",
+      "value": 20
+    },
+   
+  
   ];
-
   execution=[
   
     {
@@ -1185,10 +1194,10 @@ export class ReportDashboardComponent {
   domain: ['#660066', '#990099', '#6600FF']
   };
   lineColorScheme:any ={
-  domain: ['#e05555' , '#9775dc', '#43e943']
+  domain: ['#387df3' , '#FFBF00', '#FF7F50']
   }
   lineColorSchemeFinance:any ={
-  domain: ['#9775dc', '#f38705', '#43e943']
+  domain: ['#387df3' , '#db8320', '#6dcd6d']
   }
   mainColorScheme:any ={
   domain: ['#43e943' ,'#fad73c','#9775dc']
@@ -1223,7 +1232,10 @@ export class ReportDashboardComponent {
   domain: ['#43e943' ,'#fad73c','#9e3cfa']
   }
   colorSchemeLoadQuarter:any ={
-  domain: ['#9775dc' , '#43e943', '#f71616']
+  domain: ['#387df3' , '#FFBF00', '#FF7F50']
+  }
+  colorSchemeLoadQuarter1:any ={
+  domain: ['#9d7dde' , '#ff8c61']
   }
   
   colorSchemeFin:any = {
@@ -1234,7 +1246,7 @@ export class ReportDashboardComponent {
   domain: ['#f38705', '#43e943']
   };
   colorScheme:any = {
-  domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
+    domain: ['#9370DB', '#87CEFA', '#5e96f7', '#FF7F50', '#90EE90', '#FA8072', '#fcbe53']
   };
   colorSchemePerformance:any = {
   domain: ['#9775dc' , '#e05555']
@@ -1269,12 +1281,12 @@ export class ReportDashboardComponent {
   ]
 
   colorSchemeState:any = {
-    domain: ['#9370DB' ,'#e05555', '#87CEFA' , '#43e943', '#f38705', '#90EE90', '#9370DB']
+    domain: ['#9370DB', '#87CEFA', '#5e96f7', '#FF7F50', '#90EE90', '#FA8072', '#fcbe53']
   };
  
 
   bpColorScheme:any ={
-    domain: ['#43e943', '#f38705','#dd3d3d']
+    domain: ['#508df7', '#f38705','#f57445']
   }
   
 

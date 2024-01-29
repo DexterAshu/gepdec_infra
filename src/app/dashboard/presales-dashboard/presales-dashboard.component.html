@@ -218,8 +218,62 @@
         </div>
       </div>
 </div>
+
+  <!-- PreSales-data-chart -->
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">PreSales</p>
+          <div class="chartBar" #containerRef5>
+            <ngx-charts-line-chart
+            [view]="[containerRef5.offsetWidth, 210]"
+            [scheme]="colorSchemeLoadQuarter"
+            [results]="lineChart"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [showXAxisLabel]="showYAxisLabelLine"
+            [gradient]="true"
+            [showYAxisLabel]="showYAxisLabelLine"
+            [xAxisLabel]="xAxisLabelLine"
+            [yAxisLabel]="yAxisLabelLine">
+          </ngx-charts-line-chart>
+          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank l_box1"></i> Bid</li>
+            <li><i class="mdi mdi-checkbox-blank l_box2"></i> Win</li>
+            <li><i class="mdi mdi-checkbox-blank l_box3"></i> Loss</li>
+          </ul>
+                           
+        </div>
+      </div>
+    </div>
+   
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">PreSales: Values</p>
+       
+          <div class="chartBar" #containerRef6>
+            <ngx-charts-pie-chart
+            [view]="[containerRef6.offsetWidth - 35, 220]"
+            [scheme]="lineColorScheme"
+            [labels]="showLabelsPie"
+            [gradient]="false"
+            [doughnut]="true"
+            [legend]="true"
+            [results]="pieDataCust">
+          </ngx-charts-pie-chart>
+          </div>
+      
+          
+        </div>
+      </div>
+    </div>
+  
+  </div>
  
-<div class="row mt-2">
+<div class="row mt-1">
   <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
         <div class="card-body">
@@ -303,116 +357,38 @@
     </div>
   
   </div>
-  <div class="col-md-6 grid-margin stretch-card ">
+  <div class="col-md-6 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <p class="card-title mb-2 col-md-6">Customer Life Time Value</p>
-          <p class=" col-md-6 p-1 bg-success text-center rounded">$000</p>
+          <p class="card-title mb-2 col-md-6">Customer Acquisition Cost</p>
+          <p class=" col-md-6 p-1 bg-primary text-center rounded">$000</p>
         </div>
-        <div class="chartBar" #containerRef5>
-          <ngx-charts-line-chart
-          [view]="[containerRef5.offsetWidth, 210]"
-          [scheme]="lineColorScheme"
-          [results]="lineChart"
+        <div class="chartBar" #containerRef>
+          <ngx-charts-bar-vertical-2d
+          [view]="[containerRef.offsetWidth, 190]"
+          [scheme]="mainColorScheme"
+          [results]="multi1"
           [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [showXAxisLabel]="showYAxisLabelLine"
           [gradient]="true"
-          [showYAxisLabel]="showYAxisLabelLine"
-          [xAxisLabel]="xAxisLabelLine"
-          [yAxisLabel]="yAxisLabelLine">
-        </ngx-charts-line-chart>
+          [yAxis]="showYAxis"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabelBar"
+          [yAxisLabel]="yAxisLabelBar"
+          [barPadding]="5"
+          [groupPadding]="7">
+        </ngx-charts-bar-vertical-2d>
         </div>
         <ul class="cust-legend">
-          <li><i class="mdi mdi-checkbox-blank l_box1"></i> Last Year</li>
-          <li><i class="mdi mdi-checkbox-blank l_box2"></i> This Year</li>
+          <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
+          <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
         </ul>
-                         
+        
       </div>
     </div>
   </div>
 </div>
-<div class="row mt-1">
-  <div class="col-md-6 grid-margin stretch-card pe-0">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-title mb-2">Top 5 Deals</p>
-        <div class="table-responsive ht-auto">
-          <table class="table table-hover table-striped">
-            <thead class="table-primary text-nowrap">
-              <tr>
-                  <th>Concept</th>
-                  <th>Qty</th>
-                  <th>Total</th>
-                
-              </tr>
-            </thead>
-            <tbody class="text-nowrap">
-              <tr>
-                  <td>Information</td>
-                  <td>410</td>
-                  <td>300</td>
-              </tr>
-              <tr>
-                  <td>Data</td>
-                  <td>520</td>
-                  <td>1490</td>
-              </tr>
-              <tr>
-                  <td>Info</td>
-                  <td>300</td>
-                  <td>522</td>
-              </tr>
-              <tr>
-                  <td>Pending data</td>
-                  <td>300</td>
-                  <td>522</td>
-              </tr>
-              <tr>
-                  <td>Information</td>
-                  <td>300</td>
-                  <td>522</td>
-              </tr>
-           
-            </tbody>
-          </table>
-        </div>
-                         
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <p class="card-title mb-2 col-md-6">Customer Acquisition Cost</p>
-            <p class=" col-md-6 p-1 bg-primary text-center rounded">$000</p>
-          </div>
-          <div class="chartBar" #containerRef>
-            <ngx-charts-bar-vertical-2d
-            [view]="[containerRef.offsetWidth, 190]"
-            [scheme]="mainColorScheme"
-            [results]="multi1"
-            [xAxis]="showXAxis"
-            [gradient]="true"
-            [yAxis]="showYAxis"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelBar"
-            [yAxisLabel]="yAxisLabelBar"
-            [barPadding]="5"
-            [groupPadding]="7">
-          </ngx-charts-bar-vertical-2d>
-          </div>
-          <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
-            <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
-          </ul>
-          
-        </div>
-      </div>
-    </div>
-</div>
+
 
 </div>

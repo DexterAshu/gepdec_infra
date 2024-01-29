@@ -60,7 +60,8 @@ export class ApiService {
         'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
       }),
     };
-    return this.http.get<any[]>(`${environment.apiUrl}/company/api/v1/getcompanytype`, httpOptions);
+    return this.http.get<any[]>(
+      `${environment.apiUrl}/company/api/v1/getcompanytype`, httpOptions);
   }
   createCompany(data: any): Observable<any[]> {
     const httpOptions = {
@@ -127,6 +128,35 @@ export class ApiService {
     return this.http.get<any[]>(
       `${environment.apiUrl}/biding/api/v1/getTenderDropdown`,
     
+      httpOptions
+    );
+  }
+  getCompanyData(): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any[]>(
+      `${environment.apiUrl}/master/api/v1/getCompanyDropdown`,
+    
+      httpOptions
+    );
+  }
+
+
+  //bid-qualify
+  bidQuali(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // 'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/company/api/v1/addComapany`,
+      data,
       httpOptions
     );
   }
@@ -244,6 +274,20 @@ createMasterRole(data: any): Observable<any[]> {
       httpOptions
     );
   }
+
+
+  //Support ticket list
+incidentList():Observable<any>
+{
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+    }),
+  };
+  return this.http.get<any>( `${environment.apiUrl}/incident/getIncidentList`,
+  httpOptions
+   );
+}
 
   //********** API DASHBOARD **********
   //chart apply in dashboard

@@ -100,7 +100,7 @@
           <i class="mdi mdi-currency-inr text-center" style="color: #752727;font-size: 40px;"></i>
         </div>
 
-     
+    
         <div class="col-md-9">
           <h3> 300 Cr </h3>
           <hr>
@@ -323,6 +323,49 @@
   </div>
   
   <!-- Department wise performance -->
+  <!-- <div class="row mt-1">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-9" routerLink="/dashboard/performance-dashboard">
+              <p class="card-title mb-2">Performance: Department Wise</p>
+  
+            </div>
+            <div class="col-md-3">
+              <div class="form-group row">
+              <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Projects:</label>
+              <div class="col-sm-8">
+                  <select class="form-select form-select-sm">
+                      <option>All</option>
+                      <option>GEPDEC Energy</option>
+                      <option>GEPDEC Infra</option>
+                  </select>
+              </div>
+              </div>
+          </div>
+          </div>
+          <div class="chartBar" #containerPerformance>
+            <ngx-charts-bar-vertical
+            [view]="[containerPerformance.offsetWidth, 200]"
+            [scheme]="colorScheme"
+            [results]="single"
+            [gradient]="gradient"
+            [xAxis]="showXAxis1"
+            [yAxis]="showYAxis1"
+            [legend]="false"
+            [showXAxisLabel]="showXAxisLabel1"
+            [showYAxisLabel]="showYAxisLabel1"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel">
+          </ngx-charts-bar-vertical>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> -->
+
   <div class="row mt-1">
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card"  >
@@ -360,10 +403,6 @@
             [groupPadding]="7">
           </ngx-charts-bar-vertical-2d>
           </div>
-          <!-- <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
-            <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
-          </ul> -->
           
         </div>
       </div>
@@ -382,35 +421,35 @@
                 <tr>
                     <th>Project Name</th>
                     <th>Category</th>
-                    <th>Value</th>
+                    <th>Value (Cr)</th>
                   
                 </tr>
               </thead>
               <tbody class="text-nowrap">
                 <tr>
+                    <td>Taldihi</td>
+                    <td>330kv</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>Jaunpur</td>
+                    <td>220kv</td>
+                    <td>400</td>
+                </tr>
+                <tr>
+                    <td>Noida Sec-45</td>
+                    <td>220kv</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>Demo</td>
+                    <td>330kv</td>
+                    <td>522</td>
+                </tr>
+                <tr>
                     <td>Information</td>
-                    <td>410</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>Data</td>
-                    <td>520</td>
-                    <td>1490</td>
-                </tr>
-                <tr>
-                    <td>Info</td>
-                    <td>300</td>
-                    <td>522</td>
-                </tr>
-                <tr>
-                    <td>Pending data</td>
-                    <td>300</td>
-                    <td>522</td>
-                </tr>
-                <tr>
-                    <td>Information</td>
-                    <td>300</td>
-                    <td>522</td>
+                    <td>330kv</td>
+                    <td>200</td>
                 </tr>
              
               </tbody>
@@ -890,9 +929,10 @@
         <div class="card">
           <div class="card-body">
             <p class="card-title">Performance</p>
-            <div class="chartBar" #containerPerformance>
+            <div class="chartBar" #containerPerformance1>
+            
               <ngx-charts-bar-vertical-2d
-            [view]="[containerPerformance.offsetWidth, 190]"
+            [view]="[containerPerformance1.offsetWidth, 190]"
             [scheme]="colorSchemePerformance"
             [results]="PerformanceData"
             [xAxis]="showXAxis"
@@ -906,11 +946,11 @@
             [groupPadding]="7">
           </ngx-charts-bar-vertical-2d>
             </div>
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul> -->
+            <ul class="cust-legend">
+              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Rev</li>
+              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Exp</li>
+              <!-- <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li> -->
+            </ul>
             
           </div>
         </div>

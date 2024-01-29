@@ -25,13 +25,16 @@
 }
 input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
     border: 1px solid red;
-    box-shadow: 0 0 13px inset #ff000017;
+    /* color: #c9c8c8 !important; */
+    /* box-shadow: 0 0 13px inset #ff000017; */
 }
 .modal-btns{
     text-align: right;
 }
 .modal-header{
-    background-color: #2f528b;
+    /* background-color: #2f528b; */
+    background-color: #225cbb;
+    
     color: #ffffff;
     font-size: 20px;
 }
@@ -63,6 +66,7 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
 }
 
 .form-select-sm {
+    /* color: #c9c8c8 !important; */
     padding-top: 0.5rem;
     padding-bottom: 0.35rem;
     padding-left: 0.5rem;
@@ -176,7 +180,8 @@ header.legend-title.ng-star-inserted {
     
     /* background: linear-gradient(90deg, rgb(49 92 164) 0%, rgb(157 193 255) 40%, rgb(34, 81, 156) 100%) !important; */
     /* background: linear-gradient(90deg, rgb(92 107 185) 0%, rgb(49 92 164) 40%, #cbe2ff 100%) !important; */
-    background: linear-gradient(90deg, rgb(26 26 111) 0%, #1a1a6f 40%, #db8820 100%) !important;
+    /* background: linear-gradient(90deg, rgb(26 26 111) 0%, #1a1a6f 40%, #db8820 100%) !important; */
+    background: linear-gradient(90deg, rgb(26 26 111) 0%, #1a1a6f 40%, #222296 100%) !important;
 }
 
 .my-10 {

@@ -55,14 +55,31 @@ import { L2ScheduleBulkdataComponent } from './l2-schedule-bulkdata/l2-schedule-
 import { BidQualifyComponent } from './presales/presales-biding/bid-qualify/bid-qualify.component';
 import { DirectBidingComponent } from './presales/presales-biding/direct-biding/direct-biding.component';
 import { IndirectBidingComponent } from './presales/presales-biding/indirect-biding/indirect-biding.component';
+import { DataCapturingComponent } from './presales/presales-biding/data-capturing/data-capturing.component';
+
+
+import { ProblemTicketComponent } from './problem-ticket/problem-ticket.component';
+import { HelpSupportComponent } from './help-support/help-support.component';
+import { DocumentationComponent } from './documentation/documentation.component';
+import { ProjReportsComponent } from './proj-reports/proj-reports.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'forget-password', component:ForgetPasswordComponent},
+
 //dashboard
   {path: 'dashboard', component:DashboardComponent, canActivate:[AuthGuard]},
 
   //L2-schedule-bulkdata
   {path: 'l2-bulkdata', component:L2ScheduleBulkdataComponent, canActivate:[AuthGuard]},
+
+  {path: 'issue-tickets', component:ProblemTicketComponent, canActivate:[AuthGuard]},
+  {path: 'help-support', component:HelpSupportComponent, canActivate:[AuthGuard]},
+  {path: 'documentation', component:DocumentationComponent, canActivate:[AuthGuard]},
+  {path: 'project-report', component:ProjReportsComponent, canActivate:[AuthGuard]},
+  {path: 'reset-password', component:ResetPasswordComponent, canActivate:[AuthGuard]},
 
   //dashboard-child-module
   {path: 'dashboard/fin-dashboard', component:FinanceDashboardComponent, canActivate:[AuthGuard]},
@@ -112,6 +129,7 @@ const routes: Routes = [
   {path: 'presales/presales-biding/direct-biding', component:DirectBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/indirect-biding', component:IndirectBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/bid-qualify', component:BidQualifyComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/data-capture', component:DataCapturingComponent, canActivate:[AuthGuard]},
 //Customer
   {path: 'customer-registration/process-1', component:Process1Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-2', component:Process2Component, canActivate:[AuthGuard]},

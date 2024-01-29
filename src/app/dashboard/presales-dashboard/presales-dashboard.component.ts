@@ -259,81 +259,85 @@ export class PresalesDashboardComponent {
   ];
   
   lineChart = [
-  {
-    "name": "2022",
-    "series": [
-      {
-        "name": "Jan",
-        "value": 400
-      },
-      {
-        "name": "Feb",
-        "value": 380
-      },
-      {
-        "name": "Mar",
-        "value": 950
-      },
-      {
-        "name": "Apr",
-        "value": 410
-      },
-      {
-        "name": "May",
-        "value": 530
-      },
-      {
-        "name": "Jun",
-        "value": 670
-      },
-      {
-        "name": "July",
-        "value": 580
-      },
-      {
-        "name": "Aug",
-        "value": 810
-      },
-    ]
-  },
-  {
-    "name": "2023",
-    "series": [
-      {
-        "name": "Jan",
-        "value": 300
-      },
-      {
-        "name": "Feb",
-        "value": 440
-      },
-      {
-        "name": "Mar",
-        "value": 620
-      },
-      {
-        "name": "Apr",
-        "value": 510
-      },
-      {
-        "name": "May",
-        "value": 430
-      },
-      {
-        "name": "Jun",
-        "value": 570
-      },
-      {
-        "name": "July",
-        "value": 610
-      },
-      {
-        "name": "Aug",
-        "value": 710
-      },
-    ]
-  },
-  ];
+    {
+      "name": "Bid",
+      "series": [
+        {
+          "name": "Total",
+          "value": 400,
+        },
+        {
+          "name": "Q1",
+          "value": 380
+        },
+        {
+          "name": "Q2",
+          "value": 350
+        },
+        {
+          "name": "Q3",
+          "value": 410
+        },
+        {
+          "name": "Q4",
+          "value": 530
+        },
+       
+      ]
+    },
+    {
+      "name": "Win",
+      "series": [
+        {
+          "name": "Total",
+          "value": 300
+        },
+        {
+          "name": "Q1",
+          "value": 440
+        },
+        {
+          "name": "Q2",
+          "value": 320
+        },
+        {
+          "name": "Q3",
+          "value": 510
+        },
+        {
+          "name": "Q4",
+          "value": 430
+        },
+      
+      ]
+    },
+    {
+      "name": "Loss",
+      "series": [
+        {
+          "name": "Total",
+          "value": 200
+        },
+        {
+          "name": "Q1",
+          "value": 340
+        },
+        {
+          "name": "Q2",
+          "value": 220
+        },
+        {
+          "name": "Q3",
+          "value": 510
+        },
+        {
+          "name": "Q4",
+          "value": 430
+        },
+      
+      ]
+    },
+    ];
   
   pieData=[
   {
@@ -354,25 +358,25 @@ export class PresalesDashboardComponent {
   },
   ];
   pieDataCust=[
-  {
-    "name": "Commercial",
-    "value": 89400
-  },
-  {
-    "name": "Industrial",
-    "value": 59000
-  },
-  {
-    "name": "Residential",
-    "value": 99000
-  },
-  ];
+    {
+      "name": "Loss",
+      "value": 400
+    },
+    {
+      "name": "Bid",
+      "value": 900
+    },
+    {
+      "name": "Win",
+      "value": 500
+    },
+    ]
   pieColorsCust:any = {
   domain: ['#660066', '#990099', '#6600FF']
   };
   lineColorScheme:any ={
-  domain: ['#315CA4', '#FFA333', '#FFCC8F']
-  }
+    domain: ['#e05555' , '#9775dc', '#43e943']
+    }
   mainColorScheme:any ={
   domain: ['#6093E8', '#315CA4']
   }
@@ -399,8 +403,8 @@ export class PresalesDashboardComponent {
   domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
   }
   colorSchemeLoadQuarter:any ={
-  domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
-  }
+    domain: ['#9775dc' , '#43e943', '#f71616']
+    }
   
   colorSchemeFin:any = {
   domain: ['#400030','#6b275a', '#ba3d5d', '#e16b5f', '#fe9085'],

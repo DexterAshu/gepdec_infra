@@ -105,6 +105,14 @@ import { ProjectMilestoneComponent } from './masters/project-milestone/project-m
 import { ProjectsComponent } from './masters/projects/projects.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BidQualifyComponent } from './presales/presales-biding/bid-qualify/bid-qualify.component';
+import { ProblemTicketComponent } from './problem-ticket/problem-ticket.component';
+import { HelpSupportComponent } from './help-support/help-support.component';
+import { DocumentationComponent } from './documentation/documentation.component';
+import { ProjReportsComponent } from './proj-reports/proj-reports.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { DataCapturingComponent } from './presales/presales-biding/data-capturing/data-capturing.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -176,7 +184,7 @@ import { BidQualifyComponent } from './presales/presales-biding/bid-qualify/bid-
     //master-component
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent,
-    ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent
+    ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent
   ],
   
   imports: [

@@ -139,6 +139,21 @@ bulkattach(data:any): Observable<any[]> {
     httpOptions
   );
   }
+
+  //reset-password
+  reset(user: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.put<any>(
+      `${environment.apiUrl}/user/api/v1/updatepassword`,
+      user,
+      httpOptions
+    );
+  }
   
   getECBData(){
     const httpOptions = { headers: this.headers_object };

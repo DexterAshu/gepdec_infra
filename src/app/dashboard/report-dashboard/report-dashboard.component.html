@@ -44,7 +44,6 @@
                           <option>April 23 - March 24</option>
                           <option>April 24 - March 25</option>
                           <option>April 25 - March 26</option>
-                        
                       </select>
                   </div>
                   </div>
@@ -93,46 +92,41 @@
   </div>
   
   <div class="row">
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/comp-dashboard" >
+  <div class="col-md-3 cust-padding" routerLink="/dashboard/comp-dashboard">
     <div class="business-card p-3">
       <div class="row">
         <div class="col-md-3">
-          <i class="mdi mdi-currency-inr text-center" style="color: #0058ff;font-size: 40px;"></i>
+          <i class="mdi mdi-currency-inr text-center" style="color: #6b0167;font-size: 40px;"></i>
         </div>
 
-     
+      
         <div class="col-md-9">
           <h3> 300 Cr </h3>
           <hr>
          <h6> Revenue </h6>
         </div>
-  
       </div>
-     
-  
     </div>
   </div> 
   <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
     <div class="cust-card p-3">
       <div class="row">
         <div class="col-md-3">
-          <i class="mdi mdi-trophy-award text-center" style="color: #c3970d; font-size: 44px;"></i>
+          <i class="mdi mdi-trophy-award text-center" style="color: #005263; font-size: 44px;"></i>
         </div>
         <div class="col-md-9">
         <h3> 12  </h3>
           <hr>
          <h6>Project Win  </h6>
         </div>
-  
-      </div>
-     
+      </div> 
     </div>
   </div> 
   <div class="col-md-3 cust-padding" routerLink="/dashboard/performance-dashboard">
     <div class="Profit-card p-3">
       <div class="row">
         <div class="col-md-3">
-          <i class="mdi mdi-chart-line text-center" style="color: #447f00;font-size: 36px;"></i>
+          <i class="mdi mdi-chart-line text-center" style="color: #006536;font-size: 36px;"></i>
         </div>
         <div class="col-md-9">
           <h3>12 </h3>
@@ -164,7 +158,7 @@
   
   <div class="row mt-1">
   <div class="col-md-3 cust-padding" routerLink="" >
-    <div class="business-card p-2">
+    <div class="business-card p-2" style="background-color: #7373e71c;">
       <div class="row">
         <div class="col-md-5 ">
           <h6> 120 Cr </h6>
@@ -177,13 +171,13 @@
           <small>Change</small>
         </div>
         <div class="col-md-2">
-          <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #0058ff;"></i>
+          <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #6b0167;"></i>
         </div>
       </div>
     </div>
   </div> 
   <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
-    <div class="cust-card p-2">
+    <div class="cust-card p-2" style="background-color: #c7f3f7;">
       <div class="row">
         <div class="col-md-5">
           <h6> 6 </h6>
@@ -196,14 +190,14 @@
           <small>Change</small>
         </div>
         <div class="col-md-2">
-          <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #c3970d;"></i>
+          <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #005263;"></i>
         </div>
       </div>
      
     </div>
   </div> 
   <div class="col-md-3 cust-padding" routerLink="/dashboard/performance-dashboard">
-    <div class="Profit-card p-2">
+    <div class="Profit-card p-2" style="background-color: #eaf7f6ab;">
       <div class="row">
         <div class="col-md-5">
           <h6> 14 </h6>
@@ -216,14 +210,14 @@
           <small>Change</small>
         </div>
         <div class="col-md-2">
-          <i class="mdi mdi-arrow-down mdi-36px text-center" style="color: #447f00;"></i>
+          <i class="mdi mdi-arrow-down mdi-36px text-center" style="color: #006536;"></i>
         </div>
       </div>
      
     </div>
   </div> 
   <div class="col-md-3 cust-padding" routerLink="/dashboard/procurement-dashboard">
-    <div class="loss-card p-2">
+    <div class="loss-card p-2" style="background-color: #e1f0ff94;">
       <div class="row">
         <div class="col-md-5">
           <h6> 5 </h6>
@@ -253,11 +247,11 @@
           <div class="chartBar" #containerRef4>
             <ngx-charts-bar-vertical-2d
             [view]="[containerRef4.offsetWidth, 190]"
-            [scheme]="colorSchemeLoadQuarter"
+            [scheme]="colorSchemeLoadQuarter1"
             [results]="performancePDPEQ"
             [xAxis]="showXAxis"
             [yAxis]="showYAxis"
-            [gradient]="gradient"
+            [gradient]="true"
             [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel"
             [xAxisLabel]="xAxisLabelBarLoad"
@@ -321,6 +315,50 @@
   </div>
   
   <!-- Department wise performance -->
+  <!-- <div class="row mt-1">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-9" routerLink="/dashboard/performance-dashboard">
+              <p class="card-title mb-2">Performance: Department Wise</p>
+  
+            </div>
+            <div class="col-md-3">
+              <div class="form-group row">
+              <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Projects:</label>
+              <div class="col-sm-8">
+                  <select class="form-select form-select-sm">
+                      <option>All</option>
+                      <option>GEPDEC Energy</option>
+                      <option>GEPDEC Infra</option>
+                  </select>
+              </div>
+              </div>
+          </div>
+          </div>
+          <div class="chartBar" #containerPerformance>
+            <ngx-charts-bar-vertical
+            [view]="[containerPerformance.offsetWidth, 200]"
+            [scheme]="colorScheme"
+            [results]="single"
+            [gradient]="gradient"
+            [xAxis]="showXAxis1"
+            [yAxis]="showYAxis1"
+            [legend]="false"
+            [showXAxisLabel]="showXAxisLabel1"
+            [showYAxisLabel]="showYAxisLabel1"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel">
+          </ngx-charts-bar-vertical>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> -->
+
+
   <div class="row mt-1">
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card"  >
@@ -358,10 +396,6 @@
             [groupPadding]="7">
           </ngx-charts-bar-vertical-2d>
           </div>
-          <!-- <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
-            <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
-          </ul> -->
           
         </div>
       </div>
@@ -380,35 +414,35 @@
                 <tr>
                     <th>Project Name</th>
                     <th>Category</th>
-                    <th>Value</th>
+                    <th>Value (Cr)</th>
                   
                 </tr>
               </thead>
               <tbody class="text-nowrap">
                 <tr>
+                    <td>Taldihi</td>
+                    <td>330kv</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>Jaunpur</td>
+                    <td>220kv</td>
+                    <td>400</td>
+                </tr>
+                <tr>
+                    <td>Noida Sec-45</td>
+                    <td>220kv</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>Demo</td>
+                    <td>330kv</td>
+                    <td>522</td>
+                </tr>
+                <tr>
                     <td>Information</td>
-                    <td>410</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>Data</td>
-                    <td>520</td>
-                    <td>1490</td>
-                </tr>
-                <tr>
-                    <td>Info</td>
-                    <td>300</td>
-                    <td>522</td>
-                </tr>
-                <tr>
-                    <td>Pending data</td>
-                    <td>300</td>
-                    <td>522</td>
-                </tr>
-                <tr>
-                    <td>Information</td>
-                    <td>300</td>
-                    <td>522</td>
+                    <td>330kv</td>
+                    <td>200</td>
                 </tr>
              
               </tbody>
@@ -859,9 +893,9 @@
         <div class="card">
           <div class="card-body">
             <p class="card-title">Performance</p>
-            <div class="chartBar" #containerPerformance>
+            <div class="chartBar" #containerPerformance1>
               <ngx-charts-bar-vertical-2d
-            [view]="[containerPerformance.offsetWidth, 190]"
+            [view]="[containerPerformance1.offsetWidth, 190]"
             [scheme]="colorSchemePerformance"
             [results]="PerformanceData"
             [xAxis]="showXAxis"

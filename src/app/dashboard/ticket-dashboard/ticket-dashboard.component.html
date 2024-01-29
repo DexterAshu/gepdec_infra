@@ -529,7 +529,49 @@
       </div>
     </div>
   <!-- over all company summary report end -->
+  <div class="row mt-1">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-9" routerLink="/dashboard/performance-dashboard">
+              <p class="card-title mb-2">Performance: Department Wise</p>
   
+            </div>
+            <div class="col-md-3">
+              <div class="form-group row">
+              <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Projects:</label>
+              <div class="col-sm-8">
+                  <select class="form-select form-select-sm">
+                      <option>All</option>
+                      <option>GEPDEC Energy</option>
+                      <option>GEPDEC Infra</option>
+                  </select>
+              </div>
+              </div>
+          </div>
+          </div>
+          <div class="chartBar" #containerPerformance>
+            <ngx-charts-bar-vertical
+            [view]="[containerPerformance.offsetWidth, 200]"
+            [scheme]="colorScheme"
+            [results]="single"
+            [gradient]="gradient"
+            [xAxis]="showXAxis1"
+            [yAxis]="showYAxis1"
+            [legend]="false"
+            [showXAxisLabel]="showXAxisLabel1"
+            [showYAxisLabel]="showYAxisLabel1"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel">
+          </ngx-charts-bar-vertical>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <!-- tender report -->
   <!-- <div class="row mt-1">
     <div class="col-md-12 grid-margin stretch-card">
@@ -779,8 +821,12 @@
     </div>
   </div> -->
   
+
+
+
+  
   <!-- Department wise performance -->
-  <div class="row mt-1">
+  <!-- <div class="row mt-1">
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card"  >
         <div class="card-body">
@@ -808,7 +854,8 @@
             [scheme]="bpColorScheme"
             [results]="bpDepartment"
             [xAxis]="bpshowXAxis"
-           
+            [gradient]="gradient"
+            [legend]="false"
             [yAxis]="bpshowYAxis"
             [showXAxisLabel]="bpshowXAxisLabel"
             [showYAxisLabel]="bpshowYAxisLabel"
@@ -818,16 +865,11 @@
             [groupPadding]="7">
           </ngx-charts-bar-vertical-2d>
           </div>
-          <!-- <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
-            <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
-          </ul> -->
-          
         </div>
       </div>
     </div>
   
-  </div>
+  </div> -->
   
    <!-- <div class="row mt-1">
       <div class="col-md-12 grid-margin stretch-card">
@@ -1606,7 +1648,7 @@
               [gradient]="gradient"
               [xAxis]="showXAxis1"
               [yAxis]="showYAxis1"
-              [legend]="showLegend"
+              [legend]="false"
               [showXAxisLabel]="showXAxisLabel1"
               [showYAxisLabel]="showYAxisLabel1"
               [xAxisLabel]="xAxisLabel"
@@ -1702,218 +1744,5 @@
       </div>
     </div>
   </div>
-  
-    <!-- <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Project Handover Module</p>
-           
-            <div class="chartBar" #containerRef7>
-              <ngx-charts-pie-chart
-              [view]="[containerRef7.offsetWidth, 240]"
-              [scheme]="pieColorsOL"
-              [labels]="true"
-              [legend]="true"
-              [gradient]="true"
-              [results]="pieData">
-            </ngx-charts-pie-chart>
-            </div>
-            <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul>
-            
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title mb-2">Payment Module</p>
-         
-            <div class="chartBar" #containerRef8>
-              <ngx-charts-bar-vertical-2d
-              [view]="[containerRef8.offsetWidth, 195]"
-              [scheme]="colorSchemeOS"
-              [results]="multi"
-              [xAxis]="showXAxis"
-              [gradient]="true"
-              [yAxis]="showYAxis"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [legend]="false"
-              [xAxisLabel]="xAxisLabelBarOS"
-              [yAxisLabel]="yAxisLabelBarOS"
-              [barPadding]="5"
-              [groupPadding]="7">
-            </ngx-charts-bar-vertical-2d>
-            </div>
-            <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank o_box1"></i> Last Year</li>
-              <li><i class="mdi mdi-checkbox-blank o_box2"></i> This Year</li>
-            </ul>
-            
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- Finance-data-chart -->
-    <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Finance</p>
-          
-            <div class="chartBar" #containerRef10>
-              <ngx-charts-bar-vertical
-                [view]="view2" 
-                [scheme] ="colorSchemeFin" 
-                [results]="financial" 
-                [gradient]="gradient2"
-                [xAxis]="showXAxis2"
-                [yAxis]="showYAxis2"
-                [legend]="showLegend2" 
-                [showXAxisLabel]="showXAxisLabel2" 
-                [showYAxisLabel]="showYAxisLabel2"
-                [xAxisLabel]="xAxisLabel2"
-                [yAxisLabel]="yAxisLabel2"
-                (select)="onSelect($event)">
-             </ngx-charts-bar-vertical>
-        
-            </div>
-        
-            
-          </div>
-        </div>
-      </div>
-     
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Finance : Values </p>
-           
-            <div class="chartBar" #containerRef2>
-              <ngx-charts-pie-chart
-                [view]="[containerRef2.offsetWidth - 30, 220]"
-                [scheme]="pieColorsCust"
-                [labels]="showLabelsPie"
-                [gradient]="true"
-                [legend]="true"
-                [results]="pieDataCust">
-              </ngx-charts-pie-chart>
-            </div>
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul> -->
-            
-          </div>
-        </div>
-      </div>
-     
-    </div>
-  
-     <!-- Performance-data-chart -->
-     <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Performance</p>
-          
-            <div class="chartBar" #containerRef10>
-              <ngx-charts-bar-vertical
-                [view]="view2" 
-                [scheme] ="colorSchemeFin" 
-                [results]="financial" 
-                [gradient]="gradient2"
-                [xAxis]="showXAxis2"
-                [yAxis]="showYAxis2"
-                [legend]="showLegend2" 
-                [showXAxisLabel]="showXAxisLabel2" 
-                [showYAxisLabel]="showYAxisLabel2"
-                [xAxisLabel]="xAxisLabel2"
-                [yAxisLabel]="yAxisLabel2"
-                (select)="onSelect($event)">
-             </ngx-charts-bar-vertical>
-        
-            </div>
-        
-            
-          </div>
-        </div>
-      </div>
-     
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Performance : Values</p>
-            <div class="chartBar" #containerPerformance>
-              <ngx-charts-bar-vertical
-              [view]="[containerPerformance.offsetWidth, 200]"
-              [scheme]="colorScheme"
-              [results]="single"
-              [gradient]="gradient"
-              [xAxis]="showXAxis1"
-              [yAxis]="showYAxis1"
-              [legend]="showLegend"
-              [showXAxisLabel]="showXAxisLabel1"
-              [showYAxisLabel]="showYAxisLabel1"
-              [xAxisLabel]="xAxisLabel"
-              [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-vertical>
-            </div>
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul> -->
-            
-          </div>
-        </div>
-      </div>
-     
-    </div>
-  
-    <!-- <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card" routerLink="/dashboard/ticket-dashboard">
-          <div class="card-body">
-            <p class="card-title">Ticket Status</p>
-            <div class="chartBar" #containerRef9>
-              <ngx-charts-pie-chart
-              [view]="[containerRef9.offsetWidth - 35, 180]"
-              [scheme]="pieColorsSegment"
-              [gradient]="true"
-              [legend]="true"
-              [results]="pieDataSegment">
-            </ngx-charts-pie-chart>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card" routerLink="/dashboard/alert-dashboard">
-          <div class="card-body">
-            <p class="card-title">Alert | Alarms</p>
-            <div class="chartBar" #containerRef12>
-              <ngx-charts-pie-chart
-              [view]="[containerRef12.offsetWidth - 40, 180]"
-              [scheme]="pieColorsAlarmType"
-              [gradient]="true"
-              [legend]="true"
-              [doughnut]="true"
-              [results]="pieDataAlarmType">
-            </ngx-charts-pie-chart>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-     
-    </div> -->
-  
-  
+ 
   </div>

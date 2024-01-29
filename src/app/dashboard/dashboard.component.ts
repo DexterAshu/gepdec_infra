@@ -73,33 +73,71 @@ export class DashboardComponent implements OnInit {
   onSelect(event:any) {
   console.log(event);
   }
-  
+
   single = [
-  {
-    "name": "China",
-    "value": 2243772
-  },
-  {
-    "name": "USA",
-    "value": 1126000
-  },
-  {
-    "name": "Norway",
-    "value": 296215
-  },
-  {
-    "name": "Japan",
-    "value": 257363
-  },
-  {
-    "name": "Germany",
-    "value": 196750
-  },
-  {
-    "name": "France",
-    "value": 204617
-  }
+  
+    {
+      "name": "Total",
+      "value": 315
+    },
+    {
+      "name": "Presales",
+      "value": 150
+    },
+    {
+      "name": "Design",
+      "value": 50
+    },
+    {
+      "name": "Procurement",
+      "value": 40
+    },
+    {
+      "name": "Warehouse",
+      "value": 30
+    },
+    {
+      "name": "Execution",
+      "value": 20
+    },
+    {
+      "name": "Quality",
+      "value": 15
+    },
+    {
+      "name": "Finance",
+      "value": 10
+    },
+   
+  
   ];
+  
+  // single = [
+  // {
+  //   "name": "China",
+  //   "value": 2243772
+  // },
+  // {
+  //   "name": "USA",
+  //   "value": 1126000
+  // },
+  // {
+  //   "name": "Norway",
+  //   "value": 296215
+  // },
+  // {
+  //   "name": "Japan",
+  //   "value": 257363
+  // },
+  // {
+  //   "name": "Germany",
+  //   "value": 196750
+  // },
+  // {
+  //   "name": "France",
+  //   "value": 204617
+  // }
+  // ];
 
   execution=[
   
@@ -1222,7 +1260,7 @@ export class DashboardComponent implements OnInit {
   domain: ['#309d15' ,'#fad73c','#9e3cfa']
   }
   colorSchemeLoadQuarter:any ={
-  domain: ['#135df0' , '#069108', '#f71616']
+  domain: ['#135df0' , '#15b004', '#fc030b']
   }
   
   colorSchemeFin:any = {
@@ -1233,8 +1271,11 @@ export class DashboardComponent implements OnInit {
   domain: ['#fad946', '#54ae3e']
   };
   colorScheme:any = {
-  domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
+    domain: ['#9370DB', '#87CEFA', '#5e96f7', '#FF7F50', '#90EE90', '#FA8072', '#fcbe53']
   };
+  // colorScheme:any = {
+  // domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
+  // };
   colorSchemePerformance:any = {
   domain: ['#fd4747' , '#3f4fa9']
   };
@@ -1268,7 +1309,7 @@ export class DashboardComponent implements OnInit {
   ]
 
   colorSchemeState:any = {
-    domain: ['#9370DB' ,'#FF7F50', '#87CEFA' , '#71c016', '#FA8072', '#90EE90', '#9370DB']
+    domain: ['#9370DB', '#87CEFA', '#5e96f7', '#FF7F50', '#90EE90', '#FA8072', '#fcbe53']
   };
  
 

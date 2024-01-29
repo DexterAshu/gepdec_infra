@@ -32,6 +32,9 @@ export class CompanyComponent implements OnInit {
   loadermsg: any;
   loading: boolean = false;
   compData: any;
+  design: any;
+  departMent: any;
+  inputValue: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -56,11 +59,28 @@ export class CompanyComponent implements OnInit {
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
+      city:[null, Validators.required],
       pincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
+      usdg_id:[null, Validators.required],
+      usdt_id:[null, Validators.required],
+      websiteurl:[null],
+      cinno:[null],
+      address_line2:[null],
+      address_line3:[null],
     });
 
+    const financialsData = {
+      Financials: [
+        {
+          net_worth: [null, Validators.required],
+          financialyear_id: [null, Validators.required],
+          annual_turnover: [null, Validators.required]
+        }
+      ]
+    };
+
     this.getCompanyData();
-    this.getCompanyType();
+    this.getData();
     this.getCountryData();
     
   }
@@ -93,7 +113,13 @@ export class CompanyComponent implements OnInit {
           doi: this.custDetails.doi,
           area: this.custDetails.area,
           pincode: this.custDetails.pincode,
-          
+          usdt_id: this.custDetails.usdt_id,
+          usdg_id: this.custDetails.usdg_id,
+          websiteurl: this.custDetails.websiteurl,
+          cinno:this.custDetails.cinno,
+          city:this.custDetails.city,
+          address_line2:this.custDetails.address_line2,
+          address_line3:this.custDetails.address_line3,
         }); 
         this.form.controls['country_id'].setValue(this.custDetails.country_id);
         this.form.controls['state_id'].setValue(this.custDetails.state_id);
@@ -149,14 +175,23 @@ export class CompanyComponent implements OnInit {
     });
   }
 
-  getCompanyType() {
-    this.apiService.getCompData().subscribe((res:any) => {
+  getData() {
+    this.apiService.getCompanyData().subscribe((res:any) => {
       if (res.status === 200) {
-        this.compData = res.result;
+        this.compData = res.companytype;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
     });
+
+    this.masterService.getUserMaster().subscribe((res:any)=>{
+    console.log(res);
+    this.design = res.designation;
+    this.departMent = res.department;
+
+    
+    })
+
   }
   
   getCompanyData() {
@@ -166,6 +201,18 @@ export class CompanyComponent implements OnInit {
       this.isExcelDownload = true;
     });
  
+  }
+
+  selfFun() {
+    var inputElement = this.form.value.company_type;
+    if (inputElement !== null) {
+      if (inputElement === "Self" || inputElement === "4002") {
+        document.getElementById('selfModel')?.click();
+        // if (modal !== null) {
+        //   modal.click();
+        // }
+      } 
+    }
   }
 
   onSubmit() {

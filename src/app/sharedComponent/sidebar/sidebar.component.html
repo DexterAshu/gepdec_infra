@@ -1,7 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-
-  <div class="user text-center mt-2">
-    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class=" bi bi-person-circle absolute right-0 bottom-0 h-32 w-32 -mr-8 -mb-8 text-green-600 opacity-20" style="color: #1a1a6f;" viewBox="0 0 16 16">
+  <div class="user text-center mt-1">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class=" bi bi-person-circle absolute right-0 bottom-0 h-32 w-32 -mr-8 -mb-8 text-green-600 opacity-20" style="color: #1a1a6f;" viewBox="0 0 16 16">
       <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
       <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
     </svg>
@@ -17,45 +16,10 @@
           <span class="menu-title" >Dashboard</span>
           <i class="menu-arrow"></i>
         </a>
-
       </div>
-      <div class="collapse scroll-container" id="ui-dashboard">
+      <div class="collapse" id="ui-dashboard">
         <ul class="nav flex-column sub-menu">
-          <!-- <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/presales-dashboard">
-            <i class="mdi mdi-sale menu-icon"></i>
-            <span class="menu-title">Presales</span>
-            </a></li>
-            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/design-dashboard">
-              <i class="mdi mdi-cube-outline menu-icon"></i>
-              <span class="menu-title">Design</span>
-            </a></li>
-            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/procurement-dashboard">
-              <i class="mdi mdi-animation menu-icon"></i>
-              <span class="menu-title">Procurement</span>
-            </a></li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/dashboard/warehouse-dashboard">
-                <i class="mdi mdi-home-map-marker menu-icon"></i>
-                <span class="menu-title">Warehouse</span>
-              </a>
-            </li>
-           
-            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/execution-dashboard">
-              <i class="mdi mdi-decagram-outline menu-icon"></i>
-              <span class="menu-title">Execution</span>
-            </a></li>
-            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/quality-dashboard">
-              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-              <span class="menu-title">Quality</span>
-            </a></li>
-            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/fin-dashboard">
-              <i class="mdi mdi-polymer menu-icon"></i>
-              <span class="menu-title">Finance</span>
-            </a></li>
-            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/performance-dashboard">
-              <i class="mdi mdi-chart-donut-variant menu-icon"></i>
-              <span class="menu-title">Performance</span>
-              </a></li> -->
+       
             <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/report-dashboard">
               <i class="mdi mdi-folder-open menu-icon"></i>
               <span class="menu-title">Dashboard 1</span>
@@ -68,27 +32,14 @@
               <i class="mdi mdi-alert-outline menu-icon"></i>
               <span class="menu-title">Dashboard 3</span>
             </a></li>
-            <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/performance-dashboard">
+            <!-- <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/performance-dashboard">
               <i class="mdi mdi-chart-donut-variant menu-icon"></i>
               <span class="menu-title">Dashboard 4</span>
-              </a></li> 
+              </a></li>  -->
         </ul>
       </div>
     </li>
   
-    <!-- <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#dash" aria-expanded="false" aria-controls="dash">
-        <i class="mdi mdi-view-grid menu-icon"></i>
-        <span class="menu-title">Dashboard</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="dash">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="/dashboard">Dashboard</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/dashboard-4">Dashboard-4</a></li>
-        </ul>
-      </div>
-    </li> -->
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-master" aria-expanded="false" aria-controls="ui-master">
         <i class="mdi mdi-briefcase menu-icon"></i>
@@ -207,6 +158,11 @@
       </div>
     </li>
 
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" routerLink="/documentation" aria-expanded="false" aria-controls="alertAlarm">
+        <i class="mdi mdi-file-document menu-icon"></i>
+        <span class="menu-title">Documentation</span> </a>
+    </li>
     
   <li class="nav-item">
     <a class="nav-link" data-toggle="collapse" href="#business_process" aria-expanded="false" aria-controls="business_process">
@@ -217,13 +173,21 @@
     <div class="collapse scroll-container" id="business_process" >
       <ul class="nav flex-column sub-menu"  >
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#Biding" aria-expanded="false" aria-controls="Biding">
-            <i class="mdi mdi-kodi menu-icon"></i>
-            <span class="menu-title">PreSales</span>
-            <i class="menu-arrow"></i>
-          </a>
+          <div class="" routerLink="dashboard/presales-dashboard">
+            <a class="nav-link" data-toggle="collapse"  href="#Biding" aria-expanded="false" aria-controls="Biding">
+              <i class="mdi mdi-kodi menu-icon"></i>
+              <span class="menu-title">PreSales</span>
+              <i class="menu-arrow"></i>
+            </a>
+
+          </div>
           <div class="collapse" id="Biding">
             <ul class="nav flex-column sub-menu">
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="presales/presales-biding/data-capture">
+                <i class="mdi mdi-account-card-details menu-icon"></i>
+                <span class="menu-title">Data Capturing</span>
+                </a>
+              </li>
               <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="presales/presales-biding/bid-qualify">
                 <i class="mdi mdi-account-card-details menu-icon"></i>
                 <span class="menu-title">Qualify Criteria</span>
@@ -248,11 +212,13 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#design" aria-expanded="false" aria-controls="design">
-            <i class="mdi mdi-cube-outline menu-icon"></i>
-            <span class="menu-title">Design</span>
-            <i class="menu-arrow"></i>
-          </a>
+          <div class="des"  routerLink="dashboard/design-dashboard">
+            <a class="nav-link" data-toggle="collapse"  href="#design" aria-expanded="false" aria-controls="design">
+              <i class="mdi mdi-cube-outline menu-icon"></i>
+              <span class="menu-title">Design</span>
+              <i class="menu-arrow"></i>
+            </a>
+          </div>
           <div class="collapse" id="design">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/design-module">
@@ -263,12 +229,15 @@
             </ul>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#Procurement" aria-expanded="false" aria-controls="Procurement">
-            <i class="mdi mdi-google-circles-extended menu-icon"></i>
-            <span class="menu-title">Procurement</span>
-            <i class="menu-arrow"></i>
-          </a>
+        <li class="nav-item" >
+          <div class="procc" routerLink="dashboard/procurement-dashboard">
+            <a class="nav-link" data-toggle="collapse" href="#Procurement" aria-expanded="false" aria-controls="Procurement">
+              <i class="mdi mdi-google-circles-extended menu-icon"></i>
+              <span class="menu-title">Procurement</span>
+              <i class="menu-arrow"></i>
+            </a>
+
+          </div>
           <div class="collapse" id="Procurement">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/procurement">
@@ -280,11 +249,14 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#warehouse" aria-expanded="false" aria-controls="warehouse">
-            <i class="mdi mdi-home-assistant menu-icon"></i>
-            <span class="menu-title">Warehouse</span>
-            <i class="menu-arrow"></i>
-          </a>
+          <div class="ware" routerLink="dashboard/warehouse-dashboard">
+            <a class="nav-link" data-toggle="collapse" href="#warehouse" aria-expanded="false" aria-controls="warehouse">
+              <i class="mdi mdi-home-assistant menu-icon"></i>
+              <span class="menu-title">Warehouse</span>
+              <i class="menu-arrow"></i>
+            </a>
+
+          </div>
           <div class="collapse" id="warehouse">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/warehouse">
@@ -295,12 +267,15 @@
             </ul>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#execution" aria-expanded="false" aria-controls="execution">
-            <i class="mdi mdi-settings menu-icon"></i>
-            <span class="menu-title">Execution</span>
-            <i class="menu-arrow"></i>
-          </a>
+        <li class="nav-item" >
+          <div class="exec" routerLink="dashboard/execution-dashboard">
+            <a class="nav-link" data-toggle="collapse" href="#execution" aria-expanded="false" aria-controls="execution">
+              <i class="mdi mdi-settings menu-icon"></i>
+              <span class="menu-title">Execution</span>
+              <i class="menu-arrow"></i>
+            </a>
+
+          </div>
           <div class="collapse" id="execution">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/execution">
@@ -320,11 +295,14 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#qs" aria-expanded="false" aria-controls="qs">
-            <i class="mdi mdi-marker-check menu-icon"></i>
-            <span class="menu-title">Quality | Safety</span>
-            <i class="menu-arrow"></i>
-          </a>
+          <div class="qulif" routerLink="dashboard/quality-dashboard">
+            <a class="nav-link" data-toggle="collapse" href="#qs" aria-expanded="false" aria-controls="qs">
+              <i class="mdi mdi-marker-check menu-icon"></i>
+              <span class="menu-title">Quality | Safety</span>
+              <i class="menu-arrow"></i>
+            </a>
+
+          </div>
           <div class="collapse" id="qs">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/quality-safety">
@@ -368,11 +346,14 @@
           </div>
         </li> -->
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#finance" aria-expanded="false" aria-controls="finance">
-            <i class="mdi mdi-currency-usd menu-icon"></i>
-            <span class="menu-title">Finance</span>
-            <i class="menu-arrow"></i>
-          </a>
+          <div class="finn" routerLink="dashboard/fin-dashboard">
+            <a class="nav-link" data-toggle="collapse" href="#finance" aria-expanded="false" aria-controls="finance">
+              <i class="mdi mdi-currency-usd menu-icon"></i>
+              <span class="menu-title">Finance</span>
+              <i class="menu-arrow"></i>
+            </a>
+
+          </div>
           <div class="collapse" id="finance">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/finance">
@@ -404,11 +385,14 @@
           </div>
         </li> -->
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#projPerformance" aria-expanded="false" aria-controls="projPerformance">
-            <i class="mdi mdi-trending-up menu-icon"></i>
-            <span class="menu-title">Performance</span>
-            <i class="menu-arrow"></i>
-          </a>
+          <div class="perff" routerLink="dashboard/performance-dashboard">
+            <a class="nav-link" data-toggle="collapse" href="#projPerformance" aria-expanded="false" aria-controls="projPerformance">
+              <i class="mdi mdi-trending-up menu-icon"></i>
+              <span class="menu-title">Performance</span>
+              <i class="menu-arrow"></i>
+            </a>
+
+          </div>
           <div class="collapse" id="projPerformance">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/performance">
@@ -436,7 +420,7 @@
           <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-master">
             <i class="mdi mdi-account-check menu-icon"></i>
             <span class="menu-title">User</span>
-            User</a></li>
+            </a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/user-management/user-logs">
             <i class="mdi mdi-account-card-details menu-icon"></i>
             <span class="menu-title">User Logs</span>
@@ -450,12 +434,12 @@
     </li>
    
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" routerLink="/dashboard/ticket-dashboard" aria-expanded="false" aria-controls="alertAlarm">
+      <a class="nav-link" data-toggle="collapse" routerLink="/issue-tickets" aria-expanded="false" aria-controls="alertAlarm">
         <i class="mdi mdi-ticket-account menu-icon"></i>
         <span class="menu-title">Tickets</span> </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" routerLink="/presales/alert-alarm" aria-expanded="false" aria-controls="alertAlarm">
+      <a class="nav-link" data-toggle="collapse" routerLink="/project-report" aria-expanded="false" aria-controls="alertAlarm">
         <i class="mdi mdi-format-list-checks menu-icon"></i>
         <span class="menu-title">Reports</span> </a>
     </li>
@@ -465,69 +449,20 @@
         <span class="menu-title">Alert & Alarm</span> </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" routerLink="/presales/alert-alarm" aria-expanded="false" aria-controls="alertAlarm">
+      <a class="nav-link" data-toggle="collapse" routerLink="/help-support" aria-expanded="false" aria-controls="alertAlarm">
         <i class="mdi mdi-headset menu-icon"></i>
         <span class="menu-title">Help & Support</span> </a>
     </li>
     <!-- <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#customerRegistration" aria-expanded="false" aria-controls="customerRegistration">
-        <i class="mdi mdi-account-plus menu-icon"></i>
-        <span class="menu-title">Customer Registration</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="customerRegistration">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="/customer-registration/process-1">Registration</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/customer-registration/process-2">Approval</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/customer-registration/process-3">Payment</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/customer-registration/process-4">Installation</a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#customer" aria-expanded="false" aria-controls="customerRegistration">
-        <i class="mdi mdi-account-multiple menu-icon"></i>
-        <span class="menu-title">Customer</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="customer">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="/customer/customer-data-usage">Customer Data Usage</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/customer/customer-billing-data">Customer Billing Data</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/customer/account-information">Account Information</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/customer/consumption-calculator">Consumption Calculator</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/customer/customer-faq">Customer FAQ</a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#transactions" aria-expanded="false" aria-controls="transactions">
-        <i class="mdi mdi-view-list menu-icon"></i>
-        <span class="menu-title">Transactions</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="transactions">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="/transactions/link-meter-with-customer">Link Meter-Customer</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/transactions/billing-date-configuration">Bill Date Configuration</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/transactions/firmware-upgrade">Firmware Upgrade</a></li>
-        </ul>
-      </div>
+      <a class="nav-link" data-toggle="collapse" routerLink="/reset-password" aria-expanded="false" aria-controls="alertAlarm">
+        <i class="mdi mdi-lock-reset menu-icon"></i>
+        <span class="menu-title">Reset Password</span> </a>
+    </li> -->
+    <!-- <li class="nav-item" (click)="logout()">
+      <a class="nav-link text-danger" data-toggle="collapse"  aria-expanded="false" aria-controls="alertAlarm">
+        <i class="mdi mdi-logout menu-icon"></i>
+        <span class="menu-title">Logout</span> </a>
     </li> -->
    
-    <!-- <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#transactions" aria-expanded="false" aria-controls="transactions">
-        <i class="mdi mdi-swap-horizontal menu-icon"></i>
-        <span class="menu-title">Transactions</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="transactions">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Firmware Upgrade</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Meter tempering</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="#">Discount Meter</a></li>
-        </ul>
-      </div>
-    </li> -->
   </ul>
 </nav>

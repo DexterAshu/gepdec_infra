@@ -4,8 +4,12 @@
       <a class="navbar-brand brand-logo"><img src="assets/images/logo1.png" alt="logo" /></a>
       <a class="navbar-brand brand-logo-mini"><img src="assets/images/favicon.ico" alt="logo" /></a>
       <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-collapse-vertical" viewBox="0 0 16 16">
+          <path d="M8 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M0 8a.5.5 0 0 1 .5-.5h3.793L3.146 6.354a.5.5 0 1 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L4.293 8.5H.5A.5.5 0 0 1 0 8m11.707.5 1.147 1.146a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2a.5.5 0 0 1 .708.708L11.707 7.5H15.5a.5.5 0 0 1 0 1z"/>
+        </svg> -->
         <span class="mdi mdi-sort-variant"></span>
       </button>
+    
     </div>
   </div>
   
@@ -134,11 +138,11 @@
             <i class="mdi mdi-account-circle text-primary"></i>
             User: {{ storedData.loginname }}
           </a>
-          <a class="dropdown-item">
+          <a class="dropdown-item" routerLink="/reset-password">
             <i class="mdi mdi-lock text-primary"></i>
-            Changes Password
+            Change Password
           </a>
-          <a class="dropdown-item" (click)="logout()">
+          <a class="dropdown-item" (click)="logout()">  
             <i class="mdi mdi-logout text-primary"></i>
             Logout
           </a>
