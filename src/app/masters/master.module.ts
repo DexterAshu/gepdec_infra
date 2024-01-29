@@ -7,7 +7,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MyCompanyComponent } from './my-company/my-company.component';
 import { VendorMasterComponent } from './vendor-master/vendor-master.component';
 import { TenderMasterComponent } from './tender-master/tender-master.component';
-import { ItemMasterComponent } from './item-master/item-master.component';
+import { ItemMasterComponent } from './procurement/item-master/item-master.component';
 import { EmployeeMasterComponent } from './employee-master/employee-master.component';
 import { DepartmentMasterComponent } from './department-master/department-master.component';
 import { MachineMasterComponent } from './machine-master/machine-master.component';
@@ -24,6 +24,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ProjectMilestoneComponent } from './project-milestone/project-milestone.component';
 import { MilestoneTasksComponent } from './milestone-tasks/milestone-tasks.component';
 import { ProjectDocumentsComponent } from './project-documents/project-documents.component';
+import { SupplierComponent } from './procurement/supplier/supplier.component';
 
 
 
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'tendering-company', component: CompanyComponent },
   { path: 'vendor', component: VendorMasterComponent },
   { path: 'tender', component: TenderMasterComponent },
-  { path: 'item', component: ItemMasterComponent },
+  { path: 'procurement/item', component: ItemMasterComponent },
+  { path: 'procurement/supplier', component: SupplierComponent },
   { path: 'employee', component: EmployeeMasterComponent },
   { path: 'department', component: DepartmentMasterComponent },
   { path: 'machine', component: MachineMasterComponent },
@@ -65,6 +67,8 @@ const routes: Routes = [
   declarations: [
     // MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     // ,TitleMasterComponent,RoleMasterComponent,ProjectsComponent,ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent,
+  
+    SupplierComponent
   ]
 })
 export class MasterModule { }

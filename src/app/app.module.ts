@@ -90,7 +90,7 @@ import { L2ScheduleBulkdataComponent } from './l2-schedule-bulkdata/l2-schedule-
 import { DepartmentMasterComponent } from './masters/department-master/department-master.component';
 import { DesignationMasterComponent } from './masters/designation-master/designation-master.component';
 import { EmployeeMasterComponent } from './masters/employee-master/employee-master.component';
-import { ItemMasterComponent } from './masters/item-master/item-master.component';
+import { ItemMasterComponent } from './masters/procurement/item-master/item-master.component';
 import { MachineMasterComponent } from './masters/machine-master/machine-master.component';
 import { MaterialMasterComponent } from './masters/material-master/material-master.component';
 import { MyCompanyComponent } from './masters/my-company/my-company.component';
