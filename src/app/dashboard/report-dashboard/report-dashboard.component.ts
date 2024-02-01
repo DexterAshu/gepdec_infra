@@ -111,18 +111,7 @@ export class ReportDashboardComponent {
    
   
   ];
-  execution=[
-  
-    {
-      "name": "Pending",
-      "value": 8
-    },
-    {
-      "name": "Completed",
-      "value": 12
-    },
-   
-    ];
+
   
   presales = [
   {
@@ -323,342 +312,7 @@ export class ReportDashboardComponent {
  
   
   ];
-  ProcurementGraph = [
-  {
-    "name": "Total",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 8
-      },
-      {
-        "name": "Pending",
-        "value": 4
-      },
-      {
-        "name": "Total",
-        "value": 12
-      },
-    ]
-  },
-  
-  {
-    "name": "Q1",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 8
-      },
-      {
-        "name": "Pending",
-        "value": 4
-      },
-      {
-        "name": "Total",
-        "value": 12
-      },
-    ]
-  },
-  
-  {
-    "name": "Q2",
-    "series": [
-    
-      {
-        "name": "PO",
-        "value": 7
-      },
-      {
-        "name": "Pending",
-        "value": 7
-      },
-      {
-        "name": "Total",
-        "value": 14
-      },
-    
-    ]
-  },
-  {
-    "name": "Q3",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 12
-      },
-      {
-        "name": "Pending",
-        "value": 4
-      },
-      {
-        "name": "Total",
-        "value": 16
-      },
-   
-    ]
-  },
-  {
-    "name": "Q4",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 6
-      },
-      {
-        "name": "Pending",
-        "value": 6
-      },
-      {
-        "name": "Total",
-        "value": 12
-      },   
-    ]
-  }, 
-  ];
-
  
-  Store = [
-    {
-      "name": "Total",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-      ]
-    },
-    
-    {
-      "name": "Q1",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-      ]
-    },
-    
-    {
-      "name": "Q2",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-       
-      
-      ]
-    },
-    {
-      "name": "Q3",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-      ]
-    },
-    {
-      "name": "Q4",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-      
-      ]
-    },
-   
-    
-    ];
-    QualitySafety = [
-    {
-      "name": "Total",
-      "series": [
-        {
-          "name": "Success",
-          "value": 20
-        },
-        {
-          "name": "Failure",
-          "value": 14
-        },
-      ]
-    },
-    
-    {
-      "name": "Q1",
-      "series": [
-        {
-          "name": "Success",
-          "value": 17
-        },
-        {
-          "name": "Failure",
-          "value": 8
-        },
-      ]
-    },
-    
-    {
-      "name": "Q2",
-      "series": [
-        {
-          "name": "Success",
-          "value": 15
-        },
-        {
-          "name": "Failure",
-          "value": 3
-        },
-      ]
-    },
-    {
-      "name": "Q3",
-      "series": [
-        {
-          "name": "Success",
-          "value": 14
-        },
-        {
-          "name": "Failure",
-          "value": 7
-        },
-      ]
-    },
-    {
-      "name": "Q4",
-      "series": [
-        {
-          "name": "Success",
-          "value": 16
-        },
-        {
-          "name": "Failure",
-          "value": 7
-        },
-      
-      ]
-    },
-   
-    
-    ];
-    PerformanceData = [
-    {
-      "name": "Total",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 20
-        },
-        {
-          "name": "Exp",
-          "value": 14
-        },
-      ]
-    },
-    
-    {
-      "name": "Q1",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 17
-        },
-        {
-          "name": "Exp",
-          "value": 8
-        },
-      ]
-    },
-    
-    {
-      "name": "Q2",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 15
-        },
-        {
-          "name": "Exp",
-          "value": 3
-        },
-      ]
-    },
-    {
-      "name": "Q3",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 14
-        },
-        {
-          "name": "Exp",
-          "value": 7
-        },
-      ]
-    },
-    {
-      "name": "Q4",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 16
-        },
-        {
-          "name": "Exp",
-          "value": 7
-        },
-      
-      ]
-    },
-   
-    
-    ];
   performancePDPEQ = [
     {
       "name": "Presales",
@@ -1112,70 +766,7 @@ export class ReportDashboardComponent {
   },
  
   ];
-  pieDataProc=[
- 
-  {
-    "name": "PO",
-    "value": 12
-  },
-  {
-    "name": "Pending",
-    "value": 8
-  },
-  {
-    "name": "Total",
-    "value": 20
-  },
- 
-  ];
-  pieDataStore=[
-  {
-    "name": "Total",
-    "value": 20
-  },
-  {
-    "name": "Pending",
-    "value": 8
-  },
-  {
-    "name": "Issued",
-    "value": 12
-  },
- 
-  ];
-  pieDataExe=[
-  {
-    "name": "AT Pending",
-    "value": 4
-  },
-  {
-    "name": "AT Success",
-    "value": 8
-  },
- 
-  ];
-  pieDataQS=[
-  {
-    "name": "Success",
-    "value": 20
-  },
-  {
-    "name": "Failure",
-    "value": 5
-  },
- 
-  ];
-  pieDataPerformance=[
-  {
-    "name": "Revenue",
-    "value": 20
-  },
-  {
-    "name": "Expenditure",
-    "value": 12
-  },
- 
-  ];
+
   pieDataCust=[
   {
     "name": "Loss",
@@ -1222,12 +813,8 @@ export class ReportDashboardComponent {
   
   yAxisLabelBarLoad: string = 'Number';
   xAxisLabelBarLoad = '';
-  colorSchemeStore:any ={
-  domain: ['#9775dc', '#f38705', '#43e943']
-  }
-  colorSchemeQS:any ={
-  domain: [ '#43e943','#e05555']
-  }
+  
+  
   colorSchemeProcure:any ={
   domain: ['#43e943' ,'#fad73c','#9e3cfa']
   }
@@ -1242,15 +829,11 @@ export class ReportDashboardComponent {
   domain: ['#400030','#6b275a', '#ba3d5d', '#e16b5f', '#fe9085'],
   };
   
-  colorSchemeExecution:any = {
-  domain: ['#f38705', '#43e943']
-  };
+ 
   colorScheme:any = {
     domain: ['#9370DB', '#87CEFA', '#5e96f7', '#FF7F50', '#90EE90', '#FA8072', '#fcbe53']
   };
-  colorSchemePerformance:any = {
-  domain: ['#9775dc' , '#e05555']
-  };
+ 
   
   pieColorsOL:any = {
   domain: ['#6093E8', '#cf97ef', '#FFB761', '#A2D9FF']
@@ -1271,19 +854,19 @@ export class ReportDashboardComponent {
 
 
   data = [
-    {'name' : "UP", 'value' : 15 },
+    {'name' : "UP", 'value' : 20 },
     {'name' : "MP", 'value' : 10},
-    {'name' : "Delhi", 'value' : 10},
+    {'name' : "Delhi", 'value' : 7},
     {'name': 'Maharashtra', 'value': 13},
     {'name': 'GOA', 'value': 8},
-    {'name': 'Others', 'value': 10},
+    {'name': 'Others', 'value': 15},
 
   ]
 
   colorSchemeState:any = {
-    domain: ['#9370DB', '#87CEFA', '#5e96f7', '#FF7F50', '#90EE90', '#FA8072', '#fcbe53']
+    domain: ['#c7aaff', '#bfe4fc', '#b6cdf5', '#fac0ab', '#baffba', '#fdd099']
   };
- 
+  // #b996ff #9cd9ff #699efa #ff8c61
 
   bpColorScheme:any ={
     domain: ['#508df7', '#f38705','#f57445']

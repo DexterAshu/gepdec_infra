@@ -113,6 +113,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { DataCapturingComponent } from './presales/presales-biding/data-capturing/data-capturing.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -199,7 +200,7 @@ import { DataCapturingComponent } from './presales/presales-biding/data-capturin
     ReactiveFormsModule,
     //Ng2SearchPipeModule,
     NgxPrintModule,
-    NgSelectModule
+    NgSelectModule,
   ],
   providers: [
     

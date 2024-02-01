@@ -34,6 +34,9 @@ export class WarehouseDashboardComponent {
   showYAxisLabel2 = true;
   yAxisLabel2 = 'Data Value';
   
+  colorSchemeStore:any ={
+    domain: ['#9775dc', '#f38705', '#43e943']
+    }
   
   financial = [
   {
@@ -58,6 +61,22 @@ export class WarehouseDashboardComponent {
   onSelect(event:any) {
   console.log(event);
   }
+
+  pieDataStore=[
+    {
+      "name": "Total",
+      "value": 20
+    },
+    {
+      "name": "Pending",
+      "value": 8
+    },
+    {
+      "name": "Issued",
+      "value": 12
+    },
+   
+    ];
   
   single = [
   {
@@ -86,7 +105,100 @@ export class WarehouseDashboardComponent {
   }
   ];
   
-  
+  Store = [
+    {
+      "name": "Total",
+      "series": [
+        {
+          "name": "Total",
+          "value": 20
+        },
+        {
+          "name": "Pending",
+          "value": 8
+        },
+        {
+          "name": "Issued",
+          "value": 12
+        },
+      ]
+    },
+    
+    {
+      "name": "Q1",
+      "series": [
+        {
+          "name": "Total",
+          "value": 20
+        },
+        {
+          "name": "Pending",
+          "value": 8
+        },
+        {
+          "name": "Issued",
+          "value": 12
+        },
+      ]
+    },
+    
+    {
+      "name": "Q2",
+      "series": [
+        {
+          "name": "Total",
+          "value": 20
+        },
+        {
+          "name": "Pending",
+          "value": 8
+        },
+        {
+          "name": "Issued",
+          "value": 12
+        },
+       
+      
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+        {
+          "name": "Total",
+          "value": 20
+        },
+        {
+          "name": "Pending",
+          "value": 8
+        },
+        {
+          "name": "Issued",
+          "value": 12
+        },
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+        {
+          "name": "Total",
+          "value": 20
+        },
+        {
+          "name": "Pending",
+          "value": 8
+        },
+        {
+          "name": "Issued",
+          "value": 12
+        },
+      
+      ]
+    },
+   
+    
+    ];
   multi = [
   {
     "name": "Product 1",

@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import { SharedService } from 'src/app/_services/shared.service';
+
+
 
 @Component({
   selector: 'app-presales-dashboard',
@@ -9,6 +13,7 @@ import { SharedService } from 'src/app/_services/shared.service';
   styleUrls: ['./presales-dashboard.component.css']
 })
 export class PresalesDashboardComponent {
+  form!: FormGroup; 
   fitContainer: boolean = false;
   view: any = [500, 250];
   showXAxis1 = true;
@@ -55,6 +60,9 @@ export class PresalesDashboardComponent {
   
   
   ];
+  countryData: any;
+  stateData: any;
+  
   onSelect(event:any) {
   console.log(event);
   }
@@ -88,110 +96,110 @@ export class PresalesDashboardComponent {
   
   
   multi = [
+  // {
+  //   "name": "Total",
+  //   "series": [
+  //     {
+  //       "name": "Total",
+  //       "value": 50
+  //     },
+  //     {
+  //       "name": "Participation",
+  //       "value": 20
+  //     },
+  //     {
+  //       "name": "Win",
+  //       "value": 12
+  //     },
+  //     {
+  //       "name": "Completed",
+  //       "value": 8
+  //     },
+  //   ]
+  // },
+  
   {
-    "name": "Product 1",
+    "name": "Q1",
     "series": [
       {
-        "name": "2022",
-        "value": 7300
+        "name": "Total",
+        "value": 20
       },
       {
-        "name": "2023",
-        "value": 8940
+        "name": "Qualified",
+        "value": 10
       },
       {
-        "name": "2024",
-        "value": 9300
+        "name": "Participated",
+        "value": 6
       },
       {
-        "name": "2025",
-        "value": 10000
+        "name": "Win",
+        "value": 4
       },
     ]
   },
   
   {
-    "name": "Product 2",
+    "name": "Q2",
     "series": [
       {
-        "name": "2022",
-        "value": 7870
+        "name": "Total",
+        "value": 10
       },
       {
-        "name": "2023",
-        "value": 8270
+        "name": "Qualified",
+        "value": 8
       },
       {
-        "name": "2024",
-        "value": 8570
+        "name": "Participated",
+        "value": 6
       },
       {
-        "name": "2025",
-        "value": 9070
-      },
-    ]
-  },
-  
-  {
-    "name": "Product 3",
-    "series": [
-      {
-        "name": "2022",
-        "value": 5000
-      },
-      {
-        "name": "2023",
-        "value": 5800
-      },
-      {
-        "name": "2024",
-        "value": 6000
-      },
-      {
-        "name": "2025",
-        "value": 7000
+        "name": "Win",
+        "value": 4
       },
     ]
   },
   {
-    "name": "Product 4",
+    "name": "Q3",
     "series": [
       {
-        "name": "2022",
-        "value": 6000
+        "name": "Total",
+        "value": 10
       },
       {
-        "name": "2023",
-        "value": 7800
+        "name": "Qualified",
+        "value": 5
       },
       {
-        "name": "2024",
-        "value": 9500
+        "name": "Participated",
+        "value": 2
       },
       {
-        "name": "2025",
-        "value": 10000
-      }
+        "name": "Win",
+        "value": 2
+      },
     ]
   },
   {
-    "name": "Product 5",
+    "name": "Q4",
     "series": [
       {
-        "name": "2022",
-        "value": 6200
+        "name": "Total",
+        "value": 10
       },
       {
-        "name": "2023",
-        "value": 7100
+        "name": "Qualified",
+        "value": 3
       },
       {
-        "name": "2024",
-        "value": 7900
+        "name": "Participated",
+        "value": 2
       },
       {
-        "name": "2025",
-        "value": 8300
+        "name": "Win",
+        "value": 2
       },
     ]
   },
@@ -260,83 +268,87 @@ export class PresalesDashboardComponent {
   
   lineChart = [
     {
-      "name": "Bid",
+      "name": "Target",
       "series": [
+     
         {
-          "name": "Total",
-          "value": 400,
+          "name": "2020",
+          "value": 300
         },
         {
-          "name": "Q1",
-          "value": 380
+          "name": "2021",
+          "value": 250
         },
         {
-          "name": "Q2",
-          "value": 350
+          "name": "2022",
+          "value": 200
         },
         {
-          "name": "Q3",
-          "value": 410
+          "name": "2023",
+          "value": 450
         },
         {
-          "name": "Q4",
-          "value": 530
+          "name": "2024",
+          "value": 600
         },
        
       ]
     },
+   
     {
-      "name": "Win",
+      "name": "Achievement",
       "series": [
+      
         {
-          "name": "Total",
-          "value": 300
+          "name": "2020",
+          "value": 200,
         },
         {
-          "name": "Q1",
-          "value": 440
+          "name": "2021",
+          "value": 230,
         },
         {
-          "name": "Q2",
-          "value": 320
+          "name": "2022",
+          "value": 170,
         },
         {
-          "name": "Q3",
-          "value": 510
+          "name": "2023",
+          "value": 400,
         },
         {
-          "name": "Q4",
-          "value": 430
+          "name": "2024",
+          "value": 550,
         },
       
       ]
     },
-    {
-      "name": "Loss",
-      "series": [
-        {
-          "name": "Total",
-          "value": 200
-        },
-        {
-          "name": "Q1",
-          "value": 340
-        },
-        {
-          "name": "Q2",
-          "value": 220
-        },
-        {
-          "name": "Q3",
-          "value": 510
-        },
-        {
-          "name": "Q4",
-          "value": 430
-        },
+    // {
+    //   "name": "Ebitda",
+    //   "series": [
+       
+    //     {
+    //       "name": "2020",
+    //       "value": 100
+    //     },
+    //     {
+    //       "name": "2021",
+    //       "value": 100
+    //     },
+    //     {
+    //       "name": "2022",
+    //       "value": 100
+    //     },
+    //     {
+    //       "name": "2023",
+    //       "value": 50
+    //     },
+    //     {
+    //       "name": "2024",
+    //       "value": 50
+    //     },
       
-      ]
-    },
+    //   ]
+    // },
     ];
   
   pieData=[
@@ -359,23 +371,28 @@ export class PresalesDashboardComponent {
   ];
   pieDataCust=[
     {
-      "name": "Loss",
-      "value": 400
+      "name": "Participated",
+      "value": 20
     },
     {
-      "name": "Bid",
-      "value": 900
+      "name": "Qualified",
+      "value": 16
     },
+   
     {
       "name": "Win",
-      "value": 500
+      "value": 12
+    },
+    {
+      "name": "Ebitda",
+      "value": 4
     },
     ]
   pieColorsCust:any = {
   domain: ['#660066', '#990099', '#6600FF']
   };
   lineColorScheme:any ={
-    domain: ['#e05555' , '#9775dc', '#43e943']
+    domain: ['#5783d0', '#7ccbfd','#fe926a','#9775dc' ]
     }
   mainColorScheme:any ={
   domain: ['#6093E8', '#315CA4']
@@ -389,8 +406,8 @@ export class PresalesDashboardComponent {
   xAxisLabelBar = 'Months';
   showXAxisLabelLine: boolean = true;
   showYAxisLabelLine: boolean = true;
-  xAxisLabelLine: string = 'Months';
-  yAxisLabelLine: string = 'Amount';
+  xAxisLabelLine: string = '';
+  yAxisLabelLine: string = 'Values (Cr)';
   colorSchemeOS:any ={
   domain: ['#cee27d', '#63830c']
   }
@@ -398,12 +415,15 @@ export class PresalesDashboardComponent {
   xAxisLabelBarOS = 'Months';
   
   yAxisLabelBarLoad: string = 'Value';
-  xAxisLabelBarLoad = 'Quarter Data';
+  xAxisLabelBarLoad = '';
   colorSchemeLoad:any ={
   domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
   }
   colorSchemeLoadQuarter:any ={
-    domain: ['#9775dc' , '#43e943', '#f71616']
+    domain: ['#9775dc' , '#039651', '#7ccbfd']
+    }
+  colorSchemeLoadQuarter1:any ={
+    domain: ['#9775dc' , '#7ccbfd', '#5783d0','#fe926a']
     }
   
   colorSchemeFin:any = {
@@ -425,7 +445,7 @@ export class PresalesDashboardComponent {
   domain: ['#9400D3', '#FF00FF', '#000080']
   };
   pieColorsAlarmType:any = {
-  domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0', '#F5F559']
+  domain: ['#7ccbfd','#5783d0','#039651', '#e78d1b']
   };
   pieColorsProjRate:any = {
   domain: ['#57bb87', '#ed1c16']
@@ -460,26 +480,24 @@ export class PresalesDashboardComponent {
   },
   ];
   pieDataAlarmType=[
+   
   {
-    "name": 'New Leads',
-    "value": 9400
+    "name": 'Participation',
+    "value": 20
   },
   {
-    "name": 'Needs Analysis',
-    "value": 9400
+    "name": 'Win',
+    "value": 12
   },
   {
-    "name": 'Deals Closed',
-    "value": 5000
+    "name": 'Completed',
+    "value": 8
   },
   {
-    "name": 'Qualification',
-    "value": 6000
+    "name": 'Pending',
+    "value": 4
   },
-  {
-    "name": 'Offer Sent',
-    "value": 6000
-  },
+ 
   ];
   pieDataProjType=[
   {
@@ -497,17 +515,51 @@ export class PresalesDashboardComponent {
   fiveYear: any;
   segmentData: any;
   constructor(
-  private sharedService: SharedService,
-  private apiService: ApiService,
-  private alertService: AlertService
+    private sharedService: SharedService,
+    private apiService: ApiService,
+    private alertService: AlertService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
   ) { }
+
+
   
   ngOnInit(): void {
   this.fiveYear = this.sharedService.lastFiveYears();
-  
+  this.getCountryData();
   this.getSegmentData();
+
+  this.form = this.formBuilder.group({
+    country_id: [null, Validators.required],
+    state_id: [null, Validators.required],
+  })
   }
   
+  getCountryData() {
+    this.apiService.getCountryDataList().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.countryData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in country data.");
+      }
+    });
+  }
+  
+  StateData() {
+    console.log(this.form.value.country_id);
+    
+    let countrydata = this.form.value.country_id;
+    let statedata = null;
+    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.stateData = res.result;
+      } else {
+        this.alertService.warning(`Looks like no state available related to the selected country.`);
+      }
+    });
+  }
+
   getSegmentData() {
   this.segmentData = [];
   // let apiLink = '/master/segmentMaster/getSegment';

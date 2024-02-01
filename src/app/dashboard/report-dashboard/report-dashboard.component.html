@@ -1,6 +1,14 @@
 
 
 <div class="content-wrapper">
+  <div class="row presales-head">
+    <div class="col-md-8">
+      <h3 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>
+        Main Dashboard </h3>
+    </div>
+    <div class="col-md-4"> </div>
+</div>
+
   <!-- filter data country state project wise -->
   <div class="col-md-12">
     <div class="row module-wise ">
@@ -126,7 +134,7 @@
     <div class="Profit-card p-3">
       <div class="row">
         <div class="col-md-3">
-          <i class="mdi mdi-chart-line text-center" style="color: #006536;font-size: 36px;"></i>
+          <i class="mdi mdi-chart-line text-center" style="color: #054cb5;font-size: 36px;"></i>
         </div>
         <div class="col-md-9">
           <h3>12 </h3>
@@ -210,7 +218,7 @@
           <small>Change</small>
         </div>
         <div class="col-md-2">
-          <i class="mdi mdi-arrow-down mdi-36px text-center" style="color: #006536;"></i>
+          <i class="mdi mdi-arrow-down mdi-36px text-center" style="color: #054cb5;"></i>
         </div>
       </div>
      
@@ -408,14 +416,61 @@
       <div class="card">
         <div class="card-body">
           <p class="card-title mb-2">Top 5 Deals</p>
-          <div class="table-responsive ht-auto">
+          <div class="cardHead">
+            <div class="row">
+              <div class="col-md-2">S No</div>
+              <div class="col-md-4">Project Name</div>
+              <div class="col-md-3">Category</div>
+              <div class="col-md-3">Values(Cr)</div>
+            </div>
+          </div>
+          <div class="card1 mt-1">
+            <div class="row">
+              <div class="col-md-2">1</div>
+              <div class="col-md-4">Taldihi</div>
+              <div class="col-md-3">330 Kv</div>
+              <div class="col-md-3">300</div>
+            </div>
+          </div>
+          <div class="card2 mt-1">
+            <div class="row">
+              <div class="col-md-2">2</div>
+              <div class="col-md-4">Jaunpur</div>
+              <div class="col-md-3">220 Kv</div>
+              <div class="col-md-3">400</div>
+            </div>
+          </div>
+          <div class="card3 mt-1">
+            <div class="row">
+              <div class="col-md-2">3</div>
+              <div class="col-md-4">Noida Sec-45</div>
+              <div class="col-md-3">220 Kv</div>
+              <div class="col-md-3">300</div>
+            </div>
+          </div>
+          <div class="card4 mt-1">
+            <div class="row">
+              <div class="col-md-2">4</div>
+              <div class="col-md-4">Delhi</div>
+              <div class="col-md-3">320 Kv</div>
+              <div class="col-md-3">100</div>
+            </div>
+          </div>
+          <div class="card5 mt-1">
+            <div class="row">
+              <div class="col-md-2">5</div>
+              <div class="col-md-4">Noida</div>
+              <div class="col-md-3">240 Kv</div>
+              <div class="col-md-3">200</div>
+            </div>
+          </div>
+          <!-- <div class="table-responsive ht-auto">
             <table class="table table-hover table-striped">
               <thead class="table-primary text-nowrap">
                 <tr>
                     <th>Project Name</th>
                     <th>Category</th>
                     <th>Value (Cr)</th>
-                  
                 </tr>
               </thead>
               <tbody class="text-nowrap">
@@ -444,11 +499,9 @@
                     <td>330kv</td>
                     <td>200</td>
                 </tr>
-             
               </tbody>
             </table>
-          </div>
-                           
+          </div> -->
         </div>
       </div>
     </div>
@@ -461,7 +514,7 @@
               [view]="[containerRef.offsetWidth, 220]"
               [results]="data"
               [legend]="false"
-              [gradient]="true"
+              [gradient]="false"
               [scheme]="colorSchemeState">
               <ng-template #tooltipTemplate let-model="model">
                 <h5 class="p-1">
@@ -471,41 +524,13 @@
               </ng-template>
             </ngx-charts-pie-chart>
             </div>
-           
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
-              <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
-            </ul> -->
-            
           </div>
         </div>
       </div>
-  
   </div>
   
-  <!-- filter- progress-data -->
-  <div class="col-md-12 mt-1 b-progress">
-    <div class="row">
-      <div class="col-md-9 mt-1" routerLink="">
-        <h5 class="card-title mb-2 mt-2">Progress Report:</h5>
-  
-      </div>
-      <div class="col-md-3 mt-1">
-        <div class="form-group row">
-        <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Duration:</label>
-        <div class="col-sm-8">
-            <select class="form-select form-select-sm">
-                <option>All</option>
-                <option>GEPDEC Energy</option>
-                <option>GEPDEC Infra</option>
-            </select>
-        </div>
-        </div>
-    </div>
-    </div>
-  </div>
       <!-- PreSales-data-chart -->
-    <div class="row mt-1">
+    <!-- <div class="row mt-1">
       <div class="col-md-6 grid-margin stretch-card pe-0">
         <div class="card">
           <div class="card-body">
@@ -538,7 +563,6 @@
         <div class="card">
           <div class="card-body">
             <p class="card-title">PreSales: Values</p>
-         
             <div class="chartBar" #containerRef6>
               <ngx-charts-pie-chart
               [view]="[containerRef6.offsetWidth - 35, 220]"
@@ -550,26 +574,20 @@
               [results]="pieDataCust">
             </ngx-charts-pie-chart>
             </div>
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank l_box1"></i> Bid</li>
-              <li><i class="mdi mdi-checkbox-blank l_box2"></i> Win</li>
-              <li><i class="mdi mdi-checkbox-blank l_box3"></i> Loss</li>
-           
-            </ul> -->
+         
             
           </div>
         </div>
       </div>
     
-    </div>
+    </div> -->
      <!-- design-data-chart -->
   
-     <div class="row mt-1">
+     <!-- <div class="row mt-1">
       <div class="col-md-6 grid-margin stretch-card pe-0">
         <div class="card">
           <div class="card-body">
             <p class="card-title mb-2">Design</p>
-          
             <div class="chartBar" #containerRef>
               <ngx-charts-bar-vertical-stacked
                 [view]="[containerRef.offsetWidth, 190]"
@@ -586,20 +604,7 @@
                 [animations]="animations"
                 (select)="onSelect($event)">
               </ngx-charts-bar-vertical-stacked>
-              <!-- <ngx-charts-bar-vertical-2d
-              [view]="[containerRef.offsetWidth, 190]"
-              [scheme]="mainColorScheme"
-              [results]="Design"
-              [xAxis]="showXAxis"
-              [yAxis]="showYAxis"
-              [gradient]="true"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabelBar"
-              [yAxisLabel]="yAxisLabelBar"
-              [barPadding]="5"
-              [groupPadding]="7">
-            </ngx-charts-bar-vertical-2d> -->
+          
             </div>
             <ul class="cust-legend">
               <li><i class="mdi mdi-checkbox-blank des-box1"></i>Total</li>
@@ -614,7 +619,6 @@
         <div class="card">
           <div class="card-body">
             <p class="card-title">Design: Values </p>
-           
             <div class="chartBar" #containerRef2>
               <ngx-charts-pie-chart
                 [view]="[containerRef2.offsetWidth - 30, 220]"
@@ -625,326 +629,10 @@
                 [results]="pieDataDesign">
               </ngx-charts-pie-chart>
             </div>
-            <!-- <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank des-box1"></i>Pending</li>
-            <li><i class="mdi mdi-checkbox-blank des-box3"></i> 3rd Party</li>
-              <li><i class="mdi mdi-checkbox-blank des-box2"></i>  In-House</li>
-            </ul> -->
-            
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   
-  <!-- Procurement-data-chart -->
-    <div class="row mt-1">
-     
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title mb-2">Procurement </p>
-            <div class="chartBar" #containerRefProc>
-              <ngx-charts-bar-horizontal-stacked
-              [view]="[containerRefProc.offsetWidth, 250]"
-                [scheme]="colorSchemeProcure"
-                [results]="ProcurementGraph"
-                [gradient]="true"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabelProc"
-                [yAxisLabel]="yAxisLabelProc"
-                [animations]="animations"
-                [barPadding]="5"
-                (select)="onSelect($event)">
-              </ngx-charts-bar-horizontal-stacked>
-              <!-- <ngx-charts-bar-vertical-2d
-              [view]="[containerRefProc.offsetWidth, 190]"
-              [scheme]="colorSchemeProcure"
-              [results]="ProcurementGraph"
-              [xAxis]="showXAxis"
-              [gradient]="true"
-              [yAxis]="showYAxis"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabelBarLoad"
-              [yAxisLabel]="yAxisLabelBarLoad"
-              [barPadding]="5"
-              [groupPadding]="7">
-            </ngx-charts-bar-vertical-2d> -->
-            </div>
-            <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank proc_box1"></i> Total</li>
-              <li><i class="mdi mdi-checkbox-blank proc_box2"></i> PO</li>
-              <li><i class="mdi mdi-checkbox-blank proc_box3"></i> Pending</li>
-             
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 grid-margin stretch-card ">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Procurement: Values </p>
-            <div class="chartBar" #containerRef3>
-              <ngx-charts-pie-chart
-              [view]="[containerRef3.offsetWidth - 35, 220]"
-              [scheme]="colorSchemeProcure"
-              [labels]="showLabelsPie"
-              [doughnut]="true"
-              [gradient]="false"
-              [legend]="true"
-              [results]="pieDataProc">
-            </ngx-charts-pie-chart>
-            </div>
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul> -->
-            
-          </div>
-        </div>
-      </div>
-    </div>
-  <!-- Store Logistics-data-chart -->
-  <div class="row mt-1">
-    <div class="col-md-6 grid-margin stretch-card pe-0">
-      <div class="card">
-        <div class="card-body">
-          <p class="card-title mb-2">Store Logistics </p>
-          <div class="chartBar" #containerRef4>
-            <ngx-charts-bar-vertical-2d
-            [view]="[containerRef4.offsetWidth, 190]"
-            [scheme]="colorSchemeStore"
-            [results]="Store"
-            [xAxis]="showXAxis"
-            [gradient]="true"
-            [yAxis]="showYAxis"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelBarLoad"
-            [yAxisLabel]="yAxisLabelBarLoad"
-            [barPadding]="5"
-            [groupPadding]="7">
-          </ngx-charts-bar-vertical-2d>
-          </div>
-          <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank store_box1"></i> All</li>
-            <li><i class="mdi mdi-checkbox-blank store_box2"></i> Pending</li>
-            <li><i class="mdi mdi-checkbox-blank store_box3"></i> Issued</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <p class="card-title">Store Logistics: Value</p>
-          <div class="chartBar" #containerRef3>
-            
-          <ngx-charts-pie-chart
-          [view]="[containerRef3.offsetWidth - 30, 220]"
-          [scheme]="colorSchemeStore"
-          [labels]="showLabelsPie"
-          [gradient]="false"
-          [legend]="true"
-          [results]="pieDataStore">
-        </ngx-charts-pie-chart>
-          </div>
-          <!-- <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-          </ul> -->
-          
-        </div>
-      </div>
-    </div>
-   
-  </div>
-    
-  
-    <!-- execution-data-chart -->
-    <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Execution</p>
-            <div class="chartBar" #containerExecution>
-              <ngx-charts-pie-chart
-              [view]="[containerExecution.offsetWidth - 30, 220]"
-              [scheme]="colorSchemeExecution"
-              [labels]="showLabelsPie"
-              [gradient]="false"
-              [legend]="true"
-              [results]="execution">
-            </ngx-charts-pie-chart>
-            </div>
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul> -->
-            
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Execution: Values </p>
-       
-                <div class="chartBar" #containerRef2>
-                  <ngx-charts-pie-chart
-                [view]="[containerRef2.offsetWidth - 35, 220]"
-                [scheme]="colorSchemeExecution"
-                [labels]="showLabelsPie"
-                [doughnut]="true"
-                [gradient]="false"
-                [legend]="true"
-                [results]="pieDataExe">
-              </ngx-charts-pie-chart>
-                  <!-- <ngx-charts-pie-chart
-                    [view]="[containerRef2.offsetWidth - 30, 220]"
-                    [scheme]="colorSchemeExecution"
-                    [labels]="showLabelsPie"
-                    [gradient]="false"
-                    [legend]="true"
-                    [results]="pieDataExe">
-                  </ngx-charts-pie-chart> -->
-                </div>
-             
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul> -->
-            
-          </div>
-        </div>
-      </div>
-     
-    </div>
-  
-   <!-- Quality-data-chart -->
-   <div class="row mt-1">
-    <div class="col-md-6 grid-margin stretch-card pe-0">
-      <div class="card">
-        <div class="card-body">
-          <p class="card-title mb-2">Quality | Safety </p>
-          <div class="chartBar" #containerRefQS>
-            <ngx-charts-bar-vertical-2d
-            [view]="[containerRefQS.offsetWidth, 190]"
-            [scheme]="colorSchemeQS"
-            [results]="QualitySafety"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [gradient]="true"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelBarLoad"
-            [yAxisLabel]="yAxisLabelBarLoad"
-            [barPadding]="5"
-            [groupPadding]="7">
-          </ngx-charts-bar-vertical-2d>
-          </div>
-          <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank qs_box2"></i> Success</li>
-            <li><i class="mdi mdi-checkbox-blank qs_box1"></i> Failure</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <p class="card-title">Quality: Values</p>
-       
-          <div class="chartBar" #containerRef6>
-            <ngx-charts-pie-chart
-            [view]="[containerRef6.offsetWidth - 35, 220]"
-            [scheme]="colorSchemeQS"
-            [labels]="showLabelsPie"
-            [gradient]="false"
-            [doughnut]="true"
-            [legend]="true"
-            [results]="pieDataQS">
-          </ngx-charts-pie-chart>
-          </div>
-          <!-- <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-            <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-            <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-          </ul> -->
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
-  
-     <!-- Performance-data-chart -->
-     <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Performance</p>
-            <div class="chartBar" #containerPerformance1>
-              <ngx-charts-bar-vertical-2d
-            [view]="[containerPerformance1.offsetWidth, 190]"
-            [scheme]="colorSchemePerformance"
-            [results]="PerformanceData"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [gradient]="true"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelBarLoad"
-            [yAxisLabel]="yAxisLabelBarLoad"
-            [barPadding]="5"
-            [groupPadding]="7">
-          </ngx-charts-bar-vertical-2d>
-            </div>
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul> -->
-            
-          </div>
-        </div>
-      </div>
-     
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Performance: Values </p>
-           
-            <div class="chartBar" #containerRef2>
-              <ngx-charts-pie-chart
-                [view]="[containerRef2.offsetWidth - 30, 220]"
-                [scheme]="colorSchemePerformance"
-                [labels]="showLabelsPie"
-                [gradient]="false"
-                [legend]="true"
-                [results]="pieDataPerformance">
-              </ngx-charts-pie-chart>
-            </div>
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul> -->
-            
-          </div>
-        </div>
-      </div>
-     
-    </div>
 
-    
   </div>

@@ -36,6 +36,9 @@ xAxisLabel2 = 'Country';
 showYAxisLabel2 = true;
 yAxisLabel2 = 'Data Value';
 
+colorSchemePerformance:any = {
+  domain: ['#9775dc' , '#e05555']
+  };
 
 financial = [
 {
@@ -60,6 +63,90 @@ financial = [
 onSelect(event:any) {
 console.log(event);
 }
+PerformanceData = [
+  {
+    "name": "Total",
+    "series": [
+      {
+        "name": "Rev",
+        "value": 20
+      },
+      {
+        "name": "Exp",
+        "value": 14
+      },
+    ]
+  },
+  
+  {
+    "name": "Q1",
+    "series": [
+      {
+        "name": "Rev",
+        "value": 17
+      },
+      {
+        "name": "Exp",
+        "value": 8
+      },
+    ]
+  },
+  
+  {
+    "name": "Q2",
+    "series": [
+      {
+        "name": "Rev",
+        "value": 15
+      },
+      {
+        "name": "Exp",
+        "value": 3
+      },
+    ]
+  },
+  {
+    "name": "Q3",
+    "series": [
+      {
+        "name": "Rev",
+        "value": 14
+      },
+      {
+        "name": "Exp",
+        "value": 7
+      },
+    ]
+  },
+  {
+    "name": "Q4",
+    "series": [
+      {
+        "name": "Rev",
+        "value": 16
+      },
+      {
+        "name": "Exp",
+        "value": 7
+      },
+    
+    ]
+  },
+ 
+  
+  ];
+
+pieDataPerformance=[
+  {
+    "name": "Revenue",
+    "value": 20
+  },
+  {
+    "name": "Expenditure",
+    "value": 12
+  },
+ 
+  ];
 
 single = [
 {

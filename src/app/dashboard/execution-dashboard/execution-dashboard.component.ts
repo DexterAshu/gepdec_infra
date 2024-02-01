@@ -34,6 +34,9 @@ export class ExecutionDashboardComponent {
   showYAxisLabel2 = true;
   yAxisLabel2 = 'Data Value';
   
+  colorSchemeExecution:any = {
+    domain: ['#f38705', '#43e943']
+    };
   
   financial = [
   {
@@ -85,7 +88,30 @@ export class ExecutionDashboardComponent {
     "value": 204617
   }
   ];
+
+  execution=[
   
+    {
+      "name": "Pending",
+      "value": 8
+    },
+    {
+      "name": "Completed",
+      "value": 12
+    },
+   
+    ];
+    pieDataExe=[
+      {
+        "name": "AT Pending",
+        "value": 4
+      },
+      {
+        "name": "AT Success",
+        "value": 8
+      },
+     
+      ];
   
   multi = [
   {

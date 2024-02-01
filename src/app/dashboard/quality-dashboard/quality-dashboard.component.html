@@ -2,7 +2,7 @@
     <div class="row presales-head">
             <div class="col-md-8">
               <h3 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>
-                BUSINESS QUALITY DASHBOARD </h3>
+                Quality | Safety Dashboard </h3>
 
             </div>
             <div class="col-md-4">
@@ -219,6 +219,62 @@
       </div>
 </div>
  
+<!-- Quality-data-chart -->
+<div class="row mt-1">
+  <div class="col-md-6 grid-margin stretch-card pe-0">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title mb-2">Quality | Safety </p>
+        <div class="chartBar" #containerRefQS>
+          <ngx-charts-bar-vertical-2d
+          [view]="[containerRefQS.offsetWidth, 190]"
+          [scheme]="colorSchemeQS"
+          [results]="QualitySafety"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [gradient]="true"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabelBarLoad"
+          [yAxisLabel]="yAxisLabelBarLoad"
+          [barPadding]="5"
+          [groupPadding]="7">
+        </ngx-charts-bar-vertical-2d>
+        </div>
+        <ul class="cust-legend">
+          <li><i class="mdi mdi-checkbox-blank qs_box2"></i> Success</li>
+          <li><i class="mdi mdi-checkbox-blank qs_box1"></i> Failure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title">Quality: Values</p>
+     
+        <div class="chartBar" #containerRef6>
+          <ngx-charts-pie-chart
+          [view]="[containerRef6.offsetWidth - 35, 220]"
+          [scheme]="colorSchemeQS"
+          [labels]="showLabelsPie"
+          [gradient]="false"
+          [doughnut]="true"
+          [legend]="true"
+          [results]="pieDataQS">
+        </ngx-charts-pie-chart>
+        </div>
+        <!-- <ul class="cust-legend">
+          <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+          <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+          <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+        </ul> -->
+        
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row mt-2">
   <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
@@ -281,7 +337,7 @@
   </div>
 
 </div>
-<div class="row mt-1">
+<!-- <div class="row mt-1">
   <div class="col-md-6 grid-margin stretch-card pe-0">
     <div class="card">
       <div class="card-body">
@@ -413,6 +469,6 @@
         </div>
       </div>
     </div>
-</div>
+</div> -->
 
 </div>

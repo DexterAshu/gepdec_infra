@@ -1309,9 +1309,8 @@ export class DashboardComponent implements OnInit {
   ]
 
   colorSchemeState:any = {
-    domain: ['#9370DB', '#87CEFA', '#5e96f7', '#FF7F50', '#90EE90', '#FA8072', '#fcbe53']
+    domain: ['rgb(113 54 233)', 'rgb(34 164 247)', 'rgb(36 99 211)', '#ff8c61', 'rgb(45 229 122)', 'rgb(251 161 47)']
   };
- 
 
   bpColorScheme:any ={
     domain: ['#069108', '#e5e500','#fd4747']

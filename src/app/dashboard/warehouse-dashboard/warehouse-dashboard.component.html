@@ -2,7 +2,7 @@
     <div class="row presales-head">
             <div class="col-md-8">
               <h3 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>
-                BUSINESS WAREHOUSE DASHBOARD </h3>
+              Store | Logistics Dashboard </h3>
 
             </div>
             <div class="col-md-4">
@@ -218,6 +218,59 @@
         </div>
       </div>
 </div>
+
+ <!-- Store Logistics-data-chart -->
+ <div class="row mt-1">
+  <div class="col-md-6 grid-margin stretch-card pe-0">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title mb-2">Store Logistics </p>
+        <div class="chartBar" #containerRef4>
+          <ngx-charts-bar-vertical-2d
+          [view]="[containerRef4.offsetWidth, 190]"
+          [scheme]="colorSchemeStore"
+          [results]="Store"
+          [xAxis]="showXAxis"
+          [gradient]="true"
+          [yAxis]="showYAxis"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabelBarLoad"
+          [yAxisLabel]="yAxisLabelBarLoad"
+          [barPadding]="5"
+          [groupPadding]="7">
+        </ngx-charts-bar-vertical-2d>
+        </div>
+        <ul class="cust-legend">
+          <li><i class="mdi mdi-checkbox-blank store_box1"></i> All</li>
+          <li><i class="mdi mdi-checkbox-blank store_box2"></i> Pending</li>
+          <li><i class="mdi mdi-checkbox-blank store_box3"></i> Issued</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title">Store Logistics: Value</p>
+        <div class="chartBar" #containerRef3>
+          
+        <ngx-charts-pie-chart
+        [view]="[containerRef3.offsetWidth - 30, 220]"
+        [scheme]="colorSchemeStore"
+        [labels]="showLabelsPie"
+        [gradient]="false"
+        [legend]="true"
+        [results]="pieDataStore">
+      </ngx-charts-pie-chart>
+        </div>
+   
+        
+      </div>
+    </div>
+  </div>
+ 
+</div>
  
 <div class="row mt-2">
   <div class="col-md-6 grid-margin stretch-card pe-0">
@@ -281,7 +334,7 @@
   </div>
 
 </div>
-<div class="row mt-1">
+<!-- <div class="row mt-1">
   <div class="col-md-6 grid-margin stretch-card pe-0">
     <div class="card">
       <div class="card-body">
@@ -413,6 +466,6 @@
         </div>
       </div>
     </div>
-</div>
+</div> -->
 
 </div>

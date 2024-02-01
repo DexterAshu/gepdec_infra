@@ -33,7 +33,9 @@ export class QualityDashboardComponent {
   xAxisLabel2 = 'Country';
   showYAxisLabel2 = true;
   yAxisLabel2 = 'Data Value';
-  
+  colorSchemeQS:any ={
+    domain: [ '#43e943','#e05555']
+    }
   
   financial = [
   {
@@ -86,7 +88,89 @@ export class QualityDashboardComponent {
   }
   ];
   
-  
+  QualitySafety = [
+    {
+      "name": "Total",
+      "series": [
+        {
+          "name": "Success",
+          "value": 20
+        },
+        {
+          "name": "Failure",
+          "value": 14
+        },
+      ]
+    },
+    
+    {
+      "name": "Q1",
+      "series": [
+        {
+          "name": "Success",
+          "value": 17
+        },
+        {
+          "name": "Failure",
+          "value": 8
+        },
+      ]
+    },
+    
+    {
+      "name": "Q2",
+      "series": [
+        {
+          "name": "Success",
+          "value": 15
+        },
+        {
+          "name": "Failure",
+          "value": 3
+        },
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+        {
+          "name": "Success",
+          "value": 14
+        },
+        {
+          "name": "Failure",
+          "value": 7
+        },
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+        {
+          "name": "Success",
+          "value": 16
+        },
+        {
+          "name": "Failure",
+          "value": 7
+        },
+      
+      ]
+    },
+   
+    
+    ];
+  pieDataQS=[
+    {
+      "name": "Success",
+      "value": 20
+    },
+    {
+      "name": "Failure",
+      "value": 5
+    },
+   
+    ];
   multi = [
   {
     "name": "Product 1",

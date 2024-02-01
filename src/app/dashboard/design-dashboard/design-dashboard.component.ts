@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import { SharedService } from 'src/app/_services/shared.service';
@@ -9,6 +11,7 @@ import { SharedService } from 'src/app/_services/shared.service';
   styleUrls: ['./design-dashboard.component.css']
 })
 export class DesignDashboardComponent {
+  form!: FormGroup; 
   fitContainer: boolean = false;
   view: any = [500, 250];
   showXAxis1 = true;
@@ -16,9 +19,9 @@ export class DesignDashboardComponent {
   gradient = true;
   showLegend = true;
   showXAxisLabel1 = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = '';
   showYAxisLabel1 = true;
-  yAxisLabel = 'Sales';
+  yAxisLabel = 'Value';
   timeline = true;
   showLabels = true;
   doughnut = true;
@@ -55,6 +58,8 @@ export class DesignDashboardComponent {
   
   
   ];
+  stateData: any;
+  countryData: any;
   onSelect(event:any) {
   console.log(event);
   }
@@ -62,16 +67,21 @@ export class DesignDashboardComponent {
   pieDataDesign=[
   
     {
-      "name": "In-House",
-      "value": 400
+      "name": "Inhouse",
+      "value": 30
     },
     {
       "name": "3rd Party",
-      "value": 300
+      "value": 20
     },
     {
+      "name": "Completed",
+      "value": 15
+    },
+   
+    {
       "name": "Pending",
-      "value": 400
+      "value": 10
     },
    
     ];
@@ -105,170 +115,176 @@ export class DesignDashboardComponent {
   
   
   multi = [
-  {
-    "name": "Product 1",
-    "series": [
-      {
-        "name": "2022",
-        "value": 7300
-      },
-      {
-        "name": "2023",
-        "value": 8940
-      },
-      {
-        "name": "2024",
-        "value": 9300
-      },
-      {
-        "name": "2025",
-        "value": 10000
-      },
-    ]
-  },
-  
-  {
-    "name": "Product 2",
-    "series": [
-      {
-        "name": "2022",
-        "value": 7870
-      },
-      {
-        "name": "2023",
-        "value": 8270
-      },
-      {
-        "name": "2024",
-        "value": 8570
-      },
-      {
-        "name": "2025",
-        "value": 9070
-      },
-    ]
-  },
-  
-  {
-    "name": "Product 3",
-    "series": [
-      {
-        "name": "2022",
-        "value": 5000
-      },
-      {
-        "name": "2023",
-        "value": 5800
-      },
-      {
-        "name": "2024",
-        "value": 6000
-      },
-      {
-        "name": "2025",
-        "value": 7000
-      },
-    ]
-  },
-  {
-    "name": "Product 4",
-    "series": [
-      {
-        "name": "2022",
-        "value": 6000
-      },
-      {
-        "name": "2023",
-        "value": 7800
-      },
-      {
-        "name": "2024",
-        "value": 9500
-      },
-      {
-        "name": "2025",
-        "value": 10000
-      }
-    ]
-  },
-  {
-    "name": "Product 5",
-    "series": [
-      {
-        "name": "2022",
-        "value": 6200
-      },
-      {
-        "name": "2023",
-        "value": 7100
-      },
-      {
-        "name": "2024",
-        "value": 7900
-      },
-      {
-        "name": "2025",
-        "value": 8300
-      },
-    ]
-  },
-  
-  ];
+    // {
+    //   "name": "Total",
+    //   "series": [
+    //     {
+    //       "name": "Total",
+    //       "value": 50
+    //     },
+    //     {
+    //       "name": "Participation",
+    //       "value": 20
+    //     },
+    //     {
+    //       "name": "Win",
+    //       "value": 12
+    //     },
+    //     {
+    //       "name": "Completed",
+    //       "value": 8
+    //     },
+    //   ]
+    // },
+    
+    {
+      "name": "Q1",
+      "series": [
+        {
+          "name": "Total",
+          "value": 20
+        },
+        {
+          "name": "Inhouse",
+          "value": 10
+        },
+        {
+          "name": "3rd Party",
+          "value": 6
+        },
+        {
+          "name": "Completed",
+          "value": 4
+        },
+      ]
+    },
+    
+    {
+      "name": "Q2",
+      "series": [
+        {
+          "name": "Total",
+          "value": 10
+        },
+        {
+          "name": "Inhouse",
+          "value": 2
+        },
+        {
+          "name": "3rd Party",
+          "value": 2
+        },
+        {
+          "name": "Completed",
+          "value": 2
+        },
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+        {
+          "name": "Total",
+          "value": 10
+        },
+        {
+          "name": "Inhouse",
+          "value": 5
+        },
+        {
+          "name": "3rd Party",
+          "value": 2
+        },
+        {
+          "name": "Completed",
+          "value": 2
+        },
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+        {
+          "name": "Total",
+          "value": 10
+        },
+        {
+          "name": "Inhouse",
+          "value": 3
+        },
+        {
+          "name": "3rd Party",
+          "value": 2
+        },
+        {
+          "name": "Completed",
+          "value": 2
+        },
+      ]
+    },
+    
+    ];
   multi1 = [
   {
-    "name": "Customer 1",
+    "name": "2020 - 2021",
     "series": [
       {
-        "name": "2022",
-        "value": 7300
+        "name": "Last Year",
+        "value": 100
       },
       {
-        "name": "2023",
-        "value": 8940
+        "name": "Current Year",
+        "value": 120
       },
     
-      {
-        "name": "2025",
-        "value": 10000
-      },
+     
     ]
   },
   
   {
-    "name": "Customer 2",
+    "name": "2021 - 2022",
     "series": [
       {
-        "name": "2022",
-        "value": 7870
+        "name": "Last Year",
+        "value": 200
       },
       {
-        "name": "2023",
-        "value": 8270
+        "name": "Current Year",
+        "value": 220
       },
     
-      {
-        "name": "2025",
-        "value": 9070
-      },
+    
     ]
   },
   
   {
-    "name": "Customer 3",
+    "name": "2022 - 2023",
     "series": [
       {
-        "name": "2022",
-        "value": 5000
+        "name": "Last Year",
+        "value": 300
       },
       {
-        "name": "2023",
-        "value": 5800
+        "name": "Current Year",
+        "value": 400
       },
     
+     
+    ]
+  },
+  {
+    "name": "2023 - 2024",
+    "series": [
       {
-        "name": "2025",
-        "value": 7000
+        "name": "Last Year",
+        "value": 400
       },
+      {
+        "name": "Current Year",
+        "value": 500
+      },
+    
+     
     ]
   },
   
@@ -276,24 +292,24 @@ export class DesignDashboardComponent {
   ];
 
   Design = [
-    {
-      "name": "Total",
-      "series": [
+    // {
+    //   "name": "Total",
+    //   "series": [
        
-        {
-          "name": "In-House",
-          "value": 12
-        },
-        {
-          "name": "3rd Party",
-          "value": 8
-        },
-        {
-          "name": "Total",
-          "value": 20
-        },
-      ]
-    },
+    //     {
+    //       "name": "In-House",
+    //       "value": 12
+    //     },
+    //     {
+    //       "name": "3rd Party",
+    //       "value": 8
+    //     },
+    //     {
+    //       "name": "Total",
+    //       "value": 20
+    //     },
+    //   ]
+    // },
     
     {
       "name": "Q1",
@@ -470,6 +486,26 @@ export class DesignDashboardComponent {
     "value": 2200
   },
   ];
+  pieDataStateWise=[
+    {
+      "name": "UP",
+      "value": 20
+    },
+    {
+      "name": "Delhi",
+      "value": 16
+    },
+   
+    {
+      "name": "Bihar",
+      "value": 12
+    },
+    {
+      "name": "Maharashtra",
+      "value": 4
+    },
+    ]
+
   pieDataCust=[
   {
     "name": "Commercial",
@@ -490,20 +526,30 @@ export class DesignDashboardComponent {
   lineColorScheme:any ={
   domain: ['#315CA4', '#FFA333', '#FFCC8F']
   }
-  mainColorScheme:any ={
-    domain: ['#43e943' ,'#fad73c','#9775dc']
+  lineColorScheme1:any ={
+    domain: ['#ff8c61' , '#699efa', '#9cd9ff' , '#b996ff']
     }
+  mainColorScheme:any ={
+    domain: ['#608bd7' ,'#80ccfd','#9775dc']
+    }
+  mainColorScheme2:any ={
+    domain: ['#608bd7' ,'#80ccfd']
+    }
+    mainColorScheme1:any ={
+      domain: ['#608bd7' ,'#80ccfd', '#fe926a','#9775dc']
+      }
+
   showXAxis = true;
   showYAxis = true;
   showXAxisLabel = true;
   showYAxisLabel = true;
   showLabelsPie: boolean = true;
-  yAxisLabelBar: string = 'Customers';
-  xAxisLabelBar = 'Months';
+  yAxisLabelBar: string = 'Value';
+  xAxisLabelBar = '';
   showXAxisLabelLine: boolean = true;
   showYAxisLabelLine: boolean = true;
-  xAxisLabelLine: string = 'Months';
-  yAxisLabelLine: string = 'Amount';
+  xAxisLabelLine: string = '';
+  yAxisLabelLine: string = 'Value';
   colorSchemeOS:any ={
   domain: ['#cee27d', '#63830c']
   }
@@ -511,12 +557,13 @@ export class DesignDashboardComponent {
   xAxisLabelBarOS = 'Months';
   
   yAxisLabelBarLoad: string = 'Value';
-  xAxisLabelBarLoad = 'Quarter Data';
+  xAxisLabelBarLoad = '';
   colorSchemeLoad:any ={
   domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
   }
   colorSchemeLoadQuarter:any ={
-  domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
+  // domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
+  domain: ['#ff8c61', '#699efa', '#9cd9ff' , '#b996ff']
   }
   
   colorSchemeFin:any = {
@@ -610,16 +657,49 @@ export class DesignDashboardComponent {
   fiveYear: any;
   segmentData: any;
   constructor(
-  private sharedService: SharedService,
-  private apiService: ApiService,
-  private alertService: AlertService
+    private sharedService: SharedService,
+    private apiService: ApiService,
+    private alertService: AlertService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
   ) { }
   
   ngOnInit(): void {
-  this.fiveYear = this.sharedService.lastFiveYears();
+    this.fiveYear = this.sharedService.lastFiveYears();
+    this.getCountryData();
+    this.getSegmentData();
   
-  this.getSegmentData();
-  }
+    this.form = this.formBuilder.group({
+      country_id: [null, Validators.required],
+      state_id: [null, Validators.required],
+    })
+    }
+    
+    getCountryData() {
+      this.apiService.getCountryDataList().subscribe((res:any) => {
+        if (res.status === 200) {
+          this.countryData = res.result;
+        } else {
+          this.alertService.warning("Looks like no data available in country data.");
+        }
+      });
+    }
+    
+    StateData() {
+      console.log(this.form.value.country_id);
+      
+      let countrydata = this.form.value.country_id;
+      let statedata = null;
+      this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
+        if (res.status === 200) {
+          this.stateData = res.result;
+        } else {
+          this.alertService.warning(`Looks like no state available related to the selected country.`);
+        }
+      });
+    }
+  
   
   getSegmentData() {
   this.segmentData = [];

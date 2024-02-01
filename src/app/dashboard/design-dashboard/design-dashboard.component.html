@@ -2,224 +2,338 @@
     <div class="row presales-head">
             <div class="col-md-8">
               <h3 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>
-                DESIGN STATISTICS </h3>
+                Design Dashboard </h3>
 
             </div>
-            <div class="col-md-4">
-                <div class=" row">
-                    <label class="col-sm-3 col-form-label"  style="font-size: 12px; font-weight: 600;">Duration:</label>
+            <div class="col-md-4">  
+            </div>
+   
+    </div>
+
+
+  <!-- filter data country state project wise -->
+  <div class="row mt-1">
+    <div class="col-md-12">
+      <div class="row module-wise ">
+      <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
+        <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
+          </div> -->
+      <div class="col-md-12" style="font-family:'Times New Roman', Times, serif">
+          <form  [formGroup]="form">
+            <div class=" d-flex">
+                <div class="col-md-2">
+                  <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
+                    <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Country</label>
+                    <div class="col-sm-8">
+                      <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
+                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                    </select>
+                      
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">State</label>
                     <div class="col-sm-9">
+                      <select formControlName="state_id" class="form-select form-select-sm">
+                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                        <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
+                    </select>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Duration</label>
+                    <div class="col-sm-7">
                         <select class="form-select form-select-sm">
                           <option>All</option>
                             <option>April 22 - March 23</option>
                             <option>April 23 - March 24</option>
                             <option>April 24 - March 25</option>
                             <option>April 25 - March 26</option>
-                          
                         </select>
                     </div>
-                    </div>    
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Company</label>
+                    <div class="col-sm-7">
+                        <select class="form-select form-select-sm">
+                            <option>All</option>
+                            <option>GEPDEC Energy Project</option>
+                            <option>GEPDEC Infra Project</option>
+                        </select>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group row">
+                    <label class="col-sm-5 col-form-label"> Category</label>
+                    <div class="col-sm-7">
+                        <select class="form-select form-select-sm">
+                            <option>All</option>
+                            <option>Meter</option>
+                            <option>220/33kV, 80MVA Power Transformer</option>
+                        </select>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Project</label>
+                    <div class="col-sm-8">
+                        <select class="form-select form-select-sm">
+                            <option>All</option>
+                            <option>Jaunpur Project</option>
+                            <option>Noida project</option>
+                        </select>
+                    </div>
+                    </div>
+                </div>
             </div>
-   
+          </form>
+        </div>
+    
     </div>
-<div class="row mt-1">
-    <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-        <div class="d-flex flex-wrap justify-content-xl-between">
-        
-          <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-1">
-            <div class="d-flex flex-column justify-content-around" routerLink="/dashboard/presales-dashboard/published-tender">
-              <small class="text-light text-center t-heading py-2">
-                <img src="../../../assets/images/allTend.png" style="width: 35px; height: 20px;">
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                TENDER PUBLISHED </small>
-              <div class="d-flex text-center">
-            
-                <div class="col-lg-12 py-2" style="background: #6184c1;">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <small class="text-light"></small> <br>
-                      <small class="text-light">NOs.</small> <br>
-                      <small class="text-light">Values(Cr.)</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">MTD</small><br>
-                      <small class="text-light">999</small><br>
-                      <small class="text-light">999</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">YTD</small><br>
-                      <small class="text-light">999</small> <br>
-                      <small class="text-light">999</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-6">
-            <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/under-evaluation">
-              <small class="text-light text-center t-heading py-2">
-                <img src="../../../assets/images/tender_eval.png" style="width: 35px; height: 20px; ">
-                &nbsp;
-                UNDER EVALUATION</small>
-              <div class="d-flex text-center">
-                <div class="col-lg-12 py-2" style="background: #e5b274;">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <small class="text-light"></small> <br>
-                      <small class="text-light">NOs.</small> <br>
-                      <small class="text-light">Values(Cr.)</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">MTD</small><br>
-                      <small class="text-light">999</small><br>
-                      <small class="text-light">999</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">YTD</small><br>
-                      <small class="text-light">999</small> <br>
-                      <small class="text-light">999</small>
-                    </div>
-                  </div>
-                </div>
+    </div>
+  </div>
 
-              </div>
-            </div>
-          </div>
-          <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-2">
-            <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/participation">
-              <small class="text-light text-center t-heading py-2">
-                <img src="../../../assets/images/partTend.png" style="width: 35px; height: 20px;   ">
-&nbsp;&nbsp;&nbsp;
-                PARTICIPATION</small>
-              <div class="d-flex text-center">
-             
-                <div class="col-lg-12 py-2" style="background: #44d590">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <small class="text-light"></small> <br>
-                      <small class="text-light">NOs.</small> <br>
-                      <small class="text-light">Values(Cr.)</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">MTD</small><br>
-                      <small class="text-light">999</small><br>
-                      <small class="text-light">999</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">YTD</small><br>
-                      <small class="text-light">999</small> <br>
-                      <small class="text-light">999</small>
+    <!-- <div class="row mt-1">
+      <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+          <div class="d-flex flex-wrap justify-content-xl-between">
+          
+            <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-1">
+              <div class="d-flex flex-column justify-content-around" routerLink="/dashboard/presales-dashboard/published-tender">
+                <small class="text-light text-center t-heading py-2">
+                
+                
+                  ALL PROJECT </small>
+                <div class="d-flex text-center">
+              
+                  <div class="col-lg-12 py-3" style="background: linear-gradient(90deg, #e8dcff 0%, #cbb1ff 50%, #b28cff 100%); color: #ffffff;">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <img src="../../../assets/images/dess.png" style="width: 50px; height: 40px;">
+                      </div>
+                      <div class="col-md-8">
+                       <h1>50</h1>
+                      </div>
+                   
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
-          </div>
-          <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-5">
-            <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/abandoned">
-              <small class="text-light text-center t-heading py-2">
-                <img src="../../../assets/images/losBid.png" style="width: 35px; height: 20px;"> 
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                ABANDONED</small>
-              <div class="d-flex text-center">
+            <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-6">
+              <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/under-evaluation">
+                <small class="text-light text-center t-heading py-2">
+                  <img src="../../../assets/images/tender_eval.png" style="width: 35px; height: 20px; ">
+                  &nbsp;
+                  UNDER EVALUATION</small>
+                <div class="d-flex text-center">
+                  <div class="col-lg-12 py-2" style="background: #e5b274;">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <small class="text-light"></small> <br>
+                        <small class="text-light">NOs.</small> <br>
+                        <small class="text-light">Values(Cr.)</small>
+                      </div>
+                      <div class="col-md-3">
+                        <small class=" text-light">MTD</small><br>
+                        <small class="text-light">999</small><br>
+                        <small class="text-light">999</small>
+                      </div>
+                      <div class="col-md-3">
+                        <small class=" text-light">YTD</small><br>
+                        <small class="text-light">999</small> <br>
+                        <small class="text-light">999</small>
+                      </div>
+                    </div>
+                  </div>
+  
+                </div>
+              </div>
+            </div>
+            <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-2">
+              <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/participation">
+                <small class="text-light text-center t-heading py-2">
                
-
-                <div class="col-lg-12 py-2" style="background: rgb(239 173 173);">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <small class="text-light"></small> <br>
-                      <small class="text-light">NOs.</small> <br>
-                      <small class="text-light">Values(Cr.)</small>
+  
+                  INHOUSE</small>
+                <div class="d-flex text-center">
+               
+                  <div class="col-lg-12 py-3" style=" background: linear-gradient(90deg, #ebf3f9 0%, #b0dffd 50%, #7ccbfd 100%); color: #ffffff;">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <img src="../../../assets/images/bidIMG.png" style="width: 50px; height: 40px;">
+                      </div>
+                      <div class="col-md-8">
+                        <h1>20</h1>
+                      </div>
+                     
                     </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">MTD</small><br>
-                      <small class="text-light">999</small><br>
-                      <small class="text-light">999</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">YTD</small><br>
-                      <small class="text-light">999</small> <br>
-                      <small class="text-light">999</small>
+                  </div>
+  
+                </div>
+              </div>
+            </div>
+            <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-5">
+              <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/abandoned">
+                <small class="text-light text-center t-heading py-2">
+                  <img src="../../../assets/images/losBid.png" style="width: 35px; height: 20px;"> 
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  ABANDONED</small>
+                <div class="d-flex text-center">
+                 
+  
+                  <div class="col-lg-12 py-2" style="background: rgb(239 173 173);">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <small class="text-light"></small> <br>
+                        <small class="text-light">NOs.</small> <br>
+                        <small class="text-light">Values(Cr.)</small>
+                      </div>
+                      <div class="col-md-3">
+                        <small class=" text-light">MTD</small><br>
+                        <small class="text-light">999</small><br>
+                        <small class="text-light">999</small>
+                      </div>
+                      <div class="col-md-3">
+                        <small class=" text-light">YTD</small><br>
+                        <small class="text-light">999</small> <br>
+                        <small class="text-light">999</small>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-3">
-            <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/win">
-              <small class="text-light text-center t-heading py-2">
-                <img src="../../assets/images/winBid.png" style="width: 35px; height: 20px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                WINS</small>
-              <div class="d-flex text-center">
-              
-                <div class="col-lg-12 py-2" style="background: #60c1cd;">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <small class="text-light"></small> <br>
-                      <small class="text-light">NOs.</small> <br>
-                      <small class="text-light">Values(Cr.)</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">MTD</small><br>
-                      <small class="text-light">999</small><br>
-                      <small class="text-light">999</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">YTD</small><br>
-                      <small class="text-light">999</small> <br>
-                      <small class="text-light">999</small>
+            <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-3">
+              <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/win">
+                <small class="text-light text-center t-heading py-2">
+  
+                 3rd PARTY</small>
+                <div class="d-flex text-center">
+                
+                  <div class="col-lg-12 py-3" style="background: linear-gradient(18deg, #cadeff 0%, #a6c2f3 50%, #5783d0 100%); color: #ffffff;">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <img src="../../assets/images/perr.png" style="width: 50px; height: 40px;">
+  
+                      </div>
+                      <div class="col-md-8">
+                   <h1>12</h1>
+                      </div>
+                     
                     </div>
                   </div>
+  
                 </div>
-
               </div>
             </div>
-          </div>
-        
-         
-          <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-4">
+          
            
-            <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/completed">
-              <small class="text-light text-center t-heading py-2">
-                <img src="../../../assets/images/comBid.png" style="width: 35px; height: 20px;">
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                COMPLETED</small>
-              <div class="d-flex text-center">
-              
-
-                <div class="col-lg-12 py-2" style="background: #b5d972;">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <small class="text-light"></small> <br>
-                      <small class="text-light">NOs.</small> <br>
-                      <small class="text-light">Values(Cr.)</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">MTD</small><br>
-                      <small class="text-light">999</small><br>
-                      <small class="text-light">999</small>
-                    </div>
-                    <div class="col-md-3">
-                      <small class=" text-light">YTD</small><br>
-                      <small class="text-light">999</small> <br>
-                      <small class="text-light">999</small>
+            <div class="border-md-right flex-grow-1 align-items-center justify-content-center item t-4">
+             
+              <div class="d-flex flex-column justify-content-around"  routerLink="/dashboard/presales-dashboard/completed">
+                <small class="text-light text-center t-heading py-2">
+               
+                  COMPLETED</small>
+                <div class="d-flex text-center">
+                
+  
+                  <div class="col-lg-12 py-3" style="background: linear-gradient(18deg, #dcfdc5f0 0%, #46eb62 50%, #039651 100%); color:#ffffff; ">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <img src="../../../assets/images/completedBid.png" style="width: 50px; height: 40px;">
+  
+                      </div>
+                      <div class="col-md-8">
+                     <h1>8</h1>
+                      </div>
+                   
                     </div>
                   </div>
+               
                 </div>
-             
               </div>
             </div>
+         
           </div>
-       
+        </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/published-tender">
+      <div class="business-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-chart-donut-variant text-center" style="color: #6b0167;font-size: 40px;"></i>
+          </div>
+  
+        
+          <div class="col-md-9">
+            <h3> 50 </h3>
+            <hr>
+           <h6>All Projects | Drawing</h6>
+          </div>
         </div>
       </div>
-</div>
+    </div> 
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/under-evaluation">
+      <div class="cust-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-houzz text-center" style="color: #0070b5; font-size: 44px;"></i>
+          </div>
+          <div class="col-md-9">
+          <h3> 30 </h3>
+            <hr>
+           <h6>Inhouse </h6>
+          </div>
+        </div> 
+      </div>
+    </div> 
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/participation">
+      <div class="Profit-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-chart-bubble text-center" style="color: #004cd1;font-size: 40px;"></i>
+          </div>
+          <div class="col-md-9">
+            <h3>20 </h3>
+            <hr>
+           <h6>Third Party</h6>
+          </div>
+    
+        </div>
+       
+      </div>
+    </div> 
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/win">
+      <div class="loss-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-chart-pie text-center" style="color: #ff4905; font-size: 42px;"></i>
+          </div>
+          <div class="col-md-9">
+           <h3> 12 </h3>
+            <hr>
+          <h6>Completed</h6>
+          </div>
+    
+        </div>
+       
+      </div>
+    </div>    
+    </div>
 
-<div class="row mt-1">
+<div class="row mt-2">
   <div class="col-md-6 grid-margin stretch-card pe-0">
     <div class="card">
       <div class="card-body">
@@ -260,9 +374,9 @@
         <div class="chartBar" #containerRef2>
           <ngx-charts-pie-chart
             [view]="[containerRef2.offsetWidth - 30, 220]"
-            [scheme]="mainColorScheme"
+            [scheme]="mainColorScheme1"
             [labels]="showLabelsPie"
-            [gradient]="false"
+            [gradient]="true"
             [legend]="true"
             [results]="pieDataDesign">
           </ngx-charts-pie-chart>
@@ -278,7 +392,7 @@
   <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
         <div class="card-body">
-          <p class="card-title mb-2">Quarterly Sales Comparison </p>
+          <p class="card-title mb-2">Quarterly Performance </p>
      
           <div class="chartBar" #containerRef4>
             <ngx-charts-bar-vertical-2d
@@ -297,46 +411,129 @@
           </ngx-charts-bar-vertical-2d>
           </div>
           <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank load_box1"></i> Q1</li>
-            <li><i class="mdi mdi-checkbox-blank load_box2"></i> Q2</li>
-            <li><i class="mdi mdi-checkbox-blank load_box3"></i> Q3</li>
-            <li><i class="mdi mdi-checkbox-blank load_box4"></i> Q4</li>
+            <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total</li>
+            <li><i class="mdi mdi-checkbox-blank load_box2"></i> Inhouse</li>
+            <li><i class="mdi mdi-checkbox-blank load_box3"></i> 3rd Party</li>
+            <li><i class="mdi mdi-checkbox-blank load_box4"></i> Completed</li>
           </ul>
         </div>
       </div>
     </div>
-  <div class="col-md-6 grid-margin stretch-card ">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Top 5 Design</p>
+          <div class="cardHead">
+            <div class="row">
+              <div class="col-md-2">S No</div>
+              <div class="col-md-4">Project Name</div>
+              <div class="col-md-3">Category</div>
+              <div class="col-md-3">Values(Cr)</div>
+            </div>
+          </div>
+          <div class="card1 mt-1">
+            <div class="row">
+              <div class="col-md-2">1</div>
+              <div class="col-md-4">Taldihi</div>
+              <div class="col-md-3">330 Kv</div>
+              <div class="col-md-3">300</div>
+            </div>
+          </div>
+          <div class="card2 mt-1">
+            <div class="row">
+              <div class="col-md-2">2</div>
+              <div class="col-md-4">Jaunpur</div>
+              <div class="col-md-3">220 Kv</div>
+              <div class="col-md-3">400</div>
+            </div>
+          </div>
+          <div class="card3 mt-1">
+            <div class="row">
+              <div class="col-md-2">3</div>
+              <div class="col-md-4">Noida Sec-45</div>
+              <div class="col-md-3">220 Kv</div>
+              <div class="col-md-3">300</div>
+            </div>
+          </div>
+          <div class="card4 mt-1">
+            <div class="row">
+              <div class="col-md-2">4</div>
+              <div class="col-md-4">Delhi</div>
+              <div class="col-md-3">320 Kv</div>
+              <div class="col-md-3">100</div>
+            </div>
+          </div>
+          <div class="card5 mt-1">
+            <div class="row">
+              <div class="col-md-2">5</div>
+              <div class="col-md-4">Noida</div>
+              <div class="col-md-3">240 Kv</div>
+              <div class="col-md-3">200</div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+
+</div>
+<!-- <div class="row mt-1">
+  <div class="col-md-6 grid-margin stretch-card pe-0">
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <p class="card-title mb-2 col-md-6">Average Revenue Per Unit</p>
-          <p class=" col-md-6 p-1 bg-warning text-center rounded">$000</p>
+          <p class="card-title mb-2 col-md-9">Average Comparison: Current vs Previous</p>
+          <p class=" col-md-3 p-1 text-center rounded"  style="color: #3d3e40;background-color: rgb(148 186 251 / 58%); font-size: 16px; font-weight:600">500 (Cr) 
+            <i class="mdi mdi-trending-up text-center" style="color: #3d3e40; font-size: 20px; font-weight:600"></i>
+          </p>
         </div>
-        <div class="chartBar" #containerRef5>
-          <ngx-charts-line-chart
-          [view]="[containerRef5.offsetWidth, 210]"
-          [scheme]="lineColorScheme"
-          [results]="lineChart"
+        <div class="chartBar" #containerRef>
+          <ngx-charts-bar-vertical-2d
+          [view]="[containerRef.offsetWidth, 190]"
+          [scheme]="mainColorScheme2"
+          [results]="multi1"
           [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [showXAxisLabel]="showYAxisLabelLine"
           [gradient]="true"
-          [showYAxisLabel]="showYAxisLabelLine"
-          [xAxisLabel]="xAxisLabelLine"
-          [yAxisLabel]="yAxisLabelLine">
-        </ngx-charts-line-chart>
+          [yAxis]="showYAxis"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabelBar"
+          [yAxisLabel]="yAxisLabelBar"
+          [barPadding]="5"
+          [groupPadding]="7">
+        </ngx-charts-bar-vertical-2d>
         </div>
         <ul class="cust-legend">
-          <li><i class="mdi mdi-checkbox-blank l_box1"></i> Last Year</li>
-          <li><i class="mdi mdi-checkbox-blank l_box2"></i> This Year</li>
+          <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
+          <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
         </ul>
-                         
+        
       </div>
     </div>
   </div>
 
-</div>
-<div class="row mt-1">
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title">Customers: State Wise</p>
+        <div class="chartBar" #containerRef6>
+          <ngx-charts-pie-chart
+          [view]="[containerRef6.offsetWidth - 35, 220]"
+          [scheme]="lineColorScheme1"
+          [labels]="showLabelsPie"
+          [gradient]="false"
+          [doughnut]="true"
+          [legend]="true"
+          [results]="pieDataStateWise">
+        </ngx-charts-pie-chart>
+        </div>
+      
+        
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- <div class="row mt-1">
   <div class="col-md-6 grid-margin stretch-card pe-0">
     <div class="card">
       <div class="card-body">
@@ -358,6 +555,7 @@
     </div>
   
   </div>
+ 
   <div class="col-md-6 grid-margin stretch-card ">
     <div class="card">
       <div class="card-body">
@@ -387,87 +585,6 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row mt-1">
-  <div class="col-md-6 grid-margin stretch-card pe-0">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-title mb-2">Top 5 Deals</p>
-        <div class="table-responsive ht-auto">
-          <table class="table table-hover table-striped">
-            <thead class="table-primary text-nowrap">
-              <tr>
-                  <th>Concept</th>
-                  <th>Qty</th>
-                  <th>Total</th>
-                
-              </tr>
-            </thead>
-            <tbody class="text-nowrap">
-              <tr>
-                  <td>Information</td>
-                  <td>410</td>
-                  <td>300</td>
-              </tr>
-              <tr>
-                  <td>Data</td>
-                  <td>520</td>
-                  <td>1490</td>
-              </tr>
-              <tr>
-                  <td>Info</td>
-                  <td>300</td>
-                  <td>522</td>
-              </tr>
-              <tr>
-                  <td>Pending data</td>
-                  <td>300</td>
-                  <td>522</td>
-              </tr>
-              <tr>
-                  <td>Information</td>
-                  <td>300</td>
-                  <td>522</td>
-              </tr>
-           
-            </tbody>
-          </table>
-        </div>
-                         
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <p class="card-title mb-2 col-md-6">Customer Acquisition Cost</p>
-            <p class=" col-md-6 p-1 bg-primary text-center rounded">$000</p>
-          </div>
-          <div class="chartBar" #containerRef>
-            <ngx-charts-bar-vertical-2d
-            [view]="[containerRef.offsetWidth, 190]"
-            [scheme]="mainColorScheme"
-            [results]="multi1"
-            [xAxis]="showXAxis"
-            [gradient]="true"
-            [yAxis]="showYAxis"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelBar"
-            [yAxisLabel]="yAxisLabelBar"
-            [barPadding]="5"
-            [groupPadding]="7">
-          </ngx-charts-bar-vertical-2d>
-          </div>
-          <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
-            <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
-          </ul>
-          
-        </div>
-      </div>
-    </div>
-</div>
+</div> -->
 
 </div>

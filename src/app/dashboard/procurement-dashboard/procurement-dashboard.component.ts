@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import { SharedService } from 'src/app/_services/shared.service';
+
+
 
 @Component({
   selector: 'app-procurement-dashboard',
@@ -10,6 +14,8 @@ import { SharedService } from 'src/app/_services/shared.service';
 })
 export class ProcurementDashboardComponent {
 //performance graph data
+
+form!: FormGroup; 
 fitContainer: boolean = false;
 view: any = [500, 250];
 showXAxis1 = true;
@@ -34,125 +40,17 @@ showXAxisLabel2 = true;
 xAxisLabel2 = 'Country';
 showYAxisLabel2 = true;
 yAxisLabel2 = 'Data Value';
-xAxisLabelProc = 'Number';
-yAxisLabelProc = '';
-animations: boolean = true;
+animations :boolean =false;
+
+xAxisLabelProc = '';
+yAxisLabelProc = 'Value';
 
 colorSchemeProcure:any ={
-  domain: ['#05E513' ,'#fad73c','#4b55df']
+  domain: ['#b997ff','#a1dbff' ,'#ff8c61']
   }
-
-  pieDataProc=[
- 
-    {
-      "name": "PO",
-      "value": 12
-    },
-    {
-      "name": "Pending",
-      "value": 8
-    },
-    {
-      "name": "Total",
-      "value": 20
-    },
-  ]
-  ProcurementGraph = [
-    {
-      "name": "Total",
-      "series": [
-       
-        {
-          "name": "PO",
-          "value": 8
-        },
-        {
-          "name": "Pending",
-          "value": 4
-        },
-        {
-          "name": "Total",
-          "value": 12
-        },
-      ]
-    },
-    
-    {
-      "name": "Q1",
-      "series": [
-       
-        {
-          "name": "PO",
-          "value": 8
-        },
-        {
-          "name": "Pending",
-          "value": 4
-        },
-        {
-          "name": "Total",
-          "value": 12
-        },
-      ]
-    },
-    
-    {
-      "name": "Q2",
-      "series": [
-      
-        {
-          "name": "PO",
-          "value": 7
-        },
-        {
-          "name": "Pending",
-          "value": 7
-        },
-        {
-          "name": "Total",
-          "value": 14
-        },
-      
-      ]
-    },
-    {
-      "name": "Q3",
-      "series": [
-       
-        {
-          "name": "PO",
-          "value": 12
-        },
-        {
-          "name": "Pending",
-          "value": 4
-        },
-        {
-          "name": "Total",
-          "value": 16
-        },
-     
-      ]
-    },
-    {
-      "name": "Q4",
-      "series": [
-       
-        {
-          "name": "PO",
-          "value": 6
-        },
-        {
-          "name": "Pending",
-          "value": 6
-        },
-        {
-          "name": "Total",
-          "value": 12
-        },   
-      ]
-    }, 
-    ];
+colorSchemeProcurePie:any ={
+  domain: ['#b997ff','#a1dbff' ,'#ff8c61']
+  }
 
 financial = [
 {
@@ -174,9 +72,33 @@ financial = [
 
 
 ];
+stateData: any;
+countryData: any;
 onSelect(event:any) {
 console.log(event);
 }
+
+pieDataDesign=[
+
+  {
+    "name": "Inhouse",
+    "value": 30
+  },
+  {
+    "name": "3rd Party",
+    "value": 20
+  },
+  {
+    "name": "Completed",
+    "value": 15
+  },
+ 
+  {
+    "name": "Pending",
+    "value": 10
+  },
+ 
+  ];
 
 single = [
 {
@@ -207,113 +129,395 @@ single = [
 
 
 multi = [
+  // {
+  //   "name": "Total",
+  //   "series": [
+  //     {
+  //       "name": "Total",
+  //       "value": 50
+  //     },
+  //     {
+  //       "name": "Participation",
+  //       "value": 20
+  //     },
+  //     {
+  //       "name": "Win",
+  //       "value": 12
+  //     },
+  //     {
+  //       "name": "Completed",
+  //       "value": 8
+  //     },
+  //   ]
+  // },
+  
+  {
+    "name": "Q1",
+    "series": [
+      {
+        "name": "Total Projects",
+        "value": 20
+      },
+      {
+        "name": "Total Items",
+        "value": 10
+      },
+      {
+        "name": "Released PO",
+        "value": 6
+      },
+      {
+        "name": "PO",
+        "value": 4
+      },
+    ]
+  },
+  
+  {
+    "name": "Q2",
+    "series": [
+      {
+        "name": "Total Projects",
+        "value": 10
+      },
+      {
+        "name": "Total Items",
+        "value": 2
+      },
+      {
+        "name": "Released PO",
+        "value": 2
+      },
+      {
+        "name": "PO",
+        "value": 2
+      },
+    ]
+  },
+  {
+    "name": "Q3",
+    "series": [
+      {
+        "name": "Total Projects",
+        "value": 10
+      },
+      {
+        "name": "Total Items",
+        "value": 5
+      },
+      {
+        "name": "Released PO",
+        "value": 2
+      },
+      {
+        "name": "PO",
+        "value": 2
+      },
+    ]
+  },
+  {
+    "name": "Q4",
+    "series": [
+      {
+        "name": "Total Projects",
+        "value": 10
+      },
+      {
+        "name": "Total Items",
+        "value": 3
+      },
+      {
+        "name": "Released PO",
+        "value": 2
+      },
+      {
+        "name": "PO",
+        "value": 2
+      },
+    ]
+  },
+  
+  ];
+multi1 = [
 {
-  "name": "Jan",
+  "name": "2020 - 2021",
   "series": [
     {
-      "name": "2022",
-      "value": 7300
+      "name": "Last Year",
+      "value": 100
     },
     {
-      "name": "2023",
-      "value": 8940
-    }
+      "name": "Current Year",
+      "value": 120
+    },
+  
+   
   ]
 },
 
 {
-  "name": "Feb",
+  "name": "2021 - 2022",
   "series": [
     {
-      "name": "2022",
-      "value": 7870
+      "name": "Last Year",
+      "value": 200
     },
     {
-      "name": "2023",
-      "value": 8270
-    }
+      "name": "Current Year",
+      "value": 220
+    },
+  
+  
   ]
 },
 
 {
-  "name": "Mar",
+  "name": "2022 - 2023",
   "series": [
     {
-      "name": "2022",
-      "value": 5000
+      "name": "Last Year",
+      "value": 300
     },
     {
-      "name": "2023",
-      "value": 5800
-    }
+      "name": "Current Year",
+      "value": 400
+    },
+  
+   
   ]
 },
 {
-  "name": "Apr",
+  "name": "2023 - 2024",
   "series": [
     {
-      "name": "2022",
-      "value": 6000
+      "name": "Last Year",
+      "value": 400
     },
     {
-      "name": "2023",
-      "value": 7800
-    }
-  ]
-},
-{
-  "name": "May",
-  "series": [
-    {
-      "name": "2022",
-      "value": 6200
+      "name": "Current Year",
+      "value": 500
     },
-    {
-      "name": "2023",
-      "value": 7100
-    }
+  
+   
   ]
 },
-{
-  "name": "Jun",
-  "series": [
-    {
-      "name": "2022",
-      "value": 5800
-    },
-    {
-      "name": "2023",
-      "value": 6100
-    }
-  ]
-},
-{
-  "name": "Aug",
-  "series": [
-    {
-      "name": "2022",
-      "value": 5300
-    },
-    {
-      "name": "2023",
-      "value": 4900
-    }
-  ]
-},
-{
-  "name": "Sep",
-  "series": [
-    {
-      "name": "2022",
-      "value": 8900
-    },
-    {
-      "name": "2023",
-      "value": 7800
-    }
-  ]
-},
+
+
 ];
+
+Design = [
+  {
+    "name": "Total",
+    "series": [
+     
+      {
+        "name": "In-House",
+        "value": 12
+      },
+      {
+        "name": "3rd Party",
+        "value": 8
+      },
+      {
+        "name": "Total",
+        "value": 20
+      },
+    ]
+  },
+  
+  {
+    "name": "Q1",
+    "series": [
+     
+      {
+        "name": "In-House",
+        "value": 6
+      },
+      {
+        "name": "3rd Party",
+        "value": 14
+      },
+      {
+        "name": "Total",
+        "value": 20
+      },
+    ]
+  },
+  
+  {
+    "name": "Q2",
+    "series": [
+    
+      {
+        "name": "In-House",
+        "value": 4
+      },
+      {
+        "name": "3rd Party",
+        "value": 7
+      },
+      {
+        "name": "Total",
+        "value": 11
+      },
+    
+    ]
+  },
+  {
+    "name": "Q3",
+    "series": [
+     
+      {
+        "name": "In-House",
+        "value": 9
+      },
+      {
+        "name": "3rd Party",
+        "value": 13
+      },
+      {
+        "name": "Total",
+        "value": 22
+      },
+   
+    ]
+  },
+  {
+    "name": "Q4",
+    "series": [
+     
+      {
+        "name": "In-House",
+        "value": 10
+      },
+      {
+        "name": "3rd Party",
+        "value": 15
+      },
+      {
+        "name": "Total",
+        "value": 25
+      },
+    
+    ]
+  },
+ 
+  
+  ];
+
+  ProcurementGraph = [
+    // {
+    //   "name": "Total",
+    //   "series": [
+       
+    //     {
+    //       "name": "PO",
+    //       "value": 8
+    //     },
+    //     {
+    //       "name": "Pending",
+    //       "value": 4
+    //     },
+    //     {
+    //       "name": "Total",
+    //       "value": 12
+    //     },
+    //   ]
+    // },
+    
+    {
+      "name": "Q1",
+      "series": [
+       
+        {
+          "name": "Rel PO",
+          "value": 1
+        },
+        {
+          "name": "Items",
+          "value": 2
+        },
+        {
+          "name": "Final BOQ",
+          "value": 3
+        },
+      ]
+    },
+    
+    {
+      "name": "Q2",
+      "series": [
+      
+        {
+          "name": "Rel PO",
+          "value": 1
+        },
+        {
+          "name": "Items",
+          "value": 2
+        },
+        {
+          "name": "Final BOQ",
+          "value": 2
+        },
+      
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+       
+        {
+          "name": "Rel PO",
+          "value": 1
+        },
+        {
+          "name": "Items",
+          "value": 1
+        },
+        {
+          "name": "Final BOQ",
+          "value": 3
+        },
+     
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+       
+        {
+          "name": "Rel PO",
+          "value": 1
+        },
+        {
+          "name": "Items",
+          "value": 1
+        },
+        {
+          "name": "Final BOQ",
+          "value": 2
+        },   
+      ]
+    }, 
+    ];
+
+    pieDataProc=[
+ 
+      {
+        "name": "Rel PO",
+        "value": 4
+      },
+      {
+        "name": "Rel Items",
+        "value": 8
+      },
+      {
+        "name": "Final BOQ",
+        "value": 12
+      },
+    ]
+
 
 lineChart = [
 {
@@ -329,7 +533,7 @@ lineChart = [
     },
     {
       "name": "Mar",
-      "value": 650
+      "value": 950
     },
     {
       "name": "Apr",
@@ -341,7 +545,7 @@ lineChart = [
     },
     {
       "name": "Jun",
-      "value": 470
+      "value": 670
     },
     {
       "name": "July",
@@ -410,6 +614,26 @@ pieData=[
   "value": 2200
 },
 ];
+pieDataStateWise=[
+  {
+    "name": "UP",
+    "value": 20
+  },
+  {
+    "name": "Delhi",
+    "value": 16
+  },
+ 
+  {
+    "name": "Bihar",
+    "value": 12
+  },
+  {
+    "name": "Maharashtra",
+    "value": 4
+  },
+  ]
+
 pieDataCust=[
 {
   "name": "Commercial",
@@ -430,30 +654,44 @@ domain: ['#660066', '#990099', '#6600FF']
 lineColorScheme:any ={
 domain: ['#315CA4', '#FFA333', '#FFCC8F']
 }
+lineColorScheme1:any ={
+  domain: ['#ff8c61' , '#699efa', '#9cd9ff' , '#b996ff']
+  }
 mainColorScheme:any ={
-domain: ['#6093E8', '#315CA4']
-}
+  domain: ['#608bd7' ,'#80ccfd','#9775dc']
+  }
+mainColorScheme2:any ={
+  domain: ['#608bd7' ,'#80ccfd']
+  }
+  mainColorScheme1:any ={
+    domain: ['#608bd7' ,'#80ccfd', '#fe926a','#9775dc']
+    }
+
 showXAxis = true;
 showYAxis = true;
 showXAxisLabel = true;
 showYAxisLabel = true;
 showLabelsPie: boolean = true;
-yAxisLabelBar: string = 'Customers';
-xAxisLabelBar = 'Months';
+yAxisLabelBar: string = 'Value';
+xAxisLabelBar = '';
 showXAxisLabelLine: boolean = true;
 showYAxisLabelLine: boolean = true;
-xAxisLabelLine: string = 'Months';
-yAxisLabelLine: string = 'Amount';
+xAxisLabelLine: string = '';
+yAxisLabelLine: string = 'Value';
 colorSchemeOS:any ={
 domain: ['#cee27d', '#63830c']
 }
 yAxisLabelBarOS: string = 'Amount';
 xAxisLabelBarOS = 'Months';
 
-yAxisLabelBarLoad: string = 'Load';
-xAxisLabelBarLoad = 'Months';
+yAxisLabelBarLoad: string = 'Value';
+xAxisLabelBarLoad = '';
 colorSchemeLoad:any ={
-domain: ['#FFA333', '#CC66CC', '#FF3399']
+domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
+}
+colorSchemeLoadQuarter:any ={
+// domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
+domain: ['#ff8c61', '#699efa', '#9cd9ff' , '#b996ff']
 }
 
 colorSchemeFin:any = {
@@ -475,7 +713,7 @@ pieColorsType:any = {
 domain: ['#9400D3', '#FF00FF', '#000080']
 };
 pieColorsAlarmType:any = {
-domain: ['#9400D3', '#FFA500', '#000080']
+domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0', '#F5F559']
 };
 pieColorsProjRate:any = {
 domain: ['#57bb87', '#ed1c16']
@@ -511,15 +749,23 @@ pieDataType=[
 ];
 pieDataAlarmType=[
 {
-  "name": '7 days',
+  "name": 'New Leads',
   "value": 9400
 },
 {
-  "name": '21 days',
+  "name": 'Needs Analysis',
+  "value": 9400
+},
+{
+  "name": 'Deals Closed',
   "value": 5000
 },
 {
-  "name": '28 days',
+  "name": 'Qualification',
+  "value": 6000
+},
+{
+  "name": 'Offer Sent',
   "value": 6000
 },
 ];
@@ -539,16 +785,49 @@ changeData: any;
 fiveYear: any;
 segmentData: any;
 constructor(
-private sharedService: SharedService,
-private apiService: ApiService,
-private alertService: AlertService
-) { }
+  private sharedService: SharedService,
+  private apiService: ApiService,
+  private alertService: AlertService,
+  private router: Router,
+  private route: ActivatedRoute,
+  private formBuilder: FormBuilder,
+ 
+) {}
 
 ngOnInit(): void {
-this.fiveYear = this.sharedService.lastFiveYears();
+  this.fiveYear = this.sharedService.lastFiveYears();
+  this.getCountryData();
+  this.getSegmentData();
 
-this.getSegmentData();
-}
+  this.form = this.formBuilder.group({
+    country_id: [null, Validators.required],
+    state_id: [null, Validators.required],
+  })
+  }
+  
+  getCountryData() {
+    this.apiService.getCountryDataList().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.countryData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in country data.");
+      }
+    });
+  }
+  
+  StateData() {
+    console.log(this.form.value.country_id);
+    let countrydata = this.form.value.country_id;
+    let statedata = null;
+    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.stateData = res.result;
+      } else {
+        this.alertService.warning(`Looks like no state available related to the selected country.`);
+      }
+    });
+  }
+
 
 getSegmentData() {
 this.segmentData = [];
@@ -564,4 +843,6 @@ this.segmentData = [];
 //   this.alertService.error("Error: " + error.statusText)
 // });
 }
+
+
 }

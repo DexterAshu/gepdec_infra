@@ -2,7 +2,7 @@
     <div class="row presales-head">
             <div class="col-md-8">
               <h3 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>
-                BUSINESS EXECUTION DASHBOARD </h3>
+                Execution Dashboard </h3>
 
             </div>
             <div class="col-md-4">
@@ -218,8 +218,70 @@
         </div>
       </div>
 </div>
+
+    <!-- execution-data-chart -->
+    <div class="row mt-1">
+      <div class="col-md-6 grid-margin stretch-card pe-0">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title">Execution</p>
+            <div class="chartBar" #containerExecution>
+              <ngx-charts-pie-chart
+              [view]="[containerExecution.offsetWidth - 30, 220]"
+              [scheme]="colorSchemeExecution"
+              [labels]="showLabelsPie"
+              [gradient]="false"
+              [legend]="true"
+              [results]="execution">
+            </ngx-charts-pie-chart>
+            </div>
+          <!-- <ul class="cust-legend">
+              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+            </ul> -->
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title">Execution: Values </p>
+       
+                <div class="chartBar" #containerRef2>
+                  <ngx-charts-pie-chart
+                [view]="[containerRef2.offsetWidth - 35, 220]"
+                [scheme]="colorSchemeExecution"
+                [labels]="showLabelsPie"
+                [doughnut]="true"
+                [gradient]="false"
+                [legend]="true"
+                [results]="pieDataExe">
+              </ngx-charts-pie-chart>
+                  <!-- <ngx-charts-pie-chart
+                    [view]="[containerRef2.offsetWidth - 30, 220]"
+                    [scheme]="colorSchemeExecution"
+                    [labels]="showLabelsPie"
+                    [gradient]="false"
+                    [legend]="true"
+                    [results]="pieDataExe">
+                  </ngx-charts-pie-chart> -->
+                </div>
+             
+            <!-- <ul class="cust-legend">
+              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+            </ul> -->
+            
+          </div>
+        </div>
+      </div>
+     
+    </div>
  
-<div class="row mt-2">
+<!-- <div class="row mt-2">
   <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
         <div class="card-body">
@@ -332,7 +394,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="row mt-1">
   <div class="col-md-6 grid-margin stretch-card pe-0">
     <div class="card">
