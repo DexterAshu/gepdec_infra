@@ -28,14 +28,21 @@ import { SupplierComponent } from './procurement/supplier/supplier.component';
 import { FinYearComponent } from './fin-year/fin-year.component';
 import { CompanyContactsComponent } from './company-contacts/company-contacts.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CreateItemComponent } from './procurement/item-master/create-item/create-item.component';
+import { CreateSupplierComponent } from './procurement/supplier/create/create.component';
+// import { FilterPipe } from '../_pipes/filter.pipe';
 
 const routes: Routes = [
   { path: '', component: MyCompanyComponent },
   { path: 'tendering-company', component: CompanyComponent },
   { path: 'vendor', component: VendorMasterComponent },
   { path: 'tender', component: TenderMasterComponent },
+
   { path: 'procurement/item', component: ItemMasterComponent },
+  { path: 'procurement/item/create', component: CreateItemComponent },
   { path: 'procurement/supplier', component: SupplierComponent },
+  { path: 'procurement/supplier/create', component: CreateSupplierComponent },
+
   { path: 'employee', component: EmployeeMasterComponent },
   { path: 'department', component: DepartmentMasterComponent },
   { path: 'machine', component: MachineMasterComponent },
@@ -71,10 +78,10 @@ const routes: Routes = [
     // MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     // ,TitleMasterComponent,RoleMasterComponent,ProjectsComponent,ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent,
     // FinYearComponent,
-    SupplierComponent,
+    // SupplierComponent,
     // NgSelectModule,
     // CompanyContactsComponent,
-  
+    // FilterPipe
   ]
 })
 export class MasterModule { }

@@ -1,1 +1,113 @@
-<p>supplier works!</p>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Supplier</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                        </div>
+                        <div class="col-lg-8">
+                            <button type="button" routerLink="/master/procurement/supplier/create" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
+                        </div>
+                    </div>
+                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Supplier Code</th>
+                                <th>Supplier Name</th>
+                                <th>Company Name</th>
+                                <th>GST No</th>
+                                <th>GST Date</th>
+                                <th>PAN No</th>
+                                <th>TAN</th>
+                                <th>DOI(Date of Incorporation)</th>
+                                <th>Pincode</th>
+                                <th>Address</th>
+                                <th>DOI Document</th>
+                                <th>Category</th>
+                                <th>Contact No</th>
+                                <th>Country</th>
+                                <th>State</th>
+                                <th>District</th>
+                                <th>Bank Name</th>
+                                <th>Account Holder Name</th>
+                                <th>Account No</th>
+                                <th>Branch Name</th>
+                                <th>IFSC Code</th>
+                                <th>Bank Address</th>
+                                <th>Account type</th>
+                                <th>Created On</th>
+                                <!-- <th>Action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <!-- <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i"> -->
+                            <tr>
+                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                <td>1</td>
+                                <td>Sup001</td>
+                                <td>Ramesh</td>
+                                <td>ram corp.</td>
+                                <td>TYJ5678LKJBNH89</td>
+                                <td>10/09</td>
+                                <td>CDLOPO8779Q</td>
+                                <td>FGH6789HJ</td>
+                                <td>10/10/2020</td>
+                                <td>141010</td>
+                                <td>Ram Corp., Ludhiana, Punjab - 141016</td>
+                                <td></td>
+                                <td>Pvt. Ltd</td>
+                                <td>9878676543</td>
+                                <td>India</td>
+                                <td>Punjab</td>
+                                <td>Ludhiana</td>
+                                <td>HDFC Banck</td>
+                                <td>Ramesh</td>
+                                <td>2345678987654</td>
+                                <td>Focal Point</td>
+                                <td>SBIB00001</td>
+                                <td>Ludhiana, Punjab</td>
+                                <td>Saving</td>
+                                <td>9/02/2024</td>
+                                <!-- <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
+                                </td> -->
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <!-- <tr *ngIf="companyData?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
