@@ -150,7 +150,7 @@ export class DesignDashboardComponent {
         },
         {
           "name": "3rd Party",
-          "value": 6
+          "value": 5
         },
         {
           "name": "Completed",
@@ -168,11 +168,11 @@ export class DesignDashboardComponent {
         },
         {
           "name": "Inhouse",
-          "value": 2
+          "value": 10
         },
         {
           "name": "3rd Party",
-          "value": 2
+          "value": 5
         },
         {
           "name": "Completed",
@@ -193,11 +193,11 @@ export class DesignDashboardComponent {
         },
         {
           "name": "3rd Party",
-          "value": 2
+          "value": 5
         },
         {
           "name": "Completed",
-          "value": 2
+          "value": 4
         },
       ]
     },
@@ -210,11 +210,11 @@ export class DesignDashboardComponent {
         },
         {
           "name": "Inhouse",
-          "value": 3
+          "value": 5
         },
         {
           "name": "3rd Party",
-          "value": 2
+          "value": 5
         },
         {
           "name": "Completed",
@@ -536,8 +536,17 @@ export class DesignDashboardComponent {
     domain: ['#608bd7' ,'#80ccfd']
     }
     mainColorScheme1:any ={
-      domain: ['#608bd7' ,'#80ccfd', '#fe926a','#9775dc']
+      domain: ['#608bd7' ,'#80ccfd', '#3eaf3e','#9775dc']
       }
+
+      colorSchemeLoadQuarter1:any ={
+        domain: ['#9775dc' , '#7ccbfd', '#5783d0','#3eaf3e']
+        }
+
+        colorSchemeachiveTarget:any ={
+          domain: ['#9775dc' , '#3eaf3e']
+          }
+        
 
   showXAxis = true;
   showYAxis = true;
@@ -590,6 +599,67 @@ export class DesignDashboardComponent {
   pieColorsProjRate:any = {
   domain: ['#57bb87', '#ed1c16']
   };
+
+
+
+  targetlineChart = [
+    {
+      "name": "Target",
+      "series": [
+     
+        {
+          "name": "2020",
+          "value": 300
+        },
+        {
+          "name": "2021",
+          "value": 250
+        },
+        {
+          "name": "2022",
+          "value": 200
+        },
+        {
+          "name": "2023",
+          "value": 450
+        },
+        {
+          "name": "2024",
+          "value": 600
+        },
+       
+      ]
+    },
+   
+    {
+      "name": "Achievement",
+      "series": [
+      
+        {
+          "name": "2020",
+          "value": 200,
+        },
+        {
+          "name": "2021",
+          "value": 230,
+        },
+        {
+          "name": "2022",
+          "value": 170,
+        },
+        {
+          "name": "2023",
+          "value": 400,
+        },
+        {
+          "name": "2024",
+          "value": 550,
+        },
+      
+      ]
+    },
+   
+    ];
   
   pieDataSegment=[
   {

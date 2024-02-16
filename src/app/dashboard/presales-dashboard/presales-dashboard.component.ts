@@ -4,8 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import { SharedService } from 'src/app/_services/shared.service';
-
-
+import { Chart } from 'angular-highcharts';
 
 @Component({
   selector: 'app-presales-dashboard',
@@ -392,7 +391,7 @@ export class PresalesDashboardComponent {
   domain: ['#660066', '#990099', '#6600FF']
   };
   lineColorScheme:any ={
-    domain: ['#5783d0', '#7ccbfd','#fe926a','#9775dc' ]
+    domain: ['#5783d0', '#7ccbfd','#fe926a','#3eaf3e' ]
     }
   mainColorScheme:any ={
   domain: ['#6093E8', '#315CA4']
@@ -420,7 +419,7 @@ export class PresalesDashboardComponent {
   domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
   }
   colorSchemeLoadQuarter:any ={
-    domain: ['#9775dc' , '#039651', '#7ccbfd']
+    domain: ['#9775dc' , '#3eaf3e']
     }
   colorSchemeLoadQuarter1:any ={
     domain: ['#9775dc' , '#7ccbfd', '#5783d0','#fe926a']
@@ -574,4 +573,43 @@ export class PresalesDashboardComponent {
   //   this.alertService.error("Error: " + error.statusText)
   // });
   }
+
+  chart = new Chart({
+    chart: {
+      type: 'pie'
+    },
+    credits: { enabled: false },
+    plotOptions: {
+      pie: {
+        innerSize: '80%',
+        size:'50%',
+        borderWidth: 20,
+        borderColor: '',
+        slicedOffset: 10, // Corrected property name
+        dataLabels: { // Corrected property name
+          connectorWidth: 6,
+        }
+      }
+    },
+    title: 
+    {
+      verticalAlign: 'middle',
+      floating: true,
+      text: 'Presales',
+    },
+    series: [
+      {
+        type: 'pie',
+        data: [
+          { name: 'Qualified', y: 30, color: '#86d1ff' },
+          { name: 'Participated', y: 20, color: '#628beb' },
+          { name: 'Wins', y: 12, color: '#95f595' },
+          { name: 'Under Participation', y: 4, color: '#ff8b60' },
+          { name: 'Loss', y: 4, color: '#ff8d80' },
+        ],
+      }
+    ],
+  
+    
+  }); 
 }

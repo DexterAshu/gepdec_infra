@@ -30,7 +30,7 @@ export class MasterService {
       }),
     };
     return this.http.get<any>(
-      `${environment.apiUrl}/master/api/v1/getUserMaster`,
+      `${environment.apiUrl}/user/api/v1/getUserMaster`,
       httpOptions
     );
   }
@@ -107,7 +107,7 @@ export class MasterService {
       }),
     };
     return this.http.get<any>(
-      `${environment.apiUrl}/master/api/v1/getState`,
+      `${environment.apiUrl}/state/api/v1/getState`,
       httpOptions
     );
   }
@@ -119,11 +119,23 @@ export class MasterService {
       }),
     };
     return this.http.get<any>(
-      `${environment.apiUrl}/master/api/v1/getDistrict`,
+      `${environment.apiUrl}/state/api/v1/getDistrict`,
       httpOptions
     );
   }
 
+  getFinData(){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any>(
+      `${environment.apiUrl}/financialyear/api/v1/getFinancialYear`,
+      httpOptions
+    );
+  }
 
   //bulkload-L2 Schedule data
 bulkattach(data:any): Observable<any[]> {

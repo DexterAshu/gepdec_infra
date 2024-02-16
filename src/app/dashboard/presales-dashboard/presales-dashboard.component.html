@@ -107,7 +107,7 @@
         <div class="business-card p-3">
           <div class="row">
             <div class="col-md-3">
-              <i class="mdi mdi-chart-timeline text-center" style="color: #6b0167;font-size: 40px;"></i>
+              <i class="mdi mdi-chart-timeline text-center" style="font-size: 40px;"></i>
             </div>
     
           
@@ -123,7 +123,7 @@
         <div class="cust-card p-3">
           <div class="row">
             <div class="col-md-3">
-              <i class="mdi mdi-checkbox-marked-circle-outline text-center" style="color: #0070b5; font-size: 44px;"></i>
+              <i class="mdi mdi-checkbox-marked-circle-outline text-center" style=" font-size: 44px;"></i>
             </div>
             <div class="col-md-9">
             <h3> 30 </h3>
@@ -137,7 +137,7 @@
         <div class="Profit-card p-3">
           <div class="row">
             <div class="col-md-3">
-              <i class="mdi mdi-chart-scatterplot-hexbin text-center" style="color: #004cd1;font-size: 36px;"></i>
+              <i class="mdi mdi-chart-scatterplot-hexbin text-center" style="font-size: 36px;"></i>
             </div>
             <div class="col-md-9">
               <h3>20 </h3>
@@ -153,12 +153,12 @@
         <div class="loss-card p-3">
           <div class="row">
             <div class="col-md-3">
-              <i class="mdi mdi-thumb-up-outline text-center" style="color: #ff4905; font-size: 38px;"></i>
+              <i class="mdi mdi-thumb-up-outline text-center" style=" font-size: 38px;"></i>
             </div>
             <div class="col-md-9">
              <h3> 12 </h3>
               <hr>
-            <h6>Wins</h6>
+            <h6>Wins (60%)</h6>
             </div>
       
           </div>
@@ -343,7 +343,7 @@
      
           <div class="chartBar" #containerRef4>
             <ngx-charts-bar-vertical-2d
-            [view]="[containerRef4.offsetWidth, 190]"
+            [view]="[containerRef4.offsetWidth,190]"
             [scheme]="colorSchemeLoadQuarter1"
             [results]="multi"
             [xAxis]="showXAxis"
@@ -366,6 +366,16 @@
         </div>
       </div>
     </div>
+
+    <!-- <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="donutChart" [chart]="chart" #containerRef6>
+           
+          </div>
+          </div>
+      </div>
+    </div> -->
    
     <div class="col-md-6 grid-margin stretch-card">
       <div class="card">

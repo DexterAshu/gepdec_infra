@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import { SharedService } from 'src/app/_services/shared.service';
-
+import { Chart } from 'angular-highcharts';
+import * as Highcharts from 'highcharts';
+import { MasterService } from 'src/app/_services/master.service';
 
 @Component({
   selector: 'app-finance-dashboard',
@@ -37,7 +41,7 @@ showYAxisLabel2 = true;
 yAxisLabel2 = 'Data Value';
 
 colorSchemePerformance:any = {
-  domain: ['#9775dc' , '#e05555']
+  domain: ['#7070abe0' , '#7fb8f5db']
   };
 
 financial = [
@@ -60,6 +64,9 @@ financial = [
 
 
 ];
+  isNotFound: boolean = false;
+  financialData: any;
+  finCount: any;
 onSelect(event:any) {
 console.log(event);
 }
@@ -362,6 +369,25 @@ lineChart = [
 },
 ];
 
+finYearData() {
+  this.isNotFound = true;
+  this.masterService.getFinData().subscribe((res:any) => {
+    console.log(res);
+    
+    this.isNotFound = false;
+    if (res.status == 200) {
+    this.finCount = res;
+    this.financialData = res.result;
+        //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
+    }else {
+      this.alertService.warning("Looks like no data available!");
+    }
+  }, error => {
+    this.isNotFound = false;
+    this.alertService.error("Error: " + error.statusText)
+  }); 
+}
+
 pieData=[
 {
   "name": "0-30",
@@ -511,27 +537,107 @@ segmentData: any;
 constructor(
 private sharedService: SharedService,
 private apiService: ApiService,
-private alertService: AlertService
+private alertService: AlertService,
+private masterService : MasterService
 ) { }
 
 ngOnInit(): void {
 this.fiveYear = this.sharedService.lastFiveYears();
-
+this.finYearData();
 this.getSegmentData();
 }
 
 getSegmentData() {
 this.segmentData = [];
-// let apiLink = '/master/segmentMaster/getSegment';
-// this.apiService.getDataList(apiLink).subscribe((res:any) => {
-//   if (res.status === true) {
-//     this.segmentData = res.data;
-//   } else {
-//     this.alertService.warning("No data available in Segment dropdown.");
-//   }
-// }, error => {
-//   this.segmentData = [];
-//   this.alertService.error("Error: " + error.statusText)
-// });
+
 }
+
+LineChartGraph = new Chart({
+  chart: {
+      type: 'spline'
+  },
+  title: {
+      text: ''
+  },
+
+  xAxis: {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      accessibility: {
+          description: ''
+      }
+  },
+  yAxis: {
+      title: {
+          text: 'Amount (Cr)'
+      },
+      labels: {
+          format: '{value}'
+      }
+  },
+  tooltip: {
+      // crosshairs: true,
+      shared: true
+  },
+  plotOptions: {
+      spline: {
+          marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1
+          }
+      }
+  },
+  credits: {
+    enabled: false
+},
+  series: [{
+      type: 'spline',
+      name: 'Under Budget',
+      marker: {
+          symbol: 'square'
+      },
+      data: [50, 100, 120, 130, 180, 200, 250, {
+          y: 260,
+          
+          accessibility: {
+              description: ''
+          }
+      }, 100, 100, 120, 100]
+
+  }, {
+     type: 'spline',
+      name: 'Over Budget',
+      marker: {
+          symbol: 'diamond'
+      },
+     
+      data: [{
+          y: 15,
+         
+          accessibility: {
+              description: ''
+          }
+      }, 50, 100, 100, 80, 130, 140, 200, 50, 70, 50, 20]
+  },
+  {
+    type: 'spline',
+     name: 'Comparison',
+     marker: {
+         symbol: 'circle'
+     },
+    
+     data: [{
+         y: 35,
+        
+         accessibility: {
+             description: ''
+         }
+     }, 50, 20, 30, 100, 70, 110, 60, 50, 30, 70, 80]
+ }
+]
+});
+
+
+
 }

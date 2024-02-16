@@ -49,8 +49,12 @@ colorSchemeProcure:any ={
   domain: ['#b997ff','#a1dbff' ,'#ff8c61']
   }
 colorSchemeProcurePie:any ={
-  domain: ['#b997ff','#a1dbff' ,'#ff8c61']
+  domain: ['#ff8c61','#699efa' ,'#a1dbff']
   }
+
+  colorSchemeachiveTarget:any ={
+    domain: ['#9775dc' , '#3eaf3e']
+    }
 
 financial = [
 {
@@ -77,6 +81,65 @@ countryData: any;
 onSelect(event:any) {
 console.log(event);
 }
+
+targetlineChart = [
+  {
+    "name": "Target",
+    "series": [
+   
+      {
+        "name": "2020",
+        "value": 300
+      },
+      {
+        "name": "2021",
+        "value": 250
+      },
+      {
+        "name": "2022",
+        "value": 200
+      },
+      {
+        "name": "2023",
+        "value": 450
+      },
+      {
+        "name": "2024",
+        "value": 600
+      },
+     
+    ]
+  },
+ 
+  {
+    "name": "Achievement",
+    "series": [
+    
+      {
+        "name": "2020",
+        "value": 200,
+      },
+      {
+        "name": "2021",
+        "value": 230,
+      },
+      {
+        "name": "2022",
+        "value": 170,
+      },
+      {
+        "name": "2023",
+        "value": 400,
+      },
+      {
+        "name": "2024",
+        "value": 550,
+      },
+    
+    ]
+  },
+ 
+  ];
 
 pieDataDesign=[
 
@@ -156,18 +219,18 @@ multi = [
     "series": [
       {
         "name": "Total Projects",
-        "value": 20
+        "value": 12
       },
       {
-        "name": "Total Items",
+        "name": "Final BOQ",
         "value": 10
       },
       {
-        "name": "Released PO",
+        "name": "Total Items",
         "value": 6
       },
       {
-        "name": "PO",
+        "name": "Released PO",
         "value": 4
       },
     ]
@@ -178,19 +241,19 @@ multi = [
     "series": [
       {
         "name": "Total Projects",
+        "value": 12
+      },
+      {
+        "name": "Final BOQ",
         "value": 10
       },
       {
         "name": "Total Items",
-        "value": 2
+        "value": 6
       },
       {
         "name": "Released PO",
-        "value": 2
-      },
-      {
-        "name": "PO",
-        "value": 2
+        "value": 4
       },
     ]
   },
@@ -199,19 +262,19 @@ multi = [
     "series": [
       {
         "name": "Total Projects",
+        "value": 12
+      },
+      {
+        "name": "Final BOQ",
         "value": 10
       },
       {
         "name": "Total Items",
-        "value": 5
+        "value": 6
       },
       {
         "name": "Released PO",
-        "value": 2
-      },
-      {
-        "name": "PO",
-        "value": 2
+        "value": 4
       },
     ]
   },
@@ -220,19 +283,19 @@ multi = [
     "series": [
       {
         "name": "Total Projects",
+        "value": 12
+      },
+      {
+        "name": "Final BOQ",
         "value": 10
       },
       {
         "name": "Total Items",
-        "value": 3
+        "value": 6
       },
       {
         "name": "Released PO",
-        "value": 2
-      },
-      {
-        "name": "PO",
-        "value": 2
+        "value": 4
       },
     ]
   },
@@ -505,11 +568,11 @@ Design = [
     pieDataProc=[
  
       {
-        "name": "Rel PO",
+        "name": "Released PO",
         "value": 4
       },
       {
-        "name": "Rel Items",
+        "name": "Total Items",
         "value": 8
       },
       {
@@ -691,7 +754,7 @@ domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
 }
 colorSchemeLoadQuarter:any ={
 // domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
-domain: ['#ff8c61', '#699efa', '#9cd9ff' , '#b996ff']
+domain: ['#b996ff', '#9cd9ff', '#699efa' , '#ff8c61']
 }
 
 colorSchemeFin:any = {

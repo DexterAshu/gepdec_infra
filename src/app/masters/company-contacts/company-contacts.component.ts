@@ -4,14 +4,16 @@ import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
+
 @Component({
-  selector: 'app-company',
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css']
+  selector: 'app-company-contacts',
+  templateUrl: './company-contacts.component.html',
+  styleUrls: ['./company-contacts.component.css']
 })
-export class CompanyComponent implements OnInit {
+export class CompanyContactsComponent {
   form!: FormGroup;  
   p: number = 1;
+  username1:any;
   limit = environment.pageLimit;
   searchText: any;
   companyData: any;
@@ -45,48 +47,22 @@ export class CompanyComponent implements OnInit {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      // companyId: [null, Validators.required],
-      name: [null, Validators.required],
+      module_name: [null, Validators.required],
       company_name: [null, Validators.required],
-      company_type: [null, Validators.required],
+      name: [null, Validators.required],
+      usdg_id:[null, Validators.required],
+      usdt_id:[null, Validators.required],
       contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       contactno2: [null, [ Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       email: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      gst: [null, [Validators.required]] ,
-      pan: [null, Validators.required],
-      doi: [null, Validators.required],  
-      area: [null, Validators.required],
-      country_id: [null, Validators.required],
-      state_id: [null, Validators.required],
-      district_id: [null, Validators.required],
-      city:[null, Validators.required],
-      pincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
-      usdg_id:[null, Validators.required],
-      usdt_id:[null, Validators.required],
-      websiteurl:[null],
-      cinno:[null],
-      address_line2:[null],
-      address_line3:[null],
-
-      net_worth: [null],
-      financialyear_id: [null],
-      annual_turnover: [null]
     
     });
 
-    // const financialsData = {
-    //   Financials: [
-    //     {
-    //       net_worth: [null, Validators.required],
-    //       financialyear_id: [null, Validators.required],
-    //       annual_turnover: [null, Validators.required]
-    //     }
-    //   ]
-    // };
+   
 
     this.getCompanyData();
     this.getData();
-    this.getCountryData();
+  
     
   }
 
@@ -109,30 +85,15 @@ export class CompanyComponent implements OnInit {
         this.form.patchValue({
           name: this.custDetails.name,
           company_name: this.custDetails.company_name,
-          company_type: this.custDetails.company_type,
+          module_name: this.custDetails.module_name,
           contactno1: this.custDetails.contactno1,
           contactno2: this.custDetails.contactno2,
           email: this.custDetails.email,
-          gst: this.custDetails.gst,
-          pan: this.custDetails.pan,
-          doi: this.custDetails.doi,
-          area: this.custDetails.area,
-          pincode: this.custDetails.pincode,
           usdt_id: this.custDetails.usdt_id,
           usdg_id: this.custDetails.usdg_id,
-          websiteurl: this.custDetails.websiteurl,
-          cinno:this.custDetails.cinno,
-          city:this.custDetails.city,
-          address_line2:this.custDetails.address_line2,
-          address_line3:this.custDetails.address_line3,
+        
         }); 
-        this.form.controls['country_id'].setValue(this.custDetails.country_id);
-        this.form.controls['state_id'].setValue(this.custDetails.state_id);
-        this.form.controls['district_id'].setValue(this.custDetails.district_id);
-        setTimeout(() => {
-          this.getStateData();
-          this.getDistrictData();
-        }, 500);
+ 
   })
   }
   OnlyNumbersAllowed(event: any): boolean {
@@ -145,40 +106,7 @@ export class CompanyComponent implements OnInit {
   }
 
   get f() { return this.form.controls; }
-  getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
-      if (res.status === 200) {
-        this.countryData = res.result;
-      } else {
-        this.alertService.warning("Looks like no data available in country data.");
-      }
-    });
-  }
-  
-  getStateData() {
-    let countrydata = this.form.value.country_id;
-    let statedata = null;
-    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
-      if (res.status === 200) {
-        this.stateData = res.result;
-      } else {
-        this.alertService.warning(`Looks like no state available related to the selected country.`);
-      }
-    });
-  }
-  
-  getDistrictData() {
-    this.districtData = [];
-    let data = this.form.value.state_id;
-    let dist = this.form.value.district_id;
-    this.apiService.getDistData(data, dist).subscribe((res:any) => {
-      if (res.status === 200) {
-        this.districtData = res.result;
-      } else {
-        this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
-      }
-    });
-  }
+ 
 
   getData() {
     this.apiService.getCompanyData().subscribe((res:any) => {
@@ -359,5 +287,4 @@ export class CompanyComponent implements OnInit {
     }
   });
   }
-
 }

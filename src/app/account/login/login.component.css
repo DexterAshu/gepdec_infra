@@ -1,12 +1,18 @@
 .login_bg {
-    background-image: url('../../../assets/images/looogin.webp');
+    background-image: url('../../../assets/images/looogin.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    display: flex;
+    align-content: center;
+    
 }
 
 .login-shadow {
-    box-shadow: 0px 0px 6px -2px #bbc5c8;
+    box-shadow: 0px 0px 6px -2px #7097b0;
+}
+.login-shadow:hover{
+    box-shadow: 0px 3px 12px 0px #70bceb; 
 }
 
 .auth .brand-logo img {
@@ -22,10 +28,9 @@
 }
 
 .auth .auth-form-light {
-    border-radius: 8px;
-    background: #edf8fda1;
-    /* background: linear-gradient(18deg, rgb(128 166 187 / 9%) 0%, rgb(164 192 212 / 85%) 50%, #b6daf5 100%); */
-
+    /* background: #edf8fda1; */
+    border-radius: 10px;
+    background: linear-gradient(18deg, rgb(192 208 217 / 0%) 0%, rgb(205 218 227 / 0%) 50%, #d6edffa1 100%);
 }
 
 .form-control, .dataTables_wrapper select {
@@ -59,9 +64,14 @@
 
 .text-heading:hover{
     transition: transform 0.2s;
-    transform: scale(1.2);
+    transform: scale(1.1);
     overflow: hidden;
     position: relative;
     z-index: 1;
     cursor: pointer;
   }
+  .box-1-header {
+    position: absolute;
+    bottom: 0;
+
+}

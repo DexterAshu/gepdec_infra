@@ -76,6 +76,7 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
 
 .card:hover {
     box-shadow: 0px 0px 15px -6px #696969;
+    /* box-shadow: 0px 3px 9px 2px #065dbb; */
     transition: 0.5s;
     border: 1px solid #e8ebf1d1;
 }
@@ -211,5 +212,9 @@ header.legend-title.ng-star-inserted {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #a9a9a9; /* Color of the thumb on hover */
+}
+
+.fl-10{
+font-weight: 500;
 }
 

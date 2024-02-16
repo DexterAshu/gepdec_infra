@@ -60,23 +60,22 @@ export class ProcurementComponent {
   get f() { return this.form.controls; }
 
   getMeterData() {
-    this.isNotFound = true;
-    this.masterService.getMeterData().subscribe((res:any) => {
-      this.isNotFound = false;
-      this.meterData = [];
-      if (res.status === true) {
-        // this.meterData = res.data.filter((data:any) => data.active == 'Y');
-        this.meterData = res.data;
-        console.log(this.meterData);
+    // this.isNotFound = true;
+    // this.masterService.getMeterData().subscribe((res:any) => {
+    //   this.isNotFound = false;
+    //   this.meterData = [];
+    //   if (res.status === true) {
+    //     this.meterData = res.data;
+    //     console.log(this.meterData);
         
-      } else {
-        this.alertService.warning("Looks like no data available!");
-      }
-    }, error => {
-      this.meterData = [];
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
-    });
+    //   } else {
+    //     this.alertService.warning("Looks like no data available!");
+    //   }
+    // }, error => {
+    //   this.meterData = [];
+    //   this.isNotFound = false;
+    //   this.alertService.error("Error: " + error.statusText)
+    // });
   }
 
   // meterDetail(a:any) {

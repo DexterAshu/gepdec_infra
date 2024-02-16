@@ -25,8 +25,9 @@ import { ProjectMilestoneComponent } from './project-milestone/project-milestone
 import { MilestoneTasksComponent } from './milestone-tasks/milestone-tasks.component';
 import { ProjectDocumentsComponent } from './project-documents/project-documents.component';
 import { SupplierComponent } from './procurement/supplier/supplier.component';
-
-
+import { FinYearComponent } from './fin-year/fin-year.component';
+import { CompanyContactsComponent } from './company-contacts/company-contacts.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const routes: Routes = [
   { path: '', component: MyCompanyComponent },
@@ -50,6 +51,8 @@ const routes: Routes = [
   { path: 'proj-milestone', component: ProjectMilestoneComponent },
   { path: 'milestone-task', component: MilestoneTasksComponent },
   { path: 'project-doc', component: ProjectDocumentsComponent },
+  { path: 'fin-year', component: FinYearComponent },
+  { path: 'tender-company-contacts', component: CompanyContactsComponent },
   
 ];
 
@@ -67,8 +70,11 @@ const routes: Routes = [
   declarations: [
     // MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     // ,TitleMasterComponent,RoleMasterComponent,ProjectsComponent,ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent,
+    // FinYearComponent,
+    SupplierComponent,
+    // NgSelectModule,
+    // CompanyContactsComponent,
   
-    SupplierComponent
   ]
 })
 export class MasterModule { }

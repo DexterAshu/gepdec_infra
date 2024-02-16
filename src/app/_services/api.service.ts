@@ -21,7 +21,7 @@ export class ApiService {
         'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
       }),
     };
-    return this.http.get<any[]>(`${environment.apiUrl}/master/api/v1/getCountry`, httpOptions);
+    return this.http.get<any[]>(`${environment.apiUrl}/state/api/v1/getCountry`, httpOptions);
   }
   getStateData(data: any, state_id: any): Observable<any> {
     const httpOptions = {
@@ -34,7 +34,7 @@ export class ApiService {
       fromString: `country_id=${data}&state_id=${state_id}`
     });
     return this.http.get<any>(
-      `${environment.apiUrl}/master/api/v1/getState?${params}`,
+      `${environment.apiUrl}/state/api/v1/getState?${params}`,
       httpOptions
     );
   }
@@ -49,7 +49,7 @@ export class ApiService {
       fromString: `state_id=${state_id}&district_id=${district_id}`
     });
     return this.http.get<any>(
-      `${environment.apiUrl}/master/api/v1/getDistrict?${params}`,
+      `${environment.apiUrl}/state/api/v1/getDistrict?${params}`,
       httpOptions
     );
   }
@@ -139,7 +139,7 @@ export class ApiService {
       }),
     };
     return this.http.get<any[]>(
-      `${environment.apiUrl}/master/api/v1/getCompanyDropdown`,
+      `${environment.apiUrl}/company/api/v1/getCompanyDropdown`,
     
       httpOptions
     );
@@ -198,7 +198,7 @@ getVendorType(): Observable<any[]> {
       }),
     };
     return this.http.post<any[]>(
-      `${environment.apiUrl}/master/api/v1/addDeptName`,
+      `${environment.apiUrl}/department/api/v1/addDeptName`,
       data,
       httpOptions
     );
@@ -212,7 +212,7 @@ createMasterTitle(data: any): Observable<any[]> {
     }),
   };
   return this.http.post<any[]>(
-    `${environment.apiUrl}/master/api/v1/addTitle`,
+    `${environment.apiUrl}/title/api/v1/addTitle`,
     data,
     httpOptions
   );
@@ -226,7 +226,7 @@ createMasterRole(data: any): Observable<any[]> {
     }),
   };
   return this.http.post<any[]>(
-    `${environment.apiUrl}/master/api/v1/addUserRoleName`,
+    `${environment.apiUrl}/role/api/v1/addUserRoleName`,
     data,
     httpOptions
   );
@@ -241,7 +241,21 @@ createMasterRole(data: any): Observable<any[]> {
       }),
     };
     return this.http.post<any[]>(
-      `${environment.apiUrl}/master/api/v1/addDesignation`,
+      `${environment.apiUrl}/designation/api/v1/addDesignation`,
+      data,
+      httpOptions
+    );
+  }
+  //create master Financial Year
+  createMasterFinYear(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/financialyear/api/v1/addFinancialYear`,
       data,
       httpOptions
     );
@@ -275,6 +289,65 @@ createMasterRole(data: any): Observable<any[]> {
     );
   }
 
+//upload all type of documents
+  createDocuments(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // 'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/document/api/v1/addDocument `,
+      data,
+      httpOptions
+    );
+  }
+
+  getDocType(): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any[]>(
+      `${environment.apiUrl}/document/api/v1/getDocumentDropdownList`,
+    
+      httpOptions
+    );
+  }
+
+  getDocListData(){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    
+    return this.http.get<any>(
+      `${environment.apiUrl}/document/api/v1/getDocumentList`,
+      httpOptions
+    );
+  }
+  // getDocListData(document_id:any){
+  //   debugger
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //       'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+  //     }),
+  //   };
+  //   const params= new HttpParams({
+  //     fromString: `document_id=${document_id}`
+  //   });
+  //   return this.http.get<any>(
+  //     `${environment.apiUrl}/api/v1/getDocumentList?${params}`,
+  //     httpOptions
+  //   );
+  // }
+ 
 
   //Support ticket list
 incidentList():Observable<any>

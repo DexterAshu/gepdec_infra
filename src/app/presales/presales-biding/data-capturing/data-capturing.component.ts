@@ -35,6 +35,9 @@ export class DataCapturingComponent {
   loading: boolean = false;
   companyList: any;
   tenderType: any;
+  design: any;
+  departMent: any;
+  financialData: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -45,33 +48,141 @@ export class DataCapturingComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      // companyId: [null, Validators.required],
-      // name: [null, Validators.required],
+      tender_title:[null, Validators.required],
+      tender_ref_no:[null, Validators.required],
+      bidtype:[null, Validators.required],
+      tender_location:[null, Validators.required],
+      publish_date:[null, Validators.required],
+      prebid_submission_date:[null, Validators.required],
+      prebid_date:[null, Validators.required],
+      prebid_meeting_mode:[null, Validators.required],
+      tender_submission_date:[null, Validators.required],
+      tender_description:[null, Validators.required],
+      tender_detail_link:[null],         
+//tendering company
       company_name: [null, Validators.required],
-      bidtype: [null, Validators.required],
-      tender_no: [null, [Validators.required]],
-      tender_name: [null, [ Validators.required]],
-      fund_source: [null, [Validators.required]],
-      emd: [null, [Validators.required]] ,
-      ecv: [null, Validators.required],
-      due_date: [null, Validators.required],  
-      compl_period: [null, Validators.required],
-      location: [null, Validators.required],
-      prebid_date: [null, Validators.required],
-      coment_qr: [null, Validators.required],
-      sbmitted_date: [null, Validators.required],
-      tech_bid_date: [null, Validators.required],
-      pbid_open_date: [null, Validators.required],
-      qt_value: [null, Validators.required],
-      biders: [null, Validators.required],
-      price_gst: [null, Validators.required],
-      tender_description: [null],
-      jv: [null],
+      category:[null, Validators.required],
+      gst:[null, Validators.required],
+      pan:[null, Validators.required],
+      doi:[null],
+      country_id:[null, Validators.required],
+      state_id:[null, Validators.required],
+      district_id:[null, Validators.required],
+      city:[null, Validators.required],
+      web_url:[null],
+      cin_no:[null],
+      pincode:[null, Validators.required],
+      area: [null, Validators.required],
+      address_line2: [null],
+      address_line3: [null],
+//tendering contacts
+      cont_name: [null, Validators.required],
+      usdg_id: [null, Validators.required],
+      usdt_id: [null, Validators.required],
+      contactno1: [null, Validators.required],  
+      contactno2: [null],
+      email: [null, Validators.required],
+    
     });
 
+    //Financial Data
+      const financialsData = {
+      Financials: [
+        {
+         
+          net_worth: [null, Validators.required],
+          financialyear_id: [null, Validators.required],
+          annual_turnover: [null, Validators.required],
+          fin_remarks:[null,'']
+        }
+      ]
+    };
+    //Technical Data
+      const technicalData = {
+      Technical: [
+        {
+          technical_qualification: [null, Validators.required],
+          eligibility: [null, Validators.required],
+          attachment: [null],
+        }
+      ]
+    };
     this.getCompanyData();
-    // this.getCountryData();
-    
+    this.getCountryData();
+    this.getDesignDeptData();
+    this.finYearData();
+  }
+
+  getCountryData() {
+    this.apiService.getCountryDataList().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.countryData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in country data.");
+      }
+    });
+  }
+  
+  getStateData() {
+    let countrydata = this.form.value.country_id;
+    let statedata = null;
+    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.stateData = res.result;
+      } else {
+        this.alertService.warning(`Looks like no state available related to the selected country.`);
+      }
+    });
+  }
+  
+  getDistrictData() {
+    this.districtData = [];
+    let data = this.form.value.state_id;
+    let dist = this.form.value.district_id;
+    this.apiService.getDistData(data, dist).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.districtData = res.result;
+      } else {
+        this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
+      }
+    });
+  }
+
+  getDesignDeptData(){
+    this.masterService.getUserMaster().subscribe((res:any)=>{
+      console.log(res);
+      this.design = res.designation;
+      this.departMent = res.department;
+  
+      
+      })
+  }
+
+  finYearData() {
+    this.isNotFound = true;
+    this.masterService.getFinData().subscribe((res:any) => {
+      console.log(res);
+      this.financialData = res.result;
+  })
+}
+
+
+  fileList: File[] = [];
+  listOfFiles: any[] = [];
+  attachment: any = [];
+
+  onFileChanged(event: any) { 
+    for (var i = 0; i <= event.target.files.length - 1; i++) {
+      var selectedFile = event.target.files[i];
+      this.listOfFiles.push(selectedFile.name);
+      this.attachment.push(selectedFile);
+    }
+    console.log(this.attachment);
+  }
+
+  removeSelectedFile(index: any) {
+    this.listOfFiles.splice(index, 1);
+    this.fileList.splice(index, 1);
   }
 
   createForm(){
@@ -166,62 +277,7 @@ export class DataCapturingComponent {
       }
      
   
-      //passing all values
-      if (this.form.value.company_name != '') {
-        this.form.value.company_name == '';
-      } else {
-        this.form.value.company_name = null;
-      }
-      if (this.form.value.company_type != '') {
-        this.form.value.company_type == '';
-      } else {
-        this.form.value.company_type = null;
-      }
-      if (this.form.value.name != '') {
-        this.form.value.name == '';
-      } else {
-        this.form.value.name = null;
-      }
-      if (this.form.value.contactno1 != '') {
-        this.form.value.contactno1 == '';
-      } else {
-        this.form.value.contactno1 = null;
-      }
-      if (this.form.value.contactno2 != '') {
-        this.form.value.contactno2 == '';
-      } else {
-        this.form.value.contactno2 = null;
-      }
-      if (this.form.value.email != '') {
-        this.form.value.email == '';
-      } else {
-        this.form.value.email = null;
-      }
-      if (this.form.value.gst != '') {
-        this.form.value.gst == '';
-      } else {
-        this.form.value.gst = null;
-      }
-      if (this.form.value.pan != '') {
-        this.form.value.pan == '';
-      } else {
-        this.form.value.pan = null;
-      }
-      if (this.form.value.doi != '') {
-        this.form.value.doi == '';
-      } else {
-        this.form.value.doi = null;
-      }
-      if (this.form.value.area != '') {
-        this.form.value.area == '';
-      } else {
-        this.form.value.area = null;
-      }
-      if (this.form.value.pincode != '') {
-        this.form.value.pincode == '';
-      } else {
-        this.form.value.pincode = null;
-      }
+     
 
         this.loading = true;
     if (this.update) {  
@@ -230,6 +286,25 @@ export class DataCapturingComponent {
       this.addTender();
     }
     }
+
+
+    const formData: any = new FormData();
+    // const files: Array<File> = this.fileList;
+
+    for (let i = 0; i < this.attachment.length; i++) {
+      formData.append("attachment", this.attachment[i]);
+    }
+
+  formData.append("eligibility",this.form.value.eligibility);
+  formData.append("technical_qualification",this.form.value.technical_qualification);
+  formData.append("tender_company_name",this.form.value.tender_company_name);
+  formData.append("tender_title",this.form.value.tender_title);
+  formData.append("tender_ref_no",this.form.value.tender_ref_no);
+  formData.append("remarks",this.form.value.remarks);
+  // formData.append("bid_condition",this.form.value.bid_condition);
+  // formData.append("dependency",this.form.value.dependency);
+
+
   }
 
   addTender() {

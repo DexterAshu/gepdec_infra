@@ -10,7 +10,7 @@
 </div>
 
   <!-- filter data country state project wise -->
-  <div class="col-md-12">
+
     <div class="row module-wise ">
     <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
       <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
@@ -47,11 +47,9 @@
                   <label class="col-sm-5 col-form-label">Duration</label>
                   <div class="col-sm-7">
                       <select class="form-select form-select-sm">
-                        <option>All</option>
-                          <option>April 22 - March 23</option>
-                          <option>April 23 - March 24</option>
-                          <option>April 24 - March 25</option>
-                          <option>April 25 - March 26</option>
+                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                          <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+
                       </select>
                   </div>
                   </div>
@@ -60,11 +58,14 @@
                   <div class="form-group row">
                   <label class="col-sm-5 col-form-label">Company</label>
                   <div class="col-sm-7">
-                      <select class="form-select form-select-sm">
-                          <option>All</option>
-                          <option>GEPDEC Energy Project</option>
-                          <option>GEPDEC Infra Project</option>
-                      </select>
+                    <select class="form-select form-select-sm">
+                      <option>All</option>
+                      <option value="taldihi">Taldihi</option>
+                      <option value="jaunpur">Jaunpur</option>
+                      <option value="noida45">Noida Sec-45</option>
+                      <option value="delhi">Delhi</option>
+                      <option value="noida">Noida</option>
+                  </select>
                   </div>
                   </div>
               </div>
@@ -97,14 +98,14 @@
       </div>
   
   </div>
-  </div>
+ 
   
   <div class="row">
   <div class="col-md-3 cust-padding" routerLink="/dashboard/comp-dashboard">
     <div class="business-card p-3">
       <div class="row">
         <div class="col-md-3">
-          <i class="mdi mdi-currency-inr text-center" style="color: #6b0167;font-size: 40px;"></i>
+          <i class="mdi mdi-currency-inr text-center" style="font-size: 40px;"></i>
         </div>
 
       
@@ -114,18 +115,19 @@
          <h6> Revenue </h6>
         </div>
       </div>
+     
     </div>
   </div> 
   <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
     <div class="cust-card p-3">
       <div class="row">
         <div class="col-md-3">
-          <i class="mdi mdi-trophy-award text-center" style="color: #005263; font-size: 44px;"></i>
+          <i class="mdi mdi-trophy-award text-center" style=" font-size: 44px;"></i>
         </div>
         <div class="col-md-9">
         <h3> 12  </h3>
           <hr>
-         <h6>Project Win  </h6>
+         <h6>Projects Win  </h6>
         </div>
       </div> 
     </div>
@@ -134,12 +136,12 @@
     <div class="Profit-card p-3">
       <div class="row">
         <div class="col-md-3">
-          <i class="mdi mdi-chart-line text-center" style="color: #054cb5;font-size: 36px;"></i>
+          <i class="mdi mdi-chart-line text-center" style="font-size: 36px;"></i>
         </div>
         <div class="col-md-9">
           <h3>12 </h3>
           <hr>
-         <h6> Gross Profit (%) </h6>
+         <h6> EBITDA (%) </h6>
         </div>
   
       </div>
@@ -150,12 +152,12 @@
     <div class="loss-card p-3">
       <div class="row">
         <div class="col-md-3">
-          <i class="mdi mdi-content-duplicate text-center" style="color: #0b2043; font-size: 38px;"></i>
+          <i class="mdi mdi-content-duplicate text-center" style=" font-size: 38px;"></i>
         </div>
         <div class="col-md-9">
          <h3> 10 </h3>
           <hr>
-        <h6>Project Completed </h6>
+        <h6>Projects Completed </h6>
         </div>
   
       </div>
@@ -166,7 +168,7 @@
   
   <div class="row mt-1">
   <div class="col-md-3 cust-padding" routerLink="" >
-    <div class="business-card p-2" style="background-color: #7373e71c;">
+    <div class="business-card p-2">
       <div class="row">
         <div class="col-md-5 ">
           <h6> 120 Cr </h6>
@@ -179,13 +181,13 @@
           <small>Change</small>
         </div>
         <div class="col-md-2">
-          <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #6b0167;"></i>
+          <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
         </div>
       </div>
     </div>
   </div> 
   <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
-    <div class="cust-card p-2" style="background-color: #c7f3f7;">
+    <div class="cust-card p-2">
       <div class="row">
         <div class="col-md-5">
           <h6> 6 </h6>
@@ -198,14 +200,14 @@
           <small>Change</small>
         </div>
         <div class="col-md-2">
-          <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #005263;"></i>
+          <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
         </div>
       </div>
      
     </div>
   </div> 
   <div class="col-md-3 cust-padding" routerLink="/dashboard/performance-dashboard">
-    <div class="Profit-card p-2" style="background-color: #eaf7f6ab;">
+    <div class="Profit-card p-2">
       <div class="row">
         <div class="col-md-5">
           <h6> 14 </h6>
@@ -218,14 +220,14 @@
           <small>Change</small>
         </div>
         <div class="col-md-2">
-          <i class="mdi mdi-arrow-down mdi-36px text-center" style="color: #054cb5;"></i>
+          <i class="mdi mdi-arrow-down mdi-36px text-center"></i>
         </div>
       </div>
      
     </div>
   </div> 
   <div class="col-md-3 cust-padding" routerLink="/dashboard/procurement-dashboard">
-    <div class="loss-card p-2" style="background-color: #e1f0ff94;">
+    <div class="loss-card p-2">
       <div class="row">
         <div class="col-md-5">
           <h6> 5 </h6>
@@ -238,7 +240,7 @@
           <small>Change</small>
         </div>
         <div class="col-md-2">
-          <i class="mdi mdi-arrow-up mdi-36px text-center" style="color: #0b2043;"></i>
+          <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
         </div>
       </div>
      
@@ -247,43 +249,32 @@
   </div>
   
   <div class="row mt-2">
+
     <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
         <div class="card-body">
-          <p class="card-title mb-2">Performance</p>
-     
-          <div class="chartBar" #containerRef4>
-            <ngx-charts-bar-vertical-2d
-            [view]="[containerRef4.offsetWidth, 190]"
-            [scheme]="colorSchemeLoadQuarter1"
-            [results]="performancePDPEQ"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [gradient]="true"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelBarLoad"
-            [yAxisLabel]="yAxisLabelBarLoad"
-            [barPadding]="5"
-            [groupPadding]="7">
-
-            <!-- <ng-template #tooltipTemplate let-model="model">
-              <div class="custom-tooltip">
-                <p>{{ model.name }}</p>
-                <p>{{ model.data.toLocaleString() }} ({{ model.data / total * 100 | number: '1.2-2' }}%)</p>
+          <div class="row">
+            <div class="col-md-6" routerLink="/dashboard/performance-dashboard">
+              <p class="card-title mb-2">Budget | Expense</p>
+  
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+              <label class="col-sm-4 col-form-label" style="font-size: 12px; font-weight: 600;"> Yearly:</label>
+              <div class="col-sm-8">
+                <select class="form-select form-select-sm">
+                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                    <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+                </select>
               </div>
-            </ng-template> -->
-
-          </ngx-charts-bar-vertical-2d>
+              </div>
           </div>
-          <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total</li>
-            <li><i class="mdi mdi-checkbox-blank load_box4"></i> Completed</li>
-            <!-- <li><i class="mdi mdi-checkbox-blank load_box3"></i> Profit</li> -->
-            <!-- <li><i class="mdi mdi-checkbox-blank load_box4"></i> Q4</li> -->
-            <!-- <li><i class="mdi mdi-checkbox-blank load_box5"></i> Q5</li>
-            <li><i class="mdi mdi-checkbox-blank load_box6"></i> Q6</li> -->
-          </ul>
+         
+          </div>
+          <div class="" #containerPerformance>
+            <div class="Highcharts " [chart]="LineChartGraph"></div>
+           
+          </div>
         </div>
       </div>
     </div>
@@ -292,15 +283,15 @@
       <div class="card">
         <div class="card-body">
        
-            <p class="card-title mb-2 ">Performance: Achievement | Target</p>
+            <p class="card-title mb-2 ">Revenue | Expense</p>
             <!-- <p class=" col-md-6 p-1 bg-warning text-center rounded">$000</p> -->
          
           <div class="chartBar" #containerRef5>
             <ngx-charts-area-chart
-              [view]="[containerRef5.offsetWidth, 210]"
+              [view]="[containerRef5.offsetWidth, 0]"
               [scheme]="lineColorSchemeFinance"
-              [legend]="true"
-              [gradient]="false"
+              [legend]="false"
+              [gradient]="true"
               [showXAxisLabel]="showXAxisLabel"
               [showYAxisLabel]="showYAxisLabel"
               [xAxis]="xAxisf"
@@ -409,10 +400,66 @@
       </div>
     </div>
   </div>
+
+  <div class="row mt-1">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6" routerLink="/dashboard/performance-dashboard">
+              <p class="card-title mb-2">Project Wise Status</p>
+  
+            </div>
+            <div class="col-md-3">
+              <div class="form-group row">
+              <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Yearly:</label>
+              <div class="col-sm-8">
+                  <select class="form-select form-select-sm">
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                      <option value="2029">2029</option>
+                      <option value="2030">2030</option>
+                      <option value="2031">2031</option>
+                      <option value="2032">2031</option>
+                  </select>
+              </div>
+              </div>
+          </div>
+            <div class="col-md-3">
+              <div class="form-group row">
+              <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Department:</label>
+              <div class="col-sm-8">
+                  <select class="form-select form-select-sm">
+                      <option>All</option>
+                      <option value="presales">Presales</option>
+                      <option value="design">Design</option>
+                      <option value="procurement">Procurement</option>
+                      <option value="logistic">Logistic</option>
+                      <option value="execution">Execution</option>
+                      <option value="quality">Quality</option>
+                      <option value="finance">Finance</option>
+                      <option value="performance">Performance</option>
+                  </select>
+              </div>
+              </div>
+          </div>
+          </div>
+          <div class="" #containerPerformance>
+            <div class="Highcharts " [chart]="scateredGraphPrject"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
  
   <!-- Top Deals project data -->
   <div class="row mt-1">
-    <div class="col-md-6 grid-margin stretch-card pe-0">
+    <div class="col-md-6 col-sm-7 grid-margin stretch-card pe-0">
       <div class="card">
         <div class="card-body">
           <p class="card-title mb-2">Top 5 Deals</p>
@@ -464,44 +511,7 @@
               <div class="col-md-3">200</div>
             </div>
           </div>
-          <!-- <div class="table-responsive ht-auto">
-            <table class="table table-hover table-striped">
-              <thead class="table-primary text-nowrap">
-                <tr>
-                    <th>Project Name</th>
-                    <th>Category</th>
-                    <th>Value (Cr)</th>
-                </tr>
-              </thead>
-              <tbody class="text-nowrap">
-                <tr>
-                    <td>Taldihi</td>
-                    <td>330kv</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>Jaunpur</td>
-                    <td>220kv</td>
-                    <td>400</td>
-                </tr>
-                <tr>
-                    <td>Noida Sec-45</td>
-                    <td>220kv</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>Demo</td>
-                    <td>330kv</td>
-                    <td>522</td>
-                </tr>
-                <tr>
-                    <td>Information</td>
-                    <td>330kv</td>
-                    <td>200</td>
-                </tr>
-              </tbody>
-            </table>
-          </div> -->
+        
         </div>
       </div>
     </div>
@@ -510,129 +520,12 @@
           <div class="card-body">
               <p class="card-title mb-2">Top 5: State Wise Performance</p>
             <div class="chartBar" #containerRef>
-              <ngx-charts-pie-chart
-              [view]="[containerRef.offsetWidth, 220]"
-              [results]="data"
-              [legend]="false"
-              [gradient]="false"
-              [scheme]="colorSchemeState">
-              <ng-template #tooltipTemplate let-model="model">
-                <h5 class="p-1">
-                  {{model.name}}
-                </h5>
-                <h5 class="p-1">{{model.value}}</h5>
-              </ng-template>
-            </ngx-charts-pie-chart>
+              <div class="Highcharts " [chart]="statePie"></div>
+           
             </div>
           </div>
         </div>
       </div>
   </div>
   
-      <!-- PreSales-data-chart -->
-    <!-- <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title mb-2">PreSales</p>
-            <div class="chartBar" #containerRef5>
-              <ngx-charts-line-chart
-              [view]="[containerRef5.offsetWidth, 210]"
-              [scheme]="colorSchemeLoadQuarter"
-              [results]="lineChart"
-              [xAxis]="showXAxis"
-              [yAxis]="showYAxis"
-              [showXAxisLabel]="showYAxisLabelLine"
-              [gradient]="true"
-              [showYAxisLabel]="showYAxisLabelLine"
-              [xAxisLabel]="xAxisLabelLine"
-              [yAxisLabel]="yAxisLabelLine">
-            </ngx-charts-line-chart>
-            </div>
-            <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank l_box1"></i> Bid</li>
-              <li><i class="mdi mdi-checkbox-blank l_box2"></i> Win</li>
-              <li><i class="mdi mdi-checkbox-blank l_box3"></i> Loss</li>
-            </ul>
-                             
-          </div>
-        </div>
-      </div>
-     
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">PreSales: Values</p>
-            <div class="chartBar" #containerRef6>
-              <ngx-charts-pie-chart
-              [view]="[containerRef6.offsetWidth - 35, 220]"
-              [scheme]="lineColorScheme"
-              [labels]="showLabelsPie"
-              [gradient]="false"
-              [doughnut]="true"
-              [legend]="true"
-              [results]="pieDataCust">
-            </ngx-charts-pie-chart>
-            </div>
-         
-            
-          </div>
-        </div>
-      </div>
-    
-    </div> -->
-     <!-- design-data-chart -->
-  
-     <!-- <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title mb-2">Design</p>
-            <div class="chartBar" #containerRef>
-              <ngx-charts-bar-vertical-stacked
-                [view]="[containerRef.offsetWidth, 190]"
-                [scheme]="mainColorScheme"
-                [results]="Design"
-                [gradient]="true"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabel"
-                [yAxisLabel]="yAxisLabel"
-                [animations]="animations"
-                (select)="onSelect($event)">
-              </ngx-charts-bar-vertical-stacked>
-          
-            </div>
-            <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank des-box1"></i>Total</li>
-              <li><i class="mdi mdi-checkbox-blank des-box3"></i> 3rd Party</li>
-              <li><i class="mdi mdi-checkbox-blank des-box2"></i>  In-House</li>
-            </ul>
-            
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Design: Values </p>
-            <div class="chartBar" #containerRef2>
-              <ngx-charts-pie-chart
-                [view]="[containerRef2.offsetWidth - 30, 220]"
-                [scheme]="mainColorScheme"
-                [labels]="showLabelsPie"
-                [gradient]="false"
-                [legend]="true"
-                [results]="pieDataDesign">
-              </ngx-charts-pie-chart>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-  
-
   </div>

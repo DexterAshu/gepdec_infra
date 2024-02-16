@@ -56,6 +56,7 @@ import { BidQualifyComponent } from './presales/presales-biding/bid-qualify/bid-
 import { DirectBidingComponent } from './presales/presales-biding/direct-biding/direct-biding.component';
 import { IndirectBidingComponent } from './presales/presales-biding/indirect-biding/indirect-biding.component';
 import { DataCapturingComponent } from './presales/presales-biding/data-capturing/data-capturing.component';
+import { CaptureDataListComponent } from './presales/presales-biding/capture-data-list/capture-data-list.component';
 
 
 import { ProblemTicketComponent } from './problem-ticket/problem-ticket.component';
@@ -129,8 +130,9 @@ const routes: Routes = [
   {path: 'presales/presales-biding/direct-biding', component:DirectBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/indirect-biding', component:IndirectBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/bid-qualify', component:BidQualifyComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/data-capture-list', component:CaptureDataListComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture', component:DataCapturingComponent, canActivate:[AuthGuard]},
-//Customer
+//Customer 
   {path: 'customer-registration/process-1', component:Process1Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-2', component:Process2Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-3', component:Process3Component, canActivate:[AuthGuard]},

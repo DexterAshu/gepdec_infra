@@ -273,14 +273,26 @@
       <div class="business-card p-3">
         <div class="row">
           <div class="col-md-3">
-            <i class="mdi mdi-chart-donut-variant text-center" style="color: #6b0167;font-size: 40px;"></i>
+            <i class="mdi mdi-chart-donut-variant text-center" style="font-size: 40px;"></i>
           </div>
   
         
           <div class="col-md-9">
-            <h3> 50 </h3>
-            <hr>
-           <h6>All Projects | Drawing</h6>
+            <div class="row">
+
+              <div class="col-md-6">
+                <h3> 12 </h3>
+                <hr>
+                <h6> Projects</h6>
+              </div>
+              <div class="col-md-6">
+                <h3> 50 </h3>
+                <hr>
+                <h6> Drawings </h6>
+              </div>
+            </div>
+          
+          
           </div>
         </div>
       </div>
@@ -289,7 +301,7 @@
       <div class="cust-card p-3">
         <div class="row">
           <div class="col-md-3">
-            <i class="mdi mdi-houzz text-center" style="color: #0070b5; font-size: 44px;"></i>
+            <i class="mdi mdi-houzz text-center" style=" font-size: 44px;"></i>
           </div>
           <div class="col-md-9">
           <h3> 30 </h3>
@@ -303,7 +315,7 @@
       <div class="Profit-card p-3">
         <div class="row">
           <div class="col-md-3">
-            <i class="mdi mdi-chart-bubble text-center" style="color: #004cd1;font-size: 40px;"></i>
+            <i class="mdi mdi-chart-bubble text-center" style="font-size: 40px;"></i>
           </div>
           <div class="col-md-9">
             <h3>20 </h3>
@@ -319,10 +331,10 @@
       <div class="loss-card p-3">
         <div class="row">
           <div class="col-md-3">
-            <i class="mdi mdi-chart-pie text-center" style="color: #ff4905; font-size: 42px;"></i>
+            <i class="mdi mdi-chart-pie text-center" style=" font-size: 42px;"></i>
           </div>
           <div class="col-md-9">
-           <h3> 12 </h3>
+           <h3> 10 </h3>
             <hr>
           <h6>Completed</h6>
           </div>
@@ -334,7 +346,39 @@
     </div>
 
 <div class="row mt-2">
+
   <div class="col-md-6 grid-margin stretch-card pe-0">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title mb-2">Quarterly Performance </p>
+   
+        <div class="chartBar" #containerRef4>
+          <ngx-charts-bar-vertical-2d
+          [view]="[containerRef4.offsetWidth,190]"
+          [scheme]="colorSchemeLoadQuarter1"
+          [results]="multi"
+          [xAxis]="showXAxis"
+          [gradient]="true"
+          [yAxis]="showYAxis"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabelBarLoad"
+          [yAxisLabel]="yAxisLabelBarLoad"
+          [barPadding]="5"
+          [groupPadding]="7">
+        </ngx-charts-bar-vertical-2d>
+        </div>
+        <ul class="cust-legend">
+          <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total</li>
+          <li><i class="mdi mdi-checkbox-blank load_box2"></i> Inhouse</li>
+          <li><i class="mdi mdi-checkbox-blank load_box3"></i> 3rd Party</li>
+          <li><i class="mdi mdi-checkbox-blank load_box4"></i> Completed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="col-md-6 grid-margin stretch-card pe-0">
     <div class="card">
       <div class="card-body">
         <p class="card-title mb-2">Design</p>
@@ -365,7 +409,7 @@
         
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="col-md-6 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
@@ -390,35 +434,31 @@
  
 <div class="row mt-2">
   <div class="col-md-6 grid-margin stretch-card pe-0">
-      <div class="card">
-        <div class="card-body">
-          <p class="card-title mb-2">Quarterly Performance </p>
-     
-          <div class="chartBar" #containerRef4>
-            <ngx-charts-bar-vertical-2d
-            [view]="[containerRef4.offsetWidth, 190]"
-            [scheme]="colorSchemeLoadQuarter"
-            [results]="multi"
-            [xAxis]="showXAxis"
-            [gradient]="true"
-            [yAxis]="showYAxis"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelBarLoad"
-            [yAxisLabel]="yAxisLabelBarLoad"
-            [barPadding]="5"
-            [groupPadding]="7">
-          </ngx-charts-bar-vertical-2d>
-          </div>
-          <ul class="cust-legend">
-            <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total</li>
-            <li><i class="mdi mdi-checkbox-blank load_box2"></i> Inhouse</li>
-            <li><i class="mdi mdi-checkbox-blank load_box3"></i> 3rd Party</li>
-            <li><i class="mdi mdi-checkbox-blank load_box4"></i> Completed</li>
-          </ul>
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title mb-2">Design Target | Achievement</p>
+        <div class="chartBar" #containerRef5>
+          <ngx-charts-line-chart
+          [view]="[containerRef5.offsetWidth, 210]"
+          [scheme]="colorSchemeachiveTarget"
+          [results]="targetlineChart"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [showXAxisLabel]="showYAxisLabelLine"
+          [gradient]="true"
+          [showYAxisLabel]="showYAxisLabelLine"
+          [xAxisLabel]="xAxisLabelLine"
+          [yAxisLabel]="yAxisLabelLine">
+        </ngx-charts-line-chart>
         </div>
+        <ul class="cust-legend">
+          <li><i class="mdi mdi-checkbox-blank l_box1"></i> Target</li>
+          <li><i class="mdi mdi-checkbox-blank l_box3"></i> Achievement</li>
+        </ul>
+                         
       </div>
     </div>
+  </div>
     <div class="col-md-6 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
@@ -427,48 +467,48 @@
             <div class="row">
               <div class="col-md-2">S No</div>
               <div class="col-md-4">Project Name</div>
-              <div class="col-md-3">Category</div>
-              <div class="col-md-3">Values(Cr)</div>
+              <div class="col-md-3">Delivery Date</div>
+              <div class="col-md-3 text-center">Status</div>
             </div>
           </div>
           <div class="card1 mt-1">
             <div class="row">
               <div class="col-md-2">1</div>
               <div class="col-md-4">Taldihi</div>
-              <div class="col-md-3">330 Kv</div>
-              <div class="col-md-3">300</div>
+              <div class="col-md-3">10-01-2024</div>
+              <div class="col-md-3 badge badge-pill text-black" style="background-color: #ff6a6a;">Delayed</div>
             </div>
           </div>
           <div class="card2 mt-1">
             <div class="row">
               <div class="col-md-2">2</div>
               <div class="col-md-4">Jaunpur</div>
-              <div class="col-md-3">220 Kv</div>
-              <div class="col-md-3">400</div>
+              <div class="col-md-3">10-02-2024</div>
+              <div class="col-md-3 badge badge-pill text-black" style="background-color: #a0f0a0;">Ontime</div>
             </div>
           </div>
           <div class="card3 mt-1">
             <div class="row">
               <div class="col-md-2">3</div>
               <div class="col-md-4">Noida Sec-45</div>
-              <div class="col-md-3">220 Kv</div>
-              <div class="col-md-3">300</div>
+              <div class="col-md-3">15-03-2024</div>
+              <div class="col-md-3 badge badge-pill text-black" style="background-color: #a0f0a0;">Ontime</div>
             </div>
           </div>
           <div class="card4 mt-1">
             <div class="row">
               <div class="col-md-2">4</div>
               <div class="col-md-4">Delhi</div>
-              <div class="col-md-3">320 Kv</div>
-              <div class="col-md-3">100</div>
+              <div class="col-md-3">25-01-2024</div>
+              <div class="col-md-3 badge badge-pill text-black" style="background-color: #fcbf4f;">Delayed</div>
             </div>
           </div>
           <div class="card5 mt-1">
             <div class="row">
               <div class="col-md-2">5</div>
               <div class="col-md-4">Noida</div>
-              <div class="col-md-3">240 Kv</div>
-              <div class="col-md-3">200</div>
+              <div class="col-md-3">13-04-2024</div>
+              <div class="col-md-3 badge badge-pill text-black" style="background-color: #a0f0a0;">Ontime</div>
             </div>
           </div>
          

@@ -4,12 +4,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import { SharedService } from 'src/app/_services/shared.service';
+import { Chart } from 'angular-highcharts';
+import * as Highcharts from 'highcharts';
+import xrange from 'highcharts/modules/xrange';
+import { MasterService } from '../_services/master.service';
+xrange(Highcharts);
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  shoDataLabel: boolean = true;
   animations: boolean = true;
   fitContainer: boolean = false;
   view: any = [500, 250];
@@ -47,8 +54,11 @@ export class DashboardComponent implements OnInit {
    showYAxisLabelf: boolean = true;
    showXAxisLabelf: boolean = true;
    xAxisLabelf: string = '';
-   yAxisLabelf: string = 'Value';
+   yAxisLabelf: string = 'Amount (Cr)';
   //  timelinef: boolean = true;
+  
+
+
   
   financial = [
   {
@@ -70,27 +80,26 @@ export class DashboardComponent implements OnInit {
   
   
   ];
-  onSelect(event:any) {
-  console.log(event);
-  }
-
-  single = [
+  isNotFound: boolean = false;
+  finCount: any;
+  financialData: any;
   
+  single = [
     {
       "name": "Total",
-      "value": 315
+      "value": 220
     },
     {
       "name": "Presales",
-      "value": 150
+      "value": 60
     },
     {
       "name": "Design",
-      "value": 50
+      "value": 40
     },
     {
       "name": "Procurement",
-      "value": 40
+      "value": 20
     },
     {
       "name": "Warehouse",
@@ -102,55 +111,58 @@ export class DashboardComponent implements OnInit {
     },
     {
       "name": "Quality",
-      "value": 15
+      "value": 10
     },
     {
       "name": "Finance",
-      "value": 10
+      "value": 20
     },
    
   
   ];
-  
-  // single = [
-  // {
-  //   "name": "China",
-  //   "value": 2243772
-  // },
-  // {
-  //   "name": "USA",
-  //   "value": 1126000
-  // },
-  // {
-  //   "name": "Norway",
-  //   "value": 296215
-  // },
-  // {
-  //   "name": "Japan",
-  //   "value": 257363
-  // },
-  // {
-  //   "name": "Germany",
-  //   "value": 196750
-  // },
-  // {
-  //   "name": "France",
-  //   "value": 204617
-  // }
-  // ];
+  projectStatus = [
+    {
+        "name": "Total",
+        "value": 100,
+        "percentage": "100%"
+    },
+    {
+        "name": "Presales",
+        "value": 60,
+        "percentage": "60%"
+    },
+    {
+        "name": "Design",
+        "value": 40,
+        "percentage": "40%"
+    },
+    {
+        "name": "Procurement",
+        "value": 20,
+        "percentage": "20%"
+    },
+    {
+        "name": "Warehouse",
+        "value": 30,
+        "percentage": "30%"
+    },
+    {
+        "name": "Execution",
+        "value": 20,
+        "percentage": "20%"
+    },
+    {
+        "name": "Quality",
+        "value": 10,
+        "percentage": "10%"
+    },
+    {
+        "name": "Finance",
+        "value": 20,
+        "percentage": "20%"
+    }
+];
 
-  execution=[
-  
-    {
-      "name": "Pending",
-      "value": 8
-    },
-    {
-      "name": "Completed",
-      "value": 12
-    },
-   
-    ];
   
   presales = [
   {
@@ -351,342 +363,7 @@ export class DashboardComponent implements OnInit {
  
   
   ];
-  ProcurementGraph = [
-  {
-    "name": "Total",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 8
-      },
-      {
-        "name": "Pending",
-        "value": 4
-      },
-      {
-        "name": "Total",
-        "value": 12
-      },
-    ]
-  },
-  
-  {
-    "name": "Q1",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 8
-      },
-      {
-        "name": "Pending",
-        "value": 4
-      },
-      {
-        "name": "Total",
-        "value": 12
-      },
-    ]
-  },
-  
-  {
-    "name": "Q2",
-    "series": [
-    
-      {
-        "name": "PO",
-        "value": 7
-      },
-      {
-        "name": "Pending",
-        "value": 7
-      },
-      {
-        "name": "Total",
-        "value": 14
-      },
-    
-    ]
-  },
-  {
-    "name": "Q3",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 12
-      },
-      {
-        "name": "Pending",
-        "value": 4
-      },
-      {
-        "name": "Total",
-        "value": 16
-      },
-   
-    ]
-  },
-  {
-    "name": "Q4",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 6
-      },
-      {
-        "name": "Pending",
-        "value": 6
-      },
-      {
-        "name": "Total",
-        "value": 12
-      },   
-    ]
-  }, 
-  ];
-
  
-  Store = [
-    {
-      "name": "Total",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-      ]
-    },
-    
-    {
-      "name": "Q1",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-      ]
-    },
-    
-    {
-      "name": "Q2",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-       
-      
-      ]
-    },
-    {
-      "name": "Q3",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-      ]
-    },
-    {
-      "name": "Q4",
-      "series": [
-        {
-          "name": "Total",
-          "value": 20
-        },
-        {
-          "name": "Pending",
-          "value": 8
-        },
-        {
-          "name": "Issued",
-          "value": 12
-        },
-      
-      ]
-    },
-   
-    
-    ];
-    QualitySafety = [
-    {
-      "name": "Total",
-      "series": [
-        {
-          "name": "Success",
-          "value": 20
-        },
-        {
-          "name": "Failure",
-          "value": 14
-        },
-      ]
-    },
-    
-    {
-      "name": "Q1",
-      "series": [
-        {
-          "name": "Success",
-          "value": 17
-        },
-        {
-          "name": "Failure",
-          "value": 8
-        },
-      ]
-    },
-    
-    {
-      "name": "Q2",
-      "series": [
-        {
-          "name": "Success",
-          "value": 15
-        },
-        {
-          "name": "Failure",
-          "value": 3
-        },
-      ]
-    },
-    {
-      "name": "Q3",
-      "series": [
-        {
-          "name": "Success",
-          "value": 14
-        },
-        {
-          "name": "Failure",
-          "value": 7
-        },
-      ]
-    },
-    {
-      "name": "Q4",
-      "series": [
-        {
-          "name": "Success",
-          "value": 16
-        },
-        {
-          "name": "Failure",
-          "value": 7
-        },
-      
-      ]
-    },
-   
-    
-    ];
-    PerformanceData = [
-    {
-      "name": "Total",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 20
-        },
-        {
-          "name": "Exp",
-          "value": 14
-        },
-      ]
-    },
-    
-    {
-      "name": "Q1",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 17
-        },
-        {
-          "name": "Exp",
-          "value": 8
-        },
-      ]
-    },
-    
-    {
-      "name": "Q2",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 15
-        },
-        {
-          "name": "Exp",
-          "value": 3
-        },
-      ]
-    },
-    {
-      "name": "Q3",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 14
-        },
-        {
-          "name": "Exp",
-          "value": 7
-        },
-      ]
-    },
-    {
-      "name": "Q4",
-      "series": [
-        {
-          "name": "Rev",
-          "value": 16
-        },
-        {
-          "name": "Exp",
-          "value": 7
-        },
-      
-      ]
-    },
-   
-    
-    ];
   performancePDPEQ = [
     {
       "name": "Presales",
@@ -697,7 +374,7 @@ export class DashboardComponent implements OnInit {
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 12
         },
        
       ]
@@ -708,7 +385,7 @@ export class DashboardComponent implements OnInit {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
@@ -723,11 +400,11 @@ export class DashboardComponent implements OnInit {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 8
         },
       
       ]
@@ -737,11 +414,11 @@ export class DashboardComponent implements OnInit {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 7
         },
       ]
     },
@@ -750,11 +427,11 @@ export class DashboardComponent implements OnInit {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 5
         },
       
       ]
@@ -764,11 +441,11 @@ export class DashboardComponent implements OnInit {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 5
         },
       
       ]
@@ -1140,70 +817,7 @@ export class DashboardComponent implements OnInit {
   },
  
   ];
-  pieDataProc=[
- 
-  {
-    "name": "PO",
-    "value": 12
-  },
-  {
-    "name": "Pending",
-    "value": 8
-  },
-  {
-    "name": "Total",
-    "value": 20
-  },
- 
-  ];
-  pieDataStore=[
-  {
-    "name": "Total",
-    "value": 20
-  },
-  {
-    "name": "Pending",
-    "value": 8
-  },
-  {
-    "name": "Issued",
-    "value": 12
-  },
- 
-  ];
-  pieDataExe=[
-  {
-    "name": "AT Pending",
-    "value": 4
-  },
-  {
-    "name": "AT Success",
-    "value": 8
-  },
- 
-  ];
-  pieDataQS=[
-  {
-    "name": "Success",
-    "value": 20
-  },
-  {
-    "name": "Failure",
-    "value": 5
-  },
- 
-  ];
-  pieDataPerformance=[
-  {
-    "name": "Revenue",
-    "value": 20
-  },
-  {
-    "name": "Expenditure",
-    "value": 12
-  },
- 
-  ];
+
   pieDataCust=[
   {
     "name": "Loss",
@@ -1222,15 +836,15 @@ export class DashboardComponent implements OnInit {
   domain: ['#660066', '#990099', '#6600FF']
   };
   lineColorScheme:any ={
-  domain: ['#fc030b' , '#135df0', '#069108']
+  domain: ['#387df3' , '#FFBF00', '#FF7F50']
   }
   lineColorSchemeFinance:any ={
-  domain: ['#135df0', '#f7f01e', '#069108']
+  domain: ['#4c8ce9' , '#f59e35', '#75efb3']
   }
   mainColorScheme:any ={
-  domain: ['#309d15' ,'#f7f01e','#135df0']
+  domain: ['#43e943' ,'#fad73c','#9775dc']
   }
-  total = this.performancePDPEQ.reduce((acc:any, item:any) => acc + item.value, 0);
+  // total = this.performancePDPEQ.reduce((acc:any, item:any) => acc + item.value, 0);
   showXAxis = true;
   showYAxis = true;
   showXAxisLabel = true;
@@ -1248,37 +862,29 @@ export class DashboardComponent implements OnInit {
   yAxisLabelBarOS: string = 'Amount';
   xAxisLabelBarOS = '';
   
-  yAxisLabelBarLoad: string = 'Number';
+  yAxisLabelBarLoad: string = 'No of Projects';
   xAxisLabelBarLoad = '';
-  colorSchemeStore:any ={
-  domain: ['#a284e0', '#ff8d64', '#81f181']
-  }
-  colorSchemeQS:any ={
-  domain: [ '#447f00','#fd4747']
-  }
+  
+  
   colorSchemeProcure:any ={
-  domain: ['#309d15' ,'#fad73c','#9e3cfa']
+  domain: ['#43e943' ,'#fad73c','#9e3cfa']
   }
   colorSchemeLoadQuarter:any ={
-  domain: ['#135df0' , '#15b004', '#fc030b']
+  domain: ['#387df3' , '#FFBF00', '#FF7F50']
+  }
+  colorSchemeLoadQuarter1:any ={
+  domain: ['#bca0f5' , '#b7cff9']
   }
   
   colorSchemeFin:any = {
   domain: ['#400030','#6b275a', '#ba3d5d', '#e16b5f', '#fe9085'],
   };
   
-  colorSchemeExecution:any = {
-  domain: ['#fad946', '#54ae3e']
-  };
+ 
   colorScheme:any = {
     domain: ['#9370DB', '#87CEFA', '#5e96f7', '#FF7F50', '#90EE90', '#FA8072', '#fcbe53']
   };
-  // colorScheme:any = {
-  // domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
-  // };
-  colorSchemePerformance:any = {
-  domain: ['#fd4747' , '#3f4fa9']
-  };
+ 
   
   pieColorsOL:any = {
   domain: ['#6093E8', '#cf97ef', '#FFB761', '#A2D9FF']
@@ -1299,21 +905,22 @@ export class DashboardComponent implements OnInit {
 
 
   data = [
-    {'name' : "UP", 'value' : 15 },
+    {'name' : "UP", 'value' : 20 },
     {'name' : "MP", 'value' : 10},
-    {'name' : "Delhi", 'value' : 10},
+    {'name' : "Delhi", 'value' : 7},
     {'name': 'Maharashtra', 'value': 13},
     {'name': 'GOA', 'value': 8},
-    {'name': 'Others', 'value': 10},
+    {'name': 'Others', 'value': 15},
 
   ]
 
   colorSchemeState:any = {
-    domain: ['rgb(113 54 233)', 'rgb(34 164 247)', 'rgb(36 99 211)', '#ff8c61', 'rgb(45 229 122)', 'rgb(251 161 47)']
+    domain: ['#c7aaff', '#bfe4fc', '#b6cdf5', '#fac0ab', '#baffba', '#fdd099']
   };
+  // #b996ff #9cd9ff #699efa #ff8c61
 
   bpColorScheme:any ={
-    domain: ['#069108', '#e5e500','#fd4747']
+    domain: ['#508df7', '#f38705','#f57445']
   }
   
 
@@ -1323,7 +930,7 @@ export class DashboardComponent implements OnInit {
    bpshowXAxisLabel = true;
    bpshowYAxisLabel = true;
    bpshowLabelsPie: boolean = true;
-   bpyAxisLabelBar: string = 'Value';
+   bpyAxisLabelBar: string = 'Amount (Cr)';
    bpxAxisLabelBar = '';
    bpshowXAxisLabelLine: boolean = true;
    bpshowYAxisLabelLine: boolean = true;
@@ -1547,17 +1154,20 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private masterService: MasterService,
   ) { }
   
   ngOnInit(): void {
     this.fiveYear = this.sharedService.lastFiveYears();
     this.getCountryData();
     this.getSegmentData();
+    this.finYearData();
 
     this.form = this.formBuilder.group({
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
     })
+
   }
   
   getCountryData() {
@@ -1583,11 +1193,357 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  finYearData() {
+    this.isNotFound = true;
+    this.masterService.getFinData().subscribe((res:any) => {
+      console.log(res);
+      
+      this.isNotFound = false;
+      if (res.status == 200) {
+      this.finCount = res;
+      this.financialData = res.result;
+          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
+      }else {
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
+    }); 
+  }
+
+  onSelect(data:any): void {
+    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  }
+
+  // onActivate(data:any): void {
+  //   console.log('Activate', JSON.parse(JSON.stringify(data)));
+  // }
+
+  // onDeactivate(data:any): void {
+  //   console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  // }
+
+
+
   
   
   getSegmentData() {
   this.segmentData = [];
 
   }
+
+  Highcharts= new Chart({
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: '',
+        align: 'left'
+    },
+ 
+    xAxis: {
+        categories: ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'Delhi', 'Noida'],
+        title: {
+            text: null
+        },
+        gridLineWidth: 1,
+        lineWidth: 0
+    },
+    yAxis: {
+      min: 0,
+      title: {
+          text: ""
+      },
+      labels: {
+          enabled: true, // Disable numeric labels on the y-axis
+          overflow: 'justify'
+      },
+      gridLineWidth: 0,
+     
+  },
+    tooltip: {
+        valueSuffix: ''
+    },
+    plotOptions: {
+        bar: {
+            borderRadius: '50%',
+            dataLabels: {
+                enabled: true
+            },
+            groupPadding: 0.1
+        }
+    },
+    legend: {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'top',
+      x: 10,
+      y: -10,
+      floating: true,
+      borderWidth: 1,
+      // Ensure legend.backgroundColor is defined or use a default value
+      backgroundColor: Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
+     
+      shadow: true
+  },
+    credits: {
+        enabled: false
+    },
+    series: [{
+      type: 'bar', // Specify the type of chart series
+      name: 'Actual',
+      
+      data: [90, 80, 30, 20,70,]
+    }, {
+      type: 'bar', // Specify the type of chart series
+      name: 'Target',
+      data: [100, 100, 100, 100, 100]
+    }],
+    colors: [ '#c7e8ff','#afcaf9' ] // Red, Green, Blue
+   
+
+});
+
+//state wise data
+statePie = new Chart({
+  chart: {
+    type: 'pie',
+    width: 350, // Set the width
+    height: 280, // Set the height
+  },
+  title: {
+    text: ''
+  },
+  tooltip: {
+    valueSuffix: '%'
+  },
+  credits: {
+    enabled: false
+},
+
+  plotOptions: {
+    series: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: [{
+        enabled: true,
+        distance: 20
+      } as Highcharts.DataLabelsOptions, {
+        enabled: true,
+        distance: -40,
+        format: '{point.percentage:.0f}%',
+        style: {
+          fontSize: '.7em',
+          textOutline: 'none',
+          opacity: 0.7
+        },
+        filter: {
+          operator: '>',
+          property: 'percentage',
+          value: 10
+        }
+      } as Highcharts.DataLabelsOptions]
+    }
+  },
+
+  series: [{
+    type: 'pie',
+    name: 'Percentage',
+    data: [
+      { name: 'UP', y: 30 },
+      { name: 'Bihar', y: 10 },
+      { name: 'Maharashtra', y: 15 },
+      { name: 'Goa', y: 10 },
+      { name: 'New Delhi', y: 20},
+      { name: 'Others', sliced: true, selected: true, y: 10 },
+    ]
+  }],
+  colors: [
+    '#bb9ff5',  '#b5d0ff',  
+    '#ffc3ae',  '#7dabf9', '#aeddc5', '#f397ca'
+],
+  
+});
+
+
+LineChartGraph = new Chart({
+  chart: {
+      type: 'spline'
+  },
+  title: {
+      text: ''
+  },
+
+  xAxis: {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      accessibility: {
+          description: ''
+      }
+  },
+  yAxis: {
+      title: {
+          text: 'Amount (Cr)'
+      },
+      labels: {
+          format: '{value}'
+      }
+  },
+  tooltip: {
+      // crosshairs: true,
+      shared: true
+  },
+  plotOptions: {
+      spline: {
+          marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1
+          }
+      }
+  },
+  credits: {
+    enabled: false
+},
+  series: [{
+      type: 'spline',
+      name: 'Budget',
+      marker: {
+          symbol: 'circle'
+      },
+      data: [100, 60, 130, 150, 100, 150, 100, {
+          y: 100,
+          
+          accessibility: {
+              description: ''
+          }
+      }, 100, 70, 100, 200]
+
+  }, {
+     type: 'spline',
+      name: 'Expense',
+      marker: {
+          symbol: 'circle'
+      },
+     
+      data: [{
+          y: 95,
+         
+          accessibility: {
+              description: ''
+          }
+      }, 40, 130, 100, 95, 100, 80, 70, 60, 50, 75, 130]
+  },
+//   {
+//     type: 'spline',
+//      name: 'Comparison',
+//      marker: {
+//          symbol: 'circle'
+//      },
+    
+//      data: [{
+//          y: 5,
+        
+//          accessibility: {
+//              description: ''
+//          }
+//      }, 20, 0, 50, 5, 50, 20, 30, 40, 20, 25, 70]
+//  }
+]
+});
+
+
+
+
+scateredGraphPrject = new Chart({
+  chart: {
+      type: 'xrange'
+  },
+  title: {
+      text: ''
+  },
+  accessibility: {
+      point: {
+          descriptionFormat: '{add index 1}. {yCategory}, {x:%A %e %B %Y}, {x2:%A %e %B %Y} to {x3:%A %e %B %Y},'
+      }
+  },
+  credits: {
+    enabled: false
+},
+  xAxis: {
+      type: 'datetime'
+  },
+  yAxis: {
+      title: {
+          text: ''
+      },
+      categories: ['Taldihi', 'Jaunpur', 'Noida-sec45', 'Noida', 'Delhi'],
+      reversed: true
+  },
+  series: [{
+    type: 'xrange',
+    name: 'Project',
+    borderColor: 'gray',
+    data: [{
+        x: Date.UTC(2023, 10, 21),
+        x2: Date.UTC(2023, 11, 2),
+       
+        y: 0,
+        partialFill: {
+            amount: 0.50,
+            fill: '#03b75e'
+        }
+    }, {
+        x: Date.UTC(2023, 11, 8),
+        x2: Date.UTC(2023, 11, 15),
+       
+        y: 1,
+
+        partialFill: {
+          amount: 0.15,
+          fill: '#03b75e'
+      }
+
+    },  {
+        x: Date.UTC(2023, 11, 15),
+        x2: Date.UTC(2023, 11, 25),
+        y: 2,
+        partialFill: {
+          amount: 0.45,
+          fill: '#03b75e'
+      }
+    },
+
+    {
+      x: Date.UTC(2023, 11, 25),
+      x2: Date.UTC(2023, 12, 5),
+      y: 3,
+      partialFill: {
+        amount: 0.30,
+        fill: '#03b75e'
+    }
+  },
+  {
+    x: Date.UTC(2023, 12, 5),
+    x2: Date.UTC(2023, 12, 20),
+    y: 4,
+    partialFill: {
+      amount: 0.20,
+      fill: '#03b75e'
+  }
+},
+  
+  
+  ],
+    dataLabels: {
+        enabled: true
+    }
+}]
+
+});
+
+
   
 }

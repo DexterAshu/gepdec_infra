@@ -1,35 +1,29 @@
 <div class="container-fluid page-body-wrapper full-page-wrapper ">
   <div class="content-wrapper d-flex align-items-center auth px-0 login_bg">
-    <div class="row w-100 mx-5">
-      <div class="col-lg-12 mx-auto d-flex">
-        <div class="col-lg-8 p-0 s-size">
-         
-          <div class="auth-form-lighttext-left py-5 px-4 px-sm-5 " style="margin-top: 380px;">
-            <h2 class=" box-1-header text-heading" style="color: #ffffff;">
-              Welcome To 
-               </h2>
-               <h1 class=" box-1-header text-heading" style="color: #ffffff;">Business Process Automation</h1>
-            <h6 class="font-weight-light box-1-footer my-3" style="font-size: 12px; font-family:'Times New Roman', Times, serif; color:#ff9936;">Empowering the future with AI, automation, and technology.</h6>
+    <div class="row w-100">
+        <div class="col-lg-8 col-md-8 p-0 s-size d-flex">
+          <div class="px-sm-5 box-1-header">
+            <h2 class=" box-1-header p-2 text-heading" style="font-weight: 800; color: #6c8cc0; position: relative;"> Welcome To </h2>
+               <h1 class="p-2 box-1-header text-heading" style="font-weight: bold; color: #e8992f; position: relative;
+               ">Business Process Automation</h1>
           </div>
         </div>
-       
-        <div class="col-lg-4 p-0">
-          <br><br><br><br>
+        <div class="col-lg-4 col-md-4">
           <div class="auth-form-light login-shadow text-left py-5 px-4 px-sm-5 ">
             <div class="brand-logo text-center">
               <img src="../../../assets/images/gep.png" alt="logo">
             </div>
-            <h3 class=" my-3" style=" font-family:'Times New Roman', Times, serif; color:#e49c3d;">Login Here!</h3>
+            <h3 class=" my-3" style=" font-family:'Times New Roman', Times, serif; color:#e8992f;">Login Here!</h3>
             <form class="pt-3" [formGroup]="loginForm" (ngSubmit)="proceedLogin()">
               <div class="form-group">
-                <label class="font-weight-bold">Username</label>
+                <label class="fl-10">Username</label>
                 <input type="text" formControlName="loginName" class="form-control form-control-sm login-input" style="border-radius: 6px;" placeholder="Enter Username">
                 <div *ngIf="f['loginName'].touched && f['loginName'].invalid">
                   <small class="text-danger" *ngIf="f['loginName'].errors?.['required']">Username is Required</small>
               </div>
               </div>
               <div class="form-group">
-                <label class="font-weight-bold">Password</label>
+                <label class="fl-10">Password</label>
                 <input type="password" formControlName="password" class="form-control form-control-sm login-input" style="border-radius: 6px;" placeholder="Enter Password">
                 <div *ngIf="f['password'].touched && f['password'].invalid">
                   <small class="text-danger" *ngIf="f['password'].errors?.['required']">Password is Required</small>
@@ -38,11 +32,10 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="form-check m-0">
                 </div>
-                <a routerLink="/forget-password" class="auth-link text-black">Forgot password?</a>
+                <a class="auth-link text-black">Forgot password?</a>
               </div>
               <div class="mt-2">
                 <button type="submit" *ngIf='!loading' class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn" [disabled]="!loginForm.valid">Sign In</button>
-
                 <button type="button" *ngIf='loading' disabled class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">
                   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         LOGGING IN...
@@ -50,10 +43,10 @@
               </div>
             </form>
           </div>
+          <br>
+          <span class="" style="font-size: 12px; font-family:'Times New Roman', Times, serif; color:#e8992f; text-align:center">Empowering the future with AI, automation, and technology.</span>
         </div>
-      </div>
     </div>
   </div>
-
 </div>
 

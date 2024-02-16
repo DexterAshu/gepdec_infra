@@ -4,6 +4,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import { SharedService } from 'src/app/_services/shared.service';
+import { Chart } from 'angular-highcharts';
+import * as Highcharts from 'highcharts';
+import xrange from 'highcharts/modules/xrange';
+import { MasterService } from 'src/app/_services/master.service';
+xrange(Highcharts);
 
 @Component({
   selector: 'app-report-dashboard',
@@ -11,6 +16,8 @@ import { SharedService } from 'src/app/_services/shared.service';
   styleUrls: ['./report-dashboard.component.css']
 })
 export class ReportDashboardComponent {
+ 
+  shoDataLabel: boolean = true;
   animations: boolean = true;
   fitContainer: boolean = false;
   view: any = [500, 250];
@@ -48,8 +55,11 @@ export class ReportDashboardComponent {
    showYAxisLabelf: boolean = true;
    showXAxisLabelf: boolean = true;
    xAxisLabelf: string = '';
-   yAxisLabelf: string = 'Value';
+   yAxisLabelf: string = 'Amount (Cr)';
   //  timelinef: boolean = true;
+  
+
+
   
   financial = [
   {
@@ -71,9 +81,9 @@ export class ReportDashboardComponent {
   
   
   ];
-  onSelect(event:any) {
-  console.log(event);
-  }
+  isNotFound: boolean = false;
+  finCount: any;
+  financialData: any;
   
   single = [
     {
@@ -111,6 +121,48 @@ export class ReportDashboardComponent {
    
   
   ];
+  projectStatus = [
+    {
+        "name": "Total",
+        "value": 100,
+        "percentage": "100%"
+    },
+    {
+        "name": "Presales",
+        "value": 60,
+        "percentage": "60%"
+    },
+    {
+        "name": "Design",
+        "value": 40,
+        "percentage": "40%"
+    },
+    {
+        "name": "Procurement",
+        "value": 20,
+        "percentage": "20%"
+    },
+    {
+        "name": "Warehouse",
+        "value": 30,
+        "percentage": "30%"
+    },
+    {
+        "name": "Execution",
+        "value": 20,
+        "percentage": "20%"
+    },
+    {
+        "name": "Quality",
+        "value": 10,
+        "percentage": "10%"
+    },
+    {
+        "name": "Finance",
+        "value": 20,
+        "percentage": "20%"
+    }
+];
 
   
   presales = [
@@ -323,7 +375,7 @@ export class ReportDashboardComponent {
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 12
         },
        
       ]
@@ -334,7 +386,7 @@ export class ReportDashboardComponent {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
@@ -349,11 +401,11 @@ export class ReportDashboardComponent {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 8
         },
       
       ]
@@ -363,11 +415,11 @@ export class ReportDashboardComponent {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 7
         },
       ]
     },
@@ -376,11 +428,11 @@ export class ReportDashboardComponent {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 5
         },
       
       ]
@@ -390,11 +442,11 @@ export class ReportDashboardComponent {
       "series": [
         {
           "name": "Total",
-          "value": 20
+          "value": 12
         },
         {
           "name": "Completed",
-          "value": 10
+          "value": 5
         },
       
       ]
@@ -788,7 +840,7 @@ export class ReportDashboardComponent {
   domain: ['#387df3' , '#FFBF00', '#FF7F50']
   }
   lineColorSchemeFinance:any ={
-  domain: ['#75a5f8' , '#fb958a', '#85e785']
+  domain: ['#2caffe' , '#544fc5', '#75efb3']
   }
   mainColorScheme:any ={
   domain: ['#43e943' ,'#fad73c','#9775dc']
@@ -811,7 +863,7 @@ export class ReportDashboardComponent {
   yAxisLabelBarOS: string = 'Amount';
   xAxisLabelBarOS = '';
   
-  yAxisLabelBarLoad: string = 'Number';
+  yAxisLabelBarLoad: string = 'No of Projects';
   xAxisLabelBarLoad = '';
   
   
@@ -822,7 +874,7 @@ export class ReportDashboardComponent {
   domain: ['#387df3' , '#FFBF00', '#FF7F50']
   }
   colorSchemeLoadQuarter1:any ={
-  domain: ['#9d7dde' , '#ff8c61']
+  domain: ['#bca0f5' , '#b7cff9']
   }
   
   colorSchemeFin:any = {
@@ -879,7 +931,7 @@ export class ReportDashboardComponent {
    bpshowXAxisLabel = true;
    bpshowYAxisLabel = true;
    bpshowLabelsPie: boolean = true;
-   bpyAxisLabelBar: string = 'Value';
+   bpyAxisLabelBar: string = 'Amount (Cr)';
    bpxAxisLabelBar = '';
    bpshowXAxisLabelLine: boolean = true;
    bpshowYAxisLabelLine: boolean = true;
@@ -1103,17 +1155,20 @@ export class ReportDashboardComponent {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private masterService: MasterService,
   ) { }
   
   ngOnInit(): void {
     this.fiveYear = this.sharedService.lastFiveYears();
     this.getCountryData();
     this.getSegmentData();
+    this.finYearData();
 
     this.form = this.formBuilder.group({
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
     })
+
   }
   
   getCountryData() {
@@ -1139,10 +1194,357 @@ export class ReportDashboardComponent {
       }
     });
   }
+
+  finYearData() {
+    this.isNotFound = true;
+    this.masterService.getFinData().subscribe((res:any) => {
+      console.log(res);
+      
+      this.isNotFound = false;
+      if (res.status == 200) {
+      this.finCount = res;
+      this.financialData = res.result;
+          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
+      }else {
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
+    }); 
+  }
+
+  onSelect(data:any): void {
+    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  }
+
+  // onActivate(data:any): void {
+  //   console.log('Activate', JSON.parse(JSON.stringify(data)));
+  // }
+
+  // onDeactivate(data:any): void {
+  //   console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  // }
+
+
+
   
   
   getSegmentData() {
   this.segmentData = [];
 
   }
+
+  Highcharts= new Chart({
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: '',
+        align: 'left'
+    },
+ 
+    xAxis: {
+        categories: ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'Delhi', 'Noida'],
+        title: {
+            text: null
+        },
+        gridLineWidth: 1,
+        lineWidth: 0
+    },
+    yAxis: {
+      min: 0,
+      title: {
+          text: ""
+      },
+      labels: {
+          enabled: true, // Disable numeric labels on the y-axis
+          overflow: 'justify'
+      },
+      gridLineWidth: 0,
+     
+  },
+    tooltip: {
+        valueSuffix: ''
+    },
+    plotOptions: {
+        bar: {
+            borderRadius: '50%',
+            dataLabels: {
+                enabled: true
+            },
+            groupPadding: 0.1
+        }
+    },
+    legend: {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'top',
+      x: 10,
+      y: -10,
+      floating: true,
+      borderWidth: 1,
+      // Ensure legend.backgroundColor is defined or use a default value
+      backgroundColor: Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
+     
+      shadow: true
+  },
+    credits: {
+        enabled: false
+    },
+    series: [{
+      type: 'bar', // Specify the type of chart series
+      name: 'Actual',
+      
+      data: [90, 80, 30, 20,70,]
+    }, {
+      type: 'bar', // Specify the type of chart series
+      name: 'Target',
+      data: [100, 100, 100, 100, 100]
+    }],
+    colors: [ '#f29524','#5b94f7' ] // Red, Green, Blue
+   
+
+});
+
+//state wise data
+statePie = new Chart({
+  chart: {
+    type: 'pie',
+    width: 350, // Set the width
+    height: 280, // Set the height
+  },
+  title: {
+    text: ''
+  },
+  tooltip: {
+    valueSuffix: '%'
+  },
+  credits: {
+    enabled: false
+},
+
+  plotOptions: {
+    series: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: [{
+        enabled: true,
+        distance: 20
+      } as Highcharts.DataLabelsOptions, {
+        enabled: true,
+        distance: -40,
+        format: '{point.percentage:.0f}%',
+        style: {
+          fontSize: '.7em',
+          textOutline: 'none',
+          opacity: 0.7
+        },
+        filter: {
+          operator: '>',
+          property: 'percentage',
+          value: 10
+        }
+      } as Highcharts.DataLabelsOptions]
+    }
+  },
+
+  series: [{
+    type: 'pie',
+    name: 'Percentage',
+    data: [
+      { name: 'UP', y: 30 },
+      { name: 'Bihar', y: 10 },
+      { name: 'Maharashtra', y: 15 },
+      { name: 'Goa', y: 10 },
+      { name: 'New Delhi', y: 20},
+      { name: 'Others', sliced: true, selected: true, y: 10 },
+    ]
+  }],
+  colors: [
+    '#bb9ff5',  '#b5d0ff',  
+    '#ffc3ae',  '#7dabf9', '#aeddc5', '#f397ca'
+],
+  
+});
+
+
+LineChartGraph = new Chart({
+  chart: {
+      type: 'spline'
+  },
+  title: {
+      text: ''
+  },
+
+  xAxis: {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      accessibility: {
+          description: ''
+      }
+  },
+  yAxis: {
+      title: {
+          text: 'Amount (Cr)'
+      },
+      labels: {
+          format: '{value}'
+      }
+  },
+  tooltip: {
+      // crosshairs: true,
+      shared: true
+  },
+  plotOptions: {
+      spline: {
+          marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1
+          }
+      }
+  },
+  credits: {
+    enabled: false
+},
+  series: [{
+      type: 'spline',
+      name: 'Budget',
+      marker: {
+          symbol: 'square'
+      },
+      data: [500, 550, 600, 650, 700, 550, 600, {
+          y: 600,
+          
+          accessibility: {
+              description: ''
+          }
+      }, 500, 700, 300, 600]
+
+  }, {
+     type: 'spline',
+      name: 'Expense',
+      marker: {
+          symbol: 'diamond'
+      },
+     
+      data: [{
+          y: 350,
+         
+          accessibility: {
+              description: ''
+          }
+      }, 300, 400, 400, 500, 300, 200, 400, 200, 400, 200, 200]
+  },
+  {
+    type: 'spline',
+     name: 'Comparison',
+     marker: {
+         symbol: 'circle'
+     },
+    
+     data: [{
+         y: 150,
+        
+         accessibility: {
+             description: ''
+         }
+     }, 250, 200, 250, 200, 250, 400, 200, 300, 300, 100, 400]
+ }
+]
+});
+
+
+
+
+scateredGraphPrject = new Chart({
+  chart: {
+      type: 'xrange'
+  },
+  title: {
+      text: ''
+  },
+  accessibility: {
+      point: {
+          descriptionFormat: '{add index 1}. {yCategory}, {x:%A %e %B %Y}, {x2:%A %e %B %Y} to {x3:%A %e %B %Y},'
+      }
+  },
+  credits: {
+    enabled: false
+},
+  xAxis: {
+      type: 'datetime'
+  },
+  yAxis: {
+      title: {
+          text: ''
+      },
+      categories: ['Taldihi', 'Jaunpur', 'Noida-sec45', 'Noida', 'Delhi'],
+      reversed: true
+  },
+  series: [{
+    type: 'xrange',
+    name: 'Project',
+    borderColor: 'gray',
+    data: [{
+        x: Date.UTC(2023, 10, 21),
+        x2: Date.UTC(2023, 11, 2),
+       
+        y: 0,
+        partialFill: {
+            amount: 0.50,
+            fill: 'green'
+        }
+    }, {
+        x: Date.UTC(2023, 11, 8),
+        x2: Date.UTC(2023, 11, 15),
+       
+        y: 1,
+
+        partialFill: {
+          amount: 0.15,
+          fill: 'green'
+      }
+
+    },  {
+        x: Date.UTC(2023, 11, 15),
+        x2: Date.UTC(2023, 11, 25),
+        y: 2,
+        partialFill: {
+          amount: 0.45,
+          fill: 'green'
+      }
+    },
+
+    {
+      x: Date.UTC(2023, 11, 25),
+      x2: Date.UTC(2023, 12, 5),
+      y: 3,
+      partialFill: {
+        amount: 0.30,
+        fill: 'green'
+    }
+  },
+  {
+    x: Date.UTC(2023, 12, 5),
+    x2: Date.UTC(2023, 12, 20),
+    y: 4,
+    partialFill: {
+      amount: 0.20,
+      fill: 'green'
+  }
+},
+  
+  
+  ],
+    dataLabels: {
+        enabled: true
+    }
+}]
+
+});
+
+
+  
 }

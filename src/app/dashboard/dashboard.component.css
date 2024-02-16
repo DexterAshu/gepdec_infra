@@ -1,42 +1,40 @@
 /* First-row CSS */
 .business-card{
-  border-radius: 6px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-weight: bold;
-  background: #f8f9fa;
-  background: linear-gradient(90deg, #e7edff 0%, #ffe3e3 50%, rgb(249 184 184 / 83%) 100%);
-  /* background: linear-gradient(90deg, #e1e3e9 0%, #f1f0f0 50%, rgb(247 242 242) 100%); */
-  color: #752727;
+  
+  border-radius: 4px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    background: linear-gradient(90deg, #d3bdff9c 0%, #e9dffd61 50%, #f0eafb7a 100%);
+    color: #1a1a72;
  
 }
 .business-card:hover{
   /* width:255px;
   transition: transform 0.2s;
   transform: scale(1.1); */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(90deg, rgb(249 184 184 / 83%) 0%, #ffe3e3 50%,  #e7edff 100%);
+  box-shadow: 0px 2px 6px 0px #1a1a72;
+  background: linear-gradient(90deg, #f0eafb7a 0%, #e9dffd61 50%, #d3bdff9c 100%);
   overflow: hidden;
   position: relative;
   z-index: 1;
   cursor: pointer;
 }
+
 .cust-card{
-  border-radius: 6px;
+  border-radius: 4px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 600;
-  background: #94e4d6;
-  background: linear-gradient(90deg, #fffae6bf 0%, #f5eccae0 50%, rgb(255 230 143) 100%);
-  /* background: linear-gradient(90deg, #f1db8b 0%, #f7efd3 50%, rgb(255 251 236) 100%); */
-  color: #c3970d;
- 
+  background: linear-gradient(90deg, #bae3fd8c 0%, #dfeef747 50%, #e4f3fba6 100%);
+  color: #005263;
   
 }
 .cust-card:hover{
   /* width:255px;
   transition: transform 0.2s;
   transform: scale(1.1); */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(90deg, rgb(255 230 143) 0%, #f5eccae0 50%, #fffae6bf 100%);
+  box-shadow: 0px 2px 6px 0px #005263;
+  background: linear-gradient(90deg, #e4f3fba6 0%, #dfeef747 50%, #bae3fd8c 100%);
+  /* background: linear-gradient(90deg, #e0fbfd 0%, #cbe7e9 50%, #c7f3f7 100%); */
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -44,21 +42,20 @@
 
 }
 .Profit-card{
-  border-radius: 6px;
+  border-radius: 4px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 600;
-  background: #d3e3fd;
-  background: linear-gradient(90deg, #e3f5f2cc 0%, #cbf9f2c2 50%, #98e6d9 100%);
-  /* background: linear-gradient(90deg, #94e4d6 0%, #a6eee2 50%, #e1fdf8 100%); */
-  color: #447f00;
+  background: linear-gradient(90deg, #b0cdff80 0%, #dce4f370 50%, #eaf1fdb8 100%);
+  color: #085dd9;
   
 }
 .Profit-card:hover{
   /* width:255px;
   transition: transform 0.2s;
   transform: scale(1.1); */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(90deg, #98e6d9 0%, #cbf9f2c2 50%,  #e3f5f2cc 100%);
+  box-shadow: 0px 2px 6px 0px #085dd9;
+  background: linear-gradient(90deg, #eaf1fdb8 0%, #dce4f370 50%, #b0cdff80 100%);
+  /* background: linear-gradient(90deg,  rgb(211 241 236) 0%, rgb(218 241 245) 50%, #eaf7f6 100%); */
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -66,21 +63,20 @@
 
 }
 .loss-card{
-  border-radius: 6px;
+  border-radius: 4px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 600;
-  background: #64a2e5;
-  background: linear-gradient(90deg, #eaf3fdcf 0%, #b7cefbcc 50%, #6ba4e6 100%);
-  /* background: linear-gradient(90deg, #98e6d9 0%, #cbf9f2c2 50%, #e3f5f2cc 100%); */
-    color: #0b2043;
+  background: linear-gradient(90deg, #ffdacbd1 0%, #f9e7e178 50%, #ffeee88a 100%);
+  color: #ec8e1e;
   
 }
 .loss-card:hover{
   /* width:255px;
   transition: transform 0.2s;
   transform: scale(1.1); */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(90deg, #6ba4e6 0%, #b7cefbcc 50%, #eaf3fdcf 100%);  overflow: hidden;
+  box-shadow: 0px 2px 6px 0px #ec8e1e;
+  background: linear-gradient(90deg, #ffeee88a 0%, #f9e7e178 50%, #ffdacbd1 100%);
+  overflow: hidden;
   position: relative;
   z-index: 1;
   cursor: pointer;
@@ -125,34 +121,34 @@
 .cust-legend li .l_box1 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #135df0;
+  color: #387df3;
 }
 
 .cust-legend li .l_box2 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #069108  ;
+  color: #FFBF00  ;
 }
 .cust-legend li .l_box3 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #fc030b;
+  color: #FF7F50;
 }
 .cust-legend li .per_box1 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #135df0;
+  color: #4c8ce9;
 }
 
 .cust-legend li .per_box2 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #f7f01e;
+  color: #f59e35;
 }
 .cust-legend li .per_box3 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #069108;
+  color: #75efb3;
 }
 .cust-legend li .l_box4 {
   font-size: 16px;
@@ -173,17 +169,17 @@
 .cust-legend li .des-box2 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #069108;
+  color: #43e943;
 }
 .cust-legend li .des-box3 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #f7f01e;
+  color: #fad73c;
 }
 .cust-legend li .des-box1 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #135df0;
+  color: #9775dc;
 }
 
 .cust-legend li .o_box1 {
@@ -199,54 +195,10 @@
 }
 
 
-.cust-legend li .proc_box1 {
-  font-size: 16px;
-  padding-right: 0.5rem;
-  color: #9e3cfa;
-}
-
-.cust-legend li .proc_box2 {
-  font-size: 16px;
-  padding-right: 0.5rem;
-  color: #fad73c;
-}
-.cust-legend li .proc_box3 {
-  font-size: 16px;
-  padding-right: 0.5rem;
-  color: #309d15;
-}
-
-.cust-legend li .qs_box1 {
-  font-size: 16px;
-  padding-right: 0.5rem;
-  color: #e42030;
-}
-
-.cust-legend li .qs_box2 {
-  font-size: 16px;
-  padding-right: 0.5rem;
-  color: #447f00;
-}
-.cust-legend li .store_box1 {
-  font-size: 16px;
-  padding-right: 0.5rem;
-  color: #a284e0;
-}
-
-.cust-legend li .store_box2 {
-  font-size: 16px;
-  padding-right: 0.5rem;
-  color: #ff8d64;
-}
-.cust-legend li .store_box3 {
-  font-size: 16px;
-  padding-right: 0.5rem;
-  color: #81f181;
-}
 .cust-legend li .load_box1 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #135df0;
+  color: #bca0f5;
 }
 
 .cust-legend li .load_box2 {
@@ -257,12 +209,12 @@
 .cust-legend li .load_box3 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #447f00;
+  color: #05E513;
 }
 .cust-legend li .load_box4 {
   font-size: 16px;
   padding-right: 0.5rem;
-  color: #069108;
+  color: #b7cff9;
 }
 .cust-legend li .load_box5 {
   font-size: 16px;
@@ -277,13 +229,13 @@
 
 .cust-legend li .piebox1 {
   font-size: 16px;
-  color: #fd4747;
+  color: #f8dc3d;
   padding-right: 0.5rem;
 }
 
 .cust-legend li .piebox2 {
   font-size: 16px;
-  color: #3f4fa9;
+  color: #8b00db;
   padding-right: 0.5rem;
 }
 
@@ -404,7 +356,7 @@
   font-size: 18px;
   font-weight: 600;
   font-family: sans-serif;
-  color: #000000;
+  color: #4a4a4a;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
@@ -481,3 +433,4 @@
   background-color: #eaf0fba1;
   cursor: pointer;
 }
+

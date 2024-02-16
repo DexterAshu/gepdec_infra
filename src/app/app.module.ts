@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -13,6 +13,8 @@ import { CompanyComponent } from './masters/company/company.component';
 import { StateComponent } from './masters/state/state.component';
 import { DistrictComponent } from './masters/district/district.component';
 import { CustomerComponent } from './masters/customer/customer.component';
+import { FinYearComponent } from './masters/fin-year/fin-year.component';
+
 
 import { LoginComponent } from './account/login/login.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -112,6 +114,11 @@ import { ProjReportsComponent } from './proj-reports/proj-reports.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { DataCapturingComponent } from './presales/presales-biding/data-capturing/data-capturing.component';
+import { ChartModule } from 'angular-highcharts';
+import { CaptureDataListComponent } from './presales/presales-biding/capture-data-list/capture-data-list.component';
+import { CompanyContactsComponent } from './masters/company-contacts/company-contacts.component';
+
+
 
 
 @NgModule({
@@ -181,12 +188,15 @@ import { DataCapturingComponent } from './presales/presales-biding/data-capturin
     CompletedComponent,
     BiderCompanyComponent,
     L2ScheduleBulkdataComponent,
-    
+
     //master-component
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
-    ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent,
-    ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent
+    ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
+    ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
+    CompanyContactsComponent
   ],
+
+
   
   imports: [
     BrowserModule,
@@ -201,6 +211,8 @@ import { DataCapturingComponent } from './presales/presales-biding/data-capturin
     //Ng2SearchPipeModule,
     NgxPrintModule,
     NgSelectModule,
+    ChartModule,
+   
   ],
   providers: [
     
