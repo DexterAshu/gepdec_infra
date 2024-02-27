@@ -118,6 +118,37 @@ export class ApiService {
     );
   }
 
+  //company-contacts
+  createContacts(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/contact/api/v1/addContact`,
+      data,
+      httpOptions
+    );
+  }
+
+  getContactList(module_id: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    const params= new HttpParams({
+      fromString: `&module_id=${module_id}`
+    });
+    return this.http.get<any>(
+      `${environment.apiUrl}/contact/api/v1/getContactList?${params}`,
+      httpOptions
+    );
+  }
+
   getTenderType(): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -140,6 +171,32 @@ export class ApiService {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/company/api/v1/getCompanyDropdown`,
+    
+      httpOptions
+    );
+  }
+  getModuleList(): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any[]>(
+      `${environment.apiUrl}/contact/api/v1/getContactModulesDropdowm`,
+    
+      httpOptions
+    );
+  }
+  getCompaList(module_id:any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any[]>(
+      `${environment.apiUrl}/contact/api/v1/getCompanyDropdownByModule/${module_id}`,
     
       httpOptions
     );
@@ -260,6 +317,20 @@ createMasterRole(data: any): Observable<any[]> {
       httpOptions
     );
   }
+  //create master country
+  createMasterCountry(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/state/api/v1/addCountry`,
+      data,
+      httpOptions
+    );
+  }
   //create master state
   createMasterState(data: any): Observable<any[]> {
     const httpOptions = {
@@ -269,7 +340,7 @@ createMasterRole(data: any): Observable<any[]> {
       }),
     };
     return this.http.post<any[]>(
-      `${environment.apiUrl}/master/api/v1/addState`,
+      `${environment.apiUrl}/state/api/v1/addState`,
       data,
       httpOptions
     );
@@ -283,7 +354,7 @@ createMasterRole(data: any): Observable<any[]> {
       }),
     };
     return this.http.post<any[]>(
-      `${environment.apiUrl}/master/api/v1/addDistrict`,
+      `${environment.apiUrl}/state/api/v1/addDistrict`,
       data,
       httpOptions
     );

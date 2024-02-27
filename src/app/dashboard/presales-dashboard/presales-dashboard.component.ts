@@ -118,7 +118,7 @@ export class PresalesDashboardComponent {
   // },
   
   {
-    "name": "Q1",
+    "name": "2021",
     "series": [
       {
         "name": "Total",
@@ -140,7 +140,7 @@ export class PresalesDashboardComponent {
   },
   
   {
-    "name": "Q2",
+    "name": "2022",
     "series": [
       {
         "name": "Total",
@@ -161,7 +161,7 @@ export class PresalesDashboardComponent {
     ]
   },
   {
-    "name": "Q3",
+    "name": "2023",
     "series": [
       {
         "name": "Total",
@@ -182,7 +182,7 @@ export class PresalesDashboardComponent {
     ]
   },
   {
-    "name": "Q4",
+    "name": "2024",
     "series": [
       {
         "name": "Total",
@@ -413,7 +413,7 @@ export class PresalesDashboardComponent {
   yAxisLabelBarOS: string = 'Amount';
   xAxisLabelBarOS = 'Months';
   
-  yAxisLabelBarLoad: string = 'Value';
+  yAxisLabelBarLoad: string = 'No of Projects';
   xAxisLabelBarLoad = '';
   colorSchemeLoad:any ={
   domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']

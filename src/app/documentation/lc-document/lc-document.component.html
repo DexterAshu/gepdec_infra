@@ -1,0 +1,132 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>LC Documentation</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control form-control-sm" placeholder="Search" [(ngModel)]="searchText">
+                        </div>
+                        <div class="col-lg-8">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
+                        </div>
+                    </div>
+                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Document Name</th>
+                                <th>Document Date</th>
+                                <th>Document Type</th>
+                                <th>Attachments</th>
+                                <th>Created By</th>
+                                <th>Created On</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{limit*(p-1)+i+1}}</td>
+                                <td>{{a.documentname}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.documenttype}}</td>
+                                <td>{{a.filename}}</td>
+                                <td>{{a.createdby_name}}</td>
+                                <td>{{a.created | date:'dd/MM/yyyy hh:mm a'}}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile"><span class="mdi mdi-lead-pencil cursor-pointer mdi-18px"></span></a>
+                                </td>
+                               
+                            </tr>
+                           
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Documentation Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
+                        <!-- Document Details -->
+                        <div class="form-row">
+
+                            <div class="form-group col-4">
+                                <label for="">Document Type: <span class="required-asterisk">*</span></label>
+                                <select class="form-select form-select-sm" formControlName="documenttype_id">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Document Type</option>
+                                    <option *ngFor="let d of docType" value="{{d.documenttype_id}}">{{d.documenttype}}</option>
+                                </select>
+                              </div>
+
+                            <div class="form-group col-4">
+                            <label for="">Document Name: <span class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="documentname" placeholder="Enter document name">
+                            </div>
+                            <div class="form-group col-4">
+                            <label for="">Document Date: <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="documentdate">
+                          </div>
+                       
+                        
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="">Document Description:</label>
+                                <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents...">
+                               </textarea>
+                                </div>
+                        </div>
+                        <!-- Other Fields... -->
+                      
+                        <!-- Attachment Documents -->
+                        <div class="row">
+                                <div class="col-lg-12 col-sm-6">
+                                    <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
+                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
+                                      placeholder="Upload a file..." multiple="true" />
+                              </div>
+                          
+                        </div>
+                        <div class="float-right">
+
+                            <button type="submit" class="btn btn-primary" [disabled]="documentForm.invalid">Submit</button>
+                        </div>
+                      </form>
+                      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->

@@ -46,6 +46,44 @@ export class DataCapturingComponent {
     private apiService: ApiService,
   ) { }
 
+
+
+    //Financial Data
+    financialsData: any[] = [
+      {
+        net_worth: [null],
+        financialyear_id: [null],
+        annual_turnover: [null],
+        fin_remarks: [null],
+        nclt_status: [null],
+        drt: [null],
+        cdr: [null]
+      }
+    ];
+  //Technical Data
+  technicalData: any[] = [
+    {
+      Technical: {
+        technical_qualification: [null],
+        eligibility: [null],
+        tech_remarks: [null],
+        attachment: [null]
+      }
+    }
+  ];
+  //banking data
+  bankData: any[] = [
+    {
+      Bank: {
+        bank_name: [null],
+        bank_guarantee: [null],
+        bank_guarantee_validity: [null],
+        security_deposit: [null],
+        security_deposit_validity: [null]
+      }
+    }
+  ];
+
  ngOnInit(){
     this.form = this.formBuilder.group({
       tender_title:[null, Validators.required],
@@ -82,31 +120,30 @@ export class DataCapturingComponent {
       contactno1: [null, Validators.required],  
       contactno2: [null],
       email: [null, Validators.required],
-    
+
+      // Financial data
+      net_worth: [null],
+        financialyear_id: [null],
+        annual_turnover: [null],
+        fin_remarks: [null],
+        nclt_status: [null],
+        drt: [null],
+        cdr: [null],   
+
+     // Technical data
+       technical_qualification: [null],
+        eligibility: [null],
+        tech_remarks: [null],
+        attachment: [null],    
+        // Bank data
+        bank_name: [null],
+        bank_guarantee: [null],
+        bank_guarantee_validity: [null],
+        security_deposit: [null],
+        security_deposit_validity: [null]    
     });
 
-    //Financial Data
-      const financialsData = {
-      Financials: [
-        {
-         
-          net_worth: [null, Validators.required],
-          financialyear_id: [null, Validators.required],
-          annual_turnover: [null, Validators.required],
-          fin_remarks:[null,'']
-        }
-      ]
-    };
-    //Technical Data
-      const technicalData = {
-      Technical: [
-        {
-          technical_qualification: [null, Validators.required],
-          eligibility: [null, Validators.required],
-          attachment: [null],
-        }
-      ]
-    };
+  
     this.getCompanyData();
     this.getCountryData();
     this.getDesignDeptData();

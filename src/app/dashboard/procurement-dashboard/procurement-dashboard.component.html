@@ -142,10 +142,15 @@
         <div class="col-md-3">
           <i class="mdi mdi-speedometer text-center" style="font-size: 40px;"></i>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-5">
           <h3>100 </h3>
           <hr>
-         <h6>Total Items</h6>
+         <h6>Items</h6>
+        </div>
+        <div class="col-md-4">
+          <h3>60</h3>
+          <hr>
+         <h6>PO's</h6>
         </div>
   
       </div>
@@ -158,10 +163,15 @@
         <div class="col-md-3">
           <i class="mdi mdi-file-check text-center" style=" font-size: 42px;"></i>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-6">
          <h3> 4 </h3>
           <hr>
-        <h6>Released PO</h6>
+        <h6>PO Released</h6>
+        </div>
+        <div class="col-md-3">
+         <h3> 6 </h3>
+          <hr>
+        <h6>(%)</h6>
         </div>
   
       </div>
@@ -176,7 +186,10 @@
   <div class="col-md-6 grid-margin stretch-card pe-0">
     <div class="card">
       <div class="card-body">
-        <p class="card-title mb-2">Quarterly Performance </p>
+        <div class="row">
+          <p class="card-title mb-2 col-md-10">Performance </p>
+          <a class="float-right col-md-2" routerLink="">Next <i class="mdi mdi-arrow-right-drop-circle-outline text-center"></i></a>
+        </div>
    
         <div class="chartBar" #containerRef4>
           <ngx-charts-bar-vertical-2d
@@ -198,7 +211,7 @@
           <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total Projects</li>
           <li><i class="mdi mdi-checkbox-blank load_box2"></i> Final BOQ</li>
           <li><i class="mdi mdi-checkbox-blank load_box3"></i> Total Items</li>
-          <li><i class="mdi mdi-checkbox-blank load_box4"></i> Released PO</li>
+          <li><i class="mdi mdi-checkbox-blank load_box4"></i> PO Released </li>
         </ul>
       </div>
     </div>
@@ -297,50 +310,50 @@
         <p class="card-title mb-2">Project Status</p>
         <div class="cardHead">
           <div class="row">
-            <div class="col-md-2">S No</div>
-            <div class="col-md-4">Project Name</div>
-            <div class="col-md-3">Delivery Date</div>
-            <div class="col-md-3 text-center">Status</div>
+            <div class="col-md-2 col-2">S No</div>
+            <div class="col-md-4 col-4">Project Name</div>
+            <div class="col-md-3 col-3">Delivery Date</div>
+            <div class="col-md-3 col-3 text-center">Status</div>
           </div>
         </div>
         <div class="card1 mt-1">
           <div class="row">
-            <div class="col-md-2">1</div>
-            <div class="col-md-4">Taldihi</div>
-            <div class="col-md-3">10-01-2024</div>
-            <div class="col-md-3 badge badge-pill text-black" style="background-color: #ff6a6a;">Delayed</div>
+            <div class="col-md-2 col-2">1</div>
+            <div class="col-md-4 col-4">Taldihi</div>
+            <div class="col-md-3 col-3">10-01-2024</div>
+            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #fd8383bd;">Delayed</div>
           </div>
         </div>
         <div class="card2 mt-1">
           <div class="row">
-            <div class="col-md-2">2</div>
-            <div class="col-md-4">Jaunpur</div>
-            <div class="col-md-3">10-02-2024</div>
-            <div class="col-md-3 badge badge-pill text-black" style="background-color: #a0f0a0;">Ontime</div>
+            <div class="col-md-2 col-2">2</div>
+            <div class="col-md-4 col-4">Jaunpur</div>
+            <div class="col-md-3 col-3">10-02-2024</div>
+            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #acffacbb;">Ontime</div>
           </div>
         </div>
         <div class="card3 mt-1">
           <div class="row">
-            <div class="col-md-2">3</div>
-            <div class="col-md-4">Noida Sec-45</div>
-            <div class="col-md-3">15-03-2024</div>
-            <div class="col-md-3 badge badge-pill text-black" style="background-color: #a0f0a0;">Ontime</div>
+            <div class="col-md-2 col-2">3</div>
+            <div class="col-md-4 col-4">Noida Sec-45</div>
+            <div class="col-md-3 col-3">15-03-2024</div>
+            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #acffacbb;">Ontime</div>
           </div>
         </div>
         <div class="card4 mt-1">
           <div class="row">
-            <div class="col-md-2">4</div>
-            <div class="col-md-4">Delhi</div>
-            <div class="col-md-3">25-01-2024</div>
-            <div class="col-md-3 badge badge-pill text-black" style="background-color: #fcbf4f;">Delayed</div>
+            <div class="col-md-2 col-2">4</div>
+            <div class="col-md-4 col-4">Delhi</div>
+            <div class="col-md-3 col-3">25-01-2024</div>
+            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #fcce7abd;">Delayed</div>
           </div>
         </div>
         <div class="card5 mt-1">
           <div class="row">
-            <div class="col-md-2">5</div>
-            <div class="col-md-4">Noida</div>
-            <div class="col-md-3">13-04-2024</div>
-            <div class="col-md-3 badge badge-pill text-black" style="background-color: #a0f0a0;">Ontime</div>
+            <div class="col-md-2 col-2">5</div>
+            <div class="col-md-4 col-4">Noida</div>
+            <div class="col-md-3 col-3">13-04-2024</div>
+            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #acffacbb;">Ontime</div>
           </div>
         </div>
        

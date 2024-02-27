@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-lg-2"></div>
                         <div class="col-lg-4">
-                           <h5> Total Number of Designation : {{designCount.count}} </h5>
+                           <!-- <h5> Total Number of Designation : {{designCount.count}} </h5> -->
                         </div>
                         <div class="col-lg-2">
                             <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Designation</button>
@@ -36,6 +36,7 @@
                                 <th>Designation Name</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="designData.length">
@@ -44,6 +45,9 @@
                                 <td>{{a.designationname}}</td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
+                                </td>
                             </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">

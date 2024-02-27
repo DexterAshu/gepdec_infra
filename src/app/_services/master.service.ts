@@ -99,6 +99,18 @@ export class MasterService {
     return this.http.get(`${environment.apiUrl}/master/company/getCompany`, httpOptions);
   }
   
+  getCountryData(){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any>(
+      `${environment.apiUrl}/state/api/v1/getCountry`,
+      httpOptions
+    );
+  }
   getStateData(){
     const httpOptions = {
       headers: new HttpHeaders({
@@ -133,6 +145,18 @@ export class MasterService {
     };
     return this.http.get<any>(
       `${environment.apiUrl}/financialyear/api/v1/getFinancialYear`,
+      httpOptions
+    );
+  }
+  getProjectList(){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any>(
+      `${environment.apiUrl}/project/api/v1/projectList`,
       httpOptions
     );
   }

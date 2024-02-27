@@ -138,10 +138,10 @@ export class DesignDashboardComponent {
     // },
     
     {
-      "name": "Q1",
+      "name": "2021",
       "series": [
         {
-          "name": "Total",
+          "name": "Total Drawings",
           "value": 20
         },
         {
@@ -160,10 +160,10 @@ export class DesignDashboardComponent {
     },
     
     {
-      "name": "Q2",
+      "name": "2022",
       "series": [
         {
-          "name": "Total",
+          "name": "Total Drawings",
           "value": 10
         },
         {
@@ -181,10 +181,10 @@ export class DesignDashboardComponent {
       ]
     },
     {
-      "name": "Q3",
+      "name": "2023",
       "series": [
         {
-          "name": "Total",
+          "name": "Total Drawings",
           "value": 10
         },
         {
@@ -202,10 +202,10 @@ export class DesignDashboardComponent {
       ]
     },
     {
-      "name": "Q4",
+      "name": "2024",
       "series": [
         {
-          "name": "Total",
+          "name": "Total Drawings",
           "value": 10
         },
         {
@@ -565,7 +565,7 @@ export class DesignDashboardComponent {
   yAxisLabelBarOS: string = 'Amount';
   xAxisLabelBarOS = 'Months';
   
-  yAxisLabelBarLoad: string = 'Value';
+  yAxisLabelBarLoad: string = 'No of Drawings';
   xAxisLabelBarLoad = '';
   colorSchemeLoad:any ={
   domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']

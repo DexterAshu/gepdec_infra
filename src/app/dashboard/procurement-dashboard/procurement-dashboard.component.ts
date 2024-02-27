@@ -215,7 +215,7 @@ multi = [
   // },
   
   {
-    "name": "Q1",
+    "name": "2021",
     "series": [
       {
         "name": "Total Projects",
@@ -230,14 +230,14 @@ multi = [
         "value": 6
       },
       {
-        "name": "Released PO",
+        "name": "PO Released",
         "value": 4
       },
     ]
   },
   
   {
-    "name": "Q2",
+    "name": "2022",
     "series": [
       {
         "name": "Total Projects",
@@ -252,13 +252,13 @@ multi = [
         "value": 6
       },
       {
-        "name": "Released PO",
+        "name": "PO Released",
         "value": 4
       },
     ]
   },
   {
-    "name": "Q3",
+    "name": "2023",
     "series": [
       {
         "name": "Total Projects",
@@ -273,13 +273,13 @@ multi = [
         "value": 6
       },
       {
-        "name": "Released PO",
+        "name": "PO Released",
         "value": 4
       },
     ]
   },
   {
-    "name": "Q4",
+    "name": "2024",
     "series": [
       {
         "name": "Total Projects",
@@ -294,7 +294,7 @@ multi = [
         "value": 6
       },
       {
-        "name": "Released PO",
+        "name": "PO Released",
         "value": 4
       },
     ]
@@ -568,16 +568,16 @@ Design = [
     pieDataProc=[
  
       {
-        "name": "Released PO",
+        "name": "PO Released",
         "value": 4
       },
       {
-        "name": "Total Items",
-        "value": 8
+        "name": "Total PO's",
+        "value": 60
       },
       {
         "name": "Final BOQ",
-        "value": 12
+        "value": 10
       },
     ]
 
@@ -747,7 +747,7 @@ domain: ['#cee27d', '#63830c']
 yAxisLabelBarOS: string = 'Amount';
 xAxisLabelBarOS = 'Months';
 
-yAxisLabelBarLoad: string = 'Value';
+yAxisLabelBarLoad: string = 'No of Projects';
 xAxisLabelBarLoad = '';
 colorSchemeLoad:any ={
 domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']

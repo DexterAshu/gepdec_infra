@@ -59,13 +59,10 @@
                   <label class="col-sm-5 col-form-label">Company</label>
                   <div class="col-sm-7">
                     <select class="form-select form-select-sm">
-                      <option>All</option>
-                      <option value="taldihi">Taldihi</option>
-                      <option value="jaunpur">Jaunpur</option>
-                      <option value="noida45">Noida Sec-45</option>
-                      <option value="delhi">Delhi</option>
-                      <option value="noida">Noida</option>
-                  </select>
+                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                        <option *ngFor="let f of projData" value="{{f.company_id}}">{{f.company_name}}</option>
+
+                    </select>
                   </div>
                   </div>
               </div>
@@ -291,8 +288,15 @@
     <div class="col-md-6 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-       
-            <p class="card-title mb-2 ">Revenue | Expense</p>
+          <div class="row">
+            <p class="card-title mb-2 col-md-10">Revenue | Expense</p>
+            <div class="float-right col-md-2">
+                  <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
+                    <option [selected]="true" [disabled]="true">Select</option>
+                    <!-- <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option> -->
+                </select>
+            </div>
+          </div>
             <!-- <p class=" col-md-6 p-1 bg-warning text-center rounded">$000</p> -->
          
           <div class="chartBar" #containerRef5>
@@ -369,24 +373,112 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-6" routerLink="/dashboard/performance-dashboard">
+
+        <div class="row module-wise " >
+          <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
+            <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
+              </div> -->
+          <div class="col-md-12">
+              <form  [formGroup]="form">
+                <div class=" d-flex">
+                  
+                  <div class="col-md-6">
+                      <p class="card-title mb-2" routerLink="/dashboard/performance-dashboard">Budget | Expense</p>
+                       
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Fin Year</label>
+                        <div class="col-sm-7">
+                            <select class="form-select form-select-sm">
+                              <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+      
+                            </select>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Status</label>
+                        <div class="col-sm-7">
+                          <select class="form-select form-select-sm">
+                            <option>All</option>
+                            <option value="open">Open</option>
+                            <option value="colsed">Closed</option>
+                        </select>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Projects</label>
+                        <div class="col-sm-7">
+                          <select class="form-select form-select-sm">
+                            <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                              <option *ngFor="let f of projData" value="{{f.project_id}}">{{f.project_name}}</option>
+    
+                          </select>
+                        </div>
+                        </div>
+                    </div>
+                 
+                </div>
+              </form>
+            </div>
+        
+        </div>
+
+        <!-- <div class="row ">
+          <div class="col-md-6 col-6" routerLink="/dashboard/performance-dashboard">
             <p class="card-title mb-2">Budget | Expense</p>
 
           </div>
-          <div class="col-md-6">
-            <div class="form-group row">
-            <label class="col-sm-4 col-form-label" style="font-size: 12px; font-weight: 600;"> Yearly:</label>
-            <div class="col-sm-8">
-              <select class="form-select form-select-sm">
-                <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                  <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+          <div class="col-md-6 col-6 ">
+          
+            <div class="col-md-2 d-flex">
+              <div class="form-group row">
+              <label class="col-sm-3 col-form-label">State</label>
+              <div class="col-sm-9">
+                <select formControlName="state_id" class="form-select form-select-sm">
+                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                  <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
               </select>
-            </div>
-            </div>
-        </div>
+              </div>
+              </div>
+          </div>
+          <div class="col-md-2">
+              <div class="form-group row">
+              <label class="col-sm-5 col-form-label">Duration</label>
+              <div class="col-sm-7">
+                  <select class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+
+                  </select>
+              </div>
+              </div>
+          </div>
+          <div class="col-md-2">
+              <div class="form-group row">
+              <label class="col-sm-5 col-form-label">Company</label>
+              <div class="col-sm-7">
+                <select class="form-select form-select-sm">
+                  <option>All</option>
+                  <option value="taldihi">Taldihi</option>
+                  <option value="jaunpur">Jaunpur</option>
+                  <option value="noida45">Noida Sec-45</option>
+                  <option value="delhi">Delhi</option>
+                  <option value="noida">Noida</option>
+              </select>
+              </div>
+              </div>
+          </div>
+
        
         </div>
+       
+        </div> -->
         <div class="" #containerPerformance>
           <div class="Highcharts " [chart]="LineChartGraph"></div>
          
@@ -444,46 +536,11 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col-md-6" routerLink="/dashboard/performance-dashboard">
+            <div class="col-md-12" routerLink="/dashboard/performance-dashboard">
               <p class="card-title mb-2">Project Wise Status</p>
   
             </div>
-            <div class="col-md-3">
-              <div class="form-group row">
-              <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Yearly:</label>
-              <div class="col-sm-8">
-                  <select class="form-select form-select-sm">
-                      <option value="2024">2024</option>
-                      <option value="2025">2025</option>
-                      <option value="2026">2026</option>
-                      <option value="2027">2027</option>
-                      <option value="2028">2028</option>
-                      <option value="2029">2029</option>
-                      <option value="2030">2030</option>
-                      <option value="2031">2031</option>
-                      <option value="2032">2031</option>
-                  </select>
-              </div>
-              </div>
-          </div>
-            <div class="col-md-3">
-              <div class="form-group row">
-              <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Department:</label>
-              <div class="col-sm-8">
-                  <select class="form-select form-select-sm">
-                      <option>All</option>
-                      <option value="presales">Presales</option>
-                      <option value="design">Design</option>
-                      <option value="procurement">Procurement</option>
-                      <option value="logistic">Logistic</option>
-                      <option value="execution">Execution</option>
-                      <option value="quality">Quality</option>
-                      <option value="finance">Finance</option>
-                      <option value="performance">Performance</option>
-                  </select>
-              </div>
-              </div>
-          </div>
+     
           </div>
           <div class="" #containerPerformance>
             <!-- <div class="Highcharts " [chart]="scateredGraphPrject"></div> -->
@@ -504,53 +561,52 @@
           <p class="card-title mb-2">Top 5 Orders</p>
           <div class="cardHead">
             <div class="row">
-              <div class="col-md-2">S No</div>
-              <div class="col-md-4">Project Name</div>
-              <div class="col-md-3">Category</div>
-              <div class="col-md-3">Values(Cr)</div>
+              <div class="col-md-2 col-2">S No</div>
+              <div class="col-md-4 col-4">Project Name</div>
+              <div class="col-md-3 col-3">Category</div>
+              <div class="col-md-3 col-3">Values(Cr)</div>
             </div>
           </div>
           <div class="card1 mt-1">
-            <div class="row">
-              <div class="col-md-2">1</div>
-              <div class="col-md-4">Taldihi</div>
-              <div class="col-md-3">330 Kv</div>
-              <div class="col-md-3">300</div>
+            <div class="row" data-bs-toggle="modal" data-bs-target="#createModal">
+              <div class="col-md-2 col-2">1</div>
+              <div class="col-md-4 col-4">Taldihi</div>
+              <div class="col-md-3 col-3">330 Kv</div>
+              <div class="col-md-3 col-3">300</div>
             </div>
           </div>
           <div class="card2 mt-1">
             <div class="row">
-              <div class="col-md-2">2</div>
-              <div class="col-md-4">Jaunpur</div>
-              <div class="col-md-3">220 Kv</div>
-              <div class="col-md-3">400</div>
+              <div class="col-md-2 col-2">2</div>
+              <div class="col-md-4 col-4">Jaunpur</div>
+              <div class="col-md-3 col-3">220 Kv</div>
+              <div class="col-md-3 col-3">400</div>
             </div>
           </div>
           <div class="card3 mt-1">
             <div class="row">
-              <div class="col-md-2">3</div>
-              <div class="col-md-4">Noida Sec-45</div>
-              <div class="col-md-3">220 Kv</div>
-              <div class="col-md-3">300</div>
+              <div class="col-md-2 col-2">3</div>
+              <div class="col-md-4 col-4">Noida Sec-45</div>
+              <div class="col-md-3 col-3">220 Kv</div>
+              <div class="col-md-3 col-3">300</div>
             </div>
           </div>
           <div class="card4 mt-1">
             <div class="row">
-              <div class="col-md-2">4</div>
-              <div class="col-md-4">Delhi</div>
-              <div class="col-md-3">320 Kv</div>
-              <div class="col-md-3">100</div>
+              <div class="col-md-2 col-2">4</div>
+              <div class="col-md-4 col-4">Delhi</div>
+              <div class="col-md-3 col-3">320 Kv</div>
+              <div class="col-md-3 col-3">100</div>
             </div>
           </div>
           <div class="card5 mt-1">
             <div class="row">
-              <div class="col-md-2">5</div>
-              <div class="col-md-4">Noida</div>
-              <div class="col-md-3">240 Kv</div>
-              <div class="col-md-3">200</div>
+              <div class="col-md-2 col-2">5</div>
+              <div class="col-md-4 col-4">Noida</div>
+              <div class="col-md-3 col-3">240 Kv</div>
+              <div class="col-md-3 col-3">200</div>
             </div>
           </div>
-        
         </div>
       </div>
     </div>
@@ -568,3 +624,71 @@
   </div>
   
   </div>
+
+
+  <!-- create modal L1 -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">BOQ List Data</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-3 col-3">
+                  <a routerLink="" data-bs-toggle="modal1" data-bs-target="#createModal1" data-bs-dismiss="modal"><i class="mdi mdi-file-check mdi-26px "></i> BOQ1</a>
+                </div>
+                <div class="col-md-3 col-3">
+                  <a routerLink="" data-bs-toggle="modal1" data-bs-target="#createModal1" data-bs-dismiss="modal"><i class="mdi mdi-file-check mdi-26px "></i> BOQ2</a>
+                </div>
+                <div class="col-md-3 col-3">
+                  <a routerLink="" data-bs-toggle="modal1" data-bs-target="#createModal1" data-bs-dismiss="modal"><i class="mdi mdi-file-check mdi-26px "></i> BOQ3</a>
+                </div>
+                <div class="col-md-3 col-3">
+                  <a routerLink="" data-bs-toggle="modal1" data-bs-target="#createModal1" data-bs-dismiss="modal"><i class="mdi mdi-file-check mdi-26px "></i> BOQ4</a>
+                </div>
+
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- create modal end L1-->
+
+  <!-- create modal L2 -->
+<div class="modal fade" id="createModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">BOQ List Data</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-3 col-3">
+                  <a routerLink=""><i class="mdi mdi-file-check mdi-26px "></i> BOQ1</a>
+                </div>
+                <div class="col-md-3 col-3">
+                  <a routerLink=""><i class="mdi mdi-file-check mdi-26px "></i> BOQ2</a>
+                </div>
+                <div class="col-md-3 col-3">
+                  <a routerLink=""><i class="mdi mdi-file-check mdi-26px "></i> BOQ3</a>
+                </div>
+                <div class="col-md-3 col-3">
+                  <a routerLink=""><i class="mdi mdi-file-check mdi-26px "></i> BOQ4</a>
+                </div>
+            
+
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- create modal end L2-->

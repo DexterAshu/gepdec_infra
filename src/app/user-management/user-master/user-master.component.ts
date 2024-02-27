@@ -69,13 +69,14 @@ export class UserMasterComponent implements OnInit {
       last_name: [null,Validators.required],
       loginname: [null,Validators.required],
       password: [null,Validators.required],
-      empid: [null],
+      empid: [null,Validators.required],
       mobile: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       res_phone: [null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       emailid: [null, [Validators.required, Validators.email,Validators.pattern('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$')]],
       usdt_id: [null,Validators.required],
       reporting_to: [null,Validators.required],
       usrl_id: [null,Validators.required]
+    
     });
 
     this.tableHeight = `${window.innerHeight * 0.65}px`;

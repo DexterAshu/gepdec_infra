@@ -618,24 +618,24 @@ export class DashboardComponent implements OnInit {
   {
     "name": "Rev",
     "series": [
+      // {
+      //   "name": "Total",
+      //   "value": 1000
+      // },
       {
-        "name": "Total",
-        "value": 1000
-      },
-      {
-        "name": "Q1",
+        "name": "2021",
         "value": 490
       },
       {
-        "name": "Q2",
+        "name": "2022",
         "value": 380
       },
       {
-        "name": "Q3",
+        "name": "2023",
         "value": 550
       },
       {
-        "name": "Q4",
+        "name": "2024",
         "value": 810
       },
      
@@ -647,25 +647,25 @@ export class DashboardComponent implements OnInit {
   {
     "name": "Exp",
     "series": [
-      {
-        "name": "Total",
-        "value": 600
-      },
+      // {
+      //   "name": "Total",
+      //   "value": 600
+      // },
      
       {
-        "name": "Q1",
+        "name": "2021",
         "value": 390
       },
       {
-        "name": "Q2",
+        "name": "2022",
         "value": 280
       },
       {
-        "name": "Q3",
+        "name": "2023",
         "value": 400
       },
       {
-        "name": "Q4",
+        "name": "2024",
         "value": 510
       },
      
@@ -674,25 +674,25 @@ export class DashboardComponent implements OnInit {
   {
     "name": "Profit",
     "series": [
-      {
-        "name": "Total",
-        "value": 300
-      },
+      // {
+      //   "name": "Total",
+      //   "value": 300
+      // },
      
       {
-        "name": "Q1",
+        "name": "2021",
         "value": 190
       },
       {
-        "name": "Q2",
+        "name": "2022",
         "value": 180
       },
       {
-        "name": "Q3",
+        "name": "2023",
         "value": 200
       },
       {
-        "name": "Q4",
+        "name": "2024",
         "value": 310
       },
      
@@ -1146,6 +1146,7 @@ export class DashboardComponent implements OnInit {
   stateData: any; 
   fiveYear: any;
   segmentData: any;
+  projData: any;
  
   constructor(
     private sharedService: SharedService,
@@ -1162,6 +1163,7 @@ export class DashboardComponent implements OnInit {
     this.getCountryData();
     this.getSegmentData();
     this.finYearData();
+    this.projectlist();
 
     this.form = this.formBuilder.group({
       country_id: [null, Validators.required],
@@ -1213,6 +1215,21 @@ export class DashboardComponent implements OnInit {
     }); 
   }
 
+  projectlist(){
+    this.masterService.getProjectList().subscribe((res:any) => {
+      if (res.status == 200) {
+      this.projData = res.result;
+      console.log(this.projData);
+      
+      }else {
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
+    }); 
+  }
+
   onSelect(data:any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
@@ -1244,7 +1261,7 @@ export class DashboardComponent implements OnInit {
     },
  
     xAxis: {
-        categories: ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'Delhi', 'Noida'],
+        categories: ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'JUSNL'],
         title: {
             text: null
         },
@@ -1295,13 +1312,15 @@ export class DashboardComponent implements OnInit {
       type: 'bar', // Specify the type of chart series
       name: 'Actual',
       
-      data: [90, 80, 30, 20,70,]
-    }, {
-      type: 'bar', // Specify the type of chart series
-      name: 'Target',
-      data: [100, 100, 100, 100, 100]
-    }],
-    colors: [ '#c7e8ff','#afcaf9' ] // Red, Green, Blue
+      data: [70, 80, 30, 20,70,90, 80, 30, 20,70]
+    },
+    //  {
+    //   type: 'bar', // Specify the type of chart series
+    //   name: 'Target',
+    //   data: [100, 100, 100, 100, 100]
+    // }
+  ],
+    colors: [ '#8cd99f','#afcaf9' ] // Red, Green, Blue
    
 
 });
@@ -1407,19 +1426,20 @@ LineChartGraph = new Chart({
   credits: {
     enabled: false
 },
+
   series: [{
       type: 'spline',
       name: 'Budget',
       marker: {
           symbol: 'circle'
       },
-      data: [100, 60, 130, 150, 100, 150, 100, {
+      data: [100, 100, 90, 110, 100, 85, 110, {
           y: 100,
           
           accessibility: {
               description: ''
           }
-      }, 100, 70, 100, 200]
+      }, 100, 90, 100, 100]
 
   }, {
      type: 'spline',
@@ -1434,7 +1454,7 @@ LineChartGraph = new Chart({
           accessibility: {
               description: ''
           }
-      }, 40, 130, 100, 95, 100, 80, 70, 60, 50, 75, 130]
+      }, 105, 80, 100, 95, 100, 90, 110, 105, 95, 95, 110]
   },
 //   {
 //     type: 'spline',
@@ -1451,7 +1471,10 @@ LineChartGraph = new Chart({
 //          }
 //      }, 20, 0, 50, 5, 50, 20, 30, 40, 20, 25, 70]
 //  }
-]
+],
+colors: [
+  '#d6a974',  '#97daa7',
+],
 });
 
 

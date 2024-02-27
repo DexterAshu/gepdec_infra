@@ -35,6 +35,7 @@ export class CompanyComponent implements OnInit {
   design: any;
   departMent: any;
   inputValue: any;
+  contactDetails: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -105,27 +106,34 @@ export class CompanyComponent implements OnInit {
     this.update = true;
     this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
       this.custDetails = res.result[0];
+      this.contactDetails = res.result[0].contact[0];
+     console.log( this.contactDetails);
      
         this.form.patchValue({
-          name: this.custDetails.name,
           company_name: this.custDetails.company_name,
           company_type: this.custDetails.company_type,
-          contactno1: this.custDetails.contactno1,
-          contactno2: this.custDetails.contactno2,
-          email: this.custDetails.email,
           gst: this.custDetails.gst,
           pan: this.custDetails.pan,
           doi: this.custDetails.doi,
           area: this.custDetails.area,
           pincode: this.custDetails.pincode,
-          usdt_id: this.custDetails.usdt_id,
-          usdg_id: this.custDetails.usdg_id,
           websiteurl: this.custDetails.websiteurl,
           cinno:this.custDetails.cinno,
           city:this.custDetails.city,
+          address_line1:this.custDetails.address_line1,
           address_line2:this.custDetails.address_line2,
-          address_line3:this.custDetails.address_line3,
         }); 
+
+        this.form.patchValue({
+          name: this.contactDetails.name,
+          contactno1: this.contactDetails.contactno1,
+          contactno2: this.contactDetails.contactno2,
+          email: this.contactDetails.email,
+          usdt_id: this.contactDetails.usdt_id,
+          usdg_id: this.contactDetails.usdg_id,
+
+        }); 
+
         this.form.controls['country_id'].setValue(this.custDetails.country_id);
         this.form.controls['state_id'].setValue(this.custDetails.state_id);
         this.form.controls['district_id'].setValue(this.custDetails.district_id);

@@ -30,6 +30,7 @@ import { CompanyContactsComponent } from './company-contacts/company-contacts.co
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateItemComponent } from './procurement/item-master/create-item/create-item.component';
 import { CreateSupplierComponent } from './procurement/supplier/create/create.component';
+import { CountryMasterComponent } from './country-master/country-master.component';
 // import { FilterPipe } from '../_pipes/filter.pipe';
 
 const routes: Routes = [
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'material', component: MaterialMasterComponent },
   { path: 'designation', component: DesignationMasterComponent },
   { path: 'spare', component: SpareMasterComponent },
+  { path: 'country', component: CountryMasterComponent },
   { path: 'state', component: StateComponent },
   { path: 'district', component: DistrictComponent },
   { path: 'bidder', component: BiderCompanyComponent },
@@ -82,6 +84,8 @@ const routes: Routes = [
     // NgSelectModule,
     // CompanyContactsComponent,
     // FilterPipe
+  
+    // CountryMasterComponent
   ]
 })
 export class MasterModule { }

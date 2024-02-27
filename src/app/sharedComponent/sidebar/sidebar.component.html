@@ -56,149 +56,221 @@
              <i class="mdi mdi-checkbox-multiple-marked-outline menu-icon"></i>
             <span class="menu-title">Bidders Company</span>
             </a></li> -->
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/tender-company-contacts">
-             <i class="mdi mdi-contacts menu-icon"></i>
-            <span class="menu-title">Company Contacts</span>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/country">
+              <i class="mdi mdi-google-maps menu-icon"></i>
+              <span class="menu-title">Country</span>
             </a></li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/state">
+              <i class="mdi mdi-format-align-bottom menu-icon"></i>
+              <span class="menu-title">State</span>
+            </a></li>
+
+         
 
           <li class="nav-item"> <a class="nav-link" routerLink="/master/district">
               <i class="mdi mdi-checkbox-multiple-marked-outline menu-icon"></i>
               <span class="menu-title">District</span>
             </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/department">
-              <i class="mdi mdi-chemical-weapon menu-icon"></i>
-              <span class="menu-title">Department</span>
+
+            <li class="nav-item">
+              <div routerLink="/master">
+                <a class="nav-link" data-toggle="collapse" href="#Bid-Comp" aria-expanded="false" aria-controls="Biding">
+                  <i class="mdi mdi-content-save-settings menu-icon"></i>
+                  <span class="menu-title">Company</span>
+                  <i class="menu-arrow"></i>
+                </a>
+
+              </div>
+              <div class="collapse" id="Bid-Comp">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/department">
+                    <i class="mdi mdi-chemical-weapon menu-icon"></i>
+                    <span class="menu-title">Department</span>
+                  </a></li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/designation">
+                    <i class="mdi mdi-camera-front-variant menu-icon"></i>
+                    <span class="menu-title">Designation</span>
+                  </a>
+                </li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/role">
+                  <i class="mdi mdi-clipboard-account menu-icon"></i>
+                  <span class="menu-title">Role</span>
+                </a></li>
+  
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item"> <a class="nav-link" routerLink="/master/tendering-company">
+              <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
+              <span class="menu-title">Tendering Company</span>
             </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/designation">
-              <i class="mdi mdi-camera-front-variant menu-icon"></i>
-              <span class="menu-title">Designation</span>
-            </a>
-          </li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/fin-year">
-              <i class="mdi mdi-camera-front-variant menu-icon"></i>
-              <span class="menu-title">Financial Year</span>
-            </a>
-          </li>
+         
+            <li class="nav-item">
+              <div routerLink="/master/project">
+                <a class="nav-link" data-toggle="collapse" href="#Bid-Project" aria-expanded="false" aria-controls="Biding">
+                  <i class="mdi mdi-content-save-settings menu-icon"></i>
+                  <span class="menu-title">Projects</span>
+                  <i class="menu-arrow"></i>
+                </a>
+
+              </div>
+              <div class="collapse" id="Bid-Project">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item sub-sub-menu">
+                    <a class="nav-link" routerLink="/l2-bulkdata">
+                      <i class="mdi mdi-file-export menu-icon"></i>
+                      <span class="menu-title">L2 Schedule</span>
+                    </a>
+                  </li>
+                  <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/project">
+                      <i class="mdi mdi-file-document-box menu-icon"></i>
+                      <span class="menu-title">Project</span>
+                    </a>
+                  </li> -->
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/proj-milestone">
+                      <i class="mdi mdi-creation menu-icon"></i>
+                      <span class="menu-title">Milestone</span>
+                    </a></li>
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/milestone-task">
+                      <i class="mdi mdi-credit-card-multiple menu-icon"></i>
+                      <span class="menu-title">Task</span>
+                    </a></li>
+                  <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/project-doc">
+                      <i class="mdi mdi-file-document menu-icon"></i>
+                      <span class="menu-title">Documents</span>
+                    </a></li> -->
+  
+                </ul>
+              </div>
+            </li>
 
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#Bid-Project" aria-expanded="false" aria-controls="Biding">
-              <i class="mdi mdi-content-save-settings menu-icon"></i>
-              <span class="menu-title">Procurement</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="Bid-Project">
+            <div routerLink="/master/procurement/item">
+              <a class="nav-link" data-toggle="collapse" href="#Bid-Procurement" aria-expanded="false" aria-controls="Biding">
+                <i class="mdi mdi-content-save-settings menu-icon"></i>
+                <span class="menu-title">Items</span>
+                <i class="menu-arrow"></i>
+              </a>
+
+            </div>
+            <div class="collapse" id="Bid-Procurement">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/procurement/item">
+                <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/procurement/item">
                     <i class="mdi mdi-file-document-box menu-icon"></i>
                     <span class="menu-title">Item</span>
                   </a>
-                </li>
-                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/procurement/supplier">
+                </li> -->
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/vendor">
+                  <i class="mdi mdi-human-male-female menu-icon"></i>
+                  <span class="menu-title">Vendor</span>
+                </a></li>
+                <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/procurement/supplier">
                     <i class="mdi mdi-creation menu-icon"></i>
                     <span class="menu-title">Supplier</span>
                   </a>
                 </li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/material">
+                  <i class="mdi mdi-file-document-box menu-icon"></i>
+                  <span class="menu-title">Material</span>
+                </a>
+              </li>
+
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/machine">
+                  <i class="mdi mdi-watch-vibrate menu-icon"></i>
+                  <span class="menu-title">Machine</span>
+                </a></li> -->
+            
+            
+              <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/spare">
+                  <i class="mdi mdi-file-tree menu-icon"></i>
+                  <span class="menu-title">Spare Parts</span>
+                </a></li>
 
               </ul>
             </div>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/l2-bulkdata">
-              <i class="mdi mdi-file-export menu-icon"></i>
-              <span class="menu-title">L2 Schedule</span>
-            </a>
-          </li>
+            
+         
+
+        
           <!-- <li class="nav-item"> <a class="nav-link" routerLink="/master/employee">
               <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Employee</span>
             </a></li> -->
 
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/title">
-              <i class="mdi mdi-format-title menu-icon"></i>
-              <span class="menu-title">Title</span>
-            </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/tender">
-              <i class="mdi mdi-tooltip-text menu-icon"></i>
-              <span class="menu-title">Tender</span>
-            </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/tendering-company">
-              <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
-              <span class="menu-title">Tendering Company</span>
-            </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/role">
-              <i class="mdi mdi-clipboard-account menu-icon"></i>
-              <span class="menu-title">Role</span>
-            </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master">
-              <i class="mdi mdi-home-automation menu-icon"></i>
-              <span class="menu-title">My Company</span>
-            </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/machine">
-              <i class="mdi mdi-watch-vibrate menu-icon"></i>
-              <span class="menu-title">Machine</span>
-            </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/material">
-              <i class="mdi mdi-file-document-box menu-icon"></i>
-              <span class="menu-title">Material</span>
-            </a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#Bid-others" aria-expanded="false" aria-controls="Biding">
+                  <i class="mdi mdi-content-save-settings menu-icon"></i>
+                  <span class="menu-title">Others</span>
+                  <i class="menu-arrow"></i>
+                </a>
+              <div class="collapse" id="Bid-others">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/title">
+                    <i class="mdi mdi-format-title menu-icon"></i>
+                    <span class="menu-title">Title</span>
+                  </a></li>
+                <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/tender">
+                    <i class="mdi mdi-tooltip-text menu-icon"></i>
+                    <span class="menu-title">Tender</span>
+                  </a></li> -->
 
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#Bid-Project" aria-expanded="false" aria-controls="Biding">
-              <i class="mdi mdi-content-save-settings menu-icon"></i>
-              <span class="menu-title">Bid Projects</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="Bid-Project">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/project">
-                    <i class="mdi mdi-file-document-box menu-icon"></i>
-                    <span class="menu-title">Project</span>
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/tender-company-contacts">
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                   <span class="menu-title">Company Contacts</span>
+                   </a></li>
+                   <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/fin-year">
+                    <i class="mdi mdi-camera-front-variant menu-icon"></i>
+                    <span class="menu-title">Financial Year</span>
                   </a>
                 </li>
-                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/proj-milestone">
-                    <i class="mdi mdi-creation menu-icon"></i>
-                    <span class="menu-title">Milestone</span>
-                  </a></li>
-                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/milestone-task">
-                    <i class="mdi mdi-credit-card-multiple menu-icon"></i>
-                    <span class="menu-title">Milestone Task</span>
-                  </a></li>
-                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/project-doc">
-                    <i class="mdi mdi-file-document menu-icon"></i>
-                    <span class="menu-title">Project Documents</span>
-                  </a></li>
-
-              </ul>
-            </div>
-          </li>
-
-
-
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/state">
-              <i class="mdi mdi-format-align-bottom menu-icon"></i>
-              <span class="menu-title">State</span>
-            </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/spare">
-              <i class="mdi mdi-file-tree menu-icon"></i>
-              <span class="menu-title">Spare Parts</span>
-            </a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/master/vendor">
-              <i class="mdi mdi-human-male-female menu-icon"></i>
-              <span class="menu-title">Vendor</span>
-            </a></li>
+      
+  
+                </ul>
+              </div>
+            </li>
 
 
         </ul>
       </div>
     </li>
 
+
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" routerLink="/documentation" aria-expanded="false"
+      <div routerLink="/documentation">
+        <a class="nav-link" data-toggle="collapse" href="#ui-doc" aria-expanded="false"
         aria-controls="alertAlarm">
         <i class="mdi mdi-file-document menu-icon"></i>
-        <span class="menu-title">Documentation</span> </a>
+        <span class="menu-title">Documentation</span>
+        <i class="menu-arrow"></i>
+      </a>
+      </div>
+      <div class="collapse" id="ui-doc">
+        <ul class="nav flex-column sub-menu">
+
+          <li class="nav-item"> <a class="nav-link" routerLink="documentation/tend-doc">
+              <i class="mdi mdi-format-line-style menu-icon"></i>
+              <span class="menu-title">Tender</span>
+            </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="documentation/bg-doc">
+              <i class="mdi mdi-ferry menu-icon"></i>
+              <span class="menu-title">BG</span>
+            </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="documentation/lc-doc">
+              <i class="mdi mdi-file-document-box menu-icon"></i>
+              <span class="menu-title">LC</span>
+            </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="documentation/comm-doc">
+              <i class="mdi mdi-file-multiple menu-icon"></i>
+              <span class="menu-title">Communication</span>
+              </a></li> 
+          <li class="nav-item"> <a class="nav-link" routerLink="documentation/others-doc">
+              <i class="mdi mdi-file-send menu-icon"></i>
+              <span class="menu-title">Others</span>
+              </a></li> 
+        </ul>
+      </div>
     </li>
 
     <li class="nav-item">

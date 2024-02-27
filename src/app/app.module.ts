@@ -120,6 +120,15 @@ import { CompanyContactsComponent } from './masters/company-contacts/company-con
 import { SupplierComponent } from './masters/procurement/supplier/supplier.component';
 import { CreateItemComponent } from './masters/procurement/item-master/create-item/create-item.component';
 import { CreateSupplierComponent } from './masters/procurement/supplier/create/create.component';
+import { TenderDocumentComponent } from './documentation/tender-document/tender-document.component';
+import { BgDocumentComponent } from './documentation/bg-document/bg-document.component';
+import { LcDocumentComponent } from './documentation/lc-document/lc-document.component';
+import { CommunicationDocumentComponent } from './documentation/communication-document/communication-document.component';
+import { OthersDocumentComponent } from './documentation/others-document/others-document.component';
+import { TechnicalBidComponent } from './presales/presales-biding/data-capturing/technical-bid/technical-bid.component';
+import { FinancialBidComponent } from './presales/presales-biding/data-capturing/financial-bid/financial-bid.component';
+import { BankingDetailsComponent } from './presales/presales-biding/data-capturing/banking-details/banking-details.component';
+import { CountryMasterComponent } from './masters/country-master/country-master.component';
 
 @NgModule({
   declarations: [
@@ -193,7 +202,7 @@ import { CreateSupplierComponent } from './masters/procurement/supplier/create/c
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
-    CompanyContactsComponent, SupplierComponent, CreateItemComponent, CreateSupplierComponent
+    CompanyContactsComponent, SupplierComponent, CreateItemComponent, CreateSupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent
   ],
 
   imports: [

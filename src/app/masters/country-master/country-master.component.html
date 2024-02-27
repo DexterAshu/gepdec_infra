@@ -1,0 +1,134 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Country Master info</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" [(ngModel)]="searchText" class="form-control form-control-sm" placeholder="Search">
+                        </div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-4">
+                           <!-- <h5> Total Number of Country : {{countCount.count}} </h5> -->
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Country</button>
+                        </div>
+                    </div>
+                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Country Code</th>
+                                <th>Country</th>
+                             
+                                <!-- <th>Active</th> -->
+                                <th>Created By</th>
+                                <th>Created On</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap" *ngIf="countData.length">
+                            <tr *ngFor="let a of countData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{limit*(p-1)+i+1}}</td>
+                                <td>{{a.country_code}}</td>
+                                <td>{{a.name}}</td>
+                                <td>{{a.createdby_name}}</td>
+                                <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
+                                </td>
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="countData?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Country</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <!-- <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Country<span class="required-asterisk">*</span></label>
+                                    <select formControlName="country_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
+                                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                                    </select>
+                                    <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Country Code<span class="required-asterisk">*</span></label>
+                                    <input type="text" formControlName="country_code" placeholder="Enter Country Code" class="form-control form-control-sm" appWordCapitalize>
+                                    <div *ngIf="f['country_code'].touched && f['country_code'].invalid">
+                                        <small class="text-danger" *ngIf="f['country_code'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Country Name<span class="required-asterisk">*</span></label>
+                                    <input type="text" formControlName="name" placeholder="Enter Country Name" class="form-control form-control-sm" appWordCapitalize>
+                                    <div *ngIf="f['name'].touched && f['name'].invalid">
+                                        <small class="text-danger" *ngIf="f['name'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <div class="modal-btns">
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary  btn-fw btn-sm mr-2">Add</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                    data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->

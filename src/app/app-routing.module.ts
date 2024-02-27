@@ -57,11 +57,19 @@ import { DirectBidingComponent } from './presales/presales-biding/direct-biding/
 import { IndirectBidingComponent } from './presales/presales-biding/indirect-biding/indirect-biding.component';
 import { DataCapturingComponent } from './presales/presales-biding/data-capturing/data-capturing.component';
 import { CaptureDataListComponent } from './presales/presales-biding/capture-data-list/capture-data-list.component';
+import { TechnicalBidComponent } from './presales/presales-biding/data-capturing/technical-bid/technical-bid.component';
+import { FinancialBidComponent } from './presales/presales-biding/data-capturing/financial-bid/financial-bid.component';
+import { BankingDetailsComponent } from './presales/presales-biding/data-capturing/banking-details/banking-details.component';
 
 
 import { ProblemTicketComponent } from './problem-ticket/problem-ticket.component';
 import { HelpSupportComponent } from './help-support/help-support.component';
 import { DocumentationComponent } from './documentation/documentation.component';
+import { TenderDocumentComponent } from './documentation/tender-document/tender-document.component';
+import { BgDocumentComponent } from './documentation/bg-document/bg-document.component';
+import { LcDocumentComponent } from './documentation/lc-document/lc-document.component';
+import { CommunicationDocumentComponent } from './documentation/communication-document/communication-document.component';
+import { OthersDocumentComponent } from './documentation/others-document/others-document.component';
 import { ProjReportsComponent } from './proj-reports/proj-reports.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
@@ -78,7 +86,15 @@ const routes: Routes = [
 
   {path: 'issue-tickets', component:ProblemTicketComponent, canActivate:[AuthGuard]},
   {path: 'help-support', component:HelpSupportComponent, canActivate:[AuthGuard]},
+
+
+  //Documentation-routing
   {path: 'documentation', component:DocumentationComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/tend-doc', component:TenderDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/bg-doc', component:BgDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/lc-doc', component:LcDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/comm-doc', component:CommunicationDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/others-doc', component:OthersDocumentComponent, canActivate:[AuthGuard]},
   {path: 'project-report', component:ProjReportsComponent, canActivate:[AuthGuard]},
   {path: 'reset-password', component:ResetPasswordComponent, canActivate:[AuthGuard]},
 
@@ -132,6 +148,9 @@ const routes: Routes = [
   {path: 'presales/presales-biding/bid-qualify', component:BidQualifyComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture-list', component:CaptureDataListComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture', component:DataCapturingComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/data-capture/technical', component:TechnicalBidComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/data-capture/financial', component:FinancialBidComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/data-capture/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},
 //Customer 
   {path: 'customer-registration/process-1', component:Process1Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-2', component:Process2Component, canActivate:[AuthGuard]},

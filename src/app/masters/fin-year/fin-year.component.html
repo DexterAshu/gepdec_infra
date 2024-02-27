@@ -38,6 +38,7 @@
                                 <th>End Date</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="financialData.length">
@@ -48,6 +49,9 @@
                                 <td>{{a.end_date}}</td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
+                                </td>
                             </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
