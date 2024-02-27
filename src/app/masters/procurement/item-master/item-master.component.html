@@ -24,7 +24,7 @@
                             <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <button type="button" routerLink="/master/procurement/item/create" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
                         </div>
                     </div>
                     <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
@@ -32,10 +32,10 @@
                             <tr>
                                 <th>S No</th>
                                 <th>Item Code</th>
-                                <th>Item Name</th>
+                                <th>Item Description</th>
                                 <th>Item Type</th>
-                                <th>Item UOM</th>
                                 <th>Procurement UOM</th>
+                                <th>Item UOM</th>
                                 <th>Item Property</th>
                                 <th>Item Category</th>
                                 <th>Item Cost</th>
@@ -45,30 +45,30 @@
                                 <!-- <th>Action</th> -->
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="companyData.length">
-                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                                <td>{{ a.itemCode }}</td>
-                                <td>{{ a.itemName }}</td>
-                                <td>{{ a.itemType }}</td>
-                                <td>{{ a.itemUOM }}</td>
-                                <td>{{ a.procurementUOM }}</td>
-                                <td>{{ a.itemProperty }}</td>
-                                <td>{{ a.itemCategory }}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ a.itemcode }}</td>
+                                <td>{{ a.itemname }}</td>
+                                <td>{{ a.itemtype }}</td>
+                                <td>{{ a.precurementuom }}</td>
+                                <td>{{ a.uom }}</td>
+                                <td>{{ a.itemproperty }}</td>
+                                <td>{{ a.itemcategory }}</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>{{ a.createdby_name }}</td>
+                                <td>{{ a.created }}</td>
                                 <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
                                 </td> -->
                             </tr>
-                            <tr *ngIf="isNotFound == true">
+                            <tr *ngIf="dataList?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="companyData?.length == 0">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
@@ -83,3 +83,114 @@
         </div>
     </div>
 </div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Item Code<span class="required-asterisk">*</span></label>
+                                    <input formControlName="itemCode" type="text" class="form-control form-control-sm" placeholder="Enter Item Code" appNoSpace appUpperCase>
+                                    <div *ngIf="f['itemCode'].touched && f['itemCode'].invalid">
+                                        <small class="text-danger" *ngIf="f['itemCode'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Item Description<span class="required-asterisk">*</span></label>
+                                    <input formControlName="itemName" type="text" class="form-control form-control-sm" placeholder="Enter Item Name">
+                                    <div *ngIf="f['itemName'].touched && f['itemName'].invalid">
+                                        <small class="text-danger" *ngIf="f['itemName'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Item Type<span class="required-asterisk">*</span></label>
+                                    <!-- <input formControlName="itemType" type="text" class="form-control form-control-sm" placeholder="Enter Item Type"> -->
+                                    <select formControlName="itemType" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Item</option>
+                                        <option *ngFor="let t of dataDropdownList.itemtype" [value]="t.itemtype_id">{{ t.itemtype }}</option>
+                                    </select>
+                                    <div *ngIf="f['itemType'].touched && f['itemType'].invalid">
+                                        <small class="text-danger" *ngIf="f['itemType'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Procurement UOM<span class="required-asterisk">*</span></label>
+                                    <!-- <input formControlName="procurementUOM" type="text" class="form-control form-control-sm" placeholder="Enter Procurement UOM"> -->
+                                    <select formControlName="procurementUOM" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Procurement UOM</option>
+                                        <option *ngFor="let t of dataDropdownList.precurementuom" [value]="t.precurementuom_id">{{ t.precurementuom }}</option>
+                                    </select>
+                                    <div *ngIf="f['procurementUOM'].touched && f['procurementUOM'].invalid">
+                                        <small class="text-danger" *ngIf="f['procurementUOM'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Item UOM<span class="required-asterisk">*</span></label>
+                                    <!-- <input formControlName="itemUOM" type="text" class="form-control form-control-sm" placeholder="Enter Item UOM"> -->
+                                    <select formControlName="itemUOM" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select UOM</option>
+                                        <option *ngFor="let t of dataDropdownList.uom" [value]="t.unit_id">{{ t.uom }}</option>
+                                    </select>
+                                    <div *ngIf="f['itemUOM'].touched && f['itemUOM'].invalid">
+                                        <small class="text-danger" *ngIf="f['itemUOM'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Item Property<span class="required-asterisk">*</span></label>
+                                    <!-- <input formControlName="itemProperty" type="text" class="form-control form-control-sm" placeholder="Enter Item Property"> -->
+                                    <select formControlName="itemProperty" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Property</option>
+                                        <option *ngFor="let t of dataDropdownList.itemproperty" [value]="t.itemproperty_id">{{ t.itemproperty }}</option>
+                                    </select>
+                                    <div *ngIf="f['itemProperty'].touched && f['itemProperty'].invalid">
+                                        <small class="text-danger" *ngIf="f['itemProperty'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Item Category<span class="required-asterisk">*</span></label>
+                                    <!-- <input formControlName="itemCategory" type="text" class="form-control form-control-sm" placeholder="Enter Item Category"> -->
+                                    <select formControlName="itemCategory" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
+                                        <option *ngFor="let t of dataDropdownList.itemcategory" [value]="t.itemcategory_id">{{ t.itemcategory }}</option>
+                                    </select>
+                                    <div *ngIf="f['itemCategory'].touched && f['itemCategory'].invalid">
+                                        <small class="text-danger" *ngIf="f['itemCategory'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-btns">
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Add</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->

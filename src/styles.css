@@ -222,6 +222,17 @@ header.legend-title.ng-star-inserted {
 }
 
 .fl-10{
-font-weight: 500;
+    font-weight: 500;
+}
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container, .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+}
+
+ng-dropdown-panel .scroll-host {
+    font-size: 0.8rem;
 }
 

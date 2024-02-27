@@ -1,0 +1,284 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Vendor Item Linking</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                        </div>
+                        <div class="col-lg-8">
+                            <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button> -->
+                        </div>
+                    </div>
+                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Vendor Code</th>
+                                <th>Vendor Name</th>
+                                <th>Company Name</th>
+                                <th>Category</th>
+                                <th>Contact No</th>
+                                <th>Email ID</th>
+                                <th>Created On</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <td>{{ a?.suppliercode }}</td>
+                                <td>{{ a?.suppliername }}</td>
+                                <td>{{ a?.company_name }}</td>
+                                <td>{{ a?.category }}</td>
+                                <td>{{ a?.contact[0]?.contactno }}</td>
+                                <td>{{ a?.contact[0]?.emailid }}</td>
+                                <td>{{ a?.created }}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#linkModal" title="Link Items"><span class="mdi mdi-link-variant cursor-pointer mdi-18px text-primary" (click)="rowListData(a)"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="View Linked Items"><span class="mdi mdi-format-list-checks cursor-pointer mdi-18px text-secondary ms-1" (click)="rowListData(a)" *ngIf="a?.item.length > 0"></span></a>
+                                </td>
+                            </tr>
+                            <tr *ngIf="dataList?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="linkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vendor Item Linking</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Vendor Name [Code]<span class="required-asterisk">*</span></label>
+                                        <input formControlName="supplierCode" type="text" class="form-control form-control-sm" readonly>
+                                        <div *ngIf="f['supplierCode'].touched && f['supplierCode'].invalid">
+                                            <small class="text-danger" *ngIf="f['supplierCode'].errors?.['required']">*Required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Item List (Select Multiple)<span class="required-asterisk">*</span></label>
+                                        <!-- <select formControlName="itemCode" class="form-select form-select-sm" multiple="true">
+                                            <option [selected]="true" [disabled]="true" [value]="null">Select Multiple</option>
+                                            <option *ngFor="let t of itemDataList" [value]="t.item_id">{{ t.itemname }} [{{t.itemcode}}]</option>
+                                        </select> -->
+                                        <ng-select formControlName="itemCode" [items]="itemDataList" [multiple]="true" bindLabel="itemcode" [closeOnSelect]="false" bindValue="item_id">
+                                        </ng-select>
+                                        <div *ngIf="f['itemCode'].touched && f['itemCode'].invalid">
+                                            <small class="text-danger" *ngIf="f['itemCode'].errors?.['required']">*Required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-btns">
+                                    <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Link</button>
+                                    <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Linking...</button>
+                                    <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->
+
+<!-- detail modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Linked Items List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive tableStyle">
+                                <table class="table table-hover table-striped mb-3">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th>S No</th>
+                                            <th>Item Code</th>
+                                            <th>Item Description</th>
+                                            <!-- <th>Item Type</th> -->
+                                            <th>Procurement UOM</th>
+                                            <th>Item UOM</th>
+                                            <!-- <th>Item Property</th>
+                                            <th>Item Category</th> -->
+                                            <th>Item Cost</th>
+                                            <th>Last Purchased Date</th>
+                                            <th>Last Purchased Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr *ngFor="let a of rowData?.item; index as i">
+                                            <td>{{ limit*(p-1)+i+1 }}</td>
+                                            <td>{{ a?.itemcode }}</td>
+                                            <td>{{ a?.itemname }}</td>
+                                            <!-- <td>{{ a?.itemtype }}</td> -->
+                                            <td>{{ a?.precurementuom }}</td>
+                                            <td>{{ a?.uom }}</td>
+                                            <!-- <td>{{ a?.itemproperty }}</td>
+                                            <td>{{ a?.itemcategory }}</td> -->
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr *ngIf="rowData?.length == 0">
+                                            <td colspan="15" class="text-center">
+                                                <div class="spinner-border"> </div>
+                                            </td>
+                                        </tr>
+                                        <!-- <tr *ngIf="verificationData?.length == 0">
+                                            <td colspan="15" class="text-center">
+                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- <div class="table-responsive">
+                                <h6 class="mb-2 text-secondary">Vendor Details</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Vendor Code</th>
+                                            <td>{{ rowData?.suppliercode }}</td>
+                                            <th>Vendor Name</th>
+                                            <td>{{ rowData?.suppliername }}</td>
+                                            <th>Company Name</th>
+                                            <td>{{ rowData?.company_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Company Category</th>
+                                            <td>{{ rowData?.category }}</td>
+                                            <th>GST No</th>
+                                            <td>{{ rowData?.gstno }}</td>
+                                            <th>GST Date</th>
+                                            <td>{{ rowData?.gstdate }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>PAN No</th>
+                                            <td>{{ rowData?.panno }}</td>
+                                            <th>TAN No</th>
+                                            <td>{{ rowData?.tanno }}</td>
+                                            <th>DOI</th>
+                                            <td>{{ rowData?.doi }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Contact</th>
+                                            <td>{{ rowData?.contact[0]?.contactno }}</td>
+                                            <th>Email ID</th>
+                                            <td>{{ rowData?.contact[0]?.emailid }}</td>
+                                            <th>Address</th>
+                                            <td>{{ rowData?.address }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Country</th>
+                                            <td>{{ rowData?.name }}</td>
+                                            <th>State</th>
+                                            <td>{{ rowData?.state_name }}</td>
+                                            <th>District</th>
+                                            <td>{{ rowData?.district_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Pincode</th>
+                                            <td>{{ rowData?.pincode }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-4 text-secondary">Vendor Bank Details</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Bank Name</th>
+                                            <td>{{ rowData?.bankname }}</td>
+                                            <th>Account Holder Name</th>
+                                            <td>{{ rowData?.account_holder_name }}</td>
+                                            <th>Account No</th>
+                                            <td>{{ rowData?.bankaccountno }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Branch Name</th>
+                                            <td>{{ rowData?.branch_name }}</td>
+                                            <th>IFSC Code</th>
+                                            <td>{{ rowData?.bankifsc }}</td>
+                                            <th>Bank Address</th>
+                                            <td>{{ rowData?.bank_address }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Account Type</th>
+                                            <td>{{ rowData?.accounttype }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-3 text-secondary">DOI(Date Of Incorporation) Documents</h6>
+                                <div class="col-md-12 ps-0">
+                                    <div class="d-inline-flex">
+                                        <div class="col-md-3 col-sm-3 col-3 p-2 ps-0">
+                                            <div class="img-sec shadow">
+                                                <img src="{{rowData?.DOIdocument}}" class="img-fluid" title="DOI Document" alt="DOI Document not available!">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail modal end-->

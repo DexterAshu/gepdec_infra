@@ -1,71 +1,69 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
+import { MasterService, AlertService, ApiService } from 'src/app/_services';
 
 @Component({
-  selector: 'app-item-master',
-  templateUrl: './item-master.component.html',
-  styleUrls: ['./item-master.component.css']
+  selector: 'app-supplier-item-link',
+  templateUrl: './supplier-item-link.component.html',
+  styleUrls: ['./supplier-item-link.component.css']
 })
-export class ItemMasterComponent {
+export class SupplierItemLinkComponent {
+
   p: number = 1;
   limit = environment.pageLimit;
-  searchText: any;
   form!: FormGroup;
-  isSubmitted: boolean = false;
+  currentDate = new Date();
+  searchText: any;
   isNotFound:boolean = false;
-  dataList: any;
-  dataDropdownList: any;
- 
+  isSubmitted:boolean = false;
+  dataList:any;
+  rowData:any;
+  itemDataList:any;
+  supplierId:any;
+
   constructor(
     private formBuilder: FormBuilder,
-    private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService,
   ) { }
 
- ngOnInit(){
+  ngOnInit(){
     this.form = this.formBuilder.group({
+      supplierCode: [null, Validators.required],
       itemCode: [null, Validators.required],
-      itemName: [null, Validators.required],
-      itemType: [null, Validators.required],
-      itemUOM: [null, Validators.required],
-      procurementUOM: [null, Validators.required],
-      itemProperty: [null, Validators.required],
-      itemCategory: [null, Validators.required],
     });
 
     this.getDataList();
-    this.getDropdownList()
-  } 
+    this.getItemList();
+  }
 
   get f() { return this.form.controls; }
 
-  getDropdownList() {
-    this.dataDropdownList = [];
-    this.isNotFound = false;
-    let apiLink = "/item/api/v1/getItemDropdown";
+  // getLabel(item: any): string {
+  //   return `${item?.itemname} [${item?.itemcode}]`;
+  // }
+
+  getItemList() {
+    this.itemDataList = [];
+    let apiLink = "/item/api/v1/getItemList";
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
-        this.isNotFound = false;
-        this.dataDropdownList = res;
+        this.itemDataList = res.result;
       } else {
-        this.isNotFound = true;
-        this.dataDropdownList = undefined;
+        this.itemDataList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.isNotFound = true;
-      this.dataDropdownList = undefined;
+      this.itemDataList = undefined;
       this.alertService.error("Error: " + error.statusText)
     });
   }
-  
+
   getDataList() {
     this.dataList = [];
     this.isNotFound = false;
-    let apiLink = "/item/api/v1/getItemList";
+    let apiLink = "/supplier/api/v1/getSupplierList";
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.isNotFound = false;
@@ -82,21 +80,24 @@ export class ItemMasterComponent {
     });
   }
 
+  rowListData(row:any) {
+    this.rowData = [];
+    this.rowData = row;
+    this.supplierId = undefined;
+    this.form.controls['supplierCode'].setValue(`${this.rowData.company_name} [${this.rowData.suppliercode}]`);
+    // this.form.controls['itemCode'].setValue(`${this.rowData?.item['item_id']}`);
+    this.supplierId = this.rowData.supplier_id;
+  }
+
   onSubmit() {
     debugger
     if (this.form.valid) {
       this.isSubmitted = true;
       let data = {
-        itemcode: this.form.value.itemCode.toUpperCase(),
-        itemname: this.form.value.itemName,
-        itemtype_id: this.form.value.itemType,
-        unit_id: this.form.value.itemUOM,
-        precurementuom_id: this.form.value.procurementUOM,
-        itemproperty_id: this.form.value.itemProperty,
-        itemcategory_id: this.form.value.itemCategory
-      } 
-
-      let apiLink = '/Item/api/v1/addItem';
+        supplier_id: this.supplierId,
+        item: this.form.value.itemCode,
+      }
+      let apiLink = '/supplier/api/v1/supplierItemMapping';
       this.apiService.postData(apiLink, data).subscribe(res => {
         let response: any = res;
         document.getElementById('cancel')?.click();
