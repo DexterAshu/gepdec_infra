@@ -14,7 +14,7 @@ export class WarehouseMasterComponent {
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
-  companyData: any = [
+  wareHouseData: any = [
     { wh_Name: "warehouse", wh_Code: "WH0001", WH_Head: { name: "Person 1", mobileNo: 90000000001, eMail: "person1@mail.com"}, address: { state: "UP", district: "District", country: "India", pinCode: 888888, address1: "Address1", address2: "Address2" } },
     { wh_Name: "warehouse", wh_Code: "WH0002", WH_Head: { name: "Person 2", mobileNo: 90000000002, eMail: "person2@mail.com"}, address: { state: "UP", district: "District", country: "India", pinCode: 888888, address1: "Address1", address2: "Address2" } },
     { wh_Name: "warehouse", wh_Code: "WH0003", WH_Head: { name: "Person 3", mobileNo: 90000000003, eMail: "person3@mail.com"}, address: { state: "UP", district: "District", country: "India", pinCode: 888888, address1: "Address1", address2: "Address2" } },
@@ -30,7 +30,11 @@ export class WarehouseMasterComponent {
   limits: any;
   isExcelDownload: boolean = false;
   loading: boolean = false;
- 
+  selectedWH: any;
+
   constructor( private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) { }
 
+  selectWH(data: any) {
+    this.selectedWH = data;
+  }
 }

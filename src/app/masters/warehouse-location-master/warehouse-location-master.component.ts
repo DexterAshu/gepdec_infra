@@ -14,7 +14,7 @@ export class WarehouseLocationMasterComponent {
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
-  companyData: any = [
+  wareHouseLocationData: any = [
     { location_Name: "Location 1", location_Code: "L0001", wh_Code: "WH0001" },
     { location_Name: "Location 2", location_Code: "L0002", wh_Code: "WH0001" },
     { location_Name: "Location 3", location_Code: "L0003", wh_Code: "WH0002" },
@@ -30,7 +30,11 @@ export class WarehouseLocationMasterComponent {
   limits: any;
   isExcelDownload: boolean = false;
   loading: boolean = false;
- 
+  selectedWHL: any;
+
   constructor( private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) { }
 
+  selectWHL(data: any) {
+    this.selectedWHL = data;
+  }
 }
