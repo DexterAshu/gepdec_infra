@@ -128,6 +128,10 @@ import { FinancialBidComponent } from './presales/presales-biding/data-capturing
 import { BankingDetailsComponent } from './presales/presales-biding/data-capturing/banking-details/banking-details.component';
 import { CountryMasterComponent } from './masters/country-master/country-master.component';
 import { SupplierItemLinkComponent } from './masters/procurement/supplier-item-link/supplier-item-link.component';
+import { ItemsMasterComponent } from './masters/items-master/items-master.component';
+import { WarehouseLocationMasterComponent } from './masters/warehouse-location-master/warehouse-location-master.component';
+import { WarehouseMasterComponent } from './masters/warehouse-master/warehouse-master.component';
+import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
 
 @NgModule({
   declarations: [
@@ -196,7 +200,10 @@ import { SupplierItemLinkComponent } from './masters/procurement/supplier-item-l
     CompletedComponent,
     BiderCompanyComponent,
     L2ScheduleBulkdataComponent,
-
+    WarehouseMasterComponent,
+    WarehouseLocationMasterComponent,
+    ItemsMasterComponent,
+    GRNNoteComponent,
     //master-component
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
@@ -218,10 +225,10 @@ import { SupplierItemLinkComponent } from './masters/procurement/supplier-item-l
     NgxPrintModule,
     NgSelectModule,
     ChartModule,
-   
+
   ],
   providers: [
-    
+
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: HeaderInterceptor,
