@@ -36,9 +36,9 @@
             <tbody class="text-nowrap">
               <tr *ngFor="let a of wareHouseLocationData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
-                <td><a data-bs-toggle="modal" (click)="selectWHL(a)" class="cursor-pointer text-primary" style="text-decoration: underline;" data-bs-target="#viewLocation" title="Warehouse Profile">{{ a.location_Code }}</a></td>
-                <td>{{ a.location_Name }}</td>
-                <td>{{ a.wh_Code }}</td>
+                <td><a data-bs-toggle="modal" (click)="selectWHL(a)" class="cursor-pointer text-primary" style="text-decoration: underline;" data-bs-target="#viewLocation" title="Warehouse Profile">{{ a.location_code }}</a></td>
+                <td>{{ a.location_name }}</td>
+                <td>{{ a.warehouse_code }}</td>
                 <td>
                   <a data-bs-toggle="modal" (click)="selectWHL(a)" data-bs-target="#editWHL" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
                 </td>
@@ -65,16 +65,48 @@
 </div>
 
 <div class="modal fade" id="viewLocation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content" *ngIf="selectedWHL?.location_code">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ware house details</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Warehouse location ({{selectedWHL.location_code}}) details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-3">
         <div class="container-fluid">
-          <h1>Model</h1>
-          {{selectedWHL | json}}
+          <div class="row">
+            <div class="col-md-12 p-0">
+              <div class="table-responsive" style="min-height: 150px">
+                <h6 class="mb-2 text-secondary">Warehouse Location Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Location Code</th>
+                      <td>{{ selectedWHL.location_code }}</td>
+                      <th>Location Name</th>
+                      <td>{{ selectedWHL.location_name }}</td>
+                    </tr>
+                    <tr>
+                      <th>Warehouse Code</th>
+                      <td>{{ selectedWHL.warehouse_code }}</td>
+                      <th>Warehouse Name</th>
+                      <td>{{ selectedWHL.warehouse_name }}</td>
+                    </tr>
+                    <tr>
+                      <th>Created Date</th>
+                      <td> {{selectedWHL.created}}</td>
+                      <th>Created By</th>
+                      <td> {{selectedWHL.createdby_name}} </td>
+                    </tr>
+                    <tr>
+                      <th>Status</th>
+                      <td>{{selectedWHL.status}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

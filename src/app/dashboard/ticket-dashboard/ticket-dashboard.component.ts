@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from 'src/app/_services/alert.service';
-import { ApiService } from 'src/app/_services/api.service';
-import { SharedService } from 'src/app/_services/shared.service';
+import { AlertService, ApiService, SharedService } from 'src/app/_services';
 
 @Component({
   selector: 'app-ticket-dashboard',

@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HostListener } from '@angular/core';
-import { MasterService } from 'src/app/_services/master.service';
-import { AlertService } from 'src/app/_services/alert.service';
-import { ApiService } from 'src/app/_services/api.service';
+import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 

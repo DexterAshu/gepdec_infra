@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService } from 'src/app/_services/alert.service';
-import { ApiService } from 'src/app/_services/api.service';
-import { SharedService } from 'src/app/_services/shared.service';
+import { AlertService, ApiService, SharedService, MasterService } from 'src/app/_services';
 import { Chart } from 'angular-highcharts';
 import * as Highcharts from 'highcharts';
-import { MasterService } from 'src/app/_services/master.service';
 
 @Component({
   selector: 'app-finance-dashboard',

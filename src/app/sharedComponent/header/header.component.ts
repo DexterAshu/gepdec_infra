@@ -1,6 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { AccountService } from 'src/app/_services/account.service';
-import { MasterService } from 'src/app/_services/master.service';
+import { MasterService, AccountService } from 'src/app/_services';
 
 @Component({
   selector: 'app-header',
@@ -9,20 +8,14 @@ import { MasterService } from 'src/app/_services/master.service';
 })
 
 export class HeaderComponent implements OnInit {
-  
   docElement!: HTMLElement;
   isFullScreen!: boolean;
   isFullScreenMode: boolean = false;
   storedData: any;
   currentDateTime: any;
   
-  constructor(
-    public accountService: AccountService,
-    private masterService: MasterService
-  ) {
+  constructor(public accountService: AccountService, private masterService: MasterService) {
     this.storedData = this.masterService.getLocalStorage();
-    console.log(this.storedData);
-    
    }
 
   @HostListener('document:fullscreenchange', ['$event'])
@@ -39,13 +32,12 @@ export class HeaderComponent implements OnInit {
     this.docElement = document.documentElement;
     this.toggleFullScreen(); 
     this.updateDateTime();
-    setInterval(() => this.updateDateTime(), 1000); // Update every 1 second
+    setInterval(() => this.updateDateTime(), 1000);
   }
+
   private updateDateTime() {
     const now = new Date();
-    this.currentDateTime = now.toLocaleString(); // Adjust the date format as needed
-  
-    
+    this.currentDateTime = now.toLocaleString();
   }
 
   logout() {

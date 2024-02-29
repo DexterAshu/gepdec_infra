@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
-import { AccountService } from 'src/app/_services/account.service';
 import { environment } from 'src/environments/environment';
-import { AlertService } from 'src/app/_services/alert.service';
+import { AlertService, AccountService } from 'src/app/_services';
 
 @Component({
   selector: 'app-login',

@@ -5,14 +5,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 // import { DatePipe } from '@angular/common';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-
-  constructor(
-    private http: HttpClient,
-    // private datePipe: DatePipe,
-  ) { }
+  constructor(private http: HttpClient) // private datePipe: DatePipe,
+  {}
 
   getCountryDataList(): Observable<any[]> {
     const httpOptions = {
@@ -21,7 +18,10 @@ export class ApiService {
         'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
       }),
     };
-    return this.http.get<any[]>(`${environment.apiUrl}/state/api/v1/getCountry`, httpOptions);
+    return this.http.get<any[]>(
+      `${environment.apiUrl}/state/api/v1/getCountry`,
+      httpOptions
+    );
   }
   getStateData(data: any, state_id: any): Observable<any> {
     const httpOptions = {
@@ -30,8 +30,8 @@ export class ApiService {
         'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
       }),
     };
-    const params= new HttpParams({
-      fromString: `country_id=${data}&state_id=${state_id}`
+    const params = new HttpParams({
+      fromString: `country_id=${data}&state_id=${state_id}`,
     });
     return this.http.get<any>(
       `${environment.apiUrl}/state/api/v1/getState?${params}`,
@@ -45,8 +45,8 @@ export class ApiService {
         'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
       }),
     };
-    const params= new HttpParams({
-      fromString: `state_id=${state_id}&district_id=${district_id}`
+    const params = new HttpParams({
+      fromString: `state_id=${state_id}&district_id=${district_id}`,
     });
     return this.http.get<any>(
       `${environment.apiUrl}/state/api/v1/getDistrict?${params}`,
@@ -61,7 +61,9 @@ export class ApiService {
       }),
     };
     return this.http.get<any[]>(
-      `${environment.apiUrl}/company/api/v1/getcompanytype`, httpOptions);
+      `${environment.apiUrl}/company/api/v1/getcompanytype`,
+      httpOptions
+    );
   }
   createCompany(data: any): Observable<any[]> {
     const httpOptions = {
@@ -85,13 +87,12 @@ export class ApiService {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/company/api/v1/getComapanyList`,
-    
+
       httpOptions
     );
   }
 
-  companyDetails(data:any)
-  {
+  companyDetails(data: any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -140,8 +141,8 @@ export class ApiService {
         'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
       }),
     };
-    const params= new HttpParams({
-      fromString: `&module_id=${module_id}`
+    const params = new HttpParams({
+      fromString: `&module_id=${module_id}`,
     });
     return this.http.get<any>(
       `${environment.apiUrl}/contact/api/v1/getContactList?${params}`,
@@ -158,7 +159,7 @@ export class ApiService {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/biding/api/v1/getTenderDropdown`,
-    
+
       httpOptions
     );
   }
@@ -171,7 +172,7 @@ export class ApiService {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/company/api/v1/getCompanyDropdown`,
-    
+
       httpOptions
     );
   }
@@ -184,11 +185,11 @@ export class ApiService {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/contact/api/v1/getContactModulesDropdowm`,
-    
+
       httpOptions
     );
   }
-  getCompaList(module_id:any): Observable<any[]> {
+  getCompaList(module_id: any): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -197,11 +198,10 @@ export class ApiService {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/contact/api/v1/getCompanyDropdownByModule/${module_id}`,
-    
+
       httpOptions
     );
   }
-
 
   //bid-qualify
   bidQuali(data: any): Observable<any[]> {
@@ -218,18 +218,19 @@ export class ApiService {
     );
   }
 
-
-//VENDOR-API
-getVendorType(): Observable<any[]> {
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
-    }),
-  };
-  return this.http.get<any[]>(`${environment.apiUrl}/master/api/v1/getVendorDropdown`, httpOptions);
-}
-
+  //VENDOR-API
+  getVendorType(): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any[]>(
+      `${environment.apiUrl}/master/api/v1/getVendorDropdown`,
+      httpOptions
+    );
+  }
 
   //create tender
   createTender(data: any): Observable<any[]> {
@@ -260,34 +261,34 @@ getVendorType(): Observable<any[]> {
       httpOptions
     );
   }
-//create master title
-createMasterTitle(data: any): Observable<any[]> {
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
-    }),
-  };
-  return this.http.post<any[]>(
-    `${environment.apiUrl}/title/api/v1/addTitle`,
-    data,
-    httpOptions
-  );
-}
-//create master role
-createMasterRole(data: any): Observable<any[]> {
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
-    }),
-  };
-  return this.http.post<any[]>(
-    `${environment.apiUrl}/role/api/v1/addUserRoleName`,
-    data,
-    httpOptions
-  );
-}
+  //create master title
+  createMasterTitle(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/title/api/v1/addTitle`,
+      data,
+      httpOptions
+    );
+  }
+  //create master role
+  createMasterRole(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/role/api/v1/addUserRoleName`,
+      data,
+      httpOptions
+    );
+  }
 
   //create master Designation
   createMasterDesignation(data: any): Observable<any[]> {
@@ -360,7 +361,7 @@ createMasterRole(data: any): Observable<any[]> {
     );
   }
 
-//upload all type of documents
+  //upload all type of documents
   createDocuments(data: any): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -384,19 +385,19 @@ createMasterRole(data: any): Observable<any[]> {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/document/api/v1/getDocumentDropdownList`,
-    
+
       httpOptions
     );
   }
 
-  getDocListData(){
+  getDocListData() {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
       }),
     };
-    
+
     return this.http.get<any>(
       `${environment.apiUrl}/document/api/v1/getDocumentList`,
       httpOptions
@@ -418,33 +419,31 @@ createMasterRole(data: any): Observable<any[]> {
   //     httpOptions
   //   );
   // }
- 
 
   //Support ticket list
-incidentList():Observable<any>
-{
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
-    }),
-  };
-  return this.http.get<any>( `${environment.apiUrl}/incident/getIncidentList`,
-  httpOptions
-   );
-}
+  incidentList(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any>(
+      `${environment.apiUrl}/incident/getIncidentList`,
+      httpOptions
+    );
+  }
 
   //********** API DASHBOARD **********
   //chart apply in dashboard
-  getChartData(tenderid:any): Observable<any[]> {
-   
+  getChartData(tenderid: any): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
       }),
     };
-    const params= new HttpParams({
-      fromString: `tenderid=${tenderid}`
+    const params = new HttpParams({
+      fromString: `tenderid=${tenderid}`,
     });
     return this.http.get<any[]>(
       `${environment.apiUrl}/biding/api/v1/getTest?${params}`,
@@ -453,23 +452,31 @@ incidentList():Observable<any>
   }
 
   getData(apiLink: any) {
-    let headers_object = new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token });
+    let headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+    });
     const httpOptions = { headers: headers_object };
     return this.http.get(`${environment.apiUrl}${apiLink}`, httpOptions);
   }
-  
+
   postData(apiLink: any, data: any) {
-    let headers_object = new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token });
+    let headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+    });
     const httpOptions = { headers: headers_object };
     return this.http.post(`${environment.apiUrl}${apiLink}`, data, httpOptions);
   }
-  
+
   postDataFD(apiLink: any, data: any) {
-    let headers_object = new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token });
+    let headers_object = new HttpHeaders({
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+    });
     const httpOptions = { headers: headers_object };
     return this.http.post(`${environment.apiUrl}${apiLink}`, data, httpOptions);
   }
-  
+
   postDataDiffApiUrl(apiLink: any, data: any) {
     // let headers_object = new HttpHeaders({});
     // const httpOptions = { headers: headers_object };
