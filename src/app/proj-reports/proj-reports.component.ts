@@ -1,9 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService } from 'src/app/_services/master.service';
-import { AlertService } from 'src/app/_services/alert.service';
-import { ApiService } from 'src/app/_services/api.service';
+import { MasterService, AlertService, ApiService } from 'src/app/_services';
 
 @Component({
   selector: 'app-proj-reports',
@@ -12,7 +10,7 @@ import { ApiService } from 'src/app/_services/api.service';
 })
 export class ProjReportsComponent {
   form!: FormGroup;
-   
+
   p: number = 1;
   limit = environment.pageLimit;
   // meterPort = environment.meterPort;
@@ -48,7 +46,7 @@ export class ProjReportsComponent {
 
     this.tableHeight = `${window.innerHeight * 0.65}px`;
 
-   
+
   }
 
   @HostListener('window:resize', ['$event'])

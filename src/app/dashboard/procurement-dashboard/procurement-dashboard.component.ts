@@ -1,9 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService } from 'src/app/_services/alert.service';
-import { ApiService } from 'src/app/_services/api.service';
-import { SharedService } from 'src/app/_services/shared.service';
+import { AlertService, ApiService, SharedService } from 'src/app/_services';
 
 
 

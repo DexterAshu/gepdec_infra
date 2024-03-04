@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AlertService } from 'src/app/_services/alert.service';
-import { ApiService } from 'src/app/_services/api.service';
-import { MasterService } from 'src/app/_services/master.service';
+import { AlertService, ApiService, MasterService } from 'src/app/_services';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-process2',
@@ -27,9 +25,9 @@ export class Process2Component implements OnInit {
     private formBuilder: FormBuilder,
     private masterService: MasterService,
     private datePipe: DatePipe
-  ) { 
+  ) {
     this.storedData = this.masterService.getLocalStorage();
-    
+
   }
 
   ngOnInit(): void {
@@ -78,7 +76,7 @@ export class Process2Component implements OnInit {
   }
 
   onSubmit(){
-    
+
   }
 
 }

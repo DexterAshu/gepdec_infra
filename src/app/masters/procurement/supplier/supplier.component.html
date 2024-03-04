@@ -4,7 +4,7 @@
           <div class="d-flex justify-content-between flex-wrap">
             <div class="d-flex align-items-end flex-wrap">
               <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Supplier</h4>
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Vendor</h4>
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -24,83 +24,53 @@
                             <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <button type="button" routerLink="/master/procurement/supplier/create" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
                         </div>
                     </div>
                     <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Supplier Code</th>
-                                <th>Supplier Name</th>
+                                <th>Vendor Code</th>
+                                <th>Vendor Name</th>
                                 <th>Company Name</th>
-                                <th>GST No</th>
-                                <th>GST Date</th>
-                                <th>PAN No</th>
-                                <th>TAN</th>
-                                <th>DOI(Date of Incorporation)</th>
-                                <th>Pincode</th>
-                                <th>Address</th>
-                                <th>DOI Document</th>
                                 <th>Category</th>
                                 <th>Contact No</th>
-                                <th>Country</th>
-                                <th>State</th>
-                                <th>District</th>
-                                <th>Bank Name</th>
-                                <th>Account Holder Name</th>
-                                <th>Account No</th>
-                                <th>Branch Name</th>
-                                <th>IFSC Code</th>
-                                <th>Bank Address</th>
-                                <th>Account type</th>
+                                <th>Email ID</th>
+                                <th>Date of Incorporation</th>
+                                <th>Pincode</th>
+                                <th>Address</th>
                                 <th>Created On</th>
                                 <!-- <th>Action</th> -->
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <!-- <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i"> -->
-                            <tr>
-                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                <td>1</td>
-                                <td>Sup001</td>
-                                <td>Ramesh</td>
-                                <td>ram corp.</td>
-                                <td>TYJ5678LKJBNH89</td>
-                                <td>10/09</td>
-                                <td>CDLOPO8779Q</td>
-                                <td>FGH6789HJ</td>
-                                <td>10/10/2020</td>
-                                <td>141010</td>
-                                <td>Ram Corp., Ludhiana, Punjab - 141016</td>
-                                <td></td>
-                                <td>Pvt. Ltd</td>
-                                <td>9878676543</td>
-                                <td>India</td>
-                                <td>Punjab</td>
-                                <td>Ludhiana</td>
-                                <td>HDFC Banck</td>
-                                <td>Ramesh</td>
-                                <td>2345678987654</td>
-                                <td>Focal Point</td>
-                                <td>SBIB00001</td>
-                                <td>Ludhiana, Punjab</td>
-                                <td>Saving</td>
-                                <td>9/02/2024</td>
+                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Supplier Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.suppliercode }}</td>
+                                <td>{{ a.suppliername }}</td>
+                                <td>{{ a.company_name }}</td>
+                                <td>{{ a.category }}</td>
+                                <td>{{ a?.contact[0]?.contactno }}</td>
+                                <td>{{ a?.contact[0]?.emailid }}</td>
+                                <td>{{ a.doi }}</td>
+                                <td>{{ a.pincode }}</td>
+                                <td>{{ a.address }}</td>
+                                <td>{{ a?.created }}</td>
                                 <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
                                 </td> -->
                             </tr>
-                            <tr *ngIf="isNotFound == true">
+                            <tr *ngIf="dataList?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <!-- <tr *ngIf="companyData?.length == 0">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
-                            </tr> -->
+                            </tr>
                         </tbody>
                     </app-responsive-table>
                     <div class="pagination-sec text-center">
@@ -111,3 +81,404 @@
         </div>
     </div>
 </div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Vendor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="card">
+                            <div class="card-header card-primary">
+                                Vendor Detail
+                            </div>
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Vendor Code<span class="required-asterisk">*</span></label>
+                                                <input formControlName="supplierCode" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
+                                                <div *ngIf="f['supplierCode'].touched && f['supplierCode'].invalid">
+                                                    <small class="text-danger" *ngIf="f['supplierCode'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
+                                                <input formControlName="supplierName" type="text" class="form-control form-control-sm" appAlphaWithSpace appWordCapitalize>
+                                                <div *ngIf="f['supplierName'].touched && f['supplierName'].invalid">
+                                                    <small class="text-danger" *ngIf="f['supplierName'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Company Name<span class="required-asterisk">*</span></label>
+                                                <input formControlName="companyName" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                                <div *ngIf="f['companyName'].touched && f['companyName'].invalid">
+                                                    <small class="text-danger" *ngIf="f['companyName'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Category<span class="required-asterisk">*</span></label>
+                                                <select formControlName="category" class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
+                                                    <option *ngFor="let t of dataDropdownList.category" [value]="t.category_id">{{ t.category }}</option>
+                                                </select>
+                                                <div *ngIf="f['category'].touched && f['category'].invalid">
+                                                    <small class="text-danger" *ngIf="f['category'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">GST No<span class="required-asterisk">*</span></label>
+                                                <input formControlName="gstNo" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
+                                                <div *ngIf="f['gstNo'].touched && f['gstNo'].invalid">
+                                                    <small class="text-danger" *ngIf="f['gstNo'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">GST Date<span class="required-asterisk">*</span></label>
+                                                <input formControlName="gstDate" type="date" class="form-control form-control-sm" [max]="currentDate | date: 'yyyy-MM-dd'">
+                                                <div *ngIf="f['gstDate'].touched && f['gstDate'].invalid">
+                                                    <small class="text-danger" *ngIf="f['gstDate'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">PAN No<span class="required-asterisk">*</span></label>
+                                                <input formControlName="panNo" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                                                <div *ngIf="f['panNo'].touched && f['panNo'].invalid">
+                                                    <small class="text-danger" *ngIf="f['panNo'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">TAN No<span class="required-asterisk">*</span></label>
+                                                <input formControlName="tanNo" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                                                <div *ngIf="f['tanNo'].touched && f['tanNo'].invalid">
+                                                    <small class="text-danger" *ngIf="f['tanNo'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">DOI (Date of Incorporation)<span class="required-asterisk">*</span></label>
+                                                <input formControlName="doi" type="date" class="form-control form-control-sm" [max]="currentDate | date: 'yyyy-MM-dd'">
+                                                <div *ngIf="f['doi'].touched && f['doi'].invalid">
+                                                    <small class="text-danger" *ngIf="f['doi'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">DOI Document<span class="required-asterisk">*</span></label>
+                                                <input formControlName="doiDoc" type="file" class="form-control form-control-sm" (change)="profileUpload($event)" accept=".jpg, .jpeg, .png">
+                                                <div *ngIf="f['doiDoc'].touched && f['doiDoc'].invalid">
+                                                    <small class="text-danger" *ngIf="f['doiDoc'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Contact No<span class="required-asterisk">*</span></label>
+                                                <input formControlName="contactNo" type="text" class="form-control form-control-sm" appNumberOnly appNoSpace>
+                                                <div *ngIf="f['contactNo'].touched && f['contactNo'].invalid">
+                                                    <small class="text-danger" *ngIf="f['contactNo'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger" *ngIf="f['contactNo'].errors?.['pattern']">*Please enter 10 digit number.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
+                                                <input formControlName="emailID" type="text" class="form-control form-control-sm">
+                                                <div *ngIf="f['emailID'].touched && f['emailID'].invalid">
+                                                    <small class="text-danger" *ngIf="f['emailID'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger" *ngIf="f['emailID'].errors?.['pattern']">*Please enter a valid Email ID.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Address<span class="required-asterisk">*</span></label>
+                                                <input formControlName="address" type="text" class="form-control form-control-sm">
+                                                <div *ngIf="f['address'].touched && f['address'].invalid">
+                                                    <small class="text-danger" *ngIf="f['address'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">Country<span class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm" formControlName="country" (change)="getStateData()">
+                                                    <option [selected]="true" [disabled]="true">Select Country</option>
+                                                    <option *ngFor="let t of countryData" [value]="t.country_id">{{ t.name }}</option>
+                                                </select>
+                                                <div *ngIf="f['country'].touched && f['country'].invalid">
+                                                    <small class="text-danger" *ngIf="f['country'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">State<span class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm" formControlName="state" (change)="getDistrictData()">
+                                                    <option [selected]="true" [disabled]="true">Select State</option>
+                                                    <option *ngFor="let t of stateData" [value]="t.state_id">{{ t.state_name }}</option>
+                                                </select>
+                                                <div *ngIf="f['state'].touched && f['state'].invalid">
+                                                    <small class="text-danger" *ngIf="f['state'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">District<span class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm" formControlName="district">
+                                                    <option [selected]="true" [disabled]="true">Select District</option>
+                                                    <option *ngFor="let t of districtData" [value]="t.district_id">{{ t.district_name }}</option>
+                                                </select>
+                                                <div *ngIf="f['district'].touched && f['district'].invalid">
+                                                    <small class="text-danger" *ngIf="f['district'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
+                                                <input formControlName="pincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                                <div *ngIf="f['pincode'].touched && f['pincode'].invalid">
+                                                    <small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger" *ngIf="f['pincode'].errors?.['pattern']">*Please enter 6 digit code.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-2">
+                            <div class="card-header card-primary">
+                                Vendor Bank Detail
+                            </div>
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Bank Name<span class="required-asterisk">*</span></label>
+                                                <!-- <input formControlName="bankName" type="text" class="form-control form-control-sm"> -->
+                                                <select formControlName="bankName" class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Bank Name</option>
+                                                    <option *ngFor="let t of dataDropdownList.bank" [value]="t.bank_id">{{ t.bankname }}</option>
+                                                </select>
+                                                <div *ngIf="f['bankName'].touched && f['bankName'].invalid">
+                                                    <small class="text-danger" *ngIf="f['bankName'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Account Holder Name<span class="required-asterisk">*</span></label>
+                                                <input formControlName="holderName" type="text" class="form-control form-control-sm" appWordCapitalize appAlphaWithSpace>
+                                                <div *ngIf="f['holderName'].touched && f['holderName'].invalid">
+                                                    <small class="text-danger" *ngIf="f['holderName'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Account No<span class="required-asterisk">*</span></label>
+                                                <input formControlName="accountNo" type="text" class="form-control form-control-sm" appNumberOnly appNoSpace>
+                                                <div *ngIf="f['accountNo'].touched && f['accountNo'].invalid">
+                                                    <small class="text-danger" *ngIf="f['accountNo'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Branch Name<span class="required-asterisk">*</span></label>
+                                                <input formControlName="branchName" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                                <div *ngIf="f['branchName'].touched && f['branchName'].invalid">
+                                                    <small class="text-danger" *ngIf="f['branchName'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">IFSC Code<span class="required-asterisk">*</span></label>
+                                                <input formControlName="ifscCode" type="text" class="form-control form-control-sm" appAlphaNumeric appNoSpace appUpperCase>
+                                                <div *ngIf="f['ifscCode'].touched && f['ifscCode'].invalid">
+                                                    <small class="text-danger" *ngIf="f['ifscCode'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Acount Type<span class="required-asterisk">*</span></label>
+                                                <!-- <select class="form-select form-select-sm" formControlName="accountType">
+                                                    <option [selected]="true" [disabled]="true">Select Type</option>
+                                                    <option>Current</option>
+                                                    <option>Saving</option>
+                                                </select> -->
+                                                <select formControlName="accountType" class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
+                                                    <option *ngFor="let t of dataDropdownList.accounttype" [value]="t.accounttype_id">{{ t.accounttype }}</option>
+                                                </select>
+                                                <div *ngIf="f['accountType'].touched && f['accountType'].invalid">
+                                                    <small class="text-danger" *ngIf="f['accountType'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Bank Address<span class="required-asterisk">*</span></label>
+                                                <input formControlName="bankAddress" type="text" class="form-control form-control-sm">
+                                                <div *ngIf="f['bankAddress'].touched && f['bankAddress'].invalid">
+                                                    <small class="text-danger" *ngIf="f['bankAddress'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-btns">
+                                            <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Add</button>
+                                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->
+
+<!-- detail modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vendor Detailed Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive">
+                                <h6 class="mb-2 text-secondary">Vendor Details</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Vendor Code</th>
+                                            <td>{{ rowData?.suppliercode }}</td>
+                                            <th>Vendor Name</th>
+                                            <td>{{ rowData?.suppliername }}</td>
+                                            <th>Company Name</th>
+                                            <td>{{ rowData?.company_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Company Category</th>
+                                            <td>{{ rowData?.category }}</td>
+                                            <th>GST No</th>
+                                            <td>{{ rowData?.gstno }}</td>
+                                            <th>GST Date</th>
+                                            <td>{{ rowData?.gstdate }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>PAN No</th>
+                                            <td>{{ rowData?.panno }}</td>
+                                            <th>TAN No</th>
+                                            <td>{{ rowData?.tanno }}</td>
+                                            <th>DOI</th>
+                                            <td>{{ rowData?.doi }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Contact</th>
+                                            <td>{{ rowData?.contact[0]?.contactno }}</td>
+                                            <th>Email ID</th>
+                                            <td>{{ rowData?.contact[0]?.emailid }}</td>
+                                            <th>Address</th>
+                                            <td>{{ rowData?.address }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Country</th>
+                                            <td>{{ rowData?.name }}</td>
+                                            <th>State</th>
+                                            <td>{{ rowData?.state_name }}</td>
+                                            <th>District</th>
+                                            <td>{{ rowData?.district_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Pincode</th>
+                                            <td>{{ rowData?.pincode }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-4 text-secondary">Vendor Bank Details</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Bank Name</th>
+                                            <td>{{ rowData?.bankname }}</td>
+                                            <th>Account Holder Name</th>
+                                            <td>{{ rowData?.account_holder_name }}</td>
+                                            <th>Account No</th>
+                                            <td>{{ rowData?.bankaccountno }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Branch Name</th>
+                                            <td>{{ rowData?.branch_name }}</td>
+                                            <th>IFSC Code</th>
+                                            <td>{{ rowData?.bankifsc }}</td>
+                                            <th>Bank Address</th>
+                                            <td>{{ rowData?.bank_address }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Account Type</th>
+                                            <td>{{ rowData?.accounttype }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-3 text-secondary">DOI(Date Of Incorporation) Documents</h6>
+                                <div class="col-md-12 ps-0">
+                                    <div class="d-inline-flex">
+                                        <div class="col-md-3 col-sm-3 col-3 p-2 ps-0">
+                                            <div class="img-sec shadow">
+                                                <img src="{{apiUrl}}/{{rowData?.DOIdocument}}" class="img-fluid" title="DOI Document" alt="DOI Document not available!">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail modal end-->

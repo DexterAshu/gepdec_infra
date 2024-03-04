@@ -1,0 +1,148 @@
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="d-flex align-items-end flex-wrap">
+          <div class="mr-md-3 mr-xl-5">
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>WH Location Master Info</h4>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-end flex-wrap"> </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex my-10">
+            <div class="col-lg-4">
+              <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+            </div>
+            <div class="col-lg-8">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWHL({})" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
+            </div>
+          </div>
+          <app-responsive-table>
+            <thead class="table-primary text-nowrap">
+              <tr>
+                <th>Sr No</th>
+                <th>Location Code</th>
+                <th>Location Name</th>
+                <th>Warehouse Code</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap">
+              <tr *ngFor="let a of wareHouseLocationData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                <td>{{ limit*(p-1)+i+1 }}</td>
+                <td><a data-bs-toggle="modal" (click)="selectWHL(a)" class="cursor-pointer text-primary" style="text-decoration: underline;" data-bs-target="#viewLocation" title="Warehouse Profile">{{ a.location_code }}</a></td>
+                <td>{{ a.location_name }}</td>
+                <td>{{ a.warehouse_code }}</td>
+                <td>
+                  <a data-bs-toggle="modal" (click)="selectWHL(a)" data-bs-target="#editWHL" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
+                </td>
+              </tr>
+              <tr *ngIf="isNotFound == true">
+                <td colspan="15" class="text-center">
+                  <div class="spinner-border"> </div>
+                </td>
+              </tr>
+              <tr *ngIf="wareHouseLocationData.length == 0">
+                <td colspan="15" class="text-center">
+                  <div class="text-warning fw-semibold">Looks like no data available!</div>
+                </td>
+              </tr>
+            </tbody>
+          </app-responsive-table>
+          <div class="pagination-sec text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="viewLocation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content" *ngIf="selectedWHL?.location_code">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Warehouse location ({{selectedWHL.location_code}}) details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-3">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 p-0">
+              <div class="table-responsive" style="min-height: 150px">
+                <h6 class="mb-2 text-secondary">Warehouse Location Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Location Code</th>
+                      <td>{{ selectedWHL.location_code }}</td>
+                      <th>Location Name</th>
+                      <td>{{ selectedWHL.location_name }}</td>
+                    </tr>
+                    <tr>
+                      <th>Warehouse Code</th>
+                      <td>{{ selectedWHL.warehouse_code }}</td>
+                      <th>Warehouse Name</th>
+                      <td>{{ selectedWHL.warehouse_name }}</td>
+                    </tr>
+                    <tr>
+                      <th>Created Date</th>
+                      <td> {{selectedWHL.created}}</td>
+                      <th>Created By</th>
+                      <td> {{selectedWHL.createdby_name}} </td>
+                    </tr>
+                    <tr>
+                      <th>Status</th>
+                      <td>{{selectedWHL.status}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editWHL" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ware house details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <h1>Model</h1>
+          {{selectedWHL | json}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ware house details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <h1>Model</h1>
+          {{selectedWHL | json}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

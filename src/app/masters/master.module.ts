@@ -28,9 +28,11 @@ import { SupplierComponent } from './procurement/supplier/supplier.component';
 import { FinYearComponent } from './fin-year/fin-year.component';
 import { CompanyContactsComponent } from './company-contacts/company-contacts.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { CreateItemComponent } from './procurement/item-master/create-item/create-item.component';
-import { CreateSupplierComponent } from './procurement/supplier/create/create.component';
 import { CountryMasterComponent } from './country-master/country-master.component';
+import { SupplierItemLinkComponent } from './procurement/supplier-item-link/supplier-item-link.component';
+import { ItemsMasterComponent } from './items-master/items-master.component';
+import { WarehouseLocationMasterComponent } from './warehouse-location-master/warehouse-location-master.component';
+import { WarehouseMasterComponent } from './warehouse-master/warehouse-master.component';
 // import { FilterPipe } from '../_pipes/filter.pipe';
 
 const routes: Routes = [
@@ -40,9 +42,8 @@ const routes: Routes = [
   { path: 'tender', component: TenderMasterComponent },
 
   { path: 'procurement/item', component: ItemMasterComponent },
-  { path: 'procurement/item/create', component: CreateItemComponent },
-  { path: 'procurement/supplier', component: SupplierComponent },
-  { path: 'procurement/supplier/create', component: CreateSupplierComponent },
+  { path: 'procurement/vendor', component: SupplierComponent },
+  { path: 'procurement/vendor-item-linking', component: SupplierItemLinkComponent },
 
   { path: 'employee', component: EmployeeMasterComponent },
   { path: 'department', component: DepartmentMasterComponent },
@@ -62,7 +63,9 @@ const routes: Routes = [
   { path: 'project-doc', component: ProjectDocumentsComponent },
   { path: 'fin-year', component: FinYearComponent },
   { path: 'tender-company-contacts', component: CompanyContactsComponent },
-  
+  { path: 'warehouse', component: WarehouseMasterComponent },
+  { path: 'location', component: WarehouseLocationMasterComponent },
+  { path: 'items-master', component: ItemsMasterComponent }
 ];
 
 
@@ -74,7 +77,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-   
+
   ],
   declarations: [
     // MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
@@ -84,7 +87,7 @@ const routes: Routes = [
     // NgSelectModule,
     // CompanyContactsComponent,
     // FilterPipe
-  
+
     // CountryMasterComponent
   ]
 })

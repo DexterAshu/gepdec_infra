@@ -73,6 +73,7 @@ import { OthersDocumentComponent } from './documentation/others-document/others-
 import { ProjReportsComponent } from './proj-reports/proj-reports.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -151,7 +152,7 @@ const routes: Routes = [
   {path: 'presales/presales-biding/data-capture/technical', component:TechnicalBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/financial', component:FinancialBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},
-//Customer 
+//Customer
   {path: 'customer-registration/process-1', component:Process1Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-2', component:Process2Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-3', component:Process3Component, canActivate:[AuthGuard]},
@@ -164,6 +165,7 @@ const routes: Routes = [
   {path: 'transactions/link-meter-with-customer', component:MeterLinkComponent, canActivate:[AuthGuard]},
   {path: 'transactions/billing-date-configuration', component:BillDateConfigComponent, canActivate:[AuthGuard]},
   {path: 'transactions/firmware-upgrade', component:FirmwareUpgradeComponent, canActivate:[AuthGuard]},
+  {path: 'transactions/grn-note', component:GRNNoteComponent, canActivate:[AuthGuard]},
 
   {path: 'customer/customer-data-usage', component:CustomerDataUsageComponent},
   {path: 'customer/customer-billing-data', component:CustomerBillingDataComponent},

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ApiService } from 'src/app/_services/api.service';
-import { AlertService } from 'src/app/_services/alert.service';
+import { ApiService, AlertService } from 'src/app/_services';
 
 @Component({
   selector: 'app-process1',

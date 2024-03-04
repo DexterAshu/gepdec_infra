@@ -65,7 +65,7 @@
               <span class="menu-title">State</span>
             </a></li>
 
-         
+
 
           <li class="nav-item"> <a class="nav-link" routerLink="/master/district">
               <i class="mdi mdi-checkbox-multiple-marked-outline menu-icon"></i>
@@ -96,7 +96,7 @@
                   <i class="mdi mdi-clipboard-account menu-icon"></i>
                   <span class="menu-title">Role</span>
                 </a></li>
-  
+
                 </ul>
               </div>
             </li>
@@ -104,7 +104,7 @@
               <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
               <span class="menu-title">Tendering Company</span>
             </a></li>
-         
+
             <li class="nav-item">
               <div routerLink="/master/project">
                 <a class="nav-link" data-toggle="collapse" href="#Bid-Project" aria-expanded="false" aria-controls="Biding">
@@ -139,7 +139,7 @@
                       <i class="mdi mdi-file-document menu-icon"></i>
                       <span class="menu-title">Documents</span>
                     </a></li> -->
-  
+
                 </ul>
               </div>
             </li>
@@ -151,22 +151,20 @@
                 <span class="menu-title">Items</span>
                 <i class="menu-arrow"></i>
               </a>
-
             </div>
             <div class="collapse" id="Bid-Procurement">
               <ul class="nav flex-column sub-menu">
-                <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/procurement/item">
-                    <i class="mdi mdi-file-document-box menu-icon"></i>
-                    <span class="menu-title">Item</span>
-                  </a>
-                </li> -->
-                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/vendor">
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/procurement/vendor">
                   <i class="mdi mdi-human-male-female menu-icon"></i>
                   <span class="menu-title">Vendor</span>
                 </a></li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/procurement/vendor-item-linking">
+                  <i class="mdi mdi-human-male-female menu-icon"></i>
+                  <span class="menu-title">Vendor Item Link</span>
+                </a></li>
                 <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/procurement/supplier">
                     <i class="mdi mdi-creation menu-icon"></i>
-                    <span class="menu-title">Supplier</span>
+                    <span class="menu-title">Vendor Item Link</span>
                   </a>
                 </li>
                 <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/material">
@@ -179,8 +177,8 @@
                   <i class="mdi mdi-watch-vibrate menu-icon"></i>
                   <span class="menu-title">Machine</span>
                 </a></li> -->
-            
-            
+
+
               <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/spare">
                   <i class="mdi mdi-file-tree menu-icon"></i>
                   <span class="menu-title">Spare Parts</span>
@@ -190,10 +188,10 @@
             </div>
           </li>
 
-            
-         
 
-        
+
+
+
           <!-- <li class="nav-item"> <a class="nav-link" routerLink="/master/employee">
               <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Employee</span>
@@ -225,8 +223,8 @@
                     <span class="menu-title">Financial Year</span>
                   </a>
                 </li>
-      
-  
+
+
                 </ul>
               </div>
             </li>
@@ -264,11 +262,11 @@
           <li class="nav-item"> <a class="nav-link" routerLink="documentation/comm-doc">
               <i class="mdi mdi-file-multiple menu-icon"></i>
               <span class="menu-title">Communication</span>
-              </a></li> 
+              </a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="documentation/others-doc">
               <i class="mdi mdi-file-send menu-icon"></i>
               <span class="menu-title">Others</span>
-              </a></li> 
+              </a></li>
         </ul>
       </div>
     </li>
@@ -379,7 +377,45 @@
                     <i class="mdi mdi-home-variant menu-icon"></i>
                     <span class="menu-title">Logistics</span>
                   </a></li>
-
+                  <li class="nav-item sub-sub-menu">
+                    <div class="ware">
+                      <a class="nav-link" data-toggle="collapse" href="#slmaster" aria-expanded="false" aria-controls="slmaster">
+                        <i class="mdi mdi-home-assistant menu-icon"></i>
+                        <span class="menu-title">Master</span>
+                        <i class="menu-arrow"></i>
+                      </a>
+                    </div>
+                    <div class="collapse" id="slmaster">
+                      <ul class="nav flex-column sub-menu">
+                        <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/warehouse">
+                            <i class="mdi mdi-home-variant menu-icon"></i>
+                            <span class="menu-title">Warehouse</span>
+                          </a></li>
+                        <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/location">
+                            <i class="mdi mdi-home-variant menu-icon"></i>
+                            <span class="menu-title">WH Location</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="nav-item sub-sub-menu">
+                    <div class="ware">
+                      <a class="nav-link" data-toggle="collapse" href="#sltransaction" aria-expanded="false" aria-controls="sltransaction">
+                        <i class="mdi mdi-home-assistant menu-icon"></i>
+                        <span class="menu-title">Transaction</span>
+                        <i class="menu-arrow"></i>
+                      </a>
+                    </div>
+                    <div class="collapse" id="sltransaction">
+                      <ul class="nav flex-column sub-menu">
+                        <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/transactions/grn-note">
+                            <i class="mdi mdi-home-variant menu-icon"></i>
+                            <span class="menu-title">GRN</span>
+                          </a></li>
+                      </ul>
+                    </div>
+                  </li>
               </ul>
             </div>
           </li>
@@ -442,7 +478,7 @@
                 <i class="mdi mdi-asterisk menu-icon"></i>
                 <span class="menu-title">Project Handover</span>
                 </a></li>
-             
+
             </ul>
           </div>
         </li> -->
@@ -458,7 +494,7 @@
                 <i class="mdi mdi-dropbox menu-icon"></i>
                 <span class="menu-title">Payment</span>
                 </a></li>
-             
+
             </ul>
           </div>
         </li> -->
@@ -497,7 +533,7 @@
                 <i class="mdi mdi-close-network menu-icon"></i>
                 <span class="menu-title">Project Closure</span>
                 </a></li>
-             
+
             </ul>
           </div>
         </li> -->

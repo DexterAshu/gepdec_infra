@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService } from 'src/app/_services/master.service';
-import { AlertService } from 'src/app/_services/alert.service';
-import { ApiService } from 'src/app/_services/api.service';
+import { MasterService, AlertService, ApiService } from 'src/app/_services';
 
 @Component({
   selector: 'app-bider-company',
@@ -11,18 +9,18 @@ import { ApiService } from 'src/app/_services/api.service';
   styleUrls: ['./bider-company.component.css']
 })
 export class BiderCompanyComponent {
-  form!: FormGroup;  
+  form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
   companyData: any;
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   countryData: any;
   stateData: any;
   districtData: any;
   isSubmitted: boolean = false;
   val: any;
-  country:any;
+  country: any;
   limits: any;
   isExcelDownload: boolean = false;
   updateData: any;
@@ -33,7 +31,7 @@ export class BiderCompanyComponent {
   loadermsg: any;
   loading: boolean = false;
   compData: any;
- 
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -41,19 +39,19 @@ export class BiderCompanyComponent {
     private apiService: ApiService,
   ) { }
 
- ngOnInit(){
+  ngOnInit() {
     this.form = this.formBuilder.group({
       bidder_name: [null, Validators.required],
       legal_structure: [null, Validators.required],
       incorporation_certificate: [null, Validators.required],
-      gst_detail: [null, [Validators.required]] ,
+      gst_detail: [null, [Validators.required]],
       pan: [null, Validators.required],
       tan: [null, Validators.required],
 
       turnover: [null, [Validators.required]],
-      contactno2: [null, [ Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      email: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      doi: [null, Validators.required],  
+      contactno2: [null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      email: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      doi: [null, Validators.required],
       area: [null, Validators.required],
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
@@ -64,47 +62,47 @@ export class BiderCompanyComponent {
     this.getCompanyData();
     this.getCompanyType();
     this.getCountryData();
-    
+
   }
 
-  createForm(){
+  createForm() {
     console.clear();
     this.button = 'Create';
-    console.log( this.button);
-    
+    console.log(this.button);
+
     this.update = false;
     this.form.reset();
   }
 
-   getDetails(data:any){
+  getDetails(data: any) {
     this.form.reset();
     this.button = 'Update';
     this.update = true;
     this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
       this.custDetails = res.result[0];
-     
-        this.form.patchValue({
-          name: this.custDetails.name,
-          company_name: this.custDetails.company_name,
-          company_type: this.custDetails.company_type,
-          contactno1: this.custDetails.contactno1,
-          contactno2: this.custDetails.contactno2,
-          email: this.custDetails.email,
-          gst: this.custDetails.gst,
-          pan: this.custDetails.pan,
-          doi: this.custDetails.doi,
-          area: this.custDetails.area,
-          pincode: this.custDetails.pincode,
-          
-        }); 
-        this.form.controls['country_id'].setValue(this.custDetails.country_id);
-        this.form.controls['state_id'].setValue(this.custDetails.state_id);
-        this.form.controls['district_id'].setValue(this.custDetails.district_id);
-        setTimeout(() => {
-          this.getStateData();
-          this.getDistrictData();
-        }, 500);
-  })
+
+      this.form.patchValue({
+        name: this.custDetails.name,
+        company_name: this.custDetails.company_name,
+        company_type: this.custDetails.company_type,
+        contactno1: this.custDetails.contactno1,
+        contactno2: this.custDetails.contactno2,
+        email: this.custDetails.email,
+        gst: this.custDetails.gst,
+        pan: this.custDetails.pan,
+        doi: this.custDetails.doi,
+        area: this.custDetails.area,
+        pincode: this.custDetails.pincode,
+
+      });
+      this.form.controls['country_id'].setValue(this.custDetails.country_id);
+      this.form.controls['state_id'].setValue(this.custDetails.state_id);
+      this.form.controls['district_id'].setValue(this.custDetails.district_id);
+      setTimeout(() => {
+        this.getStateData();
+        this.getDistrictData();
+      }, 500);
+    })
   }
   OnlyNumbersAllowed(event: any): boolean {
     const charCode = event.which ? event.which : event.keyCode;
@@ -117,7 +115,7 @@ export class BiderCompanyComponent {
 
   get f() { return this.form.controls; }
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
+    this.apiService.getCountryDataList().subscribe((res: any) => {
       if (res.status === 200) {
         this.countryData = res.result;
       } else {
@@ -125,7 +123,7 @@ export class BiderCompanyComponent {
       }
     });
   }
-  
+
   getStateData() {
     let countrydata = this.form.value.country_id;
     let statedata = null;
@@ -137,12 +135,12 @@ export class BiderCompanyComponent {
       }
     });
   }
-  
+
   getDistrictData() {
     this.districtData = [];
     let data = this.form.value.state_id;
     let dist = this.form.value.district_id;
-    this.apiService.getDistData(data, dist).subscribe((res:any) => {
+    this.apiService.getDistData(data, dist).subscribe((res: any) => {
       if (res.status === 200) {
         this.districtData = res.result;
       } else {
@@ -152,7 +150,7 @@ export class BiderCompanyComponent {
   }
 
   getCompanyType() {
-    this.apiService.getCompData().subscribe((res:any) => {
+    this.apiService.getCompData().subscribe((res: any) => {
       if (res.status === 200) {
         this.compData = res.result;
       } else {
@@ -160,21 +158,21 @@ export class BiderCompanyComponent {
       }
     });
   }
-  
+
   getCompanyData() {
     this.apiService.getCompanyList().subscribe((res: any) => {
       this.companyData = res.result;
       this.limits.push({ key: 'ALL', value: this.companyData.length });
       this.isExcelDownload = true;
     });
- 
+
   }
 
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
-       //1-passing Country id
-       if (this.form.value.country_id !== null) {
+      //1-passing Country id
+      if (this.form.value.country_id !== null) {
         var countryVal = this.countryData.filter((item: any) => {
           return item.country_id == this.form.value.country_id;
         });
@@ -182,10 +180,10 @@ export class BiderCompanyComponent {
       }
       else {
         this.form.value.country_id = null;
-      } 
-    
-       //2-passing State id
-       if (this.form.value.state_id != '') {
+      }
+
+      //2-passing State id
+      if (this.form.value.state_id != '') {
         if (this.form.value.state_id) {
           var stat = this.stateData.filter((item: any) => {
             return item.state_id == this.form.value.state_id;
@@ -195,8 +193,8 @@ export class BiderCompanyComponent {
       } else {
         this.form.value.state_id = null;
       }
-       //3-passing District id
-       if (this.form.value.district_id != '') {
+      //3-passing District id
+      if (this.form.value.district_id != '') {
         if (this.form.value.district_id) {
           var distt = this.districtData.filter((item: any) => {
             return item.district_id == this.form.value.district_id;
@@ -207,7 +205,7 @@ export class BiderCompanyComponent {
         this.form.value.district_id = null;
       }
       //4-passing Company type id
-     
+
       if (this.form.value.company_type !== null) {
         var countryType = this.compData.filter((item: any) => {
           return item.mstcompanytype == this.form.value.company_type;
@@ -216,8 +214,8 @@ export class BiderCompanyComponent {
       }
       else {
         this.form.value.company_type = null;
-      } 
-  
+      }
+
       //passing all values
       if (this.form.value.company_name != '') {
         this.form.value.company_name == '';
@@ -275,43 +273,43 @@ export class BiderCompanyComponent {
         this.form.value.pincode = null;
       }
 
-        this.loading = true;
-    if (this.update) {  
-      this.companyUpdate();
-    } else {
-      this.createCompany();
-    }
+      this.loading = true;
+      if (this.update) {
+        this.companyUpdate();
+      } else {
+        this.createCompany();
+      }
     }
   }
 
   createCompany() {
     this.apiService.createCompany(this.form.value).subscribe((res: any) => {
-     let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (response.status == 200) {
-          this.getCompanyData();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      })
+      let response: any = res;
+      document.getElementById('cancel')?.click();
+      this.isSubmitted = false;
+      if (response.status == 200) {
+        this.getCompanyData();
+        this.form.reset();
+        this.alertService.success(response.message);
+      } else {
+        this.alertService.warning(response.message);
+      }
+    })
   }
   companyUpdate(): void {
     // this.opac=0;
     // this.loadermsg="Updating..."
-     this.form.value.company_id =  this.custDetails.company_id;
+    this.form.value.company_id = this.custDetails.company_id;
     this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
-       this.isSubmitted = false;
+      this.isSubmitted = false;
       if (res.status == 200) {
         this.ngOnInit();
         document.getElementById('cancel')?.click();
-      this.alertService.success('Company Updated Successfully');
-    } else {
-      this.alertService.error('Something went wrong please try again');
-    }
-  });
+        this.alertService.success('Company Updated Successfully');
+      } else {
+        this.alertService.error('Something went wrong please try again');
+      }
+    });
   }
 
 }

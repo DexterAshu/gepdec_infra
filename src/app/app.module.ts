@@ -118,8 +118,6 @@ import { ChartModule } from 'angular-highcharts';
 import { CaptureDataListComponent } from './presales/presales-biding/capture-data-list/capture-data-list.component';
 import { CompanyContactsComponent } from './masters/company-contacts/company-contacts.component';
 import { SupplierComponent } from './masters/procurement/supplier/supplier.component';
-import { CreateItemComponent } from './masters/procurement/item-master/create-item/create-item.component';
-import { CreateSupplierComponent } from './masters/procurement/supplier/create/create.component';
 import { TenderDocumentComponent } from './documentation/tender-document/tender-document.component';
 import { BgDocumentComponent } from './documentation/bg-document/bg-document.component';
 import { LcDocumentComponent } from './documentation/lc-document/lc-document.component';
@@ -129,6 +127,11 @@ import { TechnicalBidComponent } from './presales/presales-biding/data-capturing
 import { FinancialBidComponent } from './presales/presales-biding/data-capturing/financial-bid/financial-bid.component';
 import { BankingDetailsComponent } from './presales/presales-biding/data-capturing/banking-details/banking-details.component';
 import { CountryMasterComponent } from './masters/country-master/country-master.component';
+import { SupplierItemLinkComponent } from './masters/procurement/supplier-item-link/supplier-item-link.component';
+import { ItemsMasterComponent } from './masters/items-master/items-master.component';
+import { WarehouseLocationMasterComponent } from './masters/warehouse-location-master/warehouse-location-master.component';
+import { WarehouseMasterComponent } from './masters/warehouse-master/warehouse-master.component';
+import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
 
 @NgModule({
   declarations: [
@@ -197,12 +200,15 @@ import { CountryMasterComponent } from './masters/country-master/country-master.
     CompletedComponent,
     BiderCompanyComponent,
     L2ScheduleBulkdataComponent,
-
+    WarehouseMasterComponent,
+    WarehouseLocationMasterComponent,
+    ItemsMasterComponent,
+    GRNNoteComponent,
     //master-component
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
-    CompanyContactsComponent, SupplierComponent, CreateItemComponent, CreateSupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent
+    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent
   ],
 
   imports: [
@@ -219,10 +225,10 @@ import { CountryMasterComponent } from './masters/country-master/country-master.
     NgxPrintModule,
     NgSelectModule,
     ChartModule,
-   
+
   ],
   providers: [
-    
+
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: HeaderInterceptor,

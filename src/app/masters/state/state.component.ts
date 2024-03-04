@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService } from 'src/app/_services/master.service';
-import { AlertService } from 'src/app/_services/alert.service';
-import { ApiService } from 'src/app/_services/api.service';
 import * as XLSX from 'xlsx';
  import * as FileSaver from 'file-saver';
+import { MasterService, AlertService, ApiService } from 'src/app/_services';
 
 @Component({
   selector: 'app-state',
