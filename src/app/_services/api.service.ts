@@ -230,10 +230,10 @@ ourcompanyUpdation(data: any): Observable<any[]> {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/company/api/v1/getCompanyDropdown`,
-
       httpOptions
     );
   }
+
   getourCompanyData(): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -243,7 +243,6 @@ ourcompanyUpdation(data: any): Observable<any[]> {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/mycompany/api/v1/getMyComapanyDropdown`,
-    
       httpOptions
     );
   }
