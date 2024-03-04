@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
+import * as XLSX from 'xlsx';
+ import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-state',
@@ -20,6 +22,11 @@ export class StateComponent implements OnInit {
   countryData: any;
   isSubmitted: boolean = false;
   stateCount: any;
+  isExcelDownload: boolean = false;
+  isExcelDownloadData:boolean = true;
+  filesToUpload: Array<File> = [];
+  inserteddata: any;
+  discardeddata: any;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +38,7 @@ export class StateComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       state_name: [null, Validators.required],
-      // stateCode: [null, Validators.required],
+      state_code: [null, Validators.required],
       country_id: [null, Validators.required],
     });
     
@@ -69,6 +76,30 @@ export class StateComponent implements OnInit {
     });
   }
 
+  exportAsXLSX1(){
+    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
+     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
+    var wb = XLSX.utils.book_new(); 
+      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");  
+     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");        
+    XLSX.writeFile(wb, " L2 BULK LOAD REPORT.xlsx");
+               
+        }
+downloadPdf() {
+  const pdfUrl = './assets/tamplate/state_bulkload_template_file.xlsx';
+  const pdfName = 'state_bulkload_template_file.xlsx';
+  FileSaver.saveAs(pdfUrl, pdfName);
+}
+
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
+      display: false,
+      raw: true,
+    });
+    XLSX.writeFile(wb, 'Data.xlsx');
+  }
+
+
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
@@ -86,7 +117,7 @@ export class StateComponent implements OnInit {
       let params = {
         country_id: this.form.value.country_id,
         state_name: this.form.value.state_name,
-        // code: this.form.value.stateCode.toUpperCase(),
+        state_code: this.form.value.state_code.toUpperCase(),
       };
       // let apiLink = '/master/state/createState';
       this.apiService.createMasterState( params).subscribe((res:any) => {

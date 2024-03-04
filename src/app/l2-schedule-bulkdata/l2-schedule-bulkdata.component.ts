@@ -27,6 +27,7 @@ import * as XLSX from 'xlsx';
   country:any;
   limits: any;
   isExcelDownload: boolean = false;
+  isExcelDownloadData:boolean = true;
   updateData: any;
   createModal: boolean = false;
   update: boolean = false;
@@ -115,6 +116,14 @@ import * as XLSX from 'xlsx';
       this.isExcelDownload = true;
     });
  
+  }
+
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
+      display: false,
+      raw: true,
+    });
+    XLSX.writeFile(wb, 'Data.xlsx');
   }
 
   onSubmit() {

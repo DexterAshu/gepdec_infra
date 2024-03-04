@@ -4,7 +4,8 @@ import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
-
+import * as XLSX from 'xlsx';
+ import * as FileSaver from 'file-saver';
 @Component({
   selector: 'app-country-master',
   templateUrl: './country-master.component.html',
@@ -22,6 +23,11 @@ export class CountryMasterComponent {
   stateCount: any;
   countCount: any;
   countData: any;
+  isExcelDownload: boolean = false;
+  isExcelDownloadData:boolean = true;
+  filesToUpload: Array<File> = [];
+  inserteddata: any;
+  discardeddata: any;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -68,6 +74,29 @@ export class CountryMasterComponent {
         this.alertService.warning("Looks like no data available in country data.");
       }
     });
+  }
+
+  exportAsXLSX1(){
+    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
+     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
+    var wb = XLSX.utils.book_new(); 
+      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");  
+     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");        
+    XLSX.writeFile(wb, " L2 BULK LOAD REPORT.xlsx");
+               
+        }
+downloadPdf() {
+  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
+  const pdfName = 'country_bulkload_template_file.xlsx';
+  FileSaver.saveAs(pdfUrl, pdfName);
+}
+
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
+      display: false,
+      raw: true,
+    });
+    XLSX.writeFile(wb, 'Data.xlsx');
   }
 
   onSubmit() {

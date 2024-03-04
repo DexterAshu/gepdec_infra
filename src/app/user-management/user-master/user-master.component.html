@@ -57,9 +57,9 @@
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="User Details" (click)="userDetail(a)"><span class="mdi mdi-pencil text-info cursor-pointer mdi-18px"></span></a> &nbsp;
-                                   <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="Detail Data"><span class="mdi mdi-eye text-warning cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Data" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="userDetail(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                   <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="userDetail(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
                                     <!--  <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Billing Data Profile" (click)="filterWiseData(a, 2)"><span class="mdi mdi-calculator text-secondary cursor-pointer mdi-18px"></span></a>
                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Daily Data Profile" (click)="filterWiseData(a, 3)"><span class="mdi mdi-book-open text-info cursor-pointer mdi-18px"></span></a>
                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Block Load Profile" (click)="filterWiseData(a, 4)"><span class="mdi mdi-battery-unknown text-muted cursor-pointer mdi-18px"></span></a> -->
@@ -261,25 +261,106 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Data</h5>
+                <h5 class="modal-title" id="exampleModalLabel">User Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-- <div class="modal-body">
+            <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12 p-0">
-                     
-                                <div class="btn-group mb-2" role="group" aria-label="Basic example">
-                                    <button type="button" [class]="filterType == 'PC' ? 'btn btn-light border border-gray btn-sm active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('PC')">PC</button>
-                                    <button type="button" [class]="filterType == 'MR' ? 'btn btn-light btn-sm border border-gray active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('MR')">MR</button>
-                                    <button type="button" [class]="filterType == 'US' ? 'btn btn-light btn-sm border border-gray active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('US')">US</button>
-                                    <button type="button" [class]="filterType == 'PUSH' ? 'btn btn-light btn-sm border border-gray active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('PUSH')">PUSH</button>
-                                    <button type="button" [class]="filterType == 'FW' ? 'btn btn-light btn-sm border border-gray active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('FW')">FW</button>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Title</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="usctit_id" appWordCapitalize readonly>
                                 </div>
+                            </div>
+                           
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">First Name</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="first_name" appWordCapitalize readonly>
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Middle Name</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="middle_name" readonly appWordCapitalize>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Last Name</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="last_name" readonly appWordCapitalize>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Employee ID</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="empid" readonly>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">User Role</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="usrl_id" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Department</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="usdt_id" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Reporting To</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="reporting_to" readonly>
+                                </div>
+                            </div>
+
+                           
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Primary Number</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="mobile" readonly>
+                                            
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Secondary Number</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="res_phone" readonly>
+                                             
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Email ID</label>
+                                    <input type="text" class="form-control form-control-sm"
+                                    formControlName="emailid" readonly>
+                                   
+                                </div>
+                            </div>
+                          
+                            <div class="col-md-6" >
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Login Name</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="loginname" readonly appWordCapitalize>
+                                  
+                                </div>
+                            </div>
+                          
+
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

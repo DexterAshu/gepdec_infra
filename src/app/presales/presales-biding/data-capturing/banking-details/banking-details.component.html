@@ -1,1 +1,102 @@
-<p>banking-details works!</p>
+ <!-- Banking modal -->
+ <div class="modal fade" id="bankModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+ data-bs-backdrop="static" data-bs-keyboard="true">
+ <div class="modal-dialog modal-dialog-centered modal-lg">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">Bank Guarantee & Security</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#createModal"></button>
+         </div>
+         <div class="modal-body cardd">
+             <div class="container-fluid">
+                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+ 
+                     <div class="row">
+ 
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label class="form-label fl-10">Bank Name<span class="required-asterisk">*</span></label>
+                                 <select formControlName="bank_name" class="form-select form-select-sm">
+                                     <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
+                                     <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+                                
+                                 </select>
+                                 <div *ngIf="f['bank_name'].touched && f['bank_name'].invalid">
+                                     <small class="text-danger" *ngIf="f['bank_name'].errors?.['required']">*Required</small>
+                                 </div>
+                                 
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label class="form-label fl-10">Bank Guarantee<span class="required-asterisk">*</span></label>
+                                 <select formControlName="bank_guarantee" class="form-select form-select-sm">
+                                     <option [selected]="true" [disabled]="true" [value]="null">Select BG</option>
+                                     <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+                                
+                                 </select>
+                                 <div *ngIf="f['bank_guarantee'].touched && f['bank_guarantee'].invalid">
+                                     <small class="text-danger" *ngIf="f['bank_guarantee'].errors?.['required']">*Required</small>
+                                 </div>
+                                 
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label class="form-label fl-10">Bank Guarantee validity<span class="required-asterisk">*</span></label>
+                                 <select formControlName="bank_guarantee_validity" class="form-select form-select-sm">
+                                     <option [selected]="true" [disabled]="true" [value]="null">Select Deposit Validity</option>
+                                     <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+                                
+                                 </select>
+                                 <div *ngIf="f['bank_guarantee_validity'].touched && f['bank_guarantee_validity'].invalid">
+                                     <small class="text-danger" *ngIf="f['bank_guarantee_validity'].errors?.['required']">*Required</small>
+                                 </div>
+                                 
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label class="form-label fl-10">Security Deposit<span class="required-asterisk">*</span></label>
+                                 <select formControlName="security_deposit" class="form-select form-select-sm">
+                                     <option [selected]="true" [disabled]="true" [value]="null">Select Deposit</option>
+                                     <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+                                
+                                 </select>
+                                 <div *ngIf="f['security_deposit'].touched && f['security_deposit'].invalid">
+                                     <small class="text-danger" *ngIf="f['security_deposit'].errors?.['required']">*Required</small>
+                                 </div>
+                                 
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label class="form-label fl-10">Security Deposit validity<span class="required-asterisk">*</span></label>
+                                 <select formControlName="security_deposit_validity" class="form-select form-select-sm">
+                                     <option [selected]="true" [disabled]="true" [value]="null">Select Deposit Validity</option>
+                                     <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+                                
+                                 </select>
+                                 <div *ngIf="f['security_deposit_validity'].touched && f['security_deposit_validity'].invalid">
+                                     <small class="text-danger" *ngIf="f['security_deposit_validity'].errors?.['required']">*Required</small>
+                                 </div>
+                                 
+                             </div>
+                         </div>
+ 
+                     </div>
+                    
+ 
+                     <div class="row mt-2">
+                         <div class="modal-btns">
+                             <button type="submit" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm mr-2">+ ADD</button>
+                         </div>
+                     </div>
+ 
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
+ </div>
+ <!-- Banking modal end-->
