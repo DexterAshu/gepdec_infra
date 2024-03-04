@@ -14,12 +14,15 @@ export class WarehouseMasterComponent {
   searchText: any;
   wareHouseData: any;
   isNotFound:boolean = false;
-  limits: any;
+  limits: any = [];
   isExcelDownload: boolean = false;
   loading: boolean = false;
   selectedWH: any;
   form!: FormGroup;
+  countryData: any = [];
   update: boolean = false;
+  districtData: any = [];
+  stateData: any;
 
   constructor( private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) { }
 
@@ -35,6 +38,7 @@ export class WarehouseMasterComponent {
     this.masterService.getWarehouseData().subscribe((res:any) => {
       if (res.status === 200) {
         this.wareHouseData = res.result;
+        this.getCountryData();
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
@@ -42,6 +46,41 @@ export class WarehouseMasterComponent {
     (error: any) => {
       this.alertService.warning(`Some technical issue: ${error.message}`);
     }
+  }
+
+  getDistrictData() {
+    this.districtData = [];
+    let data = this.form.value.state_id;
+    let dist = this.form.value.district_id;
+    this.apiService.getDistData(data, dist).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.districtData = res.result;
+      } else {
+        this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
+      }
+    });
+  }
+
+  StateData() {
+    let countrydata = this.form.value.country_id;
+    let statedata = null;
+    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.stateData = res.result;
+      } else {
+        this.alertService.warning(`Looks like no state available related to the selected country.`);
+      }
+    });
+  }
+
+  getCountryData() {
+    this.apiService.getCountryDataList().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.countryData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in country data.");
+      }
+    });
   }
 
   createData() {

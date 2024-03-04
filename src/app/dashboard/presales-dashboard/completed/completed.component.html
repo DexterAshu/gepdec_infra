@@ -8,7 +8,7 @@
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
+
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
                             <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Tender</button>
                         </div> -->
                     </div>
-                  
+
                     <div class="col-md-12">
                         <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
                             <thead class="table-primary text-nowrap">
@@ -88,7 +88,7 @@
                               <label class="fs-6 page-title">Complete Tender List :</label>
                             </div>
                             <div class="col-md-4 col-xs-12 col-sm-12">
-                               
+
                             <select class="form-control form-select f-10" [(ngModel)]="project" (ngModelChange)="getData(project)">
                               <option value="" hidden selected>Select Tenders</option>
                               <option *ngFor="let data of tendersList" value="{{data.tenderid}}">{{data.tenderName}}</option>
@@ -107,13 +107,13 @@
                             <label><input readonly class="btn btn-primary p-2 me-1 rounded-pill radiobtn" name="scale" value="Week scale"/></label>
                             <label><input readonly class="btn btn-primary p-2 me-1 rounded-pill radiobtn" name="scale" value="Month scale"/></label>
                             <label><input readonly class="btn btn-primary p-2 me-1 rounded-pill radiobtn" name="scale" value="Year scale"/></label>
-                           
+
                         </div>
                         </div>
-                     
+
 
                     </div>
-               
+
                 </div>
             </div>
         </div>

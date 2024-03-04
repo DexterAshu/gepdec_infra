@@ -18,7 +18,7 @@ export class TitleMasterComponent {
   isSubmitted: boolean = false;
 
   designCount: any;
-  designData: any;
+  designData: any = [];
   titleCount: any;
   titlData: any;
   
@@ -77,7 +77,7 @@ export class TitleMasterComponent {
         title: this.form.value.title,
       };
       this.apiService.createMasterTitle( params).subscribe((res:any) => {
-        console.log(res);
+        
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;

@@ -17,7 +17,7 @@ export class DesignationMasterComponent implements OnInit {
   isSubmitted: boolean = false;
 
   designCount: any;
-  designData: any;
+  designData: any = [];
   
   constructor(
     private formBuilder: FormBuilder,
@@ -84,7 +84,7 @@ export class DesignationMasterComponent implements OnInit {
         designationname: this.form.value.designationname,
       };
       this.apiService.createMasterDesignation( params).subscribe((res:any) => {
-        console.log(res);
+        
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;

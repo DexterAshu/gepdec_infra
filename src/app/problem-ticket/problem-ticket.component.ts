@@ -53,7 +53,7 @@ export class ProblemTicketComponent {
 
   incidentlistData(){
     this.apiService.incidentList().subscribe((res:any)=>{
-       console.log(res);
+       
        this.incidentlistdata=res.result
 
      })
@@ -61,7 +61,7 @@ export class ProblemTicketComponent {
    createForm(){
     console.clear();
     this.button = 'Create';
-    console.log( this.button);
+    
 
     this.update = false;
     this.form.reset();

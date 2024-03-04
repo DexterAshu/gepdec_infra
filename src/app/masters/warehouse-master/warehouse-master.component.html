@@ -177,8 +177,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-  data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -192,16 +191,12 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
-                  <input formControlName="VendorName" type="text" class="form-control form-control-sm"
-                    placeholder="Enter vendor name" appWordCapitalize />
-                  <div *ngIf="f['VendorName'].touched && f['VendorName'].invalid"><small class="text-danger"
-                      *ngIf="f['VendorName'].errors?.['required']">*Required</small></div>
+                  <input formControlName="VendorName" type="text" class="form-control form-control-sm" placeholder="Enter vendor name" appWordCapitalize />
+                  <div *ngIf="f['VendorName'].touched && f['VendorName'].invalid"><small class="text-danger" *ngIf="f['VendorName'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="modal-btns">
-                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">
-                  Close
-                </button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
               </div>
             </div>
           </form>

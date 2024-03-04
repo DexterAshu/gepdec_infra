@@ -14,15 +14,15 @@ export class CompanyComponent implements OnInit {
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
-  companyData: any;
+  companyData: any = [];
   isNotFound:boolean = false;
   countryData: any;
   stateData: any;
-  districtData: any;
+  districtData: any = [];
   isSubmitted: boolean = false;
   val: any;
   country:any;
-  limits: any;
+  limits: any = [];
   updateData: any;
   createModal: boolean = false;
   update: boolean = false;
@@ -99,7 +99,7 @@ export class CompanyComponent implements OnInit {
   createForm(){
     console.clear();
     this.button = 'Create';
-    console.log( this.button);
+    
     
     this.update = false;
     this.form.reset();
@@ -203,7 +203,7 @@ export class CompanyComponent implements OnInit {
     });
 
     this.masterService.getUserMaster().subscribe((res:any)=>{
-    console.log(res);
+    
     this.design = res.designation;
     this.departMent = res.department;
 

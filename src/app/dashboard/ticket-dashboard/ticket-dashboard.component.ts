@@ -48,8 +48,6 @@ export class TicketDashboardComponent {
   }
   
   StateData() {
-    console.log(this.form.value.country_id);
-    
     let countrydata = this.form.value.country_id;
     let statedata = null;
     this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
@@ -123,7 +121,7 @@ export class TicketDashboardComponent {
  
 ];
 onSelect(event:any) {
-  console.log(event);
+  
 }
 
   tenderResult = [

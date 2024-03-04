@@ -70,7 +70,7 @@ export class PerformanceDashboardComponent {
   
   ];
   onSelect(event:any) {
-  console.log(event);
+  
   }
   
   single = [

@@ -57,7 +57,7 @@ export class QualityDashboardComponent {
   
   ];
   onSelect(event:any) {
-  console.log(event);
+  
   }
   
   single = [

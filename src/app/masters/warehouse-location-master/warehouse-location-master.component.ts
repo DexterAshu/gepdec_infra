@@ -14,7 +14,7 @@ export class WarehouseLocationMasterComponent {
   searchText: any;
   wareHouseLocationData: any = [];
   isNotFound:boolean = false;
-  limits: any;
+  limits: any = [];
   isExcelDownload: boolean = false;
   loading: boolean = false;
   selectedWHL: any;

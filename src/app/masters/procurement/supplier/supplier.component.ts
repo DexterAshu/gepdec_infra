@@ -22,7 +22,7 @@ export class SupplierComponent {
   uploadFile:any;
   countryData:any;
   stateData:any;
-  districtData:any;
+  districtData:any = [];
   rowData:any;
   cityData:any;
 
@@ -269,7 +269,6 @@ export class SupplierComponent {
   }
 
   onSubmit() {
-    debugger
     if (this.form.valid) {
       this.isSubmitted = true;
       const formData = new FormData();

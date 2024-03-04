@@ -12,7 +12,7 @@ export class Process1Component implements OnInit {
 
   form!: FormGroup;
   uploadForm!: FormGroup;
-   
+
   p: number = 1;
   limit = environment.pageLimit;
   isNotFound:boolean = false;
@@ -20,7 +20,7 @@ export class Process1Component implements OnInit {
   customerData: any;
   countryData: any;
   stateData: any;
-  districtData: any;
+  districtData: any = [];
   ecbData: any;
   circleData: any;
   districtList: any;
@@ -70,7 +70,7 @@ export class Process1Component implements OnInit {
       accountNo: [null, Validators.required],
       branch: [null, Validators.required],
     });
-    
+
     this.uploadForm = this.formBuilder.group({
       addressType: [null, Validators.required],
       addressUpload: [null, Validators.required],
@@ -87,14 +87,14 @@ export class Process1Component implements OnInit {
   }
 
 
-  next() { 
+  next() {
     if (this.panelNum < 2) this.panelNum++; else this.panelNum = 2;
   }
-   
+
   prev() {
    if (this.panelNum > 1) this.panelNum--; else this.panelNum = 1;
   }
-   
+
   get f() { return this.form.controls; }
 
   // getCountryData() {
@@ -108,7 +108,7 @@ export class Process1Component implements OnInit {
   //     }
   //   });
   // }
-  
+
   // getStateData() {
   //   this.stateData = [];
   //   this.districtData = [];
@@ -130,7 +130,7 @@ export class Process1Component implements OnInit {
   //     }
   //   });
   // }
-  
+
   // getDistrictData() {
   //   this.districtData = [];
   //   this.ecbData = [];
@@ -150,7 +150,7 @@ export class Process1Component implements OnInit {
   //     }
   //   });
   // }
-  
+
   // getECBData() {
   //   this.ecbData = [];
   //   this.circleData = [];
@@ -190,7 +190,7 @@ export class Process1Component implements OnInit {
   // }
 
   // Method For customer details start
-  
+
   // getStateList() {
   //   this.stateList = [];
   //   this.districtList = [];
@@ -208,7 +208,7 @@ export class Process1Component implements OnInit {
   //     }
   //   });
   // }
-  
+
   // getDistrictList() {
   //   this.districtList = [];
   //   this.f['districtCustomer'].setValue(null);
@@ -226,7 +226,7 @@ export class Process1Component implements OnInit {
   // }
 
   // Method For customer details end
-  
+
   ch(e: any){
     if(e.checked){
       var phoneval = this.form.controls["contact"].value;
@@ -246,7 +246,7 @@ export class Process1Component implements OnInit {
   //     if (res.status === true) {
   //       // this.meterData = res.data.filter((data:any) => data.active == 'Y');
   //       this.customerData = res.data.filter((data:any) => data.stage == 1);
-        
+
   //     } else {
   //       this.alertService.warning("Looks like no data available!");
   //     }
@@ -325,7 +325,7 @@ export class Process1Component implements OnInit {
   }
 
   addressProofUpload(event:any) {
-  
+
     this.addressProof = [];
     let file = event.target.files;
     let type = /(\.jpg|\.jpeg|\.png)$/i;
@@ -339,7 +339,7 @@ export class Process1Component implements OnInit {
       this.alertService.warning("Please choose only jpg, jpeg or png file!");
     }
   }
-  
+
   idProofUpload(event:any) {
     this.idProof = [];
     let file = event.target.files;
@@ -354,7 +354,7 @@ export class Process1Component implements OnInit {
       this.alertService.warning("Please choose only jpg, jpeg or png file!");
     }
   }
-  
+
   bankProofUpload(event:any) {
     this.bankProof = [];
     let file = event.target.files;
@@ -369,9 +369,9 @@ export class Process1Component implements OnInit {
       this.alertService.warning("Please choose only jpg, jpeg or png file!");
     }
   }
-  
+
   onUpload() {
-   
+
     if(this.uploadForm.valid) {
       this.isUploadSubmitted = true;
       let uploadFiles:any = [];

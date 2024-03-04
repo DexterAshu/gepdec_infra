@@ -57,7 +57,7 @@ export class WarehouseDashboardComponent {
   
   ];
   onSelect(event:any) {
-  console.log(event);
+  
   }
 
   pieDataStore=[

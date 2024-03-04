@@ -16,7 +16,7 @@ export class DepartmentMasterComponent {
   countryData: any;
   isSubmitted: boolean = false;
 
-  deptData: any;
+  deptData: any = [];
   deptCount: any;
   
   constructor(
@@ -74,7 +74,7 @@ export class DepartmentMasterComponent {
         deptname: this.form.value.deptname,
       };
       this.apiService.createMasterDepartment( params).subscribe((res:any) => {
-        console.log(res);
+        
         
         let response: any = res;
         document.getElementById('cancel')?.click();

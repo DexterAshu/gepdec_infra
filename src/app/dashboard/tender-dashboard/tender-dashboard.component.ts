@@ -55,7 +55,7 @@ financial = [
 
 ];
 onSelect(event:any) {
-console.log(event);
+
 }
 
 single = [

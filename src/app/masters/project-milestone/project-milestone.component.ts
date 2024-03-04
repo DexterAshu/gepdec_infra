@@ -13,15 +13,15 @@ export class ProjectMilestoneComponent {
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
-  companyData: any;
+  companyData: any = [];
   isNotFound:boolean = false;
   countryData: any;
   stateData: any;
-  districtData: any;
+  districtData: any = [];
   isSubmitted: boolean = false;
   val: any;
   country:any;
-  limits: any;
+  limits: any = [];
   isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
@@ -58,7 +58,7 @@ export class ProjectMilestoneComponent {
   createForm(){
     console.clear();
     this.button = 'Create';
-    console.log( this.button);
+    
     
     this.update = false;
     this.form.reset();

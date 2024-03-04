@@ -17,7 +17,7 @@ export class RoleMasterComponent {
   countryData: any;
   isSubmitted: boolean = false;
   rolCount: any;
-  rolData: any;
+  rolData: any = [];
   
   constructor(
     private formBuilder: FormBuilder,
@@ -77,7 +77,7 @@ export class RoleMasterComponent {
         description: this.form.value.description,
       };
       this.apiService.createMasterRole( params).subscribe((res:any) => {
-        console.log(res);
+        
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;

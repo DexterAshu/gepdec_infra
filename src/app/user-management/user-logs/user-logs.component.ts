@@ -25,7 +25,7 @@ export class UserLogsComponent implements OnInit {
    
   p: number = 1;
   limit = environment.pageLimit;
-  companyData: any;
+  companyData: any = [];
   isNotFound:boolean = false;
   showAll:boolean = false;
 
