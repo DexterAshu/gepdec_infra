@@ -22,15 +22,29 @@ export class WarehouseMasterComponent {
   countryData: any = [];
   update: boolean = false;
   districtData: any = [];
-  stateData: any;
+  stateData: any = [];
+  isSubmitted: boolean = false;
 
   constructor( private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) { }
 
   ngOnInit(): void {
     this.getData();
     this.form = this.formBuilder.group({
-      ContactPerson: [null, Validators.required],
-      VendorName: [null, Validators.required],
+      warehouse_code: [null, Validators.required],
+      warehouse_name: [null, Validators.required],
+      contact_name: [null, Validators.required],
+      contactno1: [null, Validators.required],
+      contactno2: [null, Validators.required],
+      email: [null, Validators.required],
+      pincode: [null, Validators.required],
+      country_id: [null, Validators.required],
+      state_id: [null, Validators.required],
+      district_id: [null, Validators.required],
+      address1: [null, Validators.required],
+      address2: [null, Validators.required],
+      warehouse_id: [null, Validators.required],
+      warehousecontact_id: [null],
+      warehouseaddress_id: [null]
     });
   }
 
@@ -61,10 +75,10 @@ export class WarehouseMasterComponent {
     });
   }
 
-  StateData() {
-    let countrydata = this.form.value.country_id;
-    let statedata = null;
-    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
+  getStateData() {
+    let countryData = this.form.value.country_id;
+    let stateData = null;
+    this.apiService.getStateData(countryData, stateData).subscribe((res: any) => {
       if (res.status === 200) {
         this.stateData = res.result;
       } else {
@@ -83,23 +97,46 @@ export class WarehouseMasterComponent {
     });
   }
 
-  createData() {
-    let match = {};
+  createData(match: any) {
+    console.log(match);
     this.masterService.createWarehouse(match).subscribe((res:any) => {
       if (res.status === 200) {
+        this.isSubmitted = false;
         this.wareHouseData = res.result;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
     (error: any) => {
+      this.isSubmitted = false;
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
+  }
+
+  updateWarehouse(match: any): void {
+    console.log(match);
+    this.masterService.updateWarehouse(match).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.isSubmitted = false;
+        this.wareHouseData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      this.isSubmitted = false;
       this.alertService.warning(`Some technical issue: ${error.message}`);
     }
   }
 
   selectWH(data: any) {
     this.selectedWH = data;
-    console.log(this.selectedWH)
+    this.update = Object.keys(data).length !== 0;
+    if(this.update) {
+      this.form.patchValue(data);
+    } else {
+      this.form.reset();
+    }
   }
 
   OnlyNumbersAllowed(event: any): boolean {
@@ -115,11 +152,14 @@ export class WarehouseMasterComponent {
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.loading = true;
+      this.isSubmitted = true;
+      console.log(this.form.value);
       if (this.update) {
         console.log("update");
+        this.updateWarehouse(this.form.value);
       } else {
         console.log("Insert");
+        this.createData(this.form.value);
       }
     }
   }
