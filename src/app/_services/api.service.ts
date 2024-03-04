@@ -53,6 +53,23 @@ export class ApiService {
       httpOptions
     );
   }
+  
+  getCityData(district_id: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    const params= new HttpParams({
+      fromString: `district_id=${district_id}`
+    });
+    return this.http.get<any>(
+      `${environment.apiUrl}/state/api/v1/getCity?${params}`,
+      httpOptions
+    );
+  }
+
   getCompData(): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({

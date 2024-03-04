@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 
@@ -24,6 +24,7 @@ export class SupplierComponent {
   stateData:any;
   districtData:any;
   rowData:any;
+  cityData:any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,21 +36,50 @@ export class SupplierComponent {
     this.form = this.formBuilder.group({
       supplierCode: [null, Validators.required],
       supplierName: [null, Validators.required],
-      companyName: [null, Validators.required],
+      category: [null, Validators.required],
+      // companyName: [null, Validators.required],
       gstNo: [null, Validators.required],
       gstDate: [null, Validators.required],
       panNo: [null, Validators.required],
       tanNo: [null, Validators.required],
       doi: [null, Validators.required],
       doiDoc: [null, Validators.required],
-      category: [null, Validators.required],
-      contactNo: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      emailID: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       address: [null, Validators.required],
       country: [null, Validators.required],
       state: [null, Validators.required],
       district: [null, Validators.required],
+      city: [null, Validators.required],
       pincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
+
+      bankDetails: this.formBuilder.array([]),
+      contactDetails: this.formBuilder.array([]),
+      documentDetails: this.formBuilder.array([]),
+    });
+
+    this.getDataList();
+    this.getCountryData();
+    this.getDropdownList();
+    this.addAnotherRow('bankDetails');
+    this.addAnotherRow('contactDetails');
+    this.addAnotherRow('documentDetails');
+  }
+
+  get f() { return this.form.controls; }
+
+  bank() : FormArray {  
+    return this.form.get("bankDetails") as FormArray  
+  }
+
+  contact() : FormArray {  
+    return this.form.get("contactDetails") as FormArray  
+  }
+  
+  document() : FormArray {  
+    return this.form.get("documentDetails") as FormArray  
+  }
+
+  newBank(): FormGroup {  
+    return this.formBuilder.group({  
       bankName: [null, Validators.required],
       holderName: [null, Validators.required],
       accountNo: [null, Validators.required],
@@ -57,21 +87,55 @@ export class SupplierComponent {
       ifscCode: [null, Validators.required],
       accountType: [null, Validators.required],
       bankAddress: [null, Validators.required],
-    });
+    })  
+  }  
+  
+  newContact(): FormGroup {  
+    return this.formBuilder.group({  
+      contactPersonName: [null, Validators.required],
+      designation: [null, Validators.required],
+      contactNo: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      emailID: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+    })  
+  }  
+  
+  newDocument(): FormGroup {  
+    return this.formBuilder.group({  
+      certificateName: [null, Validators.required],
+      certificationDate: [null, Validators.required],
+      uploadCertificate: [null],
+      uploadFile: [null],
+    })  
+  }  
 
-    this.getDataList();
-    this.getCountryData();
-    this.getDropdownList();
+  addAnotherRow(type: string) { 
+    if(type === 'bankDetails') {
+      this.bank().push(this.newBank());  
+    } else if (type === 'contactDetails') {
+      this.contact().push(this.newContact());  
+    } else {
+      this.document().push(this.newDocument());  
+    }
+  } 
+
+  removeRow(i:number, type: string) { 
+    if(type === 'bankDetails') {
+      this.bank().removeAt(i);
+    } else if(type === 'contactDetails') {
+      this.contact().removeAt(i);
+    } else {
+      this.document().removeAt(i);
+    }
   }
-
-  get f() { return this.form.controls; }
 
   getCountryData() {
     this.countryData = [];
     this.stateData = [];
     this.districtData = [];
+    this.cityData = [];
     this.form.controls['state'].reset();
     this.form.controls['district'].reset();
+    this.form.controls['city'].reset();
     this.apiService.getCountryDataList().subscribe((res:any) => {
       if (res.status === 200) {
         this.countryData = res.result;
@@ -85,7 +149,9 @@ export class SupplierComponent {
   getStateData() {
     this.stateData = [];
     this.districtData = [];
+    this.cityData = [];
     this.form.controls['district'].reset();
+    this.form.controls['city'].reset();
     let countrydata = this.form.value.country;
     let statedata = null;
     this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
@@ -100,6 +166,8 @@ export class SupplierComponent {
   
   getDistrictData() {
     this.districtData = [];
+    this.cityData = [];
+    this.form.controls['city'].reset();
     let data = this.form.value.state;
     let dist = this.form.value.district;
     this.apiService.getDistData(data, dist).subscribe((res:any) => {
@@ -111,22 +179,31 @@ export class SupplierComponent {
       }
     });
   }
+  
+  getCityData() {
+    this.cityData = [];
+    let dist = this.form.value.district;
+    this.apiService.getCityData(dist).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.cityData = res.result;
+      } else {
+        this.cityData = [];
+        this.alertService.warning(`Looks like no city available related to ${this.form.value.district}.`);
+      }
+    });
+  }
 
   getDropdownList() {
     this.dataDropdownList = [];
-    this.isNotFound = false;
     let apiLink = "/supplier/api/v1/getSupplierDropdown";
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
-        this.isNotFound = false;
         this.dataDropdownList = res;
       } else {
-        this.isNotFound = true;
         this.dataDropdownList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.isNotFound = true;
       this.dataDropdownList = undefined;
       this.alertService.error("Error: " + error.statusText)
     });
@@ -169,6 +246,28 @@ export class SupplierComponent {
     }
   }
 
+  // Function to read file asynchronously
+  // private async readFile(filePath: string): Promise<File> {
+  //   return fetch(filePath)
+  //     .then(response => response.blob())
+  //     .then(blob => new File([blob], 'file'));
+  // }
+
+  // onFileChange(event: any, index: number): void {
+  //   const file = event.target.files[0];
+  //   this.form.get('documentDetails').at(index).get('uploadCertificate').setValue(file);
+  // }
+
+  onFileChange(event: any, index: number): void {
+    const file = event.target.files && event.target.files[0];
+    const formArray = this.form.get('documentDetails') as FormArray;
+  
+    if (file && formArray) {
+      const formGroup = formArray.controls[index] as FormGroup;
+      formGroup.get('uploadFile')?.setValue(file);
+    }
+  }
+
   onSubmit() {
     debugger
     if (this.form.valid) {
@@ -176,31 +275,63 @@ export class SupplierComponent {
       const formData = new FormData();
       formData.append('suppliercode', this.form.value.supplierCode.toUpperCase());
       formData.append('suppliername', this.form.value.supplierName);
-      formData.append('company_name', this.form.value.companyName);
       formData.append('category_id', this.form.value.category);
       formData.append('gstno', this.form.value.gstNo.toUpperCase());
       formData.append('gstdate', this.form.value.gstDate);
       formData.append('panno', this.form.value.panNo.toUpperCase());
       formData.append('tanno', this.form.value.tanNo.toUpperCase());
       formData.append('doi', this.form.value.doi);
-      formData.append('contactno', this.form.value.contactNo);
-      formData.append('emailid', this.form.value.emailID);
       formData.append('address', this.form.value.address);
       formData.append('country_id', this.form.value.country);
       formData.append('state_id', this.form.value.state);
       formData.append('district_id', this.form.value.district);
+      formData.append('city_id', this.form.value.city);
       formData.append('pincode', this.form.value.pincode);
-      formData.append('bank_id', this.form.value.bankName);
-      formData.append('account_holder_name', this.form.value.holderName);
-      formData.append('bankaccountno', this.form.value.accountNo);
-      formData.append('branch_name', this.form.value.branchName);
-      formData.append('bankifsc', this.form.value.ifscCode.toUpperCase());
-      formData.append('accounttype_id', this.form.value.accountType);
-      formData.append('bank_address', this.form.value.bankAddress);
-
       formData.append('attachment', this.uploadFile);
 
-      let apiLink = '/supplier/api/v1/addSupplier';
+      // this.form.value.bankDetails.forEach((bank:any, index:any) => {
+      //   formData.append(`bankName${index + 1}`, bank.bankName);
+      //   formData.append(`holderName${index + 1}`, bank.holderName);
+      //   formData.append(`accountNo${index + 1}`, bank.accountNo);
+      //   formData.append(`branchName${index + 1}`, bank.branchName);
+      //   formData.append(`ifscCode${index + 1}`, bank.ifscCode);
+      //   formData.append(`accountType${index + 1}`, bank.accountType);
+      //   formData.append(`bankAddress${index + 1}`, bank.bankAddress);
+      // });
+
+      this.form.value.bankDetails.forEach((obj: any, index: any) => {
+        Object.keys(obj).forEach(key => {
+          formData.append(`array[${index}][${key}]`, obj[key]);
+        });
+      });
+
+      // this.form.value.contactDetails.forEach((contact: any, index: any) => {
+      //   formData.append(`contactPersonName${index + 1}`, contact.contactPersonName);
+      //   formData.append(`designation${index + 1}`, contact.designation);
+      //   formData.append(`contactNo${index + 1}`, contact.contactNo);
+      //   formData.append(`emailID${index + 1}`, contact.emailID);
+      // });
+
+      this.form.value.contactDetails.forEach((obj: any, index: any) => {
+        Object.keys(obj).forEach(key => {
+          formData.append(`array[${index}][${key}]`, obj[key]);
+        });
+      });
+
+      // this.form.value.documentDetails.forEach((certificate:any, index:any) => {
+      //   formData.append(`certificateName${index + 1}`, certificate.certificateName);
+      //   formData.append(`certificationDate${index + 1}`, certificate.certificationDate);
+      //   formData.append(`uploadFile${index + 1}`, certificate.uploadFile);
+      // });
+
+      this.form.value.documentDetails.forEach((obj: any, index: any) => {
+        Object.keys(obj).forEach(key => {
+          formData.append(`array[${index}][${key}]`, obj[key]);
+        });
+      });
+
+      // let apiLink = '/supplier/api/v1/addSupplier';
+      let apiLink = '';
       this.apiService.postDataFD(apiLink, formData).subscribe(res => {
         let response: any = res;
         document.getElementById('cancel')?.click();
