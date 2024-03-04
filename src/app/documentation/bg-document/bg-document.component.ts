@@ -30,9 +30,12 @@ export class BgDocumentComponent {
     private alertService: AlertService
   ) {
     this.documentForm = this.formBuilder.group({
-      documentname: ['', Validators.required],
-      documentdate: ['', Validators.required],
       documenttype_id: ['',Validators.required],
+      bgamount: ['', Validators.required],
+      start_date: ['', Validators.required],
+      end_date: ['', Validators.required],
+      submission_date: ['', Validators.required],
+      extend_date: ['', Validators.required],
       description: [''],
       attachment:['',Validators.required],
     });
@@ -93,9 +96,13 @@ export class BgDocumentComponent {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-    formData.append('documentname', this.documentForm.value.documentname);
-    formData.append('documentdate', this.documentForm.value.documentdate);
+
     formData.append('documenttype_id', this.documentForm.value.documenttype_id);
+    formData.append('bgamount', this.documentForm.value.bgamount);
+    formData.append('start_date', this.documentForm.value.start_date);
+    formData.append('end_date', this.documentForm.value.end_date);
+    formData.append('submission_date', this.documentForm.value.submission_date);
+    formData.append('extend_date', this.documentForm.value.extend_date);
     formData.append('description', this.documentForm.value.description);
 
     this.addDocument(formData);

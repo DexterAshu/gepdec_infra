@@ -23,11 +23,18 @@
                         <div class="col-lg-4">
                             <input type="text" class="form-control form-control-sm" placeholder="Search" [(ngModel)]="searchText">
                         </div>
-                        <div class="col-lg-8" >
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            <button class="btn exp-excel me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
+                                <span class="mdi mdi-upload"></span>&nbsp; Export
+                          </button>
+                          <button class="upload-bulk" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                <span class="mdi mdi-download"></span>&nbsp; Import 
+                          </button>
                             <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
                         </div>
                     </div>
-                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
@@ -365,120 +372,3 @@
     </div>
 </div>
 <!-- detail modal end-->
-
-<!-- detail by Id modal -->
-<div class="modal fade" id="detailModalById" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Data List <small>({{meterIndexData?.meterID}} - {{meterIndexData?.meterPublishTime | date:'dd/MM/yyyy hh:mm a'}})</small></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#detailModal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th>S No</th>
-                                            <th>OBIS Code</th>
-                                            <th>Description</th>
-                                            <th>Param Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <tr *ngFor="let a of tabledata; index as i">
-                                            <td>{{i+1}}</td>
-                                            <td>{{a.OBISCode}}</td>
-                                            <td>{{a.description}}</td>
-                                            <td>
-                                                <span *ngFor="let d of a.paramValueList">
-                                                   <i class="mdi mdi-arrow-right"></i> {{d}} <br>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="isDataList == true">
-                                            <td colspan="15" class="text-center">
-                                                <div class="spinner-border"> </div>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="tabledata?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- detail by Id modal end-->
-
-<!-- instant, billing, Daily Data, Block load modal -->
-<div class="modal fade" id="allDataModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" [ngSwitch]= "filterNumber">
-                    <span *ngSwitchCase= "1">Instant Data Profile</span>
-                    <span *ngSwitchCase= "2">Billing Data Profile</span>
-                    <span *ngSwitchCase= "3">Daily Data Profile</span>
-                    <span *ngSwitchCase= "4">Block Load Profile</span>
-                </h5> <span class="model-custom-title">(DeviceID - {{ titleData ? titleData[0]?.deviceID : '' }}, Publish Time - {{ titleData ? (titleData[0]?.meterPublishTime | date: 'dd/MM/yyyy hh:mm a') : '' }})</span>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th>S No</th>
-                                            <th>Description</th>
-                                            <th>OBIS</th>
-                                            <th>Param Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <tr *ngFor="let a of filterData; index as i">
-                                            <td>{{i+1}}</td>
-                                            <td>{{a.name}}</td>
-                                            <td>{{a.OBISCode}}</td>
-                                            <td>
-                                                <span *ngFor="let d of a.paramValueList">
-                                                   <i class="mdi mdi-arrow-right"></i> {{d}} <br>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="isDataList == true">
-                                            <td colspan="15" class="text-center">
-                                                <div class="spinner-border"> </div>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="filterData?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                            </td>
-                                        </tr>   
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- instant modal end-->

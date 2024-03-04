@@ -84,7 +84,7 @@ export class DistrictComponent implements OnInit {
     var wb = XLSX.utils.book_new(); 
       XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");  
      XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");        
-    XLSX.writeFile(wb, " L2 BULK LOAD REPORT.xlsx");
+    XLSX.writeFile(wb, "Data_File.xlsx");
                
         }
 downloadPdf() {
@@ -98,7 +98,7 @@ downloadPdf() {
       display: false,
       raw: true,
     });
-    XLSX.writeFile(wb, 'Data.xlsx');
+    XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 
 

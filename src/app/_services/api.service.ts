@@ -118,6 +118,64 @@ export class ApiService {
     );
   }
 
+
+//Our Company - GEPDEC
+ourcreateCompany(data: any): Observable<any[]> {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+    }),
+  };
+  return this.http.post<any[]>(
+    `${environment.apiUrl}/mycompany/api/v1/addMyComapany`,
+    data,
+    httpOptions
+  );
+}
+getourCompanyList(): Observable<any[]> {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+    }),
+  };
+  return this.http.get<any[]>(
+    `${environment.apiUrl}/mycompany/api/v1/getMyComapanyList`,
+  
+    httpOptions
+  );
+}
+
+ourcompanyDetails(data:any)
+{
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+    }),
+  };
+  return this.http.get<any[]>(
+    `${environment.apiUrl}/mycompany/api/v1/getMyComapanyDetails/${data}`,
+    httpOptions
+  );
+}
+
+ourcompanyUpdation(data: any): Observable<any[]> {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+    }),
+  };
+  return this.http.put<any[]>(
+    `${environment.apiUrl}/mycompany/api/v1/updateMyComapany`,
+    data,
+    httpOptions
+  );
+}
+
+
   //company-contacts
   createContacts(data: any): Observable<any[]> {
     const httpOptions = {
@@ -171,6 +229,19 @@ export class ApiService {
     };
     return this.http.get<any[]>(
       `${environment.apiUrl}/company/api/v1/getCompanyDropdown`,
+    
+      httpOptions
+    );
+  }
+  getourCompanyData(): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.get<any[]>(
+      `${environment.apiUrl}/mycompany/api/v1/getMyComapanyDropdown`,
     
       httpOptions
     );

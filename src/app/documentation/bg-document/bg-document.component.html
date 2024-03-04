@@ -4,7 +4,7 @@
           <div class="d-flex justify-content-between flex-wrap">
             <div class="d-flex align-items-end flex-wrap">
               <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>BG Documents</h4>
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Bank Guarantee Documents</h4>
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -31,9 +31,12 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Document Name</th>
-                                <th>Document Date</th>
-                                <th>Document Type</th>
+                                <th>Project Name</th>
+                                <th>BG Amount</th>
+                                <th>BG Start Date</th>
+                                <th>BG End Date</th>
+                                <th>BG Submission Date</th>
+                                <th>BG Extend Date</th>
                                 <th>Attachments</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
@@ -44,13 +47,19 @@
                             <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.documentname}}</td>
+                                <td>{{a.documentname}}</td>
                                 <td>{{a.documentdate}}</td>
-                                <td>{{a.documenttype}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.documentdate}}</td>
                                 <td>{{a.filename}}</td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created | date:'dd/MM/yyyy hh:mm a'}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile"><span class="mdi mdi-lead-pencil cursor-pointer mdi-18px"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+
                                 </td>
                                
                             </tr>
@@ -72,7 +81,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Documentation Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Bank Guarantee Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -82,20 +91,32 @@
                         <div class="form-row">
 
                             <div class="form-group col-4">
-                                <label for="">Document Type: <span class="required-asterisk">*</span></label>
+                                <label for="">Projects: <span class="required-asterisk">*</span></label>
                                 <select class="form-select form-select-sm" formControlName="documenttype_id">
-                                    <option [selected]="true" [disabled]="true" [value]="null">Select Document Type</option>
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Projects</option>
                                     <option *ngFor="let d of docType" value="{{d.documenttype_id}}">{{d.documenttype}}</option>
                                 </select>
                               </div>
 
                             <div class="form-group col-4">
-                            <label for="">Document Name: <span class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="documentname" placeholder="Enter document name">
+                            <label for="">BG Amount: <span class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="bgamount" placeholder="Enter BG Amount" appNumberOnly >
                             </div>
                             <div class="form-group col-4">
-                            <label for="">Document Date: <span class="required-asterisk">*</span></label>
-                            <input type="date" class="form-control form-control-sm" formControlName="documentdate">
+                            <label for="">Start Date: <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="start_date">
+                          </div>
+                            <div class="form-group col-4">
+                            <label for="">End Date: <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="end_date">
+                          </div>
+                            <div class="form-group col-4">
+                            <label for="">Submission Date: <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="submission_date">
+                          </div>
+                            <div class="form-group col-4">
+                            <label for="">Extend Date: <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="extend_date">
                           </div>
                        
                         
@@ -103,7 +124,7 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="">Document Description:</label>
-                                <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents...">
+                                <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize>
                                </textarea>
                                 </div>
                         </div>

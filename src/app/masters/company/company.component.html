@@ -20,10 +20,17 @@
                     <!-- <h3 class="card-title">Company</h3>
                     <hr> -->
                     <div class="d-flex my-10">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col-md-4 col-4">
                             <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-4 col-md-4 col-4"></div>
+                        <div class="col-lg-4 col-md-4 col-4">
+                            <button class="btn exp-excel me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
+                                <span class="mdi mdi-upload"></span>&nbsp; Export
+                          </button>
+                          <button class="upload-bulk" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                <span class="mdi mdi-download"></span>&nbsp; Import 
+                          </button>
                             <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
                         </div>
                     </div>
@@ -41,6 +48,7 @@
                                 <th>GST No</th>
                                 <th>PAN No</th>
                                 <th>Created By</th>
+                                <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -50,16 +58,25 @@
                                 <!-- <td>{{ a.company_id }}</td> -->
                                 <td>{{ a.company_name }}</td>
                                 <td>{{ a.mstcompanytype }}</td>
-                                <td>{{ a.name }}</td>
-                                <td>{{ a.contactno1 }}</td>
-                                <td>{{ a.email }}</td>
-                                <td>{{ a.doi | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ a.contact[0].name }}</td>
+                                <td>{{ a.contact[0].contactno1 }}</td>
+                                <td>{{ a.contact[0].email }}</td>
+                                <td>{{ a.doi }}</td>
                                 <td>{{ a.gst }}</td>
                                 <td>{{ a.pan }}</td>
+                                <td>{{ a.createdby_name }}</td>
                                 <td>{{ a.created }}</td>
-                                <td>
+                                <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
+                                </td> -->
+
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+
                                 </td>
+
                               </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
@@ -218,9 +235,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Lane / Area<span class="required-asterisk">*</span></label>
-                                    <textarea type="text" formControlName="area" class="form-control form-control-sm" placeholder="Enter lane/area...">
-                                        </textarea>
+                                    <label class="form-label">Lane/Area<span class="required-asterisk">*</span></label>
+                                    <input type="text" formControlName="area" class="form-control form-control-sm" placeholder="Enter lane/area...">
                                     <div *ngIf="f['area'].touched && f['area'].invalid">
                                         <small class="text-danger" *ngIf="f['area'].errors?.['required']">*Required</small>
                                     </div>
@@ -229,13 +245,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Address line 1</label>
-                                    <input type="text" formControlName="address_line2" class="form-control form-control-sm" placeholder="Enter Address Line 2">
+                                    <input type="text" formControlName="address_line1" class="form-control form-control-sm" placeholder="Enter Address Line 1">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Address line 2</label>
-                                    <input type="text" formControlName="address_line3" class="form-control form-control-sm" placeholder="Enter Address line 3">
+                                    <input type="text" formControlName="address_line2" class="form-control form-control-sm" placeholder="Enter Address line 2">
                                        
                                     
                                 </div>

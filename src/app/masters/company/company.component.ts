@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
+import * as XLSX from 'xlsx';
+ import * as FileSaver from 'file-saver';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -23,7 +25,6 @@ export class CompanyComponent implements OnInit {
   val: any;
   country:any;
   limits: any;
-  isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
   update: boolean = false;
@@ -36,6 +37,12 @@ export class CompanyComponent implements OnInit {
   departMent: any;
   inputValue: any;
   contactDetails: any;
+  isExcelDownload: boolean = false;
+  isExcelDownloadData:boolean = true;
+  filesToUpload: Array<File> = [];
+  inserteddata: any;
+  discardeddata: any;
+  addressDetails: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -107,7 +114,7 @@ export class CompanyComponent implements OnInit {
     this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
       this.custDetails = res.result[0];
       this.contactDetails = res.result[0].contact[0];
-     console.log( this.contactDetails);
+      this.addressDetails = res.result[0].adderss[0];
      
         this.form.patchValue({
           company_name: this.custDetails.company_name,
@@ -115,28 +122,28 @@ export class CompanyComponent implements OnInit {
           gst: this.custDetails.gst,
           pan: this.custDetails.pan,
           doi: this.custDetails.doi,
-          area: this.custDetails.area,
-          pincode: this.custDetails.pincode,
           websiteurl: this.custDetails.websiteurl,
           cinno:this.custDetails.cinno,
-          city:this.custDetails.city,
-          address_line1:this.custDetails.address_line1,
-          address_line2:this.custDetails.address_line2,
-        }); 
-
-        this.form.patchValue({
+          city:this.addressDetails.city,
+         
+            //address-patch-details
+            area: this.addressDetails.area,
+          
+            address_line1: this.addressDetails.address_line1,
+            address_line2: this.addressDetails.address_line2,
+            pincode: this.addressDetails.pincode,
+          //contact-path data
           name: this.contactDetails.name,
           contactno1: this.contactDetails.contactno1,
           contactno2: this.contactDetails.contactno2,
           email: this.contactDetails.email,
           usdt_id: this.contactDetails.usdt_id,
           usdg_id: this.contactDetails.usdg_id,
-
         }); 
 
-        this.form.controls['country_id'].setValue(this.custDetails.country_id);
-        this.form.controls['state_id'].setValue(this.custDetails.state_id);
-        this.form.controls['district_id'].setValue(this.custDetails.district_id);
+        this.form.controls['country_id'].setValue(this.addressDetails.country_id);
+        this.form.controls['state_id'].setValue(this.addressDetails.state_id);
+        this.form.controls['district_id'].setValue(this.addressDetails.district_id);
         setTimeout(() => {
           this.getStateData();
           this.getDistrictData();
@@ -227,6 +234,30 @@ export class CompanyComponent implements OnInit {
       } 
     }
   }
+
+  exportAsXLSX1(){
+    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
+     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
+    var wb = XLSX.utils.book_new(); 
+      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");  
+     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");        
+    XLSX.writeFile(wb, "Data_File.xlsx");
+               
+        }
+downloadPdf() {
+  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
+  const pdfName = 'country_bulkload_template_file.xlsx';
+  FileSaver.saveAs(pdfUrl, pdfName);
+}
+
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
+      display: false,
+      raw: true,
+    });
+    XLSX.writeFile(wb, 'Data_File.xlsx');
+  }
+
 
   onSubmit() {
     if (this.form.valid) {
@@ -353,9 +384,10 @@ export class CompanyComponent implements OnInit {
       })
   }
   companyUpdate(): void {
-    // this.opac=0;
-    // this.loadermsg="Updating..."
+   
      this.form.value.company_id =  this.custDetails.company_id;
+     this.form.value.contact_id =  this.contactDetails.contact_id;
+     this.form.value.address_id =  this.addressDetails.address_id;
     this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
        this.isSubmitted = false;
       if (res.status == 200) {

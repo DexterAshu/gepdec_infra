@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
+import * as XLSX from 'xlsx';
+ import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-my-company',
@@ -24,7 +26,7 @@ export class MyCompanyComponent {
   val: any;
   country:any;
   limits: any;
-  isExcelDownload: boolean = false;
+
   updateData: any;
   createModal: boolean = false;
   update: boolean = false;
@@ -33,6 +35,16 @@ export class MyCompanyComponent {
   loadermsg: any;
   loading: boolean = false;
   compData: any;
+  contDetails: any;
+  isExcelDownload: boolean = false;
+  isExcelDownloadData:boolean = true;
+  filesToUpload: Array<File> = [];
+  inserteddata: any;
+  discardeddata: any;
+  contactData: any;
+  addressDetails: any;
+  countryName:any;
+
  
   constructor(
     private formBuilder: FormBuilder,
@@ -43,36 +55,34 @@ export class MyCompanyComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      // companyId: [null, Validators.required],
       name: [null, Validators.required],
-      company_name: [null, Validators.required],
-      company_type: [null, Validators.required],
+      bidder_name: [null, Validators.required],
+      companytype_id: [null, Validators.required],
       contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       contactno2: [null, [ Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       email: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       gst: [null, [Validators.required]] ,
       pan: [null, Validators.required],
-      cinNo:[null, Validators.required],
       doi: [null, Validators.required],  
       area: [null, Validators.required],
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
-      websiteUrl: [null],
       pincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
+      address_line1:[null],
+      address_line2:[null],
+      cinno:[null],
+      url: [null],
     });
 
     this.getCompanyData();
     this.getCompanyType();
     this.getCountryData();
-    
   }
 
   createForm(){
     console.clear();
     this.button = 'Create';
-    console.log( this.button);
-    
     this.update = false;
     this.form.reset();
   }
@@ -81,28 +91,35 @@ export class MyCompanyComponent {
     this.form.reset();
     this.button = 'Update';
     this.update = true;
-    this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
+    this.apiService.ourcompanyDetails(data.bidder_id).subscribe((res: any) => {
       this.custDetails = res.result[0];
+      this.contDetails = res.result[0].contact[0];
+      this.addressDetails = res.result[0].address[0];
      
         this.form.patchValue({
-          name: this.custDetails.name,
-          company_name: this.custDetails.company_name,
-          company_type: this.custDetails.company_type,
-          contactno1: this.custDetails.contactno1,
-          contactno2: this.custDetails.contactno2,
-          email: this.custDetails.email,
+          bidder_name: this.custDetails.bidder_name,
+          companytype_id: this.custDetails.companytype_id,
           gst: this.custDetails.gst,
           pan: this.custDetails.pan,
-          cinNo: this.custDetails.cinNo,
+          cinno: this.custDetails.cinno,
           doi: this.custDetails.doi,
-          area: this.custDetails.area,
-          websiteUrl: this.custDetails.websiteUrl,
-          pincode: this.custDetails.pincode,
+          url: this.custDetails.url,
+          //address-patch-details
+          area: this.addressDetails.area,
+          address_line1: this.addressDetails.address_line1,
+          address_line2: this.addressDetails.address_line2,
+          pincode: this.addressDetails.pincode,
+          //contact-patch details
+          contactno1: this.contDetails.contactno1,
+          contactno2: this.contDetails.contactno2,
+          email: this.contDetails.email,
+          name: this.contDetails.name,
+
           
         }); 
-        this.form.controls['country_id'].setValue(this.custDetails.country_id);
-        this.form.controls['state_id'].setValue(this.custDetails.state_id);
-        this.form.controls['district_id'].setValue(this.custDetails.district_id);
+        this.form.controls['country_id'].setValue(this.addressDetails.country_id);
+        this.form.controls['state_id'].setValue(this.addressDetails.state_id);
+        this.form.controls['district_id'].setValue(this.addressDetails.district_id);
         setTimeout(() => {
           this.getStateData();
           this.getDistrictData();
@@ -154,9 +171,11 @@ export class MyCompanyComponent {
     });
   }
   getCompanyType() {
-    this.apiService.getCompanyData().subscribe((res:any) => {
+    this.apiService.getourCompanyData().subscribe((res:any) => {
       if (res.status === 200) {
         this.compData = res.companytype;
+        console.log(this.compData);
+        
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
@@ -174,13 +193,40 @@ export class MyCompanyComponent {
   // }
   
   getCompanyData() {
-    this.apiService.getCompanyList().subscribe((res: any) => {
+    this.apiService.getourCompanyList().subscribe((res: any) => {
       this.companyData = res.result;
+      // this.contactData = res.result[0].contact[0];
+
       this.limits.push({ key: 'ALL', value: this.companyData.length });
       this.isExcelDownload = true;
     });
  
   }
+
+  
+  exportAsXLSX1(){
+    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
+     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
+    var wb = XLSX.utils.book_new(); 
+      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");  
+     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");        
+    XLSX.writeFile(wb, "Data_File.xlsx");
+               
+        }
+downloadPdf() {
+  const pdfUrl = './assets/tamplate/state_bulkload_template_file.xlsx';
+  const pdfName = 'state_bulkload_template_file.xlsx';
+  FileSaver.saveAs(pdfUrl, pdfName);
+}
+
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
+      display: false,
+      raw: true,
+    });
+    XLSX.writeFile(wb, 'Data_File.xlsx');
+  }
+
 
   onSubmit() {
     if (this.form.valid) {
@@ -220,15 +266,15 @@ export class MyCompanyComponent {
       }
       //4-passing Company type id
     
-      if (this.form.value.company_type !== null) {
-        var countryType = this.compData.filter((item: any) => {
-          return item.mstcompanytype == this.form.value.company_type;
-        });
-        this.form.value.company_type = countryType[0]['mstcompanytype_id'];
-      }
-      else {
-        this.form.value.company_type = null;
-      } 
+      // if (this.form.value.company_type !== null) {
+      //   var countryType = this.compData.filter((item: any) => {
+      //     return item.mstcompanytype == this.form.value.company_type;
+      //   });
+      //   this.form.value.company_type = countryType[0]['companytype_id'];
+      // }
+      // else {
+      //   this.form.value.company_type = null;
+      // } 
   
       //passing all values
       if (this.form.value.company_name != '') {
@@ -303,7 +349,7 @@ export class MyCompanyComponent {
   }
 
   createCompany() {
-    this.apiService.createCompany(this.form.value).subscribe((res: any) => {
+    this.apiService.ourcreateCompany(this.form.value).subscribe((res: any) => {
      let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
@@ -317,10 +363,9 @@ export class MyCompanyComponent {
       })
   }
   companyUpdate(): void {
-    // this.opac=0;
-    // this.loadermsg="Updating..."
-     this.form.value.company_id =  this.custDetails.company_id;
-    this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
+     this.form.value.bidder_id =  this.custDetails.bidder_id;
+     this.form.value.contact_id =  this.contDetails.contact_id;
+    this.apiService.ourcompanyUpdation(this.form.value).subscribe((res: any) => {
        this.isSubmitted = false;
       if (res.status == 200) {
         this.ngOnInit();
