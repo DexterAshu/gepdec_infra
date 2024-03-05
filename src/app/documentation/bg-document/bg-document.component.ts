@@ -9,7 +9,7 @@ import { ApiService, AlertService } from 'src/app/_services';
   styleUrls: ['./bg-document.component.css']
 })
 export class BgDocumentComponent {
-  documentForm: FormGroup;
+  documentForm!: FormGroup;
   attachment: File[] = [];
   isSubmitted = false;
   listOfFiles: string[] = [];
@@ -27,20 +27,23 @@ export class BgDocumentComponent {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private alertService: AlertService
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.documentForm = this.formBuilder.group({
       documenttype_id: ['',Validators.required],
+      bank_name: ['null', Validators.required],
       bgamount: ['', Validators.required],
+      bgnumber: ['', Validators.required],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       submission_date: ['', Validators.required],
       extend_date: ['', Validators.required],
+      attachment: ['', Validators.required],
       description: [''],
-      attachment:['',Validators.required],
+     
     });
-  }
 
-  ngOnInit() {
     this.getData();
     this.apiService.getDocType().subscribe((res: any) => {
       this.docType = res.documenttype;
@@ -97,13 +100,14 @@ export class BgDocumentComponent {
     }
 
     formData.append('documenttype_id', this.documentForm.value.documenttype_id);
+    formData.append('bank_name', this.documentForm.value.bank_name);
+    formData.append('bgnumber', this.documentForm.value.bgnumber);
     formData.append('bgamount', this.documentForm.value.bgamount);
     formData.append('start_date', this.documentForm.value.start_date);
     formData.append('end_date', this.documentForm.value.end_date);
     formData.append('submission_date', this.documentForm.value.submission_date);
     formData.append('extend_date', this.documentForm.value.extend_date);
     formData.append('description', this.documentForm.value.description);
-
     this.addDocument(formData);
   }
 

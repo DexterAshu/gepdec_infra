@@ -32,6 +32,7 @@
                             <tr>
                                 <th>S No</th>
                                 <th>Project Name</th>
+                                <th>BG Number</th>
                                 <th>BG Amount</th>
                                 <th>BG Start Date</th>
                                 <th>BG End Date</th>
@@ -48,13 +49,14 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.documentname}}</td>
                                 <td>{{a.documentname}}</td>
+                                <td>{{a.documentname}}</td>
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.filename}}</td>
                                 <td>{{a.createdby_name}}</td>
-                                <td>{{a.created | date:'dd/MM/yyyy hh:mm a'}}</td>
+                                <td>{{a.created}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -90,34 +92,69 @@
                         <!-- Document Details -->
                         <div class="form-row">
 
-                            <div class="form-group col-4">
+                            <div class="form-group col-3">
                                 <label for="">Projects: <span class="required-asterisk">*</span></label>
                                 <select class="form-select form-select-sm" formControlName="documenttype_id">
                                     <option [selected]="true" [disabled]="true" [value]="null">Select Projects</option>
                                     <option *ngFor="let d of docType" value="{{d.documenttype_id}}">{{d.documenttype}}</option>
                                 </select>
-                              </div>
+                                <div *ngIf="f['documenttype_id'].touched && f['documenttype_id'].invalid">
+                                    <small class="text-danger" *ngIf="f['documenttype_id'].errors?.['required']">*Required</small>
+                                </div>  
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="">Bank <span class="required-asterisk">*</span></label>
+                                <select class="form-select form-select-sm" formControlName="bank_name">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
+                                    <option *ngFor="let d of docType" value="{{d.documenttype_id}}">{{d.documenttype}}</option>
+                                </select>
+                                <div *ngIf="f['bank_name'].touched && f['bank_name'].invalid">
+                                    <small class="text-danger" *ngIf="f['bank_name'].errors?.['required']">*Required</small>
+                                </div>  
+                            </div>
 
-                            <div class="form-group col-4">
+                            <div class="form-group col-3">
+                            <label for="">BG Number: <span class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="bgnumber" placeholder="Enter BG Number">
+                            <div *ngIf="f['bgnumber'].touched && f['bgnumber'].invalid">
+                                <small class="text-danger" *ngIf="f['bgnumber'].errors?.['required']">*Required</small>
+                            </div>    
+                        </div>
+                            <div class="form-group col-3">
                             <label for="">BG Amount: <span class="required-asterisk">*</span></label>
                             <input type="text" class="form-control form-control-sm" formControlName="bgamount" placeholder="Enter BG Amount" appNumberOnly >
-                            </div>
-                            <div class="form-group col-4">
+                            <div *ngIf="f['bgamount'].touched && f['bgamount'].invalid">
+                                <small class="text-danger" *ngIf="f['bgamount'].errors?.['required']">*Required</small>
+                            </div>    
+                        </div>
+                            <div class="form-group col-3">
                             <label for="">Start Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="start_date">
-                          </div>
-                            <div class="form-group col-4">
+                            <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
+                                <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
+                            </div> 
+                        </div>
+                            <div class="form-group col-3">
                             <label for="">End Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="end_date">
-                          </div>
-                            <div class="form-group col-4">
+                            <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
+                                <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                            <div class="form-group col-3">
                             <label for="">Submission Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="submission_date">
-                          </div>
-                            <div class="form-group col-4">
+                            <div *ngIf="f['submission_date'].touched && f['submission_date'].invalid">
+                                <small class="text-danger" *ngIf="f['submission_date'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                            <div class="form-group col-3">
                             <label for="">Extend Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="extend_date">
-                          </div>
+                          <div *ngIf="f['extend_date'].touched && f['extend_date'].invalid">
+                                        <small class="text-danger" *ngIf="f['extend_date'].errors?.['required']">*Required</small>
+                                    </div>
+                        </div>
                        
                         
                         </div>
@@ -136,6 +173,9 @@
                                     <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
                                     <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
                                       placeholder="Upload a file..." multiple="true" />
+                                      <!-- <div *ngIf="f['attachment'].touched && f['attachment'].invalid">
+                                        <small class="text-danger" *ngIf="f['attachment'].errors?.['required']">*Required</small>
+                                    </div> -->
                               </div>
                           
                         </div>

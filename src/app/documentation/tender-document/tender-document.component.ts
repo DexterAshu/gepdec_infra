@@ -9,7 +9,7 @@ import { ApiService, AlertService } from 'src/app/_services';
   styleUrls: ['./tender-document.component.css']
 })
 export class TenderDocumentComponent {
-  documentForm: FormGroup;
+  documentForm!: FormGroup;
   attachment: File[] = [];
   isSubmitted = false;
   listOfFiles: string[] = [];
@@ -22,32 +22,56 @@ export class TenderDocumentComponent {
   limit = environment.pageLimit;
   docType: any;
   docListData: any;
+  companyData: any;
+  tenderType: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private alertService: AlertService
-  ) {
-    this.documentForm = this.formBuilder.group({
-      documentname: ['', Validators.required],
-      documentdate: ['', Validators.required],
-      documenttype_id: ['',Validators.required],
-      description: [''],
-      attachment:['',Validators.required],
-    });
-  }
+  ) {}
 
   ngOnInit() {
-    this.getData();
-    this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
+    this.documentForm = this.formBuilder.group({
+      tender_submission_date: ['',Validators.required],
+      documenttype_id: ['',Validators.required],
+      // prebid_meeting_mode: ['',Validators.required],
+      // prebid_date: ['',Validators.required],
+      prebid_submission_date: ['',Validators.required],
+      publish_date: ['',Validators.required],
+      tender_location: ['',Validators.required],
+      bidtype: ['',Validators.required],
+      tender_ref_no: ['',Validators.required],
+      tender_title: ['',Validators.required],
+      completion_period: ['',Validators.required],
+      ecv: ['',Validators.required],
+      utility: ['',Validators.required],
+      bid_validity: ['',Validators.required],
+      
+      attachment: ['', Validators.required],
+      description: [''],
+     
     });
+
+    this.getData();
+   
+
   }
 
+  
   getData() {
     // debugger
     // let data = this.documentForm.value.document_id;
     // console.log(data);
+    this.apiService.getDocType().subscribe((res: any) => {
+      this.docType = res.documenttype;
+    });
+    this.apiService.getCompanyList().subscribe((res: any) => {  
+      this.companyData = res.result;
+    });
+    this.apiService.getTenderType().subscribe((res: any) => {  
+      this.tenderType = res.bidtype;
+    });
     
     this.apiService.getDocListData().subscribe((res:any) => {
       console.log(res);
@@ -92,11 +116,23 @@ export class TenderDocumentComponent {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-    formData.append('documentname', this.documentForm.value.documentname);
-    formData.append('documentdate', this.documentForm.value.documentdate);
-    formData.append('documenttype_id', this.documentForm.value.documenttype_id);
-    formData.append('description', this.documentForm.value.description);
+   
 
+    formData.append('tender_title', this.documentForm.value.tender_title);
+    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
+    formData.append('bidtype', this.documentForm.value.bidtype);
+    formData.append('tender_location', this.documentForm.value.tender_location);
+    formData.append('publish_date', this.documentForm.value.publish_date);
+    formData.append('prebid_submission_date', this.documentForm.value.prebid_submission_date);
+    // formData.append('prebid_date', this.documentForm.value.prebid_date);
+    // formData.append('prebid_meeting_mode', this.documentForm.value.prebid_meeting_mode);
+    formData.append('documenttype_id', this.documentForm.value.documenttype_id);
+    formData.append('tender_submission_date', this.documentForm.value.tender_submission_date);
+    formData.append('completion_period', this.documentForm.value.completion_period);
+    formData.append('ecv', this.documentForm.value.ecv);
+    formData.append('utility', this.documentForm.value.utility);
+    formData.append('bid_validity', this.documentForm.value.bid_validity);
+    formData.append('description', this.documentForm.value.description);
     this.addDocument(formData);
   }
 
