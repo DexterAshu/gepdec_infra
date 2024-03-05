@@ -47,7 +47,7 @@ export class UserMasterComponent implements OnInit {
   waitmsg: boolean = false;
   loading: boolean = false;
   tabledata: any;
-  limits: any;
+  limits: any = [];
   userDetails: any;
   isExcelDownload: boolean = false;
   isExcelDownloadData:boolean = true;
@@ -104,8 +104,6 @@ export class UserMasterComponent implements OnInit {
 //All dropdown API'S
   getUserData() {
     this.masterService.getUserMaster().subscribe((data: any) => {
-      console.log(data);
-      
       this.title = data.title;
       this.department = data.department;
       this.role = data.role;
@@ -122,7 +120,6 @@ export class UserMasterComponent implements OnInit {
   }
   
   userDetail(data:any) {
-    debugger
     this.form.controls['password'].clearValidators();
     this.form.reset();
     this.button = 'Update';
@@ -268,7 +265,7 @@ downloadPdf() {
     this.formData.active=null,
     this.formData.inactive=null
     this.masterService.userCreation(this.formData).subscribe((res: any) => {
-    console.log(res);
+    
       if (res.status == 200) {
         this.ngOnInit();
         document.getElementById('closed')?.click();

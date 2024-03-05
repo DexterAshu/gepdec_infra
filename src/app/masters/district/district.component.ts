@@ -14,7 +14,7 @@ export class DistrictComponent implements OnInit {
    
   p: number = 1;
   limit = environment.pageLimit;
-  districtData:any;
+  districtData:any = [];
   isNotFound:boolean = false;
   stateData: any;
   countryData: any;
@@ -120,7 +120,7 @@ downloadPdf() {
       };
       // let apiLink = '/master/district/createDistrict';
       this.apiService.addMasterDistrict(params).subscribe((res:any )=> {
-        console.log(res);
+        
         
         let response: any = res;
         document.getElementById('cancel')?.click();

@@ -41,7 +41,6 @@ export class ResetPasswordComponent {
   loginName() {
     // this.user.logInName().subscribe((res: any) => {
     //   this.username = res.rows;
-    //   console.log(this.username);
     // });
   }
 
@@ -71,7 +70,6 @@ export class ResetPasswordComponent {
     // this.loginUserName = JSON.parse(tk).loginname;
     // this.userId = JSON.parse(tk).userid;
     // this.username1 = this.userId;
-    // console.log(this.username1);
     // if(checkvalue){
     //   this.showButton = true;
     // }else{
@@ -155,7 +153,7 @@ export class ResetPasswordComponent {
 
   createUser() {
     this.masterService.reset(this.form.value).subscribe((res: any) => {
-      console.log(res);
+      
 
       if (res.status == 200) {
         this.ngOnInit();

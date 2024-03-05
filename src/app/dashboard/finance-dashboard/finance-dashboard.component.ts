@@ -63,7 +63,7 @@ financial = [
   financialData: any;
   finCount: any;
 onSelect(event:any) {
-console.log(event);
+
 }
 PerformanceData = [
   {
@@ -367,7 +367,7 @@ lineChart = [
 finYearData() {
   this.isNotFound = true;
   this.masterService.getFinData().subscribe((res:any) => {
-    console.log(res);
+    
     
     this.isNotFound = false;
     if (res.status == 200) {

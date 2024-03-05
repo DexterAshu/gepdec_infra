@@ -131,7 +131,7 @@ export class MasterService {
     return this.http.get(`${environment.apiUrl}/warehouse/api/v1/getLocationList`, httpOptions);
   }
 
-  createWHLocation(data: any) {
+  warehouseLocation(data: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/warehouse/api/v1/addLocaton`, data, httpOptions);
   }

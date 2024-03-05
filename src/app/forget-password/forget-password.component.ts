@@ -28,7 +28,7 @@ export class ForgetPasswordComponent {
       "loginname": this.forgetform.value.loginName
     }
     this.accountservice.getpwd(pwd).subscribe((res: any) => {
-      console.log(res);
+      
       this.msg = res.message
       setTimeout(() => {
         this.msg = ''

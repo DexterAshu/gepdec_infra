@@ -14,15 +14,15 @@ export class CompanyContactsComponent {
   username1:any;
   limit = environment.pageLimit;
   searchText: any;
-  companyData: any;
+  companyData: any = [];
   isNotFound:boolean = false;
   countryData: any;
   stateData: any;
-  districtData: any;
+  districtData: any = [];
   isSubmitted: boolean = false;
   val: any;
   country:any;
-  limits: any;
+  limits: any = [];
   isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
@@ -124,7 +124,7 @@ export class CompanyContactsComponent {
   this.modListData = module_id;
   console.log(this.modListData);
   this.apiService.getCompaList(module_id).subscribe((res: any) => {
-        console.log(res);
+        
         this.modList = res.result;
       //   if (res.status === 200) {
       //  } else{
@@ -152,8 +152,6 @@ export class CompanyContactsComponent {
       //   var modListId = this.compData.filter((item: any) => {
       //     return item.contactmodule == this.form.value.module_id;
       //   });
-      //   console.log(modListId);
-        
       //   this.form.value.module_id = modListId[0]['module_id'];
       // }
       // else {
@@ -164,8 +162,6 @@ export class CompanyContactsComponent {
       //   var countryType = this.modList.filter((item: any) => {
       //     return item.company_name == this.form.value.company_id;
       //   });
-      //   console.log(countryType);
-        
       //   this.form.value.company_id = countryType[0]['company_id'];
       // }
       // else {

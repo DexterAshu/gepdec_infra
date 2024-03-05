@@ -80,31 +80,35 @@ export class SupplierComponent {
 
   newBank(): FormGroup {  
     return this.formBuilder.group({  
-      bankName: [null, Validators.required],
-      holderName: [null, Validators.required],
-      accountNo: [null, Validators.required],
-      branchName: [null, Validators.required],
-      ifscCode: [null, Validators.required],
-      accountType: [null, Validators.required],
-      bankAddress: [null, Validators.required],
+      bank_id: [null, Validators.required],
+      account_holder_name: [null, Validators.required],
+      bankaccountno: [null, Validators.required],
+      branch_name: [null, Validators.required],
+      bankifsc: [null, Validators.required],
+      accounttype_id: [null, Validators.required],
+      bank_address: [null, Validators.required],
     })  
   }  
   
   newContact(): FormGroup {  
     return this.formBuilder.group({  
-      contactPersonName: [null, Validators.required],
-      designation: [null, Validators.required],
-      contactNo: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      emailID: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      contactperson: [null, Validators.required],
+      usdg_id: [null, Validators.required],
+      contactno: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      emailid: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
     })  
   }  
   
   newDocument(): FormGroup {  
     return this.formBuilder.group({  
-      certificateName: [null, Validators.required],
-      certificationDate: [null, Validators.required],
+      name: [null],
+      date: [null],
       uploadCertificate: [null],
-      uploadFile: [null],
+      attachment: [null],
+      // document: this.form.value.uploadFile == null ? true : false,
+      // count: this.form.value.uploadFile == null ? this.form.value.uploadFile.length : 0,
+      document: [null],
+      count: [null],
     })  
   }  
 
@@ -259,12 +263,12 @@ export class SupplierComponent {
   // }
 
   onFileChange(event: any, index: number): void {
-    const file = event.target.files && event.target.files[0];
+    const file = event.target.files;
     const formArray = this.form.get('documentDetails') as FormArray;
   
     if (file && formArray) {
       const formGroup = formArray.controls[index] as FormGroup;
-      formGroup.get('uploadFile')?.setValue(file);
+      formGroup.get('attachment')?.setValue(file);
     }
   }
 
@@ -273,13 +277,13 @@ export class SupplierComponent {
     if (this.form.valid) {
       this.isSubmitted = true;
       const formData = new FormData();
-      formData.append('suppliercode', this.form.value.supplierCode.toUpperCase());
+      formData.append('suppliercode', this.form.value.supplierCode?.toUpperCase());
       formData.append('suppliername', this.form.value.supplierName);
       formData.append('category_id', this.form.value.category);
-      formData.append('gstno', this.form.value.gstNo.toUpperCase());
+      formData.append('gstno', this.form.value.gstNo?.toUpperCase());
       formData.append('gstdate', this.form.value.gstDate);
-      formData.append('panno', this.form.value.panNo.toUpperCase());
-      formData.append('tanno', this.form.value.tanNo.toUpperCase());
+      formData.append('panno', this.form.value.panNo?.toUpperCase());
+      formData.append('tanno', this.form.value.tanNo?.toUpperCase());
       formData.append('doi', this.form.value.doi);
       formData.append('address', this.form.value.address);
       formData.append('country_id', this.form.value.country);
@@ -290,55 +294,57 @@ export class SupplierComponent {
       formData.append('attachment', this.uploadFile);
 
       // this.form.value.bankDetails.forEach((bank:any, index:any) => {
-      //   formData.append(`bankName${index + 1}`, bank.bankName);
-      //   formData.append(`holderName${index + 1}`, bank.holderName);
-      //   formData.append(`accountNo${index + 1}`, bank.accountNo);
-      //   formData.append(`branchName${index + 1}`, bank.branchName);
-      //   formData.append(`ifscCode${index + 1}`, bank.ifscCode);
-      //   formData.append(`accountType${index + 1}`, bank.accountType);
-      //   formData.append(`bankAddress${index + 1}`, bank.bankAddress);
+      //   formData.append(`bank_id${index + 1}`, bank.bank_id);
+      //   formData.append(`account_holder_name${index + 1}`, bank.account_holder_name);
+      //   formData.append(`bankaccountno${index + 1}`, bank.bankaccountno);
+      //   formData.append(`branch_name${index + 1}`, bank.branch_name);
+      //   formData.append(`bankifsc${index + 1}`, bank.bankifsc);
+      //   formData.append(`accounttype_id${index + 1}`, bank.accounttype_id);
+      //   formData.append(`bank_address${index + 1}`, bank.bank_address);
       // });
 
       this.form.value.bankDetails.forEach((obj: any, index: any) => {
         Object.keys(obj).forEach(key => {
-          formData.append(`array[${index}][${key}]`, obj[key]);
+          formData.append(`bank[${index}][${key}]`, obj[key]);
         });
       });
 
       // this.form.value.contactDetails.forEach((contact: any, index: any) => {
-      //   formData.append(`contactPersonName${index + 1}`, contact.contactPersonName);
-      //   formData.append(`designation${index + 1}`, contact.designation);
-      //   formData.append(`contactNo${index + 1}`, contact.contactNo);
-      //   formData.append(`emailID${index + 1}`, contact.emailID);
+      //   formData.append(`contactperson${index + 1}`, contact.contactperson);
+      //   formData.append(`usdg_id${index + 1}`, contact.usdg_id);
+      //   formData.append(`contactno${index + 1}`, contact.contactno);
+      //   formData.append(`emailid${index + 1}`, contact.emailid);
       // });
 
       this.form.value.contactDetails.forEach((obj: any, index: any) => {
         Object.keys(obj).forEach(key => {
-          formData.append(`array[${index}][${key}]`, obj[key]);
+          formData.append(`contact[${index}][${key}]`, obj[key]);
         });
       });
 
-      // this.form.value.documentDetails.forEach((certificate:any, index:any) => {
-      //   formData.append(`certificateName${index + 1}`, certificate.certificateName);
-      //   formData.append(`certificationDate${index + 1}`, certificate.certificationDate);
-      //   formData.append(`uploadFile${index + 1}`, certificate.uploadFile);
+      this.form.value.documentDetails.forEach((obj:any, index:any) => {
+          formData.append(`certification[${index}]['name']`, obj.name);
+          formData.append(`certification[${index}]['date']`, obj.date);
+          formData.append(`certification[${index}]['attachment']`, obj.attachment != null ? obj.attachment[0] : null);
+          formData.append(`certification[${index}]['count']`, obj.attachment != null ? obj.attachment?.length : 0);
+          formData.append(`certification[${index}]['document']`, obj.attachment != null ? "true" : "false");
+      });
+
+      // this.form.value.documentDetails.forEach((obj: any, index: any) => {
+      //   Object.keys(obj).forEach(key => {
+      //     formData.append(`certification[${index}][${key}]`, obj[key]);
+      //   });
       // });
 
-      this.form.value.documentDetails.forEach((obj: any, index: any) => {
-        Object.keys(obj).forEach(key => {
-          formData.append(`array[${index}][${key}]`, obj[key]);
-        });
-      });
-
-      // let apiLink = '/supplier/api/v1/addSupplier';
-      let apiLink = '';
+      let apiLink = '/supplier/api/v1/addSupplier';
+      // let apiLink = '';
       this.apiService.postDataFD(apiLink, formData).subscribe(res => {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.getDataList();
         this.isSubmitted = false;
         if (response.status == 200) {
-          this.form.reset();
+          // this.form.reset();
           this.alertService.success(response.message);
         } else {
           this.alertService.warning(response.message);

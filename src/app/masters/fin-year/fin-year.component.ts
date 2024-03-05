@@ -18,7 +18,7 @@ export class FinYearComponent {
   isSubmitted: boolean = false;
 
   designCount: any;
-  designData: any;
+  designData: any = [];
   financialData: any;
   finCount: any;
   
@@ -45,7 +45,7 @@ export class FinYearComponent {
   finYearData() {
     this.isNotFound = true;
     this.masterService.getFinData().subscribe((res:any) => {
-      console.log(res);
+      
       
       this.isNotFound = false;
       if (res.status == 200) {
@@ -71,7 +71,7 @@ export class FinYearComponent {
         end_date: this.form.value.end_date,
       };
       this.apiService.createMasterFinYear( params).subscribe((res:any) => {
-        console.log(res);
+        
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;

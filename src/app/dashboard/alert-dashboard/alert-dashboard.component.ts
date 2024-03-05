@@ -70,7 +70,7 @@ export class AlertDashboardComponent {
   
   ];
   onSelect(event:any) {
-  console.log(event);
+  
   }
   
   single = [

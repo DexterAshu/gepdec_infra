@@ -64,8 +64,6 @@ export class ProcurementComponent {
     //   this.meterData = [];
     //   if (res.status === true) {
     //     this.meterData = res.data;
-    //     console.log(this.meterData);
-        
     //   } else {
     //     this.alertService.warning("Looks like no data available!");
     //   }

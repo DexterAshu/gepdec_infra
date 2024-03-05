@@ -59,7 +59,7 @@ export class DesignDashboardComponent {
   stateData: any;
   countryData: any;
   onSelect(event:any) {
-  console.log(event);
+  
   }
 
   pieDataDesign=[

@@ -1197,7 +1197,7 @@ export class DashboardComponent implements OnInit {
   finYearData() {
     this.isNotFound = true;
     this.masterService.getFinData().subscribe((res:any) => {
-      console.log(res);
+      
       
       this.isNotFound = false;
       if (res.status == 200) {
@@ -1240,10 +1240,6 @@ export class DashboardComponent implements OnInit {
   //   console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   // }
 
-
-
-  
-  
   getSegmentData() {
   this.segmentData = [];
 

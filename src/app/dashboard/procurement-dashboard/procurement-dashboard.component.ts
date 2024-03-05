@@ -77,7 +77,7 @@ financial = [
 stateData: any;
 countryData: any;
 onSelect(event:any) {
-console.log(event);
+
 }
 
 targetlineChart = [

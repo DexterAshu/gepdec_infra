@@ -83,7 +83,6 @@ export class ItemMasterComponent {
   }
 
   onSubmit() {
-    debugger
     if (this.form.valid) {
       this.isSubmitted = true;
       let data = {

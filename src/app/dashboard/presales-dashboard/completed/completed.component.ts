@@ -16,7 +16,7 @@ export class CompletedComponent {
   p: number = 1;
   searchText:any;
   limit = environment.pageLimit;
-  stateData: any ;
+  stateData: any = [];
   isNotFound:boolean = false;
   countryData: any;
   isSubmitted: boolean = false;
@@ -106,7 +106,7 @@ Gantt: any;
   //       state_name: this.form.value.state_name,
   //     };
   //     this.apiService.createMasterState( params).subscribe((res:any) => {
-  //       console.log(res);
+  
   //       let response: any = res;
   //       document.getElementById('cancel')?.click();
   //       this.isSubmitted = false;
@@ -133,7 +133,7 @@ Gantt: any;
         this.projectDetails1 = res.data[0].tsak;
        
         
-        console.log(this.projectDetails1);
+        
         
         // this.taskDetails = res.tasks;
         gantt.config.date_format = "%d-%m-%Y %H:%i";

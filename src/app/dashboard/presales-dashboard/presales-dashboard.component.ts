@@ -61,7 +61,7 @@ export class PresalesDashboardComponent {
   stateData: any;
   
   onSelect(event:any) {
-  console.log(event);
+  
   }
   
   single = [

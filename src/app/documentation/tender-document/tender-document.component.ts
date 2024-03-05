@@ -60,7 +60,7 @@ export class TenderDocumentComponent {
 
   
   getData() {
-    // debugger
+    
     // let data = this.documentForm.value.document_id;
     // console.log(data);
     this.apiService.getDocType().subscribe((res: any) => {
@@ -74,7 +74,7 @@ export class TenderDocumentComponent {
     });
     
     this.apiService.getDocListData().subscribe((res:any) => {
-      console.log(res);
+      
       
       if (res.status === 200) {
         this.docListData = res.result;
