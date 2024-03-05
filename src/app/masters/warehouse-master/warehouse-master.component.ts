@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertService, ApiService, MasterService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-warehouse-master',
@@ -102,10 +103,11 @@ export class WarehouseMasterComponent {
     this.masterService.createWarehouse(match).subscribe((res:any) => {
       if (res.status === 200) {
         this.isSubmitted = false;
-        this.wareHouseData = res.result;
+        this.getData();
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
+      document.getElementById('cancel')?.click();
     }),
     (error: any) => {
       this.isSubmitted = false;
@@ -118,10 +120,11 @@ export class WarehouseMasterComponent {
     this.masterService.updateWarehouse(match).subscribe((res:any) => {
       if (res.status === 200) {
         this.isSubmitted = false;
-        this.wareHouseData = res.result;
+        this.getData();
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
+      document.getElementById('cancel')?.click();
     }),
     (error: any) => {
       this.isSubmitted = false;
@@ -162,5 +165,10 @@ export class WarehouseMasterComponent {
         this.createData(this.form.value);
       }
     }
+  }
+
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
+    XLSX.writeFile(wb, "warehouse.xlsx");
   }
 }
