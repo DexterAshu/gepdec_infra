@@ -40,7 +40,7 @@
                                 <th>Date of Incorporation</th>
                                 <th>Pincode</th>
                                 <th>Address</th>
-                                <th>Created On</th>
+                                <!-- <th>Created On</th> -->
                                 <!-- <th>Action</th> -->
                             </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                 <td>{{ a.doi }}</td>
                                 <td>{{ a.pincode }}</td>
                                 <td>{{ a.address }}</td>
-                                <td>{{ a?.created }}</td>
+                                <!-- <td>{{ a?.created }}</td> -->
                                 <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
                                 </td> -->
@@ -151,7 +151,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">GST Date<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">GST Reg Date<span class="required-asterisk">*</span></label>
                                                 <input formControlName="gstDate" type="date" class="form-control form-control-sm" [max]="currentDate | date: 'yyyy-MM-dd'">
                                                 <div *ngIf="f['gstDate'].touched && f['gstDate'].invalid">
                                                     <small class="text-danger" *ngIf="f['gstDate'].errors?.['required']">*Required</small>
@@ -441,7 +441,11 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Certificate Name</label>
-                                                    <input formControlName="name" type="text" class="form-control form-control-sm">
+                                                    <!-- <input formControlName="name" type="text" class="form-control form-control-sm"> -->
+                                                    <select formControlName="name" class="form-select form-select-sm">
+                                                        <option [selected]="true" [disabled]="true" [value]="null">Select Certification</option>
+                                                        <option *ngFor="let t of dataDropdownList.certification" [value]="t.mstcertification_id">{{ t.certification_name }}</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -467,9 +471,9 @@
                             </div>
                         </ng-container>
                         <div class="modal-btns mt-3">
-                            <!-- <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Add</button> -->
-                            <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm mr-2">Add</button>
-                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                            <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
+                            <!-- <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm mr-2">Add</button> -->
+                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
                             <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>

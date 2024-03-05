@@ -4,11 +4,12 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-item-master',
-  templateUrl: './item-master.component.html',
-  styleUrls: ['./item-master.component.css']
+  selector: 'app-eco-terms-delivery',
+  templateUrl: './eco-terms-delivery.component.html',
+  styleUrls: ['./eco-terms-delivery.component.css']
 })
-export class ItemMasterComponent {
+export class EcoTermsDeliveryComponent {
+
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -17,7 +18,7 @@ export class ItemMasterComponent {
   isNotFound:boolean = false;
   dataList: any;
   dataDropdownList: any;
- 
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -25,49 +26,46 @@ export class ItemMasterComponent {
     private apiService: ApiService,
   ) { }
 
- ngOnInit(){
+  ngOnInit(){
     this.form = this.formBuilder.group({
-      itemCode: [null, Validators.required],
-      itemName: [null, Validators.required],
-      itemType: [null, Validators.required],
-      itemUOM: [null, Validators.required],
-      procurementUOM: [null, Validators.required],
-      itemClass: [null, Validators.required],
-      itemTolerance: [null, Validators.required],
-      itemProperty: [null, Validators.required],
-      itemCategory: [null, Validators.required],
+      vendor: [null, Validators.required],
+      item: [null, Validators.required],
+      advanceMoney: [null, Validators.required],
+      transportationCharges: [null, Validators.required],
+      delivery: [null, Validators.required],
     });
 
     this.getDataList();
-    this.getDropdownList()
-  } 
+    // this.getDropdownList()
+  }
 
   get f() { return this.form.controls; }
 
-  getDropdownList() {
-    this.dataDropdownList = [];
-    this.isNotFound = false;
-    let apiLink = "/item/api/v1/getItemDropdown";
-    this.apiService.getData(apiLink).subscribe((res:any) => {
-      if (res.status === 200) {
-        this.isNotFound = false;
-        this.dataDropdownList = res;
-      } else {
-        this.isNotFound = true;
-        this.dataDropdownList = undefined;
-        this.alertService.warning("Looks like no data available!");
-      }
-    }, error => {
-      this.isNotFound = true;
-      this.dataDropdownList = undefined;
-      this.alertService.error("Error: " + error.statusText)
-    });
-  }
-  
+  // getDropdownList() {
+  //   this.dataDropdownList = [];
+  //   this.isNotFound = false;
+  //   let apiLink = "/item/api/v1/getItemDropdown";
+  //   this.apiService.getData(apiLink).subscribe((res:any) => {
+  //     if (res.status === 200) {
+  //       this.isNotFound = false;
+  //       this.dataDropdownList = res;
+  //     } else {
+  //       this.isNotFound = true;
+  //       this.dataDropdownList = undefined;
+  //       this.alertService.warning("Looks like no data available!");
+  //     }
+  //   }, error => {
+  //     this.isNotFound = true;
+  //     this.dataDropdownList = undefined;
+  //     this.alertService.error("Error: " + error.statusText)
+  //   });
+  // }
+
   getDataList() {
     this.dataList = [];
     this.isNotFound = false;
-    let apiLink = "/item/api/v1/getItemList";
+    // let apiLink = "/item/api/v1/getItemList";
+    let apiLink = "";
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.isNotFound = false;
@@ -80,7 +78,7 @@ export class ItemMasterComponent {
     }, error => {
       this.isNotFound = true;
       this.dataList = undefined;
-      this.alertService.error("Error: " + error.statusText)
+      // this.alertService.error("Error: " + error.statusText)
     });
   }
 
@@ -88,16 +86,15 @@ export class ItemMasterComponent {
     if (this.form.valid) {
       this.isSubmitted = true;
       let data = {
-        itemcode: this.form.value.itemCode.toUpperCase(),
-        itemname: this.form.value.itemName,
-        itemtype_id: this.form.value.itemType,
-        unit_id: this.form.value.itemUOM,
-        precurementuom_id: this.form.value.procurementUOM,
-        itemproperty_id: this.form.value.itemProperty,
-        itemcategory_id: this.form.value.itemCategory
+        // basePrice: this.form.value.basePrice,
+        // gst: this.form.value.gst,
+        // freightRate: this.form.value.freightRate,
+        // packingCharges: this.form.value.packingCharges,
+        // otherCharges: this.form.value.otherCharges,
       } 
 
-      let apiLink = '/Item/api/v1/addItem';
+      // let apiLink = '/Item/api/v1/addItem';
+      let apiLink = '';
       this.apiService.postData(apiLink, data).subscribe(res => {
         let response: any = res;
         document.getElementById('cancel')?.click();
@@ -112,7 +109,7 @@ export class ItemMasterComponent {
       }, (error) => {
           this.isSubmitted = false;
           document.getElementById('cancel')?.click();
-          this.alertService.error("Error: " + error.statusText);
+          // this.alertService.error("Error: " + error.statusText);
         })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");

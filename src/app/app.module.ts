@@ -132,6 +132,8 @@ import { ItemsMasterComponent } from './masters/items-master/items-master.compon
 import { WarehouseLocationMasterComponent } from './masters/warehouse-location-master/warehouse-location-master.component';
 import { WarehouseMasterComponent } from './masters/warehouse-master/warehouse-master.component';
 import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
+import { PriceStructureComponent } from './masters/procurement/price-structure/price-structure.component';
+import { EcoTermsDeliveryComponent } from './masters/procurement/eco-terms-delivery/eco-terms-delivery.component';
 
 @NgModule({
   declarations: [
@@ -208,7 +210,7 @@ import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
-    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent
+    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, PriceStructureComponent, EcoTermsDeliveryComponent
   ],
 
   imports: [
