@@ -96,7 +96,7 @@
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="card">
                             <div class="card-header card-primary">
-                                Vendor Detail
+                                Vendor Details
                             </div>
                             <div class="card-body">
                                 <div class="container-fluid">
@@ -289,7 +289,7 @@
                         <ng-container formArrayName="bankDetails">
                             <div class="card mt-2">
                                 <div class="card-header card-primary">
-                                    Vendor Bank Detail
+                                    Vendor Bank Details
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
@@ -297,61 +297,61 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">Bank Name<span class="required-asterisk">*</span></label>
-                                                    <!-- <input formControlName="bankName" type="text" class="form-control form-control-sm"> -->
-                                                    <select formControlName="bankName" class="form-select form-select-sm">
+                                                    <!-- <input formControlName="bank_id" type="text" class="form-control form-control-sm"> -->
+                                                    <select formControlName="bank_id" class="form-select form-select-sm">
                                                         <option [selected]="true" [disabled]="true" [value]="null">Select Bank Name</option>
                                                         <option *ngFor="let t of dataDropdownList.bank" [value]="t.bank_id">{{ t.bankname }}</option>
                                                     </select>
-                                                    <!-- <div *ngIf="f['bankName'].touched && f['bankName'].invalid">
-                                                        <small class="text-danger" *ngIf="f['bankName'].errors?.['required']">*Required</small>
+                                                    <!-- <div *ngIf="f['bank_id'].touched && f['bank_id'].invalid">
+                                                        <small class="text-danger" *ngIf="f['bank_id'].errors?.['required']">*Required</small>
                                                     </div> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">Account Holder Name<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="holderName" type="text" class="form-control form-control-sm" appWordCapitalize appAlphaWithSpace>
-                                                    <!-- <div *ngIf="f['holderName'].touched && f['holderName'].invalid">
-                                                        <small class="text-danger" *ngIf="f['holderName'].errors?.['required']">*Required</small>
+                                                    <input formControlName="account_holder_name" type="text" class="form-control form-control-sm" appWordCapitalize appAlphaWithSpace>
+                                                    <!-- <div *ngIf="f['account_holder_name'].touched && f['account_holder_name'].invalid">
+                                                        <small class="text-danger" *ngIf="f['account_holder_name'].errors?.['required']">*Required</small>
                                                     </div> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">Account No<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="accountNo" type="text" class="form-control form-control-sm" appNumberOnly appNoSpace>
-                                                    <!-- <div *ngIf="f['accountNo'].touched && f['accountNo'].invalid">
-                                                        <small class="text-danger" *ngIf="f['accountNo'].errors?.['required']">*Required</small>
+                                                    <input formControlName="bankaccountno" type="text" class="form-control form-control-sm" appNumberOnly appNoSpace>
+                                                    <!-- <div *ngIf="f['bankaccountno'].touched && f['bankaccountno'].invalid">
+                                                        <small class="text-danger" *ngIf="f['bankaccountno'].errors?.['required']">*Required</small>
                                                     </div> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">Branch Name<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="branchName" type="text" class="form-control form-control-sm" appWordCapitalize>
-                                                    <!-- <div *ngIf="f['branchName'].touched && f['branchName'].invalid">
-                                                        <small class="text-danger" *ngIf="f['branchName'].errors?.['required']">*Required</small>
+                                                    <input formControlName="branch_name" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                                    <!-- <div *ngIf="f['branch_name'].touched && f['branch_name'].invalid">
+                                                        <small class="text-danger" *ngIf="f['branch_name'].errors?.['required']">*Required</small>
                                                     </div> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">IFSC Code<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="ifscCode" type="text" class="form-control form-control-sm" appAlphaNumeric appNoSpace appUpperCase>
-                                                    <!-- <div *ngIf="f['ifscCode'].touched && f['ifscCode'].invalid">
-                                                        <small class="text-danger" *ngIf="f['ifscCode'].errors?.['required']">*Required</small>
+                                                    <input formControlName="bankifsc" type="text" class="form-control form-control-sm" appAlphaNumeric appNoSpace appUpperCase>
+                                                    <!-- <div *ngIf="f['bankifsc'].touched && f['bankifsc'].invalid">
+                                                        <small class="text-danger" *ngIf="f['bankifsc'].errors?.['required']">*Required</small>
                                                     </div> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">Acount Type<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="accountType" class="form-select form-select-sm">
+                                                    <select formControlName="accounttype_id" class="form-select form-select-sm">
                                                         <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
                                                         <option *ngFor="let t of dataDropdownList.accounttype" [value]="t.accounttype_id">{{ t.accounttype }}</option>
                                                     </select>
-                                                    <!-- <div *ngIf="f['accountType'].touched && f['accountType'].invalid">
-                                                        <small class="text-danger" *ngIf="f['accountType'].errors?.['required']">*Required</small>
+                                                    <!-- <div *ngIf="f['accounttype_id'].touched && f['accounttype_id'].invalid">
+                                                        <small class="text-danger" *ngIf="f['accounttype_id'].errors?.['required']">*Required</small>
                                                     </div> -->
                                                 </div>
                                             </div>
@@ -359,9 +359,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Bank Address<span class="required-asterisk">*</span></label>
                                                     <div class="d-flex">
-                                                        <input formControlName="bankAddress" type="text" class="form-control form-control-sm">
-                                                        <!-- <div *ngIf="f['bankAddress'].touched && f['bankAddress'].invalid">
-                                                            <small class="text-danger" *ngIf="f['bankAddress'].errors?.['required']">*Required</small>
+                                                        <input formControlName="bank_address" type="text" class="form-control form-control-sm">
+                                                        <!-- <div *ngIf="f['bank_address'].touched && f['bank_address'].invalid">
+                                                            <small class="text-danger" *ngIf="f['bank_address'].errors?.['required']">*Required</small>
                                                         </div> -->
                                                         <button *ngIf="i > 0" type="button" (click)="removeRow(i, 'bankDetails')" class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span class="mdi mdi-close"></span></button>
                                                     </div>
@@ -376,7 +376,7 @@
                         <ng-container formArrayName="contactDetails">
                             <div class="card mt-2">
                                 <div class="card-header card-primary">
-                                    Vendor Contact Detail
+                                    Vendor Contact Details
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
@@ -384,27 +384,30 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Contact Person Name<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="contactPersonName" type="text" class="form-control form-control-sm" appWordCapitalize appAlphaWithSpace>
-                                                    <!-- <div *ngIf="f['contactPersonName'].touched && f['contactPersonName'].invalid">
-                                                        <small class="text-danger" *ngIf="f['contactPersonName'].errors?.['required']">*Required</small>
+                                                    <input formControlName="contactperson" type="text" class="form-control form-control-sm" appWordCapitalize appAlphaWithSpace>
+                                                    <!-- <div *ngIf="f['contactperson'].touched && f['contactperson'].invalid">
+                                                        <small class="text-danger" *ngIf="f['contactperson'].errors?.['required']">*Required</small>
                                                     </div> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Designation<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="designation" type="text" class="form-control form-control-sm" appWordCapitalize>
-                                                    <!-- <div *ngIf="f['designation'].touched && f['designation'].invalid">
-                                                        <small class="text-danger" *ngIf="f['designation'].errors?.['required']">*Required</small>
+                                                    <select formControlName="usdg_id" class="form-select form-select-sm">
+                                                        <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
+                                                        <option *ngFor="let t of dataDropdownList.designation" [value]="t.usdg_id">{{ t.designationname }}</option>
+                                                    </select>
+                                                    <!-- <div *ngIf="f['usdg_id'].touched && f['usdg_id'].invalid">
+                                                        <small class="text-danger" *ngIf="f['usdg_id'].errors?.['required']">*Required</small>
                                                     </div> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Contact No<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="contactNo" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
-                                                    <!-- <div *ngIf="f['contactNo'].touched && f['contactNo'].invalid">
-                                                        <small class="text-danger" *ngIf="f['contactNo'].errors?.['required']">*Required</small>
+                                                    <input formControlName="contactno" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                                    <!-- <div *ngIf="f['contactno'].touched && f['contactno'].invalid">
+                                                        <small class="text-danger" *ngIf="f['contactno'].errors?.['required']">*Required</small>
                                                     </div> -->
                                                 </div>
                                             </div>
@@ -412,9 +415,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
                                                     <div class="d-flex">
-                                                        <input formControlName="emailID" type="text" class="form-control form-control-sm">
-                                                        <!-- <div *ngIf="f['emailID'].touched && f['emailID'].invalid">
-                                                            <small class="text-danger" *ngIf="f['emailID'].errors?.['required']">*Required</small>
+                                                        <input formControlName="emailid" type="text" class="form-control form-control-sm">
+                                                        <!-- <div *ngIf="f['emailid'].touched && f['emailid'].invalid">
+                                                            <small class="text-danger" *ngIf="f['emailid'].errors?.['required']">*Required</small>
                                                         </div> -->
                                                         <button *ngIf="i > 0" type="button" (click)="removeRow(i, 'contactDetails')" class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span class="mdi mdi-close"></span></button>
                                                     </div>
@@ -430,21 +433,21 @@
                         <ng-container formArrayName="documentDetails">
                             <div class="card mt-2">
                                 <div class="card-header card-primary">
-                                    Vendor Certification
+                                    Vendor Certifications
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
                                         <div class="row" *ngFor="let quantity of document().controls; let i=index" [formGroupName]="i">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Certificate Name<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="certificateName" type="text" class="form-control form-control-sm">
+                                                    <label class="form-label">Certificate Name</label>
+                                                    <input formControlName="name" type="text" class="form-control form-control-sm">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Certification Date<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="certificationDate" type="date" class="form-control form-control-sm">
+                                                    <label class="form-label">Certification Date</label>
+                                                    <input formControlName="date" type="date" class="form-control form-control-sm">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -464,7 +467,8 @@
                             </div>
                         </ng-container>
                         <div class="modal-btns mt-3">
-                            <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Add</button>
+                            <!-- <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Add</button> -->
+                            <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm mr-2">Add</button>
                             <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
                             <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -499,40 +503,40 @@
                                             <td>{{ rowData?.suppliercode }}</td>
                                             <th>Vendor Name</th>
                                             <td>{{ rowData?.suppliername }}</td>
-                                            <th>Company Name</th>
-                                            <td>{{ rowData?.company_name }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Company Category</th>
                                             <td>{{ rowData?.category }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>GST No</th>
                                             <td>{{ rowData?.gstno }}</td>
                                             <th>GST Date</th>
                                             <td>{{ rowData?.gstdate }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>PAN No</th>
                                             <td>{{ rowData?.panno }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>TAN No</th>
                                             <td>{{ rowData?.tanno }}</td>
                                             <th>DOI</th>
                                             <td>{{ rowData?.doi }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Contact</th>
                                             <td>{{ rowData?.contact[0]?.contactno }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Email ID</th>
                                             <td>{{ rowData?.contact[0]?.emailid }}</td>
                                             <th>Address</th>
                                             <td>{{ rowData?.address }}</td>
+                                            <th>City</th>
+                                            <td>{{ rowData?.city_name }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Country</th>
-                                            <td>{{ rowData?.name }}</td>
-                                            <th>State</th>
-                                            <td>{{ rowData?.state_name }}</td>
                                             <th>District</th>
                                             <td>{{ rowData?.district_name }}</td>
+                                            <th>State</th>
+                                            <td>{{ rowData?.state_name }}</td>
+                                            <th>Country</th>
+                                            <td>{{ rowData?.name }}</td>
                                         </tr>
                                         <tr>
                                             <th>Pincode</th>
