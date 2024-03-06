@@ -35,6 +35,8 @@ import { WarehouseLocationMasterComponent } from './warehouse-location-master/wa
 import { WarehouseMasterComponent } from './warehouse-master/warehouse-master.component';
 import { PriceStructureComponent } from './procurement/price-structure/price-structure.component';
 import { EcoTermsDeliveryComponent } from './procurement/eco-terms-delivery/eco-terms-delivery.component';
+import { BillingAddressComponent } from './procurement/billing-address/billing-address.component';
+import { ShippingAddressComponent } from './procurement/shipping-address/shipping-address.component';
 // import { FilterPipe } from '../_pipes/filter.pipe';
 
 const routes: Routes = [
@@ -48,6 +50,8 @@ const routes: Routes = [
   { path: 'procurement/vendor-item-linking', component: SupplierItemLinkComponent },
   { path: 'procurement/price-structure', component: PriceStructureComponent },
   { path: 'procurement/eco-terms-delivery', component: EcoTermsDeliveryComponent },
+  { path: 'procurement/billing-address', component: BillingAddressComponent },
+  { path: 'procurement/shipping-address', component: ShippingAddressComponent },
 
   { path: 'employee', component: EmployeeMasterComponent },
   { path: 'department', component: DepartmentMasterComponent },
