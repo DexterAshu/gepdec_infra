@@ -1,0 +1,171 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Price Structure</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                        </div>
+                        <div class="col-lg-8">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
+                        </div>
+                    </div>
+                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Vendor</th>
+                                <th>Item</th>
+                                <th>Base Price</th>
+                                <th>GST</th>
+                                <th>Freight Rate</th>
+                                <th>Packing and Forwarding Charges</th>
+                                <th>Other Charges</th>
+                                <!-- <th>Action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td colspan="15"></td>
+                                <!-- <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
+                                </td> -->
+                            </tr>
+                            <tr *ngIf="dataList?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Price Structure</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Vendor<span class="required-asterisk">*</span></label>
+                                    <!-- <input formControlName="vendor" type="text" class="form-control form-control-sm"> -->
+                                    <select formControlName="vendor" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Vendor</option>
+                                        <option>Demo Vendor</option>
+                                        <!-- <option *ngFor="let t of dataDropdownList.itemproperty" [value]="t.itemproperty_id">{{ t.itemproperty }}</option> -->
+                                    </select>
+                                    <div *ngIf="f['vendor'].touched && f['vendor'].invalid">
+                                        <small class="text-danger" *ngIf="f['vendor'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Item<span class="required-asterisk">*</span></label>
+                                    <!-- <input formControlName="item" type="text" class="form-control form-control-sm"> -->
+                                    <select formControlName="item" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Item</option>
+                                        <option>Demo Item</option>
+                                        <!-- <option *ngFor="let t of dataDropdownList.itemproperty" [value]="t.itemproperty_id">{{ t.itemproperty }}</option> -->
+                                    </select>
+                                    <div *ngIf="f['item'].touched && f['item'].invalid">
+                                        <small class="text-danger" *ngIf="f['item'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Base Price<span class="required-asterisk">*</span></label>
+                                    <input formControlName="basePrice" type="text" class="form-control form-control-sm">
+                                    <div *ngIf="f['basePrice'].touched && f['basePrice'].invalid">
+                                        <small class="text-danger" *ngIf="f['basePrice'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">GST<span class="required-asterisk">*</span></label>
+                                    <input formControlName="gst" type="text" class="form-control form-control-sm">
+                                    <div *ngIf="f['gst'].touched && f['gst'].invalid">
+                                        <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Freight Rate<span class="required-asterisk">*</span></label>
+                                    <input formControlName="freightRate" type="text" class="form-control form-control-sm">
+                                    <div *ngIf="f['freightRate'].touched && f['freightRate'].invalid">
+                                        <small class="text-danger" *ngIf="f['freightRate'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Packing and Forwarding Charges<span class="required-asterisk">*</span></label>
+                                    <input formControlName="packingCharges" type="text" class="form-control form-control-sm">
+                                    <div *ngIf="f['packingCharges'].touched && f['packingCharges'].invalid">
+                                        <small class="text-danger" *ngIf="f['packingCharges'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Other Charges<span class="required-asterisk">*</span></label>
+                                    <input formControlName="otherCharges" type="text" class="form-control form-control-sm">
+                                    <div *ngIf="f['otherCharges'].touched && f['otherCharges'].invalid">
+                                        <small class="text-danger" *ngIf="f['otherCharges'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-btns">
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->
