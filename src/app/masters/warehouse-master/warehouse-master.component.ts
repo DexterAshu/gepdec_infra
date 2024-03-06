@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AlertService, ApiService, MasterService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
@@ -25,27 +25,70 @@ export class WarehouseMasterComponent {
   districtData: any = [];
   stateData: any = [];
   isSubmitted: boolean = false;
+  cityData: any = [];
+  dataDropdownList: any = [];
 
   constructor( private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) { }
 
   ngOnInit(): void {
     this.getData();
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
     this.form = this.formBuilder.group({
-      warehouse_code: [null, Validators.required],
       warehouse_name: [null, Validators.required],
-      contact_name: [null, Validators.required],
-      contactno1: [null, Validators.required],
-      contactno2: [null, Validators.required],
-      email: [null, Validators.required],
       pincode: [null, Validators.required],
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
+      city_id: [null, Validators.required],
       address1: [null, Validators.required],
-      address2: [null, Validators.required],
-      warehouse_id: [null, Validators.required],
+      address2: [null],
+      contacts: this.formBuilder.array([]),
+      warehouse_id: [null],
       warehousecontact_id: [null],
       warehouseaddress_id: [null]
+    });
+    this.addContact();
+  }
+
+  contact() : FormArray {
+    return this.form.get("contacts") as FormArray
+  }
+
+  addContact(): void {
+    const contacts = this.form.get('contacts') as FormArray;
+    contacts.push(this.createContact());
+  }
+
+  createContact(): FormGroup {
+    return this.formBuilder.group({
+      contact_name: [null, Validators.required],
+      contactno1: [null, Validators.required],
+      contactno2: [null],
+      email: [null, [Validators.required, Validators.email]]
+    });
+  }
+
+  removeContact(index: number): void {
+    const contactsArray = this.form.get('contacts') as FormArray;
+    contactsArray.removeAt(index);
+  }
+
+  getDropdownList() {
+    this.dataDropdownList = [];
+    let apiLink = "/supplier/api/v1/getSupplierDropdown";
+    this.apiService.getData(apiLink).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.dataDropdownList = res;
+      } else {
+        this.dataDropdownList = [];
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.dataDropdownList = [];
+      this.alertService.error("Error: " + error.statusText)
     });
   }
 
@@ -54,6 +97,7 @@ export class WarehouseMasterComponent {
       if (res.status === 200) {
         this.wareHouseData = res.result;
         this.getCountryData();
+        this.getDropdownList();
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
@@ -61,6 +105,18 @@ export class WarehouseMasterComponent {
     (error: any) => {
       this.alertService.warning(`Some technical issue: ${error.message}`);
     }
+  }
+
+  getCityData() {
+    this.cityData = [];
+    let dist = this.form.value.district_id;
+    this.apiService.getCityData(dist).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.cityData = res.result;
+      } else {
+        this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
+      }
+    });
   }
 
   getDistrictData() {
