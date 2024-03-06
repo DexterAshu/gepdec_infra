@@ -132,6 +132,13 @@ import { ItemsMasterComponent } from './masters/items-master/items-master.compon
 import { WarehouseLocationMasterComponent } from './masters/warehouse-location-master/warehouse-location-master.component';
 import { WarehouseMasterComponent } from './masters/warehouse-master/warehouse-master.component';
 import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
+import { AmendmentsComponent } from './documentation/tender-document/amendments/amendments.component';
+import { InitialBoqComponent } from './documentation/tender-document/initial-boq/initial-boq.component';
+import { L1ScheduleComponent } from './documentation/tender-document/l1-schedule/l1-schedule.component';
+import { QualificationDocumentComponent } from './documentation/qualification-document/qualification-document.component';
+import { FinDocumentsComponent } from './documentation/qualification-document/fin-documents/fin-documents.component';
+import { TechDocumentsComponent } from './documentation/qualification-document/tech-documents/tech-documents.component';
+import { OtherDocumentsComponent } from './documentation/qualification-document/other-documents/other-documents.component';
 
 @NgModule({
   declarations: [
@@ -208,7 +215,7 @@ import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
-    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent
+    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent
   ],
 
   imports: [

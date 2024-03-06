@@ -249,15 +249,48 @@
 
           <li class="nav-item"> <a class="nav-link" routerLink="documentation/tend-doc">
               <i class="mdi mdi-format-line-style menu-icon"></i>
-              <span class="menu-title">Tender</span>
+              <span class="menu-title">Tender Document</span>
             </a></li>
+
+            <li class="nav-item">
+              <div class="" routerLink="/documentation/qualification-doc">
+                <a class="nav-link" data-toggle="collapse" href="#Qualification-doc" aria-expanded="false" aria-controls="Biding">
+                  <i class="mdi mdi-creation menu-icon"></i>
+                  <span class="menu-title">Qualification Docs</span>
+                  <i class="menu-arrow"></i>
+                </a>
+  
+              </div>
+              <div class="collapse" id="Qualification-doc">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link"
+                      routerLink="documentation/qualification-doc/fin">
+                      <i class="mdi mdi-foursquare menu-icon"></i>
+                      <span class="menu-title">Financial</span>
+                    </a>
+                  </li>
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link"
+                      routerLink="documentation/qualification-doc/tech">
+                      <i class="mdi mdi-format-list-checks menu-icon"></i>
+                      <span class="menu-title">Technical</span>
+                    </a>
+                  </li>
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="documentation/qualification-doc/others">
+                      <i class="mdi mdi-nfc-tap menu-icon"></i>
+                      <span class="menu-title">Others</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
           <li class="nav-item"> <a class="nav-link" routerLink="documentation/bg-doc">
               <i class="mdi mdi-ferry menu-icon"></i>
-              <span class="menu-title">BG</span>
+              <span class="menu-title">Bank Guarantee</span>
             </a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="documentation/lc-doc">
               <i class="mdi mdi-file-document-box menu-icon"></i>
-              <span class="menu-title">LC</span>
+              <span class="menu-title">Letter of Credit</span>
             </a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="documentation/comm-doc">
               <i class="mdi mdi-file-multiple menu-icon"></i>

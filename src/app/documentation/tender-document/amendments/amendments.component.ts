@@ -4,11 +4,11 @@ import { environment } from 'src/environments/environment';
 import { ApiService, AlertService } from 'src/app/_services';
 
 @Component({
-  selector: 'app-tender-document',
-  templateUrl: './tender-document.component.html',
-  styleUrls: ['./tender-document.component.css']
+  selector: 'app-amendments',
+  templateUrl: './amendments.component.html',
+  styleUrls: ['./amendments.component.css']
 })
-export class TenderDocumentComponent {
+export class AmendmentsComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
   isSubmitted = false;
@@ -32,20 +32,11 @@ export class TenderDocumentComponent {
   ) {}
 
   ngOnInit() {
-    this.documentForm = this.formBuilder.group({
-      tender_submission_date: ['',Validators.required],
-      // prebid_meeting_mode: ['',Validators.required],
-      // prebid_date: ['',Validators.required],
-      prebid_submission_date: ['',Validators.required],
+    this.documentForm = this.formBuilder.group({ 
       publish_date: ['',Validators.required],
-      tender_location: ['',Validators.required],
-      bidtype: ['',Validators.required],
       tender_ref_no: ['',Validators.required],
       tender_title: ['',Validators.required],
-      completion_period: ['',Validators.required],
-      ecv: ['',Validators.required],
       utility: ['',Validators.required],
-      bid_validity: ['',Validators.required],
       attachment: ['', Validators.required],
       description: [''],
      
@@ -124,18 +115,8 @@ export class TenderDocumentComponent {
    
     formData.append('tender_title', this.documentForm.value.tender_title);
     formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
-    formData.append('bidtype', this.documentForm.value.bidtype);
-    formData.append('tender_location', this.documentForm.value.tender_location);
     formData.append('publish_date', this.documentForm.value.publish_date);
-    formData.append('prebid_submission_date', this.documentForm.value.prebid_submission_date);
-    // formData.append('prebid_date', this.documentForm.value.prebid_date);
-    // formData.append('prebid_meeting_mode', this.documentForm.value.prebid_meeting_mode);
-    // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
-    formData.append('tender_submission_date', this.documentForm.value.tender_submission_date);
-    formData.append('completion_period', this.documentForm.value.completion_period);
-    formData.append('ecv', this.documentForm.value.ecv);
     formData.append('utility', this.documentForm.value.utility);
-    formData.append('bid_validity', this.documentForm.value.bid_validity);
     formData.append('description', this.documentForm.value.description);
     this.addDocument(formData);
   }
@@ -154,4 +135,5 @@ export class TenderDocumentComponent {
     });
   }
 }
+
 

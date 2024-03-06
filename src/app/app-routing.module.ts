@@ -66,6 +66,16 @@ import { ProblemTicketComponent } from './problem-ticket/problem-ticket.componen
 import { HelpSupportComponent } from './help-support/help-support.component';
 import { DocumentationComponent } from './documentation/documentation.component';
 import { TenderDocumentComponent } from './documentation/tender-document/tender-document.component';
+import { AmendmentsComponent } from './documentation/tender-document/amendments/amendments.component';
+import { InitialBoqComponent } from './documentation/tender-document/initial-boq/initial-boq.component';
+import { L1ScheduleComponent } from './documentation/tender-document/l1-schedule/l1-schedule.component';
+
+import { QualificationDocumentComponent } from './documentation/qualification-document/qualification-document.component';
+import { FinDocumentsComponent } from './documentation/qualification-document/fin-documents/fin-documents.component';
+import { TechDocumentsComponent } from './documentation/qualification-document/tech-documents/tech-documents.component';
+import { OtherDocumentsComponent } from './documentation/qualification-document/other-documents/other-documents.component';
+
+
 import { BgDocumentComponent } from './documentation/bg-document/bg-document.component';
 import { LcDocumentComponent } from './documentation/lc-document/lc-document.component';
 import { CommunicationDocumentComponent } from './documentation/communication-document/communication-document.component';
@@ -92,6 +102,16 @@ const routes: Routes = [
   //Documentation-routing
   {path: 'documentation', component:DocumentationComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc', component:TenderDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/tend-doc/amedments', component:AmendmentsComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/tend-doc/initial-boq', component:InitialBoqComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/tend-doc/l1-schedule', component:L1ScheduleComponent, canActivate:[AuthGuard]},
+  
+  {path: 'documentation/qualification-doc', component:QualificationDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/fin', component:FinDocumentsComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/tech', component:TechDocumentsComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/others', component:OtherDocumentsComponent, canActivate:[AuthGuard]},
+
+  
   {path: 'documentation/bg-doc', component:BgDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/lc-doc', component:LcDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/comm-doc', component:CommunicationDocumentComponent, canActivate:[AuthGuard]},

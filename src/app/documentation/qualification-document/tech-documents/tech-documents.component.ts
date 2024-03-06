@@ -4,11 +4,11 @@ import { environment } from 'src/environments/environment';
 import { ApiService, AlertService } from 'src/app/_services';
 
 @Component({
-  selector: 'app-tender-document',
-  templateUrl: './tender-document.component.html',
-  styleUrls: ['./tender-document.component.css']
+  selector: 'app-tech-documents',
+  templateUrl: './tech-documents.component.html',
+  styleUrls: ['./tech-documents.component.css']
 })
-export class TenderDocumentComponent {
+export class TechDocumentsComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
   isSubmitted = false;
@@ -154,4 +154,5 @@ export class TenderDocumentComponent {
     });
   }
 }
+
 
