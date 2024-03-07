@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService, ApiService, SharedService, MasterService } from 'src/app/_services';
@@ -13,7 +13,6 @@ xrange(Highcharts);
   styleUrls: ['./report-dashboard.component.css']
 })
 export class ReportDashboardComponent {
- 
   shoDataLabel: boolean = true;
   animations: boolean = true;
   fitContainer: boolean = false;
@@ -1145,6 +1144,8 @@ export class ReportDashboardComponent {
   fiveYear: any;
   segmentData: any;
  
+
+  
   constructor(
     private sharedService: SharedService,
     private apiService: ApiService,
@@ -1153,7 +1154,9 @@ export class ReportDashboardComponent {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private masterService: MasterService,
-  ) { }
+  ) {
+   
+   }
   
   ngOnInit(): void {
     this.fiveYear = this.sharedService.lastFiveYears();

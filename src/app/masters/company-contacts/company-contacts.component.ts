@@ -200,13 +200,17 @@ export class CompanyContactsComponent {
     //  this.form.value.action = "add";
     this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
        this.isSubmitted = false;
-      if (res.status == 200) {
-        this.ngOnInit();
-        document.getElementById('cancel')?.click();
-      this.alertService.success('Company Updated Successfully');
-    } else {
-      this.alertService.error('Something went wrong please try again');
+     
+    if (res.status == 200) {
+      this.ngOnInit();
+      document.getElementById('closed')?.click();
+      this.alertService.success(res.message);
+    } else if(res.status == 201) {
+      this.alertService.error(res.message);
+    }else{
+      this.alertService.error('Error, Something went wrong please check');
     }
+
   });
   }
 }

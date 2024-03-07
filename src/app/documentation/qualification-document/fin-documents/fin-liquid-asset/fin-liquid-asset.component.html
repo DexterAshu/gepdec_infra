@@ -4,7 +4,7 @@
           <div class="d-flex justify-content-between flex-wrap">
             <div class="d-flex align-items-end flex-wrap">
               <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Qualification Documents</h4>
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Liquid Asset Documents</h4>
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -29,13 +29,19 @@
                                 <button class="btn btn-light btn-fw btn-sm float-right cursor-pointer">
                                     <span class="mdi mdi-filter-outline"></span> Filter Documents</button>
                                 <ul>
-                                  <li><button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc"> <span class="mdi mdi-file-document" ></span>&nbsp;&nbsp; Tender  </button>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/balance-sheet" class="btn btn-fw btn-sm"> <span class="mdi mdi-file-document" ></span>&nbsp;&nbsp; Balance Sheet </button>
                                   </li>
-                                  <li> <button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc/amedments"><span class="mdi mdi-file-check"></span>&nbsp;&nbsp; Amendment </button>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/maat" class="btn btn-fw btn-sm"><span class="mdi mdi-flower"></span>&nbsp;&nbsp; MAAT </button>
                                   </li>
-                                  <li> <button type="button" routerLink="/documentation/tend-doc/initial-boq" class="btn btn-fw btn-sm"><span class="mdi mdi-file-document"></span>&nbsp;&nbsp; Initial BOQ </button>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/liq-asset" class="btn btn-fw btn-sm"><span class="mdi mdi-chart-donut-variant"></span>&nbsp;&nbsp; Liquid Assets </button>
                                   </li>
-                                  <li> <button type="button" routerLink="/documentation/tend-doc/l1-schedule" class="btn btn-fw btn-sm"><span class="mdi mdi-calendar-clock"></span>&nbsp;&nbsp; L1 Schedule </button>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/bank-certificate" class="btn btn-fw btn-sm"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp; Bank certificate </button>
+                                  </li>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/bg" class="btn btn-fw btn-sm"><span class="mdi mdi-file-document"></span>&nbsp;&nbsp; Bank Guarantee </button>
+                                  </li>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/itr" class="btn btn-fw btn-sm"><span class="mdi mdi-file-send"></span>&nbsp;&nbsp; ITR </button>
+                                  </li>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/tender-fees" class="btn btn-fw btn-sm"><span class="mdi mdi-cannabis"></span>&nbsp;&nbsp; Tender Fees </button>
                                   </li>
                                 </ul>
                               </div>
@@ -45,17 +51,18 @@
                                 Create New</button> 
                         </div>
                     </div>
-                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
                                 <th>Tendering Company</th>
                                 <th>Tender Title</th>
                                 <th>Tender Ref No</th>
-                                <th>Category</th>
-                                <th>Location</th>
-                                <th>Completion Period</th>
-                                <th>Published Date</th>
+                                <th>Cash Balance</th>
+                                <th>Account Balance</th>
+                                <th>FDRs</th>
+                                <th>Other Liquid Assets</th>
+                                <th>Total</th>
                                 <th>Attachments</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
@@ -68,6 +75,7 @@
                                 <td>{{a.documentname}}</td>
                                 <td>{{a.documentname}}</td>
                                 <td>{{a.documentname}}</td>
+                                <td>{{a.documentdate}}</td>
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.documentdate}}</td>
@@ -101,7 +109,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Qualification Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Liquid Asset Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -270,7 +278,7 @@
                           
                         </div>
                         <div class="float-right">
-                            <button type="submit" class="btn btn-info btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
                             <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
 
                         </div>

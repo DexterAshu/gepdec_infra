@@ -141,6 +141,14 @@ import { TechDocumentsComponent } from './documentation/qualification-document/t
 import { OtherDocumentsComponent } from './documentation/qualification-document/other-documents/other-documents.component';
 import { PriceStructureComponent } from './masters/procurement/price-structure/price-structure.component';
 import { EcoTermsDeliveryComponent } from './masters/procurement/eco-terms-delivery/eco-terms-delivery.component';
+import { FinBalancesheetComponent } from './documentation/qualification-document/fin-documents/fin-balancesheet/fin-balancesheet.component';
+import { FinMaatComponent } from './documentation/qualification-document/fin-documents/fin-maat/fin-maat.component';
+import { FinLiquidAssetComponent } from './documentation/qualification-document/fin-documents/fin-liquid-asset/fin-liquid-asset.component';
+import { FinBankCertificateComponent } from './documentation/qualification-document/fin-documents/fin-bank-certificate/fin-bank-certificate.component';
+import { FinBankGuaranteeComponent } from './documentation/qualification-document/fin-documents/fin-bank-guarantee/fin-bank-guarantee.component';
+import { FinItrComponent } from './documentation/qualification-document/fin-documents/fin-itr/fin-itr.component';
+import { FinTenderFeesComponent } from './documentation/qualification-document/fin-documents/fin-tender-fees/fin-tender-fees.component';
+import { TechQualificationComponent } from './documentation/qualification-document/tech-documents/tech-qualification/tech-qualification.component';
 
 @NgModule({
   declarations: [
@@ -217,7 +225,7 @@ import { EcoTermsDeliveryComponent } from './masters/procurement/eco-terms-deliv
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
-    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent
+    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent, FinBankGuaranteeComponent, FinItrComponent, FinTenderFeesComponent, TechQualificationComponent
   ],
 
   imports: [

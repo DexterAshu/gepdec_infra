@@ -96,7 +96,7 @@
  
   
   <div class="row">
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/comp-dashboard">
+  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
     <div class="business-card p-3">
       <div class="row">
         <div class="col-md-3">
@@ -554,12 +554,12 @@
   <!-- Top Deals project data -->
   <div class="row mt-1">
     <div class="col-md-6 col-sm-7 grid-margin stretch-card pe-0">
-      <div class="card">
+      <div class="card" data-bs-toggle="modal" data-bs-target="#createModal">
         <div class="card-body">
           <div class="row">
             <p class="card-title mb-2 col-md-9">Top 5 Orders</p>
             <div class="float-right col-md-3">
-                 <a class="" href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a>
+                 <!-- <a class="" href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a> -->
             </div>
           </div>
         
@@ -639,82 +639,81 @@ data-bs-backdrop="static" data-bs-keyboard="true">
             <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <div class="container-fluid">
-
-              <div class="table-responsive d-flex">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="col-md-2 col-2">S No</th>
-                            <th class="col-md-4 col-4">Project Name</th>
-                            <th class="col-md-3 col-3">Category</th>
-                            <th class="col-md-3 col-3">Amount (Cr)</th>
-                            <th class="col-md-3 col-3">Amount With GST</th>
-                            <th class="col-md-3 col-3">Amount Without GST</th>
-                            <th class="col-md-3 col-3">Profitability</th>
-                            <th class="col-md-3 col-3">Supply</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Your data rows here -->
-                        <tr>
-                            <td class="col-md-2 col-2">1</td>
-                            <td class="col-md-4 col-4">Project 1</td>
-                            <td class="col-md-3 col-3">Category A</td>
-                            <td class="col-md-3 col-3">300</td>
-                            <td class="col-md-3 col-3">250</td>
-                            <td class="col-md-3 col-3">200</td>
-                            <td class="col-md-3 col-3">195</td>
-                            <td class="col-md-3 col-3">xyz</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-2 col-2">2</td>
-                            <td class="col-md-4 col-4">Project 2</td>
-                            <td class="col-md-3 col-3">Category B</td>
-                            <td class="col-md-3 col-3">400</td>
-                            <td class="col-md-3 col-3">350</td>
-                            <td class="col-md-3 col-3">300</td>
-                            <td class="col-md-3 col-3">395</td>
-                            <td class="col-md-3 col-3">xyz</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-2 col-2">3</td>
-                            <td class="col-md-4 col-4">Project 3</td>
-                            <td class="col-md-3 col-3">Category B</td>
-                            <td class="col-md-3 col-3">300</td>
-                            <td class="col-md-3 col-3">250</td>
-                            <td class="col-md-3 col-3">200</td>
-                            <td class="col-md-3 col-3">195</td>
-                            <td class="col-md-3 col-3">xyz</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-2 col-2">4</td>
-                            <td class="col-md-4 col-4">Project 4</td>
-                            <td class="col-md-3 col-3">Category B</td>
-                            <td class="col-md-3 col-3">100</td>
-                            <td class="col-md-3 col-3">50</td>
-                            <td class="col-md-3 col-3">40</td>
-                            <td class="col-md-3 col-3">35</td>
-                            <td class="col-md-3 col-3">xyz</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-2 col-2">5</td>
-                            <td class="col-md-4 col-4">Project 5</td>
-                            <td class="col-md-3 col-3">Category B</td>
-                            <td class="col-md-3 col-3">200</td>
-                            <td class="col-md-3 col-3">150</td>
-                            <td class="col-md-3 col-3">100</td>
-                            <td class="col-md-3 col-3">95</td>
-                            <td class="col-md-3 col-3">xyz</td>
-                        </tr>
-                        <!-- Add more rows as needed -->
-                    </tbody>
-                </table>
-            </div>
+          <div class="card-body">
+            <div class="cardHead">
+              <div class="row" style="font-size: 12px;">
+                <div class="column">S No</div>
+                <div class="column">Project Name</div>
+                <div class="column">Category</div>
+                <div class="column">Amount (Cr)</div>
+                <div class="column">Amount with GST</div>
+                <div class="column">Amount without GST</div>
+                <div class="column">Profitability</div>
             
+              </div>
             </div>
-        </div>
+            <div class="card1 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
+              <div class="row" style="font-size: 10px;">
+                <div class="column">1</div>
+                <div class="column">Taldihi</div>
+                <div class="column">330 Kv</div>
+                <div class="column">300</div>
+                <div class="column">250</div>
+                <div class="column">200</div>
+                <div class="column">195</div>
+              
+              </div>
+            </div>
+            <div class="card2 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
+              <div class="row" style="font-size: 10px;">
+                <div class="column">2</div>
+                <div class="column">Jaunpur</div>
+                <div class="column">220 Kv</div>
+                <div class="column">400</div>
+                <div class="column">300</div>
+                <div class="column">250</div>
+                <div class="column">200</div>
+            
+              </div>
+            </div>
+            <div class="card3 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
+              <div class="row" style="font-size: 10px;">
+                <div class="column">3</div>
+                <div class="column">Noida Sec-45</div>
+                <div class="column">220 Kv</div>
+                <div class="column">400</div>
+                <div class="column">300</div>
+                <div class="column">250</div>
+                <div class="column">200</div>
+
+              </div>
+            </div>
+            <div class="card4 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
+              <div class="row" style="font-size: 10px;">
+                <div class="column">4</div>
+                <div class="column">Delhi</div>
+                <div class="column">320 Kv</div>
+                <div class="column">200</div>
+                <div class="column">150</div>
+                <div class="column">100</div>
+                <div class="column">80</div>
+              </div>
+            </div>
+            <div class="card5 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
+              <div class="row" style="font-size: 10px;">
+                <div class="column">5</div>
+                <div class="column">Noida</div>
+                <div class="column">240 Kv</div>
+                <div class="column">200</div>
+                <div class="column">150</div>
+                <div class="column">100</div>
+                <div class="column">80</div>
+              </div>
+            </div>
+          </div>
+
+         
+    
     </div>
 </div>
 </div>
@@ -726,23 +725,23 @@ data-bs-backdrop="static" data-bs-keyboard="true">
 <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">BOQ List Data</h5>
+            <h5 class="modal-title" id="exampleModalLabel">List Data</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-3 col-3">
-                  <a routerLink=""><i class="mdi mdi-file-check mdi-26px "></i> BOQ1</a>
+                  <a ><i class="mdi mdi-file-check mdi-26px "></i> BOQ1</a>
                 </div>
                 <div class="col-md-3 col-3">
-                  <a routerLink=""><i class="mdi mdi-file-check mdi-26px "></i> BOQ2</a>
+                  <a ><i class="mdi mdi-file-check mdi-26px "></i> BOQ2</a>
                 </div>
                 <div class="col-md-3 col-3">
-                  <a routerLink=""><i class="mdi mdi-file-check mdi-26px "></i> BOQ3</a>
+                  <a ><i class="mdi mdi-file-check mdi-26px "></i> BOQ3</a>
                 </div>
                 <div class="col-md-3 col-3">
-                  <a routerLink=""><i class="mdi mdi-file-check mdi-26px "></i> BOQ4</a>
+                  <a ><i class="mdi mdi-file-check mdi-26px "></i> BOQ4</a>
                 </div>
             
 

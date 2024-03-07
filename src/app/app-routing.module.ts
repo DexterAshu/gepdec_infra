@@ -72,6 +72,14 @@ import { L1ScheduleComponent } from './documentation/tender-document/l1-schedule
 
 import { QualificationDocumentComponent } from './documentation/qualification-document/qualification-document.component';
 import { FinDocumentsComponent } from './documentation/qualification-document/fin-documents/fin-documents.component';
+import { FinBalancesheetComponent } from './documentation/qualification-document/fin-documents/fin-balancesheet/fin-balancesheet.component';
+import { FinMaatComponent } from './documentation/qualification-document/fin-documents/fin-maat/fin-maat.component';
+import { FinLiquidAssetComponent } from './documentation/qualification-document/fin-documents/fin-liquid-asset/fin-liquid-asset.component';
+import { FinBankCertificateComponent } from './documentation/qualification-document/fin-documents/fin-bank-certificate/fin-bank-certificate.component';
+import { FinBankGuaranteeComponent } from './documentation/qualification-document/fin-documents/fin-bank-guarantee/fin-bank-guarantee.component';
+import { FinItrComponent } from './documentation/qualification-document/fin-documents/fin-itr/fin-itr.component';
+import { FinTenderFeesComponent } from './documentation/qualification-document/fin-documents/fin-tender-fees/fin-tender-fees.component';
+import { TechQualificationComponent } from './documentation/qualification-document/tech-documents/tech-qualification/tech-qualification.component';
 import { TechDocumentsComponent } from './documentation/qualification-document/tech-documents/tech-documents.component';
 import { OtherDocumentsComponent } from './documentation/qualification-document/other-documents/other-documents.component';
 
@@ -101,14 +109,25 @@ const routes: Routes = [
 
   //Documentation-routing
   {path: 'documentation', component:DocumentationComponent, canActivate:[AuthGuard]},
+ //teder-documnets
   {path: 'documentation/tend-doc', component:TenderDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/amedments', component:AmendmentsComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/initial-boq', component:InitialBoqComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/l1-schedule', component:L1ScheduleComponent, canActivate:[AuthGuard]},
   
   {path: 'documentation/qualification-doc', component:QualificationDocumentComponent, canActivate:[AuthGuard]},
+  //financial-documents
   {path: 'documentation/qualification-doc/fin', component:FinDocumentsComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/fin/balance-sheet', component:FinBalancesheetComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/fin/maat', component:FinMaatComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/fin/liq-asset', component:FinLiquidAssetComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/fin/bank-certificate', component:FinBankCertificateComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/fin/bg', component:FinBankGuaranteeComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/fin/itr', component:FinItrComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/fin/tender-fees', component:FinTenderFeesComponent, canActivate:[AuthGuard]},
+  //tech-qualification-documents
   {path: 'documentation/qualification-doc/tech', component:TechDocumentsComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/qualification-doc/tech/qualification', component:TechQualificationComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/others', component:OtherDocumentsComponent, canActivate:[AuthGuard]},
 
   

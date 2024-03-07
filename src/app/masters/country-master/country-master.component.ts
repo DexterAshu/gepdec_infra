@@ -121,19 +121,16 @@ downloadPdf() {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
-        if (response.status == 200) {
-          this.getCountryList();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
+        if (res.status == 200) {
+          this.ngOnInit();
+          document.getElementById('closed')?.click();
+          this.alertService.success(res.message);
+        } else if(res.status == 201) {
+          this.alertService.error(res.message);
+        }else{
+          this.alertService.error('Error, Something went wrong please check');
         }
-      }, (error:any) => {
-          document.getElementById('cancel')?.click();
-          this.alertService.error("Error: " + error.statusText);
-        })
-    } else {
-      this.alertService.warning("Form is invalid, Please fill the form correctly.");
-     }
+      })
+      }
   }
 }

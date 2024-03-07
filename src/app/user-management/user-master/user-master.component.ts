@@ -72,8 +72,8 @@ export class UserMasterComponent implements OnInit {
       first_name: [null,Validators.required],
       middle_name: [null],
       last_name: [null,Validators.required],
-      loginname: [null,Validators.required],
-      password: [null,Validators.required],
+      // loginname: [null,Validators.required],
+      // password: [null,Validators.required],
       empid: [null,Validators.required],
       mobile: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       res_phone: [null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
@@ -132,7 +132,7 @@ export class UserMasterComponent implements OnInit {
         first_name: this.userDetails.first_name,
         middle_name: this.userDetails.middle_name,
         last_name: this.userDetails.last_name,
-        loginname: this.userDetails.loginname,
+        // loginname: this.userDetails.loginname,
         empid: this.userDetails.empid,
         emailid:this.userDetails.emailid,
         mobile:this.userDetails.mobile,
@@ -269,8 +269,10 @@ downloadPdf() {
       if (res.status == 200) {
         this.ngOnInit();
         document.getElementById('closed')?.click();
-        this.alertService.success('User Added Successfully');
-      } else {
+        this.alertService.success(res.message);
+      } else if(res.status == 201) {
+        this.alertService.error(res.message);
+      }else{
         this.alertService.error('Error, Something went wrong please check');
       }
   });

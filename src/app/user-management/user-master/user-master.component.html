@@ -226,7 +226,7 @@
                                 </div>
                             </div>
                           
-                            <div class="col-md-6" >
+                            <!-- <div class="col-md-6" >
                                 <div class="form-group">
                                     <label class="form-label">Login Name<span
                                         class="required-asterisk">*</span></label>
@@ -245,11 +245,11 @@
                                         <small class="text-danger" *ngIf="f['password'].errors?.['required']">Password is Required</small>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="modal-btns">
                                 <button type="submit" [disabled]="!form.valid"
-                                    class="btn btn-info  btn-fw btn-sm mr-2">{{button}}</button>
+                                    class="btn btn-primary btn-fw btn-sm me-2">{{button}}</button>
                                 <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
                                     data-bs-dismiss="modal">Close</button>
                             </div>

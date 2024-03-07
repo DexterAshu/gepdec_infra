@@ -1,0 +1,217 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Bank Guarantee Documents</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control form-control-sm" placeholder="Search" [(ngModel)]="searchText">
+                        </div>
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-2">
+                            <div class="dropdown float-right" [class.active]="isOpen" (click)="toggleDropdown()">
+                                <button class="btn btn-light btn-fw btn-sm float-right cursor-pointer">
+                                    <span class="mdi mdi-filter-outline"></span> Filter Documents</button>
+                                <ul>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/balance-sheet" class="btn btn-fw btn-sm"> <span class="mdi mdi-file-document" ></span>&nbsp;&nbsp; Balance Sheet </button>
+                                  </li>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/maat" class="btn btn-fw btn-sm"><span class="mdi mdi-flower"></span>&nbsp;&nbsp; MAAT </button>
+                                  </li>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/liq-asset" class="btn btn-fw btn-sm"><span class="mdi mdi-chart-donut-variant"></span>&nbsp;&nbsp; Liquid Assets </button>
+                                  </li>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/bank-certificate" class="btn btn-fw btn-sm"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp; Bank certificate </button>
+                                  </li>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/bg" class="btn btn-fw btn-sm"><span class="mdi mdi-file-document"></span>&nbsp;&nbsp; Bank Guarantee </button>
+                                  </li>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/itr" class="btn btn-fw btn-sm"><span class="mdi mdi-file-send"></span>&nbsp;&nbsp; ITR </button>
+                                  </li>
+                                  <li> <button type="button" routerLink="/documentation/qualification-doc/fin/tender-fees" class="btn btn-fw btn-sm"><span class="mdi mdi-cannabis"></span>&nbsp;&nbsp; Tender Fees </button>
+                                  </li>
+                                </ul>
+                              </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary btn-fw btn-sm float-right" data-bs-toggle="modal" data-bs-target="#createModal"><span class="mdi mdi-plus"></span>
+                                Create New</button> 
+                        </div>
+                    </div>
+                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Tendering Company</th>
+                                <th>Tender Title</th>
+                                <th>Tender Ref No</th>
+                                <th>Category</th>
+                                <th>Location</th>
+                                <th>Completion Period</th>
+                                <th>Published Date</th>
+                                <th>Attachments</th>
+                                <th>Created By</th>
+                                <th>Created On</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{limit*(p-1)+i+1}}</td>
+                                <td>{{a.documentname}}</td>
+                                <td>{{a.documentname}}</td>
+                                <td>{{a.documentname}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.filename}}</td>
+                                <td>{{a.createdby_name}}</td>
+                                <td>{{a.created}}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+
+                                </td>
+                               
+                            </tr>
+                           
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bank Guarantee Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
+                        <!-- Document Details -->
+                        <div class="form-row">
+
+                            <div class="form-group col-3">
+                                <label for="">Projects: <span class="required-asterisk">*</span></label>
+                                <select class="form-select form-select-sm" formControlName="documenttype_id">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Projects</option>
+                                    <option *ngFor="let d of docType" value="{{d.documenttype_id}}">{{d.documenttype}}</option>
+                                </select>
+                                <div *ngIf="f['documenttype_id'].touched && f['documenttype_id'].invalid">
+                                    <small class="text-danger" *ngIf="f['documenttype_id'].errors?.['required']">*Required</small>
+                                </div>  
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="">Bank <span class="required-asterisk">*</span></label>
+                                <select class="form-select form-select-sm" formControlName="bank_name">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
+                                    <option *ngFor="let d of docType" value="{{d.documenttype_id}}">{{d.documenttype}}</option>
+                                </select>
+                                <div *ngIf="f['bank_name'].touched && f['bank_name'].invalid">
+                                    <small class="text-danger" *ngIf="f['bank_name'].errors?.['required']">*Required</small>
+                                </div>  
+                            </div>
+
+                            <div class="form-group col-3">
+                            <label for="">BG Number: <span class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="bgnumber" placeholder="Enter BG Number">
+                            <div *ngIf="f['bgnumber'].touched && f['bgnumber'].invalid">
+                                <small class="text-danger" *ngIf="f['bgnumber'].errors?.['required']">*Required</small>
+                            </div>    
+                        </div>
+                            <div class="form-group col-3">
+                            <label for="">BG Amount: <span class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="bgamount" placeholder="Enter BG Amount" appNumberOnly >
+                            <div *ngIf="f['bgamount'].touched && f['bgamount'].invalid">
+                                <small class="text-danger" *ngIf="f['bgamount'].errors?.['required']">*Required</small>
+                            </div>    
+                        </div>
+                            <div class="form-group col-3">
+                            <label for="">Start Date: <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="start_date">
+                            <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
+                                <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
+                            </div> 
+                        </div>
+                            <div class="form-group col-3">
+                            <label for="">End Date: <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="end_date">
+                            <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
+                                <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                            <div class="form-group col-3">
+                            <label for="">Submission Date: <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="submission_date">
+                            <div *ngIf="f['submission_date'].touched && f['submission_date'].invalid">
+                                <small class="text-danger" *ngIf="f['submission_date'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                            <div class="form-group col-3">
+                            <label for="">Extend Date: <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="extend_date">
+                          <div *ngIf="f['extend_date'].touched && f['extend_date'].invalid">
+                                        <small class="text-danger" *ngIf="f['extend_date'].errors?.['required']">*Required</small>
+                                    </div>
+                        </div>
+                       
+                        
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="">Document Description:</label>
+                                <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize>
+                               </textarea>
+                                </div>
+                        </div>
+                        <!-- Other Fields... -->
+                      
+                        <!-- Attachment Documents -->
+                        <div class="row">
+                                <div class="col-lg-12 col-sm-6">
+                                    <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
+                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
+                                      placeholder="Upload a file..." multiple="true" />
+                                      <!-- <div *ngIf="f['attachment'].touched && f['attachment'].invalid">
+                                        <small class="text-danger" *ngIf="f['attachment'].errors?.['required']">*Required</small>
+                                    </div> -->
+                              </div>
+                          
+                        </div>
+                        <div class="float-right">
+
+                            <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
+                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>                        </div>
+                      </form>
+                      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->

@@ -23,24 +23,26 @@
                         <div class="col-lg-4">
                             <input type="text" class="form-control form-control-sm" placeholder="Search" [(ngModel)]="searchText">
                         </div>
-                        <div class="col-lg-8">
-
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-2">
                             <div class="dropdown float-right" [class.active]="isOpen" (click)="toggleDropdown()">
-                                <button class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span>
-                                    Create Docs</button>
+                                <button class="btn btn-light btn-fw btn-sm float-right cursor-pointer">
+                                    <span class="mdi mdi-filter-outline"></span> Filter Documents</button>
                                 <ul>
-                                    <li> <button type="button" class="btn btn-fw btn-sm" data-bs-toggle="modal" data-bs-target="#createModal"><span class="mdi mdi-calendar-clock"></span> L1 Schedule</button>
-                                    </li>
-                                  <li><button type="button"  class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc"> <span class="mdi mdi-file-document"></span> Tender</button>
+                                  <li><button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc"> <span class="mdi mdi-file-document" ></span>&nbsp;&nbsp; Tender  </button>
                                   </li>
-                                  <li> <button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc/amedments"><span class="mdi mdi-file-check"></span> Amendment</button>
+                                  <li> <button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc/amedments"><span class="mdi mdi-file-check"></span>&nbsp;&nbsp; Amendment </button>
                                   </li>
-                                  <li> <button type="button" routerLink="/documentation/tend-doc/initial-boq" class="btn btn-fw btn-sm"><span class="mdi mdi-file-document"></span> Initial BOQ</button>
+                                  <li> <button type="button" routerLink="/documentation/tend-doc/initial-boq" class="btn btn-fw btn-sm"><span class="mdi mdi-file-document"></span>&nbsp;&nbsp; Initial BOQ </button>
                                   </li>
-                                
+                                  <li> <button type="button" routerLink="/documentation/tend-doc/l1-schedule" class="btn btn-fw btn-sm"><span class="mdi mdi-calendar-clock"></span>&nbsp;&nbsp; L1 Schedule </button>
+                                  </li>
                                 </ul>
                               </div>
-
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary btn-fw btn-sm float-right" data-bs-toggle="modal" data-bs-target="#createModal"><span class="mdi mdi-plus"></span>
+                                Create New</button> 
                         </div>
                     </div>
                     <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
@@ -197,7 +199,7 @@
                           
                         </div>
                         <div class="float-right">
-                            <button type="submit" class="btn btn-info btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
                             <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                         </div>
                       </form>

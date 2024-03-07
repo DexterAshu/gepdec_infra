@@ -372,12 +372,14 @@ downloadPdf() {
      let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
-        if (response.status == 200) {
-          this.getCompanyData();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
+        if (res.status == 200) {
+          this.ngOnInit();
+          document.getElementById('closed')?.click();
+          this.alertService.success(res.message);
+        } else if(res.status == 201) {
+          this.alertService.error(res.message);
+        }else{
+          this.alertService.error('Error, Something went wrong please check');
         }
       })
   }
@@ -388,13 +390,15 @@ downloadPdf() {
      this.form.value.address_id =  this.addressDetails.address_id;
     this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
        this.isSubmitted = false;
-      if (res.status == 200) {
+       if (res.status == 200) {
         this.ngOnInit();
-        document.getElementById('cancel')?.click();
-      this.alertService.success('Company Updated Successfully');
-    } else {
-      this.alertService.error('Something went wrong please try again');
-    }
+        document.getElementById('closed')?.click();
+        this.alertService.success(res.message);
+      } else if(res.status == 201) {
+        this.alertService.error(res.message);
+      }else{
+        this.alertService.error('Error, Something went wrong please check');
+      }
   });
   }
 
