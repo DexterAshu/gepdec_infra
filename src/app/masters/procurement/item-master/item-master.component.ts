@@ -30,12 +30,12 @@ export class ItemMasterComponent {
       itemCode: [null, Validators.required],
       itemName: [null, Validators.required],
       itemType: [null, Validators.required],
+      itemCategory: [null, Validators.required],
+      itemSubCategory: [null, Validators.required],
       itemUOM: [null, Validators.required],
       procurementUOM: [null, Validators.required],
       itemClass: [null, Validators.required],
       itemTolerance: [null, Validators.required],
-      itemProperty: [null, Validators.required],
-      itemCategory: [null, Validators.required],
     });
 
     this.getDataList();
@@ -91,10 +91,10 @@ export class ItemMasterComponent {
         itemcode: this.form.value.itemCode.toUpperCase(),
         itemname: this.form.value.itemName,
         itemtype_id: this.form.value.itemType,
+        itemcategory_id: this.form.value.itemCategory,
+        itemproperty_id: this.form.value.itemSubCategory,
         unit_id: this.form.value.itemUOM,
         precurementuom_id: this.form.value.procurementUOM,
-        itemproperty_id: this.form.value.itemProperty,
-        itemcategory_id: this.form.value.itemCategory
       } 
 
       let apiLink = '/Item/api/v1/addItem';
