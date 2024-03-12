@@ -1145,6 +1145,7 @@ export class DashboardComponent implements OnInit {
   fiveYear: any;
   segmentData: any;
   projData: any;
+  performanceTotal: number = 0;
  
   constructor(
     private sharedService: SharedService,
@@ -1167,8 +1168,14 @@ export class DashboardComponent implements OnInit {
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
     })
-
   }
+
+    // Method to calculate completion percentage
+    calculateCompletionPercentage(series: any[]): number {
+      const completedValue = series.find(s => s.name === 'Completed').value;
+      const totalValue = series.find(s => s.name === 'Total').value;
+      return (completedValue / totalValue) * 100;
+    }
   
   getCountryData() {
     this.apiService.getCountryDataList().subscribe((res:any) => {

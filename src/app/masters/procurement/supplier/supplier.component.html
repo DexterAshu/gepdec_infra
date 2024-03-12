@@ -33,7 +33,7 @@
                                 <th>S No</th>
                                 <th>Vendor Code</th>
                                 <th>Vendor Name</th>
-                                <th>Company Name</th>
+                                <!-- <th>Company Name</th> -->
                                 <th>Category</th>
                                 <th>Contact No</th>
                                 <th>Email ID</th>
@@ -49,7 +49,7 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Supplier Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.suppliercode }}</td>
                                 <td>{{ a.suppliername }}</td>
-                                <td>{{ a.company_name }}</td>
+                                <!-- <td>{{ a.company_name }}</td> -->
                                 <td>{{ a.category }}</td>
                                 <td>{{ a?.contact[0]?.contactno }}</td>
                                 <td>{{ a?.contact[0]?.emailid }}</td>
@@ -433,7 +433,7 @@
                         <ng-container formArrayName="documentDetails">
                             <div class="card mt-2">
                                 <div class="card-header card-primary">
-                                    Vendor Certifications
+                                    Vendor QS Certifications
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">

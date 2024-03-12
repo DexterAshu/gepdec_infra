@@ -29,6 +29,8 @@ export class ItemMasterComponent {
     this.form = this.formBuilder.group({
       itemCode: [null, Validators.required],
       itemName: [null, Validators.required],
+      specification: [null, Validators.required],
+      parameter: [null, Validators.required],
       itemType: [null, Validators.required],
       itemCategory: [null, Validators.required],
       itemSubCategory: [null, Validators.required],
@@ -90,6 +92,7 @@ export class ItemMasterComponent {
       let data = {
         itemcode: this.form.value.itemCode.toUpperCase(),
         itemname: this.form.value.itemName,
+        specification: this.form.value.specification,
         itemtype_id: this.form.value.itemType,
         itemcategory_id: this.form.value.itemCategory,
         itemproperty_id: this.form.value.itemSubCategory,
