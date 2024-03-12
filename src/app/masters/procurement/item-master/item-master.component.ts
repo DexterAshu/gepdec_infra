@@ -28,9 +28,9 @@ export class ItemMasterComponent {
  ngOnInit(){
     this.form = this.formBuilder.group({
       itemCode: [null, Validators.required],
-      itemName: [null, Validators.required],
+      description: [null, Validators.required],
       specification: [null, Validators.required],
-      parameter: [null, Validators.required],
+      parameter: [null],
       itemType: [null, Validators.required],
       itemCategory: [null, Validators.required],
       itemSubCategory: [null, Validators.required],
@@ -90,14 +90,17 @@ export class ItemMasterComponent {
     if (this.form.valid) {
       this.isSubmitted = true;
       let data = {
-        itemcode: this.form.value.itemCode.toUpperCase(),
-        itemname: this.form.value.itemName,
-        specification: this.form.value.specification,
-        itemtype_id: this.form.value.itemType,
-        itemcategory_id: this.form.value.itemCategory,
-        itemproperty_id: this.form.value.itemSubCategory,
         unit_id: this.form.value.itemUOM,
+        description: this.form.value.description,
+        itemcode: this.form.value.itemCode.toUpperCase(),
+        specification: this.form.value.specification,
+        parameter: this.form.value.parameter,
+        itemcategory_id: this.form.value.itemCategory,
+        itemtype_id: this.form.value.itemType,
         precurementuom_id: this.form.value.procurementUOM,
+        materialclass_id: this.form.value.class,
+        tolerance_id: this.form.value.itemTolerance,
+        subcategory_id: this.form.value.itemSubCategory,
       } 
 
       let apiLink = '/Item/api/v1/addItem';

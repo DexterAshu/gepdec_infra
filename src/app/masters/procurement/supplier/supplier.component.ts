@@ -34,7 +34,7 @@ export class SupplierComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      supplierCode: [null, Validators.required],
+      // supplierCode: [null, Validators.required],
       supplierName: [null, Validators.required],
       category: [null, Validators.required],
       // companyName: [null, Validators.required],
@@ -243,7 +243,7 @@ export class SupplierComponent {
     let file = event.target.files;
     let type = /(\.jpg|\.jpeg|\.png)$/i;
     if (type.exec(file[0].name)) {
-      this.uploadFile = file[0];
+      this.uploadFile = file;
     } else {
       this.form.controls['doiDoc'].setValue('');
       this.alertService.warning("Please choose only jpg, jpeg or png file!");
@@ -291,7 +291,9 @@ export class SupplierComponent {
       formData.append('district_id', this.form.value.district);
       formData.append('city_id', this.form.value.city);
       formData.append('pincode', this.form.value.pincode);
-      formData.append('attachment', this.uploadFile);
+      formData.append('documentname', this.uploadFile != null ? this.uploadFile[0] : null);
+      formData.append('count', this.uploadFile != null ? this.uploadFile?.length : 0);
+      formData.append('document', this.uploadFile != null ? "true" : "false");
 
       // this.form.value.bankDetails.forEach((bank:any, index:any) => {
       //   formData.append(`bank_id${index + 1}`, bank.bank_id);
@@ -323,9 +325,9 @@ export class SupplierComponent {
       });
 
       this.form.value.documentDetails.forEach((obj:any, index:any) => {
-          formData.append(`certification[${index}]['name']`, obj.name);
+          formData.append(`certification[${index}]['mstcertification_id']`, obj.name);
           formData.append(`certification[${index}]['date']`, obj.date);
-          formData.append(`certification[${index}]['attachment']`, obj.attachment != null ? obj.attachment[0] : null);
+          formData.append(`certification[${index}]['documentname']`, obj.attachment != null ? obj.attachment[0] : null);
           formData.append(`certification[${index}]['count']`, obj.attachment != null ? obj.attachment?.length : 0);
           formData.append(`certification[${index}]['document']`, obj.attachment != null ? "true" : "false");
       });
