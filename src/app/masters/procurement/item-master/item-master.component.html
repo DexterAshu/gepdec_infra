@@ -24,7 +24,7 @@
                             <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
                         </div>
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
@@ -49,10 +49,10 @@
                             <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.itemcode }}</td>
-                                <td>{{ a.itemname }}</td>
+                                <td>{{ a.description }}</td>
                                 <td>{{ a.itemtype }}</td>
                                 <td>{{ a.itemcategory }}</td>
-                                <td>{{ a.itemproperty }}</td>
+                                <td>{{ a.subcategory }}</td>
                                 <td>{{ a.precurementuom }}</td>
                                 <td>{{ a.uom }}</td>
                                 <td>--</td>
@@ -109,16 +109,16 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Description<span class="required-asterisk">*</span></label>
-                                    <input formControlName="itemName" type="text" class="form-control form-control-sm" placeholder="Enter Item Name">
-                                    <div *ngIf="f['itemName'].touched && f['itemName'].invalid">
-                                        <small class="text-danger" *ngIf="f['itemName'].errors?.['required']">*Required</small>
+                                    <input formControlName="description" type="text" class="form-control form-control-sm" placeholder="Enter Item Description">
+                                    <div *ngIf="f['description'].touched && f['description'].invalid">
+                                        <small class="text-danger" *ngIf="f['description'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Specification<span class="required-asterisk">*</span></label>
-                                    <input formControlName="specification" type="text" class="form-control form-control-sm" placeholder="Enter Item Specification">
+                                    <label class="form-label">Technical Specification<span class="required-asterisk">*</span></label>
+                                    <input formControlName="specification" type="text" class="form-control form-control-sm" placeholder="Enter Item Technical Specification">
                                     <div *ngIf="f['specification'].touched && f['specification'].invalid">
                                         <small class="text-danger" *ngIf="f['specification'].errors?.['required']">*Required</small>
                                     </div>
@@ -126,11 +126,11 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Parameter 1<span class="required-asterisk">*</span></label>
-                                    <input formControlName="parameter" type="text" class="form-control form-control-sm" placeholder="Enter Parameter">
-                                    <div *ngIf="f['parameter'].touched && f['parameter'].invalid">
+                                    <label class="form-label">Item Parameter 1</label>
+                                    <input formControlName="parameter" type="text" class="form-control form-control-sm" placeholder="Enter Item Parameter">
+                                    <!-- <div *ngIf="f['parameter'].touched && f['parameter'].invalid">
                                         <small class="text-danger" *ngIf="f['parameter'].errors?.['required']">*Required</small>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -139,9 +139,9 @@
                                     <!-- <input formControlName="itemType" type="text" class="form-control form-control-sm" placeholder="Enter Item Type"> -->
                                     <select formControlName="itemType" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Item</option>
-                                        <!-- <option *ngFor="let t of dataDropdownList.itemtype" [value]="t.itemtype_id">{{ t.itemtype }}</option> -->
-                                        <option>Billable</option>
-                                        <option>Non-Billable</option>
+                                        <option *ngFor="let t of dataDropdownList.itemtype" [value]="t.itemtype_id">{{ t.itemtype }}</option>
+                                        <!-- <option>Billable</option>
+                                        <option>Non-Billable</option> -->
                                     </select>
                                     <div *ngIf="f['itemType'].touched && f['itemType'].invalid">
                                         <small class="text-danger" *ngIf="f['itemType'].errors?.['required']">*Required</small>
@@ -154,9 +154,9 @@
                                     <!-- <input formControlName="itemCategory" type="text" class="form-control form-control-sm" placeholder="Enter Item Category"> -->
                                     <select formControlName="itemCategory" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
-                                        <!-- <option *ngFor="let t of dataDropdownList.itemcategory" [value]="t.itemcategory_id">{{ t.itemcategory }}</option> -->
-                                        <option>Supply</option>
-                                        <option>Service</option>
+                                        <option *ngFor="let t of dataDropdownList.itemcategory" [value]="t.itemcategory_id">{{ t.itemcategory }}</option>
+                                        <!-- <option>Supply</option>
+                                        <option>Service</option> -->
                                     </select>
                                     <div *ngIf="f['itemCategory'].touched && f['itemCategory'].invalid">
                                         <small class="text-danger" *ngIf="f['itemCategory'].errors?.['required']">*Required</small>
@@ -168,12 +168,12 @@
                                     <label class="form-label">Sub-Category<span class="required-asterisk">*</span></label>
                                     <!-- <input formControlName="itemProperty" type="text" class="form-control form-control-sm" placeholder="Enter Item Property"> -->
                                     <select formControlName="itemSubCategory" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Property</option>
-                                        <!-- <option *ngFor="let t of dataDropdownList.itemproperty" [value]="t.itemproperty_id">{{ t.itemproperty }}</option> -->
-                                        <option>Electrical</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Sub-category</option>
+                                        <option *ngFor="let t of dataDropdownList.subcategory" [value]="t.subcategory_id">{{ t.subcategory }}</option>
+                                        <!-- <option>Electrical</option>
                                         <option>Mechanical</option>
                                         <option>Civil</option>
-                                        <option>Other</option>
+                                        <option>Other</option> -->
                                     </select>
                                     <div *ngIf="f['itemSubCategory'].touched && f['itemSubCategory'].invalid">
                                         <small class="text-danger" *ngIf="f['itemSubCategory'].errors?.['required']">*Required</small>
@@ -212,10 +212,10 @@
                                     <label class="form-label">Class<span class="required-asterisk">*</span></label>
                                     <select formControlName="itemClass" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Class</option>
-                                        <option>A</option>
+                                        <!-- <option>A</option>
                                         <option>B</option>
-                                        <option>C</option>
-                                        <!-- <option *ngFor="let t of dataDropdownList.itemproperty" [value]="t.itemproperty_id">{{ t.itemproperty }}</option> -->
+                                        <option>C</option> -->
+                                        <option *ngFor="let t of dataDropdownList.materialclass" [value]="t.materialclass_id">{{ t.materialclass }}</option>
                                     </select>
                                     <div *ngIf="f['itemClass'].touched && f['itemClass'].invalid">
                                         <small class="text-danger" *ngIf="f['itemClass'].errors?.['required']">*Required</small>
@@ -228,9 +228,9 @@
                                     <!-- <input formControlName="itemProperty" type="text" class="form-control form-control-sm" placeholder="Enter Item Property"> -->
                                     <select formControlName="itemTolerance" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Tolerance</option>
-                                        <option>0%</option>
-                                        <option>0.5%</option>
-                                        <!-- <option *ngFor="let t of dataDropdownList.itemproperty" [value]="t.itemproperty_id">{{ t.itemproperty }}</option> -->
+                                        <!-- <option>0%</option>
+                                        <option>0.5%</option> -->
+                                        <option *ngFor="let t of dataDropdownList.tolerance" [value]="t.tolerance_id">{{ t.tolerance }}</option>
                                     </select>
                                     <div *ngIf="f['itemTolerance'].touched && f['itemTolerance'].invalid">
                                         <small class="text-danger" *ngIf="f['itemTolerance'].errors?.['required']">*Required</small>

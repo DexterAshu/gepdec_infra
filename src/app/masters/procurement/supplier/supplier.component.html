@@ -24,7 +24,7 @@
                             <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create New</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
                         </div>
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
@@ -101,7 +101,7 @@
                             <div class="card-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <!-- <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">Vendor Code<span class="required-asterisk">*</span></label>
                                                 <input formControlName="supplierCode" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
@@ -109,7 +109,7 @@
                                                     <small class="text-danger" *ngIf="f['supplierCode'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
