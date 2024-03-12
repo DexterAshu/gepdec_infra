@@ -41,7 +41,7 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
 }
 .modal-header{
     /* background-color: #2f528b; */
-    background-color: #225cbb;
+    background-color: #356dc7;
     
     color: #ffffff;
     font-size: 20px;
@@ -57,7 +57,7 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
 }
 .ngx-pagination .current {
     border-radius: 50%;
-    background: #476fb0 !important;
+    background: #356dc7 !important;
   } 
 .pagination-sec {
     margin-top: auto;
@@ -118,13 +118,13 @@ text {
 
 .table-primary {
     --bs-table-color: #fff;
-    --bs-table-bg: #3f4fa9;;
+    --bs-table-bg: #356dc7;;
 }
 
 .btn-primary {
     color: #fff;
-    background-color: #1a1a6f;
-    border-color: #1d417d;
+    background-color: #356dc7;
+    border-color: #356dc7;
     border-radius: 6px;
     font-weight: 600;
 }
@@ -190,10 +190,11 @@ header.legend-title.ng-star-inserted {
 
 .header-banner-gradient {
     
-    /* background: linear-gradient(90deg, rgb(49 92 164) 0%, rgb(157 193 255) 40%, rgb(34, 81, 156) 100%) !important; */
+    background: linear-gradient(90deg, #2d5ba5 0%, #2d5ba5 40%, #2d5ba5 100%) !important;
     /* background: linear-gradient(90deg, rgb(92 107 185) 0%, rgb(49 92 164) 40%, #cbe2ff 100%) !important; */
     /* background: linear-gradient(90deg, rgb(26 26 111) 0%, #1a1a6f 40%, #db8820 100%) !important; */
-    background: linear-gradient(90deg, rgb(26 26 111) 0%, #1a1a6f 40%, #222296 100%) !important;
+    /* background: linear-gradient(90deg, rgb(11 99 215) 0%, #0b58d5 40%, #0e5dc5 100%) !important; */
+/* background-color: #4676C6; */
 }
 
 .my-10 {
@@ -239,48 +240,78 @@ ng-dropdown-panel .scroll-host {
     font-size: 0.8rem;
 }
 
-
-.upload-bulk{
-    color: #1a1a6f;
-    background-color: #fdfcfcb8;
-    border: none;
-    font-size: 12px;
-    border-radius: 6px;
-    outline: none;
-    text-align: center;
-    padding: 9px 18px 7px 18px;
-    font-weight: 600;
-  }
-  .upload-bulk:hover{
-  text-decoration: none;
-  transition: 0.5s;
-  bottom: 2px;
-  cursor: pointer;
-  top: none;
-  box-shadow: 0 2px 8px 2px #1a1a6fd4;
-  
-  }
-  .exp-excel{
-  background-color: #fdfcfcb8;
-  border: none;
-  font-size: 12px;
-  border-radius: 6px;
-  color: rgb(13, 128, 13);
-  outline: none;
-  text-align: center;
-  padding: 9px 18px 9px 18px;
-  font-weight: 600;
+  .btn-primary:hover{
+    box-shadow: 0 2px 6px 1px #0505c9d4;
   }
   
-  .exp-excel:hover{
+  /* .impexp:hover{
   text-decoration: none;
   transition: 0.5s;
   bottom: 2px;
   top: none;
    cursor: pointer;
-  /* z-index: -1; */
+ 
   box-shadow: 0 2px 8px 2px #1a1a6fd4;
   
-  }
+  } */
   
+  /* input[type="search"] {
+    position: relative;
+    width: 200px;
+    border: none;
+    padding: 15px;
+    border-radius: 27px;
   
+    z-index: 11;
+  } */
+  
+ 
+input[type=search] {
+	-webkit-appearance: textfield;
+	-webkit-box-sizing:content-box;
+  box-sizing: content-box;
+	font-family: inherit;
+	font-size: 100%;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+	display: none; 
+}
+
+
+input[type=search] {
+	background: #f6f8fc no-repeat 9px center;
+    border: solid 1px #86878b;
+	padding: 0px 0px 0px 16px;
+	width: 250px;
+	-webkit-border-radius: 6em;
+	-moz-border-radius: 6em;
+	border-radius: 6px;
+	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
+	transition: all .5s;
+}
+input[type=search]:focus {
+	width: 300px;
+	background-color: #fff;
+	border-color: #86878b;
+	
+	-webkit-box-shadow: 0 0 5px #86878b;
+	-moz-box-shadow: 0 0 5px #86878b;
+	box-shadow: 0 0 5px #86878b;
+}
+
+
+input[type=search]:-moz-placeholder {
+	color: #86878b;
+}
+input[type=search]::-webkit-input-placeholder {
+	color: #86878b;
+}
+
+.filter-col {
+    background-color: #f6f8fc;
+    border-radius: 6px;
+    border: 1px solid #86878b;
+}
+ 

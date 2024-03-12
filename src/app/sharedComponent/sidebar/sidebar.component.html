@@ -2,12 +2,12 @@
   <div class="user text-center mt-1">
     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
       class=" bi bi-person-circle absolute right-0 bottom-0 h-32 w-32 -mr-8 -mb-8 text-green-600 opacity-20"
-      style="color: #1a1a6f;" viewBox="0 0 16 16">
+      style="color: #2d5ba5;" viewBox="0 0 16 16">
       <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
       <path fill-rule="evenodd"
         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
     </svg>
-    <div class="mt-2" style="font-weight: 600; font-size: 12px; color: #1a1a6f;">{{ storedData.loginname }}</div>
+    <div class="mt-2" style="font-weight: 600; font-size: 12px; color: #2d5ba5;">{{ storedData.loginname }}</div>
     <small style="color: #e48b1e;">{{storedData.deptname}}</small>
   </div>
   <hr>
@@ -262,7 +262,7 @@
 
 
     <li class="nav-item">
-      <div routerLink="/documentation">
+      <div>
         <a class="nav-link" data-toggle="collapse" href="#ui-doc" aria-expanded="false"
         aria-controls="alertAlarm">
         <i class="mdi mdi-file-document menu-icon"></i>
@@ -270,7 +270,7 @@
         <i class="menu-arrow"></i>
       </a>
       </div>
-      <div class="collapse" id="ui-doc">
+      <div class="collapse scroll-container" id="ui-doc">
         <ul class="nav flex-column sub-menu">
 
           <li class="nav-item"> <a class="nav-link" routerLink="documentation/tend-doc">
@@ -279,7 +279,7 @@
             </a></li>
 
             <li class="nav-item">
-              <div class="" routerLink="/documentation/qualification-doc">
+              <div class="">
                 <a class="nav-link" data-toggle="collapse" href="#Qualification-doc" aria-expanded="false" aria-controls="Biding">
                   <i class="mdi mdi-creation menu-icon"></i>
                   <span class="menu-title">Qualification Docs</span>
@@ -290,7 +290,7 @@
               <div class="collapse" id="Qualification-doc">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item sub-sub-menu"> <a class="nav-link"
-                      routerLink="documentation/qualification-doc/fin">
+                      routerLink="/documentation/qualification-doc/fin/balance-sheet">
                       <i class="mdi mdi-foursquare menu-icon"></i>
                       <span class="menu-title">Financial</span>
                     </a>
@@ -318,6 +318,23 @@
               <i class="mdi mdi-file-document-box menu-icon"></i>
               <span class="menu-title">Letter of Credit</span>
             </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="documentation/design-doc">
+              <i class="mdi mdi-chart-arc menu-icon"></i>
+              <span class="menu-title">Design Documents</span>
+            </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="documentation/proc-doc">
+              <i class="mdi mdi-camera-timer menu-icon"></i>
+              <span class="menu-title">Procurement Documents</span>
+            </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="documentation/proj-doc">
+              <i class="mdi mdi-file-multiple menu-icon"></i>
+              <span class="menu-title">Project Documents</span>
+            </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="documentation/fin-doc">
+              <i class="mdi mdi-lumx menu-icon"></i>
+              <span class="menu-title">Finance Documents</span>
+            </a></li>
+      
           <li class="nav-item"> <a class="nav-link" routerLink="documentation/comm-doc">
               <i class="mdi mdi-file-multiple menu-icon"></i>
               <span class="menu-title">Communication</span>

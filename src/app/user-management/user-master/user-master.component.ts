@@ -120,7 +120,7 @@ export class UserMasterComponent implements OnInit {
   }
   
   userDetail(data:any) {
-    this.form.controls['password'].clearValidators();
+    // this.form.controls['password'].clearValidators();
     this.form.reset();
     this.button = 'Update';
     this.update = true;
@@ -289,7 +289,7 @@ downloadPdf() {
     this.masterService.userUpdation(this.formData).subscribe((res: any) => {
     if (res.status == 200) {
       this.ngOnInit();
-      this.form.controls['password'].setValidators([Validators.required]);
+      // this.form.controls['password'].setValidators([Validators.required]);
       document.getElementById('closed')?.click();
       this.alertService.success('User Updated Successfully');
     } else {

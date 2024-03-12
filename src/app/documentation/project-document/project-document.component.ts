@@ -6,11 +6,11 @@ import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 
 @Component({
-  selector: 'app-initial-boq',
-  templateUrl: './initial-boq.component.html',
-  styleUrls: ['./initial-boq.component.css']
+  selector: 'app-project-document',
+  templateUrl: './project-document.component.html',
+  styleUrls: ['./project-document.component.css']
 })
-export class InitialBoqComponent {
+export class ProjectDocumentComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
   isSubmitted = false;
@@ -24,11 +24,11 @@ export class InitialBoqComponent {
   limit = environment.pageLimit;
   docType: any;
   docListData: any;
-  companyData: any;
-  tenderType: any;
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
+  companyData: any;
+  tenderType: any;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -37,27 +37,30 @@ export class InitialBoqComponent {
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
-      tender_location: ['',Validators.required],
-      tender_ref_no: ['',Validators.required],
-      tender_title: ['',Validators.required],
-      total_amount: ['',Validators.required],
-      utility: ['',Validators.required],
-      publish_date:['', Validators.required],
+      // documenttype_id: ['',Validators.required],
+      bank_name: ['null', Validators.required],
+      bgamount: ['', Validators.required],
+      bgnumber: ['', Validators.required],
+      start_date: ['', Validators.required],
+      end_date: ['', Validators.required],
+      submission_date: ['', Validators.required],
+      extend_date: ['', Validators.required],
       attachment: ['', Validators.required],
+      publish_date: ['', Validators.required],
+      tender_ref_no:['', Validators.required],
+      tender_title:['', Validators.required],
+      utility:['null', Validators.required],
       description: [''],
      
     });
 
     this.getData();
-   
-
+    this.apiService.getDocType().subscribe((res: any) => {
+      this.docType = res.documenttype;
+    });
   }
 
-  
   getData() {
-    
-    // let data = this.documentForm.value.document_id;
-    // console.log(data);
     this.apiService.getDocType().subscribe((res: any) => {
       this.docType = res.documenttype;
     });
@@ -101,15 +104,15 @@ export class InitialBoqComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
+  get f() {
+    return this.documentForm.controls;
+  }
+
   //button dropdown
   isOpen: boolean = false;
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
-  }
-
-  get f() {
-    return this.documentForm.controls;
   }
 
   exportAsXLSX1(){
@@ -135,20 +138,25 @@ downloadPdf() {
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 
-
   onSubmit() {
     console.log(this.documentForm.value);
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-   
-    formData.append('tender_title', this.documentForm.value.tender_title);
-    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
-    formData.append('total_amount', this.documentForm.value.total_amount);
-    formData.append('tender_location', this.documentForm.value.tender_location);
-    formData.append('utility', this.documentForm.value.utility);
+
+    // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
+    formData.append('bank_name', this.documentForm.value.bank_name);
+    formData.append('bgnumber', this.documentForm.value.bgnumber);
+    formData.append('bgamount', this.documentForm.value.bgamount);
+    formData.append('start_date', this.documentForm.value.start_date);
+    formData.append('end_date', this.documentForm.value.end_date);
+    formData.append('submission_date', this.documentForm.value.submission_date);
+    formData.append('extend_date', this.documentForm.value.extend_date);
     formData.append('publish_date', this.documentForm.value.publish_date);
+    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
+    formData.append('tender_title', this.documentForm.value.tender_title);
+    formData.append('utility', this.documentForm.value.utility);
     formData.append('description', this.documentForm.value.description);
     this.addDocument(formData);
   }

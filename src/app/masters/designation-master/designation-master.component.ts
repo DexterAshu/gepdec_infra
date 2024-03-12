@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 @Component({
   selector: 'app-designation-master',
   templateUrl: './designation-master.component.html',
@@ -18,6 +20,10 @@ export class DesignationMasterComponent implements OnInit {
 
   designCount: any;
   designData: any = [];
+  isExcelDownload: boolean = false;
+  isExcelDownloadData:boolean = true;
+  inserteddata: any;
+  discardeddata: any;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -64,6 +70,30 @@ export class DesignationMasterComponent implements OnInit {
         this.alertService.warning("Looks like no data available in country data.");
       }
     });
+  }
+
+  
+  exportAsXLSX1(){
+    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
+     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
+    var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
+     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
+    XLSX.writeFile(wb, "Data_File.xlsx");
+
+        }
+downloadPdf() {
+  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
+  const pdfName = 'country_bulkload_template_file.xlsx';
+  FileSaver.saveAs(pdfUrl, pdfName);
+}
+
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
+      display: false,
+      raw: true,
+    });
+    XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 
   onSubmit() {

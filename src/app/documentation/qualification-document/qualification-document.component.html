@@ -115,7 +115,7 @@
                                     <label class="form-label fl-10">Utility/Tendering Company<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
-                                        <option *ngFor="let c of tenderType" value="{{c.bidtype_id}}">{{ c.bidtype }}</option>
+                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                                     </select>
                                     <div *ngIf="f['utility'].touched && f['utility'].invalid">
                                         <small class="text-danger" *ngIf="f['utility'].errors?.['required']">*Required</small>

@@ -19,18 +19,20 @@
                 <div class="card-body">
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" [(ngModel)]="searchText" class="form-control form-control-sm" placeholder="Search">
+                            <input type="search" [(ngModel)]="searchText" class="form-control form-control-sm" placeholder="Search...">
                         </div>
                         <div class="col-lg-4"></div>
                         <div class="col-lg-4">
-                            <button class="btn exp-excel me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
+                            <div class="float-right">
+                            <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
                                 <span class="mdi mdi-upload"></span>&nbsp; Export
                           </button>
-                          <button class="upload-bulk" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                          <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
                                 <span class="mdi mdi-download"></span>&nbsp; Import 
                           </button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ State</button>
-                        </div>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+                       
+                       </div>   </div>
                     
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
@@ -133,7 +135,7 @@
                                 </div>
                             </div> -->
                             <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-info btn-fw btn-sm mr-2">Add</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Add</button>
                                 <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...</button>
                                 <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
                                     data-bs-dismiss="modal">Close</button>

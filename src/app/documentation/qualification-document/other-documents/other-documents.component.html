@@ -17,33 +17,49 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <!-- <h3 class="card-title">Company</h3>
-                    <hr> -->
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="text" class="form-control form-control-sm" placeholder="Search" [(ngModel)]="searchText">
+                            <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
                         </div>
-                        <div class="col-lg-4"></div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-4">
                             <div class="dropdown float-right" [class.active]="isOpen" (click)="toggleDropdown()">
-                                <button class="btn btn-light btn-fw btn-sm float-right cursor-pointer">
-                                    <span class="mdi mdi-filter-outline"></span> Filter Documents</button>
+                                <button class="btn filter-col btn-fw btn-sm float-right cursor-pointer">
+                                 
+                                     Other Documents 
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                                      </svg>
+                                    </button>
                                 <ul>
-                                  <li><button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc"> <span class="mdi mdi-file-document" ></span>&nbsp;&nbsp; Tender  </button>
+                                  <li><button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/qualification-doc/tech"> <span class="mdi mdi-file-document" ></span>&nbsp;&nbsp; Others  </button>
                                   </li>
-                                  <li> <button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc/amedments"><span class="mdi mdi-file-check"></span>&nbsp;&nbsp; Amendment </button>
+                                  <!-- <li> <button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc/amedments"><span class="mdi mdi-file-check"></span>&nbsp;&nbsp; Amendment </button>
                                   </li>
                                   <li> <button type="button" routerLink="/documentation/tend-doc/initial-boq" class="btn btn-fw btn-sm"><span class="mdi mdi-file-document"></span>&nbsp;&nbsp; Initial BOQ </button>
                                   </li>
                                   <li> <button type="button" routerLink="/documentation/tend-doc/l1-schedule" class="btn btn-fw btn-sm"><span class="mdi mdi-calendar-clock"></span>&nbsp;&nbsp; L1 Schedule </button>
-                                  </li>
+                                  </li> -->
                                 </ul>
                               </div>
                         </div>
-                        <div class="col-lg-2">
-                            <button class="btn btn-primary btn-fw btn-sm float-right" data-bs-toggle="modal" data-bs-target="#createModal"><span class="mdi mdi-plus"></span>
-                                Create New</button> 
-                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="float-right">
+                                <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
+                                    Bulkload Template</button> -->
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
+                                          <span class="mdi mdi-upload"></span>&nbsp; Export
+                                    </button>
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                          <span class="mdi mdi-download"></span>&nbsp; Import 
+                                    </button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                         
+
+                            </div>
+                            </div>
+
+                    
                     </div>
                     <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
@@ -115,7 +131,7 @@
                                     <label class="form-label fl-10">Utility/Tendering Company<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
-                                        <option *ngFor="let c of tenderType" value="{{c.bidtype_id}}">{{ c.bidtype }}</option>
+                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                                     </select>
                                     <div *ngIf="f['utility'].touched && f['utility'].invalid">
                                         <small class="text-danger" *ngIf="f['utility'].errors?.['required']">*Required</small>
@@ -248,7 +264,7 @@
                           
                         </div>
                         <div class="float-right">
-                            <button type="submit" class="btn btn-info btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
                             <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
 
                         </div>

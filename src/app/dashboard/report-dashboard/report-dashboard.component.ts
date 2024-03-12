@@ -30,7 +30,7 @@ export class ReportDashboardComponent {
   timeline = true;
   showLabels = true;
   doughnut = true;
-  
+
   //Financial graph data
   view2: any = [500, 250];
   showXAxis2 = true;
@@ -1486,62 +1486,63 @@ scateredGraphPrject = new Chart({
   series: [{
     type: 'xrange',
     name: 'Project',
-    borderColor: 'gray',
+    borderColor: '#f6f8fc',
     data: [{
-        x: Date.UTC(2023, 10, 21),
-        x2: Date.UTC(2023, 11, 2),
-       
-        y: 0,
-        partialFill: {
-            amount: 0.50,
-            fill: 'green'
+            x: Date.UTC(2023, 10, 21),
+            x2: Date.UTC(2024, 9, 2),
+            y: 0,
+            partialFill: {
+                amount: 0.30,
+                fill: '#07ad60'
+            },
+            color: '#5691f7' // Blue background color for this data point
+        },
+        {
+            x: Date.UTC(2023, 11, 8),
+            x2: Date.UTC(2024, 11, 15),
+            y: 1,
+            partialFill: {
+                amount: 0.15,
+                fill: '#07ad60'
+            },
+            color: '#5691f7' // Blue background color for this data point
+        },
+        {
+            x: Date.UTC(2023, 11, 15),
+            x2: Date.UTC(2024, 8, 25),
+            y: 2,
+            partialFill: {
+                amount: 0.45,
+                fill: '#07ad60'
+            },
+            color: '#5691f7' // Blue background color for this data point
+        },
+        {
+            x: Date.UTC(2023, 11, 25),
+            x2: Date.UTC(2024, 12, 5),
+            y: 3,
+            partialFill: {
+                amount: 0.30,
+                fill: '#07ad60'
+            },
+            color: '#5691f7' // Blue background color for this data point
+        },
+        {
+            x: Date.UTC(2023, 12, 5),
+            x2: Date.UTC(2024, 12, 20),
+            y: 4,
+            partialFill: {
+                amount: 0.20,
+                fill: '#07ad60'
+            },
+            color: '#5691f7', // Blue background color for this data point
         }
-    }, {
-        x: Date.UTC(2023, 11, 8),
-        x2: Date.UTC(2023, 11, 15),
-       
-        y: 1,
-
-        partialFill: {
-          amount: 0.15,
-          fill: 'green'
-      }
-
-    },  {
-        x: Date.UTC(2023, 11, 15),
-        x2: Date.UTC(2023, 11, 25),
-        y: 2,
-        partialFill: {
-          amount: 0.45,
-          fill: 'green'
-      }
-    },
-
-    {
-      x: Date.UTC(2023, 11, 25),
-      x2: Date.UTC(2023, 12, 5),
-      y: 3,
-      partialFill: {
-        amount: 0.30,
-        fill: 'green'
-    }
-  },
-  {
-    x: Date.UTC(2023, 12, 5),
-    x2: Date.UTC(2023, 12, 20),
-    y: 4,
-    partialFill: {
-      amount: 0.20,
-      fill: 'green'
-  }
-},
-  
-  
-  ],
+    ],
     dataLabels: {
         enabled: true
     }
 }]
+
 
 });
 

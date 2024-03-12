@@ -76,12 +76,16 @@ import { FinBalancesheetComponent } from './documentation/qualification-document
 import { FinMaatComponent } from './documentation/qualification-document/fin-documents/fin-maat/fin-maat.component';
 import { FinLiquidAssetComponent } from './documentation/qualification-document/fin-documents/fin-liquid-asset/fin-liquid-asset.component';
 import { FinBankCertificateComponent } from './documentation/qualification-document/fin-documents/fin-bank-certificate/fin-bank-certificate.component';
-import { FinBankGuaranteeComponent } from './documentation/qualification-document/fin-documents/fin-bank-guarantee/fin-bank-guarantee.component';
 import { FinItrComponent } from './documentation/qualification-document/fin-documents/fin-itr/fin-itr.component';
 import { FinTenderFeesComponent } from './documentation/qualification-document/fin-documents/fin-tender-fees/fin-tender-fees.component';
 import { TechQualificationComponent } from './documentation/qualification-document/tech-documents/tech-qualification/tech-qualification.component';
 import { TechDocumentsComponent } from './documentation/qualification-document/tech-documents/tech-documents.component';
 import { OtherDocumentsComponent } from './documentation/qualification-document/other-documents/other-documents.component';
+
+import { DesignDocumentComponent } from './documentation/design-document/design-document.component';
+import { ProcurementDocumentComponent } from './documentation/procurement-document/procurement-document.component';
+import { ProjectDocumentComponent } from './documentation/project-document/project-document.component';
+import { FinanceDocumentComponent } from './documentation/finance-document/finance-document.component';
 
 
 import { BgDocumentComponent } from './documentation/bg-document/bg-document.component';
@@ -122,7 +126,7 @@ const routes: Routes = [
   {path: 'documentation/qualification-doc/fin/maat', component:FinMaatComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/liq-asset', component:FinLiquidAssetComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/bank-certificate', component:FinBankCertificateComponent, canActivate:[AuthGuard]},
-  {path: 'documentation/qualification-doc/fin/bg', component:FinBankGuaranteeComponent, canActivate:[AuthGuard]},
+ 
   {path: 'documentation/qualification-doc/fin/itr', component:FinItrComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/tender-fees', component:FinTenderFeesComponent, canActivate:[AuthGuard]},
   //tech-qualification-documents
@@ -134,6 +138,10 @@ const routes: Routes = [
   {path: 'documentation/bg-doc', component:BgDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/lc-doc', component:LcDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/comm-doc', component:CommunicationDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/design-doc', component:DesignDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/proc-doc', component:ProcurementDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/proj-doc', component:ProjectDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/fin-doc', component:FinanceDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/others-doc', component:OthersDocumentComponent, canActivate:[AuthGuard]},
   {path: 'project-report', component:ProjReportsComponent, canActivate:[AuthGuard]},
   {path: 'reset-password', component:ResetPasswordComponent, canActivate:[AuthGuard]},
