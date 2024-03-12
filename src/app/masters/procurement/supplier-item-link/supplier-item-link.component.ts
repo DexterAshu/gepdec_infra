@@ -84,7 +84,7 @@ export class SupplierItemLinkComponent {
     this.rowData = [];
     this.rowData = row;
     this.supplierId = undefined;
-    this.form.controls['supplierCode'].setValue(`${this.rowData.company_name} [${this.rowData.suppliercode}]`);
+    this.form.controls['supplierCode'].setValue(`${this.rowData.suppliername} [${this.rowData.suppliercode}]`);
     // this.form.controls['itemCode'].setValue(`${this.rowData?.item['item_id']}`);
     this.supplierId = this.rowData.supplier_id;
   }

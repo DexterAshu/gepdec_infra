@@ -270,6 +270,16 @@
               </div>
             </ng-template> -->
 
+            <!-- <ng-template #tooltipTemplate let-model="model">
+              <p class="p-0 m-0">{{model.name}}</p>
+              <p>{{(model.value/model.value)*100 | number : '1.1-1'}} %</p>
+            </ng-template> -->
+
+            <ng-template #tooltipTemplate let-model="model">
+              <p class="p-0 m-0">{{model.name}}</p>
+              <p>{{ calculateCompletionPercentage(model.series) | number : '1.1-1'}} %</p>
+            </ng-template>
+
           </ngx-charts-bar-vertical-2d>
           </div>
           <ul class="cust-legend">
