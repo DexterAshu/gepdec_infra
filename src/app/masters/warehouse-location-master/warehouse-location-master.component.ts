@@ -30,8 +30,8 @@ export class WarehouseLocationMasterComponent {
     this.getData();
     this.form = this.formBuilder.group({
       warehouse_id: [null, Validators.required],
-      location_name: [null, Validators.required],
-      location_code: [null, Validators.required]
+      location_description: [null, Validators.required],
+      capacity: [null, Validators.required]
     });
   }
 
@@ -87,7 +87,7 @@ export class WarehouseLocationMasterComponent {
     }
     this.isSubmitted = false;
   }
-  
+
   selectWHL(data: any) {
     this.selectedWHL = data;
     this.getWarehouseData();
@@ -124,7 +124,7 @@ export class WarehouseLocationMasterComponent {
       this.alertService.warning(`Some technical issue: ${error.message}`);
     }
   }
-  
+
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, "warehouse_location.xlsx");

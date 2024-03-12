@@ -35,6 +35,7 @@
                 <th>Email ID</th>
                 <th>Address 1</th>
                 <th>Address 2</th>
+                <th>City</th>
                 <th>District</th>
                 <th>State</th>
                 <th>Country</th>
@@ -54,6 +55,7 @@
                 <td>{{ a.email }}</td>
                 <td>{{ a.address1 }}</td>
                 <td>{{ a.address2 }}</td>
+                <td>{{ a.city }}</td>
                 <td>{{ a.district }}</td>
                 <td>{{ a.state }}</td>
                 <td>{{ a.country }}</td>
@@ -140,14 +142,18 @@
                       <td>{{ selectedWH.address1 }}</td>
                       <th>Address 2</th>
                       <td>{{ selectedWH.address2 }}</td>
-                      <th>District</th>
-                      <td>{{ selectedWH.district }}</td>
+                      <th>City</th>
+                      <td>{{ selectedWH.city }}</td>
                     </tr>
                     <tr>
+                      <th>District</th>
+                      <td>{{ selectedWH.district }}</td>
                       <th>State</th>
                       <td>{{ selectedWH.state }}</td>
                       <th>Country</th>
                       <td>{{ selectedWH.country }}</td>
+                    </tr>
+                    <tr>
                       <th>Pin Code</th>
                       <td>{{ selectedWH.pincode }}</td>
                     </tr>
