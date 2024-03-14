@@ -4,7 +4,7 @@
           <div class="d-flex justify-content-between flex-wrap">
             <div class="d-flex align-items-end flex-wrap">
               <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Billing Address</h4>
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>BOQ</h4>
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -24,27 +24,32 @@
                             <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+                            <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button> -->
                         </div>
                     </div>
                     <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Code</th>
-                                <th>Type</th>
-                                <th>Address</th>
-                                <th>City</th>
-                                <th>District</th>
-                                <th>State</th>
-                                <th>Country</th>
-                                <th>Pincode</th>
-                                <!-- <th>Action</th> -->
+                                <th>BOQ Code</th>
+                                <th>Description</th>
+                                <th>Client Name</th>
+                                <th>Site Address</th>
+                                <th>No of Items</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                                <td colspan="15"></td>
+                            <!-- <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i"> -->
+                            <tr>
+                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                <td>1</td>
+                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="BOQ Items List" (click)="rowListData()" class="cursor-pointer text-primary text-decoration-underline">TD00101</td>
+                                <td>Demo</td>
+                                <td>Power</td>
+                                <td>Noida</td>
+                                <td>10</td>
+                                <td>Pending</td>
                                 <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
                                 </td> -->
@@ -54,11 +59,11 @@
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="isNotFound == true">
+                            <!-- <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </app-responsive-table>
                     <div class="pagination-sec text-center">
@@ -71,30 +76,49 @@
 </div>
 
 <!-- create modal -->
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<!-- <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Billing Address</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Shipping Address</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Address For<span class="required-asterisk">*</span></label>
-                                    <!-- <input formControlName="item" type="text" class="form-control form-control-sm"> -->
                                     <select formControlName="addressFor" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
                                         <option>Purchaser</option>
                                         <option>Vendor</option>
-                                        <!-- <option *ngFor="let t of dataDropdownList.itemproperty" [value]="t.itemproperty_id">{{ t.itemproperty }}</option> -->
                                     </select>
                                     <div *ngIf="f['addressFor'].touched && f['addressFor'].invalid">
                                         <small class="text-danger" *ngIf="f['addressFor'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Billing Address Code<span class="required-asterisk">*</span></label>
+                                    <select formControlName="billingAddress" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Code</option>
+                                        <option>Demo Address</option>
+                                    </select>
+                                    <div *ngIf="f['billingAddress'].touched && f['billingAddress'].invalid">
+                                        <small class="text-danger" *ngIf="f['billingAddress'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Billing Address Details<span class="required-asterisk">*</span></label>
+                                    <input formControlName="billingDetails" type="text" class="form-control form-control-sm" readonly>
+                                    <div *ngIf="f['billingDetails'].touched && f['billingDetails'].invalid">
+                                        <small class="text-danger" *ngIf="f['billingDetails'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -107,22 +131,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label">Type<span class="required-asterisk">*</span></label>
-                                    <!-- <input formControlName="item" type="text" class="form-control form-control-sm"> -->
                                     <select formControlName="type" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
-                                        <option>Procurement Office</option>
-                                        <option>Corporate Office</option>
-                                        <!-- <option *ngFor="let t of dataDropdownList.itemproperty" [value]="t.itemproperty_id">{{ t.itemproperty }}</option> -->
+                                        <option>Warehouse</option>
+                                        <option>On-site</option>
                                     </select>
                                     <div *ngIf="f['type'].touched && f['type'].invalid">
                                         <small class="text-danger" *ngIf="f['type'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Address (House/Flat No, Street No & Area)<span class="required-asterisk">*</span></label>
                                     <input formControlName="address" type="text" class="form-control form-control-sm">
@@ -143,7 +165,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">State<span class="required-asterisk">*</span></label>
                                     <select class="form-select form-select-sm" formControlName="state" (change)="getDistrictData()">
@@ -155,7 +177,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">District<span class="required-asterisk">*</span></label>
                                     <select class="form-select form-select-sm" formControlName="district" (change)="getCityData()">
@@ -167,7 +189,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">City<span class="required-asterisk">*</span></label>
                                     <select class="form-select form-select-sm" formControlName="city">
@@ -179,7 +201,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
                                     <input formControlName="pincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
@@ -201,5 +223,72 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- create modal end-->
+
+<!-- detail modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BOQ Items List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive tableStyle">
+                                <table class="table table-hover table-striped mb-3">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th>S No</th>
+                                            <th>Item Code</th>
+                                            <th>Item Description</th>
+                                            <th>Quantity</th>
+                                            <th>Procurement UOM</th>
+                                            <th>Item UOM</th>
+                                            <!-- <th>Item Cost</th> -->
+                                            <!-- <th>Last Purchased Date</th>
+                                            <th>Last Purchased Quantity</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <!-- <tr *ngFor="let a of rowData?.item; index as i"> -->
+                                        <tr>
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>1</td>
+                                            <td>ITM0001</td>
+                                            <td>Demo Item</td>
+                                            <td>50</td>
+                                            <td>Ton</td>
+                                            <td>KG</td>
+                                        </tr>
+                                        <!-- <tr *ngIf="rowData?.length == 0">
+                                            <td colspan="15" class="text-center">
+                                                <div class="spinner-border"> </div>
+                                            </td>
+                                        </tr> -->
+                                        <!-- <tr *ngIf="verificationData?.length == 0">
+                                            <td colspan="15" class="text-center">
+                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-btns">
+                                <button type="button" class="btn btn-primary btn-fw btn-sm mr-2">Send RFQ</button>
+                                <!-- <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button> -->
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail modal end-->
