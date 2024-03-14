@@ -177,7 +177,7 @@
                 </div>
               </div>
               <div class="modal-btns">
-                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-info btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>
+                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>
                 <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
                 <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
               </div>

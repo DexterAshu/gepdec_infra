@@ -83,7 +83,7 @@
           <div class="row">
             <form [formGroup]="grnForm" (ngSubmit)="grnSubmit()">
               <div class="row p-0">
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
                     <select formControlName="supplier_id" class="form-select form-select-sm" (ngModelChange)="getVenderPOData()">
@@ -93,7 +93,7 @@
                     <div *ngIf="grn['supplier_id'].touched && grn['supplier_id'].invalid"><small class="text-danger" *ngIf="grn['supplier_id'].errors?.['required']">*Required</small></div>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">PO No.<span class="required-asterisk">*</span></label>
                     <select formControlName="purchaseOrder" class="form-select form-select-sm">
@@ -105,16 +105,7 @@
                     <div *ngIf="grn['purchaseOrder'].touched && grn['purchaseOrder'].invalid"><small class="text-danger" *ngIf="grn['purchaseOrder'].errors?.['required']">*Required</small></div>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label class="form-label">PO Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="purchaseOrderDate" type="date" class="form-control form-control-sm" readOnly>
-                    <div *ngIf="grn['purchaseOrderDate'].touched && grn['purchaseOrderDate'].invalid">
-                      <small class="text-danger" *ngIf="grn['purchaseOrderDate'].errors?.['required']">*Required</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Challan Number<span class="required-asterisk">*</span></label>
                     <input formControlName="shipmentNumber" type="text" class="form-control form-control-sm" placeholder="Enter Shipment Number">
@@ -151,7 +142,7 @@
                     </table>
                     <h6 class="my-2 text-secondary">GRN Details</h6>
                     <div class="row">
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="form-label">GRN Number<span class="required-asterisk">*</span></label>
                           <input formControlName="grn_number" type="text" class="form-control form-control-sm" placeholder="Enter GRN Number">
@@ -160,7 +151,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="form-label">GRN Date<span class="required-asterisk">*</span></label>
                           <input formControlName="grn_date" type="date" id="toDate" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}" class="form-control form-control-sm">
@@ -169,7 +160,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="form-label">Remark<span class="required-asterisk">*</span></label>
                           <input formControlName="grn_remark" type="text" class="form-control form-control-sm" placeholder="Enter Remarks">
@@ -178,14 +169,58 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="form-label">Document Received<span class="required-asterisk">*</span></label>
-                          <select formControlName="document_received" class="form-select form-select-sm">
-                            <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                            <option [value]="true">Yes</option>
-                            <option [value]="false">No</option>
-                          </select>
+                      <div class="col-md-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" formControlName="docs_tax_invoice" type="checkbox" id="inlineCheckbox1" value="option1">
+                          <label class="form-check-label" for="inlineCheckbox1">Tax Invoice</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" formControlName="docs_delivery_challan" type="checkbox" id="inlineCheckbox2" value="option2">
+                          <label class="form-check-label" for="inlineCheckbox2">Delivery Challan</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" formControlName="docs_lr_copy" type="checkbox" id="inlineCheckbox3" value="option3">
+                          <label class="form-check-label" for="inlineCheckbox3">LR Copy </label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" formControlName="docs_packing_list" type="checkbox" id="inlineCheckbox3" value="option3">
+                          <label class="form-check-label" for="inlineCheckbox3">Packing List</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input"  formControlName="docs_e_way_bill" type="checkbox" id="inlineCheckbox3" value="option3">
+                          <label class="form-check-label" for="inlineCheckbox3">E-Way Bill</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="checkbox" formControlName="docs_warranty_certificate" id="inlineCheckbox3" value="option3">
+                          <label class="form-check-label" for="inlineCheckbox3">Warranty Certificate</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="checkbox" formControlName="docs_quality_inspection" id="inlineCheckbox3" value="option3">
+                          <label class="form-check-label" for="inlineCheckbox3">Quality Inspection Report</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="checkbox" formControlName="docs_operator_manual" id="inlineCheckbox3" value="option3">
+                          <label class="form-check-label" for="inlineCheckbox3">Operator Manual</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="checkbox" formControlName="docs_technical_manual" id="inlineCheckbox3" value="option3">
+                          <label class="form-check-label" for="inlineCheckbox3">Technical & Support Manual</label>
                         </div>
                       </div>
                     </div>
@@ -219,6 +254,11 @@
                       </tbody>
                     </table>
                   </div>
+                </div>
+                <div class="modal-btns mt-2">
+                  <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>
+                  <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                  <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                 </div>
               </div>
             </form>
@@ -387,7 +427,7 @@
               </div>
             </div>
             <div class="modal-btns">
-              <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-info btn-fw btn-sm mr-2">{{!update ? "Create" : "Update"}}</button>
+              <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{!update ? "Create" : "Update"}}</button>
               <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
               <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
