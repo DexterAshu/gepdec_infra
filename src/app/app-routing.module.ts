@@ -96,6 +96,7 @@ import { ProjReportsComponent } from './proj-reports/proj-reports.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
+import { InventoryComponent } from './presales/inventory/inventory.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -118,7 +119,7 @@ const routes: Routes = [
   {path: 'documentation/tend-doc/amedments', component:AmendmentsComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/initial-boq', component:InitialBoqComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/l1-schedule', component:L1ScheduleComponent, canActivate:[AuthGuard]},
-  
+
   {path: 'documentation/qualification-doc', component:QualificationDocumentComponent, canActivate:[AuthGuard]},
   //financial-documents
   {path: 'documentation/qualification-doc/fin', component:FinDocumentsComponent, canActivate:[AuthGuard]},
@@ -126,7 +127,7 @@ const routes: Routes = [
   {path: 'documentation/qualification-doc/fin/maat', component:FinMaatComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/liq-asset', component:FinLiquidAssetComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/bank-certificate', component:FinBankCertificateComponent, canActivate:[AuthGuard]},
- 
+
   {path: 'documentation/qualification-doc/fin/itr', component:FinItrComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/tender-fees', component:FinTenderFeesComponent, canActivate:[AuthGuard]},
   //tech-qualification-documents
@@ -134,7 +135,7 @@ const routes: Routes = [
   {path: 'documentation/qualification-doc/tech/qualification', component:TechQualificationComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/others', component:OtherDocumentsComponent, canActivate:[AuthGuard]},
 
-  
+
   {path: 'documentation/bg-doc', component:BgDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/lc-doc', component:LcDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/comm-doc', component:CommunicationDocumentComponent, canActivate:[AuthGuard]},
@@ -199,6 +200,7 @@ const routes: Routes = [
   {path: 'presales/presales-biding/data-capture/technical', component:TechnicalBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/financial', component:FinancialBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},
+  {path: 'presales/inventory', component:InventoryComponent, canActivate:[AuthGuard]},
 //Customer
   {path: 'customer-registration/process-1', component:Process1Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-2', component:Process2Component, canActivate:[AuthGuard]},

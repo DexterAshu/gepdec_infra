@@ -21,7 +21,7 @@
               <input type="search" class="form-control form-control-sm" (click)="p = 1" [(ngModel)]="searchText" placeholder="Search">
             </div>
             <div class="col-lg-8">
-              <button type="button" data-bs-toggle="modal" data-bs-target="#createGRNModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+              <button type="button" (click)="getGRNData()" data-bs-toggle="modal" data-bs-target="#createGRNModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
             </div>
           </div>
           <app-responsive-table id="export">
@@ -86,13 +86,11 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
-                    <select formControlName="venderName" class="form-select form-select-sm">
+                    <select formControlName="supplier_id" class="form-select form-select-sm" (ngModelChange)="getVenderPOData()">
                       <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                      <option value="vender001">Vender 001</option>
-                      <option value="vender002">Vender 002</option>
-                      <!-- <option *ngFor="let t of stateData" [value]="t.state_id">{{ t.state_name }}</option> -->
+                      <option *ngFor="let vender of vendorDataList" [value]="vender.supplier_id">{{ vender.suppliername }}</option>
                     </select>
-                    <div *ngIf="grn['venderName'].touched && grn['venderName'].invalid"><small class="text-danger" *ngIf="grn['venderName'].errors?.['required']">*Required</small></div>
+                    <div *ngIf="grn['supplier_id'].touched && grn['supplier_id'].invalid"><small class="text-danger" *ngIf="grn['supplier_id'].errors?.['required']">*Required</small></div>
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -153,7 +151,7 @@
                     </table>
                     <h6 class="my-2 text-secondary">GRN Details</h6>
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <div class="form-group">
                           <label class="form-label">GRN Number<span class="required-asterisk">*</span></label>
                           <input formControlName="grn_number" type="text" class="form-control form-control-sm" placeholder="Enter GRN Number">
@@ -162,7 +160,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <div class="form-group">
                           <label class="form-label">GRN Date<span class="required-asterisk">*</span></label>
                           <input formControlName="grn_date" type="date" id="toDate" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}" class="form-control form-control-sm">
@@ -171,13 +169,23 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <div class="form-group">
                           <label class="form-label">Remark<span class="required-asterisk">*</span></label>
                           <input formControlName="grn_remark" type="text" class="form-control form-control-sm" placeholder="Enter Remarks">
                           <div *ngIf="grn['grn_remark'].touched && grn['grn_remark'].invalid">
                             <small class="text-danger" *ngIf="grn['grn_number'].errors?.['required']">*Required</small>
                           </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label">Document Received<span class="required-asterisk">*</span></label>
+                          <select formControlName="document_received" class="form-select form-select-sm">
+                            <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                            <option [value]="true">Yes</option>
+                            <option [value]="false">No</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -187,11 +195,13 @@
                         <tr>
                           <th>Item ID</th>
                           <th>Name</th>
-                          <th>Quantity</th>
+                          <th>PO Qty</th>
+                          <th>PO Balance Qty</th>
                           <th>UOM</th>
+                          <th>Delivery QTY</th>
                           <th>Received QTY</th>
-                          <th>Shipment QTY</th>
                           <th>Remain QTY</th>
+                          <th>Item Location</th>
                         </tr>
                       </thead>
                       <tbody class="text-nowrap">
@@ -199,16 +209,12 @@
                           <td>{{ item?.item_id }}</td>
                           <td>{{ item?.itemName }}</td>
                           <td>{{ item?.quantity }}</td>
+                          <td>{{ item?.balanceQTY }}</td>
                           <td>{{ item?.uom }}</td>
-                          <td>
-                            <input type="number" class="form-control form-control-sm" placeholder="Enter Received QTY">
-                          </td>
-                          <td>
-                            <input type="number" class="form-control form-control-sm" placeholder="Enter Shipment QTY">
-                          </td>
-                          <td>
-                            0
-                          </td>
+                          <td><input type="number" class="form-control form-control-sm" formControlName="delivery_qty" [(ngModel)]="item.delivery_qty" placeholder="Enter Delivery QTY"></td>
+                          <td><input type="number" class="form-control form-control-sm" formControlName="received_qty" [(ngModel)]="item.received_qty" placeholder="Enter Received QTY"></td>
+                          <td>{{item?.quantity - (item.received_qty ? item.received_qty : 0)}}</td>
+                          <td>Location</td>
                         </tr>
                       </tbody>
                     </table>

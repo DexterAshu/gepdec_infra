@@ -37,6 +37,7 @@ import { PriceStructureComponent } from './procurement/price-structure/price-str
 import { EcoTermsDeliveryComponent } from './procurement/eco-terms-delivery/eco-terms-delivery.component';
 import { BillingAddressComponent } from './procurement/billing-address/billing-address.component';
 import { ShippingAddressComponent } from './procurement/shipping-address/shipping-address.component';
+import { ItemLabelComponent } from './item-label/item-label.component';
 // import { FilterPipe } from '../_pipes/filter.pipe';
 
 const routes: Routes = [
@@ -73,7 +74,8 @@ const routes: Routes = [
   { path: 'tender-company-contacts', component: CompanyContactsComponent },
   { path: 'warehouse', component: WarehouseMasterComponent },
   { path: 'location', component: WarehouseLocationMasterComponent },
-  { path: 'items-master', component: ItemsMasterComponent }
+  { path: 'items-master', component: ItemsMasterComponent },
+  { path: 'items-label', component: ItemLabelComponent }
 ];
 
 
