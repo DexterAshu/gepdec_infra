@@ -64,6 +64,11 @@ export class MasterService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/financialyear/api/v1/getFinancialYear`, httpOptions);
   }
+  //master-bank
+  getBankData() {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.get<any>(`${environment.apiUrl}/bank/api/v1/getBankDropdrown`, httpOptions);
+  }
   getProjectList() {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/project/api/v1/projectList`, httpOptions);

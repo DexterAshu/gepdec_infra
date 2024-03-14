@@ -250,18 +250,6 @@ export class SupplierComponent {
     }
   }
 
-  // Function to read file asynchronously
-  // private async readFile(filePath: string): Promise<File> {
-  //   return fetch(filePath)
-  //     .then(response => response.blob())
-  //     .then(blob => new File([blob], 'file'));
-  // }
-
-  // onFileChange(event: any, index: number): void {
-  //   const file = event.target.files[0];
-  //   this.form.get('documentDetails').at(index).get('uploadCertificate').setValue(file);
-  // }
-
   onFileChange(event: any, index: number): void {
     const file = event.target.files;
     const formArray = this.form.get('documentDetails') as FormArray;
@@ -277,7 +265,7 @@ export class SupplierComponent {
     if (this.form.valid) {
       this.isSubmitted = true;
       const formData = new FormData();
-      formData.append('suppliercode', this.form.value.supplierCode?.toUpperCase());
+      // formData.append('suppliercode', this.form.value.supplierCode?.toUpperCase());
       formData.append('suppliername', this.form.value.supplierName);
       formData.append('category_id', this.form.value.category);
       formData.append('gstno', this.form.value.gstNo?.toUpperCase());
@@ -291,7 +279,8 @@ export class SupplierComponent {
       formData.append('district_id', this.form.value.district);
       formData.append('city_id', this.form.value.city);
       formData.append('pincode', this.form.value.pincode);
-      formData.append('documentname', this.uploadFile != null ? this.uploadFile[0] : null);
+      formData.append('documentname', this.uploadFile != null ? this.uploadFile[0].name : null);
+      formData.append('attachment', this.uploadFile != null ? this.uploadFile[0] : null);
       formData.append('count', this.uploadFile != null ? this.uploadFile?.length : 0);
       formData.append('document', this.uploadFile != null ? "true" : "false");
 
@@ -327,7 +316,8 @@ export class SupplierComponent {
       this.form.value.documentDetails.forEach((obj:any, index:any) => {
           formData.append(`certification[${index}]['mstcertification_id']`, obj.name);
           formData.append(`certification[${index}]['date']`, obj.date);
-          formData.append(`certification[${index}]['documentname']`, obj.attachment != null ? obj.attachment[0] : null);
+          formData.append(`certification[${index}]['documentname']`, obj.attachment != null ? obj.attachment[0].name : null);
+          formData.append('attachment', obj.attachment != null ? obj.attachment[0] : null);
           formData.append(`certification[${index}]['count']`, obj.attachment != null ? obj.attachment?.length : 0);
           formData.append(`certification[${index}]['document']`, obj.attachment != null ? "true" : "false");
       });

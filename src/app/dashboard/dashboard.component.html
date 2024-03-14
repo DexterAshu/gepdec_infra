@@ -1,11 +1,11 @@
 <div class="content-wrapper">
-  <div class="row presales-head">
+  <!-- <div class="row presales-head">
     <div class="col-md-8">
       <h3 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>
         Main Dashboard </h3>
     </div>
     <div class="col-md-4"> </div>
-</div>
+</div> -->
 
   <!-- filter data country state project wise -->
 
@@ -112,7 +112,7 @@
       </div>
     </div>
   </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
+  <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard">
     <div class="cust-card p-3">
       <div class="row">
         <div class="col-md-3">
@@ -126,7 +126,7 @@
       </div> 
     </div>
   </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/performance-dashboard">
+  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
     <div class="Profit-card p-3">
       <div class="row">
         <div class="col-md-3">
@@ -142,7 +142,7 @@
      
     </div>
   </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/procurement-dashboard">
+  <div class="col-md-3 cust-padding" routerLink="/dashboard/execution-dashboard">
     <div class="loss-card p-3">
       <div class="row">
         <div class="col-md-3">
@@ -161,7 +161,7 @@
   </div>
   
   <div class="row mt-1">
-  <div class="col-md-3 cust-padding" routerLink="" >
+  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard" >
     <div class="business-card p-2">
       <div class="row">
         <div class="col-md-5 ">
@@ -180,7 +180,7 @@
       </div>
     </div>
   </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
+  <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard">
     <div class="cust-card p-2">
       <div class="row">
         <div class="col-md-5">
@@ -200,7 +200,7 @@
      
     </div>
   </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/performance-dashboard">
+  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
     <div class="Profit-card p-2">
       <div class="row">
         <div class="col-md-5">
@@ -220,7 +220,7 @@
      
     </div>
   </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/procurement-dashboard">
+  <div class="col-md-3 cust-padding" routerLink="/dashboard/execution-dashboard">
     <div class="loss-card p-2">
       <div class="row">
         <div class="col-md-5">
@@ -261,7 +261,9 @@
             [xAxisLabel]="xAxisLabelBarLoad"
             [yAxisLabel]="yAxisLabelBarLoad"
             [barPadding]="5"
-            [groupPadding]="7">
+            [groupPadding]="7"
+            (select)="onChartSelect($event)"
+            >
 
             <!-- <ng-template #tooltipTemplate let-model="model">
               <div class="custom-tooltip">
@@ -275,10 +277,10 @@
               <p>{{(model.value/model.value)*100 | number : '1.1-1'}} %</p>
             </ng-template> -->
 
-            <ng-template #tooltipTemplate let-model="model">
+            <!-- <ng-template #tooltipTemplate let-model="model">
               <p class="p-0 m-0">{{model.name}}</p>
               <p>{{ calculateCompletionPercentage(model.series) | number : '1.1-1'}} %</p>
-            </ng-template>
+            </ng-template> -->
 
           </ngx-charts-bar-vertical-2d>
           </div>
@@ -293,21 +295,22 @@
 
    
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="col-md-6 grid-margin stretch-card" >
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <p class="card-title mb-2 col-md-10">Revenue | Expense</p>
-            <div class="float-right col-md-2">
+            <p class="card-title mb-2 col-md-9">Revenue | Expense</p>
+            <div class="float-right col-md-3">
                   <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
-                    <option [selected]="true" [disabled]="true">Select</option>
+                    <option selected value="year">Yearly</option>
+                    <option value="quarter">Quarterly</option>
                     <!-- <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option> -->
                 </select>
             </div>
           </div>
             <!-- <p class=" col-md-6 p-1 bg-warning text-center rounded">$000</p> -->
          
-          <div class="chartBar" #containerRef5>
+          <div class="chartBar" #containerRef5 routerLink="/dashboard/fin-dashboard">
             <ngx-charts-area-chart
               [view]="[containerRef5.offsetWidth, 190]"
               [scheme]="lineColorSchemeFinance"
@@ -390,14 +393,14 @@
               <form  [formGroup]="form">
                 <div class=" d-flex">
                   
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                       <p class="card-title mb-2" routerLink="/dashboard/performance-dashboard">Budget | Expense</p>
                        
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Fin Year</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-4 col-form-label">Duration</label>
+                        <div class="col-sm-8">
                             <select class="form-select form-select-sm">
                               <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                 <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
@@ -418,10 +421,10 @@
                         </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Projects</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-4 col-form-label">Projects</label>
+                        <div class="col-sm-8">
                           <select class="form-select form-select-sm">
                             <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                               <option *ngFor="let f of projData" value="{{f.project_id}}">{{f.project_name}}</option>
@@ -572,7 +575,59 @@
                  <!-- <a class="" href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a> -->
             </div>
           </div>
-        
+
+          <!-- <div class="table-responsive ht-auto mt-2">
+            <table class="table table-hover table-striped" data-bs-toggle="modal" data-bs-target="#createModal">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>Project Name</th>
+                  <th>Category</th>
+                  <th>Amount (Cr)</th>
+                
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <td>1</td>
+                  <td>Taldihi</td>
+                  <td>330 Kv</td>
+                  <td>300</td>
+                
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Jaunpur</td>
+                  <td>220 Kv</td>
+                  <td>400</td>
+                
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Noida Sec-45</td>
+                  <td>220 Kv</td>
+                  <td>400</td>
+                
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Delhi</td>
+                  <td>320 Kv</td>
+                  <td>200</td>
+               
+                </tr>
+                <tr >
+                  <td>5</td>
+                  <td>Noida</td>
+                  <td>240 Kv</td>
+                  <td>200</td>
+               
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+         -->
           <div class="cardHead">
             <div class="row">
               <div class="col-md-2 col-2">S No</div>
@@ -649,79 +704,69 @@ data-bs-backdrop="static" data-bs-keyboard="true">
             <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-          <div class="card-body"  style="padding:2px;">
-            <div class="cardHead">
-              <div class="row" >
-                <div class="column">S No</div>
-                <div class="column">Project Name</div>
-                <div class="column">Category</div>
-                <div class="column">Amount (Cr)</div>
-                <div class="column">Amount with GST</div>
-                <div class="column">Amount without GST</div>
-                <div class="column">Profitability</div>
-            
-              </div>
-            </div>
-            <div class="card1 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-              <div class="row">
-                <div class="column">1</div>
-                <div class="column">Taldihi</div>
-                <div class="column">330 Kv</div>
-                <div class="column">300</div>
-                <div class="column">250</div>
-                <div class="column">200</div>
-                <div class="column">195</div>
-              
-              </div>
-            </div>
-            <div class="card2 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-              <div class="row" >
-                <div class="column">2</div>
-                <div class="column">Jaunpur</div>
-                <div class="column">220 Kv</div>
-                <div class="column">400</div>
-                <div class="column">300</div>
-                <div class="column">250</div>
-                <div class="column">200</div>
-            
-              </div>
-            </div>
-            <div class="card3 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-              <div class="row" >
-                <div class="column">3</div>
-                <div class="column">Noida Sec-45</div>
-                <div class="column">220 Kv</div>
-                <div class="column">400</div>
-                <div class="column">300</div>
-                <div class="column">250</div>
-                <div class="column">200</div>
-
-              </div>
-            </div>
-            <div class="card4 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-              <div class="row" >
-                <div class="column">4</div>
-                <div class="column">Delhi</div>
-                <div class="column">320 Kv</div>
-                <div class="column">200</div>
-                <div class="column">150</div>
-                <div class="column">100</div>
-                <div class="column">80</div>
-              </div>
-            </div>
-            <div class="card5 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-              <div class="row">
-                <div class="column">5</div>
-                <div class="column">Noida</div>
-                <div class="column">240 Kv</div>
-                <div class="column">200</div>
-                <div class="column">150</div>
-                <div class="column">100</div>
-                <div class="column">80</div>
-              </div>
-            </div>
+          <div class="table-responsive ht-auto">
+            <table class="table table-hover table-striped" data-bs-toggle="modal" data-bs-target="#createModal1">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>Project Name</th>
+                  <th>Category</th>
+                  <th>Amount (Cr)</th>
+                  <th>Amount with GST</th>
+                  <th>Amount without GST</th>
+                  <th>Profitability</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <td>1</td>
+                  <td>Taldihi</td>
+                  <td>330 Kv</td>
+                  <td>300</td>
+                  <td>250</td>
+                  <td>200</td>
+                  <td>195</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Jaunpur</td>
+                  <td>220 Kv</td>
+                  <td>400</td>
+                  <td>300</td>
+                  <td>250</td>
+                  <td>200</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Noida Sec-45</td>
+                  <td>220 Kv</td>
+                  <td>400</td>
+                  <td>300</td>
+                  <td>250</td>
+                  <td>200</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Delhi</td>
+                  <td>320 Kv</td>
+                  <td>200</td>
+                  <td>150</td>
+                  <td>100</td>
+                  <td>80</td>
+                </tr>
+                <tr >
+                  <td>5</td>
+                  <td>Noida</td>
+                  <td>240 Kv</td>
+                  <td>200</td>
+                  <td>150</td>
+                  <td>100</td>
+                  <td>80</td>
+                </tr>
+               
+              </tbody>
+            </table>
           </div>
-
          
     
     </div>
@@ -756,103 +801,82 @@ data-bs-backdrop="static" data-bs-keyboard="true">
               <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-            <div class="card-body"  style="padding:2px;">
-              <div class="cardHead">
-                <div class="row" >
-                  <div class="column">S No</div>
-                  <div class="column">Project Name</div>
-                  <div class="column">Category</div>
-                  <div class="column">Amount (Cr)</div>
-                  <div class="column">Amount with GST</div>
-                  <div class="column">Amount without GST</div>
-                  <div class="column">Profitability</div>
-              
-                </div>
-              </div>
-              <div class="card1 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-                <div class="row">
-                  <div class="column">1</div>
-                  <div class="column">Taldihi</div>
-                  <div class="column">330 Kv</div>
-                  <div class="column">300</div>
-                  <div class="column">250</div>
-                  <div class="column">200</div>
-                  <div class="column">195</div>
-                
-                </div>
-              </div>
-              <div class="card2 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-                <div class="row" >
-                  <div class="column">2</div>
-                  <div class="column">Jaunpur</div>
-                  <div class="column">220 Kv</div>
-                  <div class="column">400</div>
-                  <div class="column">300</div>
-                  <div class="column">250</div>
-                  <div class="column">200</div>
-              
-                </div>
-              </div>
-              <div class="card3 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-                <div class="row" >
-                  <div class="column">3</div>
-                  <div class="column">Noida Sec-45</div>
-                  <div class="column">220 Kv</div>
-                  <div class="column">400</div>
-                  <div class="column">300</div>
-                  <div class="column">250</div>
-                  <div class="column">200</div>
-  
-                </div>
-              </div>
-              <div class="card4 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-                <div class="row" >
-                  <div class="column">4</div>
-                  <div class="column">Delhi</div>
-                  <div class="column">320 Kv</div>
-                  <div class="column">200</div>
-                  <div class="column">150</div>
-                  <div class="column">100</div>
-                  <div class="column">80</div>
-                </div>
-              </div>
-              <div class="card5 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-                <div class="row">
-                  <div class="column">5</div>
-                  <div class="column">Noida</div>
-                  <div class="column">240 Kv</div>
-                  <div class="column">200</div>
-                  <div class="column">150</div>
-                  <div class="column">100</div>
-                  <div class="column">80</div>
-                </div>
-              </div>
-              <div class="card5 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-                <div class="row">
-                  <div class="column">6</div>
-                  <div class="column">Noida</div>
-                  <div class="column">240 Kv</div>
-                  <div class="column">200</div>
-                  <div class="column">150</div>
-                  <div class="column">100</div>
-                  <div class="column">80</div>
-                </div>
-              </div>
-              <div class="card5 mt-1" data-bs-toggle="modal" data-bs-target="#createModal1">
-                <div class="row">
-                  <div class="column">7</div>
-                  <div class="column">Noida</div>
-                  <div class="column">240 Kv</div>
-                  <div class="column">200</div>
-                  <div class="column">150</div>
-                  <div class="column">100</div>
-                  <div class="column">80</div>
-                </div>
-              </div>
-            </div>
-  
+
            
-      
+              <div class="table-responsive ht-auto">
+                <table class="table table-hover table-striped">
+                  <thead class="table-primary text-nowrap">
+                    <tr>
+                      <th>S No</th>
+                      <th>Project Name</th>
+                      <th>Category</th>
+                      <th>Amount (Cr)</th>
+                      <th>Amount with GST</th>
+                      <th>Amount without GST</th>
+                      <th>Profitability</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <td>1</td>
+                      <td>Taldihi</td>
+                      <td>330 Kv</td>
+                      <td>300</td>
+                      <td>250</td>
+                      <td>200</td>
+                      <td>195</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Jaunpur</td>
+                      <td>220 Kv</td>
+                      <td>400</td>
+                      <td>300</td>
+                      <td>250</td>
+                      <td>200</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Noida Sec-45</td>
+                      <td>220 Kv</td>
+                      <td>400</td>
+                      <td>300</td>
+                      <td>250</td>
+                      <td>200</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>Delhi</td>
+                      <td>320 Kv</td>
+                      <td>200</td>
+                      <td>150</td>
+                      <td>100</td>
+                      <td>80</td>
+                    </tr>
+                    <tr >
+                      <td>5</td>
+                      <td>Noida</td>
+                      <td>240 Kv</td>
+                      <td>200</td>
+                      <td>150</td>
+                      <td>100</td>
+                      <td>80</td>
+                    </tr>
+                    <!-- <tr class="table-footer fw-bold">
+                      <td>4</td>
+                      <td>Delhi</td>
+                      <td>320 Kv</td>
+                      <td>200</td>
+                      <td>150</td>
+                      <td>100</td>
+                      <td>80</td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </div>
+                               
+          
+
       </div>
   </div>
   </div>

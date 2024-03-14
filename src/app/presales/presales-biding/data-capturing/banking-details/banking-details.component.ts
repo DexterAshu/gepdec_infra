@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
@@ -11,222 +11,151 @@ import { ApiService } from 'src/app/_services/api.service';
   styleUrls: ['./banking-details.component.css']
 })
 export class BankingDetailsComponent {
-  form!: FormGroup;
-   
+  documentForm!: FormGroup;
+  attachment: File[] = [];
+  isSubmitted = false;
+  listOfFiles: string[] = [];
+  fileList: any[] = [];
+  tableHeight: any;
+  searchText: string = '';
+  isNotFound: boolean = false;
+  meterData: any;
   p: number = 1;
   limit = environment.pageLimit;
-  searchText: any;
-  companyData: any = [];
-  isNotFound:boolean = false;
-  countryData: any;
-  stateData: any;
-  districtData: any = [];
-  isSubmitted: boolean = false;
-  val: any;
-  country:any;
-  limits: any = [];
-  isExcelDownload: boolean = false;
-  updateData: any;
-  createModal: boolean = false;
-  update: boolean = false;
-  button: string = 'Create';
-  custDetails: any;
-  loadermsg: any;
-  loading: boolean = false;
-  companyList: any;
+  docType: any;
+  docListData: any;
+  inserteddata: any;
+  discardeddata: any;
+  isExcelDownloadData: boolean = true;
+  companyData: any;
   tenderType: any;
-  design: any;
-  departMent: any;
-  financialData: any;
- 
+  bankData: any;
   constructor(
     private formBuilder: FormBuilder,
-    private masterService: MasterService,
-    private alertService: AlertService,
     private apiService: ApiService,
-  ) { }
+    private  masterService: MasterService,
+    private alertService: AlertService
+  ) {}
 
-  //banking data
-  bankData: any[] = [
-    {
-      Bank: {
-        bank_name: [null],
-        bank_guarantee: [null],
-        bank_guarantee_validity: [null],
-        security_deposit: [null],
-        security_deposit_validity: [null]
-      }
-    }
-  ];
-
- ngOnInit(){
-    this.form = this.formBuilder.group({
-      bank_name: [null],
-      bank_guarantee: [null],
-      bank_guarantee_validity: [null],
-      security_deposit: [null],
-      security_deposit_validity: [null]  
+  ngOnInit() {
+    this.documentForm = this.formBuilder.group({
+      // documenttype_id: ['',Validators.required],
+      bank_name: ['null', Validators.required],
+      bgamount: ['', Validators.required],
+      bgnumber: ['', Validators.required],
+      start_date: ['', Validators.required],
+      end_date: ['', Validators.required],
+      submission_date: ['', Validators.required],
+      extend_date: ['', Validators.required],
+      attachment: ['', Validators.required],
+      publish_date: ['', Validators.required],
+      tender_ref_no:['', Validators.required],
+      tender_title:['', Validators.required],
+      utility:['null', Validators.required],
+      description: [''],
+     
     });
 
-  
-    this.getCompanyData();
-  
+    this.getData();
+    this.apiService.getDocType().subscribe((res: any) => {
+      this.docType = res.documenttype;
+    });
   }
 
- 
-
-  fileList: File[] = [];
-  listOfFiles: any[] = [];
-  attachment: any = [];
-
-  onFileChanged(event: any) { 
-    for (var i = 0; i <= event.target.files.length - 1; i++) {
-      var selectedFile = event.target.files[i];
-      this.listOfFiles.push(selectedFile.name);
-      this.attachment.push(selectedFile);
-    }
-    console.log(this.attachment);
-  }
-
-  removeSelectedFile(index: any) {
-    this.listOfFiles.splice(index, 1);
-    this.fileList.splice(index, 1);
-  }
-
-  createForm(){
-    console.clear();
-    this.button = 'Create';
-    
-    
-    this.update = false;
-    this.form.reset();
-  }
-
-   getDetails(data:any){
-    this.form.reset();
-    this.button = 'Update';
-    this.update = true;
-    this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
-      this.custDetails = res.result[0];
-        this.form.patchValue({
-          bank_name: this.custDetails.bank_name,
-          bank_guarantee: this.custDetails.bank_guarantee,
-          bank_guarantee_validity: this.custDetails.company_type,
-          security_deposit: this.custDetails.security_deposit,
-          security_deposit_validity: this.custDetails.security_deposit_validity,
-        
-          
-        }); 
-     
-  })
-  }
-  OnlyNumbersAllowed(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      console.log('charCode restricted is ' + charCode);
-      return false;
-    }
-    return true;
-  }
-
-  get f() { return this.form.controls; }
-  
-  getCompanyData() {
+  getData() {
+    this.apiService.getDocType().subscribe((res: any) => {
+      this.docType = res.documenttype;
+    });
     this.apiService.getCompanyList().subscribe((res: any) => {  
       this.companyData = res.result;
     });
     this.apiService.getTenderType().subscribe((res: any) => {  
       this.tenderType = res.bidtype;
     });
- 
+    this.masterService.getBankData().subscribe((res:any)=>{
+      this.bankData = res.bank;
+    })
+    
+    this.apiService.getDocListData().subscribe((res:any) => {
+      
+      
+      if (res.status === 200) {
+        this.docListData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    });
   }
+
+  onFileChanged(event: any) {
+    try {
+      const files = event.target.files;
+      for (let i = 0; i < files.length; i++) {
+        this.listOfFiles.push(files[i].name);
+        this.attachment.push(files[i]);
+      }
+    } catch (error) {
+      console.error('Error selecting file:', error);
+    }
+  }
+
+  removeSelectedFile(index: number) {
+    this.listOfFiles.splice(index, 1);
+    this.attachment.splice(index, 1);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.tableHeight = `${window.innerHeight * 0.65}px`;
+  }
+
+  get f() {
+    return this.documentForm.controls;
+  }
+
+  //button dropdown
+  isOpen: boolean = false;
+
+  toggleDropdown() {
+    this.isOpen = !this.isOpen;
+  }
+
+  
 
   onSubmit() {
-    if (this.form.valid) {
-      this.isSubmitted = true;
-     
-  
-       //1-passing Comany id
-       if (this.form.value.company_name != '') {
-        if (this.form.value.company_name) {
-          var compName = this.companyData.filter((item: any) => {
-            return item.company_id == this.form.value.company_name;
-          });
-          console.log(compName);
-          
-          this.form.value.company_name = compName[0]['company_id'];
-        }
-      } else {
-        this.form.value.company_name = null;
-      }
-       //2-passing Tender type id
-       if (this.form.value.bidtype != '') {
-        if (this.form.value.bidtype) {
-          var bidTp = this.tenderType.filter((item: any) => {
-            return item.bidtype_id == this.form.value.bidtype;
-          });
-          console.log(bidTp);
-          
-          this.form.value.bidtype = bidTp[0]['bidtype_id'];
-        }
-      } else {
-        this.form.value.bidtype = null;
-      }
-     
-  
-     
-
-        this.loading = true;
-    if (this.update) {  
-      this.updateTender();
-    } else {
-      this.addTender();
-    }
-    }
-
-
-    const formData: any = new FormData();
-    // const files: Array<File> = this.fileList;
-
+    console.log(this.documentForm.value);
+    const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
-      formData.append("attachment", this.attachment[i]);
+      formData.append('attachment', this.attachment[i]);
     }
 
-  formData.append("bank_name",this.form.value.bank_name);
-  formData.append("bank_guarantee",this.form.value.bank_guarantee);
-  formData.append("bank_guarantee_validity",this.form.value.bank_guarantee_validity);
-  formData.append("security_deposit",this.form.value.security_deposit);
-  formData.append("security_deposit_validity",this.form.value.security_deposit_validity);
-
+    // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
+    formData.append('bank_name', this.documentForm.value.bank_name);
+    formData.append('bgnumber', this.documentForm.value.bgnumber);
+    formData.append('bgamount', this.documentForm.value.bgamount);
+    formData.append('start_date', this.documentForm.value.start_date);
+    formData.append('end_date', this.documentForm.value.end_date);
+    formData.append('submission_date', this.documentForm.value.submission_date);
+    formData.append('extend_date', this.documentForm.value.extend_date);
+    formData.append('publish_date', this.documentForm.value.publish_date);
+    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
+    formData.append('tender_title', this.documentForm.value.tender_title);
+    formData.append('utility', this.documentForm.value.utility);
+    formData.append('description', this.documentForm.value.description);
+    this.addDocument(formData);
   }
 
-  addTender() {
-    this.apiService.createTender(this.form.value).subscribe((res: any) => {
-     let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (response.status == 200) {
-          this.getCompanyData();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      })
-  }
-  updateTender(): void {
-    // this.opac=0;
-    // this.loadermsg="Updating..."
-     this.form.value.company_id =  this.custDetails.company_id;
-    this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
-       this.isSubmitted = false;
-      if (res.status == 200) {
-        this.ngOnInit();
-        document.getElementById('cancel')?.click();
-      this.alertService.success('Company Updated Successfully');
-    } else {
-      this.alertService.error('Something went wrong please try again');
-    }
-  });
+  addDocument(formData: FormData) {
+    this.apiService.createDocuments(formData).subscribe((res: any) => {
+      let response: any = res;
+      document.getElementById('cancel')?.click();
+      this.isSubmitted = false;
+      if (response.status == 200) {
+        this.documentForm.reset();
+        this.alertService.success(response.message);
+      } else {
+        this.alertService.warning(response.message);
+      }
+    });
   }
 }

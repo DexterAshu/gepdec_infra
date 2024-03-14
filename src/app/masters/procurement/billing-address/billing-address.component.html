@@ -83,7 +83,22 @@
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label">Address For<span class="required-asterisk">*</span></label>
+                                    <!-- <input formControlName="item" type="text" class="form-control form-control-sm"> -->
+                                    <select formControlName="addressFor" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
+                                        <option>Purchaser</option>
+                                        <option>Vendor</option>
+                                        <!-- <option *ngFor="let t of dataDropdownList.itemproperty" [value]="t.itemproperty_id">{{ t.itemproperty }}</option> -->
+                                    </select>
+                                    <div *ngIf="f['addressFor'].touched && f['addressFor'].invalid">
+                                        <small class="text-danger" *ngIf="f['addressFor'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label">Address Code<span class="required-asterisk">*</span></label>
                                     <input formControlName="code" type="text" class="form-control form-control-sm">
@@ -107,7 +122,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="form-label">Address (House/Flat No, Street No & Area)<span class="required-asterisk">*</span></label>
                                     <input formControlName="address" type="text" class="form-control form-control-sm">

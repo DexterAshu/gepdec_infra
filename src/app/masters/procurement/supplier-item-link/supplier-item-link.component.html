@@ -103,12 +103,26 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Item List (Select Multiple)<span class="required-asterisk">*</span></label>
-                                        <!-- <select formControlName="itemCode" class="form-select form-select-sm" multiple="true">
-                                            <option [selected]="true" [disabled]="true" [value]="null">Select Multiple</option>
-                                            <option *ngFor="let t of itemDataList" [value]="t.item_id">{{ t.itemname }} [{{t.itemcode}}]</option>
-                                        </select> -->
                                         <ng-select formControlName="itemCode" [items]="itemDataList" [multiple]="true" bindLabel="itemcode" [closeOnSelect]="false" bindValue="item_id">
                                         </ng-select>
+
+                                        <!-- <ng-select formControlName="itemCode"
+                                            [items]="itemDataList"
+                                            [multiple]="true"
+                                            bindLabel="itemcode"
+                                            [selectableGroup]="true"
+                                            [selectableGroupAsModel]="false"
+                                            [closeOnSelect]="false"
+                                            bindValue="item_id">
+                                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.itemcode}}
+                                            </ng-template>
+                                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.itemcode}} {{ item.item_id }}
+                                            </ng-template>
+                                        </ng-select> -->
+
+
                                         <div *ngIf="f['itemCode'].touched && f['itemCode'].invalid">
                                             <small class="text-danger" *ngIf="f['itemCode'].errors?.['required']">*Required</small>
                                         </div>

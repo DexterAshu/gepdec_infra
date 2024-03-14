@@ -102,14 +102,14 @@
             </li>
             <li class="nav-item"> <a class="nav-link" routerLink="/master/tendering-company">
               <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
-              <span class="menu-title">Tendering Company</span>
+              <span class="menu-title">Client</span>
             </a></li>
 
             <li class="nav-item">
               <div routerLink="/master/project">
                 <a class="nav-link" data-toggle="collapse" href="#Bid-Project" aria-expanded="false" aria-controls="Biding">
                   <i class="mdi mdi-content-save-settings menu-icon"></i>
-                  <span class="menu-title">Projects</span>
+                  <span class="menu-title">Project</span>
                   <i class="menu-arrow"></i>
                 </a>
 
@@ -204,10 +204,10 @@
                 </a>
               <div class="collapse" id="Bid-others">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/title">
+                  <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/title">
                     <i class="mdi mdi-format-title menu-icon"></i>
                     <span class="menu-title">Title</span>
-                  </a></li>
+                  </a></li> -->
                 <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/tender">
                     <i class="mdi mdi-tooltip-text menu-icon"></i>
                     <span class="menu-title">Tender</span>
@@ -215,7 +215,7 @@
 
                   <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/tender-company-contacts">
                     <i class="mdi mdi-contacts menu-icon"></i>
-                   <span class="menu-title">Company Contacts</span>
+                   <span class="menu-title">Company Contact</span>
                    </a></li>
                    <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/fin-year">
                     <i class="mdi mdi-camera-front-variant menu-icon"></i>
@@ -402,11 +402,31 @@
             </div>
             <div class="collapse" id="Procurement">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/procurement">
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/procurement/boq">
                     <i class="mdi mdi-timer-sand-empty menu-icon"></i>
-                    <span class="menu-title">Procurement</span>
-                  </a></li>
-
+                    <span class="menu-title">BOQ</span>
+                  </a>
+                </li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/procurement/proposal-1">
+                    <i class="mdi mdi-comment-check-outline menu-icon"></i>
+                    <span class="menu-title">Proposal-1</span>
+                  </a>
+                </li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/procurement/proposal-2">
+                    <i class="mdi mdi-opacity menu-icon"></i>
+                    <span class="menu-title">Proposal-2</span>
+                  </a>
+                </li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/procurement/final-proposal">
+                    <i class="mdi mdi-playlist-check menu-icon"></i>
+                    <span class="menu-title">Final Proposal</span>
+                  </a>
+                </li>
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/procurement/approval">
+                    <i class="mdi mdi-checkbox-marked-outline menu-icon"></i>
+                    <span class="menu-title">Approval</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </li>

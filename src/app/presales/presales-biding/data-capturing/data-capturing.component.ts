@@ -36,7 +36,12 @@ export class DataCapturingComponent {
   design: any;
   departMent: any;
   financialData: any;
- 
+  showTenderDetails: boolean = true;
+  showClientDetails: boolean = false;
+  showEligibility: boolean = false;
+  bankData: any;
+  contactDetails: any;
+  addressDetails: any;
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -46,41 +51,6 @@ export class DataCapturingComponent {
 
 
 
-    //Financial Data
-    financialsData: any[] = [
-      {
-        net_worth: [null],
-        financialyear_id: [null],
-        annual_turnover: [null],
-        fin_remarks: [null],
-        nclt_status: [null],
-        drt: [null],
-        cdr: [null]
-      }
-    ];
-  //Technical Data
-  technicalData: any[] = [
-    {
-      Technical: {
-        technical_qualification: [null],
-        eligibility: [null],
-        tech_remarks: [null],
-        attachment: [null]
-      }
-    }
-  ];
-  //banking data
-  bankData: any[] = [
-    {
-      Bank: {
-        bank_name: [null],
-        bank_guarantee: [null],
-        bank_guarantee_validity: [null],
-        security_deposit: [null],
-        security_deposit_validity: [null]
-      }
-    }
-  ];
 
  ngOnInit(){
     this.form = this.formBuilder.group({
@@ -94,51 +64,60 @@ export class DataCapturingComponent {
       prebid_meeting_mode:[null, Validators.required],
       tender_submission_date:[null, Validators.required],
       tender_description:[null, Validators.required],
-      tender_detail_link:[null],         
+      tender_detail_link:[null],  
+      
+      opening_date: [null, Validators.required],
+      tech_bid_date: [null, Validators.required],
+      fin_bid_opening_date: [null, Validators.required],
+      tender_doc_cost: [null, Validators.required],
+      tender_fee: [null, Validators.required],
+      tender_emd_exemption: [null, Validators.required],
+
+
 //tendering company
       company_name: [null, Validators.required],
-      category:[null, Validators.required],
-      gst:[null, Validators.required],
-      pan:[null, Validators.required],
+      company_type:[null],
+      gst:[null],
+      pan:[null],
       doi:[null],
-      country_id:[null, Validators.required],
-      state_id:[null, Validators.required],
-      district_id:[null, Validators.required],
-      city:[null, Validators.required],
+      country_id:[null],
+      state_id:[null],
+      district_id:[null],
+      city:[null],
       web_url:[null],
       cin_no:[null],
-      pincode:[null, Validators.required],
-      area: [null, Validators.required],
+      pincode:[null],
+      area: [null],
       address_line2: [null],
       address_line3: [null],
 //tendering contacts
-      cont_name: [null, Validators.required],
-      usdg_id: [null, Validators.required],
-      usdt_id: [null, Validators.required],
-      contactno1: [null, Validators.required],  
+      name: [null],
+      usdg_id: [null],
+      usdt_id: [null],
+      contactno1: [null],  
       contactno2: [null],
-      email: [null, Validators.required],
+      email: [null],
 
-      // Financial data
-      net_worth: [null],
-        financialyear_id: [null],
-        annual_turnover: [null],
-        fin_remarks: [null],
-        nclt_status: [null],
-        drt: [null],
-        cdr: [null],   
+    //   // Financial data
+    //   net_worth: [null],
+    //     financialyear_id: [null],
+    //     annual_turnover: [null],
+    //     fin_remarks: [null],
+    //     nclt_status: [null],
+    //     drt: [null],
+    //     cdr: [null],   
 
-     // Technical data
-       technical_qualification: [null],
-        eligibility: [null],
-        tech_remarks: [null],
-        attachment: [null],    
-        // Bank data
-        bank_name: [null],
-        bank_guarantee: [null],
-        bank_guarantee_validity: [null],
-        security_deposit: [null],
-        security_deposit_validity: [null]    
+    //  // Technical data
+    //    technical_qualification: [null],
+    //     eligibility: [null],
+    //     tech_remarks: [null],
+    //     attachment: [null],    
+    //     // Bank data
+    //     bank_name: [null],
+    //     bank_guarantee: [null],
+    //     bank_guarantee_validity: [null],
+    //     security_deposit: [null],
+    //     security_deposit_validity: [null]    
     });
 
   
@@ -229,29 +208,44 @@ export class DataCapturingComponent {
     this.form.reset();
   }
 
-   getDetails(data:any){
-    this.form.reset();
-    this.button = 'Update';
-    this.update = true;
-    this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
+  getDetails(data:any): void {
+    debugger
+    // this.button = 'Update';
+    // this.update = true;
+    this.apiService.companyDetails(data).subscribe((res: any) => {
+      console.log(res);
+      
       this.custDetails = res.result[0];
+      this.contactDetails = res.result[0].contact[0];
+      this.addressDetails = res.result[0].adderss[0];
+     
         this.form.patchValue({
-          name: this.custDetails.name,
           company_name: this.custDetails.company_name,
           company_type: this.custDetails.company_type,
-          contactno1: this.custDetails.contactno1,
-          contactno2: this.custDetails.contactno2,
-          email: this.custDetails.email,
           gst: this.custDetails.gst,
           pan: this.custDetails.pan,
           doi: this.custDetails.doi,
-          area: this.custDetails.area,
-          pincode: this.custDetails.pincode,
-          
+          websiteurl: this.custDetails.websiteurl,
+          cinno:this.custDetails.cinno,
+          city:this.addressDetails.city,
+         
+            //address-patch-details
+            area: this.addressDetails.area,
+            address_line1: this.addressDetails.address_line1,
+            address_line2: this.addressDetails.address_line2,
+            pincode: this.addressDetails.pincode,
+          //contact-path data
+          name: this.contactDetails.name,
+          contactno1: this.contactDetails.contactno1,
+          contactno2: this.contactDetails.contactno2,
+          email: this.contactDetails.email,
+          usdg_id: this.contactDetails.deptname,
+          usdt_id: this.contactDetails.designationname,
         }); 
-        // this.form.controls['country_id'].setValue(this.custDetails.country_id);
-        // this.form.controls['state_id'].setValue(this.custDetails.state_id);
-        // this.form.controls['district_id'].setValue(this.custDetails.district_id);
+
+        this.form.controls['country_id'].setValue(this.addressDetails.name);
+        this.form.controls['state_id'].setValue(this.addressDetails.state_name);
+        this.form.controls['district_id'].setValue(this.addressDetails.district_name);
         // setTimeout(() => {
         //   this.getStateData();
         //   this.getDistrictData();
@@ -276,13 +270,14 @@ export class DataCapturingComponent {
     this.apiService.getTenderType().subscribe((res: any) => {  
       this.tenderType = res.bidtype;
     });
+   
  
   }
 
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
-     
+   
   
        //1-passing Comany id
        if (this.form.value.company_name != '') {
@@ -323,21 +318,18 @@ export class DataCapturingComponent {
     }
 
 
-    const formData: any = new FormData();
-    // const files: Array<File> = this.fileList;
+  //   const formData: any = new FormData();
+  //   for (let i = 0; i < this.attachment.length; i++) {
+  //     formData.append("attachment", this.attachment[i]);
+  //   }
 
-    for (let i = 0; i < this.attachment.length; i++) {
-      formData.append("attachment", this.attachment[i]);
-    }
-
-  formData.append("eligibility",this.form.value.eligibility);
-  formData.append("technical_qualification",this.form.value.technical_qualification);
-  formData.append("tender_company_name",this.form.value.tender_company_name);
-  formData.append("tender_title",this.form.value.tender_title);
-  formData.append("tender_ref_no",this.form.value.tender_ref_no);
-  formData.append("remarks",this.form.value.remarks);
-  // formData.append("bid_condition",this.form.value.bid_condition);
-  // formData.append("dependency",this.form.value.dependency);
+  // formData.append("eligibility",this.form.value.eligibility);
+  // formData.append("technical_qualification",this.form.value.technical_qualification);
+  // formData.append("tender_company_name",this.form.value.tender_company_name);
+  // formData.append("tender_title",this.form.value.tender_title);
+  // formData.append("tender_ref_no",this.form.value.tender_ref_no);
+  // formData.append("remarks",this.form.value.remarks);
+ 
 
 
   }
@@ -347,6 +339,7 @@ export class DataCapturingComponent {
      let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
+  
         if (response.status == 200) {
           this.getCompanyData();
           this.form.reset();
@@ -357,8 +350,7 @@ export class DataCapturingComponent {
       })
   }
   updateTender(): void {
-    // this.opac=0;
-    // this.loadermsg="Updating..."
+ 
      this.form.value.company_id =  this.custDetails.company_id;
     this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
        this.isSubmitted = false;

@@ -53,7 +53,6 @@ import { DatePipe } from '@angular/common';
 import { FilterPipe } from './_pipes/filter.pipe';
 import { PresalesBidingComponent } from './presales/presales-biding/presales-biding.component';
 import { DesignModuleComponent } from './presales/design-module/design-module.component';
-import { ProcurementComponent } from './presales/procurement/procurement.component';
 import { WarehouseStoreComponent } from './presales/warehouse-store/warehouse-store.component';
 import { ExecutionComponent } from './presales/execution/execution.component';
 import { QualitySafetyComponent } from './presales/quality-safety/quality-safety.component';
@@ -157,6 +156,11 @@ import { ProjectDocumentComponent } from './documentation/project-document/proje
 import { FinanceDocumentComponent } from './documentation/finance-document/finance-document.component';
 import { ItemLabelComponent } from './masters/item-label/item-label.component';
 import { InventoryComponent } from './presales/inventory/inventory.component';
+import { BoqComponent } from './procurement/boq/boq.component';
+import { ProposalOneComponent } from './procurement/proposal-one/proposal-one.component';
+import { ProposalTwoComponent } from './procurement/proposal-two/proposal-two.component';
+import { FinalProposalComponent } from './procurement/final-proposal/final-proposal.component';
+import { ApprovalComponent } from './procurement/approval/approval.component';
 
 
 @NgModule({
@@ -200,7 +204,6 @@ import { InventoryComponent } from './presales/inventory/inventory.component';
     FilterPipe,
     PresalesBidingComponent,
     DesignModuleComponent,
-    ProcurementComponent,
     WarehouseStoreComponent,
     ExecutionComponent,
     QualitySafetyComponent,
@@ -234,9 +237,8 @@ import { InventoryComponent } from './presales/inventory/inventory.component';
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
-    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent, FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, DesignDocumentComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent,
-    ItemLabelComponent,
-    InventoryComponent
+    
+    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent, FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, DesignDocumentComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent, ApprovalComponent
   ],
 
   imports: [
