@@ -97,6 +97,10 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
 import { InventoryComponent } from './presales/inventory/inventory.component';
 import { BoqComponent } from './procurement/boq/boq.component';
+import { ProposalOneComponent } from './procurement/proposal-one/proposal-one.component';
+import { ProposalTwoComponent } from './procurement/proposal-two/proposal-two.component';
+import { FinalProposalComponent } from './procurement/final-proposal/final-proposal.component';
+import { ApprovalComponent } from './procurement/approval/approval.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -171,6 +175,10 @@ const routes: Routes = [
   {path: 'dashboard/presales-dashboard/completed', component:CompletedComponent, canActivate:[AuthGuard]},
 
   {path: 'procurement/boq', component:BoqComponent, canActivate:[AuthGuard]},
+  {path: 'procurement/proposal-1', component:ProposalOneComponent, canActivate:[AuthGuard]},
+  {path: 'procurement/proposal-2', component:ProposalTwoComponent, canActivate:[AuthGuard]},
+  {path: 'procurement/final-proposal', component:FinalProposalComponent, canActivate:[AuthGuard]},
+  {path: 'procurement/approval', component:ApprovalComponent, canActivate:[AuthGuard]},
 
 
   //Welcome to lazy-loading Programming
