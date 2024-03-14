@@ -23,6 +23,9 @@ export class GRNNoteComponent {
   selectedPO: any = {};
   form!: FormGroup;
   grnForm!: FormGroup;
+  delivery_qty: any = 0;
+  received_qty: any = 0;
+  vendorDataList: any = [];
 
   constructor( private fb: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) {
     var date = this.date.getDate();
@@ -39,6 +42,10 @@ export class GRNNoteComponent {
     this.initForm();
   }
 
+  getGRNData(): void {
+    this.getDataList();
+  }
+
   initForm(): void {
     this.form = this.fb.group({
       grn_number: [null, Validators.required],
@@ -47,14 +54,17 @@ export class GRNNoteComponent {
       items: this.fb.array([])
     });
     this.grnForm = this.fb.group({
-      venderName: [null, Validators.required],
+      supplier_id: [null, Validators.required],
       purchaseOrder: [null, Validators.required],
       purchaseOrderDate: [null],
       shipmentNumber: [null, Validators.required],
       grn_number: [null, Validators.required],
       grn_date: [null, Validators.required],
-      grn_remark: [null, Validators.required]
-    })
+      grn_remark: [null, Validators.required],
+      delivery_qty: [null],
+      received_qty: [null],
+      document_received: [null]
+    });
   }
 
   get f() { return this.form.controls; }
@@ -76,6 +86,26 @@ export class GRNNoteComponent {
 
   grnSubmit(): void {
     console.log(this.grnForm.value);
+  }
+
+  getVenderPOData(): void {
+    console.log(this.grnForm.value.venderName);
+  }
+
+  getDataList() {
+    this.vendorDataList = [];
+    let apiLink = "/supplier/api/v1/getSupplierList";
+    this.apiService.getData(apiLink).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.vendorDataList = res.result;
+      } else {
+        this.vendorDataList = [];
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.vendorDataList = [];
+      this.alertService.error("Error: " + error.statusText)
+    });
   }
 
   getData(): void {

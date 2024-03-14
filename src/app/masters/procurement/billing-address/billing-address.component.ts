@@ -32,6 +32,7 @@ export class BillingAddressComponent {
   
   ngOnInit(){
     this.form = this.formBuilder.group({
+      addressFor: [null, Validators.required],
       code: [null, Validators.required],
       type: [null, Validators.required],
       address: [null, Validators.required],

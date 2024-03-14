@@ -20,7 +20,6 @@ import { ConsumptionCalculatorComponent } from './customer/consumption-calculato
 import { CustomerFaqComponent } from './customer/customer-faq/customer-faq.component';
 import { PresalesBidingComponent } from './presales/presales-biding/presales-biding.component';
 import { DesignModuleComponent } from './presales/design-module/design-module.component';
-import { ProcurementComponent } from './presales/procurement/procurement.component';
 import { WarehouseStoreComponent } from './presales/warehouse-store/warehouse-store.component';
 import { ExecutionComponent } from './presales/execution/execution.component';
 import { QualitySafetyComponent } from './presales/quality-safety/quality-safety.component';
@@ -96,6 +95,12 @@ import { ProjReportsComponent } from './proj-reports/proj-reports.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
+import { InventoryComponent } from './presales/inventory/inventory.component';
+import { BoqComponent } from './procurement/boq/boq.component';
+import { ProposalOneComponent } from './procurement/proposal-one/proposal-one.component';
+import { ProposalTwoComponent } from './procurement/proposal-two/proposal-two.component';
+import { FinalProposalComponent } from './procurement/final-proposal/final-proposal.component';
+import { ApprovalComponent } from './procurement/approval/approval.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -118,7 +123,7 @@ const routes: Routes = [
   {path: 'documentation/tend-doc/amedments', component:AmendmentsComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/initial-boq', component:InitialBoqComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/l1-schedule', component:L1ScheduleComponent, canActivate:[AuthGuard]},
-  
+
   {path: 'documentation/qualification-doc', component:QualificationDocumentComponent, canActivate:[AuthGuard]},
   //financial-documents
   {path: 'documentation/qualification-doc/fin', component:FinDocumentsComponent, canActivate:[AuthGuard]},
@@ -126,7 +131,7 @@ const routes: Routes = [
   {path: 'documentation/qualification-doc/fin/maat', component:FinMaatComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/liq-asset', component:FinLiquidAssetComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/bank-certificate', component:FinBankCertificateComponent, canActivate:[AuthGuard]},
- 
+
   {path: 'documentation/qualification-doc/fin/itr', component:FinItrComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/tender-fees', component:FinTenderFeesComponent, canActivate:[AuthGuard]},
   //tech-qualification-documents
@@ -134,7 +139,7 @@ const routes: Routes = [
   {path: 'documentation/qualification-doc/tech/qualification', component:TechQualificationComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/others', component:OtherDocumentsComponent, canActivate:[AuthGuard]},
 
-  
+
   {path: 'documentation/bg-doc', component:BgDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/lc-doc', component:LcDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/comm-doc', component:CommunicationDocumentComponent, canActivate:[AuthGuard]},
@@ -169,6 +174,12 @@ const routes: Routes = [
   {path: 'dashboard/presales-dashboard/win', component:TenderWinsComponent, canActivate:[AuthGuard]},
   {path: 'dashboard/presales-dashboard/completed', component:CompletedComponent, canActivate:[AuthGuard]},
 
+  {path: 'procurement/boq', component:BoqComponent, canActivate:[AuthGuard]},
+  {path: 'procurement/proposal-1', component:ProposalOneComponent, canActivate:[AuthGuard]},
+  {path: 'procurement/proposal-2', component:ProposalTwoComponent, canActivate:[AuthGuard]},
+  {path: 'procurement/final-proposal', component:FinalProposalComponent, canActivate:[AuthGuard]},
+  {path: 'procurement/approval', component:ApprovalComponent, canActivate:[AuthGuard]},
+
 
   //Welcome to lazy-loading Programming
      //Master root
@@ -181,7 +192,6 @@ const routes: Routes = [
 //presales
   {path: 'presales/presales-biding', component:PresalesBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/design-module', component:DesignModuleComponent, canActivate:[AuthGuard]},
-  {path: 'presales/procurement', component:ProcurementComponent, canActivate:[AuthGuard]},
   {path: 'presales/warehouse', component:WarehouseStoreComponent, canActivate:[AuthGuard]},
   {path: 'presales/execution', component:ExecutionComponent, canActivate:[AuthGuard]},
   {path: 'presales/quality-safety', component:QualitySafetyComponent, canActivate:[AuthGuard]},
@@ -199,6 +209,7 @@ const routes: Routes = [
   {path: 'presales/presales-biding/data-capture/technical', component:TechnicalBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/financial', component:FinancialBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},
+  {path: 'presales/inventory', component:InventoryComponent, canActivate:[AuthGuard]},
 //Customer
   {path: 'customer-registration/process-1', component:Process1Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-2', component:Process2Component, canActivate:[AuthGuard]},
