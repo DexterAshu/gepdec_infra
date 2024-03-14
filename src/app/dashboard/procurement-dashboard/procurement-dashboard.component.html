@@ -305,7 +305,7 @@
 
 
   <div class="col-md-6 grid-margin stretch-card">
-    <div class="card">
+    <div class="card"  data-bs-toggle="modal" data-bs-target="#createModal">
       <div class="card-body">
         <p class="card-title mb-2">Project Status</p>
         <div class="cardHead">
@@ -364,3 +364,100 @@
 </div>
 
 </div>
+
+
+  <!-- create modal L1 -->
+  <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+            <div class="table-responsive ht-auto">
+              <table class="table table-hover table-striped" data-bs-toggle="modal" data-bs-target="#createModal1">
+                <thead class="table-primary text-nowrap">
+                  <tr>
+                    <th>S No</th>
+                    <th>Project Name</th>
+                    <th>Category</th>
+                    <th>Amount (Cr)</th>
+                    <th>Amount with GST</th>
+                    <th>Amount without GST</th>
+                    <th>Profitability</th>
+                  </tr>
+                </thead>
+                <tbody class="text-nowrap">
+                  <tr>
+                    <td>1</td>
+                    <td>Taldihi</td>
+                    <td>330 Kv</td>
+                    <td>300</td>
+                    <td>250</td>
+                    <td>200</td>
+                    <td>195</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Jaunpur</td>
+                    <td>220 Kv</td>
+                    <td>400</td>
+                    <td>300</td>
+                    <td>250</td>
+                    <td>200</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Noida Sec-45</td>
+                    <td>220 Kv</td>
+                    <td>400</td>
+                    <td>300</td>
+                    <td>250</td>
+                    <td>200</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Delhi</td>
+                    <td>320 Kv</td>
+                    <td>200</td>
+                    <td>150</td>
+                    <td>100</td>
+                    <td>80</td>
+                  </tr>
+                  <tr >
+                    <td>5</td>
+                    <td>Noida</td>
+                    <td>240 Kv</td>
+                    <td>200</td>
+                    <td>150</td>
+                    <td>100</td>
+                    <td>80</td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+           
+      
+      </div>
+  </div>
+  </div>
+  <!-- create modal end L1-->
+  
+    <!-- create modal L2 -->
+  <div class="modal fade" id="createModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">List Data</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="card-body"  style="padding:2px;">
+        <h4 class="text-center mt-2">Work in Progress...</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- create modal end L2-->

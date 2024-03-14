@@ -1252,46 +1252,46 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  Highcharts= new Chart({
+  Highcharts = new Chart({
     chart: {
-        type: 'bar'
+      type: 'bar'
     },
     title: {
-        text: '',
-        align: 'left'
+      text: '',
+      align: 'left'
     },
- 
     xAxis: {
-        categories: ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'JUSNL'],
-        title: {
-            text: null
-        },
-        gridLineWidth: 1,
-        lineWidth: 0
+      categories: ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL'],
+      title: {
+        text: null
+      },
+      gridLineWidth: 1,
+      lineWidth: 0
     },
     yAxis: {
       min: 0,
       title: {
-          text: ""
+        text: ""
       },
       labels: {
-          enabled: true, // Disable numeric labels on the y-axis
-          overflow: 'justify'
+        enabled: true, // Disable numeric labels on the y-axis
+        overflow: 'justify'
       },
       gridLineWidth: 0,
-     
-  },
+    },
     tooltip: {
-        valueSuffix: ''
+      valueSuffix: ''
     },
     plotOptions: {
-        bar: {
-            borderRadius: '50%',
-            dataLabels: {
-                enabled: true
-            },
-            groupPadding: 0.1
-        }
+      bar: {
+        borderRadius: '50%',
+        dataLabels: {
+          enabled: true
+        },
+        groupPadding: 0.1,
+        colorByPoint: true, // Assign different colors to each point
+        colors: ['#49b59a', '#FD7546', '#f9d84a'] // Define three colors for the gradient
+      }
     },
     legend: {
       layout: 'vertical',
@@ -1301,30 +1301,26 @@ export class DashboardComponent implements OnInit {
       y: -10,
       floating: true,
       borderWidth: 1,
-      // Ensure legend.backgroundColor is defined or use a default value
       backgroundColor: Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
-     
       shadow: true
-  },
+    },
     credits: {
-        enabled: false
+      enabled: false
     },
     series: [{
       type: 'bar', // Specify the type of chart series
       name: 'Actual',
-      
-      data: [70, 80, 30, 20,70,90, 80, 30, 20,70]
-    },
-    //  {
-    //   type: 'bar', // Specify the type of chart series
-    //   name: 'Target',
-    //   data: [100, 100, 100, 100, 100]
-    // }
-  ],
-    colors: [ '#8cd99f','#afcaf9' ] // Red, Green, Blue
-   
+      data: [70, 80, 30, 20, 70, 90, 80, 30, 20]
+    }],
+    colors: ['#49b59a', '#FF6067', '#f9d84a'] // Assign three different colors to the bars
+  });
+  
+  
 
-});
+  
+  
+  
+  
 
 //state wise data
 statePie = new Chart({
@@ -1569,5 +1565,39 @@ scateredGraphPrject = new Chart({
 });
 
 
+
+onChartSelect(event: any) {
+  debugger
+  // Check the "name" property of the selected item
+  const selectedName = event.series;
+
+  // Conditionally navigate based on the selected name
+  switch (selectedName) {
+    case 'Presales':
+      this.router.navigate(['/dashboard/presales-dashboard']);
+      break;
+    case 'Design':
+      this.router.navigate(['/dashboard/design-dashboard']);
+      break;
+    case 'Proc':
+      this.router.navigate(['/dashboard/procurement-dashboard']);
+      break;
+    case 'Store':
+      this.router.navigate(['/dashboard/warehouse-dashboard']);
+      break;
+    case 'Exec':
+      this.router.navigate(['/dashboard/execution-dashboard']);
+      break;
+    case 'Quality':
+      this.router.navigate(['/dashboard/quality-dashboard']);
+      break;
+    case 'Fin':
+      this.router.navigate(['/dashboard/fin-dashboard']);
+      break;
+    default:
+      // Handle other cases if needed
+      break;
+  }
+}
   
 }

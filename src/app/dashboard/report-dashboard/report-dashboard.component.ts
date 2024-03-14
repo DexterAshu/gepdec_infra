@@ -1495,7 +1495,7 @@ scateredGraphPrject = new Chart({
                 amount: 0.30,
                 fill: '#07ad60'
             },
-            color: '#5691f7' // Blue background color for this data point
+            color: '#d3e3fd' // Blue background color for this data point
         },
         {
             x: Date.UTC(2023, 11, 8),
@@ -1505,7 +1505,7 @@ scateredGraphPrject = new Chart({
                 amount: 0.15,
                 fill: '#07ad60'
             },
-            color: '#5691f7' // Blue background color for this data point
+            color: '#d3e3fd' // Blue background color for this data point
         },
         {
             x: Date.UTC(2023, 11, 15),
@@ -1515,7 +1515,7 @@ scateredGraphPrject = new Chart({
                 amount: 0.45,
                 fill: '#07ad60'
             },
-            color: '#5691f7' // Blue background color for this data point
+            color: '#d3e3fd' // Blue background color for this data point
         },
         {
             x: Date.UTC(2023, 11, 25),
@@ -1525,7 +1525,7 @@ scateredGraphPrject = new Chart({
                 amount: 0.30,
                 fill: '#07ad60'
             },
-            color: '#5691f7' // Blue background color for this data point
+            color: '#d3e3fd' // Blue background color for this data point
         },
         {
             x: Date.UTC(2023, 12, 5),
@@ -1535,7 +1535,7 @@ scateredGraphPrject = new Chart({
                 amount: 0.20,
                 fill: '#07ad60'
             },
-            color: '#5691f7', // Blue background color for this data point
+            color: '#d3e3fd', // Blue background color for this data point
         }
     ],
     dataLabels: {
