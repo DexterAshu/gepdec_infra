@@ -42,6 +42,8 @@ export class DataCapturingComponent {
   bankData: any;
   contactDetails: any;
   addressDetails: any;
+  meetingMode: any;
+  emdExp: any;
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -88,36 +90,17 @@ export class DataCapturingComponent {
       cin_no:[null],
       pincode:[null],
       area: [null],
+      address_line1: [null],
       address_line2: [null],
-      address_line3: [null],
 //tendering contacts
-      name: [null],
-      usdg_id: [null],
-      usdt_id: [null],
-      contactno1: [null],  
-      contactno2: [null],
-      email: [null],
+      // name: [null],
+      // usdg_id: [null],
+      // usdt_id: [null],
+      // contactno1: [null],  
+      // contactno2: [null],
+      // email: [null],
 
-    //   // Financial data
-    //   net_worth: [null],
-    //     financialyear_id: [null],
-    //     annual_turnover: [null],
-    //     fin_remarks: [null],
-    //     nclt_status: [null],
-    //     drt: [null],
-    //     cdr: [null],   
-
-    //  // Technical data
-    //    technical_qualification: [null],
-    //     eligibility: [null],
-    //     tech_remarks: [null],
-    //     attachment: [null],    
-    //     // Bank data
-    //     bank_name: [null],
-    //     bank_guarantee: [null],
-    //     bank_guarantee_validity: [null],
-    //     security_deposit: [null],
-    //     security_deposit_validity: [null]    
+     
     });
 
   
@@ -208,19 +191,18 @@ export class DataCapturingComponent {
     this.form.reset();
   }
 
-  getDetails(data:any): void {
-    debugger
-    // this.button = 'Update';
-    // this.update = true;
+  getDetails(data:any) {
     this.apiService.companyDetails(data).subscribe((res: any) => {
       console.log(res);
       
       this.custDetails = res.result[0];
-      this.contactDetails = res.result[0].contact[0];
+      this.contactDetails = res.result[0].contact;
+      console.log( this.contactDetails);
+      
       this.addressDetails = res.result[0].adderss[0];
      
         this.form.patchValue({
-          company_name: this.custDetails.company_name,
+          // company_name: this.custDetails.company_name,
           company_type: this.custDetails.company_type,
           gst: this.custDetails.gst,
           pan: this.custDetails.pan,
@@ -269,6 +251,8 @@ export class DataCapturingComponent {
     });
     this.apiService.getTenderType().subscribe((res: any) => {  
       this.tenderType = res.bidtype;
+      this.meetingMode = res.mettingmode;
+      this.emdExp = res.emdexemption;
     });
    
  

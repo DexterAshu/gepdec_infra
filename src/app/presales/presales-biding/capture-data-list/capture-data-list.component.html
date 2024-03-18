@@ -20,10 +20,17 @@
                   
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search...">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
                         </div>
                         <div class="col-lg-8">
                             <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"  (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button> -->
+                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Open</button>
+                            <button type="button"  class="btn btn-light btn-fw btn-sm me-1">Qualified</button>
+                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Not Qualified</button>
+                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Participated</button>
+                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Not Participated</button>
+                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Won</button>
+                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Lost</button>
                             <button type="button" routerLink="/presales/presales-biding/data-capture" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
                         </div>
                     </div>
