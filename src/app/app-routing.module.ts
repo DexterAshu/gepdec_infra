@@ -101,6 +101,7 @@ import { ProposalOneComponent } from './procurement/proposal-one/proposal-one.co
 import { ProposalTwoComponent } from './procurement/proposal-two/proposal-two.component';
 import { FinalProposalComponent } from './procurement/final-proposal/final-proposal.component';
 import { ApprovalComponent } from './procurement/approval/approval.component';
+import { PoDataComponent } from './procurement/po-data/po-data.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -179,6 +180,7 @@ const routes: Routes = [
   {path: 'procurement/proposal-2', component:ProposalTwoComponent, canActivate:[AuthGuard]},
   {path: 'procurement/final-proposal', component:FinalProposalComponent, canActivate:[AuthGuard]},
   {path: 'procurement/approval', component:ApprovalComponent, canActivate:[AuthGuard]},
+  {path: 'procurement/po', component:PoDataComponent, canActivate:[AuthGuard]},
 
 
   //Welcome to lazy-loading Programming
