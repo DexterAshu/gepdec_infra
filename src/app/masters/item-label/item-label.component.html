@@ -21,32 +21,33 @@
             </div>
             <div class="col-lg-8">
               <!-- <button type="button" class="btn btn-fw btn-sm text-white float-right ms-2" style="background-color: #175935;" *ngIf="isExcelDownload" (click)="download()" title="Download selected records"><span class="mdi mdi-file-excel-box"></span></button> -->
-              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+              <button type="button" data-bs-toggle="modal" (click)="selectWHL({})" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
             </div>
           </div>
           <app-responsive-table id="export">
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>Sr No</th>
-                <th>Item Code</th>
-                <th>Item Description</th>
                 <th>Label Code</th>
                 <th>Label Name</th>
+                <th>Capacity</th>
                 <th>WH Code</th>
                 <th>WH Name</th>
+                <th>Item Codes</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
               <tr *ngFor="let a of itemLocationLabelData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
-                <td><a data-bs-toggle="modal" class="cursor-pointer text-primary" style="text-decoration: underline;" data-bs-target="#viewLocation" title="Warehouse Profile"> {{a.warehouse_code}}{{ a.location_code }}</a></td>
-                <td>{{ a.location_description }}</td>
+                <td>{{ a.labelCode }}</td>
+                <td>{{ a.labelName }}</td>
                 <td>{{ a.capacity }}</td>
-                <td>{{ a.warehouse_code }}</td>
+                <td>{{ a.WHCode }}</td>
+                <td>{{ a.WHName }}</td>
+                <td> <span class="array-list" *ngFor="let item of a.items">{{item}}&nbsp;</span></td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
-                  <!-- <a data-bs-toggle="modal" (click)="selectWHL(a)" data-bs-target="#deleteModal" class="text-danger" title="delete Warehouse Location"><span class="mdi mdi-delete-forever cursor-pointer mdi-18px"></span></a> -->
+                  <a data-bs-toggle="modal" (click)="selectWHL(a)" data-bs-target="#createModal" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">
@@ -64,6 +65,64 @@
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{!update ? "Add" : "Update"}} Warehouse Location</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid scroll-container">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Ware House<span class="required-asterisk">*</span></label>
+                  <select formControlName="warehouse_id" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option *ngFor="let t of wareHouseData" [value]="t.warehouse_id">{{ t.warehouse_name | titlecase }}</option>
+                  </select>
+                  <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid"><small class="text-danger" *ngIf="f['warehouse_id'].errors?.['required']">*Required</small></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Label Name<span class="required-asterisk">*</span></label>
+                  <input formControlName="labelName" type="text" class="form-control form-control-sm" placeholder="Enter Label Name" appWordCapitalize />
+                  <div *ngIf="f['labelName'].touched && f['labelName'].invalid"><small class="text-danger" *ngIf="f['labelName'].errors?.['required']">*Required</small></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Capacity<span class="required-asterisk">*</span></label>
+                  <input formControlName="capacity" type="text" class="form-control form-control-sm" placeholder="Enter location capacity">
+                  <div *ngIf="f['capacity'].touched && f['capacity'].invalid"><small class="text-danger" *ngIf="f['capacity'].errors?.['required']">*Required</small></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Items<span class="required-asterisk">*</span></label>
+                  <select formControlName="item_id" class="form-select form-select-sm" multiple>
+                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option *ngFor="let t of itemData" [value]="t.item_id">{{ t.item_id }} - {{t.description}}</option>
+                  </select>
+                  <div *ngIf="f['item_id'].touched && f['item_id'].invalid"><small class="text-danger" *ngIf="f['item_id'].errors?.['required']">*Required</small></div>
+                </div>
+              </div>
+              <div class="modal-btns">
+                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>
+                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
