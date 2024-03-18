@@ -4,11 +4,11 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-approval',
-  templateUrl: './approval.component.html',
-  styleUrls: ['./approval.component.css']
+  selector: 'app-po-data',
+  templateUrl: './po-data.component.html',
+  styleUrls: ['./po-data.component.css']
 })
-export class ApprovalComponent {
+export class PoDataComponent {
 
   p: number = 1;
   limit = environment.pageLimit;

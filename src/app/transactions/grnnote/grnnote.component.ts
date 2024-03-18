@@ -34,7 +34,6 @@ export class GRNNoteComponent {
     this.fromDate =  year+"-"+(month<=9?'0':'')+month+"-"+'01';
     this.toDate = year+"-"+(month<=9?'0':'')+month+"-"+(date<=9?'0':'')+date;
     this.currentDate =  year+"-"+(month<=9?'0':'')+month+"-"+(date<=9?'0':'')+date;
-    console.log(this.toDate);
   }
 
   ngOnInit(): void {
@@ -63,7 +62,15 @@ export class GRNNoteComponent {
       grn_remark: [null, Validators.required],
       delivery_qty: [null],
       received_qty: [null],
-      document_received: [null]
+      docs_tax_invoice: [false],
+      docs_delivery_challan: [false],
+      docs_lr_copy: [false],
+      docs_packing_list: [false],
+      docs_e_way_bill: [false],
+      docs_warranty_certificate: [false],
+      docs_quality_inspection: [false],
+      docs_operator_manual: [false],
+      docs_technical_manual: [false]
     });
   }
 

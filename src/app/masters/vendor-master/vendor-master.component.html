@@ -8,7 +8,7 @@
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
+
             </div>
           </div>
         </div>
@@ -83,254 +83,243 @@
 </div>
 
 <!-- create modal -->
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Vendor Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid scroll-container">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
-                                    <input formControlName="VendorName" type="text" class="form-control form-control-sm" placeholder="Enter vendor name" appWordCapitalize>
-                                    <div *ngIf="f['VendorName'].touched && f['VendorName'].invalid">
-                                        <small class="text-danger" *ngIf="f['VendorName'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Vendor Type<span class="required-asterisk">*</span></label>
-                                    <select formControlName="VendorType" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Vendor Type</option>
-                                        <option *ngFor="let s of vendData" value="{{s.vendortype_id}}">{{ s.vendortype }}</option>
-                                    </select>
-                                    <div *ngIf="f['VendorType'].touched && f['VendorType'].invalid">
-                                        <small class="text-danger" *ngIf="f['VendorType'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Contact Person<span class="required-asterisk">*</span></label>
-                                    <input formControlName="ContactPerson" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
-                                    <div *ngIf="f['ContactPerson'].touched && f['ContactPerson'].invalid">
-                                        <small class="text-danger" *ngIf="f['ContactPerson'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Contact No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
-                                    maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">
-                                        <small class="text-danger" *ngIf="f['contactno1'].errors?.['required']">*Required</small>
-                                        <small class="text-danger" *ngIf="f['contactno1'].errors?.['pattern']">*Please enter 10 digit Contact No</small>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Secondary Contact No (optional)</label>
-                                    <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
-                                    maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
-                                    <input formControlName="email" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
-                                    <div *ngIf="f['email'].touched && f['email'].invalid">
-                                        <small class="text-danger" *ngIf="f['email'].errors?.['required']">*Required</small>
-                                        <small class="text-danger" *ngIf="f['email'].errors?.['pattern']">*Email must be a valid Email ID</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">GST No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="gst" placeholder="Enter GST NO." minlength="15"
-                                    maxlength="15" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
-                                    <div *ngIf="f['gst'].touched && f['gst'].invalid">
-                                        <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">PAN No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="pan" placeholder="Enter Pan No." minlength="10"
-                                    maxlength="10" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
-                                    <div *ngIf="f['pan'].touched && f['pan'].invalid">
-                                        <small class="text-danger" *ngIf="f['pan'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="pincode" maxlength="6" minlength="6" placeholder="Enter Pin Code" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['pincode'].touched && f['pincode'].invalid">
-                                        <small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small>
-                                        <small class="text-danger" *ngIf="f['pincode'].errors?.['pattern']">*Please enter 6 digit only.</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Lane/Area<span class="required-asterisk">*</span></label>
-                                    <textarea type="text" formControlName="Address" class="form-control form-control-sm" placeholder="Enter lane/area details">
-                                  </textarea>
-                                        <div *ngIf="f['Address'].touched && f['Address'].invalid">
-                                        <small class="text-danger" *ngIf="f['Address'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <h5 class="mt-1">Bank Details</h5>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Payment Terms<span class="required-asterisk">*</span></label>
-                                    <input formControlName="PaymentTerms" placeholder="Enter Payment Terms" type="text" class="form-control form-control-sm">
-                                    <div *ngIf="f['PaymentTerms'].touched && f['PaymentTerms'].invalid">
-                                        <small class="text-danger" *ngIf="f['PaymentTerms'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Bank Name<span class="required-asterisk">*</span></label>
-                                    <select formControlName="BankName" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
-                                        <!-- <option *ngFor="let s of vendData">{{ s.vendortype }}</option> -->
-                                    </select>
-                                    <div *ngIf="f['BankName'].touched && f['BankName'].invalid">
-                                        <small class="text-danger" *ngIf="f['BankName'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">IFSC Code<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="BankIFSC" placeholder="Enter IFSC Code" type="text" class="form-control form-control-sm">
-                                    <div *ngIf="f['BankIFSC'].touched && f['BankIFSC'].invalid">
-                                        <small class="text-danger" *ngIf="f['BankIFSC'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Bank Account No.<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="BankAccountNo" (keypress)="OnlyNumbersAllowed($event)" placeholder="Enter Account Number" type="text" class="form-control form-control-sm">
-                                    <div *ngIf="f['BankAccountNo'].touched && f['BankAccountNo'].invalid">
-                                        <small class="text-danger" *ngIf="f['BankAccountNo'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Payment Method<span class="required-asterisk">*</span></label>
-                                    <select formControlName="PaymentMethods" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select payment Method</option>
-                                        <!-- <option *ngFor="let s of vendData">{{ s.vendortype }}</option> -->
-                                    </select>
-                                    <div *ngIf="f['PaymentMethods'].touched && f['PaymentMethods'].invalid">
-                                        <small class="text-danger" *ngIf="f['PaymentMethods'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Credit limit<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="CreditLimit" (keypress)="OnlyNumbersAllowed($event)" placeholder="Enter Credit data" type="text" class="form-control form-control-sm">
-                                    <div *ngIf="f['CreditLimit'].touched && f['CreditLimit'].invalid">
-                                        <small class="text-danger" *ngIf="f['CreditLimit'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Credit Ranking<span class="required-asterisk">*</span></label>
-                                    <select formControlName="CreditRating" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Credit Ranking</option>
-                                        <!-- <option *ngFor="let s of vendData">{{ s.vendortype }}</option> -->
-                                    </select>
-                                    <div *ngIf="f['CreditRating'].touched && f['CreditRating'].invalid">
-                                        <small class="text-danger" *ngIf="f['CreditRating'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Performance History<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="PerformanceHistory"  placeholder="Enter Performance History" type="text" class="form-control form-control-sm">
-                                    <div *ngIf="f['PerformanceHistory'].touched && f['PerformanceHistory'].invalid">
-                                        <small class="text-danger" *ngIf="f['PerformanceHistory'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Approval Status<span
-                                            class="required-asterisk">*</span></label>
-                                            <select formControlName="ApprovalStatus" class="form-select form-select-sm">
-                                                <option [selected]="true" [disabled]="true" [value]="null">Select Approval Status</option>
-                                                <option *ngFor="let s of approvalData" value="{{s.approvalstatus_id}}">{{ s.approvalstatus }}</option>
-                                            </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Compliance Information <span
-                                            class="required-asterisk">*</span></label>
-                                    <textarea formControlName="ComplianceInformation"  placeholder="Enter Compliance info" type="text" class="form-control form-control-sm">
-                                    </textarea>
-                                        <div *ngIf="f['ComplianceInformation'].touched && f['ComplianceInformation'].invalid">
-                                        <small class="text-danger" *ngIf="f['ComplianceInformation'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                          
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label text-primary">Terms & Condition</label>
-                                    <textarea formControlName="tc"  placeholder="Enter Compliance info" type="text" class="form-control form-control-sm">
-                                    </textarea>
-                                        <div *ngIf="f['tc'].touched && f['tc'].invalid">
-                                        <small class="text-danger" *ngIf="f['tc'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                           
-
-                            <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-info btn-fw btn-sm mr-2">{{button}}</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </form>
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Vendor Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid scroll-container">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
+                  <input formControlName="VendorName" type="text" class="form-control form-control-sm" placeholder="Enter vendor name" appWordCapitalize>
+                  <div *ngIf="f['VendorName'].touched && f['VendorName'].invalid">
+                    <small class="text-danger" *ngIf="f['VendorName'].errors?.['required']">*Required</small>
+                  </div>
                 </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Vendor Type<span class="required-asterisk">*</span></label>
+                  <select formControlName="VendorType" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Vendor Type</option>
+                    <option *ngFor="let s of vendData" value="{{s.vendortype_id}}">{{ s.vendortype }}</option>
+                  </select>
+                  <div *ngIf="f['VendorType'].touched && f['VendorType'].invalid">
+                    <small class="text-danger" *ngIf="f['VendorType'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Contact Person<span class="required-asterisk">*</span></label>
+                  <input formControlName="ContactPerson" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
+                  <div *ngIf="f['ContactPerson'].touched && f['ContactPerson'].invalid">
+                    <small class="text-danger" *ngIf="f['ContactPerson'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Contact No<span class="required-asterisk">*</span></label>
+                  <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10" maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
+                  <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">
+                    <small class="text-danger" *ngIf="f['contactno1'].errors?.['required']">*Required</small>
+                    <small class="text-danger" *ngIf="f['contactno1'].errors?.['pattern']">*Please enter 10 digit Contact No</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Secondary Contact No (optional)</label>
+                  <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10" maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
+                  <input formControlName="email" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
+                  <div *ngIf="f['email'].touched && f['email'].invalid">
+                    <small class="text-danger" *ngIf="f['email'].errors?.['required']">*Required</small>
+                    <small class="text-danger" *ngIf="f['email'].errors?.['pattern']">*Email must be a valid Email ID</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">GST No<span class="required-asterisk">*</span></label>
+                  <input formControlName="gst" placeholder="Enter GST NO." minlength="15" maxlength="15" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                  <div *ngIf="f['gst'].touched && f['gst'].invalid">
+                    <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">PAN No<span class="required-asterisk">*</span></label>
+                  <input formControlName="pan" placeholder="Enter Pan No." minlength="10" maxlength="10" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                  <div *ngIf="f['pan'].touched && f['pan'].invalid">
+                    <small class="text-danger" *ngIf="f['pan'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
+                  <input type="text" formControlName="pincode" maxlength="6" minlength="6" placeholder="Enter Pin Code" class="form-control form-control-sm" appNumberOnly>
+                  <div *ngIf="f['pincode'].touched && f['pincode'].invalid">
+                    <small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small>
+                    <small class="text-danger" *ngIf="f['pincode'].errors?.['pattern']">*Please enter 6 digit only.</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">Lane/Area<span class="required-asterisk">*</span></label>
+                  <textarea type="text" formControlName="Address" class="form-control form-control-sm" placeholder="Enter lane/area details"></textarea>
+                  <div *ngIf="f['Address'].touched && f['Address'].invalid">
+                    <small class="text-danger" *ngIf="f['Address'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <h5 class="mt-1">Bank Details</h5>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Payment Terms<span class="required-asterisk">*</span></label>
+                  <input formControlName="PaymentTerms" placeholder="Enter Payment Terms" type="text" class="form-control form-control-sm">
+                  <div *ngIf="f['PaymentTerms'].touched && f['PaymentTerms'].invalid">
+                    <small class="text-danger" *ngIf="f['PaymentTerms'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Bank Name<span class="required-asterisk">*</span></label>
+                  <select formControlName="BankName" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
+                    <!-- <option *ngFor="let s of vendData">{{ s.vendortype }}</option> -->
+                  </select>
+                  <div *ngIf="f['BankName'].touched && f['BankName'].invalid">
+                    <small class="text-danger" *ngIf="f['BankName'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">IFSC Code<span class="required-asterisk">*</span></label>
+                  <input formControlName="BankIFSC" placeholder="Enter IFSC Code" type="text" class="form-control form-control-sm">
+                  <div *ngIf="f['BankIFSC'].touched && f['BankIFSC'].invalid">
+                    <small class="text-danger" *ngIf="f['BankIFSC'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Bank Account No.<span class="required-asterisk">*</span></label>
+                  <input formControlName="BankAccountNo" (keypress)="OnlyNumbersAllowed($event)" placeholder="Enter Account Number" type="text" class="form-control form-control-sm">
+                  <div *ngIf="f['BankAccountNo'].touched && f['BankAccountNo'].invalid">
+                    <small class="text-danger" *ngIf="f['BankAccountNo'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Payment Method<span class="required-asterisk">*</span></label>
+                  <select formControlName="PaymentMethods" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select payment Method</option>
+                    <!-- <option *ngFor="let s of vendData">{{ s.vendortype }}</option> -->
+                  </select>
+                  <div *ngIf="f['PaymentMethods'].touched && f['PaymentMethods'].invalid">
+                    <small class="text-danger" *ngIf="f['PaymentMethods'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Credit limit<span class="required-asterisk">*</span></label>
+                  <input formControlName="CreditLimit" (keypress)="OnlyNumbersAllowed($event)"
+                    placeholder="Enter Credit data" type="text" class="form-control form-control-sm">
+                  <div *ngIf="f['CreditLimit'].touched && f['CreditLimit'].invalid">
+                    <small class="text-danger" *ngIf="f['CreditLimit'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Credit Ranking<span class="required-asterisk">*</span></label>
+                  <select formControlName="CreditRating" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Credit Ranking</option>
+                    <!-- <option *ngFor="let s of vendData">{{ s.vendortype }}</option> -->
+                  </select>
+                  <div *ngIf="f['CreditRating'].touched && f['CreditRating'].invalid">
+                    <small class="text-danger" *ngIf="f['CreditRating'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Performance History<span class="required-asterisk">*</span></label>
+                  <input formControlName="PerformanceHistory" placeholder="Enter Performance History" type="text"
+                    class="form-control form-control-sm">
+                  <div *ngIf="f['PerformanceHistory'].touched && f['PerformanceHistory'].invalid">
+                    <small class="text-danger" *ngIf="f['PerformanceHistory'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Approval Status<span class="required-asterisk">*</span></label>
+                  <select formControlName="ApprovalStatus" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Approval Status</option>
+                    <option *ngFor="let s of approvalData" value="{{s.approvalstatus_id}}">{{ s.approvalstatus }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">Compliance Information <span class="required-asterisk">*</span></label>
+                  <textarea formControlName="ComplianceInformation" placeholder="Enter Compliance info" type="text"
+                    class="form-control form-control-sm">
+                                    </textarea>
+                  <div *ngIf="f['ComplianceInformation'].touched && f['ComplianceInformation'].invalid">
+                    <small class="text-danger" *ngIf="f['ComplianceInformation'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label text-primary">Terms & Condition</label>
+                  <textarea formControlName="tc" placeholder="Enter Compliance info" type="text"
+                    class="form-control form-control-sm">
+                                    </textarea>
+                  <div *ngIf="f['tc'].touched && f['tc'].invalid">
+                    <small class="text-danger" *ngIf="f['tc'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="modal-btns">
+                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                  class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span
+                    class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                  data-bs-dismiss="modal">Close</button>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- create modal end-->
