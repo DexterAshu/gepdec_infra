@@ -1,1 +1,71 @@
-<p>item-label works!</p>
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="d-flex align-items-end flex-wrap">
+          <div class="mr-md-3 mr-xl-5">
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Item Location Label</h4>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-end flex-wrap"> </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex my-10">
+            <div class="col-lg-4">
+              <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+            </div>
+            <div class="col-lg-8">
+              <!-- <button type="button" class="btn btn-fw btn-sm text-white float-right ms-2" style="background-color: #175935;" *ngIf="isExcelDownload" (click)="download()" title="Download selected records"><span class="mdi mdi-file-excel-box"></span></button> -->
+              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+            </div>
+          </div>
+          <app-responsive-table id="export">
+            <thead class="table-primary text-nowrap">
+              <tr>
+                <th>Sr No</th>
+                <th>Item Code</th>
+                <th>Item Description</th>
+                <th>Label Code</th>
+                <th>Label Name</th>
+                <th>WH Code</th>
+                <th>WH Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap">
+              <tr *ngFor="let a of itemLocationLabelData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                <td>{{ limit*(p-1)+i+1 }}</td>
+                <td><a data-bs-toggle="modal" class="cursor-pointer text-primary" style="text-decoration: underline;" data-bs-target="#viewLocation" title="Warehouse Profile"> {{a.warehouse_code}}{{ a.location_code }}</a></td>
+                <td>{{ a.location_description }}</td>
+                <td>{{ a.capacity }}</td>
+                <td>{{ a.warehouse_code }}</td>
+                <td>
+                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
+                  <!-- <a data-bs-toggle="modal" (click)="selectWHL(a)" data-bs-target="#deleteModal" class="text-danger" title="delete Warehouse Location"><span class="mdi mdi-delete-forever cursor-pointer mdi-18px"></span></a> -->
+                </td>
+              </tr>
+              <tr *ngIf="isNotFound == true">
+                <td colspan="15" class="text-center">
+                  <div class="spinner-border"> </div>
+                </td>
+              </tr>
+              <tr *ngIf="itemLocationLabelData?.length == 0">
+                <td colspan="15" class="text-center">
+                  <div class="text-warning fw-semibold">Looks like no data available!</div>
+                </td>
+              </tr>
+            </tbody>
+          </app-responsive-table>
+          <div class="pagination-sec text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
