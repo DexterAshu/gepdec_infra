@@ -102,6 +102,8 @@ import { ProposalTwoComponent } from './procurement/proposal-two/proposal-two.co
 import { FinalProposalComponent } from './procurement/final-proposal/final-proposal.component';
 import { ApprovalComponent } from './procurement/approval/approval.component';
 import { PoDataComponent } from './procurement/po-data/po-data.component';
+import { AuditRequestComponent } from './presales/inventory/audit-request/audit-request.component';
+import { AuditApprovalComponent } from './presales/inventory/audit-approval/audit-approval.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -212,6 +214,8 @@ const routes: Routes = [
   {path: 'presales/presales-biding/data-capture/financial', component:FinancialBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory', component:InventoryComponent, canActivate:[AuthGuard]},
+  {path: 'presales/inventory/audit-request', component: AuditRequestComponent, canActivate:[AuthGuard]},
+  {path: 'presales/inventory/audit-approval', component:AuditApprovalComponent, canActivate:[AuthGuard]},
 //Customer
   {path: 'customer-registration/process-1', component:Process1Component, canActivate:[AuthGuard]},
   {path: 'customer-registration/process-2', component:Process2Component, canActivate:[AuthGuard]},
