@@ -138,6 +138,11 @@ export class ApiService {
       httpOptions
     );
   }
+//tender list
+  getTenderList(): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderlist`, httpOptions );
+  }
 
   //create master DEPT
   createMasterDepartment(data: any): Observable<any[]> {

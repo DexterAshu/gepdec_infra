@@ -39,6 +39,7 @@ export class DataCapturingComponent {
   showTenderDetails: boolean = true;
   showClientDetails: boolean = false;
   showEligibility: boolean = false;
+  showL1Schedule: boolean = false;
   bankData: any;
   contactDetails: any;
   addressDetails: any;
@@ -56,16 +57,17 @@ export class DataCapturingComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
+      company_id: [null, Validators.required],
       tender_title:[null, Validators.required],
       tender_ref_no:[null, Validators.required],
-      bidtype:[null, Validators.required],
+      bidtype_id:[null, Validators.required],
       tender_location:[null, Validators.required],
       publish_date:[null, Validators.required],
-      prebid_submission_date:[null, Validators.required],
+      // prebid_submission_date:[null, Validators.required],
       prebid_date:[null, Validators.required],
-      prebid_meeting_mode:[null, Validators.required],
+      prebidmeetingmode_id:[null, Validators.required],
       tender_submission_date:[null, Validators.required],
-      tender_description:[null, Validators.required],
+      tender_description:[null],
       tender_detail_link:[null],  
       
       opening_date: [null, Validators.required],
@@ -73,25 +75,25 @@ export class DataCapturingComponent {
       fin_bid_opening_date: [null, Validators.required],
       tender_doc_cost: [null, Validators.required],
       tender_fee: [null, Validators.required],
-      tender_emd_exemption: [null, Validators.required],
-
+      exemption_id: [null, Validators.required],
+      ecv: [null, Validators.required],
 
 //tendering company
-      company_name: [null, Validators.required],
-      company_type:[null],
-      gst:[null],
-      pan:[null],
-      doi:[null],
-      country_id:[null],
-      state_id:[null],
-      district_id:[null],
-      city:[null],
-      web_url:[null],
-      cin_no:[null],
-      pincode:[null],
-      area: [null],
-      address_line1: [null],
-      address_line2: [null],
+      
+      // company_type:[null],
+      // gst:[null],
+      // pan:[null],
+      // doi:[null],
+      // country_id:[null],
+      // state_id:[null],
+      // district_id:[null],
+      // city:[null],
+      // web_url:[null],
+      // cin_no:[null],
+      // pincode:[null],
+      // area: [null],
+      // address_line1: [null],
+      // address_line2: [null],
 //tendering contacts
       // name: [null],
       // usdg_id: [null],
@@ -193,55 +195,12 @@ export class DataCapturingComponent {
 
   getDetails(data:any) {
     this.apiService.companyDetails(data).subscribe((res: any) => {
-      console.log(res);
-      
-      this.custDetails = res.result[0];
+      this.custDetails = res.result;
       this.contactDetails = res.result[0].contact;
-      console.log( this.contactDetails);
-      
-      this.addressDetails = res.result[0].adderss[0];
-     
-        this.form.patchValue({
-          // company_name: this.custDetails.company_name,
-          company_type: this.custDetails.company_type,
-          gst: this.custDetails.gst,
-          pan: this.custDetails.pan,
-          doi: this.custDetails.doi,
-          websiteurl: this.custDetails.websiteurl,
-          cinno:this.custDetails.cinno,
-          city:this.addressDetails.city,
-         
-            //address-patch-details
-            area: this.addressDetails.area,
-            address_line1: this.addressDetails.address_line1,
-            address_line2: this.addressDetails.address_line2,
-            pincode: this.addressDetails.pincode,
-          //contact-path data
-          name: this.contactDetails.name,
-          contactno1: this.contactDetails.contactno1,
-          contactno2: this.contactDetails.contactno2,
-          email: this.contactDetails.email,
-          usdg_id: this.contactDetails.deptname,
-          usdt_id: this.contactDetails.designationname,
-        }); 
-
-        this.form.controls['country_id'].setValue(this.addressDetails.name);
-        this.form.controls['state_id'].setValue(this.addressDetails.state_name);
-        this.form.controls['district_id'].setValue(this.addressDetails.district_name);
-        // setTimeout(() => {
-        //   this.getStateData();
-        //   this.getDistrictData();
-        // }, 500);
+      this.addressDetails = res.result[0].adderss;
   })
   }
-  OnlyNumbersAllowed(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      console.log('charCode restricted is ' + charCode);
-      return false;
-    }
-    return true;
-  }
+
 
   get f() { return this.form.controls; }
   
@@ -259,38 +218,24 @@ export class DataCapturingComponent {
   }
 
   onSubmit() {
+    debugger
     if (this.form.valid) {
       this.isSubmitted = true;
-   
   
        //1-passing Comany id
-       if (this.form.value.company_name != '') {
-        if (this.form.value.company_name) {
-          var compName = this.companyData.filter((item: any) => {
-            return item.company_id == this.form.value.company_name;
-          });
-          console.log(compName);
+      //  if (this.form.value.company_name != '') {
+      //   if (this.form.value.company_name) {
+      //     var compName = this.companyData.filter((item: any) => {
+      //       return item.company_name == this.form.value.company_name;
+      //     });
+      //     console.log(compName);
           
-          this.form.value.company_name = compName[0]['company_id'];
-        }
-      } else {
-        this.form.value.company_name = null;
-      }
-       //2-passing Tender type id
-       if (this.form.value.bidtype != '') {
-        if (this.form.value.bidtype) {
-          var bidTp = this.tenderType.filter((item: any) => {
-            return item.bidtype_id == this.form.value.bidtype;
-          });
-          console.log(bidTp);
-          
-          this.form.value.bidtype = bidTp[0]['bidtype_id'];
-        }
-      } else {
-        this.form.value.bidtype = null;
-      }
-     
-  
+      //     this.form.value.company_name = compName[0]['company_id'];
+      //   }
+      // } else {
+      //   this.form.value.company_name = null;
+      // }
+    
      
 
         this.loading = true;

@@ -67,7 +67,7 @@ export class CaptureDataListComponent {
       jv: [null],
     });
 
-    this.getCompanyData();
+    this.getTenderData();
     // this.getCountryData();
     
   }
@@ -99,8 +99,8 @@ export class CaptureDataListComponent {
 
   get f() { return this.form.controls; }
   
-  getCompanyData() {
-    this.apiService.getCompanyList().subscribe((res: any) => {  
+  getTenderData() {
+    this.apiService.getTenderList().subscribe((res: any) => {  
       this.companyData = res.result;
     });
     this.apiService.getTenderType().subscribe((res: any) => {  
@@ -108,4 +108,71 @@ export class CaptureDataListComponent {
     });
  
   }
+
+
+//status-filter
+gettaball(data:any)
+  {
+    // this.dataSource = new MatTableDataSource(this.casetabledata);
+    // this.setDataSourceAttributes()
+
+  }
+getnewcase(data:any)
+{
+ 
+  // var newCases=this.casetabledata.filter((res:any)=>{
+  //   return res.status==="New"
+  // })
+  // console.log(newCases);
+  //       this.dataSource = new MatTableDataSource(newCases);
+  //       this.setDataSourceAttributes()
+
+  
+}
+getopencase(data:any)
+{
+
+// var openCases=this.casetabledata.filter((res:any)=>{
+//   return res.status==="Open"
+// })
+// console.log(openCases);
+//       this.dataSource = new MatTableDataSource(openCases);
+//       this.setDataSourceAttributes()
+
+}
+getholdcase(data:any)
+{
+
+// var holdcase=this.casetabledata.filter((res:any)=>{
+//   return res.status==="On Hold"
+// })
+// console.log(holdcase);
+//       this.dataSource = new MatTableDataSource(holdcase);
+//       this.setDataSourceAttributes()
+
+}
+getclosecase(data:any)
+{
+
+// var closed=this.casetabledata.filter((res:any)=>{
+//   return res.status==="Closed"
+// })
+// console.log(closed);
+//       this.dataSource = new MatTableDataSource(closed);
+//       this.setDataSourceAttributes()
+
+}
+underreviewdata(data:any)
+{
+
+// var closed=this.casetabledata.filter((res:any)=>{
+//   return res.status==="Closed"
+// })
+// console.log(closed);
+//       this.dataSource = new MatTableDataSource(closed);
+//       this.setDataSourceAttributes()
+
+}
+
+
 }
