@@ -27,7 +27,7 @@
           <app-responsive-table id="export">
               <thead class="table-primary text-nowrap">
                 <tr>
-                  <th>Sr No</th>
+                  <th>S No</th>
                   <th>Order Number</th>
                   <th>Date</th>
                   <th>Vendor Name</th>
@@ -82,7 +82,7 @@
         <div class="container-fluid">
           <div class="row">
             <form [formGroup]="grnForm" (ngSubmit)="grnSubmit()">
-              <div class="row p-0">
+              <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
@@ -169,6 +169,9 @@
                           </div>
                         </div>
                       </div>
+                    </div>
+                    <h6 class="my-2 text-secondary">Received Document</h6>
+                    <div class="row">
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" formControlName="docs_tax_invoice" type="checkbox" id="inlineCheckbox1" value="option1">
