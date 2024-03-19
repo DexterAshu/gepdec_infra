@@ -21,7 +21,7 @@ export class GRNNoteComponent {
   update:boolean = false;
   isSubmitted:boolean = false;
   selectedPO: any = {};
-  form!: FormGroup;
+  // form!: FormGroup;
   grnForm!: FormGroup;
   delivery_qty: any = 0;
   received_qty: any = 0;
@@ -46,12 +46,12 @@ export class GRNNoteComponent {
   }
 
   initForm(): void {
-    this.form = this.fb.group({
-      grn_number: [null, Validators.required],
-      date: [null, Validators.required],
-      grn_remark: [null, Validators.required],
-      items: this.fb.array([])
-    });
+    // this.form = this.fb.group({
+    //   grn_number: [null, Validators.required],
+    //   date: [null, Validators.required],
+    //   grn_remark: [null, Validators.required],
+    //   items: this.fb.array([])
+    // });
     this.grnForm = this.fb.group({
       supplier_id: [null, Validators.required],
       purchaseOrder: [null, Validators.required],
@@ -74,16 +74,15 @@ export class GRNNoteComponent {
     });
   }
 
-  get f() { return this.form.controls; }
   get grn() { return this.grnForm.controls; }
 
   onSubmit(): void {
     this.isSubmitted = true;
-    if (this.form.invalid) {
+    if (this.grnForm.invalid) {
       return;
     }
-    console.log(this.form.value);
-    this.form.reset();
+    console.log(this.grnForm.value);
+    this.grnForm.reset();
     this.isSubmitted = false;
   }
 

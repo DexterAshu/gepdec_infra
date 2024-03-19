@@ -162,6 +162,8 @@ import { ProposalTwoComponent } from './procurement/proposal-two/proposal-two.co
 import { FinalProposalComponent } from './procurement/final-proposal/final-proposal.component';
 import { ApprovalComponent } from './procurement/approval/approval.component';
 import { PoDataComponent } from './procurement/po-data/po-data.component';
+import { AuditRequestComponent } from './presales/inventory/audit-request/audit-request.component';
+import { AuditApprovalComponent } from './presales/inventory/audit-approval/audit-approval.component';
 
 
 @NgModule({
@@ -238,9 +240,8 @@ import { PoDataComponent } from './procurement/po-data/po-data.component';
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
-    
-    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent, FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, DesignDocumentComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent, ApprovalComponent, PoDataComponent
-  ],
+
+    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent, FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, DesignDocumentComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent, ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent  ],
 
   imports: [
     BrowserModule,
