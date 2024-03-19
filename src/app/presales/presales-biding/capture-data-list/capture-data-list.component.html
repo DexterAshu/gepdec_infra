@@ -18,55 +18,97 @@
             <div class="card">
                 <div class="card-body">
                   
-                    <div class="d-flex my-10">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <nav>
+                                <div class="nav nav-tabs nav-fill" role="tablist" >
+                                  <button (click)="gettaball('all')" class="nav-link active" id="nav-all-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                                    style="font-size: 16px;">All Tender<span class="badge cases">50</span></button>
+                                  <button (click)="getnewcase('555005')" class="nav-link" id="nav-live-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-live" type="button" role="tab" aria-controls="nav-live" aria-selected="false"
+                                    style="font-size: 16px;">Open<span class="badge cases">40</span></button>
+                                  <button (click)="getopencase('555001')" class="nav-link" id="nav-open-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-open" type="button" role="tab" aria-controls="nav-open" aria-selected="false"
+                                    style="font-size: 16px;">Qualified<span class="badge cases">30</span></button>
+                                  <button (click)="underreviewdata('555002')" class="nav-link" id="nav-underreview-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-underreview" type="button" role="tab" aria-controls="nav-underreview"
+                                    aria-selected="false" style="font-size: 16px;">Participated<span
+                                      class="badge cases">20</span></button>
+                                  <button (click)="getholdcase('555003')" class="nav-link" id="nav-onhold-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-onhold" type="button" role="tab" aria-controls="nav-onhold"
+                                    aria-selected="false" style="font-size: 16px;">Won<span
+                                      class="badge cases">12</span></button>
+                                  <button (click)="getclosecase('555004')" class="nav-link" id="nav-closed-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-closed" type="button" role="tab" aria-controls="nav-closed"
+                                    aria-selected="false" style="font-size: 16px;">Lost<span
+                                      class="badge cases">8</span></button>
+                                </div>
+                              </nav>
+                          
+                        </div>
+                    </div>
+
+                    <div class="d-flex my-10 mt-2">
                         <div class="col-lg-4">
                             <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
                         </div>
+                      
                         <div class="col-lg-8">
-                            <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"  (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button> -->
-                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Open</button>
-                            <button type="button"  class="btn btn-light btn-fw btn-sm me-1">Qualified</button>
-                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Not Qualified</button>
-                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Participated</button>
-                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Not Participated</button>
-                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Won</button>
-                            <button type="button" class="btn btn-light btn-fw btn-sm me-1">Lost</button>
                             <button type="button" routerLink="/presales/presales-biding/data-capture" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+
                         </div>
                     </div>
+
+                  
+
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Company ID</th>
                                 <th>Company Name</th>
+                                <th>Tender/Project Title</th>
+                                <th>Tender (NIT/RFB) No</th>
+                                <th>Tender Published Date</th>
+                                <th>Tender Submission Date</th>
+                                <th>Tender Execution Location</th>
                                 <th>Tender Type</th>
-                                <th>Tender Number</th>
-                                <th>Tender Description</th>
-                                <th>EMD</th>
-                                <th>ECV</th>
-                                <th>Due Date</th>
-                                <th>Completion Period</th>
-                                <th>Biders</th>
-                                <th>Location</th>
+                                <th>Tender Document Cost</th>
+                                <th>Tender Fee</th>
+                                <th>Tender EMD Exemption</th>
+                                <th>Tender ECV</th>
+                                <th>Technical Bid Opening Date</th>
+                                <th>Financial Bid Opening Date</th>
+                                <th>Pre Bid Submission Date</th>
+                                <th>Pre Bid Meeting Mode</th>
+                                <th>Pre Bid Opening Date</th>
+                                <th>Pre Bid Meeting Date</th>
                                 <th>Created By</th>
+                                <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="companyData.length">
                             <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                                <td>{{ a.company_id }}</td>
                                 <td>{{ a.company_name }}</td>
-                                <td>{{ a.company_type }}</td>
-                                <td>{{ a.name }}</td>
-                                <td>{{ a.contactno1 }}</td>
-                                <td>{{ a.email }}</td>
-                                <td>{{ a.doi | date: 'dd/MM/yyyy' }}</td>
-                                <td>{{ a.gst }}</td>
-                                <td>{{ a.gst }}</td>
-                                <td>{{ a.gst }}</td>
-                                <td>{{ a.pan }}</td>
+                                <td>{{ a.tender_title }}</td>
+                                <td>{{ a.tender_ref_no }}</td>
+                                <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy:HH:mm'  }}</td>
+                                <td>{{ a.tender_location }}</td>
+                                <td>{{ a.bidtype }}</td>
+                                <td>{{ a.tender_doc_cost }}</td>
+                                <td>{{ a.tender_fee }}</td>
+                                <td>{{ a.emdexemption }}</td>
+                                <td>{{ a.ecv }}</td>
+                                <td>{{ a.tech_bid_date | date: 'dd/MM/yyyy:HH:mm'  }}</td>
+                                <td>{{ a.fin_bid_opening_date | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ a.prebid_submission_date | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ a.prebidmeetingmode }}</td>
+                                <td>{{ a.opening_date | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ a.prebid_date | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ a.createdby_name}}</td>
                                 <td>{{ a.created }}</td>
                                 <td >
                                      <a data-bs-toggle="modal" data-bs-target="#techModal" title="Add Technical Details" ><span class="mdi mdi-lightbulb-on text-primary cursor-pointer mdi-18px"></span></a> &nbsp;
