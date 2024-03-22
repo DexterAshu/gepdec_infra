@@ -95,7 +95,7 @@
   </div>
  
   
-  <div class="row">
+  <div class="row m-0">
   <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
     <div class="business-card p-3">
       <div class="row">
@@ -160,7 +160,7 @@
   </div>    
   </div>
   
-  <div class="row mt-1">
+  <div class="row mt-1 m-0">
   <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard" >
     <div class="business-card p-2">
       <div class="row">
@@ -682,7 +682,7 @@
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card" data-bs-toggle="modal" data-bs-target="#createModal2">
           <div class="card-body">
-              <p class="card-title mb-2">Top 5: State Wise Performance</p>
+              <p class="card-title mb-2">Top 5 State Wise Performance</p>
             <div class="chartBar" #containerRef>
               <div class="Highcharts " [chart]="statePie"></div>
            
@@ -704,68 +704,70 @@ data-bs-backdrop="static" data-bs-keyboard="true">
             <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-          <div class="table-responsive ht-auto">
-            <table class="table table-hover table-striped" data-bs-toggle="modal" data-bs-target="#createModal1">
-              <thead class="table-primary text-nowrap" style="cursor: pointer;">
-                <tr>
-                  <th>S No</th>
-                  <th>Project Name</th>
-                  <th>Category</th>
-                  <th>Amount (Cr)</th>
-                  <th>Amount with GST</th>
-                  <th>Amount without GST</th>
-                  <th>Profitability</th>
-                </tr>
-              </thead>
-              <tbody class="text-nowrap">
-                <tr>
-                  <td>1</td>
-                  <td>Taldihi</td>
-                  <td>330 Kv</td>
-                  <td>300</td>
-                  <td>250</td>
-                  <td>200</td>
-                  <td>195</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jaunpur</td>
-                  <td>220 Kv</td>
-                  <td>400</td>
-                  <td>300</td>
-                  <td>250</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Noida Sec-45</td>
-                  <td>220 Kv</td>
-                  <td>400</td>
-                  <td>300</td>
-                  <td>250</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Delhi</td>
-                  <td>320 Kv</td>
-                  <td>200</td>
-                  <td>150</td>
-                  <td>100</td>
-                  <td>80</td>
-                </tr>
-                <tr >
-                  <td>5</td>
-                  <td>Noida</td>
-                  <td>240 Kv</td>
-                  <td>200</td>
-                  <td>150</td>
-                  <td>100</td>
-                  <td>80</td>
-                </tr>
-               
-              </tbody>
-            </table>
+          <div class="m-2">
+            <div class="table-responsive ht-auto">
+              <table class="table table-hover table-striped" data-bs-toggle="modal" data-bs-target="#createModal1">
+                <thead class="table-primary text-nowrap" style="cursor: pointer;">
+                  <tr>
+                    <th>S No</th>
+                    <th>Project Name</th>
+                    <th>Category</th>
+                    <th>Amount (Cr)</th>
+                    <th>Amount with GST</th>
+                    <th>Amount without GST</th>
+                    <th>Profitability</th>
+                  </tr>
+                </thead>
+                <tbody class="text-nowrap">
+                  <tr>
+                    <td>1</td>
+                    <td>Taldihi</td>
+                    <td>330 Kv</td>
+                    <td>300</td>
+                    <td>250</td>
+                    <td>200</td>
+                    <td>195</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Jaunpur</td>
+                    <td>220 Kv</td>
+                    <td>400</td>
+                    <td>300</td>
+                    <td>250</td>
+                    <td>200</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Noida Sec-45</td>
+                    <td>220 Kv</td>
+                    <td>400</td>
+                    <td>300</td>
+                    <td>250</td>
+                    <td>200</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Delhi</td>
+                    <td>320 Kv</td>
+                    <td>200</td>
+                    <td>150</td>
+                    <td>100</td>
+                    <td>80</td>
+                  </tr>
+                  <tr >
+                    <td>5</td>
+                    <td>Noida</td>
+                    <td>240 Kv</td>
+                    <td>200</td>
+                    <td>150</td>
+                    <td>100</td>
+                    <td>80</td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
           </div>
          
     
@@ -803,76 +805,78 @@ data-bs-backdrop="static" data-bs-keyboard="true">
           </div>
 
            
-              <div class="table-responsive ht-auto">
-                <table class="table table-hover table-striped">
-                  <thead class="table-primary text-nowrap" style="cursor: pointer;">
-                    <tr>
-                      <th>S No</th>
-                      <th>Project Name</th>
-                      <th>Category</th>
-                      <th>Amount (Cr)</th>
-                      <th>Amount with GST</th>
-                      <th>Amount without GST</th>
-                      <th>Profitability</th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-nowrap">
-                    <tr>
-                      <td>1</td>
-                      <td>Taldihi</td>
-                      <td>330 Kv</td>
-                      <td>300</td>
-                      <td>250</td>
-                      <td>200</td>
-                      <td>195</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Jaunpur</td>
-                      <td>220 Kv</td>
-                      <td>400</td>
-                      <td>300</td>
-                      <td>250</td>
-                      <td>200</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Noida Sec-45</td>
-                      <td>220 Kv</td>
-                      <td>400</td>
-                      <td>300</td>
-                      <td>250</td>
-                      <td>200</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Delhi</td>
-                      <td>320 Kv</td>
-                      <td>200</td>
-                      <td>150</td>
-                      <td>100</td>
-                      <td>80</td>
-                    </tr>
-                    <tr >
-                      <td>5</td>
-                      <td>Noida</td>
-                      <td>240 Kv</td>
-                      <td>200</td>
-                      <td>150</td>
-                      <td>100</td>
-                      <td>80</td>
-                    </tr>
-                    <!-- <tr class="table-footer fw-bold">
-                      <td>4</td>
-                      <td>Delhi</td>
-                      <td>320 Kv</td>
-                      <td>200</td>
-                      <td>150</td>
-                      <td>100</td>
-                      <td>80</td>
-                    </tr> -->
-                  </tbody>
-                </table>
+              <div class="m-2">
+                <div class="table-responsive ht-auto">
+                  <table class="table table-hover table-striped">
+                    <thead class="table-primary text-nowrap" style="cursor: pointer;">
+                      <tr>
+                        <th>S No</th>
+                        <th>Project Name</th>
+                        <th>Category</th>
+                        <th>Amount (Cr)</th>
+                        <th>Amount with GST</th>
+                        <th>Amount without GST</th>
+                        <th>Profitability</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                      <tr>
+                        <td>1</td>
+                        <td>Taldihi</td>
+                        <td>330 Kv</td>
+                        <td>300</td>
+                        <td>250</td>
+                        <td>200</td>
+                        <td>195</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Jaunpur</td>
+                        <td>220 Kv</td>
+                        <td>400</td>
+                        <td>300</td>
+                        <td>250</td>
+                        <td>200</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Noida Sec-45</td>
+                        <td>220 Kv</td>
+                        <td>400</td>
+                        <td>300</td>
+                        <td>250</td>
+                        <td>200</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>Delhi</td>
+                        <td>320 Kv</td>
+                        <td>200</td>
+                        <td>150</td>
+                        <td>100</td>
+                        <td>80</td>
+                      </tr>
+                      <tr >
+                        <td>5</td>
+                        <td>Noida</td>
+                        <td>240 Kv</td>
+                        <td>200</td>
+                        <td>150</td>
+                        <td>100</td>
+                        <td>80</td>
+                      </tr>
+                      <!-- <tr class="table-footer fw-bold">
+                        <td>4</td>
+                        <td>Delhi</td>
+                        <td>320 Kv</td>
+                        <td>200</td>
+                        <td>150</td>
+                        <td>100</td>
+                        <td>80</td>
+                      </tr> -->
+                    </tbody>
+                  </table>
+                </div>
               </div>
                                
           
