@@ -21,6 +21,7 @@ export class AuditApprovalComponent {
   update:boolean = false;
   isSubmitted:boolean = false;
   searchForm!: FormGroup;
+  selectedItem: any = [];
 
   constructor( private fb: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) {
     var date = this.date.getDate();
@@ -45,7 +46,15 @@ export class AuditApprovalComponent {
           "purpose": "Inventory Audit",
           "remarks": "Completed without issues",
           "createdBy": "Admin",
-          "createdAt": "2024-03-12T08:00:00Z"
+          "createdAt": "2024-03-12T08:00:00Z",
+          "item" : [
+            {
+              "itemCode": "ABC123",
+              "systemQTY": 100,
+              "auditQTY": 90,
+              "missingQTY": 10
+            }
+          ]
         }
       },
       {
@@ -58,7 +67,21 @@ export class AuditApprovalComponent {
           "purpose": "Asset Verification",
           "remarks": "Minor discrepancies found",
           "createdBy": "Manager",
-          "createdAt": "2024-03-11T10:30:00Z"
+          "createdAt": "2024-03-11T10:30:00Z",
+          "item" : [
+            {
+              "itemCode": "DEF456",
+              "systemQTY": 150,
+              "auditQTY": 120,
+              "missingQTY": 30
+            },
+            {
+              "itemCode": "GHI789",
+              "systemQTY": 200,
+              "auditQTY": 150,
+              "missingQTY": 50
+            }
+          ]
         }
       },
       {
@@ -71,10 +94,34 @@ export class AuditApprovalComponent {
           "purpose": "Inventory Count",
           "remarks": "Pending further investigation",
           "createdBy": "Supervisor",
-          "createdAt": "2024-03-10T15:45:00Z"
+          "createdAt": "2024-03-10T15:45:00Z",
+          "item" : [
+            {
+              "itemCode": "JKL012",
+              "systemQTY": 300,
+              "auditQTY": 0,
+              "missingQTY": 300
+            },
+            {
+              "itemCode": "MNO345",
+              "systemQTY": 400,
+              "auditQTY": 0,
+              "missingQTY": 400
+            },
+            {
+              "itemCode": "PQR678",
+              "systemQTY": 500,
+              "auditQTY": 0,
+              "missingQTY": 500
+            }
+          ]
         }
       }
     ];
+  }
+
+  selectRequest(data: any): void {
+    this.selectedItem = [data];
   }
 
   formInit(): void {

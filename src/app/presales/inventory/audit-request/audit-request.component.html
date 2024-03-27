@@ -30,7 +30,7 @@
                   <li><button class="btn btn-primary btn-sm" type="submit">GO!</button></li>
                 </form>
               </ul>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#createGRNModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+              <button type="button" (click)="getModelFormData()" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
             </div>
           </div>
           <app-responsive-table id="export">
@@ -74,6 +74,121 @@
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Request for Material Audit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Project<span class="required-asterisk">*</span></label>
+                  <select formControlName="projectID" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option *ngFor="let t of projectData" [value]="t.projectID">{{ t.projectName}}</option>
+                  </select>
+                  <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid"><small class="text-danger" *ngIf="f['warehouse_id'].errors?.['required']">*Required</small></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Warehouse<span class="required-asterisk">*</span></label>
+                  <select formControlName="warehouse_id" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option *ngFor="let t of wareHouseData" [value]="t.warehouse_id">{{ t.warehouse_name | titlecase }}</option>
+                  </select>
+                  <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid"><small class="text-danger" *ngIf="f['warehouse_id'].errors?.['required']">*Required</small></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label">Item Category<span class="required-asterisk">*</span></label>
+                  <select formControlName="itemCategory" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option value="electrical">Electrical</option>
+                    <option value="material">Material</option>
+                    <option value="plumbing">Plumbing</option>
+                    <option value="hardware">Hardware</option>
+                    <option value="furniture">Furniture</option>
+                    <option value="others">Others</option>
+                  </select>
+                  <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid"><small class="text-danger" *ngIf="f['warehouse_id'].errors?.['required']">*Required</small></div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <button type="button" class="btn btn-primary btn-fw btn-sm mt-4" (click)="searchItems()">Search</button>
+              </div>
+              <div class="row my-2" *ngIf="itemData?.length > 0">
+                <div class="col-lg-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                          <!-- <input type="search" class="form-control form-control-sm" [(ngModel)]="searchItem" placeholder="Search"> -->
+                        </div>
+                        <div class="col-lg-8"></div>
+                      </div>
+                      <table class="table table-hover">
+                          <thead class="table-primary text-nowrap">
+                            <tr>
+                              <th>S No</th>
+                              <th>Item Code</th>
+                              <th>Item Name</th>
+                              <th>Item Category</th>
+                              <th>UOM</th>
+                              <th>System Qty</th>
+                              <th>Audit Qty</th>
+                              <th>Difference</th>
+                              <th>Remarks</th>
+                              <th>Select</th>
+                            </tr>
+                          </thead>
+                          <tbody class="text-nowrap">
+                            <tr *ngFor="let data of itemData; index as i">
+                              <td>{{ i + 1 }}</td>
+                              <td>{{ data.itemCode }}</td>
+                              <td>{{ data.itemName }}</td>
+                              <td>{{ data.itemCategory }}</td>
+                              <td>{{ data.uom }}</td>
+                              <td>{{ data.systemQty }}</td>
+                              <td><input type="number" class="form-control form-control-sm" [(ngModel)]="data.auditQty"></td>
+                              <td>{{ data.systemQty - (data.auditQty ? data.auditQty : 0) }}</td>
+                              <td><input type="text" class="form-control form-control-sm" [(ngModel)]="data.remarks"></td>
+                              <td><input type="checkbox" [(ngModel)]="data.isItemAudit"></td>
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                              <td colspan="9" class="text-center">
+                                <div class="spinner-border"></div>
+                              </td>
+                            </tr>
+                            <tr *ngIf="auditRequestData?.length == 0">
+                              <td colspan="9" class="text-center">
+                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                              </td>
+                            </tr>
+                          </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-btns">
+                <button type="submit" [disabled]="!form.valid" class="btn btn-primary btn-rounded btn-fw btn-sm mr-2">Add</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-rounded btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
