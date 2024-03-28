@@ -56,6 +56,7 @@ import { DirectBidingComponent } from './presales/presales-biding/direct-biding/
 import { IndirectBidingComponent } from './presales/presales-biding/indirect-biding/indirect-biding.component';
 import { DataCapturingComponent } from './presales/presales-biding/data-capturing/data-capturing.component';
 import { CaptureDataListComponent } from './presales/presales-biding/capture-data-list/capture-data-list.component';
+import { MangagementTenderApprovalComponent } from './presales/presales-biding/mangagement-tender-approval/mangagement-tender-approval.component';
 import { TechnicalBidComponent } from './presales/presales-biding/data-capturing/technical-bid/technical-bid.component';
 import { FinancialBidComponent } from './presales/presales-biding/data-capturing/financial-bid/financial-bid.component';
 import { BankingDetailsComponent } from './presales/presales-biding/data-capturing/banking-details/banking-details.component';
@@ -209,7 +210,9 @@ const routes: Routes = [
   {path: 'presales/presales-biding/indirect-biding', component:IndirectBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/bid-qualify', component:BidQualifyComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture-list', component:CaptureDataListComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/management-approval/:id', component:MangagementTenderApprovalComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture', component:DataCapturingComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/data-capture/:id', component:DataCapturingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/technical', component:TechnicalBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/financial', component:FinancialBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},

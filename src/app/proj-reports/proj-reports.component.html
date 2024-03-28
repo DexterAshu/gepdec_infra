@@ -20,65 +20,76 @@
                     <!-- <h3 class="card-title">Company</h3>
                     <hr> -->
                     <div class="d-flex my-10">
+                        <div class="col-lg-4 col-md-4 col-4">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search...">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-4"></div>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control form-control-sm" placeholder="Search" [(ngModel)]="searchText">
-                        </div>
-                        <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
-                        </div>
+                            <div class="float-right">
+                                <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
+                                    Bulkload Template</button> -->
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
+                                          <span class="mdi mdi-upload"></span>&nbsp; Export
+                                    </button>
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                          <span class="mdi mdi-download"></span>&nbsp; Import 
+                                    </button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                         
+
+                            </div>
+                            </div>
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Company ID</th>
-                                <th>Meter ID</th>
-                                <th>Device ID</th>
-                                <th>Model</th>
-                                <th>Firmware</th>
-                                <th>Type</th>
-                                <th>IMEI No</th>
-                                <th>IP Address</th>
-                                <th>Category</th>
+                                <!-- <th>Company ID</th> -->
+                                <th>Company Name</th>
+                                <th>Company Type</th>
+                                <th>Contact Person</th>
+                                <th>Contact No</th>
+                                <th>Email ID</th>
+                                <th>DOI</th>
+                                <th>GST No</th>
+                                <th>PAN No</th>
+                                <th>Created By</th>
                                 <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="meterData.length">
-                            <tr *ngFor="let a of meterData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                                <td>{{limit*(p-1)+i+1}}</td>
-                                <td>{{a.companyID}}</td>
-                                <td>{{a.meterID}}</td>
-                                <td>{{a.deviceID}}</td>
-                                <td>{{a.model}}</td>
-                                <td>{{a.firmwareVer}}</td>
-                                <td>{{a.type}}</td>
-                                <td>{{a.IMEINo}}</td>
-                                <td>
-                                    <div *ngIf="!!a.IPAddress; else elseBlock">
-                                        {{a.IPAddress | slice:0:20}} <span *ngIf="a.IPAddress.length > 20">...<i class="mdi mdi-information" title="{{a.IPAddress}}"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock>
-                                        {{a.IPAddress}}
-                                    </ng-template>
-                                </td>
-                                <td>{{a.category}}</td>
-                                <td>{{a.createdAt | date:'dd/MM/yyyy hh:mm a'}}</td>
+                        <tbody class="text-nowrap" *ngIf="companyData.length">
+                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <!-- <td>{{ a.company_id }}</td> -->
+                                <td>{{ a.company_name }}</td>
+                                <td>{{ a.mstcompanytype }}</td>
+                                <td>{{ a.contact[0].name }}</td>
+                                <td>{{ a.contact[0].contactno1 }}</td>
+                                <td>{{ a.contact[0].email }}</td>
+                                <td>{{ a.doi }}</td>
+                                <td>{{ a.gst }}</td>
+                                <td>{{ a.pan }}</td>
+                                <td>{{ a.createdby_name }}</td>
+                                <td>{{ a.created }}</td>
                                 <!-- <td>
-                                    <a class="pr-2 mr-2" data-bs-toggle="modal" data-bs-target="#detailModal" title="Detail Data" (click)="meterDetail(a)"><span class="mdi mdi-format-list-bulleted text-warning cursor-pointer mdi-18px"></span></a>
-
-                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Instant Data Profile" (click)="filterWiseData(a, 1)"><span class="mdi mdi-database cursor-pointer mdi-18px"></span></a>
-                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Billing Data Profile" (click)="filterWiseData(a, 2)"><span class="mdi mdi-calculator text-secondary cursor-pointer mdi-18px"></span></a>
-                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Daily Data Profile" (click)="filterWiseData(a, 3)"><span class="mdi mdi-book-open text-info cursor-pointer mdi-18px"></span></a>
-                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Block Load Profile" (click)="filterWiseData(a, 4)"><span class="mdi mdi-battery-unknown text-muted cursor-pointer mdi-18px"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
                                 </td> -->
-                            </tr>
+
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+
+                                </td>
+
+                              </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="meterData?.length == 0">
+                            <tr *ngIf="companyData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
@@ -100,39 +111,238 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Design</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Client Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">
+                <div class="container-fluid scroll-container">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <div class="col-md-6">
+                            <h6 class="">Company Details:</h6>
+                          
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Company Name<span class="required-asterisk">*</span></label>
+                                    <input formControlName="company_name" type="text" class="form-control form-control-sm" placeholder="Enter company name" appWordCapitalize>
+                                    <div *ngIf="f['company_name'].touched && f['company_name'].invalid">
+                                        <small class="text-danger" *ngIf="f['company_name'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Company Type<span class="required-asterisk">*</span></label>
+                                    <select formControlName="company_type" class="form-select form-select-sm" (change)="selfFun()">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Company Type</option>
+                                        <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
+                                    </select>
+                                    <div *ngIf="f['company_type'].touched && f['company_type'].invalid">
+                                        <small class="text-danger" *ngIf="f['company_type'].errors?.['required']">*Required</small>
+                                    </div>
+
+                                </div>
+                            </div>
+                       
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">GST No<span class="required-asterisk">*</span></label>
+                                    <input formControlName="gst" placeholder="Enter GST NO." minlength="15"
+                                    maxlength="15" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                                    <div *ngIf="f['gst'].touched && f['gst'].invalid">
+                                        <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">PAN No<span class="required-asterisk">*</span></label>
+                                    <input formControlName="pan" placeholder="Enter Pan No." minlength="10"
+                                    maxlength="10" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                                    <div *ngIf="f['pan'].touched && f['pan'].invalid">
+                                        <small class="text-danger" *ngIf="f['pan'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">DOI (Date of Incorporation)<span
+                                            class="required-asterisk">*</span></label>
+                                    <input formControlName="doi" type="date" class="form-control form-control-sm">
+                                    <div *ngIf="f['doi'].touched && f['doi'].invalid">
+                                        <small class="text-danger" *ngIf="f['doi'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                                    <select class="form-select form-select-sm">
-                                        <option>India</option>
+                                    <select formControlName="country_id" class="form-select form-select-sm" (ngModelChange)="getStateData()">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
+                                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
                                     </select>
+                                    <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">State<span class="required-asterisk">*</span></label>
+                                    <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData()">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
+                                        <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
+                                    </select>
+                                    <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">District<span class="required-asterisk">*</span></label>
+                                    <select formControlName="district_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
+                                        <option *ngFor="let d of districtData" value="{{d.district_id}}">{{ d.district_name }}</option>
+                                    </select>
+                                    <div *ngIf="f['district_id'].touched && f['district_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">City</label>
+                                    <input type="text" formControlName="city" class="form-control form-control-sm" placeholder="Enter Your City">
+                                  
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Web Url</label>
+                                    <input type="text" formControlName="websiteurl" class="form-control form-control-sm" placeholder="Enter Url">
+                                  
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Cin No</label>
+                                    <input type="text" formControlName="cinno" class="form-control form-control-sm" placeholder="Enter Cin No" minlength="21" maxlength="21" appUpperCase appNoSpace>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
+                                    <input type="text" formControlName="pincode" maxlength="6" minlength="6" placeholder="Enter Pin Code" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['pincode'].touched && f['pincode'].invalid">
+                                        <small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f['pincode'].errors?.['pattern']">*Please enter 6 digit only.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Lane/Area<span class="required-asterisk">*</span></label>
+                                    <input type="text" formControlName="area" class="form-control form-control-sm" placeholder="Enter lane/area...">
+                                    <div *ngIf="f['area'].touched && f['area'].invalid">
+                                        <small class="text-danger" *ngIf="f['area'].errors?.['required']">*Required</small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">State Name<span
-                                            class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <label class="form-label">Address line 1</label>
+                                    <input type="text" formControlName="address_line1" class="form-control form-control-sm" placeholder="Enter Address Line 1">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">State Code<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <label class="form-label">Address line 2</label>
+                                    <input type="text" formControlName="address_line2" class="form-control form-control-sm" placeholder="Enter Address line 2">
+                                       
+                                    
                                 </div>
                             </div>
+                           
+                            <div class="row">
+                                <div class="col-md-6"> <h6 class="mt-2">Contact Details: </h6></div>
+                                <div class="col-md-6">
+                                    <a routerLink="/master/tender-company-contacts" class="float-right" data-bs-dismiss="modal" style="font-size: 14px;"><i class="mdi mdi-credit-card-plus mdi-2"></i>
+                                       Add More Contacts</a>
+                                </div>
+                               
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Name<span class="required-asterisk">*</span></label>
+                                    <input formControlName="name" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
+                                    <div *ngIf="f['name'].touched && f['name'].invalid">
+                                        <small class="text-danger" *ngIf="f['name'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Designation<span class="required-asterisk">*</span></label>
+                                    <select formControlName="usdg_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
+                                        <option *ngFor="let d of design" value="{{d.usdg_id}}">{{d.designationname}}</option>
+                                    </select>
+                                    <div *ngIf="f['usdg_id'].touched && f['usdg_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['usdg_id'].errors?.['required']">*Required</small>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Department<span class="required-asterisk">*</span></label>
+                                    <select formControlName="usdt_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Department</option>
+                                        <option *ngFor="let d of departMent" value="{{d.usdt_id}}">{{d.deptname}}</option>
+                                    </select>
+                                    <div *ngIf="f['usdt_id'].touched && f['usdt_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['usdt_id'].errors?.['required']">*Required</small>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Primary Contact No<span class="required-asterisk">*</span></label>
+                                    <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
+                                    maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">
+                                        <small class="text-danger" *ngIf="f['contactno1'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f['contactno1'].errors?.['pattern']">*Please enter 10 digit Contact No</small>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Secondary Contact No</label>
+                                    <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
+                                    maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
+                                    <input formControlName="email" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
+                                    <div *ngIf="f['email'].touched && f['email'].invalid">
+                                        <small class="text-danger" *ngIf="f['email'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f['email'].errors?.['pattern']">*Email must be a valid Email ID</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                         
                             <div class="modal-btns">
-                                <button type="submit" [disabled]="!form.valid"
-                                    class="btn btn-primary btn-rounded btn-fw btn-sm mr-2">Add</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-rounded btn-fw btn-sm"
-                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </form>
@@ -143,196 +353,66 @@
 </div>
 <!-- create modal end-->
 
-<!-- detail modal -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+
+<!-- Financial-model -->
+<a style="display: none;" data-bs-toggle="modal" data-bs-target="#createModall" id="selfModel"></a>
+<div class="modal fade" id="createModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Data</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">Financial Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#createModal"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12 p-0">
-                            <!-- <div class="d-flex"> -->
-                                <!-- <div class="btn-group mb-2" role="group" aria-label="Basic example">
-                                    <button type="button" [class]="filterType == 'PC' ? 'btn btn-light border border-gray btn-sm active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('PC')">PC</button>
-                                    <button type="button" [class]="filterType == 'MR' ? 'btn btn-light btn-sm border border-gray active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('MR')">MR</button>
-                                    <button type="button" [class]="filterType == 'US' ? 'btn btn-light btn-sm border border-gray active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('US')">US</button>
-                                    <button type="button" [class]="filterType == 'PUSH' ? 'btn btn-light btn-sm border border-gray active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('PUSH')">PUSH</button>
-                                    <button type="button" [class]="filterType == 'FW' ? 'btn btn-light btn-sm border border-gray active' : 'btn btn-light btn-sm border border-gray'" (click)="meterDetailFilter('FW')">FW</button>
-                                </div> -->
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Net Worth<span class="required-asterisk">*</span></label>
+                                    <input formControlName="net_worth" type="text" class="form-control form-control-sm" placeholder="Enter net worth">
+                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
+                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+       
+                       
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">financial year<span
+                                            class="required-asterisk">*</span></label>
+                                    <input formControlName="financialyear_id" type="date" class="form-control form-control-sm">
+                                    <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Annual Turnover<span class="required-asterisk">*</span></label>
+                                    <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" placeholder="Enter net worth">
+                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
+                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
+                                    </div>
 
-                                <ng-template #read>
-                                    <button class="btn btn-primary btn-fw btn-sm float-right" >Read Data</button>
-                                </ng-template>
-                                
-                                <button *ngIf="isPulling; else read" class="btn btn-primary btn-fw btn-sm float-right" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Reading...</button>
-                            <!-- </div> -->
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th>S No</th>
-                                            <th>Meter ID</th>
-                                            <th>Company ID</th>
-                                            <!-- <th>Customer Id</th> -->
-                                            <th>Association</th>
-                                            <th>Status</th>
-                                            <th>Publish Time</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <tr *ngFor="let a of meterDetailData; index as i">
-                                            <td>{{i+1}}</td>
-                                            <td>{{a.meterID}}</td>
-                                            <td>{{a.companyID}}</td>
-                                            <!-- <td>{{a.customerID}}</td> -->
-                                            <td>{{a.Association}}</td>
-                                            <td>{{a.Status}}</td>
-                                            <td>{{a.meterPublishTime | date:'dd/MM/yyyy hh:mm a'}}</td>
-                                            <td>
-                                                <a href="#" class="px-1" data-bs-toggle="modal" data-bs-target="#detailModalById" title="Detail Data" ><span class="mdi mdi-format-list-bulleted text-warning cursor-pointer mdi-18px"></span></a>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="isData == true">
-                                            <td colspan="15" class="text-center">
-                                                <div class="spinner-border"> </div>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="meterDetailData?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                </div>
+                            </div>
+                    
+                        
+                          
+                          
+                         
+                            <div class="modal-btns">
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createModal">Close</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- detail modal end-->
-
-<!-- detail by Id modal -->
-<div class="modal fade" id="detailModalById" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Data List <small>({{meterIndexData?.meterID}} - {{meterIndexData?.meterPublishTime | date:'dd/MM/yyyy hh:mm a'}})</small></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#detailModal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th>S No</th>
-                                            <th>OBIS Code</th>
-                                            <th>Description</th>
-                                            <th>Param Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <tr *ngFor="let a of meterDataList; index as i">
-                                            <td>{{i+1}}</td>
-                                            <td>{{a.OBISCode}}</td>
-                                            <td>{{a.description}}</td>
-                                            <td>
-                                                <span *ngFor="let d of a.paramValueList">
-                                                   <i class="mdi mdi-arrow-right"></i> {{d}} <br>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="isDataList == true">
-                                            <td colspan="15" class="text-center">
-                                                <div class="spinner-border"> </div>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="meterDataList?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- detail by Id modal end-->
-
-<!-- instant, billing, Daily Data, Block load modal -->
-<div class="modal fade" id="allDataModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" [ngSwitch]= "filterNumber">
-                    <span *ngSwitchCase= "1">Instant Data Profile</span>
-                    <span *ngSwitchCase= "2">Billing Data Profile</span>
-                    <span *ngSwitchCase= "3">Daily Data Profile</span>
-                    <span *ngSwitchCase= "4">Block Load Profile</span>
-                </h5> <span class="model-custom-title">(DeviceID - {{ titleData ? titleData[0]?.deviceID : '' }}, Publish Time - {{ titleData ? (titleData[0]?.meterPublishTime | date: 'dd/MM/yyyy hh:mm a') : '' }})</span>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th>S No</th>
-                                            <th>Description</th>
-                                            <th>OBIS</th>
-                                            <th>Param Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <tr *ngFor="let a of filterData; index as i">
-                                            <td>{{i+1}}</td>
-                                            <td>{{a.name}}</td>
-                                            <td>{{a.OBISCode}}</td>
-                                            <td>
-                                                <span *ngFor="let d of a.paramValueList">
-                                                   <i class="mdi mdi-arrow-right"></i> {{d}} <br>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="isDataList == true">
-                                            <td colspan="15" class="text-center">
-                                                <div class="spinner-border"> </div>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="filterData?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                            </td>
-                                        </tr>   
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- instant modal end-->

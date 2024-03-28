@@ -17,12 +17,12 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
-                                    <select formControlName="utility" class="form-select form-select-sm">
+                                    <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="tendComp($event)">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
                                         <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                                     </select>
-                                    <div *ngIf="f['utility'].touched && f['utility'].invalid">
-                                        <small class="text-danger" *ngIf="f['utility'].errors?.['required']">*Required</small>
+                                    <div *ngIf="f['utility_id'].touched && f['utility_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['utility_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -30,13 +30,12 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
-                                    <select formControlName="tender_title" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
-                                        <option *ngFor="let c of tenderType" value="{{c.bidtype_id}}">{{ c.bidtype }}</option>
+                                    <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
+                                        <option [selected]="true" [disabled]="true">Select Project</option>
+                                        <option *ngFor="let c of tenderData" value="{{c.tender_id}}">{{c.tender_title}}</option>
                                     </select>
-                                    <!-- <input formControlName="tender_title" type="text" class="form-control form-control-sm" placeholder="Enter Tender Title" appWordCapitalize> -->
-                                        <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_title'].errors?.['required']">*Required</small>
+                                        <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +43,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Ref. No</label>
-                                    <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" readonly >
+                                    <span class="form-control form-control-sm" readonly >{{tendDetails?.tender_ref_no}}</span>
                                     <!-- <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
                                         <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
                                     </div> -->
@@ -56,7 +55,9 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Publish Date</label>
-                                    <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly>
+                                    <span class="form-control form-control-sm" readonly >{{tendDetails?.publish_date}}</span>
+
+                                    <!-- <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly> -->
                                     <!-- <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
                                         <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
                                     </div> -->
@@ -75,27 +76,27 @@
                             </div> -->
                             <div class="form-group col-3">
                                 <label for="">Bank <span class="required-asterisk">*</span></label>
-                                <select class="form-select form-select-sm" formControlName="bank_name">
+                                <select class="form-select form-select-sm" formControlName="bank_id">
                                     <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
                                     <option *ngFor="let b of bankData" value="{{b.bank_id}}">{{b.bankname}}</option>
                                 </select>
-                                <div *ngIf="f['bank_name'].touched && f['bank_name'].invalid">
-                                    <small class="text-danger" *ngIf="f['bank_name'].errors?.['required']">*Required</small>
+                                <div *ngIf="f['bank_id'].touched && f['bank_id'].invalid">
+                                    <small class="text-danger" *ngIf="f['bank_id'].errors?.['required']">*Required</small>
                                 </div>  
                             </div>
 
                             <div class="form-group col-3">
                             <label for="">BG Number: <span class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="bgnumber" placeholder="Enter BG Number">
-                            <div *ngIf="f['bgnumber'].touched && f['bgnumber'].invalid">
-                                <small class="text-danger" *ngIf="f['bgnumber'].errors?.['required']">*Required</small>
+                            <input type="text" class="form-control form-control-sm" formControlName="bg_number" placeholder="Enter BG Number">
+                            <div *ngIf="f['bg_number'].touched && f['bg_number'].invalid">
+                                <small class="text-danger" *ngIf="f['bg_number'].errors?.['required']">*Required</small>
                             </div>    
                         </div>
                             <div class="form-group col-3">
                             <label for="">BG Amount: <span class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="bgamount" placeholder="Enter BG Amount" appNumberOnly >
-                            <div *ngIf="f['bgamount'].touched && f['bgamount'].invalid">
-                                <small class="text-danger" *ngIf="f['bgamount'].errors?.['required']">*Required</small>
+                            <input type="text" class="form-control form-control-sm" formControlName="bg_amount" placeholder="Enter BG Amount" appNumberOnly >
+                            <div *ngIf="f['bg_amount'].touched && f['bg_amount'].invalid">
+                                <small class="text-danger" *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
                             </div>    
                         </div>
                             <div class="form-group col-3">
@@ -112,6 +113,10 @@
                                 <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
+
+
+                      
+
                             <div class="form-group col-3">
                             <label for="">Submission Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="submission_date">
@@ -132,7 +137,7 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="">Document Description:</label>
-                                <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize>
+                                <textarea type="text" class="form-control form-control-sm" formControlName="document_description" placeholder="Describe your attached documents...">
                                </textarea>
                                 </div>
                         </div>

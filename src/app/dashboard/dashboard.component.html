@@ -389,54 +389,50 @@
           <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
             <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
               </div> -->
-          <div class="col-md-12">
-              <form  [formGroup]="form">
-                <div class=" d-flex">
-                  
-                  <div class="col-md-4">
-                      <p class="card-title mb-2" routerLink="/dashboard/performance-dashboard">Budget | Expense</p>
-                       
+              <div class="col-md-12">
+                <form [formGroup]="form">
+                  <div class="d-flex">
+                    <div class="col-md-4">
+                      <p class="card-title mb-2">Budget | Expense</p>
                     </div>
                     <div class="col-md-3">
-                        <div class="form-group row">
+                      <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Duration</label>
                         <div class="col-sm-8">
-                            <select class="form-select form-select-sm">
-                              <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                                <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
-      
-                            </select>
+                          <select class="form-select form-select-sm">
+                            <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                            <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+                          </select>
                         </div>
-                        </div>
+                      </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group row">
+                      <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Status</label>
                         <div class="col-sm-7">
                           <select class="form-select form-select-sm">
                             <option>All</option>
                             <option value="open">Open</option>
-                            <option value="colsed">Closed</option>
-                        </select>
+                            <option value="closed">Closed</option>
+                          </select>
                         </div>
-                        </div>
+                      </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="form-group row">
+                      <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Projects</label>
                         <div class="col-sm-8">
                           <select class="form-select form-select-sm">
                             <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                              <option *ngFor="let f of projData" value="{{f.project_id}}">{{f.project_name}}</option>
-    
+                            <option *ngFor="let f of projData" value="{{f.project_id}}">{{f.project_name}}</option>
                           </select>
                         </div>
-                        </div>
+                      </div>
                     </div>
-                 
-                </div>
-              </form>
-            </div>
+                  </div>
+                </form>
+              </div>
+              
         
         </div>
 

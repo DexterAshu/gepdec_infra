@@ -254,28 +254,49 @@
     <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
         <div class="card-body">
-          <div class="row">
-            <div class="col-md-6" routerLink="/dashboard/performance-dashboard">
-              <p class="card-title mb-2">Budget | Expense</p>
-  
-            </div>
-            <div class="col-md-6">
-              <div class="form-group row">
-              <label class="col-sm-4 col-form-label" style="font-size: 12px; font-weight: 600;"> Yearly:</label>
-              <div class="col-sm-8">
-                <select class="form-select form-select-sm">
-                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                    <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
-                </select>
+          <p class="card-title mb-2">Performance</p>
+     
+          <div class="chartBar" #containerRef4>
+            <ngx-charts-bar-vertical-2d
+            [view]="[containerRef4.offsetWidth, 190]"
+            [scheme]="colorSchemeLoadQuarter1"
+            [results]="performancePDPEQ"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [gradient]="true"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabelBarLoad"
+            [yAxisLabel]="yAxisLabelBarLoad"
+            [barPadding]="5"
+            [groupPadding]="7"
+            (select)="onChartSelect($event)"
+            >
+
+            <!-- <ng-template #tooltipTemplate let-model="model">
+              <div class="custom-tooltip">
+                <p>{{ model.name }}</p>
+                <p>{{ model.data.toLocaleString() }} ({{ model.data / total * 100 | number: '1.2-2' }}%)</p>
               </div>
-              </div>
+            </ng-template> -->
+
+            <!-- <ng-template #tooltipTemplate let-model="model">
+              <p class="p-0 m-0">{{model.name}}</p>
+              <p>{{(model.value/model.value)*100 | number : '1.1-1'}} %</p>
+            </ng-template> -->
+
+            <!-- <ng-template #tooltipTemplate let-model="model">
+              <p class="p-0 m-0">{{model.name}}</p>
+              <p>{{ calculateCompletionPercentage(model.series) | number : '1.1-1'}} %</p>
+            </ng-template> -->
+
+          </ngx-charts-bar-vertical-2d>
           </div>
-         
-          </div>
-          <div class="" #containerPerformance>
-            <div class="Highcharts " [chart]="LineChartGraph"></div>
-           
-          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total</li>
+            <li><i class="mdi mdi-checkbox-blank load_box4"></i> Completed</li>
+        
+          </ul>
         </div>
       </div>
     </div>
@@ -289,7 +310,7 @@
          
           <div class="chartBar" #containerRef5>
             <ngx-charts-area-chart
-              [view]="[containerRef5.offsetWidth, 0]"
+              [view]="[containerRef5.offsetWidth, 190]"
               [scheme]="lineColorSchemeFinance"
               [legend]="false"
               [gradient]="true"

@@ -5,13 +5,13 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'app-data-capturing',
-  templateUrl: './data-capturing.component.html',
-  styleUrls: ['./data-capturing.component.css']
+  selector: 'app-mangagement-tender-approval',
+  templateUrl: './mangagement-tender-approval.component.html',
+  styleUrls: ['./mangagement-tender-approval.component.css']
 })
-export class DataCapturingComponent {
+export class MangagementTenderApprovalComponent {
   form!: FormGroup;
-   
+  payment:any; 
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -49,7 +49,6 @@ export class DataCapturingComponent {
   companyDetails: any;
   update: boolean = false;
   button: string = 'Save & Continue';
-  payment: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -90,7 +89,6 @@ export class DataCapturingComponent {
       emd_payment:[null],
       emd_submission_date:[null],
       termsCheckbox:[null, Validators.required]
-     
     });
 
   
@@ -98,6 +96,9 @@ export class DataCapturingComponent {
     this.getCountryData();
     this.getDesignDeptData();
     this.finYearData();
+  
+
+    
 
   }
 
@@ -168,7 +169,6 @@ toggleEmdField(event: Event): void {
     this.form.get('emd_amount')!.clearValidators();
     this.form.get('emd_payment')!.clearValidators();
     this.form.get('emd_submission_date')!.clearValidators();
-    
 
 
   }

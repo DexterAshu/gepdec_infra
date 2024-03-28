@@ -144,6 +144,16 @@ export class ApiService {
     return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderlist`, httpOptions );
   }
 
+  tenderDetails(data: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderDetail/${data}`, httpOptions );
+  }
+
+  tenderUpdation(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put<any[]>( `${environment.apiUrl}/biding/api/v1/updateTender`, data, httpOptions );
+  }
+
   //create master DEPT
   createMasterDepartment(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
@@ -217,7 +227,7 @@ export class ApiService {
       httpOptions
     );
   }
-
+//Documentation - API Module
   //upload all type of documents
   createDocuments(data: any): Observable<any[]> {
     const httpOptions = {
@@ -228,6 +238,19 @@ export class ApiService {
     };
     return this.http.post<any[]>(
       `${environment.apiUrl}/document/api/v1/addDocument `,
+      data,
+      httpOptions
+    );
+  }
+  AddBank(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // 'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/biding/api/v1/addBankGuarantee`,
       data,
       httpOptions
     );

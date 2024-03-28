@@ -97,7 +97,9 @@
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.documentdate}}</td>
-                                <td>{{a.filename}}</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
+                                    {{a.filename| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                </td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created}}</td>
                                 <td>

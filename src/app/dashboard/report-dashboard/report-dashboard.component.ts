@@ -1546,6 +1546,39 @@ scateredGraphPrject = new Chart({
 
 });
 
+onChartSelect(event: any) {
+  debugger
+  // Check the "name" property of the selected item
+  const selectedName = event.series;
+
+  // Conditionally navigate based on the selected name
+  switch (selectedName) {
+    case 'Presales':
+      this.router.navigate(['/dashboard/presales-dashboard']);
+      break;
+    case 'Design':
+      this.router.navigate(['/dashboard/design-dashboard']);
+      break;
+    case 'Proc':
+      this.router.navigate(['/dashboard/procurement-dashboard']);
+      break;
+    case 'Store':
+      this.router.navigate(['/dashboard/warehouse-dashboard']);
+      break;
+    case 'Exec':
+      this.router.navigate(['/dashboard/execution-dashboard']);
+      break;
+    case 'Quality':
+      this.router.navigate(['/dashboard/quality-dashboard']);
+      break;
+    case 'Fin':
+      this.router.navigate(['/dashboard/fin-dashboard']);
+      break;
+    default:
+      // Handle other cases if needed
+      break;
+  }
+}
 
   
 }

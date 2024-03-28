@@ -1290,7 +1290,7 @@ export class DashboardComponent implements OnInit {
         },
         groupPadding: 0.1,
         colorByPoint: true, // Assign different colors to each point
-        colors: ['#aeddc5', '#f16a6ddb', '#ffc3ae'] // Define three colors for the gradient
+        colors: ['#c0fec2', '#fd8383bd', '#fdda9b'] // Define three colors for the gradient
       }
     },
     legend: {
@@ -1563,6 +1563,7 @@ scateredGraphPrject = new Chart({
 }]
 
 });
+
 
 
 

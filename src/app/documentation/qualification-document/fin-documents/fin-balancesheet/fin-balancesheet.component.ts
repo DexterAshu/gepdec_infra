@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, MasterService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 @Component({
@@ -28,19 +28,21 @@ export class FinBalancesheetComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
+  financialData: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private masterService: MasterService,
   ) {}
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
-      utility: ['',Validators.required],
-      tender_title: ['',Validators.required],
-      tender_ref_no: ['null',Validators.required],
-      publish_date: ['',Validators.required],
+      // utility: ['',Validators.required],
+      // tender_title: ['',Validators.required],
+      // tender_ref_no: ['null',Validators.required],
+      // publish_date: ['',Validators.required],
       fin_year: ['',Validators.required],
       total_liabilities: ['',Validators.required],
       fixed_asset: ['',Validators.required],
@@ -68,6 +70,10 @@ export class FinBalancesheetComponent {
     });
     this.apiService.getTenderType().subscribe((res: any) => {  
       this.tenderType = res.bidtype;
+    });
+
+    this.masterService.getFinData().subscribe((res:any) => {
+      this.financialData = res.result;
     });
     
     this.apiService.getDocListData().subscribe((res:any) => {
@@ -143,10 +149,10 @@ downloadPdf() {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-    formData.append('utility', this.documentForm.value.utility);
-    formData.append('tender_title', this.documentForm.value.tender_title);
-    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
-    formData.append('publish_date', this.documentForm.value.publish_date);
+    // formData.append('utility', this.documentForm.value.utility);
+    // formData.append('tender_title', this.documentForm.value.tender_title);
+    // formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
+    // formData.append('publish_date', this.documentForm.value.publish_date);
     formData.append('fin_year', this.documentForm.value.fin_year);
     formData.append('total_liabilities', this.documentForm.value.total_liabilities);
     formData.append('fixed_asset', this.documentForm.value.fixed_asset);

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { MasterService, AlertService, ApiService, AccountService } from 'src/app/_services';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-capture-data-list',
@@ -33,13 +36,26 @@ export class CaptureDataListComponent {
   loading: boolean = false;
   companyList: any;
   tenderType: any;
+  inserteddata: any;
+  discardeddata: any;
+  isExcelDownloadData: boolean = true;
+  userData: any;
+  statusData: any;
  
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService,
-  ) { }
+    private user: AccountService,
+    private router: Router,
+  ) {
+    const userDataString = localStorage.getItem('gdUserData');
+   
+    if (userDataString) {
+      this.userData = JSON.parse(userDataString);
+    }
+   }
 
  ngOnInit(){
     this.form = this.formBuilder.group({
@@ -73,27 +89,19 @@ export class CaptureDataListComponent {
   }
 
    getDetails(data:any){
-    this.form.reset();
+    console.log(data);
+    if (data) {
+      if (this.userData && this.userData.rolename === "Administrator") {
+        this.router.navigate(['presales/presales-biding/management-approval',data]);
+      } else {
+        this.router.navigate(['/presales/presales-biding/data-capture',data]);
+      }
+    } else {
+      this.router.navigate(['/presales/presales-biding/data-capture']);
+    }
     this.button = 'Update';
     this.update = true;
-    this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
-      this.custDetails = res.result[0];
-        this.form.patchValue({
-          name: this.custDetails.name,
-          company_name: this.custDetails.company_name,
-          company_type: this.custDetails.company_type,
-          contactno1: this.custDetails.contactno1,
-          contactno2: this.custDetails.contactno2,
-          email: this.custDetails.email,
-          gst: this.custDetails.gst,
-          pan: this.custDetails.pan,
-          doi: this.custDetails.doi,
-          area: this.custDetails.area,
-          pincode: this.custDetails.pincode,
-          
-        }); 
-      
-  })
+   
   }
 
 
@@ -102,6 +110,7 @@ export class CaptureDataListComponent {
   getTenderData() {
     this.apiService.getTenderList().subscribe((res: any) => {  
       this.companyData = res.result;
+      this.statusData = res.counts;
     });
     this.apiService.getTenderType().subscribe((res: any) => {  
       this.tenderType = res.bidtype;
@@ -173,6 +182,30 @@ underreviewdata(data:any)
 //       this.setDataSourceAttributes()
 
 }
+
+exportAsXLSX1(){
+  var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
+   var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
+  var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
+   XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
+  XLSX.writeFile(wb, "Data_File.xlsx");
+
+      }
+downloadPdf() {
+const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
+const pdfName = 'country_bulkload_template_file.xlsx';
+FileSaver.saveAs(pdfUrl, pdfName);
+}
+
+download(): void {
+  let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
+    display: false,
+    raw: true,
+  });
+  XLSX.writeFile(wb, 'Data_File.xlsx');
+}
+
 
 
 }

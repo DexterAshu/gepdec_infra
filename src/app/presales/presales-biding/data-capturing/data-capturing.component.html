@@ -55,7 +55,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender/Project Title<span class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_title" type="text" class="form-control form-control-sm" placeholder="Enter Tender Title" appWordCapitalize>
+                                            <input formControlName="tender_title" type="text" class="form-control form-control-sm" placeholder="Enter Tender Title" >
                                                 <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_title'].errors?.['required']">*Required</small>
                                             </div>
@@ -65,7 +65,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender (NIT/RFB) No <span class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" placeholder="Enter Tender Ref. Number" appWordCapitalize>
+                                            <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" placeholder="Enter Tender Ref. Number" >
                                             <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
                                             </div>
@@ -205,18 +205,57 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Tender EMD Exemption<span
-                                                    class="required-asterisk">*</span></label>
-                                                    <select formControlName="exemption_id" class="form-select form-select-sm">
-                                                        <option [selected]="true" [disabled]="true" [value]="null">Select Mode</option>
-                                                        <option *ngFor="let c of emdExp" value="{{c.exemption_id}}">{{ c.emdexemption }}</option>
-                                                    </select>
+                                            <label class="form-label fl-10">Tender EMD Exemption<span class="required-asterisk">*</span></label>
+                                            <select formControlName="exemption_id" class="form-select form-select-sm" (change)="toggleEmdField($event)">
+                                                <option [value]="null" disabled selected>Select Mode</option>
+                                                <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
+                                            </select>
                                             <div *ngIf="f['exemption_id'].touched && f['exemption_id'].invalid">
                                                 <small class="text-danger" *ngIf="f['exemption_id'].errors?.['required']">*Required</small>
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div class="col-md-4" *ngIf="selectedEmdexemption">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">EMD Amount<span class="required-asterisk">*</span></label>
+                                            <input formControlName="emd_amount" type="text" class="form-control form-control-sm" placeholder="Enter EMD Amount" appNumberOnly>
+                                            <div *ngIf="f['emd_amount'].touched && f['emd_amount'].invalid">
+                                                <small class="text-danger" *ngIf="f['emd_amount'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
 
+                                    <div class="col-md-4" *ngIf="selectedEmdexemption">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">EMD Payment<span class="required-asterisk">*</span></label>
+
+                                            <select formControlName="emd_payment" class="form-select form-select-sm">
+                                                <option [selected]="true" [disabled]="true" [value]="null">Select Payment Mode</option>
+                                                <option *ngFor="let p of payment" value="{{p.paymentmethod_id}}">{{ p.paymentmethod }}</option>
+                                            </select>
+                                            <div *ngIf="f['emd_payment'].touched && f['emd_payment'].invalid">
+                                                <small class="text-danger" *ngIf="f['emd_payment'].errors?.['required']">*Required</small>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                  
+
+                                    <div class="col-md-4" *ngIf="selectedEmdexemption">
+                                      
+                                            <div class="form-group">
+                                                <label class="form-label fl-10">EMD Submission Date<span class="required-asterisk">*</span></label>
+                                                <input formControlName="emd_submission_date" type="date" class="form-control form-control-sm">
+                                                <div *ngIf="f['emd_submission_date'].touched && f['emd_submission_date'].invalid">
+                                                    <small class="text-danger" *ngIf="f['emd_submission_date'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                      
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
@@ -230,7 +269,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Description</label>
-                                            <input formControlName="tender_description" type="text" class="form-control form-control-sm" placeholder="Enter Tender Description" appWordCapitalize>
+                                            <input formControlName="tender_description" type="text" class="form-control form-control-sm" placeholder="Enter Tender Description">
                                           
                                         </div>
                                     </div>
@@ -238,14 +277,21 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Detail Available Link</label>
-                                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm" placeholder="Add Tender Detail links" appWordCapitalize>
+                                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm" placeholder="Add Tender Detail links" >
                                         
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input class="mt-1" type="checkbox" id="termsCheckbox" formControlName="termsCheckbox" required> &nbsp;
+                                            <label for="termsCheckbox"> I accept that the selected fields and input data given by me are correct.</label>
+                                        </div>
+                                    </div>
 
+                              
                                     <div class="modal-btns mt-3">
-
-                                        <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Save & Continue</button>
+                                        <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                                        <!-- <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Save & Continue</button> -->
                                         <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
                                         <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" routerLink="/presales/presales-biding/data-capture-list">Close</button>
                                     </div>
@@ -480,7 +526,7 @@
 
                                     <h6 class="mt-2">Contacts Information</h6>
 
-                                    <app-responsive-table style=" max-height: 200px;"> 
+                                    <app-responsive-table style=" max-height: 140px;"> 
                                         <thead class="table-primary text-nowrap">
                                             <tr>
                                                 <th>S No</th>
@@ -537,11 +583,11 @@
 
                                 <div class="row" *ngIf="showEligibility">
                                     
-                                        <button class="col-md-4 btn btn-primary fl-10" data-bs-toggle="modal" data-bs-target="#techModal"
+                                        <button type="button" class="col-md-4 btn btn-primary fl-10" data-bs-toggle="modal" data-bs-target="#techModal"
                                          style="border-radius: 15px;"> 1. Technical Qualification</button>
-                                         <button class="col-md-4 btn btn-info fl-10" data-bs-toggle="modal" data-bs-target="#finModal"
+                                         <button type="button" class="col-md-4 btn btn-info fl-10" data-bs-toggle="modal" data-bs-target="#finModal"
                                          style="border-radius: 15px;"> 2. Financial Qualification</button>
-                                         <button class="col-md-4 btn btn-success fl-10" data-bs-toggle="modal" data-bs-target="#bankModal"
+                                         <button type="button" class="col-md-4 btn btn-success fl-10" data-bs-toggle="modal" data-bs-target="#bankModal"
                                          style="border-radius: 15px;"> 3. Bank Guarantee & Security Deposit</button>
                                          
                                 </div>

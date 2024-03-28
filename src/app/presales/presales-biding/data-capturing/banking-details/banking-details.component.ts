@@ -30,6 +30,13 @@ export class BankingDetailsComponent {
   companyData: any;
   tenderType: any;
   bankData: any;
+  tenderData: any;
+  tenderDetails: any;
+  tenderDetailsData: any;
+  clientListData: any;
+  clientList: any;
+  tendDetails: any;
+  data1: any;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -40,19 +47,19 @@ export class BankingDetailsComponent {
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
       // documenttype_id: ['',Validators.required],
-      bank_name: ['null', Validators.required],
-      bgamount: ['', Validators.required],
-      bgnumber: ['', Validators.required],
+      bank_id: ['', Validators.required],
+      bg_number: ['', Validators.required],
+      bg_amount: ['', Validators.required],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       submission_date: ['', Validators.required],
       extend_date: ['', Validators.required],
       attachment: ['', Validators.required],
-      publish_date: ['', Validators.required],
-      tender_ref_no:['', Validators.required],
-      tender_title:['', Validators.required],
-      utility:['null', Validators.required],
-      description: [''],
+      // publish_date: [''],
+      // tender_ref_no:[''],
+      tender_id:['', Validators.required],
+      utility_id:['', Validators.required],
+      document_description: [''],
      
     });
 
@@ -75,6 +82,9 @@ export class BankingDetailsComponent {
     this.masterService.getBankData().subscribe((res:any)=>{
       this.bankData = res.bank;
     })
+    this.apiService.getTenderList().subscribe((res: any) => {  
+      this.tenderData = res.result;
+    });
     
     this.apiService.getDocListData().subscribe((res:any) => {
       
@@ -86,6 +96,26 @@ export class BankingDetailsComponent {
       }
     });
   }
+
+  tendComp(event: any) {
+    const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    this.clientListData = company_id;
+    this.apiService.companyDetails(this.clientListData).subscribe((res: any) => {
+      this.clientList = res.result;
+      console.log(this.clientList);
+    });
+  }
+  
+  getDetails(data:any) {
+    this.data1 = this.clientList; // Assuming this assignment is necessary
+    this.apiService.tenderDetails(data).subscribe((res: any) => {
+      this.tenderDetailsData = res.result;
+      this.tendDetails = this.tenderDetailsData[0];
+    });
+  }
+  
+
+
 
   onFileChanged(event: any) {
     try {
@@ -130,23 +160,23 @@ export class BankingDetailsComponent {
     }
 
     // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
-    formData.append('bank_name', this.documentForm.value.bank_name);
-    formData.append('bgnumber', this.documentForm.value.bgnumber);
-    formData.append('bgamount', this.documentForm.value.bgamount);
+    formData.append('bank_id', this.documentForm.value.bank_id);
+    formData.append('bg_number', this.documentForm.value.bg_number);
+    formData.append('bg_amount', this.documentForm.value.bg_amount);
     formData.append('start_date', this.documentForm.value.start_date);
     formData.append('end_date', this.documentForm.value.end_date);
     formData.append('submission_date', this.documentForm.value.submission_date);
     formData.append('extend_date', this.documentForm.value.extend_date);
-    formData.append('publish_date', this.documentForm.value.publish_date);
-    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
-    formData.append('tender_title', this.documentForm.value.tender_title);
-    formData.append('utility', this.documentForm.value.utility);
-    formData.append('description', this.documentForm.value.description);
+    // formData.append('publish_date', this.documentForm.value.publish_date);
+    // formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
+    formData.append('tender_id', this.documentForm.value.tender_id);
+    formData.append('utility_id', this.documentForm.value.utility_id);
+    formData.append('document_description', this.documentForm.value.document_description);
     this.addDocument(formData);
   }
 
   addDocument(formData: FormData) {
-    this.apiService.createDocuments(formData).subscribe((res: any) => {
+    this.apiService.AddBank(formData).subscribe((res: any) => {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
