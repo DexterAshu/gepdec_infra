@@ -65,20 +65,20 @@ export class WarehouseDashboardComponent {
   pieDataDesign=[
   
     {
-      "name": "Released Items",
+      "name": "Inhouse",
       "value": 30
     },
     {
-      "name": "Pending Items",
+      "name": "3rd Party",
       "value": 20
     },
     {
-      "name": "Delivered Items",
+      "name": "Completed",
       "value": 15
     },
    
     {
-      "name": "Issued Items",
+      "name": "Pending",
       "value": 10
     },
    
@@ -136,87 +136,87 @@ export class WarehouseDashboardComponent {
     // },
     
     {
-      "name": "Taldihi",
+      "name": "2021",
       "series": [
         {
-          "name": "Total Items",
+          "name": "Total Drawings",
           "value": 20
         },
         {
-          "name": "Released Items",
+          "name": "Inhouse",
           "value": 10
         },
         {
-          "name": "Delivered Items",
+          "name": "3rd Party",
           "value": 5
         },
         {
-          "name": "Issued Items",
+          "name": "Completed",
           "value": 4
         },
       ]
     },
     
     {
-      "name": "Jaunpur",
+      "name": "2022",
       "series": [
         {
-          "name": "Total Items",
-          "value": 20
-        },
-        {
-          "name": "Released Items",
+          "name": "Total Drawings",
           "value": 10
         },
         {
-          "name": "Delivered Items",
+          "name": "Inhouse",
+          "value": 10
+        },
+        {
+          "name": "3rd Party",
           "value": 5
         },
         {
-          "name": "Issued Items",
+          "name": "Completed",
+          "value": 2
+        },
+      ]
+    },
+    {
+      "name": "2023",
+      "series": [
+        {
+          "name": "Total Drawings",
+          "value": 10
+        },
+        {
+          "name": "Inhouse",
+          "value": 5
+        },
+        {
+          "name": "3rd Party",
+          "value": 5
+        },
+        {
+          "name": "Completed",
           "value": 4
         },
       ]
     },
     {
-      "name": "Noida Sec-45",
+      "name": "2024",
       "series": [
         {
-          "name": "Total Items",
-          "value": 20
-        },
-        {
-          "name": "Released Items",
+          "name": "Total Drawings",
           "value": 10
         },
         {
-          "name": "Delivered Items",
+          "name": "Inhouse",
           "value": 5
         },
         {
-          "name": "Issued Items",
-          "value": 4
-        },
-      ]
-    },
-    {
-      "name": "Delhi",
-      "series": [
-        {
-          "name": "Total Items",
-          "value": 20
-        },
-        {
-          "name": "Released Items",
-          "value": 10
-        },
-        {
-          "name": "Delivered Items",
+          "name": "3rd Party",
           "value": 5
         },
         {
-          "name": "Issued Items",
-          "value": 4
+          "name": "Completed",
+          "value": 2
         },
       ]
     },
