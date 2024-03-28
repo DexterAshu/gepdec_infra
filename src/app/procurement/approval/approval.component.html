@@ -289,15 +289,25 @@
                                 <table class="table table-hover table-striped mb-3">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th>S No</th>
-                                            <th>Item Code</th>
-                                            <th>Item Description</th>
-                                            <th>Quantity</th>
-                                            <th>Procurement UOM</th>
-                                            <th>Item UOM</th>
-                                            <!-- <th>Item Cost</th> -->
+                                            <th rowspan="2">S No</th>
+                                            <th rowspan="2">Item Code</th>
+                                            <th rowspan="2">Item Description</th>
+                                            <th rowspan="2">Quantity</th>
+                                            <th colspan="2" class="text-center">Vender Details</th>
+                                            <th rowspan="2">Procurement UOM</th>
+                                            <th rowspan="2">Item UOM</th>
+                                            <th colspan="4" class="text-center">Final Discussed Price</th>
+                                            <th rowspan="2">Action</th>
                                             <!-- <th>Last Purchased Date</th>
                                             <th>Last Purchased Quantity</th> -->
+                                        </tr>
+                                        <tr>
+                                            <th>Vender Name</th>
+                                            <th>Vender Contact</th>
+                                            <th>Base Price</th>
+                                            <th>Total Price</th>
+                                            <th>With GST</th>
+                                            <th>Without GST</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
@@ -306,10 +316,49 @@
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>1</td>
                                             <td>ITM0001</td>
-                                            <td>Demo Item</td>
+                                            <td>Demo Item 1</td>
                                             <td>50</td>
+                                            <td>Demo Vendor</td>
+                                            <td>8808987678</td>
                                             <td>Ton</td>
                                             <td>KG</td>
+                                            <td>10</td>
+                                            <td>500</td>
+                                            <td>530</td>
+                                            <td>500</td>
+                                            <td> <input type="checkbox"> </td>
+                                        </tr>
+                                        <tr>
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>2</td>
+                                            <td>ITM0002</td>
+                                            <td>Demo Item 2</td>
+                                            <td>150</td>
+                                            <td>Demo Vendor 2</td>
+                                            <td>9909897766</td>
+                                            <td>Ton</td>
+                                            <td>KG</td>
+                                            <td>10</td>
+                                            <td>1500</td>
+                                            <td>1550</td>
+                                            <td>1500</td>
+                                            <td> <input type="checkbox"> </td>
+                                        </tr>
+                                        <tr>
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>3</td>
+                                            <td>ITM0003</td>
+                                            <td>Demo Item 3</td>
+                                            <td>30</td>
+                                            <td>Demo Vendor</td>
+                                            <td>8808987678</td>
+                                            <td>Ton</td>
+                                            <td>KG</td>
+                                            <td>20</td>
+                                            <td>600</td>
+                                            <td>630</td>
+                                            <td>600</td>
+                                            <td> <input type="checkbox"> </td>
                                         </tr>
                                         <!-- <tr *ngIf="rowData?.length == 0">
                                             <td colspan="15" class="text-center">

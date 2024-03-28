@@ -20,7 +20,7 @@
               <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
             <div class="col-lg-8">
-              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+              <!-- <button type="button" (click)="onCreate()" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button> -->
             </div>
           </div>
           <app-responsive-table id="export">
@@ -60,6 +60,52 @@
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Design</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">warehouse_id<span class="required-asterisk">*</span></label>
+                  <select formControlName="warehouse_id" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option *ngFor="let t of wareHouseData" [value]="t.warehouse_id">{{ t.warehouse_name | titlecase }}
+                    </option>
+                  </select>
+                  <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid"><small class="text-danger" *ngIf="f['warehouse_id'].errors?.['required']">*Required</small></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">State Name<span class="required-asterisk">*</span></label>
+                  <input type="text" class="form-control form-control-sm">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">State Code<span class="required-asterisk">*</span></label>
+                  <input type="text" class="form-control form-control-sm">
+                </div>
+              </div>
+              <div class="modal-btns">
+                <button type="submit" [disabled]="!form.valid" class="btn btn-primary btn-rounded btn-fw btn-sm mr-2">Add</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-rounded btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

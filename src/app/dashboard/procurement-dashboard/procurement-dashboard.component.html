@@ -1,277 +1,251 @@
 <div class="container-fluid mt-2">
   <div class="row presales-head">
-          <div class="col-md-8">
-            <h3 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>
-              Procurement Dashboard </h3>
-
-          </div>
-          <div class="col-md-4">  
-          </div>
- 
+    <div class="col-md-8">
+      <!-- <h3 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>   Procurement Dashboard </h3> -->
+    </div>
+    <div class="col-md-4">
+    </div>
   </div>
 
 
-<!-- filter data country state project wise -->
-<div class="row mt-1">
-  <div class="col-md-12">
-    <div class="row module-wise ">
-    <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
+  <!-- filter data country state project wise -->
+  <div class="row mt-1">
+    <div class="col-md-12">
+      <div class="row module-wise ">
+        <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
       <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
         </div> -->
-    <div class="col-md-12" style="font-family:'Times New Roman', Times, serif">
-        <form  [formGroup]="form">
-          <div class=" d-flex">
+        <div class="col-md-12" style="font-family:'Times New Roman', Times, serif">
+          <form [formGroup]="form">
+            <div class=" d-flex">
               <div class="col-md-2">
                 <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
-                  <div class="form-group row">
+                <div class="form-group row">
                   <label class="col-sm-4 col-form-label">Country</label>
                   <div class="col-sm-8">
-                    <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
+                    <select class="form-select form-select-sm" formControlName="country_id"
+                      (ngModelChange)="StateData()">
                       <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                       <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
-                  </select>
-                    
+                    </select>
+
                   </div>
-                  </div>
+                </div>
               </div>
               <div class="col-md-2">
-                  <div class="form-group row">
+                <div class="form-group row">
                   <label class="col-sm-3 col-form-label">State</label>
                   <div class="col-sm-9">
                     <select formControlName="state_id" class="form-select form-select-sm">
                       <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                       <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
-                  </select>
+                    </select>
                   </div>
-                  </div>
+                </div>
               </div>
               <div class="col-md-2">
-                  <div class="form-group row">
+                <div class="form-group row">
                   <label class="col-sm-5 col-form-label">Duration</label>
                   <div class="col-sm-7">
-                      <select class="form-select form-select-sm">
-                        <option>All</option>
-                          <option>April 22 - March 23</option>
-                          <option>April 23 - March 24</option>
-                          <option>April 24 - March 25</option>
-                          <option>April 25 - March 26</option>
-                      </select>
+                    <select class="form-select form-select-sm">
+                      <option>All</option>
+                      <option>April 22 - March 23</option>
+                      <option>April 23 - March 24</option>
+                      <option>April 24 - March 25</option>
+                      <option>April 25 - March 26</option>
+                    </select>
                   </div>
-                  </div>
+                </div>
               </div>
               <div class="col-md-2">
-                  <div class="form-group row">
+                <div class="form-group row">
                   <label class="col-sm-5 col-form-label">Company</label>
                   <div class="col-sm-7">
-                      <select class="form-select form-select-sm">
-                          <option>All</option>
-                          <option>GEPDEC Energy Project</option>
-                          <option>GEPDEC Infra Project</option>
-                      </select>
+                    <select class="form-select form-select-sm">
+                      <option>All</option>
+                      <option>GEPDEC Energy Project</option>
+                      <option>GEPDEC Infra Project</option>
+                    </select>
                   </div>
-                  </div>
+                </div>
               </div>
               <div class="col-md-2">
-                  <div class="form-group row">
+                <div class="form-group row">
                   <label class="col-sm-5 col-form-label"> Category</label>
                   <div class="col-sm-7">
-                      <select class="form-select form-select-sm">
-                          <option>All</option>
-                          <option>Meter</option>
-                          <option>220/33kV, 80MVA Power Transformer</option>
-                      </select>
+                    <select class="form-select form-select-sm">
+                      <option>All</option>
+                      <option>Meter</option>
+                      <option>220/33kV, 80MVA Power Transformer</option>
+                    </select>
                   </div>
-                  </div>
+                </div>
               </div>
               <div class="col-md-2">
-                  <div class="form-group row">
+                <div class="form-group row">
                   <label class="col-sm-4 col-form-label">Project</label>
                   <div class="col-sm-8">
-                      <select class="form-select form-select-sm">
-                          <option>All</option>
-                          <option>Jaunpur Project</option>
-                          <option>Noida project</option>
-                      </select>
+                    <select class="form-select form-select-sm">
+                      <option>All</option>
+                      <option>Jaunpur Project</option>
+                      <option>Noida project</option>
+                    </select>
                   </div>
-                  </div>
+                </div>
               </div>
-          </div>
-        </form>
-      </div>
-  
-  </div>
-  </div>
-</div>
-
-  
-
-<div class="row">
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/published-tender">
-    <div class="business-card p-3">
-      <div class="row">
-        <div class="col-md-3">
-          <i class="mdi mdi-chart-bar-stacked text-center" style="font-size: 40px;"></i>
+            </div>
+          </form>
         </div>
 
-      
-        <div class="col-md-9">
-          <h3> 12 </h3>
-          <hr>
-         <h6>Total Projects </h6>
-        </div>
       </div>
     </div>
-  </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/under-evaluation">
-    <div class="cust-card p-3">
-      <div class="row">
-        <div class="col-md-3">
-          <i class="mdi mdi-chart-gantt text-center" style=" font-size: 44px;"></i>
-        </div>
-        <div class="col-md-9">
-        <h3> 10 </h3>
-          <hr>
-         <h6>Final BOQ</h6>
-        </div>
-      </div> 
-    </div>
-  </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/participation">
-    <div class="Profit-card p-3">
-      <div class="row">
-        <div class="col-md-3">
-          <i class="mdi mdi-speedometer text-center" style="font-size: 40px;"></i>
-        </div>
-        <div class="col-md-5">
-          <h3>100 </h3>
-          <hr>
-         <h6>Items</h6>
-        </div>
-        <div class="col-md-4">
-          <h3>60</h3>
-          <hr>
-         <h6>PO's</h6>
-        </div>
-  
-      </div>
-     
-    </div>
-  </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/win">
-    <div class="loss-card p-3">
-      <div class="row">
-        <div class="col-md-3">
-          <i class="mdi mdi-file-check text-center" style=" font-size: 42px;"></i>
-        </div>
-        <div class="col-md-6">
-         <h3> 4 </h3>
-          <hr>
-        <h6>PO Released</h6>
-        </div>
-        <div class="col-md-3">
-         <h3> 6 </h3>
-          <hr>
-        <h6>(%)</h6>
-        </div>
-  
-      </div>
-     
-    </div>
-  </div>    
   </div>
 
- <!-- Procurement-data-chart -->
- <div class="row mt-2">
-     
-  <div class="col-md-6 grid-margin stretch-card pe-0">
-    <div class="card">
-      <div class="card-body">
+  <div class="row m-0">
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/published-tender">
+      <div class="business-card p-3">
         <div class="row">
-          <p class="card-title mb-2 col-md-10">Performance </p>
-          <!-- <a class="float-right col-md-2" routerLink="">Next <i class="mdi mdi-arrow-right-drop-circle-outline text-center"></i></a> -->
+          <div class="col-md-3">
+            <i class="mdi mdi-chart-bar-stacked text-center" style="font-size: 40px;"></i>
+          </div>
+
+
+          <div class="col-md-9">
+            <h3> 12 </h3>
+            <hr>
+            <h6>Total Projects </h6>
+          </div>
         </div>
-   
-        <div class="chartBar" #containerRef4>
-          <ngx-charts-bar-vertical-2d
-          [view]="[containerRef4.offsetWidth, 190]"
-          [scheme]="colorSchemeLoadQuarter"
-          [results]="multi"
-          [xAxis]="showXAxis"
-          [gradient]="true"
-          [yAxis]="showYAxis"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxisLabel]="xAxisLabelBarLoad"
-          [yAxisLabel]="yAxisLabelBarLoad"
-          [barPadding]="5"
-          [groupPadding]="7">
-        </ngx-charts-bar-vertical-2d>
+      </div>
+    </div>
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/under-evaluation">
+      <div class="cust-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-chart-gantt text-center" style=" font-size: 44px;"></i>
+          </div>
+          <div class="col-md-9">
+            <h3> 10 </h3>
+            <hr>
+            <h6>Final BOQ</h6>
+          </div>
         </div>
-        <ul class="cust-legend">
-          <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total Projects</li>
-          <li><i class="mdi mdi-checkbox-blank load_box2"></i> Final BOQ</li>
-          <li><i class="mdi mdi-checkbox-blank load_box3"></i> Total Items</li>
-          <li><i class="mdi mdi-checkbox-blank load_box4"></i> PO Released </li>
-        </ul>
+      </div>
+    </div>
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/participation">
+      <div class="Profit-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-speedometer text-center" style="font-size: 40px;"></i>
+          </div>
+          <div class="col-md-5">
+            <h3>100 </h3>
+            <hr>
+            <h6>Items</h6>
+          </div>
+          <div class="col-md-4">
+            <h3>60</h3>
+            <hr>
+            <h6>PO's</h6>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/win">
+      <div class="loss-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-file-check text-center" style=" font-size: 42px;"></i>
+          </div>
+          <div class="col-md-6">
+            <h3> 4 </h3>
+            <hr>
+            <h6>PO Released</h6>
+          </div>
+          <div class="col-md-3">
+            <h3> 6 </h3>
+            <hr>
+            <h6>(%)</h6>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>
-  <div class="col-md-6 grid-margin stretch-card ">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-title">Procurement: Values </p>
-        <div class="chartBar" #containerRef3>
-          <ngx-charts-pie-chart
-          [view]="[containerRef3.offsetWidth - 35, 220]"
-          [scheme]="colorSchemeProcurePie"
-          [labels]="showLabelsPie"
-          [doughnut]="true"
-          [gradient]="false"
-          [legend]="true"
-          [results]="pieDataProc">
-        </ngx-charts-pie-chart>
+
+  <!-- Procurement-data-chart -->
+  <div class="row mt-2">
+
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <p class="card-title mb-2 col-md-10">Performance </p>
+            <!-- <a class="float-right col-md-2" routerLink="">Next <i class="mdi mdi-arrow-right-drop-circle-outline text-center"></i></a> -->
+          </div>
+
+          <div class="chartBar" #containerRef4>
+            <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth, 190]" [scheme]="colorSchemeLoadQuarter"
+              [results]="multi" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
+              [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="5" [groupPadding]="7">
+            </ngx-charts-bar-vertical-2d>
+          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total Projects</li>
+            <li><i class="mdi mdi-checkbox-blank load_box2"></i> Final BOQ</li>
+            <li><i class="mdi mdi-checkbox-blank load_box3"></i> Total Items</li>
+            <li><i class="mdi mdi-checkbox-blank load_box4"></i> PO Released </li>
+          </ul>
         </div>
-        <!-- <ul class="cust-legend">
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Procurement: Values </p>
+          <div class="chartBar" #containerRef3>
+            <ngx-charts-pie-chart [view]="[containerRef3.offsetWidth - 35, 220]" [scheme]="colorSchemeProcurePie"
+              [labels]="showLabelsPie" [doughnut]="true" [gradient]="false" [legend]="true" [results]="pieDataProc">
+            </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
           <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
           <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
           <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
         </ul> -->
-        
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="row mt-2">
-
-  <div class="col-md-6 grid-margin stretch-card pe-0">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-title mb-2">PO Target | Achievement</p>
-        <div class="chartBar" #containerRef5>
-          <ngx-charts-line-chart
-          [view]="[containerRef5.offsetWidth, 210]"
-          [scheme]="colorSchemeachiveTarget"
-          [results]="targetlineChart"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [showXAxisLabel]="showYAxisLabelLine"
-          [gradient]="true"
-          [showYAxisLabel]="showYAxisLabelLine"
-          [xAxisLabel]="xAxisLabelLine"
-          [yAxisLabel]="yAxisLabelLine">
-        </ngx-charts-line-chart>
         </div>
-        <ul class="cust-legend">
-          <li><i class="mdi mdi-checkbox-blank l_box1"></i> Target</li>
-          <li><i class="mdi mdi-checkbox-blank l_box3"></i> Achievement</li>
-        </ul>
-                         
       </div>
     </div>
   </div>
 
-  <!-- <div class="col-md-6 grid-margin stretch-card pe-0">
+  <div class="row mt-2">
+
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">PO Target | Achievement</p>
+          <div class="chartBar" #containerRef5>
+            <ngx-charts-line-chart [view]="[containerRef5.offsetWidth, 210]" [scheme]="colorSchemeachiveTarget"
+              [results]="targetlineChart" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showYAxisLabelLine"
+              [gradient]="true" [showYAxisLabel]="showYAxisLabelLine" [xAxisLabel]="xAxisLabelLine"
+              [yAxisLabel]="yAxisLabelLine">
+            </ngx-charts-line-chart>
+          </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank l_box1"></i> Target</li>
+            <li><i class="mdi mdi-checkbox-blank l_box3"></i> Achievement</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-md-6 grid-margin stretch-card pe-0">
     <div class="card">
       <div class="card-body">
         <p class="card-title mb-2">Procurement: Quarterly Performance </p>
@@ -304,160 +278,160 @@
   </div> -->
 
 
-  <div class="col-md-6 grid-margin stretch-card">
-    <div class="card"  data-bs-toggle="modal" data-bs-target="#createModal">
-      <div class="card-body">
-        <p class="card-title mb-2">Project Status</p>
-        <div class="cardHead" style="cursor: pointer;">
-          <div class="row">
-            <div class="col-md-2 col-2">S No</div>
-            <div class="col-md-4 col-4">Project Name</div>
-            <div class="col-md-3 col-3">Delivery Date</div>
-            <div class="col-md-3 col-3 text-center">Status</div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card" data-bs-toggle="modal" data-bs-target="#createModal">
+        <div class="card-body">
+          <p class="card-title mb-2">Project Status</p>
+          <div class="cardHead">
+            <div class="row">
+              <div class="col-md-2 col-2">S No</div>
+              <div class="col-md-4 col-4">Project Name</div>
+              <div class="col-md-3 col-3">Delivery Date</div>
+              <div class="col-md-3 col-3 text-center">Status</div>
+            </div>
           </div>
-        </div>
-        <div class="card1 mt-1">
-          <div class="row">
-            <div class="col-md-2 col-2">1</div>
-            <div class="col-md-4 col-4">Taldihi</div>
-            <div class="col-md-3 col-3">10-01-2024</div>
-            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #fd8383bd;">Delayed</div>
+          <div class="card1 mt-1">
+            <div class="row">
+              <div class="col-md-2 col-2">1</div>
+              <div class="col-md-4 col-4">Taldihi</div>
+              <div class="col-md-3 col-3">10-01-2024</div>
+              <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #fd8383bd;">Delayed</div>
+            </div>
           </div>
-        </div>
-        <div class="card2 mt-1">
-          <div class="row">
-            <div class="col-md-2 col-2">2</div>
-            <div class="col-md-4 col-4">Jaunpur</div>
-            <div class="col-md-3 col-3">10-02-2024</div>
-            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #acffacbb;">Ontime</div>
+          <div class="card2 mt-1">
+            <div class="row">
+              <div class="col-md-2 col-2">2</div>
+              <div class="col-md-4 col-4">Jaunpur</div>
+              <div class="col-md-3 col-3">10-02-2024</div>
+              <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #acffacbb;">Ontime</div>
+            </div>
           </div>
-        </div>
-        <div class="card3 mt-1">
-          <div class="row">
-            <div class="col-md-2 col-2">3</div>
-            <div class="col-md-4 col-4">Noida Sec-45</div>
-            <div class="col-md-3 col-3">15-03-2024</div>
-            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #acffacbb;">Ontime</div>
+          <div class="card3 mt-1">
+            <div class="row">
+              <div class="col-md-2 col-2">3</div>
+              <div class="col-md-4 col-4">Noida Sec-45</div>
+              <div class="col-md-3 col-3">15-03-2024</div>
+              <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #acffacbb;">Ontime</div>
+            </div>
           </div>
-        </div>
-        <div class="card4 mt-1">
-          <div class="row">
-            <div class="col-md-2 col-2">4</div>
-            <div class="col-md-4 col-4">Delhi</div>
-            <div class="col-md-3 col-3">25-01-2024</div>
-            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #fcce7abd;">Delayed</div>
+          <div class="card4 mt-1">
+            <div class="row">
+              <div class="col-md-2 col-2">4</div>
+              <div class="col-md-4 col-4">Delhi</div>
+              <div class="col-md-3 col-3">25-01-2024</div>
+              <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #fcce7abd;">Delayed</div>
+            </div>
           </div>
-        </div>
-        <div class="card5 mt-1">
-          <div class="row">
-            <div class="col-md-2 col-2">5</div>
-            <div class="col-md-4 col-4">Noida</div>
-            <div class="col-md-3 col-3">13-04-2024</div>
-            <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #acffacbb;">Ontime</div>
+          <div class="card5 mt-1">
+            <div class="row">
+              <div class="col-md-2 col-2">5</div>
+              <div class="col-md-4 col-4">Noida</div>
+              <div class="col-md-3 col-3">13-04-2024</div>
+              <div class="col-md-3 col-3 badge badge-pill text-black" style="background-color: #acffacbb;">Ontime</div>
+            </div>
           </div>
+
         </div>
-       
       </div>
     </div>
+
   </div>
 
 </div>
 
-</div>
 
-
-  <!-- create modal L1 -->
-  <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<!-- create modal L1 -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-            <div class="table-responsive ht-auto">
-              <table class="table table-hover table-striped" data-bs-toggle="modal" data-bs-target="#createModal1">
-                <thead class="table-primary text-nowrap" style="cursor: pointer;">
-                  <tr>
-                    <th>S No</th>
-                    <th>Project Name</th>
-                    <th>Category</th>
-                    <th>Amount (Cr)</th>
-                    <th>Amount with GST</th>
-                    <th>Amount without GST</th>
-                    <th>Profitability</th>
-                  </tr>
-                </thead>
-                <tbody class="text-nowrap">
-                  <tr>
-                    <td>1</td>
-                    <td>Taldihi</td>
-                    <td>330 Kv</td>
-                    <td>300</td>
-                    <td>250</td>
-                    <td>200</td>
-                    <td>195</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Jaunpur</td>
-                    <td>220 Kv</td>
-                    <td>400</td>
-                    <td>300</td>
-                    <td>250</td>
-                    <td>200</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Noida Sec-45</td>
-                    <td>220 Kv</td>
-                    <td>400</td>
-                    <td>300</td>
-                    <td>250</td>
-                    <td>200</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Delhi</td>
-                    <td>320 Kv</td>
-                    <td>200</td>
-                    <td>150</td>
-                    <td>100</td>
-                    <td>80</td>
-                  </tr>
-                  <tr >
-                    <td>5</td>
-                    <td>Noida</td>
-                    <td>240 Kv</td>
-                    <td>200</td>
-                    <td>150</td>
-                    <td>100</td>
-                    <td>80</td>
-                  </tr>
-                 
-                </tbody>
-              </table>
-            </div>
-           
-      
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="table-responsive ht-auto">
+        <table class="table table-hover table-striped" data-bs-toggle="modal" data-bs-target="#createModal1">
+          <thead class="table-primary text-nowrap">
+            <tr>
+              <th>S No</th>
+              <th>Project Name</th>
+              <th>Category</th>
+              <th>Amount (Cr)</th>
+              <th>Amount with GST</th>
+              <th>Amount without GST</th>
+              <th>Profitability</th>
+            </tr>
+          </thead>
+          <tbody class="text-nowrap">
+            <tr>
+              <td>1</td>
+              <td>Taldihi</td>
+              <td>330 Kv</td>
+              <td>300</td>
+              <td>250</td>
+              <td>200</td>
+              <td>195</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jaunpur</td>
+              <td>220 Kv</td>
+              <td>400</td>
+              <td>300</td>
+              <td>250</td>
+              <td>200</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Noida Sec-45</td>
+              <td>220 Kv</td>
+              <td>400</td>
+              <td>300</td>
+              <td>250</td>
+              <td>200</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Delhi</td>
+              <td>320 Kv</td>
+              <td>200</td>
+              <td>150</td>
+              <td>100</td>
+              <td>80</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Noida</td>
+              <td>240 Kv</td>
+              <td>200</td>
+              <td>150</td>
+              <td>100</td>
+              <td>80</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
   </div>
-  </div>
-  <!-- create modal end L1-->
-  
-    <!-- create modal L2 -->
-  <div class="modal fade" id="createModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+</div>
+<!-- create modal end L1-->
+
+<!-- create modal L2 -->
+<div class="modal fade" id="createModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">List Data</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="card-body"  style="padding:2px;">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">List Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="card-body" style="padding:2px;">
         <h4 class="text-center mt-2">Work in Progress...</h4>
-        </div>
       </div>
     </div>
   </div>
-  <!-- create modal end L2-->
+</div>
+<!-- create modal end L2-->

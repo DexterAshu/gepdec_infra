@@ -1,5 +1,5 @@
 <div class="content-wrapper">
-    <!-- <div class="row ">
+  <!-- <div class="row ">
       <div class="col-md-12">
           <form action="">
               <div class=" d-flex float-right">
@@ -48,7 +48,7 @@
           </form>
       </div>
     </div> -->
-    <!-- <div class="row">
+  <!-- <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
           <div class="banner-sec">
             <div class="banner-overlay">
@@ -67,467 +67,466 @@
     </div>
   </div>
   </div> -->
-  
-    <!-- filter data country state project wise -->
-    <div class="col-md-12">
-      <div class="row module-wise ">
-      <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
-        <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
-          </div>
+
+  <!-- filter data country state project wise -->
+  <div class="col-md-12">
+    <div class="row module-wise ">
+      <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif">
+        <i class="mdi mdi-filter-outline mdi-26px "></i> Filter
+      </div>
       <div class="col-md-11" style="font-family:'Times New Roman', Times, serif">
-          <form  [formGroup]="form">
-            <div class=" d-flex">
-                <div class="col-md-2">
-                  <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
-                    <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Country</label>
-                    <div class="col-sm-8">
-                      <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
-                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
-                    </select>
-                      
-                    </div>
-                    </div>
+        <form [formGroup]="form">
+          <div class=" d-flex">
+            <div class="col-md-2">
+              <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Country</label>
+                <div class="col-sm-8">
+                  <select class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                    <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                  </select>
+
                 </div>
-                <div class="col-md-2">
-                    <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">State</label>
-                    <div class="col-sm-9">
-                      <select formControlName="state_id" class="form-select form-select-sm">
-                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                        <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
-                    </select>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group row">
-                    <label class="col-sm-5 col-form-label">Duration</label>
-                    <div class="col-sm-7">
-                        <select class="form-select form-select-sm">
-                          <option>All</option>
-                            <option>April 22 - March 23</option>
-                            <option>April 23 - March 24</option>
-                            <option>April 24 - March 25</option>
-                            <option>April 25 - March 26</option>
-                          
-                        </select>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group row">
-                    <label class="col-sm-5 col-form-label">Company</label>
-                    <div class="col-sm-7">
-                        <select class="form-select form-select-sm">
-                            <option>All</option>
-                            <option>GEPDEC Energy Project</option>
-                            <option>GEPDEC Infra Project</option>
-                        </select>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group row">
-                    <label class="col-sm-5 col-form-label"> Category</label>
-                    <div class="col-sm-7">
-                        <select class="form-select form-select-sm">
-                            <option>All</option>
-                            <option>Meter</option>
-                            <option>220/33kV, 80MVA Power Transformer</option>
-                        </select>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Project</label>
-                    <div class="col-sm-8">
-                        <select class="form-select form-select-sm">
-                            <option>All</option>
-                            <option>Jaunpur Project</option>
-                            <option>Noida project</option>
-                        </select>
-                    </div>
-                    </div>
-                </div>
+              </div>
             </div>
-          </form>
-        </div>
-    
-    </div>
-    </div>
-    
-  
-  <!-- over all company summary report start -->
-    <div class="row">
-      <div class="col-md-12 flex-grow-1 align-items-center justify-content-center">
-          <!-- row 1 -->
-          <div class="row ">
-            <div class="col-md-3 cust-padding">
-              <div class="business-card p-2" routerLink="/dashboard/presales-dashboard">
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="../../assets/images/prer.png" style="width: 40px; height: 35px;">
-                  </div>
-                  <div class="col-md-9">
-                    Presales
-                  </div>
+            <div class="col-md-2">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">State</label>
+                <div class="col-sm-9">
+                  <select formControlName="state_id" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                    <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
+                  </select>
                 </div>
-                  <!-- <hr class="mt-1"> -->
-                  <div class="row">
-                    <div class="d-flex text-center">
-                      <div class="col-lg-2">
-                        <div class=" text-light" style="font-size: 10px;"></div><br>
-                        <small class="text-light font-weight-bold">No</small><br>
-                        <small class="text-light font-weight-bold">Value</small>
-                      </div>
-                      <div class="col-lg-3" >
-                        <div class="m-1 text-light" style="font-size: 10px;">Bid</div>
-                        <small class="text-light font-weight-bold">20</small><br>
-                        <small class="text-light font-weight-bold">8</small>
-                      </div>
-                      <div class="col-lg-4">
-                        <div class="m-1 text-light" style="font-size: 10px;">Win</div>
-                        <small class="text-light font-weight-bold">12</small><br>
-                        <small class="text-light font-weight-bold">10</small>
-                      </div>
-                      <div class="col-lg-3">
-                        <div class="m-1 text-light" style="font-size: 10px;">% (W)</div>
-                        <small class="text-light font-weight-bold">30</small><br>
-                        <small class="text-light font-weight-bold">50</small>
-                      </div>
-                      </div>
-                  </div>
               </div>
-            </div> 
-            <div class="col-md-3 cust-padding">
-              <div class="revenue-card p-2" routerLink="/dashboard/design-dashboard">
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="../../assets/images/dess.png" style="width: 40px; height: 35px;">
-                  </div>
-                  <div class="col-md-9">
-                    Design
-                   
-                  </div>
-  
+            </div>
+            <div class="col-md-2">
+              <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Duration</label>
+                <div class="col-sm-7">
+                  <select class="form-select form-select-sm">
+                    <option>All</option>
+                    <option>April 22 - March 23</option>
+                    <option>April 23 - March 24</option>
+                    <option>April 24 - March 25</option>
+                    <option>April 25 - March 26</option>
+
+                  </select>
                 </div>
-                <!-- <hr class="mt-1"> -->
-                <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-2">
-                      <div class=" text-light" style="font-size: 10px;"></div><br>
-                      <small class="text-light font-weight-bold">Inh</small><br>
-                      <small class="text-light font-weight-bold">Others</small>
-                    </div>
-                    <div class="col-lg-3" >
-                      <div class="m-1 text-light" style="font-size: 10px;">Total</div>
-                      <small class="text-light font-weight-bold">20</small><br>
-                      <small class="text-light font-weight-bold">8</small>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="m-1 text-light" style="font-size: 10px;">Complete</div>
-                      <small class="text-light font-weight-bold">30</small><br>
-                      <small class="text-light font-weight-bold">20</small>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="m-1 text-light" style="font-size: 10px;">% (C)</div>
-                      <small class="text-light font-weight-bold">30</small><br>
-                      <small class="text-light font-weight-bold">50</small>
-                    </div>
-                    </div>
-                </div>
-                <!-- <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-4 py-2">
-                      <h5 class="m-1 text-light">700</h5>
-                      <small class="text-light font-weight-bold">Total</small>
-                    </div>
-                    <div class="col-lg-4 py-2" >
-                      <h5 class="m-1 text-light">500</h5>
-                      <small class="text-light font-weight-bold">Completed</small>
-                    </div>
-                    <div class="col-lg-4 py-2">
-                      <h5 class="m-1 text-light">200</h5>
-                      <small class="text-light font-weight-bold">Pending</small>
-                    </div>
-                    </div>
-                </div> -->
               </div>
-            </div> 
-            <div class="col-md-3 cust-padding">
-              <div class="Profit-card p-2" routerLink="/dashboard/procurement-dashboard">
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="../../assets/images/procr.png" style="width: 40px; height: 35px;">
-                  </div>
-                  <div class="col-md-9">
-                    Procurement    
-                  </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Company</label>
+                <div class="col-sm-7">
+                  <select class="form-select form-select-sm">
+                    <option>All</option>
+                    <option>GEPDEC Energy Project</option>
+                    <option>GEPDEC Infra Project</option>
+                  </select>
                 </div>
-                <!-- <hr class="mt-1"> -->
-                <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-2">
-                      <div class=" text-light" style="font-size: 10px;"></div><br>
-                      <small class="text-light font-weight-bold">No</small><br>
-                      <small class="text-light font-weight-bold">Value</small>
-                    </div>
-                    <div class="col-lg-3" >
-                      <div class="m-1 text-light" style="font-size: 10px;">Total</div>
-                      <small class="text-light font-weight-bold">20</small><br>
-                      <small class="text-light font-weight-bold">80</small>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="m-1 text-light" style="font-size: 10px;">PO</div>
-                      <small class="text-light font-weight-bold">12</small><br>
-                      <small class="text-light font-weight-bold">20</small>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="m-1 text-light" style="font-size: 10px;">% (PO)</div>
-                      <small class="text-light font-weight-bold">30</small><br>
-                      <small class="text-light font-weight-bold">50</small>
-                    </div>
-                    </div>
-                </div>
-  
-                <!-- <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-4 py-2">
-                      <h5 class="m-1 text-light">700</h5>
-                      <small class="text-light font-weight-bold">Total</small>
-                    </div>
-                    <div class="col-lg-4 py-2" >
-                      <h5 class="m-1 text-light">500</h5>
-                      <small class="text-light font-weight-bold">Completed</small>
-                    </div>
-                    <div class="col-lg-4 py-2">
-                      <h5 class="m-1 text-light">200</h5>
-                      <small class="text-light font-weight-bold">Pending</small>
-                    </div>
-                    </div>
-                </div> -->
               </div>
-            </div> 
-            <div class="col-md-3 cust-padding">
-              <div class="loss-card p-2" routerLink="/dashboard/warehouse-dashboard">
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="../../assets/images/warr.png" style="width: 40px; height: 35px;">
-                  </div>
-                  <div class="col-md-9">
-                    Store Logistics
-                   
-                  </div>
-  
+            </div>
+            <div class="col-md-2">
+              <div class="form-group row">
+                <label class="col-sm-5 col-form-label"> Category</label>
+                <div class="col-sm-7">
+                  <select class="form-select form-select-sm">
+                    <option>All</option>
+                    <option>Meter</option>
+                    <option>220/33kV, 80MVA Power Transformer</option>
+                  </select>
                 </div>
-                <!-- <hr class="mt-1"> -->
-                <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-2">
-                      <div class=" text-light" style="font-size: 10px;"></div><br>
-                      <small class="text-light font-weight-bold">No</small><br>
-                      <small class="text-light font-weight-bold">Value</small>
-                    </div>
-                    <div class="col-lg-3" >
-                      <div class="m-1 text-light" style="font-size: 10px;">Total</div>
-                      <small class="text-light font-weight-bold">20</small><br>
-                      <small class="text-light font-weight-bold">8</small>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="m-1 text-light" style="font-size: 10px;">Issue</div>
-                      <small class="text-light font-weight-bold">12</small><br>
-                      <small class="text-light font-weight-bold">10</small>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="m-1 text-light" style="font-size: 10px;">% (I)</div>
-                      <small class="text-light font-weight-bold">30</small><br>
-                      <small class="text-light font-weight-bold">50</small>
-                    </div>
-                    </div>
-                </div>
-                <!-- <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-4 py-2">
-                      <h5 class="m-1 text-light">700</h5>
-                      <small class="text-light font-weight-bold">Total</small>
-                    </div>
-                    <div class="col-lg-4 py-2" >
-                      <h5 class="m-1 text-light">500</h5>
-                      <small class="text-light font-weight-bold">Completed</small>
-                    </div>
-                    <div class="col-lg-4 py-2">
-                      <h5 class="m-1 text-light">200</h5>
-                      <small class="text-light font-weight-bold">Pending</small>
-                    </div>
-                    </div>
-                </div> -->
               </div>
-            </div>    
+            </div>
+            <div class="col-md-2">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Project</label>
+                <div class="col-sm-8">
+                  <select class="form-select form-select-sm">
+                    <option>All</option>
+                    <option>Jaunpur Project</option>
+                    <option>Noida project</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
-          <!-- row 2 -->
-          <div class="row mt-2">
-            <div class="col-md-3 cust-padding">
-              <div class="qualify-card p-2" routerLink="/dashboard/execution-dashboard">
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="../../assets/images/execution.png" style="width: 40px; height: 35px;">
-                  </div>
-                  <div class="col-md-9">
-                    Execution
-                  
-                  </div>
-  
-                </div>
-                <!-- <hr class="mt-1"> -->
-                <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-2">
-                      <div class=" text-light" style="font-size: 10px;"></div><br>
-                      <small class="text-light font-weight-bold">No</small><br>
-                      <small class="text-light font-weight-bold">Value</small>
-                    </div>
-                    <div class="col-lg-3" >
-                      <div class="m-1 text-light" style="font-size: 10px;">Total</div>
-                      <small class="text-light font-weight-bold">20</small><br>
-                      <small class="text-light font-weight-bold">8</small>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="m-1 text-light" style="font-size: 10px;">Complete</div>
-                      <small class="text-light font-weight-bold">12</small><br>
-                      <small class="text-light font-weight-bold">10</small>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="m-1 text-light" style="font-size: 10px;">Handover</div>
-                      <small class="text-light font-weight-bold">30</small><br>
-                      <small class="text-light font-weight-bold">50</small>
-                    </div>
-                    </div>
-                </div>
-              </div>
-            </div> 
-            <div class="col-md-3 cust-padding">
-              <div class="reject-card p-2" routerLink="/dashboard/quality-dashboard">
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="../../assets/images/qual.png" style="width: 40px; height: 35px;">
-                  </div>
-                  <div class="col-md-9">
-                    Quality & Safety
-                
-                  </div>
-  
-                </div>
-                <!-- <hr class="mt-1"> -->
-                <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-2">
-                      <div class=" text-light" style="font-size: 10px;"></div><br>
-                      <small class="text-light font-weight-bold">Total</small><br>
-                      <small class="text-light font-weight-bold">Comp</small>
-                    </div>
-                    <div class="col-lg-3" >
-                      <div class="m-1 text-light" style="font-size: 10px;">Success</div>
-                      <small class="text-light font-weight-bold">20</small><br>
-                      <small class="text-light font-weight-bold">8</small>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="m-1 text-light" style="font-size: 10px;">Failure</div>
-                      <small class="text-light font-weight-bold">12</small><br>
-                      <small class="text-light font-weight-bold">10</small>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="m-1 text-light" style="font-size: 10px;">% (S)</div>
-                      <small class="text-light font-weight-bold">30</small><br>
-                      <small class="text-light font-weight-bold">50</small>
-                    </div>
-                    </div>
-                </div>
-              </div>
-            </div> 
-            <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
-              <div class="PaymentBG-card p-2">
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="../../assets/images/payy.png" style="width: 40px; height: 35px;">
-                  </div>
-                  <div class="col-md-9">
-                    Finance
-                  </div>
-  
-                </div>
-                <!-- <hr class="mt-1"> -->
-                <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-2">
-                      <div class=" text-light" style="font-size: 10px;"></div><br>
-                      <small class="text-light font-weight-bold">Total</small><br>
-                      <small class="text-light font-weight-bold">Overdue</small>
-                    </div>
-                    <div class="col-lg-3" >
-                      <div class="m-1 text-light" style="font-size: 10px;">Revenue</div>
-                      <small class="text-light font-weight-bold">20</small><br>
-                      <small class="text-light font-weight-bold">8</small>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="m-1 text-light" style="font-size: 10px;">Expense</div>
-                      <small class="text-light font-weight-bold">12</small><br>
-                      <small class="text-light font-weight-bold">10</small>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="m-1 text-light" style="font-size: 10px;">EB</div>
-                      <small class="text-light font-weight-bold">30</small><br>
-                      <small class="text-light font-weight-bold">50</small>
-                    </div>
-                    </div>
-                </div>
-              </div>
-            </div> 
-            <div class="col-md-3 cust-padding" routerLink="/dashboard/performance-dashboard" >
-              <div class="paymentEMI-card p-2">
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="../../assets/images/perr.png" style="width: 40px; height: 35px;">
-                  </div>
-                  <div class="col-md-9">
-                    Business Performance
-                  
-                  </div>
-  
-                </div>
-                <!-- <hr class="mt-1"> -->
-                <div class="row">
-                  <div class="d-flex text-center">
-                    <div class="col-lg-2">
-                      <div class=" text-light" style="font-size: 10px;"></div><br>
-                      <small class="text-light font-weight-bold">Total</small><br>
-                      <small class="text-light font-weight-bold">Overdue</small>
-                    </div>
-                    <div class="col-lg-3" >
-                      <div class="m-1 text-light" style="font-size: 10px;">Revenue</div>
-                      <small class="text-light font-weight-bold">20</small><br>
-                      <small class="text-light font-weight-bold">8</small>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="m-1 text-light" style="font-size: 10px;">Expense</div>
-                      <small class="text-light font-weight-bold">12</small><br>
-                      <small class="text-light font-weight-bold">10</small>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="m-1 text-light" style="font-size: 10px;">EB</div>
-                      <small class="text-light font-weight-bold">30</small><br>
-                      <small class="text-light font-weight-bold">50</small>
-                    </div>
-                    </div>
-                </div>
-              </div>
-            </div>    
-          </div>
-  
+        </form>
       </div>
     </div>
+  </div>
+
+
+  <!-- over all company summary report start -->
+  <div class="row m-0">
+    <div class="col-md-12 flex-grow-1 align-items-center justify-content-center">
+      <!-- row 1 -->
+      <div class="row ">
+        <div class="col-md-3 cust-padding">
+          <div class="business-card p-2" routerLink="/dashboard/presales-dashboard">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="../../assets/images/prer.png" style="width: 40px; height: 35px;">
+              </div>
+              <div class="col-md-9">
+                Presales
+              </div>
+            </div>
+            <!-- <hr class="mt-1"> -->
+            <div class="row">
+              <div class="d-flex text-center">
+                <div class="col-lg-2">
+                  <div class=" text-light" style="font-size: 10px;"></div><br>
+                  <small class="text-light font-weight-bold">No</small><br>
+                  <small class="text-light font-weight-bold">Value</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">Bid</div>
+                  <small class="text-light font-weight-bold">20</small><br>
+                  <small class="text-light font-weight-bold">8</small>
+                </div>
+                <div class="col-lg-4">
+                  <div class="m-1 text-light" style="font-size: 10px;">Win</div>
+                  <small class="text-light font-weight-bold">12</small><br>
+                  <small class="text-light font-weight-bold">10</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">% (W)</div>
+                  <small class="text-light font-weight-bold">30</small><br>
+                  <small class="text-light font-weight-bold">50</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 cust-padding">
+          <div class="revenue-card p-2" routerLink="/dashboard/design-dashboard">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="../../assets/images/dess.png" style="width: 40px; height: 35px;">
+              </div>
+              <div class="col-md-9">
+                Design
+
+              </div>
+
+            </div>
+            <!-- <hr class="mt-1"> -->
+            <div class="row">
+              <div class="d-flex text-center">
+                <div class="col-lg-2">
+                  <div class=" text-light" style="font-size: 10px;"></div><br>
+                  <small class="text-light font-weight-bold">Inh</small><br>
+                  <small class="text-light font-weight-bold">Others</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">Total</div>
+                  <small class="text-light font-weight-bold">20</small><br>
+                  <small class="text-light font-weight-bold">8</small>
+                </div>
+                <div class="col-lg-4">
+                  <div class="m-1 text-light" style="font-size: 10px;">Complete</div>
+                  <small class="text-light font-weight-bold">30</small><br>
+                  <small class="text-light font-weight-bold">20</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">% (C)</div>
+                  <small class="text-light font-weight-bold">30</small><br>
+                  <small class="text-light font-weight-bold">50</small>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
+                  <div class="d-flex text-center">
+                    <div class="col-lg-4 py-2">
+                      <h5 class="m-1 text-light">700</h5>
+                      <small class="text-light font-weight-bold">Total</small>
+                    </div>
+                    <div class="col-lg-4 py-2" >
+                      <h5 class="m-1 text-light">500</h5>
+                      <small class="text-light font-weight-bold">Completed</small>
+                    </div>
+                    <div class="col-lg-4 py-2">
+                      <h5 class="m-1 text-light">200</h5>
+                      <small class="text-light font-weight-bold">Pending</small>
+                    </div>
+                    </div>
+                </div> -->
+          </div>
+        </div>
+        <div class="col-md-3 cust-padding">
+          <div class="Profit-card p-2" routerLink="/dashboard/procurement-dashboard">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="../../assets/images/procr.png" style="width: 40px; height: 35px;">
+              </div>
+              <div class="col-md-9">
+                Procurement
+              </div>
+            </div>
+            <!-- <hr class="mt-1"> -->
+            <div class="row">
+              <div class="d-flex text-center">
+                <div class="col-lg-2">
+                  <div class=" text-light" style="font-size: 10px;"></div><br>
+                  <small class="text-light font-weight-bold">No</small><br>
+                  <small class="text-light font-weight-bold">Value</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">Total</div>
+                  <small class="text-light font-weight-bold">20</small><br>
+                  <small class="text-light font-weight-bold">80</small>
+                </div>
+                <div class="col-lg-4">
+                  <div class="m-1 text-light" style="font-size: 10px;">PO</div>
+                  <small class="text-light font-weight-bold">12</small><br>
+                  <small class="text-light font-weight-bold">20</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">% (PO)</div>
+                  <small class="text-light font-weight-bold">30</small><br>
+                  <small class="text-light font-weight-bold">50</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="row">
+                  <div class="d-flex text-center">
+                    <div class="col-lg-4 py-2">
+                      <h5 class="m-1 text-light">700</h5>
+                      <small class="text-light font-weight-bold">Total</small>
+                    </div>
+                    <div class="col-lg-4 py-2" >
+                      <h5 class="m-1 text-light">500</h5>
+                      <small class="text-light font-weight-bold">Completed</small>
+                    </div>
+                    <div class="col-lg-4 py-2">
+                      <h5 class="m-1 text-light">200</h5>
+                      <small class="text-light font-weight-bold">Pending</small>
+                    </div>
+                    </div>
+                </div> -->
+          </div>
+        </div>
+        <div class="col-md-3 cust-padding">
+          <div class="loss-card p-2" routerLink="/dashboard/warehouse-dashboard">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="../../assets/images/warr.png" style="width: 40px; height: 35px;">
+              </div>
+              <div class="col-md-9">
+                Store Logistics
+
+              </div>
+
+            </div>
+            <!-- <hr class="mt-1"> -->
+            <div class="row">
+              <div class="d-flex text-center">
+                <div class="col-lg-2">
+                  <div class=" text-light" style="font-size: 10px;"></div><br>
+                  <small class="text-light font-weight-bold">No</small><br>
+                  <small class="text-light font-weight-bold">Value</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">Total</div>
+                  <small class="text-light font-weight-bold">20</small><br>
+                  <small class="text-light font-weight-bold">8</small>
+                </div>
+                <div class="col-lg-4">
+                  <div class="m-1 text-light" style="font-size: 10px;">Issue</div>
+                  <small class="text-light font-weight-bold">12</small><br>
+                  <small class="text-light font-weight-bold">10</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">% (I)</div>
+                  <small class="text-light font-weight-bold">30</small><br>
+                  <small class="text-light font-weight-bold">50</small>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
+                  <div class="d-flex text-center">
+                    <div class="col-lg-4 py-2">
+                      <h5 class="m-1 text-light">700</h5>
+                      <small class="text-light font-weight-bold">Total</small>
+                    </div>
+                    <div class="col-lg-4 py-2" >
+                      <h5 class="m-1 text-light">500</h5>
+                      <small class="text-light font-weight-bold">Completed</small>
+                    </div>
+                    <div class="col-lg-4 py-2">
+                      <h5 class="m-1 text-light">200</h5>
+                      <small class="text-light font-weight-bold">Pending</small>
+                    </div>
+                    </div>
+                </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- row 2 -->
+      <div class="row mt-2">
+        <div class="col-md-3 cust-padding">
+          <div class="qualify-card p-2" routerLink="/dashboard/execution-dashboard">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="../../assets/images/execution.png" style="width: 40px; height: 35px;">
+              </div>
+              <div class="col-md-9">
+                Execution
+
+              </div>
+
+            </div>
+            <!-- <hr class="mt-1"> -->
+            <div class="row">
+              <div class="d-flex text-center">
+                <div class="col-lg-2">
+                  <div class=" text-light" style="font-size: 10px;"></div><br>
+                  <small class="text-light font-weight-bold">No</small><br>
+                  <small class="text-light font-weight-bold">Value</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">Total</div>
+                  <small class="text-light font-weight-bold">20</small><br>
+                  <small class="text-light font-weight-bold">8</small>
+                </div>
+                <div class="col-lg-4">
+                  <div class="m-1 text-light" style="font-size: 10px;">Complete</div>
+                  <small class="text-light font-weight-bold">12</small><br>
+                  <small class="text-light font-weight-bold">10</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">Handover</div>
+                  <small class="text-light font-weight-bold">30</small><br>
+                  <small class="text-light font-weight-bold">50</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 cust-padding">
+          <div class="reject-card p-2" routerLink="/dashboard/quality-dashboard">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="../../assets/images/qual.png" style="width: 40px; height: 35px;">
+              </div>
+              <div class="col-md-9">
+                Quality & Safety
+
+              </div>
+
+            </div>
+            <!-- <hr class="mt-1"> -->
+            <div class="row">
+              <div class="d-flex text-center">
+                <div class="col-lg-2">
+                  <div class=" text-light" style="font-size: 10px;"></div><br>
+                  <small class="text-light font-weight-bold">Total</small><br>
+                  <small class="text-light font-weight-bold">Comp</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">Success</div>
+                  <small class="text-light font-weight-bold">20</small><br>
+                  <small class="text-light font-weight-bold">8</small>
+                </div>
+                <div class="col-lg-4">
+                  <div class="m-1 text-light" style="font-size: 10px;">Failure</div>
+                  <small class="text-light font-weight-bold">12</small><br>
+                  <small class="text-light font-weight-bold">10</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">% (S)</div>
+                  <small class="text-light font-weight-bold">30</small><br>
+                  <small class="text-light font-weight-bold">50</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
+          <div class="PaymentBG-card p-2">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="../../assets/images/payy.png" style="width: 40px; height: 35px;">
+              </div>
+              <div class="col-md-9">
+                Finance
+              </div>
+
+            </div>
+            <!-- <hr class="mt-1"> -->
+            <div class="row">
+              <div class="d-flex text-center">
+                <div class="col-lg-2">
+                  <div class=" text-light" style="font-size: 10px;"></div><br>
+                  <small class="text-light font-weight-bold">Total</small><br>
+                  <small class="text-light font-weight-bold">Overdue</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">Revenue</div>
+                  <small class="text-light font-weight-bold">20</small><br>
+                  <small class="text-light font-weight-bold">8</small>
+                </div>
+                <div class="col-lg-4">
+                  <div class="m-1 text-light" style="font-size: 10px;">Expense</div>
+                  <small class="text-light font-weight-bold">12</small><br>
+                  <small class="text-light font-weight-bold">10</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">EB</div>
+                  <small class="text-light font-weight-bold">30</small><br>
+                  <small class="text-light font-weight-bold">50</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 cust-padding" routerLink="/dashboard/performance-dashboard">
+          <div class="paymentEMI-card p-2">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="../../assets/images/perr.png" style="width: 40px; height: 35px;">
+              </div>
+              <div class="col-md-9">
+                Business Performance
+
+              </div>
+
+            </div>
+            <!-- <hr class="mt-1"> -->
+            <div class="row">
+              <div class="d-flex text-center">
+                <div class="col-lg-2">
+                  <div class=" text-light" style="font-size: 10px;"></div><br>
+                  <small class="text-light font-weight-bold">Total</small><br>
+                  <small class="text-light font-weight-bold">Overdue</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">Revenue</div>
+                  <small class="text-light font-weight-bold">20</small><br>
+                  <small class="text-light font-weight-bold">8</small>
+                </div>
+                <div class="col-lg-4">
+                  <div class="m-1 text-light" style="font-size: 10px;">Expense</div>
+                  <small class="text-light font-weight-bold">12</small><br>
+                  <small class="text-light font-weight-bold">10</small>
+                </div>
+                <div class="col-lg-3">
+                  <div class="m-1 text-light" style="font-size: 10px;">EB</div>
+                  <small class="text-light font-weight-bold">30</small><br>
+                  <small class="text-light font-weight-bold">50</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
   <!-- over all company summary report end -->
   <div class="row mt-1">
     <div class="col-md-12 grid-margin stretch-card">
@@ -536,35 +535,27 @@
           <div class="row">
             <div class="col-md-9" routerLink="/dashboard/performance-dashboard">
               <p class="card-title mb-2">Performance: Department Wise</p>
-  
+
             </div>
             <div class="col-md-3">
               <div class="form-group row">
-              <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Projects:</label>
-              <div class="col-sm-8">
+                <label class="col-sm-4 col-form-label" style="font-size: 12px; font-weight: 600;"> Projects:</label>
+                <div class="col-sm-8">
                   <select class="form-select form-select-sm">
-                      <option>All</option>
-                      <option>GEPDEC Energy</option>
-                      <option>GEPDEC Infra</option>
+                    <option>All</option>
+                    <option>GEPDEC Energy</option>
+                    <option>GEPDEC Infra</option>
                   </select>
+                </div>
               </div>
-              </div>
-          </div>
+            </div>
           </div>
           <div class="chartBar" #containerPerformance>
-            <ngx-charts-bar-vertical
-            [view]="[containerPerformance.offsetWidth, 200]"
-            [scheme]="colorScheme"
-            [results]="single"
-            [gradient]="gradient"
-            [xAxis]="showXAxis1"
-            [yAxis]="showYAxis1"
-            [legend]="false"
-            [showXAxisLabel]="showXAxisLabel1"
-            [showYAxisLabel]="showYAxisLabel1"
-            [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel">
-          </ngx-charts-bar-vertical>
+            <ngx-charts-bar-vertical [view]="[containerPerformance.offsetWidth, 200]" [scheme]="colorScheme"
+              [results]="single" [gradient]="gradient" [xAxis]="showXAxis1" [yAxis]="showYAxis1" [legend]="false"
+              [showXAxisLabel]="showXAxisLabel1" [showYAxisLabel]="showYAxisLabel1" [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel">
+            </ngx-charts-bar-vertical>
           </div>
         </div>
       </div>
@@ -820,11 +811,11 @@
     </div>
     </div>
   </div> -->
-  
 
 
 
-  
+
+
   <!-- Department wise performance -->
   <!-- <div class="row mt-1">
     <div class="col-md-12 grid-margin stretch-card">
@@ -870,8 +861,8 @@
     </div>
   
   </div> -->
-  
-   <!-- <div class="row mt-1">
+
+  <!-- <div class="row mt-1">
       <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
@@ -907,7 +898,7 @@
       </div>
       </div>
     </div> -->
-  
+
   <!-- <div class="row mt-1">
     <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
@@ -958,7 +949,7 @@
       </div>
     </div>
   </div> -->
-    
+
   <!-- <div class="row mt-1">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
@@ -1384,200 +1375,156 @@
         </div>
       </div>
     </div> -->
-  
+
   <!-- filter- progress-data -->
   <div class="col-md-12 mt-1 b-progress">
     <div class="row">
       <div class="col-md-9 mt-1" routerLink="">
         <h4 class="card-title mb-2 mt-2">Progress Report:</h4>
-  
+
       </div>
       <div class="col-md-3 mt-1">
         <div class="form-group row">
-        <label class="col-sm-4 col-form-label"  style="font-size: 12px; font-weight: 600;"> Duration:</label>
-        <div class="col-sm-8">
+          <label class="col-sm-4 col-form-label" style="font-size: 12px; font-weight: 600;"> Duration:</label>
+          <div class="col-sm-8">
             <select class="form-select form-select-sm">
-                <option>All</option>
-                <option>GEPDEC Energy</option>
-                <option>GEPDEC Infra</option>
+              <option>All</option>
+              <option>GEPDEC Energy</option>
+              <option>GEPDEC Infra</option>
             </select>
+          </div>
         </div>
-        </div>
-    </div>
+      </div>
     </div>
   </div>
-      <!-- PreSales-data-chart -->
-    <div class="row mt-1">
-      
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title mb-2">PreSales : Biding</p>
-          
-            <div class="chartBar" #containerRef>
-              <ngx-charts-bar-vertical-2d
-              [view]="[containerRef.offsetWidth, 190]"
-              [scheme]="mainColorScheme"
-              [results]="multi"
-              [xAxis]="showXAxis"
-              [gradient]="true"
-              [yAxis]="showYAxis"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabelBar"
-              [yAxisLabel]="yAxisLabelBar"
-              [barPadding]="5"
-              [groupPadding]="7">
+  <!-- PreSales-data-chart -->
+  <div class="row mt-1">
+
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">PreSales : Biding</p>
+
+          <div class="chartBar" #containerRef>
+            <ngx-charts-bar-vertical-2d [view]="[containerRef.offsetWidth, 190]" [scheme]="mainColorScheme"
+              [results]="multi" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBar"
+              [yAxisLabel]="yAxisLabelBar" [barPadding]="5" [groupPadding]="7">
             </ngx-charts-bar-vertical-2d>
-            </div>
-            <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
-              <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
-            </ul>
-            
           </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
+            <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
+          </ul>
+
         </div>
       </div>
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">PreSales : Values</p>
-         
-            <div class="chartBar" #containerRef6>
-              <ngx-charts-pie-chart
-              [view]="[containerRef6.offsetWidth - 35, 220]"
-              [scheme]="lineColorScheme"
-              [labels]="showLabelsPie"
-              [gradient]="true"
-              [doughnut]="true"
-              [legend]="true"
-              [results]="pieDataCust">
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">PreSales : Values</p>
+
+          <div class="chartBar" #containerRef6>
+            <ngx-charts-pie-chart [view]="[containerRef6.offsetWidth - 35, 220]" [scheme]="lineColorScheme"
+              [labels]="showLabelsPie" [gradient]="true" [doughnut]="true" [legend]="true" [results]="pieDataCust">
             </ngx-charts-pie-chart>
-            </div>
-            <!-- <ul class="cust-legend">
+          </div>
+          <!-- <ul class="cust-legend">
               <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
               <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
               <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
             </ul> -->
-            
-          </div>
+
         </div>
       </div>
-    
     </div>
-     <!-- design-data-chart -->
-  
-     <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title mb-2">Design : Biding</p>
-          
-            <div class="chartBar" #containerRef>
-              <ngx-charts-bar-vertical-2d
-              [view]="[containerRef.offsetWidth, 190]"
-              [scheme]="mainColorScheme"
-              [results]="multi"
-              [xAxis]="showXAxis"
-              [gradient]="true"
-              [yAxis]="showYAxis"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabelBar"
-              [yAxisLabel]="yAxisLabelBar"
-              [barPadding]="5"
-              [groupPadding]="7">
+
+  </div>
+  <!-- design-data-chart -->
+
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Design : Biding</p>
+
+          <div class="chartBar" #containerRef>
+            <ngx-charts-bar-vertical-2d [view]="[containerRef.offsetWidth, 190]" [scheme]="mainColorScheme"
+              [results]="multi" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBar"
+              [yAxisLabel]="yAxisLabelBar" [barPadding]="5" [groupPadding]="7">
             </ngx-charts-bar-vertical-2d>
-            </div>
-            <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
-              <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
-            </ul>
-            
           </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
+            <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
+          </ul>
+
         </div>
       </div>
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Design : Values </p>
-           
-            <div class="chartBar" #containerRef2>
-              <ngx-charts-pie-chart
-                [view]="[containerRef2.offsetWidth - 30, 220]"
-                [scheme]="pieColorsCust"
-                [labels]="showLabelsPie"
-                [gradient]="true"
-                [legend]="true"
-                [results]="pieDataCust">
-              </ngx-charts-pie-chart>
-            </div>
-            <!-- <ul class="cust-legend">
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Design : Values </p>
+
+          <div class="chartBar" #containerRef2>
+            <ngx-charts-pie-chart [view]="[containerRef2.offsetWidth - 30, 220]" [scheme]="pieColorsCust"
+              [labels]="showLabelsPie" [gradient]="true" [legend]="true" [results]="pieDataCust">
+            </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
               <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
               <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
               <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
             </ul> -->
-            
-          </div>
+
         </div>
       </div>
     </div>
-  
+  </div>
+
   <!-- Procurement-data-chart -->
-    <div class="row mt-1">
-     
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title mb-2">Procurement : Biding </p>
-            <div class="chartBar" #containerRef4>
-              <ngx-charts-bar-vertical-2d
-              [view]="[containerRef4.offsetWidth, 190]"
-              [scheme]="colorSchemeLoad"
-              [results]="multi"
-              [xAxis]="showXAxis"
-              [gradient]="true"
-              [yAxis]="showYAxis"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabelBarLoad"
-              [yAxisLabel]="yAxisLabelBarLoad"
-              [barPadding]="5"
-              [groupPadding]="7">
+  <div class="row mt-1">
+
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-2">Procurement : Biding </p>
+          <div class="chartBar" #containerRef4>
+            <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth, 190]" [scheme]="colorSchemeLoad"
+              [results]="multi" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
+              [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="5" [groupPadding]="7">
             </ngx-charts-bar-vertical-2d>
-            </div>
-            <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank load_box1"></i> Last Year</li>
-              <li><i class="mdi mdi-checkbox-blank load_box2"></i> This Year</li>
-            </ul>
           </div>
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-checkbox-blank load_box1"></i> Last Year</li>
+            <li><i class="mdi mdi-checkbox-blank load_box2"></i> This Year</li>
+          </ul>
         </div>
       </div>
-      <div class="col-md-6 grid-margin stretch-card ">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Procurement :Values </p>
-            <div class="chartBar" #containerRef3>
-              <ngx-charts-pie-chart
-              [view]="[containerRef3.offsetWidth - 35, 220]"
-              [scheme]="colorSchemeLoad"
-              [labels]="showLabelsPie"
-              [doughnut]="true"
-              [gradient]="true"
-              [legend]="true"
-              [results]="pieDataCust">
+    </div>
+    <div class="col-md-6 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Procurement :Values </p>
+          <div class="chartBar" #containerRef3>
+            <ngx-charts-pie-chart [view]="[containerRef3.offsetWidth - 35, 220]" [scheme]="colorSchemeLoad"
+              [labels]="showLabelsPie" [doughnut]="true" [gradient]="true" [legend]="true" [results]="pieDataCust">
             </ngx-charts-pie-chart>
-            </div>
-            <!-- <ul class="cust-legend">
+          </div>
+          <!-- <ul class="cust-legend">
               <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
               <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
               <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
             </ul> -->
-            
-          </div>
+
         </div>
       </div>
     </div>
+  </div>
   <!-- Warehouse-data-chart -->
   <div class="row mt-1">
     <div class="col-md-6 grid-margin stretch-card pe-0">
@@ -1585,22 +1532,16 @@
         <div class="card-body">
           <p class="card-title">Warehouse : Biding </p>
           <div class="chartBar" #containerRef3>
-            <ngx-charts-pie-chart
-            [view]="[containerRef3.offsetWidth - 35, 220]"
-            [scheme]="colorSchemeLoad"
-            [labels]="showLabelsPie"
-            [doughnut]="true"
-            [gradient]="true"
-            [legend]="true"
-            [results]="pieDataCust">
-          </ngx-charts-pie-chart>
+            <ngx-charts-pie-chart [view]="[containerRef3.offsetWidth - 35, 220]" [scheme]="colorSchemeLoad"
+              [labels]="showLabelsPie" [doughnut]="true" [gradient]="true" [legend]="true" [results]="pieDataCust">
+            </ngx-charts-pie-chart>
           </div>
           <!-- <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
             <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
             <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
           </ul> -->
-          
+
         </div>
       </div>
     </div>
@@ -1609,20 +1550,11 @@
         <div class="card-body">
           <p class="card-title mb-2">Warehouse :Values </p>
           <div class="chartBar" #containerRef4>
-            <ngx-charts-bar-vertical-2d
-            [view]="[containerRef4.offsetWidth, 190]"
-            [scheme]="colorSchemeLoad"
-            [results]="multi"
-            [xAxis]="showXAxis"
-            [gradient]="true"
-            [yAxis]="showYAxis"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelBarLoad"
-            [yAxisLabel]="yAxisLabelBarLoad"
-            [barPadding]="5"
-            [groupPadding]="7">
-          </ngx-charts-bar-vertical-2d>
+            <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth, 190]" [scheme]="colorSchemeLoad"
+              [results]="multi" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
+              [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="5" [groupPadding]="7">
+            </ngx-charts-bar-vertical-2d>
           </div>
           <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank load_box1"></i> Last Year</li>
@@ -1632,89 +1564,69 @@
       </div>
     </div>
   </div>
-    
-  
-    <!-- execution-data-chart -->
-    <div class="row mt-1">
-      <div class="col-md-6 grid-margin stretch-card pe-0">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Execution</p>
-            <div class="chartBar" #containerPerformance2>
-              <ngx-charts-bar-vertical
-              [view]="[containerPerformance2.offsetWidth, 200]"
-              [scheme]="colorScheme"
-              [results]="single"
-              [gradient]="gradient"
-              [xAxis]="showXAxis1"
-              [yAxis]="showYAxis1"
-              [legend]="false"
-              [showXAxisLabel]="showXAxisLabel1"
-              [showYAxisLabel]="showYAxisLabel1"
-              [xAxisLabel]="xAxisLabel"
+
+
+  <!-- execution-data-chart -->
+  <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card pe-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Execution</p>
+          <div class="chartBar" #containerPerformance2>
+            <ngx-charts-bar-vertical [view]="[containerPerformance2.offsetWidth, 200]" [scheme]="colorScheme"
+              [results]="single" [gradient]="gradient" [xAxis]="showXAxis1" [yAxis]="showYAxis1" [legend]="false"
+              [showXAxisLabel]="showXAxisLabel1" [showYAxisLabel]="showYAxisLabel1" [xAxisLabel]="xAxisLabel"
               [yAxisLabel]="yAxisLabel">
             </ngx-charts-bar-vertical>
-            </div>
-            <!-- <ul class="cust-legend">
+          </div>
+          <!-- <ul class="cust-legend">
               <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
               <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
               <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
             </ul> -->
-            
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Execution : Values </p>
-           
-            <div class="chartBar" #containerRef2>
-              <ngx-charts-pie-chart
-                [view]="[containerRef2.offsetWidth - 30, 220]"
-                [scheme]="pieColorsCust"
-                [labels]="showLabelsPie"
-                [gradient]="true"
-                [legend]="true"
-                [results]="pieDataCust">
-              </ngx-charts-pie-chart>
-            </div>
-            <!-- <ul class="cust-legend">
-              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
-              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
-              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
-            </ul> -->
-            
-          </div>
+
         </div>
       </div>
     </div>
-  
-   <!-- Quality-data-chart -->
-   <div class="row mt-1">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Execution : Values </p>
+
+          <div class="chartBar" #containerRef2>
+            <ngx-charts-pie-chart [view]="[containerRef2.offsetWidth - 30, 220]" [scheme]="pieColorsCust"
+              [labels]="showLabelsPie" [gradient]="true" [legend]="true" [results]="pieDataCust">
+            </ngx-charts-pie-chart>
+          </div>
+          <!-- <ul class="cust-legend">
+              <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
+              <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
+              <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
+            </ul> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quality-data-chart -->
+  <div class="row mt-1">
     <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
         <div class="card-body">
           <p class="card-title mb-2">Quality | Safety </p>
           <div class="chartBar" #containerRef5>
-            <ngx-charts-line-chart
-            [view]="[containerRef5.offsetWidth, 210]"
-            [scheme]="lineColorScheme"
-            [results]="lineChart"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [showXAxisLabel]="showYAxisLabelLine"
-            [gradient]="true"
-            [showYAxisLabel]="showYAxisLabelLine"
-            [xAxisLabel]="xAxisLabelLine"
-            [yAxisLabel]="yAxisLabelLine">
-          </ngx-charts-line-chart>
+            <ngx-charts-line-chart [view]="[containerRef5.offsetWidth, 210]" [scheme]="lineColorScheme"
+              [results]="lineChart" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showYAxisLabelLine"
+              [gradient]="true" [showYAxisLabel]="showYAxisLabelLine" [xAxisLabel]="xAxisLabelLine"
+              [yAxisLabel]="yAxisLabelLine">
+            </ngx-charts-line-chart>
           </div>
           <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank l_box1"></i> Last Year</li>
             <li><i class="mdi mdi-checkbox-blank l_box2"></i> This Year</li>
           </ul>
-                           
+
         </div>
       </div>
     </div>
@@ -1722,27 +1634,21 @@
       <div class="card">
         <div class="card-body">
           <p class="card-title">Quality : Values</p>
-       
+
           <div class="chartBar" #containerRef6>
-            <ngx-charts-pie-chart
-            [view]="[containerRef6.offsetWidth - 35, 220]"
-            [scheme]="lineColorScheme"
-            [labels]="showLabelsPie"
-            [gradient]="true"
-            [doughnut]="true"
-            [legend]="true"
-            [results]="pieDataCust">
-          </ngx-charts-pie-chart>
+            <ngx-charts-pie-chart [view]="[containerRef6.offsetWidth - 35, 220]" [scheme]="lineColorScheme"
+              [labels]="showLabelsPie" [gradient]="true" [doughnut]="true" [legend]="true" [results]="pieDataCust">
+            </ngx-charts-pie-chart>
           </div>
           <!-- <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank piebox1"></i> Complete</li>
             <li><i class="mdi mdi-checkbox-blank piebox2"></i> Under Process</li>
             <li><i class="mdi mdi-checkbox-blank piebox3"></i> Pending</li>
           </ul> -->
-          
+
         </div>
       </div>
     </div>
   </div>
- 
-  </div>
+
+</div>

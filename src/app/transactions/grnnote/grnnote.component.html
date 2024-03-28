@@ -154,7 +154,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="form-label">GRN Date<span class="required-asterisk">*</span></label>
-                          <input formControlName="grn_date" type="date" id="toDate" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}" class="form-control form-control-sm">
+                          <input formControlName="grn_date" type="date" id="toDate" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}" min="{{grnDateLimit}}" class="form-control form-control-sm">
                           <div *ngIf="grn['grn_date'].touched && grn['grn_date'].invalid">
                             <small class="text-danger" *ngIf="grn['grn_date'].errors?.['required']">*Required</small>
                           </div>

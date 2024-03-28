@@ -12,6 +12,7 @@ export class GRNNoteComponent {
   date = new Date();
   fromDate: any;
   toDate: any;
+  grnDateLimit: any = new Date();
   currentDate: any;
   searchText: any;
   poData: any = [];
@@ -34,6 +35,9 @@ export class GRNNoteComponent {
     this.fromDate =  year+"-"+(month<=9?'0':'')+month+"-"+'01';
     this.toDate = year+"-"+(month<=9?'0':'')+month+"-"+(date<=9?'0':'')+date;
     this.currentDate =  year+"-"+(month<=9?'0':'')+month+"-"+(date<=9?'0':'')+date;
+    this.grnDateLimit.setDate(this.grnDateLimit.getDate() - 5);
+    this.grnDateLimit =  year+"-"+(month<=9?'0':'')+month+"-"+(this.grnDateLimit.getDate()<=9?'0':'')+this.grnDateLimit.getDate();
+    console.log(this.fromDate, this.toDate, this.grnDateLimit);
   }
 
   ngOnInit(): void {
