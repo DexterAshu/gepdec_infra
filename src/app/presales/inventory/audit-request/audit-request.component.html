@@ -29,8 +29,10 @@
                   <li><input class="form-control form-control-sm date-picker" formControlName="toDate" type="date" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}"></li>
                   <li><button class="btn btn-primary btn-sm" type="submit">GO!</button></li>
                 </form>
+                <li>
+                  <button type="button" (click)="getModelFormData()" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm mt-2 float-right">+ Create</button>
+                </li>
               </ul>
-              <button type="button" (click)="getModelFormData()" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
             </div>
           </div>
           <app-responsive-table id="export">
@@ -139,8 +141,8 @@
                         </div>
                         <div class="col-lg-8"></div>
                       </div>
-                      <table class="table table-hover">
-                          <thead class="table-primary text-nowrap">
+                      <app-responsive-table style="min-height: 300px;">
+                        <thead class="table-primary text-nowrap">
                             <tr>
                               <th>S No</th>
                               <th>Item Code</th>
@@ -178,7 +180,7 @@
                               </td>
                             </tr>
                           </tbody>
-                      </table>
+                      </app-responsive-table>
                     </div>
                   </div>
                 </div>

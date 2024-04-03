@@ -31,7 +31,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CountryMasterComponent } from './country-master/country-master.component';
 import { SupplierItemLinkComponent } from './procurement/supplier-item-link/supplier-item-link.component';
 import { ItemsMasterComponent } from './items-master/items-master.component';
-import { WarehouseLocationMasterComponent } from './warehouse-location-master/warehouse-location-master.component';
 import { WarehouseMasterComponent } from './warehouse-master/warehouse-master.component';
 import { PriceStructureComponent } from './procurement/price-structure/price-structure.component';
 import { EcoTermsDeliveryComponent } from './procurement/eco-terms-delivery/eco-terms-delivery.component';
@@ -73,7 +72,6 @@ const routes: Routes = [
   { path: 'fin-year', component: FinYearComponent },
   { path: 'tender-company-contacts', component: CompanyContactsComponent },
   { path: 'warehouse', component: WarehouseMasterComponent },
-  { path: 'location', component: WarehouseLocationMasterComponent },
   { path: 'items-master', component: ItemsMasterComponent },
   { path: 'items-label', component: ItemLabelComponent }
 ];

@@ -121,6 +121,7 @@ export class GRNNoteComponent {
   getData(): void {
     this.poData = [
       {
+        "projectID": "PR0001",
         "order_number": "PO001",
         "date": "2024-03-11",
         "vendor": {
@@ -151,6 +152,7 @@ export class GRNNoteComponent {
         "remarks": "Payment due upon receipt."
       },
       {
+        "projectID": "PR0002",
         "order_number": "PO002",
         "date": "2024-03-12",
         "vendor": {
@@ -173,6 +175,7 @@ export class GRNNoteComponent {
         "remarks": "Payment due in 15 days."
       },
       {
+        "projectID": "PR0003",
         "order_number": "PO003",
         "date": "2024-03-13",
         "vendor": {
@@ -195,6 +198,7 @@ export class GRNNoteComponent {
         "remarks": "Net 30 terms."
       },
       {
+        "projectID": "PR0001",
         "order_number": "PO004",
         "date": "2024-03-14",
         "vendor": {
@@ -217,6 +221,7 @@ export class GRNNoteComponent {
         "remarks": "Payment due upon delivery."
       },
       {
+        "projectID": "PR0002",
         "order_number": "PO005",
         "date": "2024-03-15",
         "vendor": {
@@ -239,6 +244,7 @@ export class GRNNoteComponent {
         "remarks": "Payment due in 30 days."
       },
       {
+        "projectID": "PR0003",
         "order_number": "PO006",
         "date": "2024-03-16",
         "vendor": {
@@ -261,6 +267,7 @@ export class GRNNoteComponent {
         "remarks": "Payment due upon receipt of goods."
       },
       {
+        "projectID": "PR0001",
         "order_number": "PO007",
         "date": "2024-03-17",
         "vendor": {
@@ -283,6 +290,7 @@ export class GRNNoteComponent {
         "remarks": "Payment due in 15 days from delivery."
       },
       {
+        "projectID": "PR0002",
         "order_number": "PO008",
         "date": "2024-03-18",
         "vendor": {
@@ -305,6 +313,7 @@ export class GRNNoteComponent {
         "remarks": "Payment due in 20 days."
       },
       {
+        "projectID": "PR0003",
         "order_number": "PO009",
         "date": "2024-03-19",
         "vendor": {
@@ -327,6 +336,7 @@ export class GRNNoteComponent {
         "remarks": "Payment due upon completion of work."
       },
       {
+        "projectID": "PR0001",
         "order_number": "PO010",
         "date": "2024-03-20",
         "vendor": {

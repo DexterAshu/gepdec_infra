@@ -28,6 +28,7 @@
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
+                  <th>Project Code</th>
                   <th>Order Number</th>
                   <th>Date</th>
                   <th>Vendor Name</th>
@@ -39,6 +40,7 @@
               <tbody class="text-nowrap">
                 <tr *ngFor="let purchase of poData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
+                  <td>{{ purchase.projectID }}</td>
                   <td>
                     <a data-bs-toggle="modal" (click)="selectPO(purchase)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewModel" title="Warehouse Profile">{{ purchase.order_number }}</a>
                   </td>
@@ -137,6 +139,8 @@
                         <tr>
                           <th>Remarks</th>
                           <td>{{ selectedPO?.remarks }}</td>
+                          <th></th>
+                          <td></td>
                         </tr>
                       </tbody>
                     </table>
@@ -174,56 +178,56 @@
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" formControlName="docs_tax_invoice" type="checkbox" id="inlineCheckbox1" value="option1">
-                          <label class="form-check-label" for="inlineCheckbox1">Tax Invoice</label>
+                          <input class="form-check-input" formControlName="docs_tax_invoice" type="checkbox" id="docs_tax_invoice" value="option1">
+                          <label class="form-check-label" for="docs_tax_invoice">Tax Invoice</label>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" formControlName="docs_delivery_challan" type="checkbox" id="inlineCheckbox2" value="option2">
-                          <label class="form-check-label" for="inlineCheckbox2">Delivery Challan</label>
+                          <input class="form-check-input" formControlName="docs_delivery_challan" type="checkbox" id="docs_delivery_challan" value="option2">
+                          <label class="form-check-label" for="docs_delivery_challan">Delivery Challan</label>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" formControlName="docs_lr_copy" type="checkbox" id="inlineCheckbox3" value="option3">
-                          <label class="form-check-label" for="inlineCheckbox3">LR Copy </label>
+                          <input class="form-check-input" formControlName="docs_lr_copy" type="checkbox" id="docs_lr_copy" value="option3">
+                          <label class="form-check-label" for="docs_lr_copy">LR Copy </label>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" formControlName="docs_packing_list" type="checkbox" id="inlineCheckbox3" value="option3">
-                          <label class="form-check-label" for="inlineCheckbox3">Packing List</label>
+                          <input class="form-check-input" formControlName="docs_packing_list" type="checkbox" id="docs_packing_list" value="option3">
+                          <label class="form-check-label" for="docs_packing_list">Packing List</label>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input"  formControlName="docs_e_way_bill" type="checkbox" id="inlineCheckbox3" value="option3">
-                          <label class="form-check-label" for="inlineCheckbox3">E-Way Bill</label>
+                          <input class="form-check-input"  formControlName="docs_e_way_bill" type="checkbox" id="docs_e_way_bill" value="option4">
+                          <label class="form-check-label" for="docs_e_way_bill">E-Way Bill</label>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" formControlName="docs_warranty_certificate" id="inlineCheckbox3" value="option3">
-                          <label class="form-check-label" for="inlineCheckbox3">Warranty Certificate</label>
+                          <input class="form-check-input" type="checkbox" formControlName="docs_warranty_certificate" id="docs_warranty_certificate" value="option5">
+                          <label class="form-check-label" for="docs_warranty_certificate">Warranty Certificate</label>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" formControlName="docs_quality_inspection" id="inlineCheckbox3" value="option3">
-                          <label class="form-check-label" for="inlineCheckbox3">Quality Inspection Report</label>
+                          <input class="form-check-input" type="checkbox" formControlName="docs_quality_inspection" id="docs_quality_inspection" value="option6">
+                          <label class="form-check-label" for="docs_quality_inspection">Quality Inspection Report</label>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" formControlName="docs_operator_manual" id="inlineCheckbox3" value="option3">
-                          <label class="form-check-label" for="inlineCheckbox3">Operator Manual</label>
+                          <input class="form-check-input" type="checkbox" formControlName="docs_operator_manual" id="docs_operator_manual" value="option7">
+                          <label class="form-check-label" for="docs_operator_manual">Operator Manual</label>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" formControlName="docs_technical_manual" id="inlineCheckbox3" value="option3">
-                          <label class="form-check-label" for="inlineCheckbox3">Technical & Support Manual</label>
+                          <input class="form-check-input" type="checkbox" formControlName="docs_technical_manual" id="docs_technical_manual" value="option8">
+                          <label class="form-check-label" for="docs_technical_manual">Technical & Support Manual</label>
                         </div>
                       </div>
                     </div>
@@ -303,6 +307,8 @@
                     <tr>
                       <th>Remarks</th>
                       <td>{{ selectedPO.remarks }}</td>
+                      <th></th>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>

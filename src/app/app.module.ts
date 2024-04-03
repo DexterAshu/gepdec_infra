@@ -128,7 +128,6 @@ import { BankingDetailsComponent } from './presales/presales-biding/data-capturi
 import { CountryMasterComponent } from './masters/country-master/country-master.component';
 import { SupplierItemLinkComponent } from './masters/procurement/supplier-item-link/supplier-item-link.component';
 import { ItemsMasterComponent } from './masters/items-master/items-master.component';
-import { WarehouseLocationMasterComponent } from './masters/warehouse-location-master/warehouse-location-master.component';
 import { WarehouseMasterComponent } from './masters/warehouse-master/warehouse-master.component';
 import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
 import { AmendmentsComponent } from './documentation/tender-document/amendments/amendments.component';
@@ -234,7 +233,6 @@ import { MangagementTenderApprovalComponent } from './presales/presales-biding/m
     BiderCompanyComponent,
     L2ScheduleBulkdataComponent,
     WarehouseMasterComponent,
-    WarehouseLocationMasterComponent,
     ItemsMasterComponent,
     GRNNoteComponent,
     //master-component

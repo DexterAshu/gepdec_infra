@@ -155,7 +155,6 @@ export class WarehouseMasterComponent {
   }
 
   createData(match: any) {
-    console.log(match);
     this.masterService.createWarehouse(match).subscribe((res:any) => {
       if (res.status === 200) {
         this.isSubmitted = false;
