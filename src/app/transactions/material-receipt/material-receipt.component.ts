@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-grnnote',
-  templateUrl: './grnnote.component.html',
-  styleUrls: ['./grnnote.component.css']
+  selector: 'app-material-receipt',
+  templateUrl: './material-receipt.component.html',
+  styleUrls: ['./material-receipt.component.css']
 })
-export class GRNNoteComponent {
+export class MaterialReceiptComponent {
   date = new Date();
   fromDate: any;
   toDate: any;

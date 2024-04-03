@@ -95,7 +95,6 @@ import { OthersDocumentComponent } from './documentation/others-document/others-
 import { ProjReportsComponent } from './proj-reports/proj-reports.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
-import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
 import { InventoryComponent } from './presales/inventory/inventory.component';
 import { BoqComponent } from './procurement/boq/boq.component';
 import { ProposalOneComponent } from './procurement/proposal-one/proposal-one.component';
@@ -105,6 +104,8 @@ import { ApprovalComponent } from './procurement/approval/approval.component';
 import { PoDataComponent } from './procurement/po-data/po-data.component';
 import { AuditRequestComponent } from './presales/inventory/audit-request/audit-request.component';
 import { AuditApprovalComponent } from './presales/inventory/audit-approval/audit-approval.component';
+import { MaterialReceiptComponent } from './transactions/material-receipt/material-receipt.component';
+import { MaterialIssuanceComponent } from './transactions/material-issuance/material-issuance.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -232,7 +233,8 @@ const routes: Routes = [
   {path: 'transactions/link-meter-with-customer', component:MeterLinkComponent, canActivate:[AuthGuard]},
   {path: 'transactions/billing-date-configuration', component:BillDateConfigComponent, canActivate:[AuthGuard]},
   {path: 'transactions/firmware-upgrade', component:FirmwareUpgradeComponent, canActivate:[AuthGuard]},
-  {path: 'transactions/grn-note', component:GRNNoteComponent, canActivate:[AuthGuard]},
+  {path: 'transactions/material-receipt-note', component:MaterialReceiptComponent, canActivate:[AuthGuard]},
+  {path: 'transactions/material-issuance-note', component:MaterialIssuanceComponent, canActivate:[AuthGuard]},
 
   {path: 'customer/customer-data-usage', component:CustomerDataUsageComponent},
   {path: 'customer/customer-billing-data', component:CustomerBillingDataComponent},
