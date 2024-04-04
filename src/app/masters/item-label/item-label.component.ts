@@ -101,7 +101,7 @@ export class ItemLabelComponent {
     this.itemLocationLabelData = [
       {
         "labelCode": "WH001-L001",
-        "labelName": "Label 1",
+        "labelName": "Location Rak 1",
         "capacity": 500,
         "WHCode": "WH001",
         "WHName": "Warehouse 1",
@@ -122,7 +122,7 @@ export class ItemLabelComponent {
       },
       {
         "labelCode": "WH002-L002",
-        "labelName": "Label 2",
+        "labelName": "Location Rak 2",
         "capacity": 500,
         "WHCode": "WH002",
         "WHName": "Warehouse 2",
@@ -139,7 +139,7 @@ export class ItemLabelComponent {
       },
       {
         "labelCode": "WH003-L003",
-        "labelName": "Label 3",
+        "labelName": "Location Rak 3",
         "capacity": 500,
         "WHCode": "WH003",
         "WHName": "Warehouse 3",
