@@ -106,8 +106,18 @@ export class ItemLabelComponent {
         "WHCode": "WH001",
         "WHName": "Warehouse 1",
         "items": [
-          "ITM001",
-          "ITM002"
+          {
+            "itemCode": "ITM001",
+            "description": "Item 1"
+          },
+          {
+            "itemCode": "ITM002",
+            "description": "Item 2"
+          },
+          {
+            "itemCode": "ITM003",
+            "description": "Item 3"
+          }
         ]
       },
       {
@@ -117,19 +127,27 @@ export class ItemLabelComponent {
         "WHCode": "WH002",
         "WHName": "Warehouse 2",
         "items": [
-          "ITM003"
+          {
+            "itemCode": "ITM101",
+            "description": "Item 101"
+          },
+          {
+            "itemCode": "ITM102",
+            "description": "Item 102"
+          }
         ]
       },
       {
-        "itemCode": "ITM003",
         "labelCode": "WH003-L003",
         "labelName": "Label 3",
         "capacity": 500,
         "WHCode": "WH003",
         "WHName": "Warehouse 3",
         "items": [
-          "ITM004",
-          "ITM005"
+          {
+            "itemCode": "ITM201",
+            "description": "Item 201"
+          }
         ]
       }
     ];

@@ -156,6 +156,10 @@
                     <tr>
                       <th>Pin Code</th>
                       <td>{{ selectedWH.pincode }}</td>
+                      <th></th>
+                      <td></td>
+                      <th></th>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>
@@ -178,6 +182,7 @@
       <div class="modal-body">
         <div class="container-fluid scroll-container">
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <h6 class="mb-2 text-secondary">Warehouse Details</h6>
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
@@ -246,48 +251,51 @@
                   <div *ngIf="f['pincode'].touched && f['pincode'].invalid"><small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
-              <div formArrayName="contacts">
-                <div *ngFor="let contact of contact().controls; let i = index" [formGroupName]="i">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Contact Person Name<span class="required-asterisk">*</span></label>
-                        <input formControlName="contact_name" type="text" class="form-control form-control-sm" placeholder="Enter person name">
+              <h6 class="my-2 text-secondary">Contact Details</h6>
+              <div class="row">
+                <div formArrayName="contacts">
+                  <div *ngFor="let contact of contact().controls; let i = index" [formGroupName]="i">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Contact Person Name<span class="required-asterisk">*</span></label>
+                          <input formControlName="contact_name" type="text" class="form-control form-control-sm" placeholder="Enter person name">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="form-label">Designation<span class="required-asterisk">*</span></label>
+                          <select formControlName="usdg_id" class="form-select form-select-sm">
+                            <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
+                            <option *ngFor="let t of dataDropdownList.designation" [value]="t.usdg_id">{{t.designationname }}</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label class="form-label">Designation<span class="required-asterisk">*</span></label>
-                        <select formControlName="usdg_id" class="form-select form-select-sm">
-                          <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
-                          <option *ngFor="let t of dataDropdownList.designation" [value]="t.usdg_id">{{t.designationname }}</option>
-                      </select>
+                        <label>Primary Contact No.<span class="required-asterisk">*</span></label>
+                        <input formControlName="contactno1" type="text" class="form-control form-control-sm" placeholder="Enter contact no.">
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label>Primary Contact No.<span class="required-asterisk">*</span></label>
-                      <input formControlName="contactno1" type="text" class="form-control form-control-sm" placeholder="Enter contact no.">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Secondary Contact No.</label>
+                        <input formControlName="contactno2" type="text" class="form-control form-control-sm" placeholder="Enter contact no.">
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label>Secondary Contact No.</label>
-                      <input formControlName="contactno2" type="text" class="form-control form-control-sm" placeholder="Enter contact no.">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Person E-Mail<span class="required-asterisk">*</span></label>
+                        <input formControlName="email" type="email" class="form-control form-control-sm" placeholder="Enter person e-mail">
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label>Person E-Mail<span class="required-asterisk">*</span></label>
-                      <input formControlName="email" type="email" class="form-control form-control-sm" placeholder="Enter person e-mail">
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-primary btn-fw btn-sm" style="margin-top: 25px;" *ngIf="i > 0" (click)="removeContact(i)">Remove</button>
                     </div>
-                  </div>
-                  <div class="col-md-4">
-                    <button type="button" class="btn btn-primary btn-fw btn-sm" style="margin-top: 25px;" *ngIf="i > 0" (click)="removeContact(i)">Remove</button>
                   </div>
                 </div>
-              </div>
-                <button type="button" class="btn btn-primary btn-fw btn-sm" (click)="addContact()">Add More Contact</button>
+                  <button type="button" class="btn btn-primary btn-fw btn-sm" (click)="addContact()">Add More Contact</button>
+                </div>
               </div>
               <div class="modal-btns">
                 <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>

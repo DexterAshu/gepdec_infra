@@ -128,9 +128,7 @@ import { BankingDetailsComponent } from './presales/presales-biding/data-capturi
 import { CountryMasterComponent } from './masters/country-master/country-master.component';
 import { SupplierItemLinkComponent } from './masters/procurement/supplier-item-link/supplier-item-link.component';
 import { ItemsMasterComponent } from './masters/items-master/items-master.component';
-import { WarehouseLocationMasterComponent } from './masters/warehouse-location-master/warehouse-location-master.component';
 import { WarehouseMasterComponent } from './masters/warehouse-master/warehouse-master.component';
-import { GRNNoteComponent } from './transactions/grnnote/grnnote.component';
 import { AmendmentsComponent } from './documentation/tender-document/amendments/amendments.component';
 import { InitialBoqComponent } from './documentation/tender-document/initial-boq/initial-boq.component';
 import { L1ScheduleComponent } from './documentation/tender-document/l1-schedule/l1-schedule.component';
@@ -165,6 +163,8 @@ import { PoDataComponent } from './procurement/po-data/po-data.component';
 import { AuditRequestComponent } from './presales/inventory/audit-request/audit-request.component';
 import { AuditApprovalComponent } from './presales/inventory/audit-approval/audit-approval.component';
 import { MangagementTenderApprovalComponent } from './presales/presales-biding/mangagement-tender-approval/mangagement-tender-approval.component';
+import { MaterialReceiptComponent } from './transactions/material-receipt/material-receipt.component';
+import { MaterialIssuanceComponent } from './transactions/material-issuance/material-issuance.component';
 
 
 @NgModule({
@@ -234,20 +234,16 @@ import { MangagementTenderApprovalComponent } from './presales/presales-biding/m
     BiderCompanyComponent,
     L2ScheduleBulkdataComponent,
     WarehouseMasterComponent,
-    WarehouseLocationMasterComponent,
     ItemsMasterComponent,
-    GRNNoteComponent,
-    //master-component
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
 
-    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent, FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, DesignDocumentComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent, ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent  ],
+    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent, FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, DesignDocumentComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent, ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent, MaterialReceiptComponent, MaterialIssuanceComponent  ],
 
   imports: [
     BrowserModule,
     NgxPaginationModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(), // ToastrModule added
     NgxChartsModule,
@@ -258,6 +254,7 @@ import { MangagementTenderApprovalComponent } from './presales/presales-biding/m
     NgxPrintModule,
     NgSelectModule,
     ChartModule,
+    AppRoutingModule,
 
   ],
   providers: [

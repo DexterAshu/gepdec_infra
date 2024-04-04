@@ -411,7 +411,7 @@
                     <span class="menu-title">BOQ</span>
                   </a>
                 </li>
-                <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/procurement/proposal-1">
+                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/procurement/proposal-1">
                     <i class="mdi mdi-comment-check-outline menu-icon"></i>
                     <span class="menu-title">Proposal-1</span>
                   </a>
@@ -420,7 +420,7 @@
                     <i class="mdi mdi-opacity menu-icon"></i>
                     <span class="menu-title">Proposal-2</span>
                   </a>
-                </li> -->
+                </li>
                 <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/procurement/final-proposal">
                     <i class="mdi mdi-playlist-check menu-icon"></i>
                     <span class="menu-title">Final Proposal</span>
@@ -451,10 +451,28 @@
             </div>
             <div class="collapse" id="warehouse">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/warehouse">
-                    <i class="mdi mdi-home-variant menu-icon"></i>
-                    <span class="menu-title">Logistics</span>
-                  </a></li>
+                <li class="nav-item sub-sub-menu">
+                  <div class="ware">
+                    <a class="nav-link" data-toggle="collapse" href="#slmaster" aria-expanded="false" aria-controls="slmaster">
+                      <i class="mdi mdi-home-assistant menu-icon"></i>
+                      <span class="menu-title">Master</span>
+                      <i class="menu-arrow"></i>
+                    </a>
+                  </div>
+                  <div class="collapse" id="slmaster">
+                    <ul class="nav flex-column sub-menu">
+                      <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/warehouse">
+                          <i class="mdi mdi-home-variant menu-icon"></i>
+                          <span class="menu-title">Warehouse</span>
+                        </a></li>
+                      <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/items-label">
+                          <i class="mdi mdi-home-variant menu-icon"></i>
+                          <span class="menu-title">Item Location DEF</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
                   <li class="nav-item sub-sub-menu">
                     <div class="ware">
                       <a class="nav-link" data-toggle="collapse" href="#inventory" aria-expanded="false" aria-controls="inventory">
@@ -480,50 +498,14 @@
                       </ul>
                     </div>
                   </li>
-                  <li class="nav-item sub-sub-menu">
-                    <div class="ware">
-                      <a class="nav-link" data-toggle="collapse" href="#slmaster" aria-expanded="false" aria-controls="slmaster">
-                        <i class="mdi mdi-home-assistant menu-icon"></i>
-                        <span class="menu-title">Master</span>
-                        <i class="menu-arrow"></i>
-                      </a>
-                    </div>
-                    <div class="collapse" id="slmaster">
-                      <ul class="nav flex-column sub-menu">
-                        <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/warehouse">
-                            <i class="mdi mdi-home-variant menu-icon"></i>
-                            <span class="menu-title">Warehouse</span>
-                          </a></li>
-                        <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/items-label">
-                            <i class="mdi mdi-home-variant menu-icon"></i>
-                            <span class="menu-title">Item Location Label</span>
-                          </a>
-                        </li>
-                        <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/location">
-                            <i class="mdi mdi-home-variant menu-icon"></i>
-                            <span class="menu-title">Item Location Code</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="nav-item sub-sub-menu">
-                    <div class="ware">
-                      <a class="nav-link" data-toggle="collapse" href="#sltransaction" aria-expanded="false" aria-controls="sltransaction">
-                        <i class="mdi mdi-home-assistant menu-icon"></i>
-                        <span class="menu-title">Transaction</span>
-                        <i class="menu-arrow"></i>
-                      </a>
-                    </div>
-                    <div class="collapse" id="sltransaction">
-                      <ul class="nav flex-column sub-menu">
-                        <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/transactions/grn-note">
-                            <i class="mdi mdi-home-variant menu-icon"></i>
-                            <span class="menu-title">GRN</span>
-                          </a></li>
-                      </ul>
-                    </div>
-                  </li>
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/transactions/material-receipt-note">
+                    <i class="mdi mdi-home-variant menu-icon"></i>
+                    <span class="menu-title">Material Receipt</span>
+                  </a></li>
+                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/transactions/material-issuance-note">
+                    <i class="mdi mdi-home-variant menu-icon"></i>
+                    <span class="menu-title">Material Issuance</span>
+                  </a></li>
               </ul>
             </div>
           </li>
