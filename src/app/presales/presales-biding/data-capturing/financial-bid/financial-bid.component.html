@@ -55,30 +55,7 @@
                                 
                                 </div>
                             </div>
-    
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Net Worth<span class="required-asterisk">*</span></label>
-                                    <input formControlName="net_worth" placeholder="Enter Net Worth" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
-                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
-                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Annual Turnover<span class="required-asterisk">*</span></label>
-                                    <input formControlName="annual_turnover" placeholder="Enter Annual Turnover" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
-                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
-                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
-                                    </div>
-                                    
-                                </div>
-                            </div>
-    
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
@@ -93,6 +70,33 @@
     
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Annual Turnover (Required)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="annual_turnover" placeholder="Enter Annual Turnover" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
+                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
+                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
+                                    </div>
+                                    
+                                </div>
+                            </div>
+    
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Net Worth (Required)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="net_worth" placeholder="Enter Net Worth" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
+                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
+                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                          
+    
+                         
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">NCLT Status<span class="required-asterisk">*</span> </label>
@@ -174,7 +178,7 @@
                             <div class="modal-btns">
                                 <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
                                 <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm">Close</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
     

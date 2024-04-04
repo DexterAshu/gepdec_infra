@@ -4,14 +4,40 @@
 
                         <div class="herder-data-form p-2">
                             <div class="card1">
-                                <img src="../../../../assets/../assets/images/bidIMG.png" style="width: 60px; height: 40px;">
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <img src="../../../../assets/../assets/images/bidIMG.png" style="width: 60px; height: 40px;">
+                                        &nbsp;&nbsp;
+                                        Bid | Tender: Data Capturing
+                                    </div>
+                                    <div class="col-lg-6 " *ngIf="this.userData.rolename === 'Administrator'" >
+                                     <div class="float-right" *ngIf="update">
+                                         <button type="button" class="btn btn-secondary btn-fw btn-sm me-2">
+                                            <span class="mdi mdi-backburger"></span>&nbsp;
+                                             Send Back</button>
+                                         <button type="button" class="btn btn-info btn-fw btn-sm me-2">
+                                            <span class="mdi mdi-check-circle-outline"></span>&nbsp;
+                                             Approved</button>
+                                         <button type="button" class="btn btn-danger btn-fw btn-sm me-2">
+                                            <span class="mdi mdi-close-outline"></span>&nbsp;
+                                             Rejected</button>
+                
+                                     </div>
+                                      
+                                    </div>
+                
+                                </div>
+
+                                <!-- <img src="../../../../assets/../assets/images/bidIMG.png" style="width: 60px; height: 40px;">
                               &nbsp;&nbsp;
-                                Bid | Tender: Data Capturing</div>
+                                Bid | Tender: Data Capturing -->
+                            </div>
                
                             </div>
                        
                         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                            <div class="cardd p-3">
+                            <div class="card p-3">
 
                                 <div class="row" (click)="showTenderDetails=!showTenderDetails"  style="cursor:pointer;"> 
                                     <div class="col-6">
@@ -97,6 +123,19 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label class="form-label fl-10">Pre-bid Meeting Mode<span class="required-asterisk">*</span></label>
+                                            <select formControlName="prebidmeetingmode_id" class="form-select form-select-sm">
+                                                <option [selected]="true" [disabled]="true" [value]="null">Select Mode</option>
+                                                <option *ngFor="let c of meetingMode" value="{{c.prebidmeetingmode_id}}">{{ c.prebidmeetingmode }}</option>
+                                            </select>
+                                            <div *ngIf="f['prebidmeetingmode_id'].touched && f['prebidmeetingmode_id'].invalid">
+                                                <small class="text-danger" *ngIf="f['prebidmeetingmode_id'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label class="form-label fl-10">Tender Publish Date<span
                                                     class="required-asterisk">*</span></label>
                                             <input formControlName="publish_date" type="date" class="form-control form-control-sm">
@@ -126,26 +165,25 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Pre-bid Meeting Mode<span class="required-asterisk">*</span></label>
-                                            <select formControlName="prebidmeetingmode_id" class="form-select form-select-sm">
-                                                <option [selected]="true" [disabled]="true" [value]="null">Select Mode</option>
-                                                <option *ngFor="let c of meetingMode" value="{{c.prebidmeetingmode_id}}">{{ c.prebidmeetingmode }}</option>
-                                            </select>
-                                            <div *ngIf="f['prebidmeetingmode_id'].touched && f['prebidmeetingmode_id'].invalid">
-                                                <small class="text-danger" *ngIf="f['prebidmeetingmode_id'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Tender Submission Date & Time<span
+                                            <label class="form-label fl-10">Tender Soft Copy Submission Date & Time<span
                                                     class="required-asterisk">*</span></label>
                                             <input formControlName="tender_submission_date" type="datetime-local" class="form-control form-control-sm">
                                             <div *ngIf="f['tender_submission_date'].touched && f['tender_submission_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_submission_date'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Hard Copy Submission Date & Time<span
+                                                    class="required-asterisk">*</span></label>
+                                            <input formControlName="tender_hardcopy_submission_date" type="datetime-local" class="form-control form-control-sm">
+                                            <div *ngIf="f['tender_hardcopy_submission_date'].touched && f['tender_hardcopy_submission_date'].invalid">
+                                                <small class="text-danger" *ngIf="f['tender_hardcopy_submission_date'].errors?.['required']">*Required</small>
                                             </div>
                                         </div>
                                     </div>
@@ -157,6 +195,16 @@
                                             <input formControlName="opening_date" type="date" class="form-control form-control-sm">
                                             <div *ngIf="f['opening_date'].touched && f['opening_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['opening_date'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Closing Date<span
+                                                    class="required-asterisk">*</span></label>
+                                            <input formControlName="closing_date" type="date" class="form-control form-control-sm">
+                                            <div *ngIf="f['closing_date'].touched && f['closing_date'].invalid">
+                                                <small class="text-danger" *ngIf="f['closing_date'].errors?.['required']">*Required</small>
                                             </div>
                                         </div>
                                     </div>
@@ -202,60 +250,159 @@
                                             </div> 
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Tender EMD Exemption<span class="required-asterisk">*</span></label>
-                                            <select formControlName="exemption_id" class="form-select form-select-sm" (change)="toggleEmdField($event)">
-                                                <option [value]="null" disabled selected>Select Mode</option>
-                                                <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
-                                            </select>
-                                            <div *ngIf="f['exemption_id'].touched && f['exemption_id'].invalid">
-                                                <small class="text-danger" *ngIf="f['exemption_id'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-4" *ngIf="selectedEmdexemption">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">EMD Amount<span class="required-asterisk">*</span></label>
-                                            <input formControlName="emd_amount" type="text" class="form-control form-control-sm" placeholder="Enter EMD Amount" appNumberOnly>
-                                            <div *ngIf="f['emd_amount'].touched && f['emd_amount'].invalid">
-                                                <small class="text-danger" *ngIf="f['emd_amount'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    
-
-                                    <div class="col-md-4" *ngIf="selectedEmdexemption">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">EMD Payment<span class="required-asterisk">*</span></label>
-
-                                            <select formControlName="emd_payment" class="form-select form-select-sm">
-                                                <option [selected]="true" [disabled]="true" [value]="null">Select Payment Mode</option>
-                                                <option *ngFor="let p of payment" value="{{p.paymentmethod_id}}">{{ p.paymentmethod }}</option>
-                                            </select>
-                                            <div *ngIf="f['emd_payment'].touched && f['emd_payment'].invalid">
-                                                <small class="text-danger" *ngIf="f['emd_payment'].errors?.['required']">*Required</small>
-                                            </div>
-
+                                            <label class="form-label fl-10">Tender Payment Type<span class="required-asterisk">*</span></label>
+                                            <input type="text" class="form-control form-control-sm" formControlName="tender_paymenttype" >
+                                            <div *ngIf="f['tender_paymenttype'].touched && f['tender_paymenttype'].invalid">
+                                                <small class="text-danger" *ngIf="f['tender_paymenttype'].errors?.['required']">*Required</small>
+                                            </div> 
                                         </div>
                                     </div>
 
-                                  
+                                 
 
-                                    <div class="col-md-4" *ngIf="selectedEmdexemption">
-                                      
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">EMD Submission Date<span class="required-asterisk">*</span></label>
-                                                <input formControlName="emd_submission_date" type="date" class="form-control form-control-sm">
-                                                <div *ngIf="f['emd_submission_date'].touched && f['emd_submission_date'].invalid">
-                                                    <small class="text-danger" *ngIf="f['emd_submission_date'].errors?.['required']">*Required</small>
-                                                </div>
-                                            </div>
-                                      
-                                    </div>
+<!-- Security Deposit -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label class="form-label fl-10">Security Deposit<span class="required-asterisk">*</span></label>
+        <select formControlName="securitydeposit_id" class="form-select form-select-sm" (change)="toggleSecurityField($event)">
+            <option *ngFor="let c of securityDeposit" [value]="c.securitydeposit_id">{{ c.securitydeposit }}</option>
+        </select>
+        <div *ngIf="f['securitydeposit_id'].touched && f['securitydeposit_id'].invalid">
+            <small class="text-danger" *ngIf="f['securitydeposit_id'].errors?.['required']">*Required</small>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4" *ngIf="selectSecurityField">
+    <div class="form-group">
+        <label class="form-label fl-10">Security Amount<span class="required-asterisk">*</span></label>
+        <input formControlName="security_amount" type="text" class="form-control form-control-sm" placeholder="Enter Amount" appNumberOnly>
+        <div *ngIf="f['security_amount'].touched && f['security_amount'].invalid">
+            <small class="text-danger" *ngIf="f['security_amount'].errors?.['required']">*Required</small>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-4" *ngIf="selectSecurityField">
+  
+    <div class="form-group">
+        <label class="form-label fl-10"> Submission Date<span class="required-asterisk">*</span></label>
+        <input formControlName="securitysubmission_date" type="date" class="form-control form-control-sm">
+        <div *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
+            <small class="text-danger" *ngIf="f['securitysubmission_date'].errors?.['required']">*Required</small>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Security Deposit end -->
+
+
+<!-- Performance Guarantee -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label class="form-label fl-10">Tender Performance Guarantee<span class="required-asterisk">*</span></label>
+        <select formControlName="performanceguarantee_id" class="form-select form-select-sm" (change)="togglePGField($event)">
+            <option *ngFor="let c of performanceGuarntee" [value]="c.performanceguarantee_id">{{ c.performanceguarantee }}</option>
+        </select>
+        <div *ngIf="f['performanceguarantee_id'].touched && f['performanceguarantee_id'].invalid">
+            <small class="text-danger" *ngIf="f['performanceguarantee_id'].errors?.['required']">*Required</small>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4" *ngIf="selectPGField">
+    <div class="form-group">
+        <label class="form-label fl-10">PG Amount<span class="required-asterisk">*</span></label>
+        <input formControlName="pg_amount" type="text" class="form-control form-control-sm" placeholder="Enter Amount" appNumberOnly>
+        <div *ngIf="f['pg_amount'].touched && f['pg_amount'].invalid">
+            <small class="text-danger" *ngIf="f['pg_amount'].errors?.['required']">*Required</small>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-4" *ngIf="selectPGField">
+  
+        <div class="form-group">
+            <label class="form-label fl-10">Submission Date<span class="required-asterisk">*</span></label>
+            <input formControlName="pgsubmission_date" type="date" class="form-control form-control-sm">
+            <div *ngIf="f['pgsubmission_date'].touched && f['pgsubmission_date'].invalid">
+                <small class="text-danger" *ngIf="f['pgsubmission_date'].errors?.['required']">*Required</small>
+            </div>
+        </div>
+  
+</div>
+
+
+<!-- Performance Guarantee End -->
+
+
+<!-- tender EMD -->
+<div class="col-md-4">
+    <div class="form-group">
+        <label class="form-label fl-10">Tender EMD Exemption<span class="required-asterisk">*</span></label>
+        <select formControlName="exemption_id" class="form-select form-select-sm" (change)="toggleEmdField($event)">
+            <option [value]="null" disabled selected>Select Mode</option>
+            <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
+        </select>
+        <div *ngIf="f['exemption_id'].touched && f['exemption_id'].invalid">
+            <small class="text-danger" *ngIf="f['exemption_id'].errors?.['required']">*Required</small>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4" *ngIf="selectedEmdexemption">
+    <div class="form-group">
+        <label class="form-label fl-10">EMD Amount<span class="required-asterisk">*</span></label>
+        <input formControlName="emd_amount" type="text" class="form-control form-control-sm" placeholder="Enter EMD Amount" appNumberOnly>
+        <div *ngIf="f['emd_amount'].touched && f['emd_amount'].invalid">
+            <small class="text-danger" *ngIf="f['emd_amount'].errors?.['required']">*Required</small>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-4" *ngIf="selectedEmdexemption">
+    <div class="form-group">
+        <label class="form-label fl-10">EMD Payment<span class="required-asterisk">*</span></label>
+
+        <select formControlName="emd_payment" class="form-select form-select-sm">
+            <option [selected]="true" [disabled]="true" [value]="null">Select Payment Mode</option>
+            <option *ngFor="let p of payment" value="{{p.paymentmethod_id}}">{{ p.paymentmethod }}</option>
+        </select>
+        <div *ngIf="f['emd_payment'].touched && f['emd_payment'].invalid">
+            <small class="text-danger" *ngIf="f['emd_payment'].errors?.['required']">*Required</small>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="col-md-4" *ngIf="selectedEmdexemption">
+  
+        <div class="form-group">
+            <label class="form-label fl-10">EMD Submission Date<span class="required-asterisk">*</span></label>
+            <input formControlName="emd_submission_date" type="date" class="form-control form-control-sm">
+            <div *ngIf="f['emd_submission_date'].touched && f['emd_submission_date'].invalid">
+                <small class="text-danger" *ngIf="f['emd_submission_date'].errors?.['required']">*Required</small>
+            </div>
+        </div>
+  
+</div>
+<!-- tender EMD end -->
+
+
+
+
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
@@ -281,9 +428,78 @@
                                         
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+
+                                    <div class="col-md-4" *ngIf="update">
                                         <div class="form-group">
-                                            <input class="mt-1" type="checkbox" id="termsCheckbox" formControlName="termsCheckbox" required> &nbsp;
+                                            <label class="form-label fl-10">Tender Status<span class="required-asterisk">*</span></label>
+                                            <select formControlName="tenderstatus_id" class="form-select form-select-sm">
+                                                <option [value]="null" disabled selected>Select Status</option>
+                                                <option *ngFor="let c of tendStatus" [value]="c.tenderstatus_id">{{ c.tender_status }}</option>
+                                            </select>
+                                            <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
+                                                <small class="text-danger" *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8" *ngIf="update">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Remarks<span class="required-asterisk">*</span></label>
+                                            <input formControlName="working_notes" type="text" class="form-control form-control-sm" placeholder="Describe Your Changes">
+                                            <div *ngIf="f['working_notes'].touched && f['working_notes'].invalid">
+                                                <small class="text-danger" *ngIf="f['working_notes'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" *ngIf="update">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Previous Notes</label>
+                                            <textarea formControlName="remarks" type="text" rows="4" class="form-control form-control-sm" readonly>
+                                           </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" *ngIf="update">
+                                        <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
+                                                <path d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z"/>
+                                                <path d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z"/>
+                                              </svg> &nbsp;
+                                            Audit Trail</div>
+                                        <div class="form-group mt-2" *ngIf="showWorkingDetails">
+                                            <textarea formControlName="audit_trail" type="text" rows="4" class="form-control form-control-sm" readonly>
+                                           </textarea>
+                                              
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-4" *ngIf="update">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Sub Status<span class="required-asterisk">*</span></label>
+                                            <select formControlName="exemption_id" class="form-select form-select-sm" (change)="toggleEmdField($event)">
+                                                <option [value]="null" disabled selected>Select Mode</option>
+                                                <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
+                                            </select>
+                                            <div *ngIf="f['exemption_id'].touched && f['exemption_id'].invalid">
+                                                <small class="text-danger" *ngIf="f['exemption_id'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group" *ngIf="update">
+                                            <label class="form-label fl-10">Tender Commercially<span class="required-asterisk">*</span></label>
+                                            <select formControlName="exemption_id" class="form-select form-select-sm" (change)="toggleEmdField($event)">
+                                                <option [value]="null" disabled selected>Select Mode</option>
+                                                <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
+                                            </select>
+                                            <div *ngIf="f['exemption_id'].touched && f['exemption_id'].invalid">
+                                                <small class="text-danger" *ngIf="f['exemption_id'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-md-12" *ngIf="!update">
+                                        <div class="form-group">
+                                            <input class="mt-1" type="checkbox" id="termscheckbox" formControlName="termscheckbox"> &nbsp;
                                             <label for="termsCheckbox"> I accept that the selected fields and input data given by me are correct.</label>
                                         </div>
                                     </div>
@@ -302,7 +518,7 @@
 
                             </div>
 
-                            <div class="cardd p-3 mt-2">
+                            <div class="card p-3 mt-2">
                                 <div class="row" (click)="showClientDetails=!showClientDetails" style="cursor: pointer;"> 
                                     <div class="col-6">
                                       
@@ -324,8 +540,58 @@
 
                                 </div>
                                 <div class="row" *ngIf="showClientDetails">
-                                 
-                                 <div class="row" *ngFor="let a of custDetails">
+
+                                    <table class="table table-hover table-striped custom-table">
+                                        <thead class="hidden-thead"></thead>
+                                        <tbody class="text-nowrap" *ngFor="let a of custDetails">
+                                          <tr>
+                                            <th>Category</th>
+                                            <td>{{ a?.company_type }}</td>
+                                            <th>GST No</th>
+                                            <td>{{ a?.gst }}</td>
+                                          </tr>
+                                          <tr>
+                                            <th>PAN No</th>
+                                            <td>{{ a?.pan }}</td>
+                                            <th>DOI (Date of Incorporation)</th>
+                                            <td>{{ a?.doi }}</td>
+                                          </tr>
+                                          <tr>
+                                            <th>Web Url</th>
+                                            <td>{{ a?.websiteurl }}</td>
+                                            <th>Cin No</th>
+                                            <td>{{ a?.cinno }}</td>
+                                          </tr>
+                                        </tbody>
+                                        <h6 class="mt-2 ml-3">Address Information</h6>
+                                        <tbody class="text-nowrap" *ngFor="let a of addressDetails">
+                                          <tr>
+                                            <th>Country</th>
+                                            <td>{{ a?.name }}</td>
+                                            <th>State</th>
+                                            <td>{{ a?.state_name }}</td>
+                                          </tr>
+                                          <tr>
+                                            <th>District</th>
+                                            <td>{{ a?.district_name }}</td>
+                                            <th>City</th>
+                                            <td>{{ a?.city }}</td>
+                                          </tr>
+                                          <tr>
+                                            <th>Pin Code</th>
+                                            <td>{{ a?.pincode }}</td>
+                                            <th>Area</th>
+                                            <td>{{ a?.area }}</td>
+                                          </tr>
+                                          <tr>
+                                            <th>Address line 1</th>
+                                            <td>{{ a?.address_line1 }}</td>
+                                            <th>Address line 1</th>
+                                            <td>{{ a?.address_line2 }}</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                 <!-- <div class="row" *ngFor="let a of custDetails">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Category</label> :
@@ -364,8 +630,8 @@
                                     </div>
                                    
 
-                                 </div>
-                                 <h6 class="mt-2">Address Information</h6>
+                                 </div> -->
+                                 <!-- <h6 class="mt-2">Address Information</h6>
                                  <div class="row" *ngFor="let a of addressDetails">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -420,7 +686,7 @@
 
 
 
-                                 </div>
+                                 </div> -->
 
                                     <!-- <div class="col-md-4">
                                         <div class="form-group">
@@ -558,7 +824,7 @@
                                 </div>
                              </div>
 
-                             <div class="cardd p-3 mt-2">
+                             <div class="card p-3 mt-2">
 
                                 <div class="row" (click)="showEligibility=!showEligibility" style="cursor: pointer;"> 
                                     <div class="col-6">
@@ -594,7 +860,7 @@
 
                               
                             </div>
-                             <div class="cardd p-3 mt-2">
+                             <!-- <div class="card p-3 mt-2">
 
                                 <div class="row" (click)="showL1Schedule=!showL1Schedule" style="cursor: pointer;"> 
                                     <div class="col-6">
@@ -621,7 +887,7 @@
                              
 
                               
-                            </div>
+                            </div> -->
 
                             <!-- <div class="card p-2 mt-1" style="background-color: #f8faff;"> </div> -->
 <br>

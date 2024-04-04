@@ -38,6 +38,7 @@ export class DataCapturingComponent {
   showTenderDetails: boolean = true;
   showClientDetails: boolean = false;
   showEligibility: boolean = false;
+  showWorkingDetails: boolean = false;
   showL1Schedule: boolean = false;
   bankData: any;
   contactDetails: any;
@@ -45,11 +46,18 @@ export class DataCapturingComponent {
   meetingMode: any;
   emdExp: any;
   selectedEmdexemption: boolean = false;
+  selectSecurityField: boolean = false;
+  selectPGField: boolean = false;
   tenderData:any
   companyDetails: any;
   update: boolean = false;
   button: string = 'Save & Continue';
   payment: any;
+  userData: any;
+  tendStatus: any;
+  previousData: any = [];
+  performanceGuarntee: any;
+  securityDeposit: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,6 +69,12 @@ export class DataCapturingComponent {
     this.route.params.subscribe((params: Params) => {
       this.tenderData = params;
     });
+
+    const userDataString = localStorage.getItem('gdUserData');
+   
+    if (userDataString) {
+      this.userData = JSON.parse(userDataString);
+    }
    }
 
 
@@ -76,23 +90,45 @@ export class DataCapturingComponent {
       prebid_date:[null, Validators.required],
       prebidmeetingmode_id:[null, Validators.required],
       tender_submission_date:[null, Validators.required],
+      tender_hardcopy_submission_date: [null, Validators.required],
       tender_description:[null],
       tender_detail_link:[null],  
       
       opening_date: [null, Validators.required],
+      closing_date: [null, Validators.required],
       tech_bid_date: [null, Validators.required],
       fin_bid_opening_date: [null, Validators.required],
       tender_doc_cost: [null, Validators.required],
       tender_fee: [null, Validators.required],
+      tender_paymenttype: [null, Validators.required],
       exemption_id: [null, Validators.required],
       ecv: [null, Validators.required],
       emd_amount:[null],
       emd_payment:[null],
       emd_submission_date:[null],
-      termsCheckbox:[null, Validators.required]
-     
-    });
 
+      //securitydeposit
+      securitydeposit_id:[null, Validators.requiredTrue] , 
+      security_amount:[null],
+      securitysubmission_date:[null],
+      //performance guarantee
+      performanceguarantee_id:[null, Validators.required],
+      pg_amount: [null],
+      pgsubmission_date:[null],
+
+      
+      termsCheckbox:[null],
+      tenderstatus_id:[null],
+      working_notes:[null],
+     audit_trail:[null],
+     remarks:[null],
+    });
+    this.form.get('tenderstatus_id')!.setValidators([Validators.required]);
+    this.form.get('tenderstatus_id')!.clearValidators();
+    this.form.get('working_notes')!.setValidators([Validators.required]);
+    this.form.get('working_notes')!.clearValidators();
+    this.form.get('termsCheckbox')!.setValidators([Validators.required]);
+    this.form.get('termsCheckbox')!.clearValidators();
   
     this.getCompanyData();
     this.getCountryData();
@@ -168,9 +204,31 @@ toggleEmdField(event: Event): void {
     this.form.get('emd_amount')!.clearValidators();
     this.form.get('emd_payment')!.clearValidators();
     this.form.get('emd_submission_date')!.clearValidators();
-    
-
-
+  }
+}
+//
+toggleSecurityField(event: Event): void {
+  const selectedValue = (event.target as HTMLSelectElement)?.value;
+  if(selectedValue == '1001'){
+    this.form.get('security_amount')!.setValidators([Validators.required]);
+    this.form.get('securitysubmission_date')!.setValidators([Validators.required]);
+    this.selectSecurityField = !this.selectSecurityField;
+  }
+  else{
+    this.form.get('security_amount')!.clearValidators();
+    this.form.get('securitysubmission_date')!.clearValidators();
+  }
+}
+togglePGField(event: Event): void {
+  const selectedValue = (event.target as HTMLSelectElement)?.value;
+  if(selectedValue == '1001'){
+    this.form.get('pg_amount')!.setValidators([Validators.required]);
+    this.form.get('pgsubmission_date')!.setValidators([Validators.required]);
+    this.selectPGField = !this.selectPGField;
+  }
+  else{
+    this.form.get('pg_amount')!.clearValidators();
+    this.form.get('pgsubmission_date')!.clearValidators();
   }
 }
 
@@ -182,7 +240,7 @@ ngAfterViewInit() : void{
     this.update = true;
 
     this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-      debugger
+     
       console.log(res);
         this.custDetails = res.result[0];
         this.form.patchValue({
@@ -192,6 +250,7 @@ ngAfterViewInit() : void{
           exemption_id: this.custDetails.exemption_id,
           fin_bid_opening_date: this.custDetails.fin_bid_opening_date,
           opening_date: this.custDetails.opening_date,
+          closing_date: this.custDetails.closing_date,
           prebid_date: this.custDetails.prebid_date,
           prebid_submission_date: this.custDetails.prebid_submission_date,
           prebidmeetingmode_id: this.custDetails.prebidmeetingmode_id,
@@ -201,14 +260,30 @@ ngAfterViewInit() : void{
           tender_detail_link: this.custDetails.tender_detail_link,
           tender_doc_cost: this.custDetails.tender_doc_cost,
           tender_fee: this.custDetails.tender_fee,
+          tender_paymenttype: this.custDetails.tender_paymenttype,
           tender_location: this.custDetails.tender_location,
           tender_ref_no: this.custDetails.tender_ref_no,
           tender_status: this.custDetails.tender_status,
           tender_submission_date: this.custDetails.tender_submission_date,
+          tender_hardcopy_submission_date: this.custDetails.tender_hardcopy_submission_date,
           tender_title: this.custDetails.tender_title,
           ecv: this.custDetails.ecv,
-          
+
+         
+
+          remarks:this.custDetails.remarks,
+          audit_trail: this.custDetails.audit_trail,
         }); 
+
+      //   console.log(this.custDetails.remarks);
+      //   this.custDetails = this.custDetails.remarks.map((item: any) => ({
+      //     data: `\n${item}`
+      // }));
+      // console.log(this.custDetails);
+      // for (const iterator of this.custDetails) {
+      //     this.previousData.push(iterator.data);
+      // }
+      // console.log(this.custDetails);
       
   })
   }
@@ -251,7 +326,10 @@ ngAfterViewInit() : void{
       this.tenderType = res.bidtype;
       this.meetingMode = res.mettingmode;
       this.emdExp = res.emdexemption;
+      this.performanceGuarntee = res.performanceguarantee;
+      this.securityDeposit = res.securitydeposit;
       this.payment = res.paymentmethod;
+       this.tendStatus = res.tenderstatus;
     });
    
  

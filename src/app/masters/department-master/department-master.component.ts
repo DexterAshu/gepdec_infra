@@ -24,6 +24,7 @@ export class DepartmentMasterComponent {
   deptCount: any;
   inserteddata: any;
   discardeddata: any;
+  userList: any;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -35,9 +36,16 @@ export class DepartmentMasterComponent {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       deptname: [null, Validators.required],
+      deptheadid: [null, Validators.required],
      
     });
     this.departmentData();
+
+    this.masterService.getUserList().subscribe((res:any) =>{
+        console.log("userlist", res);
+       this.userList = res.result;
+  })
+    
   }
 
   get f() { return this.form.controls; }
@@ -101,6 +109,7 @@ downloadPdf() {
 
       let params = {
         deptname: this.form.value.deptname,
+        deptheadid: this.form.value.deptheadid,
       };
       this.apiService.createMasterDepartment( params).subscribe((res:any) => {
         

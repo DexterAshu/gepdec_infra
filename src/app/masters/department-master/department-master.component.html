@@ -42,7 +42,8 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Department Name</th>
+                                <th>Department</th>
+                                <th>Head of Department</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
                                 <th>Action</th>
@@ -52,6 +53,7 @@
                             <tr *ngFor="let a of deptData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.deptname}}</td>
+                                <td>{{a.hdeptname}}</td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
                                 <td>
@@ -96,12 +98,24 @@
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
                         
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Department Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="deptname" placeholder="Enter your new department" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="deptname" placeholder="Enter New Department" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['deptname'].touched && f['deptname'].invalid">
                                         <small class="text-danger" *ngIf="f['deptname'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Head of Department Name<span class="required-asterisk">*</span></label>
+                                    <select formControlName="deptheadid" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select HOD</option>
+                                        <option *ngFor="let u of userList" value="{{u.user_id}}">{{ u.fullname }}</option>
+                                    </select>                                   
+                                     <div *ngIf="f['deptheadid'].touched && f['deptheadid'].invalid">
+                                        <small class="text-danger" *ngIf="f['deptheadid'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
