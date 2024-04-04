@@ -182,8 +182,6 @@ ngAfterViewInit() : void{
     this.update = true;
 
     this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-      debugger
-      console.log(res);
         this.custDetails = res.result[0];
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
@@ -297,8 +295,6 @@ ngAfterViewInit() : void{
   // formData.append("tender_title",this.form.value.tender_title);
   // formData.append("tender_ref_no",this.form.value.tender_ref_no);
   // formData.append("remarks",this.form.value.remarks);
- 
-
 
   }
 

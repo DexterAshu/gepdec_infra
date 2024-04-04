@@ -88,21 +88,31 @@ export class CaptureDataListComponent {
     
   }
 
+  //  getDetails(data:any){
+  //   console.log(data);
+  //   if (data) {
+  //     if (this.userData && this.userData.rolename === "Administrator") {
+  //       this.router.navigate(['presales/presales-biding/management-approval',data]);
+  //     } else {
+  //       this.router.navigate(['/presales/presales-biding/data-capture',data]);
+  //     }
+  //     this.router.navigate(['/presales/presales-biding/data-capture']);
+  //     this.button = 'Update';
+  //     this.update = true;
+  //   } else {}
+   
+  // }
    getDetails(data:any){
     console.log(data);
     if (data) {
-      if (this.userData && this.userData.rolename === "Administrator") {
-        this.router.navigate(['presales/presales-biding/management-approval',data]);
-      } else {
         this.router.navigate(['/presales/presales-biding/data-capture',data]);
+      } else {
+        this.router.navigate(['/presales/presales-biding/data-capture']);
       }
-    } else {
-      this.router.navigate(['/presales/presales-biding/data-capture']);
-    }
-    this.button = 'Update';
-    this.update = true;
+      this.button = 'Update';
+      this.update = true;
+    } 
    
-  }
 
 
   get f() { return this.form.controls; }
