@@ -18,6 +18,7 @@ export class BoqComponent {
   isNotFound:boolean = false;
   dataList: any;
   rowData: any;
+  vendorList = [ { vendorCode: 'V0001', name: 'Demo Vendor'}, { vendorCode: 'C0001', name: 'Demo Vendor 2'}, { vendorCode: 'K0001', name: 'Demo Vendor3'}, { vendorCode: 'M0001', name: 'Demo Vendor4'} ]
 
   constructor(
     private formBuilder: FormBuilder,

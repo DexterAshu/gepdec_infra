@@ -27,15 +27,19 @@ export class ItemMasterComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      itemCode: [null, Validators.required],
+      // itemCode: [null, Validators.required],
       description: [null, Validators.required],
       specification: [null, Validators.required],
       parameter: [null],
-      itemType: [null, Validators.required],
+      // itemType: [null, Validators.required],
       itemCategory: [null, Validators.required],
       itemSubCategory: [null, Validators.required],
       itemUOM: [null, Validators.required],
       procurementUOM: [null, Validators.required],
+      cost: [null, Validators.required],
+      gst: [null, Validators.required],
+      parentItem: [null, Validators.required],
+      parentItem_id: [null],
       itemClass: [null, Validators.required],
       itemTolerance: [null, Validators.required],
     });
@@ -86,17 +90,32 @@ export class ItemMasterComponent {
     });
   }
 
+  isParent(val:any) {
+    debugger
+    if (val == 'Yes') {
+      this.form.get('parentItem_id')!.setValidators([Validators.required]);
+      this.form.controls['parentItem_id'].reset();
+    } else {
+      this.form.controls['parentItem_id'].clearValidators();
+      this.form.controls['parentItem_id'].reset();
+    }
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
       let data = {
         unit_id: this.form.value.itemUOM,
         description: this.form.value.description,
-        itemcode: this.form.value.itemCode.toUpperCase(),
+        // itemcode: this.form.value.itemCode.toUpperCase(),
         specification: this.form.value.specification,
         parameter: this.form.value.parameter,
         itemcategory_id: this.form.value.itemCategory,
-        itemtype_id: this.form.value.itemType,
+        // itemtype_id: this.form.value.itemType,
+        cost: this.form.value.cost,
+        gst: this.form.value.gst,
+        parentitem: this.form.value.parentItem,
+        parentitem_id: this.form.value.parentItem_id,
         precurementuom_id: this.form.value.procurementUOM,
         materialclass_id: this.form.value.class,
         tolerance_id: this.form.value.itemTolerance,
