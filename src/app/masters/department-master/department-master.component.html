@@ -53,7 +53,7 @@
                             <tr *ngFor="let a of deptData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.deptname}}</td>
-                                <td>{{a.hdeptname}}</td>
+                                <td>{{a.depthead_name}}</td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
                                 <td>

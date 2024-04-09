@@ -38,6 +38,10 @@ export class TechnicalBidComponent {
   design: any;
   departMent: any;
   financialData: any;
+  clientListData: any;
+  tendDetails: any;
+  tenderDetailsData: any;
+  tenderData: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -50,16 +54,40 @@ export class TechnicalBidComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
+        tender_id:['', Validators.required],
+        utility_id:['', Validators.required],
         technical_qualification: [null],
         eligibility: [null],
         tech_remarks: [null],
         attachment: [null]   
     });
 
+    this.apiService.getTenderList().subscribe((res: any) => {  
+      this.tenderData = res.result;
+    });
   
     this.getCompanyData();
   
   }
+
+  gettendDetails(event: any) {
+    const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    this.clientListData = company_id;
+    this.apiService.tenderDetails(this.clientListData).subscribe((res: any) => {
+      this.tenderDetailsData = res.result;
+      this.tendDetails = this.tenderDetailsData[0];
+      console.log(this.tenderDetailsData);
+    });
+  }
+  
+  // getDetails(event:any) {
+  //   debugger
+  //   this.data1 = this.clientList; // Assuming this assignment is necessary
+  //   this.apiService.tenderDetails(this.data1).subscribe((res: any) => {
+  //     this.tenderDetailsData = res.result;
+  //     this.tendDetails = this.tenderDetailsData[0];
+  //   });
+  // }
 
 
   fileList: File[] = [];

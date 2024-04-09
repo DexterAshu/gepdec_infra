@@ -60,6 +60,7 @@ import { MangagementTenderApprovalComponent } from './presales/presales-biding/m
 import { TechnicalBidComponent } from './presales/presales-biding/data-capturing/technical-bid/technical-bid.component';
 import { FinancialBidComponent } from './presales/presales-biding/data-capturing/financial-bid/financial-bid.component';
 import { BankingDetailsComponent } from './presales/presales-biding/data-capturing/banking-details/banking-details.component';
+import { BoqItemsComponent } from './presales/presales-biding/boq-items/boq-items.component';
 
 
 import { ProblemTicketComponent } from './problem-ticket/problem-ticket.component';
@@ -217,6 +218,7 @@ const routes: Routes = [
   {path: 'presales/presales-biding/data-capture/technical', component:TechnicalBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/financial', component:FinancialBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/boq-item', component:BoqItemsComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory', component:InventoryComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory/audit-request', component: AuditRequestComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory/audit-approval', component:AuditApprovalComponent, canActivate:[AuthGuard]},
