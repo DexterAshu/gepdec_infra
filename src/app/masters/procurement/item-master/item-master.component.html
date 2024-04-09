@@ -33,12 +33,13 @@
                                 <th>S No</th>
                                 <th>Code</th>
                                 <th>Description</th>
-                                <th>Type</th>
+                                <!-- <th>Type</th> -->
                                 <th>Category</th>
                                 <th>Sub-Category</th>
                                 <th>Procurement UOM</th>
                                 <th>UOM</th>
                                 <th>Cost</th>
+                                <th>GST</th>
                                 <th>Last Procured Date</th>
                                 <!-- <th>Created By</th> -->
                                 <!-- <th>Created On</th> -->
@@ -50,12 +51,13 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.itemcode }}</td>
                                 <td>{{ a.description }}</td>
-                                <td>{{ a.itemtype }}</td>
+                                <!-- <td>{{ a.itemtype }}</td> -->
                                 <td>{{ a.itemcategory }}</td>
                                 <td>{{ a.subcategory }}</td>
                                 <td>{{ a.precurementuom }}</td>
                                 <td>{{ a.uom }}</td>
-                                <td>--</td>
+                                <td>{{ a.cost }}</td>
+                                <td>{{ a.gst }}</td>
                                 <td>--</td>
                                 <!-- <td>{{ a.createdby_name }}</td> -->
                                 <!-- <td>{{ a.created }}</td> -->
@@ -97,7 +99,7 @@
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <div class="col-md-4">
+                            <!-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Code<span class="required-asterisk">*</span></label>
                                     <input formControlName="itemCode" type="text" class="form-control form-control-sm" placeholder="Enter Item Code" appNoSpace appUpperCase>
@@ -105,7 +107,7 @@
                                         <small class="text-danger" *ngIf="f['itemCode'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Description<span class="required-asterisk">*</span></label>
@@ -133,21 +135,18 @@
                                     </div> -->
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <!-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Type<span class="required-asterisk">*</span></label>
-                                    <!-- <input formControlName="itemType" type="text" class="form-control form-control-sm" placeholder="Enter Item Type"> -->
                                     <select formControlName="itemType" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Item</option>
                                         <option *ngFor="let t of dataDropdownList.itemtype" [value]="t.itemtype_id">{{ t.itemtype }}</option>
-                                        <!-- <option>Billable</option>
-                                        <option>Non-Billable</option> -->
                                     </select>
                                     <div *ngIf="f['itemType'].touched && f['itemType'].invalid">
                                         <small class="text-danger" *ngIf="f['itemType'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Category<span class="required-asterisk">*</span></label>
@@ -207,6 +206,58 @@
                                 </div>
                             </div>
                             
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Cost</label>
+                                    <input formControlName="cost" type="text" class="form-control form-control-sm" placeholder="Enter Item Cost" appNoSpace appNumWithDot>
+                                    <div *ngIf="f['cost'].touched && f['cost'].invalid">
+                                        <small class="text-danger" *ngIf="f['cost'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">GST (%)<span class="required-asterisk">*</span></label>
+                                    <select formControlName="gst" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select GST (%)</option>
+                                        <option>0</option>
+                                        <option>5</option>
+                                        <option>12</option>
+                                        <option>18</option>
+                                        <option>28</option>
+                                    </select>
+                                    <div *ngIf="f['gst'].touched && f['gst'].invalid">
+                                        <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Is Parent Item<span class="required-asterisk">*</span></label>
+                                    <select formControlName="parentItem" #parentItem class="form-select form-select-sm" (change)="isParent(parentItem.value)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                    <div *ngIf="f['parentItem'].touched && f['parentItem'].invalid">
+                                        <small class="text-danger" *ngIf="f['parentItem'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4" *ngIf="parentItem.value == 'Yes'">
+                                <div class="form-group">
+                                    <label class="form-label">Select Parent Item<span class="required-asterisk">*</span></label>
+                                    <select formControlName="parentItem_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Parent</option>
+                                        <option *ngFor="let t of dataList" [value]="t.item_id">{{ t.itemcode }} [{{ t.description }}]</option>
+                                    </select>
+                                    <div *ngIf="f['parentItem_id'].touched && f['parentItem_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['parentItem_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Class<span class="required-asterisk">*</span></label>

@@ -107,9 +107,11 @@ import { AuditRequestComponent } from './presales/inventory/audit-request/audit-
 import { AuditApprovalComponent } from './presales/inventory/audit-approval/audit-approval.component';
 import { MaterialReceiptComponent } from './transactions/material-receipt/material-receipt.component';
 import { MaterialIssuanceComponent } from './transactions/material-issuance/material-issuance.component';
+import { SignInComponent } from './account/sign-in/sign-in.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'sign-in', component: SignInComponent},
   {path: 'forget-password', component:ForgetPasswordComponent},
 
 //dashboard
