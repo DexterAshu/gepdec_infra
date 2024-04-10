@@ -1,4 +1,99 @@
-   <!-- Technical modal -->
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Technical</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
+                        </div>
+                     
+
+                        <div class="col-lg-8">
+                            <div class="float-right">
+                                <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
+                                    Bulkload Template</button> -->
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
+                                          <span class="mdi mdi-upload"></span>&nbsp; Export
+                                    </button>
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                          <span class="mdi mdi-download"></span>&nbsp; Import 
+                                    </button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#techModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                         
+
+                            </div>
+                            </div>
+
+                    
+                    </div>
+                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Tendering Company</th>
+                                <th>Tender Title</th>
+                                <th>Tender Ref No</th>
+                                <th>Category</th>
+                                <th>Location</th>
+                                <th>Completion Period</th>
+                                <th>Published Date</th>
+                                <th>Attachments</th>
+                                <th>Created By</th>
+                                <th>Created On</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{limit*(p-1)+i+1}}</td>
+                                <td>{{a.documentname}}</td>
+                                <td>{{a.documentname}}</td>
+                                <td>{{a.documentname}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td>{{a.documentdate}}</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
+                                    {{a.filename| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                </td>
+                                <td>{{a.createdby_name}}</td>
+                                <td>{{a.created}}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+
+                                </td>
+                               
+                            </tr>
+                           
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+  <!-- Technical modal -->
    <div class="modal fade" id="techModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
    data-bs-backdrop="static" data-bs-keyboard="true">
    <div class="modal-dialog modal-dialog-centered modal-lg">

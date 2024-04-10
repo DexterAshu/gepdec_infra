@@ -122,9 +122,9 @@ import { BgDocumentComponent } from './documentation/bg-document/bg-document.com
 import { LcDocumentComponent } from './documentation/lc-document/lc-document.component';
 import { CommunicationDocumentComponent } from './documentation/communication-document/communication-document.component';
 import { OthersDocumentComponent } from './documentation/others-document/others-document.component';
-import { TechnicalBidComponent } from './presales/presales-biding/data-capturing/technical-bid/technical-bid.component';
-import { FinancialBidComponent } from './presales/presales-biding/data-capturing/financial-bid/financial-bid.component';
-import { BankingDetailsComponent } from './presales/presales-biding/data-capturing/banking-details/banking-details.component';
+import { TechnicalBidComponent } from './presales/presales-biding/technical-bid/technical-bid.component';
+import { FinancialBidComponent } from './presales/presales-biding/financial-bid/financial-bid.component';
+import { BankingDetailsComponent } from './presales/presales-biding/banking-details/banking-details.component';
 import { CountryMasterComponent } from './masters/country-master/country-master.component';
 import { SupplierItemLinkComponent } from './masters/procurement/supplier-item-link/supplier-item-link.component';
 import { ItemsMasterComponent } from './masters/items-master/items-master.component';
@@ -167,7 +167,6 @@ import { MaterialReceiptComponent } from './transactions/material-receipt/materi
 import { MaterialIssuanceComponent } from './transactions/material-issuance/material-issuance.component';
 import { BoqItemsComponent } from './presales/presales-biding/boq-items/boq-items.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
 import { SignInComponent } from './account/sign-in/sign-in.component';
 
 
