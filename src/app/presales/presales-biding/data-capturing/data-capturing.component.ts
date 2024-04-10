@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-capturing',
@@ -65,6 +65,8 @@ export class DataCapturingComponent {
     private alertService: AlertService,
     private apiService: ApiService,
     private route: ActivatedRoute,
+    private router: Router,
+  
   ) {
     this.route.params.subscribe((params: Params) => {
       this.tenderData = params;
@@ -90,7 +92,7 @@ export class DataCapturingComponent {
       prebid_date:[null, Validators.required],
       prebidmeetingmode_id:[null, Validators.required],
       tender_submission_date:[null, Validators.required],
-      tender_hardcopy_submission_date: [null, Validators.required],
+      tenderhardcopysubmission_date: [null, Validators.required],
       tender_description:[null],
       tender_detail_link:[null],  
       
@@ -100,15 +102,16 @@ export class DataCapturingComponent {
       fin_bid_opening_date: [null, Validators.required],
       tender_doc_cost: [null, Validators.required],
       tender_fee: [null, Validators.required],
-      tender_paymenttype: [null, Validators.required],
+      tenderpayment_terms: [null, Validators.required],
       exemption_id: [null, Validators.required],
       ecv: [null, Validators.required],
-      emd_amount:[null],
-      emd_payment:[null],
+      emd_ammount:[null],
+      paymentmethod_id:[null],
       emd_submission_date:[null],
+      forfeiture_condition:[null],
 
       //securitydeposit
-      securitydeposit_id:[null, Validators.requiredTrue] , 
+      securitydeposit_id:[null, Validators.required] , 
       security_amount:[null],
       securitysubmission_date:[null],
       //performance guarantee
@@ -117,18 +120,15 @@ export class DataCapturingComponent {
       pgsubmission_date:[null],
 
       
-      termsCheckbox:[null],
+      termscheckbox:[null, Validators.required],
       tenderstatus_id:[null],
       working_notes:[null],
-     audit_trail:[null],
-     remarks:[null],
+      audit_trail:[null],
+      remarks:[null],
     });
-    this.form.get('tenderstatus_id')!.setValidators([Validators.required]);
-    this.form.get('tenderstatus_id')!.clearValidators();
-    this.form.get('working_notes')!.setValidators([Validators.required]);
-    this.form.get('working_notes')!.clearValidators();
-    this.form.get('termsCheckbox')!.setValidators([Validators.required]);
-    this.form.get('termsCheckbox')!.clearValidators();
+   
+    this.form.get('termscheckbox')!.setValidators([Validators.required]);
+    this.form.get('termscheckbox')!.clearValidators();
   
     this.getCompanyData();
     this.getCountryData();
@@ -195,15 +195,17 @@ export class DataCapturingComponent {
 toggleEmdField(event: Event): void {
   const selectedValue = (event.target as HTMLSelectElement)?.value;
   if(selectedValue == '401'){
-    this.form.get('emd_amount')!.setValidators([Validators.required]);
-    this.form.get('emd_payment')!.setValidators([Validators.required]);
+    this.form.get('emd_ammount')!.setValidators([Validators.required]);
+    this.form.get('paymentmethod_id')!.setValidators([Validators.required]);
     this.form.get('emd_submission_date')!.setValidators([Validators.required]);
+    this.form.get('forfeiture_condition')!.setValidators([Validators.required]);
     this.selectedEmdexemption = !this.selectedEmdexemption;
   }
   else{
-    this.form.get('emd_amount')!.clearValidators();
-    this.form.get('emd_payment')!.clearValidators();
+    this.form.get('emd_ammount')!.clearValidators();
+    this.form.get('paymentmethod_id')!.clearValidators();
     this.form.get('emd_submission_date')!.clearValidators();
+    this.form.get('forfeiture_condition')!.clearValidators();
   }
 }
 //
@@ -247,7 +249,7 @@ ngAfterViewInit() : void{
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
           company_id: this.custDetails.company_id,
-          exemption_id: this.custDetails.exemption_id,
+        
           fin_bid_opening_date: this.custDetails.fin_bid_opening_date,
           opening_date: this.custDetails.opening_date,
           closing_date: this.custDetails.closing_date,
@@ -260,14 +262,27 @@ ngAfterViewInit() : void{
           tender_detail_link: this.custDetails.tender_detail_link,
           tender_doc_cost: this.custDetails.tender_doc_cost,
           tender_fee: this.custDetails.tender_fee,
-          tender_paymenttype: this.custDetails.tender_paymenttype,
+          tenderpayment_terms: this.custDetails.tenderpayment_terms,
           tender_location: this.custDetails.tender_location,
           tender_ref_no: this.custDetails.tender_ref_no,
           tender_status: this.custDetails.tender_status,
           tender_submission_date: this.custDetails.tender_submission_date,
-          tender_hardcopy_submission_date: this.custDetails.tender_hardcopy_submission_date,
+          tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date,
           tender_title: this.custDetails.tender_title,
           ecv: this.custDetails.ecv,
+      //Security Details
+          securitydeposit_id: this.custDetails.securitydeposit_id,
+          security_amount: this.custDetails.security_amount,
+          securitysubmission_date: this.custDetails.securitysubmission_date,
+      //performance Details
+          performanceguarantee_id: this.custDetails.performanceguarantee_id,
+          pg_amount: this.custDetails.pg_amount,
+          pgsubmission_date: this.custDetails.pgsubmission_date,
+      //exemption details
+          exemption_id: this.custDetails.exemption_id,
+          emd_ammount: this.custDetails.emd_ammount,
+          emd_submission_date: this.custDetails.emd_submission_date,
+          forfeiture_condition: this.custDetails.forfeiture_condition,
 
          
 
@@ -275,7 +290,23 @@ ngAfterViewInit() : void{
           audit_trail: this.custDetails.audit_trail,
         }); 
 
+
+     
+  
+
       //   console.log(this.custDetails.remarks);
+      //   const remarksData = this.custDetails.map((item: any) => {
+      //     console.log(item.remarks.split("."));
+      //     return item.remarks.split(".");
+          
+      // });
+      
+      // console.log(remarksData);
+      
+        // const dataArray = this.custDetails.remarks.split('\n');
+        //  const newData = dataArray.join(',\n');
+        // console.log(newData);
+
       //   this.custDetails = this.custDetails.remarks.map((item: any) => ({
       //     data: `\n${item}`
       // }));
@@ -358,8 +389,13 @@ ngAfterViewInit() : void{
         this.loading = true;
     if (this.update) {  
       this.updateTender();
-    } else {
+      this.form.get('tenderstatus_id')!.setValidators([Validators.required]);
+      this.form.get('working_notes')!.setValidators([Validators.required]);
+    } 
+    else {
       this.addTender();
+      this.form.get('tenderstatus_id')!.clearValidators();
+      this.form.get('working_notes')!.clearValidators();
     }
     }
 
@@ -398,13 +434,15 @@ ngAfterViewInit() : void{
       })
   }
   updateTender(): void {
- 
-     this.form.value.tender_id =  this.custDetails.tender_id;
+     this.form.value.tender_id =  this.tenderData.id;
+     console.log( this.form.value.tender_id);
+     
     this.apiService.tenderUpdation(this.form.value).subscribe((res: any) => {
-       this.isSubmitted = false;
+      this.update = true;
+      this.isSubmitted = false;
        if (res.status == 200) {
         this.ngOnInit();
-        // document.getElementById('closed')?.click();
+        this.router.navigate(['/presales/presales-biding/data-capture-list']);
         this.alertService.success(res.message);
       } else if(res.status == 201) {
         this.alertService.error(res.message);

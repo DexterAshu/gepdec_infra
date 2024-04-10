@@ -165,6 +165,9 @@ import { AuditApprovalComponent } from './presales/inventory/audit-approval/audi
 import { MangagementTenderApprovalComponent } from './presales/presales-biding/mangagement-tender-approval/mangagement-tender-approval.component';
 import { MaterialReceiptComponent } from './transactions/material-receipt/material-receipt.component';
 import { MaterialIssuanceComponent } from './transactions/material-issuance/material-issuance.component';
+import { BoqItemsComponent } from './presales/presales-biding/boq-items/boq-items.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 import { SignInComponent } from './account/sign-in/sign-in.component';
 
 
@@ -239,8 +242,7 @@ import { SignInComponent } from './account/sign-in/sign-in.component';
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
-
-    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent, FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, DesignDocumentComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent, ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent, MaterialReceiptComponent, MaterialIssuanceComponent, SignInComponent  ],
+    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent, FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, DesignDocumentComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent, ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent, MaterialReceiptComponent, MaterialIssuanceComponent, BoqItemsComponent, SignInComponent ],
 
   imports: [
     BrowserModule,
@@ -254,6 +256,7 @@ import { SignInComponent } from './account/sign-in/sign-in.component';
     //Ng2SearchPipeModule,
     NgxPrintModule,
     NgSelectModule,
+    NgMultiSelectDropDownModule,
     ChartModule,
     AppRoutingModule,
 

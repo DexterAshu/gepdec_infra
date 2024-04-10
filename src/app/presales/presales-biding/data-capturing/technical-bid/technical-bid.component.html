@@ -12,6 +12,58 @@
                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     
                            <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
+                                    <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
+                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
+                                    </select>
+                                    <div *ngIf="f['utility_id'].touched && f['utility_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['utility_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
+                                    <select formControlName="tender_id" class="form-select form-select-sm" >
+                                        <option [selected]="true" [disabled]="true">Select Project</option>
+                                        <option *ngFor="let c of tenderData" value="{{c.tender_id}}">{{c.tender_title}}</option>
+                                    </select>
+                                        <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Tender Ref. No</label>
+                                    <span class="form-control form-control-sm" readonly >{{tendDetails?.tender_ref_no}}</span>
+                                    <!-- <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
+                                        <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                         
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Tender Publish Date</label>
+                                    <span class="form-control form-control-sm" readonly >{{tendDetails?.publish_date}}</span>
+
+                                    <!-- <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly> -->
+                                    <!-- <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
+                                        <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
+                                    </div> -->
+                                </div>
+                            </div>
+
+
                                <div class="col-md-12">
                                    <div class="form-group">
                                        <label class="form-label fl-10">Technical Points<span class="required-asterisk">*</span></label>

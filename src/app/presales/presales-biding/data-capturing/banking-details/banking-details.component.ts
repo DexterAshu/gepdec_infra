@@ -97,24 +97,25 @@ export class BankingDetailsComponent {
     });
   }
 
-  tendComp(event: any) {
+  getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
-    this.apiService.companyDetails(this.clientListData).subscribe((res: any) => {
-      this.clientList = res.result;
-      console.log(this.clientList);
-    });
-  }
-  
-  getDetails(data:any) {
-    this.data1 = this.clientList; // Assuming this assignment is necessary
-    this.apiService.tenderDetails(data).subscribe((res: any) => {
+    this.apiService.tenderDetails(this.clientListData).subscribe((res: any) => {
       this.tenderDetailsData = res.result;
       this.tendDetails = this.tenderDetailsData[0];
+      console.log(this.tenderDetailsData);
     });
   }
   
-
+  // getDetails(event:any) {
+  //   debugger
+  //   this.data1 = this.clientList; // Assuming this assignment is necessary
+  //   this.apiService.tenderDetails(this.data1).subscribe((res: any) => {
+  //     this.tenderDetailsData = res.result;
+  //     this.tendDetails = this.tenderDetailsData[0];
+  //   });
+  // }
+  
 
 
   onFileChanged(event: any) {

@@ -1,0 +1,224 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>BOQ Items</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search...">
+                        </div>
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            <div class="float-right">
+                                <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
+                                    Bulkload Template</button> -->
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
+                                          <span class="mdi mdi-upload"></span>&nbsp; Export
+                                    </button>
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                          <span class="mdi mdi-download"></span>&nbsp; Import 
+                                    </button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                         
+
+                            </div>
+                            </div>
+                    </div>
+                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <!-- <th>Company ID</th> -->
+                                <th>Company Name</th>
+                                <th>Company Type</th>
+                                <th>Contact Person</th>
+                                <th>Contact No</th>
+                                <th>Email ID</th>
+                                <th>DOI</th>
+                                <th>GST No</th>
+                                <th>PAN No</th>
+                                <th>Created By</th>
+                                <th>Created On</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap" *ngIf="companyData.length">
+                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <!-- <td>{{ a.company_id }}</td> -->
+                                <td>{{ a.bidder_name}}</td>
+                                <td>{{ a.companytype}}</td>
+                                <td>{{ a.contact[0].name}}</td>
+                                <td>{{ a.contact[0].contactno1 }}</td>
+                                <td>{{ a.contact[0].email }}</td>
+                                <td>{{ a.doi }}</td>
+                                <td>{{ a.gst }}</td>
+                                <td>{{ a.pan }}</td>
+                                <td>{{ a.createdby_name }}</td>
+                                <td>{{ a.created }}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+
+                                </td>
+                                <!-- <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
+                                </td> -->
+                              </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="companyData?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BOQ Items Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <ng-container formArrayName="childItem">
+                            <div class="row" *ngFor="let quantity of boqChildItem().controls; let i=index" [formGroupName]="i">
+                            
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">Item<span class="required-asterisk">*</span></label>
+                                        <select formControlName="itemCode" class="form-select form-select-sm">
+                                            <option [selected]="true" [disabled]="true" [value]="null">Select Items</option>
+                                            <option *ngFor="let s of dataList" value="{{s.item_id}}">{{ s.description }}</option>
+                                        </select>
+                                        <!-- <div *ngIf="f['itemCode'].touched && f['itemCode'].invalid">
+                                            <small class="text-danger" *ngIf="f['itemCode'].errors?.['required']">*Required</small>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">Item Type<span class="required-asterisk">*</span></label>
+                                        <select formControlName="type" class="form-select form-select-sm">
+                                            <option [selected]="true" [disabled]="true" [value]="null">Item Type</option>
+                                            <option *ngFor="let s of dataDropdownList" value="{{s.itemtype_id}}">{{ s.itemtype }}</option>
+                                        </select>
+                                        <!-- <div *ngIf="f['type'].touched && f['type'].invalid">
+                                            <small class="text-danger" *ngIf="f['type'].errors?.['required']">*Required</small>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">Quantity<span class="required-asterisk">*</span></label>
+                                        <input formControlName="quantity"  type="text" class="form-control form-control-sm" appNumberOnly>
+                                        <!-- <div *ngIf="f['quantity'].touched && f['quantity'].invalid">
+                                            <small class="text-danger" *ngIf="f['quantity'].errors?.['required']">*Required</small>
+                                           
+                                        </div> -->
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                    <label class="form-label fl-10">Is Children Item<span class="required-asterisk">*</span> </label>
+                                    <div class="row">
+                                    <label class="col-md-6 fl-10">
+                                        <input type="radio" formControlName="isChild" value="true" > &nbsp;&nbsp; Yes
+                                    </label> 
+                                    <label class="col-md-6 fl-10">
+                                        <input type="radio" formControlName="isChild" value="false"> &nbsp;&nbsp; No
+                                    </label>
+                                    </div>
+                                    <!-- <div *ngIf="f['isChild'].touched && f['isChild'].invalid">
+                                        <small class="text-danger" *ngIf="f['isChild'].errors?.['required']">Please select Yes or No.</small>
+                                    </div> -->
+                                    </div>
+                                </div>
+
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <!-- <label class="form-label fl-10">child item<span class="required-asterisk">*</span></label> -->
+
+                                        <ng-multiselect-dropdown name="addmember" [placeholder]="'Select Member'" [data]="dataDropdownList"
+                                        [(ngModel)]="selectedItems" formControlName="childItem" [settings]="dropdownSettings"
+                                        (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)"
+                                        (onSelectAll)="onSelectAll($event)">
+                                      </ng-multiselect-dropdown>
+
+                                       
+
+                                        </div>
+                                    
+                                        <!-- <select formControlName="childItem" class="form-select form-select-sm">
+                                            <option [selected]="true" [disabled]="true" [value]="null">Child Item</option>
+                                            <option *ngFor="let s of compData" value="{{s.companytype_id}}">{{ s.companytype }}</option>
+                                        </select> -->
+                                      
+                                   
+
+                                    
+                                </div> 
+
+                                <div class="col-md-1">
+                                    <button *ngIf="i > 0" type="button" (click)="removeRow(i, 'contactDetails')" class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span class="mdi mdi-close"></span></button>
+                                </div>
+                                <div class="col-md-1">
+                                    <span type="button" (click)="addAnotherRow()" class="mt-3 text-light bg-success float-right p-1 rounded-circle" title="Click to add more bank details"><span class="mdi mdi-plus"></span></span>
+                                </div>
+                                
+                              
+                            </div>
+                        
+
+                        </ng-container>
+
+                          <div class="modal-btns mt-2">
+                                    <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                                    <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                                    <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->
+
+

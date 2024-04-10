@@ -42,6 +42,7 @@ export class MyCompanyComponent {
   contactData: any;
   addressDetails: any;
   countryName:any;
+  financialData: any;
 
  
   constructor(
@@ -71,11 +72,30 @@ export class MyCompanyComponent {
       address_line2:[null],
       cinno:[null],
       url: [null],
+      financialyear_id:[null, Validators.required],
+      annual_turnover: [null, Validators.required],
+      net_worth: [null, Validators.required]
     });
 
     this.getCompanyData();
     this.getCompanyType();
     this.getCountryData();
+    this.finYearData();
+  }
+
+  finYearData() {
+    this.isNotFound = true;
+    this.masterService.getFinData().subscribe((res:any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+      this.financialData = res.result;
+      }else {
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
+    }); 
   }
 
   createForm(){
@@ -113,6 +133,9 @@ export class MyCompanyComponent {
           email: this.contDetails.email,
           name: this.contDetails.name,
 
+          financialyear_id: this.custDetails.financialyear_id,
+          annual_turnover: this.custDetails.annual_turnover,
+          net_worth: this.custDetails.net_worth
           
         }); 
         this.form.controls['country_id'].setValue(this.addressDetails.country_id);

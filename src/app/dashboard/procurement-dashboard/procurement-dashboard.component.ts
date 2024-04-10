@@ -570,7 +570,7 @@ Design = [
         "value": 4
       },
       {
-        "name": "Total PO's",
+        "name": "Total POs",
         "value": 60
       },
       {

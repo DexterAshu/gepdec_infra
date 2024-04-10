@@ -38,6 +38,10 @@ export class FinancialBidComponent {
   design: any;
   departMent: any;
   financialData: any;
+  tenderData: any;
+  clientListData: any;
+  tenderDetailsData: any;
+  tendDetails: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -48,10 +52,10 @@ export class FinancialBidComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-        publish_date: ['', Validators.required],
-        tender_ref_no:['', Validators.required],
-        tender_title:['', Validators.required],
-        utility:['null', Validators.required],
+        // publish_date: ['', Validators.required],
+        // tender_ref_no:['', Validators.required],
+        tender_id:['', Validators.required],
+        utility_id:['', Validators.required],
         net_worth: [null, Validators.required],
         financialyear_id: [null, Validators.required],
         annual_turnover: [null, Validators.required],
@@ -62,6 +66,10 @@ export class FinancialBidComponent {
     });
     this.getCompanyData();
     this.finYearData();
+
+    this.apiService.getTenderList().subscribe((res: any) => {  
+      this.tenderData = res.result;
+    });
   }
 
   finYearData() {
@@ -79,6 +87,25 @@ export class FinancialBidComponent {
     }); 
   }
 
+  gettendDetails(event: any) {
+    const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    this.clientListData = company_id;
+    this.apiService.tenderDetails(this.clientListData).subscribe((res: any) => {
+      this.tenderDetailsData = res.result;
+      this.tendDetails = this.tenderDetailsData[0];
+      console.log(this.tenderDetailsData);
+    });
+  }
+
+  
+  // getDetails(event:any) {
+  //   debugger
+  //   this.data1 = this.clientList; // Assuming this assignment is necessary
+  //   this.apiService.tenderDetails(this.data1).subscribe((res: any) => {
+  //     this.tenderDetailsData = res.result;
+  //     this.tendDetails = this.tenderDetailsData[0];
+  //   });
+  // }
 
   fileList: File[] = [];
   listOfFiles: any[] = [];

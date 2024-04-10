@@ -81,7 +81,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender/Project Title<span class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_title" type="text" class="form-control form-control-sm" placeholder="Enter Tender Title" >
+                                            <input formControlName="tender_title" type="text" class="form-control form-control-sm" >
                                                 <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_title'].errors?.['required']">*Required</small>
                                             </div>
@@ -91,7 +91,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender (NIT/RFB) No <span class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" placeholder="Enter Tender Ref. Number" >
+                                            <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" >
                                             <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
                                             </div>
@@ -114,14 +114,84 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Execution Location<span class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_location" type="text" class="form-control form-control-sm" placeholder="Enter Tender Execution Location" appWordCapitalize>
+                                            <input formControlName="tender_location" type="text" class="form-control form-control-sm" appWordCapitalize>
                                             <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_location'].errors?.['required']">*Required</small>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Publish Date<span
+                                                    class="required-asterisk">*</span></label>
+                                            <input formControlName="publish_date" type="date" class="form-control form-control-sm">
+                                            <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
+                                                <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Description</label>
+                                            <input formControlName="tender_description" type="text" class="form-control form-control-sm">
+                                          
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Detail Available Link</label>
+                                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm" >
+                                        
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Opening Date<span
+                                                    class="required-asterisk">*</span></label>
+                                            <input formControlName="opening_date" type="date" class="form-control form-control-sm">
+                                            <div *ngIf="f['opening_date'].touched && f['opening_date'].invalid">
+                                                <small class="text-danger" *ngIf="f['opening_date'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Closing Date<span
+                                                    class="required-asterisk">*</span></label>
+                                            <input formControlName="closing_date" type="date" class="form-control form-control-sm">
+                                            <div *ngIf="f['closing_date'].touched && f['closing_date'].invalid">
+                                                <small class="text-danger" *ngIf="f['closing_date'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Soft Copy Submission Date & Time<span
+                                                    class="required-asterisk">*</span></label>
+                                            <input formControlName="tender_submission_date" type="datetime-local" class="form-control form-control-sm">
+                                            <div *ngIf="f['tender_submission_date'].touched && f['tender_submission_date'].invalid">
+                                                <small class="text-danger" *ngIf="f['tender_submission_date'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Hard Copy Submission Date & Time<span
+                                                    class="required-asterisk">*</span></label>
+                                            <input formControlName="tenderhardcopysubmission_date" type="datetime-local" class="form-control form-control-sm">
+                                            <div *ngIf="f['tenderhardcopysubmission_date'].touched && f['tenderhardcopysubmission_date'].invalid">
+                                                <small class="text-danger" *ngIf="f['tenderhardcopysubmission_date'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Pre-bid Meeting Mode<span class="required-asterisk">*</span></label>
                                             <select formControlName="prebidmeetingmode_id" class="form-select form-select-sm">
@@ -134,27 +204,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Publish Date<span
-                                                    class="required-asterisk">*</span></label>
-                                            <input formControlName="publish_date" type="date" class="form-control form-control-sm">
-                                            <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
-                                                <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Pre-bid Submission Date<span
-                                                    class="required-asterisk">*</span></label>
-                                            <input formControlName="prebid_submission_date" type="date" class="form-control form-control-sm">
-                                            <div *ngIf="f['prebid_submission_date'].touched && f['prebid_submission_date'].invalid">
-                                                <small class="text-danger" *ngIf="f['prebid_submission_date'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                    <div class="col-md-4">
+                                 
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Pre-bid Meeting Date<span
                                                     class="required-asterisk">*</span></label>
@@ -165,51 +216,8 @@
                                         </div>
                                     </div>
 
-                                  
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Soft Copy Submission Date & Time<span
-                                                    class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_submission_date" type="datetime-local" class="form-control form-control-sm">
-                                            <div *ngIf="f['tender_submission_date'].touched && f['tender_submission_date'].invalid">
-                                                <small class="text-danger" *ngIf="f['tender_submission_date'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Hard Copy Submission Date & Time<span
-                                                    class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_hardcopy_submission_date" type="datetime-local" class="form-control form-control-sm">
-                                            <div *ngIf="f['tender_hardcopy_submission_date'].touched && f['tender_hardcopy_submission_date'].invalid">
-                                                <small class="text-danger" *ngIf="f['tender_hardcopy_submission_date'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Opening Date<span
-                                                    class="required-asterisk">*</span></label>
-                                            <input formControlName="opening_date" type="date" class="form-control form-control-sm">
-                                            <div *ngIf="f['opening_date'].touched && f['opening_date'].invalid">
-                                                <small class="text-danger" *ngIf="f['opening_date'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Closing Date<span
-                                                    class="required-asterisk">*</span></label>
-                                            <input formControlName="closing_date" type="date" class="form-control form-control-sm">
-                                            <div *ngIf="f['closing_date'].touched && f['closing_date'].invalid">
-                                                <small class="text-danger" *ngIf="f['closing_date'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Technical Bid Opening Date & Time<span class="required-asterisk">*</span></label>
                                             <input formControlName="tech_bid_date" type="datetime-local" class="form-control form-control-sm">
@@ -219,7 +227,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Financial Bid Opening Date<span
                                                     class="required-asterisk">*</span></label>
@@ -230,7 +238,28 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
+                                            <input formControlName="ecv" type="text" class="form-control form-control-sm" appNumberOnly>
+                                            <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
+                                                <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                  
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Fee<span class="required-asterisk">*</span></label>
+                                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee" placeholder="Enter Tender Fee '0' if not applicable " appNumberOnly >
+                                            <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
+                                                <small class="text-danger" *ngIf="f['tender_fee'].errors?.['required']">*Required</small>
+                                            </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Document Cost<span
                                                     class="required-asterisk">*</span></label>
@@ -241,29 +270,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Fee<span class="required-asterisk">*</span></label>
-                                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee" placeholder="Enter Tender Fee '0' if not applicable " appNumberOnly >
-                                            <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
-                                                <small class="text-danger" *ngIf="f['tender_fee'].errors?.['required']">*Required</small>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Payment Type<span class="required-asterisk">*</span></label>
-                                            <input type="text" class="form-control form-control-sm" formControlName="tender_paymenttype" >
-                                            <div *ngIf="f['tender_paymenttype'].touched && f['tender_paymenttype'].invalid">
-                                                <small class="text-danger" *ngIf="f['tender_paymenttype'].errors?.['required']">*Required</small>
-                                            </div> 
-                                        </div>
-                                    </div>
-
-                                 
+                                  
 
 <!-- Security Deposit -->
-<div class="col-md-4">
+<div class="col-md-3">
     <div class="form-group">
         <label class="form-label fl-10">Security Deposit<span class="required-asterisk">*</span></label>
         <select formControlName="securitydeposit_id" class="form-select form-select-sm" (change)="toggleSecurityField($event)">
@@ -357,28 +367,28 @@
     </div>
 </div>
 
-<div class="col-md-4" *ngIf="selectedEmdexemption">
+<div class="col-md-3" *ngIf="selectedEmdexemption">
     <div class="form-group">
         <label class="form-label fl-10">EMD Amount<span class="required-asterisk">*</span></label>
-        <input formControlName="emd_amount" type="text" class="form-control form-control-sm" placeholder="Enter EMD Amount" appNumberOnly>
-        <div *ngIf="f['emd_amount'].touched && f['emd_amount'].invalid">
-            <small class="text-danger" *ngIf="f['emd_amount'].errors?.['required']">*Required</small>
+        <input formControlName="emd_ammount" type="text" class="form-control form-control-sm" placeholder="Enter EMD Amount" appNumberOnly>
+        <div *ngIf="f['emd_ammount'].touched && f['emd_ammount'].invalid">
+            <small class="text-danger" *ngIf="f['emd_ammount'].errors?.['required']">*Required</small>
         </div>
     </div>
 </div>
 
 
 
-<div class="col-md-4" *ngIf="selectedEmdexemption">
+<div class="col-md-3" *ngIf="selectedEmdexemption">
     <div class="form-group">
         <label class="form-label fl-10">EMD Payment<span class="required-asterisk">*</span></label>
 
-        <select formControlName="emd_payment" class="form-select form-select-sm">
+        <select formControlName="paymentmethod_id" class="form-select form-select-sm">
             <option [selected]="true" [disabled]="true" [value]="null">Select Payment Mode</option>
             <option *ngFor="let p of payment" value="{{p.paymentmethod_id}}">{{ p.paymentmethod }}</option>
         </select>
-        <div *ngIf="f['emd_payment'].touched && f['emd_payment'].invalid">
-            <small class="text-danger" *ngIf="f['emd_payment'].errors?.['required']">*Required</small>
+        <div *ngIf="f['paymentmethod_id'].touched && f['paymentmethod_id'].invalid">
+            <small class="text-danger" *ngIf="f['paymentmethod_id'].errors?.['required']">*Required</small>
         </div>
 
     </div>
@@ -386,7 +396,7 @@
 
 
 
-<div class="col-md-4" *ngIf="selectedEmdexemption">
+<div class="col-md-3" *ngIf="selectedEmdexemption">
   
         <div class="form-group">
             <label class="form-label fl-10">EMD Submission Date<span class="required-asterisk">*</span></label>
@@ -397,39 +407,32 @@
         </div>
   
 </div>
+<div class="col-md-3" *ngIf="selectedEmdexemption">
+  
+        <div class="form-group">
+            <label class="form-label fl-10">Forfeiture Condition <span class="required-asterisk">*</span></label>
+            <textarea formControlName="forfeiture_condition" type="date" class="form-control form-control-sm">
+           </textarea>
+                <div *ngIf="f['forfeiture_condition'].touched && f['forfeiture_condition'].invalid">
+                <small class="text-danger" *ngIf="f['forfeiture_condition'].errors?.['required']">*Required</small>
+            </div>
+        </div>
+  
+</div>
 <!-- tender EMD end -->
 
-
-
-
-
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
-                                            <input formControlName="ecv" type="text" class="form-control form-control-sm" placeholder="Enter ECV" appNumberOnly>
-                                            <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
-                                                <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
-                                            </div>
+                                            <label class="form-label fl-10">Tender Payment Terms<span class="required-asterisk">*</span></label>
+                                            <textarea type="text" class="form-control form-control-sm" formControlName="tenderpayment_terms" >
+                                            </textarea>
+                                                <div *ngIf="f['tenderpayment_terms'].touched && f['tenderpayment_terms'].invalid">
+                                                <small class="text-danger" *ngIf="f['tenderpayment_terms'].errors?.['required']">*Required</small>
+                                            </div> 
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Description</label>
-                                            <input formControlName="tender_description" type="text" class="form-control form-control-sm" placeholder="Enter Tender Description">
-                                          
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Detail Available Link</label>
-                                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm" placeholder="Add Tender Detail links" >
-                                        
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4" *ngIf="update">
+                                    <div class="col-md-3" *ngIf="update">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Status<span class="required-asterisk">*</span></label>
                                             <select formControlName="tenderstatus_id" class="form-select form-select-sm">
@@ -441,7 +444,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8" *ngIf="update">
+                                    <div class="col-md-12" *ngIf="update">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Remarks<span class="required-asterisk">*</span></label>
                                             <input formControlName="working_notes" type="text" class="form-control form-control-sm" placeholder="Describe Your Changes">
@@ -500,7 +503,7 @@
                                     <div class="col-md-12" *ngIf="!update">
                                         <div class="form-group">
                                             <input class="mt-1" type="checkbox" id="termscheckbox" formControlName="termscheckbox"> &nbsp;
-                                            <label for="termsCheckbox"> I accept that the selected fields and input data given by me are correct.</label>
+                                            <label for="termscheckbox"> I accept that the selected fields and input data given by me are correct.</label>
                                         </div>
                                     </div>
 
