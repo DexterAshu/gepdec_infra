@@ -110,7 +110,7 @@ import { SignInComponent } from './account/sign-in/sign-in.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'sign-in', component: SignInComponent},
+  // {path: 'login', component: SignInComponent},
   {path: 'forget-password', component:ForgetPasswordComponent},
 
 //dashboard

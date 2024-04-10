@@ -7,8 +7,8 @@ export const environment = {
   production: false,
   pageLimit : 10,
   companyID : 'GEPDEC',
-  
-  //  apiUrl: 'http://103.149.113.102:8039', //public API 
+
+  //  apiUrl: 'http://103.149.113.102:8039', //public API
   apiUrl: 'http://172.16.15.18:8039', //GEPDEC INFRA Private APi
 
 };
