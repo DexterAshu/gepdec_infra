@@ -180,8 +180,8 @@
             <tbody class="text-nowrap">
               <tr *ngFor="let a of selectedWHL?.items; index as i">
                 <td>{{ i+1 }}</td>
-                <td>{{ selectedWHL?.labelCode }}</td>
-                <td>{{ a.itemCode }}</td>
+                <td>{{ a?.location_code }}</td>
+                <td>{{ a.itemcode }}</td>
                 <td>{{ a.description }}</td>
               </tr>
             </tbody>
@@ -216,8 +216,8 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Location Name<span class="required-asterisk">*</span></label>
-                  <input formControlName="labelName" type="text" class="form-control form-control-sm" placeholder="Enter Label Name" appWordCapitalize />
-                  <div *ngIf="f['labelName'].touched && f['labelName'].invalid"><small class="text-danger" *ngIf="f['labelName'].errors?.['required']">*Required</small></div>
+                  <input formControlName="location_name" type="text" class="form-control form-control-sm" placeholder="Enter Location Name" appWordCapitalize />
+                  <div *ngIf="f['location_name'].touched && f['location_name'].invalid"><small class="text-danger" *ngIf="f['location_name'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
@@ -230,10 +230,10 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label class="form-label">Item List (Select Multiple)<span class="required-asterisk">*</span></label>
-                  <ng-select formControlName="item_id" [items]="itemData" [multiple]="true" bindLabel="item_id" [closeOnSelect]="false" bindValue="item_id">
+                  <ng-select formControlName="items" [items]="itemData" [multiple]="true" bindLabel="item_id" [closeOnSelect]="false" bindValue="item_id">
                   </ng-select>
-                  <div *ngIf="f['item_id'].touched && f['item_id'].invalid">
-                      <small class="text-danger" *ngIf="f['item_id'].errors?.['required']">*Required</small>
+                  <div *ngIf="f['items'].touched && f['items'].invalid">
+                      <small class="text-danger" *ngIf="f['items'].errors?.['required']">*Required</small>
                   </div>
                 </div>
               </div>

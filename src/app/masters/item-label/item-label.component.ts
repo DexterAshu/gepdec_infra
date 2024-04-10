@@ -27,9 +27,9 @@ export class ItemLabelComponent {
     this.getData();
     this.form = this.formBuilder.group({
       warehouse_id: [null, Validators.required],
-      labelName: [null, Validators.required],
+      location_name: [null, Validators.required],
       capacity: [null, Validators.required],
-      item_id: [null]
+      items: [null]
     });
   }
 
@@ -38,17 +38,37 @@ export class ItemLabelComponent {
   onSubmit(): void {
     if (this.form.valid) {
       this.isSubmitted = true;
-      console.log(this.form.value);
+      this.form.value.items = this.form.value?.items.map((i: any) => {
+        return {"item_id": i};
+      });
       if (this.update) {
         console.log("update");
         this.form.value.action = "update";
-        // this.form.value.warehouselocation_id = this.selectedWHL.warehouselocation_id;
-        // this.updateData(this.form.value);
+        this.form.value.warehouselocation_id = this.selectedWHL.warehouselocation_id;
+        this.createData(this.form.value);
       } else {
         console.log("Insert");
         this.form.value.action = "add";
-        // this.createData(this.form.value);
+        this.createData(this.form.value);
       }
+    }
+  }
+
+  createData(data: any): void {
+    console.log(data);
+    this.masterService.warehouseLocation(data).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.alertService.success(res.message);
+        this.getData();
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+    }),
+    (error: any) => {
+      this.isSubmitted = false;
+      this.alertService.warning(`Some technical issue: ${error.message}`);
     }
   }
 
@@ -109,61 +129,4 @@ export class ItemLabelComponent {
       this.alertService.warning(`Some technical issue: ${error.message}`);
     }
   }
-
-  // getData(): void {
-  //   this.itemLocationLabelData = [
-  //     {
-  //       "labelCode": "WH001-L001",
-  //       "labelName": "Location Rak 1",
-  //       "capacity": 500,
-  //       "WHCode": "WH001",
-  //       "WHName": "Warehouse 1",
-  //       "items": [
-  //         {
-  //           "itemCode": "ITM001",
-  //           "description": "Item 1"
-  //         },
-  //         {
-  //           "itemCode": "ITM002",
-  //           "description": "Item 2"
-  //         },
-  //         {
-  //           "itemCode": "ITM003",
-  //           "description": "Item 3"
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       "labelCode": "WH002-L002",
-  //       "labelName": "Location Rak 2",
-  //       "capacity": 500,
-  //       "WHCode": "WH002",
-  //       "WHName": "Warehouse 2",
-  //       "items": [
-  //         {
-  //           "itemCode": "ITM101",
-  //           "description": "Item 101"
-  //         },
-  //         {
-  //           "itemCode": "ITM102",
-  //           "description": "Item 102"
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       "labelCode": "WH003-L003",
-  //       "labelName": "Location Rak 3",
-  //       "capacity": 500,
-  //       "WHCode": "WH003",
-  //       "WHName": "Warehouse 3",
-  //       "items": [
-  //         {
-  //           "itemCode": "ITM201",
-  //           "description": "Item 201"
-  //         }
-  //       ]
-  //     }
-  //   ];
-  // }
-
 }
