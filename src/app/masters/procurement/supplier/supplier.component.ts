@@ -28,6 +28,7 @@ export class SupplierComponent {
   factoryDistrictData:any;
   factoryCityData:any;
   rowData:any;
+  technicalRating = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,6 +47,7 @@ export class SupplierComponent {
       gstDate: [null, Validators.required],
       panNo: [null, Validators.required],
       tanNo: [null, Validators.required],
+      techRating: [null, Validators.required],
       doi: [null, Validators.required],
       doiDoc: [null, Validators.required],
 
@@ -327,17 +329,29 @@ export class SupplierComponent {
       // formData.append('suppliercode', this.form.value.supplierCode?.toUpperCase());
       formData.append('suppliername', this.form.value.supplierName);
       formData.append('category_id', this.form.value.category);
+      formData.append('category_no', this.form.value.categoryNo);
       formData.append('gstno', this.form.value.gstNo?.toUpperCase());
       formData.append('gstdate', this.form.value.gstDate);
       formData.append('panno', this.form.value.panNo?.toUpperCase());
       formData.append('tanno', this.form.value.tanNo?.toUpperCase());
       formData.append('doi', this.form.value.doi);
-      formData.append('address', this.form.value.headAddress);
-      formData.append('country_id', this.form.value.headCountry);
-      formData.append('state_id', this.form.value.headState);
-      formData.append('district_id', this.form.value.headDistrict);
-      formData.append('city_id', this.form.value.headCity);
-      formData.append('pincode', this.form.value.pincode);
+
+      formData.append('address[0][addresstype_id]', '301');
+      formData.append('address[0][country_id]', this.form.value.headCountry);
+      formData.append('address[0][state_id]', this.form.value.headState);
+      formData.append('address[0][district_id]', this.form.value.headDistrict);
+      formData.append('address[0][city_id]', this.form.value.headCity);
+      formData.append('address[0][pincode]', this.form.value.headPincode);
+      formData.append('address[0][address]', this.form.value.headAddress);
+
+      formData.append('address[1][addresstype_id]', '302');
+      formData.append('address[1][country_id]', this.form.value.factoryCountry);
+      formData.append('address[1][state_id]', this.form.value.factoryState);
+      formData.append('address[1][district_id]', this.form.value.factoryDistrict);
+      formData.append('address[1][city_id]', this.form.value.factoryCity);
+      formData.append('address[1][pincode]', this.form.value.factoryPincode);
+      formData.append('address[1][address]', this.form.value.factoryAddress);
+      
       formData.append('documentname', this.uploadFile != null ? this.uploadFile[0].name : null);
       formData.append('attachment', this.uploadFile != null ? this.uploadFile[0] : null);
       formData.append('count', this.uploadFile != null ? this.uploadFile?.length : 0);
@@ -373,12 +387,12 @@ export class SupplierComponent {
       });
 
       this.form.value.documentDetails.forEach((obj:any, index:any) => {
-          formData.append(`certification[${index}]['mstcertification_id']`, obj.name);
-          formData.append(`certification[${index}]['date']`, obj.date);
-          formData.append(`certification[${index}]['documentname']`, obj.attachment != null ? obj.attachment[0].name : null);
+          formData.append(`certification[${index}][mstcertification_id]`, obj.name);
+          formData.append(`certification[${index}][date]`, obj.date);
+          formData.append(`certification[${index}][documentname]`, obj.attachment != null ? obj.attachment[0].name : null);
           formData.append('attachment', obj.attachment != null ? obj.attachment[0] : null);
-          formData.append(`certification[${index}]['count']`, obj.attachment != null ? obj.attachment?.length : 0);
-          formData.append(`certification[${index}]['document']`, obj.attachment != null ? "true" : "false");
+          formData.append(`certification[${index}][count]`, obj.attachment != null ? obj.attachment?.length : 0);
+          formData.append(`certification[${index}][document]`, obj.attachment != null ? "true" : "false");
       });
 
       // this.form.value.documentDetails.forEach((obj: any, index: any) => {

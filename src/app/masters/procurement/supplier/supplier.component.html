@@ -185,6 +185,18 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">Technical Rating (Demo)<span class="required-asterisk">*</span></label>
+                                                <select formControlName="techRating" class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Rating</option>
+                                                    <option *ngFor="let t of technicalRating">{{ t }}</option>
+                                                </select>
+                                                <div *ngIf="f['techRating'].touched && f['techRating'].invalid">
+                                                    <small class="text-danger" *ngIf="f['techRating'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="form-label">DOI (Date of Incorporation)<span class="required-asterisk">*</span></label>
@@ -206,9 +218,9 @@
                                     </div>
                                     <h6 class="my-2 text-secondary">Head Office Address</h6>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="form-label">Address (House/Flat No, Street No & Area)<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">Address (House/Flat No, St No & Area)<span class="required-asterisk">*</span></label>
                                                 <input formControlName="headAddress" type="text" class="form-control form-control-sm">
                                                 <div *ngIf="f['headAddress'].touched && f['headAddress'].invalid">
                                                     <small class="text-danger" *ngIf="f['headAddress'].errors?.['required']">*Required</small>
@@ -263,7 +275,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <div class="form-group">
                                                 <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
                                                 <input formControlName="headPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
@@ -276,9 +288,9 @@
                                     </div>
                                     <h6 class="my-2 text-secondary">Factory Address</h6>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="form-label">Address (House/Flat No, Street No & Area)<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">Address (House/Flat No, St No & Area)<span class="required-asterisk">*</span></label>
                                                 <input formControlName="factoryAddress" type="text" class="form-control form-control-sm">
                                                 <div *ngIf="f['factoryAddress'].touched && f['factoryAddress'].invalid">
                                                     <small class="text-danger" *ngIf="f['factoryAddress'].errors?.['required']">*Required</small>
@@ -333,7 +345,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <div class="form-group">
                                                 <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
                                                 <input formControlName="factoryPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
