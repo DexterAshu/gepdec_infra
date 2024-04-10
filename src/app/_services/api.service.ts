@@ -317,6 +317,23 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}${apiLink}`, data, httpOptions);
   }
+  getVendorListByTender(tender_id: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const url = tender_id ? `${environment.apiUrl}/precurement/api/v1/getVendorListByTender/${tender_id}` : `${environment.apiUrl}/precurement/api/v1/getVendorListByTender`;
+    return this.http.get<any[]>(url, httpOptions);
+  }
+
+  getPoListBySupplier(tender_id: any, supplier_id: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const url = tender_id && supplier_id ? `${environment.apiUrl}/precurement/api/v1/getPoListBySupplier/${tender_id}/${supplier_id}` : `${environment.apiUrl}/precurement/api/v1/getPoListBySupplier`;
+    return this.http.get<any[]>(url, httpOptions);
+  }
+
+  getPODetail(po_id: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const url = po_id ? `${environment.apiUrl}/precurement/api/v1/getPoList` : `${environment.apiUrl}/precurement/api/v1/getPoList`;
+    return this.http.get<any[]>(url, httpOptions);
+  }
 
   postDataDiffApiUrl(apiLink: any, data: any) {
     // let headers_object = new HttpHeaders({});

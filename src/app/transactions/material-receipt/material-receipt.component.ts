@@ -16,6 +16,7 @@ export class MaterialReceiptComponent {
   currentDate: any;
   searchText: any;
   poData: any = [];
+  venderPOData: any = [];
   limit = environment.pageLimit;
   p: number = 1;
   isNotFound:boolean = false;
@@ -101,10 +102,6 @@ export class MaterialReceiptComponent {
     console.log(this.grnForm.value);
   }
 
-  getVenderPOData(): void {
-    console.log(this.grnForm.value.venderName);
-  }
-
   getDataList() {
     this.vendorDataList = [];
     let apiLink = "/supplier/api/v1/getSupplierList";
@@ -130,6 +127,52 @@ export class MaterialReceiptComponent {
       }
     },
     (error: any) => {
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  // getVendorListByTender
+  getVenderData(): void {
+    this.apiService.getVendorListByTender(this.grnForm.value.tender_id).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.vendorDataList = res.result;
+      } else {
+        this.vendorDataList = [];
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.vendorDataList = [];
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  getVenderPOData(): void {
+    this.apiService.getPoListBySupplier(this.grnForm.value.tender_id, this.grnForm.value.supplier_id).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.venderPOData = res.result;
+      } else {
+        this.venderPOData = [];
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.venderPOData = [];
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  getPOData(): void {
+    this.apiService.getPODetail(this.grnForm.value.purchaseOrder).subscribe((res:any) => {
+      if (res.status === 200) {
+        console.log(res);
+      } else {
+        this.poData = [];
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.poData = [];
       this.alertService.error("Error: " + error.statusText)
     });
   }

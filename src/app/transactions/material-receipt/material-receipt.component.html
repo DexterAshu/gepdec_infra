@@ -92,7 +92,7 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="form-label">Tender ID<span class="required-asterisk">*</span></label>
-                          <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getDataList()">
+                          <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getVenderData()">
                             <option [selected]="true" [disabled]="true" [value]="null">select</option>
                             <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>
                           </select>
@@ -102,7 +102,7 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="form-label">BOQ<span class="required-asterisk">*</span></label>
-                          <select formControlName="boq_id" class="form-select form-select-sm" (ngModelChange)="getVenderPOData()">
+                          <select formControlName="boq_id" class="form-select form-select-sm">
                             <option [selected]="true" [disabled]="true" [value]="null">select</option>
                             <option *ngFor="let b of boqList" [value]="b.supplier_id">{{ b.suppliername }}</option>
                           </select>
@@ -122,11 +122,9 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="form-label">PO No.<span class="required-asterisk">*</span></label>
-                          <select formControlName="purchaseOrder" class="form-select form-select-sm">
+                          <select formControlName="purchaseOrder" class="form-select form-select-sm" (ngModelChange)="getPOData()">
                             <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                            <option value="purchaseOrder001">Purchase Order 001</option>
-                            <option value="purchaseOrder002">Purchase Order 002</option>
-                            <!-- <option *ngFor="let t of stateData" [value]="t.state_id">{{ t.state_name }}</option> -->
+                            <option *ngFor="let p of venderPOData" [value]="p.po_id">{{ p.pono }}</option>
                           </select>
                           <div *ngIf="grn['purchaseOrder'].touched && grn['purchaseOrder'].invalid"><small class="text-danger" *ngIf="grn['purchaseOrder'].errors?.['required']">*Required</small></div>
                         </div>

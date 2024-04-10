@@ -102,54 +102,45 @@
                     </tr>
                   </tbody>
                 </table>
-                <h6 class="mb-2 mt-4 text-secondary">Contact Details</h6>
+                <h6 class="mb-2 mt-4 text-secondary">Location Details</h6>
                 <table class="table table-hover table-striped custom-table">
                   <thead class="hidden-thead"></thead>
                   <tbody class="text-nowrap">
                     <tr>
-                      <th>Person Name</th>
-                      <td>{{ selectedWHL?.contact_name }}</td>
-                      <th>Contact No.</th>
-                      <td>{{ selectedWHL?.contactno1 }}</td>
+                      <th>Location Code</th>
+                      <td>{{ selectedWHL?.location_code }}</td>
+                      <th>Location Name</th>
+                      <td>{{ selectedWHL?.location_name }}</td>
                     </tr>
                     <tr>
-                      <th>Contact No.</th>
-                      <td>{{ selectedWHL?.contactno2 }}</td>
-                      <th>E-Mail</th>
-                      <td>{{ selectedWHL?.email }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h6 class="mb-2 mt-4 text-secondary">Address Details</h6>
-                <table class="table table-hover table-striped custom-table">
-                  <thead class="hidden-thead"></thead>
-                  <tbody class="text-nowrap">
-                    <tr>
-                      <th>Address 1</th>
-                      <td>{{ selectedWHL?.address1 }}</td>
-                      <th>Address 2</th>
-                      <td>{{ selectedWHL?.address2 }}</td>
-                      <th>City</th>
-                      <td>{{ selectedWHL?.city }}</td>
-                    </tr>
-                    <tr>
-                      <th>District</th>
-                      <td>{{ selectedWHL?.district }}</td>
-                      <th>State</th>
-                      <td>{{ selectedWHL?.state }}</td>
-                      <th>Country</th>
-                      <td>{{ selectedWHL?.country }}</td>
-                    </tr>
-                    <tr>
-                      <th>Pin Code</th>
-                      <td>{{ selectedWHL?.pincode }}</td>
-                      <th></th>
-                      <td></td>
+                      <th>Capacity</th>
+                      <td>{{ selectedWHL?.capacity }}</td>
                       <th></th>
                       <td></td>
                     </tr>
                   </tbody>
                 </table>
+                <h6 class="mb-2 mt-4 text-secondary">Item Details</h6>
+                <div class="container-fluid scroll-container">
+                  <table class="table">
+                    <thead class="table-primary text-nowrap">
+                      <tr>
+                        <th>S No</th>
+                        <th>Location Code</th>
+                        <th>Item Code</th>
+                        <th>Item Description</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                      <tr *ngFor="let a of selectedWHL?.items; index as i">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ a?.location_code }}</td>
+                        <td>{{ a.itemcode }}</td>
+                        <td>{{ a.description }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
