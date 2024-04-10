@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-between flex-wrap">
         <div class="d-flex align-items-end flex-wrap">
           <div class="mr-md-3 mr-xl-5">
-            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Item Location Definition</h4>
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Item Location</h4>
           </div>
         </div>
         <div class="d-flex justify-content-between align-items-end flex-wrap"> </div>
@@ -40,11 +40,11 @@
             <tbody class="text-nowrap">
               <tr *ngFor="let a of itemLocationLabelData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
-                <td>{{ a.labelCode }}</td>
-                <td>{{ a.labelName }}</td>
-                <td>{{ a.capacity }}</td>
-                <td>{{ a.WHCode }}</td>
-                <td>{{ a.WHName }}</td>
+                <td><a data-bs-toggle="modal" (click)="selectWHL(a)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewLocation" title="Warehouse Location Details">{{ a.location_code }}</a></td>
+                <td>{{ a.location_name }}</td>
+                <td>{{ a?.capacity }}</td>
+                <td>{{ a.warehouse_code }}</td>
+                <td>{{ a.warehouse_name }}</td>
                 <td><a data-bs-toggle="modal" (click)="selectWHL(a)" data-bs-target="#itemList" title="View Items"><span class="mdi mdi-eye cursor-pointer mdi-18px"></span></a></td>
                 <td>
                   <!-- <a data-bs-toggle="modal" (click)="selectWHL(a)" data-bs-target="#createModal" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a> -->
@@ -65,6 +65,93 @@
           </app-responsive-table>
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="viewLocation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">View Location Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-3">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 p-0">
+              <div class="table-responsive" style="min-height: 300px">
+                <h6 class="mb-2 text-secondary">Warehouse Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Warehouse Code</th>
+                      <td>{{ selectedWHL?.warehouse_code }}</td>
+                      <th>Warehouse Name</th>
+                      <td>{{ selectedWHL?.warehouse_name }}</td>
+                    </tr>
+                    <tr>
+                      <th>Created Date</th>
+                      <td>{{ selectedWHL?.created }}</td>
+                      <th>Created By</th>
+                      <td>{{ selectedWHL?.createdby_name }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h6 class="mb-2 mt-4 text-secondary">Contact Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Person Name</th>
+                      <td>{{ selectedWHL?.contact_name }}</td>
+                      <th>Contact No.</th>
+                      <td>{{ selectedWHL?.contactno1 }}</td>
+                    </tr>
+                    <tr>
+                      <th>Contact No.</th>
+                      <td>{{ selectedWHL?.contactno2 }}</td>
+                      <th>E-Mail</th>
+                      <td>{{ selectedWHL?.email }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h6 class="mb-2 mt-4 text-secondary">Address Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Address 1</th>
+                      <td>{{ selectedWHL?.address1 }}</td>
+                      <th>Address 2</th>
+                      <td>{{ selectedWHL?.address2 }}</td>
+                      <th>City</th>
+                      <td>{{ selectedWHL?.city }}</td>
+                    </tr>
+                    <tr>
+                      <th>District</th>
+                      <td>{{ selectedWHL?.district }}</td>
+                      <th>State</th>
+                      <td>{{ selectedWHL?.state }}</td>
+                      <th>Country</th>
+                      <td>{{ selectedWHL?.country }}</td>
+                    </tr>
+                    <tr>
+                      <th>Pin Code</th>
+                      <td>{{ selectedWHL?.pincode }}</td>
+                      <th></th>
+                      <td></td>
+                      <th></th>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

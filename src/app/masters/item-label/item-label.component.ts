@@ -97,60 +97,73 @@ export class ItemLabelComponent {
     });
   }
 
-  getData(): void {
-    this.itemLocationLabelData = [
-      {
-        "labelCode": "WH001-L001",
-        "labelName": "Location Rak 1",
-        "capacity": 500,
-        "WHCode": "WH001",
-        "WHName": "Warehouse 1",
-        "items": [
-          {
-            "itemCode": "ITM001",
-            "description": "Item 1"
-          },
-          {
-            "itemCode": "ITM002",
-            "description": "Item 2"
-          },
-          {
-            "itemCode": "ITM003",
-            "description": "Item 3"
-          }
-        ]
-      },
-      {
-        "labelCode": "WH002-L002",
-        "labelName": "Location Rak 2",
-        "capacity": 500,
-        "WHCode": "WH002",
-        "WHName": "Warehouse 2",
-        "items": [
-          {
-            "itemCode": "ITM101",
-            "description": "Item 101"
-          },
-          {
-            "itemCode": "ITM102",
-            "description": "Item 102"
-          }
-        ]
-      },
-      {
-        "labelCode": "WH003-L003",
-        "labelName": "Location Rak 3",
-        "capacity": 500,
-        "WHCode": "WH003",
-        "WHName": "Warehouse 3",
-        "items": [
-          {
-            "itemCode": "ITM201",
-            "description": "Item 201"
-          }
-        ]
+  getData() {
+    this.masterService.getWHLocationData().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.itemLocationLabelData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
       }
-    ];
+    }),
+    (error: any) => {
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
   }
+
+  // getData(): void {
+  //   this.itemLocationLabelData = [
+  //     {
+  //       "labelCode": "WH001-L001",
+  //       "labelName": "Location Rak 1",
+  //       "capacity": 500,
+  //       "WHCode": "WH001",
+  //       "WHName": "Warehouse 1",
+  //       "items": [
+  //         {
+  //           "itemCode": "ITM001",
+  //           "description": "Item 1"
+  //         },
+  //         {
+  //           "itemCode": "ITM002",
+  //           "description": "Item 2"
+  //         },
+  //         {
+  //           "itemCode": "ITM003",
+  //           "description": "Item 3"
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       "labelCode": "WH002-L002",
+  //       "labelName": "Location Rak 2",
+  //       "capacity": 500,
+  //       "WHCode": "WH002",
+  //       "WHName": "Warehouse 2",
+  //       "items": [
+  //         {
+  //           "itemCode": "ITM101",
+  //           "description": "Item 101"
+  //         },
+  //         {
+  //           "itemCode": "ITM102",
+  //           "description": "Item 102"
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       "labelCode": "WH003-L003",
+  //       "labelName": "Location Rak 3",
+  //       "capacity": 500,
+  //       "WHCode": "WH003",
+  //       "WHName": "Warehouse 3",
+  //       "items": [
+  //         {
+  //           "itemCode": "ITM201",
+  //           "description": "Item 201"
+  //         }
+  //       ]
+  //     }
+  //   ];
+  // }
 
 }

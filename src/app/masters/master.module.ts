@@ -73,7 +73,7 @@ const routes: Routes = [
   { path: 'tender-company-contacts', component: CompanyContactsComponent },
   { path: 'warehouse', component: WarehouseMasterComponent },
   { path: 'items-master', component: ItemsMasterComponent },
-  { path: 'items-label', component: ItemLabelComponent }
+  { path: 'items-location', component: ItemLabelComponent }
 ];
 
 

@@ -42,7 +42,7 @@ export class WarehouseMasterComponent {
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
-      city_id: [null, Validators.required],
+      city_id: [null],
       address1: [null, Validators.required],
       address2: [null],
       contacts: this.formBuilder.array([]),
@@ -67,7 +67,8 @@ export class WarehouseMasterComponent {
       contact_name: [null, Validators.required],
       contactno1: [null, Validators.required],
       contactno2: [null],
-      email: [null, [Validators.required, Validators.email]]
+      email: [null, [Validators.required, Validators.email]],
+      usdg_id: [null],
     });
   }
 
