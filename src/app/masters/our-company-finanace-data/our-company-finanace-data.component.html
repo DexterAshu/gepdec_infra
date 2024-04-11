@@ -1,0 +1,219 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Our Finance </h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" [(ngModel)]="searchText" class="form-control form-control-sm" placeholder="Search...">
+                        </div>
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            <div class="float-right">
+                                <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
+                                    Bulkload Template</button> -->
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
+                                          <span class="mdi mdi-upload"></span>&nbsp; Export
+                                    </button>
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                          <span class="mdi mdi-download"></span>&nbsp; Import 
+                                    </button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                         
+
+                            </div>
+                            </div>
+                        
+                    </div>
+                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Company Name</th>
+                                <th>Financial Year</th>
+                                <th>Annual Turnover</th>
+                                <th>Net Worth</th>
+                                <th>Created By</th>
+                                <th>Created On</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap" *ngIf="companyData.length">
+                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{limit*(p-1)+i+1}}</td>
+                                <td>{{a.bidder_name}}</td>
+                                <td>{{a.financialyear_id}}</td>
+                                 <td>{{a.annual_turnover}}</td>
+                                 <td>{{a.net_worth}}</td>
+                                <td>{{a.createdby_name}}</td>
+                                <td>{{a.created | date:'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+
+                                </td>
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="companyData?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Our Finance Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Our Company<span class="required-asterisk">*</span></label>
+                                    <select formControlName="bidder_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
+                                        <option *ngFor="let f of companyData" value="{{f.bidder_id}}">{{ f.bidder_name }}</option>
+                                      
+                                    </select>
+                                    <div *ngIf="f['bidder_id'].touched && f['bidder_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['bidder_id'].errors?.['required']">*Required</small>
+                                    </div>
+    
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
+                                    <select formControlName="financialyear_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
+                                        <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+                                      
+                                    </select>
+                                    <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
+                                    </div>
+    
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Annual Turnover (Required)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="annual_turnover" placeholder="Enter Annual Turnover" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
+                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
+                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
+                                    </div>
+                                    
+                                </div>
+                            </div>
+    
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Net Worth (Required)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="net_worth" placeholder="Enter Net Worth" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
+                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
+                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                          
+                          
+                            <div class="modal-btns">
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary  btn-fw btn-sm mr-2">Add</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary  btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->
+
+
+
+<!-- create-bulk data form-model start -->
+<div class="modal fade" id="createBulkModal" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload Bulk Data file</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <!-- <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Project<span class="required-asterisk">*</span></label>
+                                <select formControlName="project" class="form-select form-select-sm">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
+                                    <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
+                                </select>
+                                <div *ngIf="f['project'].touched && f['project'].invalid">
+                                    <small class="text-danger" *ngIf="f['project'].errors?.['required']">*Required</small>
+                                </div>
+
+                            </div>
+                        </div> -->
+
+                        <div class="col-md-12 mt-1">
+                    <input id="cin" name="cin" type="file" placeholder="Upload a file..." multiple/>
+                    <br>
+                    <button type="button" [disabled]="!form.valid" class="btn btn-success btn-s mt-3">
+                        <i class="mdi mdi-folder-upload menu-icon"></i>&nbsp;Upload
+                    </button>
+                    
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create-bulk data form-model end -->

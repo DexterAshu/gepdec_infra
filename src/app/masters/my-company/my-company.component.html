@@ -294,48 +294,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
-                                    <select formControlName="financialyear_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
-                                        <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
-                                      
-                                    </select>
-                                    <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
-                                    </div>
-    
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Annual Turnover (Required)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="annual_turnover" placeholder="Enter Annual Turnover" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
-                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
-                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
-                                    </div>
-                                    
-                                </div>
-                            </div>
-    
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Net Worth (Required)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="net_worth" placeholder="Enter Net Worth" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
-                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
-                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                          
-                           
-                        
-                         
                             <div class="modal-btns">
                                 <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
                                 <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
@@ -527,45 +485,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
-                                    <select formControlName="financialyear_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
-                                        <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
-                                      
-                                    </select>
-                                    <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
-                                    </div>
-    
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Annual Turnover (Required)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="annual_turnover" placeholder="Enter Annual Turnover" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
-                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
-                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
-                                    </div>
-                                    
-                                </div>
-                            </div>
-    
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Net Worth (Required)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="net_worth" placeholder="Enter Net Worth" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
-                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
-                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                          
+                         
 
 
 

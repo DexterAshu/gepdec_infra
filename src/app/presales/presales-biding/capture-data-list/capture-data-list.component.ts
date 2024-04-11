@@ -113,7 +113,12 @@ export class CaptureDataListComponent {
       this.update = true;
     } 
    
+  //button dropdown
+  isOpen: boolean = false;
 
+  toggleDropdown() {
+    this.isOpen = !this.isOpen;
+  }
 
   get f() { return this.form.controls; }
   

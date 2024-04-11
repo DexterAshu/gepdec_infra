@@ -37,6 +37,7 @@ import { EcoTermsDeliveryComponent } from './procurement/eco-terms-delivery/eco-
 import { BillingAddressComponent } from './procurement/billing-address/billing-address.component';
 import { ShippingAddressComponent } from './procurement/shipping-address/shipping-address.component';
 import { ItemLabelComponent } from './item-label/item-label.component';
+import { OurCompanyFinanaceDataComponent } from './our-company-finanace-data/our-company-finanace-data.component';
 // import { FilterPipe } from '../_pipes/filter.pipe';
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: 'tendering-company', component: CompanyComponent },
   { path: 'vendor', component: VendorMasterComponent },
   { path: 'tender', component: TenderMasterComponent },
+  { path: 'finData', component: OurCompanyFinanaceDataComponent },
 
   { path: 'procurement/item', component: ItemMasterComponent },
   { path: 'procurement/vendor', component: SupplierComponent },
@@ -95,8 +97,8 @@ const routes: Routes = [
     // NgSelectModule,
     // CompanyContactsComponent,
     // FilterPipe
-
     // CountryMasterComponent
+    // OurCompanyFinanaceDataComponent
   ]
 })
 export class MasterModule { }
