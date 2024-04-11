@@ -16,6 +16,7 @@ export class MaterialReceiptComponent {
   currentDate: any;
   searchText: any;
   poData: any = [];
+  venderPOData: any = [];
   limit = environment.pageLimit;
   p: number = 1;
   isNotFound:boolean = false;
@@ -24,9 +25,10 @@ export class MaterialReceiptComponent {
   selectedPO: any = {};
   // form!: FormGroup;
   grnForm!: FormGroup;
-  delivery_qty: any = 0;
   received_qty: any = 0;
   vendorDataList: any = [];
+  tenderList: any = [];
+  boqList: any = [];
 
   constructor( private fb: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) {
     var date = this.date.getDate();
@@ -57,6 +59,8 @@ export class MaterialReceiptComponent {
     //   items: this.fb.array([])
     // });
     this.grnForm = this.fb.group({
+      tender_id: [null, Validators.required],
+      boq_id: [null, Validators.required],
       supplier_id: [null, Validators.required],
       purchaseOrder: [null, Validators.required],
       purchaseOrderDate: [null],
@@ -64,7 +68,6 @@ export class MaterialReceiptComponent {
       grn_number: [null, Validators.required],
       grn_date: [null, Validators.required],
       grn_remark: [null, Validators.required],
-      delivery_qty: [null],
       received_qty: [null],
       docs_tax_invoice: [false],
       docs_delivery_challan: [false],
@@ -76,6 +79,7 @@ export class MaterialReceiptComponent {
       docs_operator_manual: [false],
       docs_technical_manual: [false]
     });
+    this.getTenderList();
   }
 
   get grn() { return this.grnForm.controls; }
@@ -98,10 +102,6 @@ export class MaterialReceiptComponent {
     console.log(this.grnForm.value);
   }
 
-  getVenderPOData(): void {
-    console.log(this.grnForm.value.venderName);
-  }
-
   getDataList() {
     this.vendorDataList = [];
     let apiLink = "/supplier/api/v1/getSupplierList";
@@ -114,6 +114,65 @@ export class MaterialReceiptComponent {
       }
     }, error => {
       this.vendorDataList = [];
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  getTenderList(): void {
+    this.apiService.getTenderList().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.tenderList = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  // getVendorListByTender
+  getVenderData(): void {
+    this.apiService.getVendorListByTender(this.grnForm.value.tender_id).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.vendorDataList = res.result;
+      } else {
+        this.vendorDataList = [];
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.vendorDataList = [];
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  getVenderPOData(): void {
+    this.apiService.getPoListBySupplier(this.grnForm.value.tender_id, this.grnForm.value.supplier_id).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.venderPOData = res.result;
+      } else {
+        this.venderPOData = [];
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.venderPOData = [];
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  getPOData(): void {
+    this.apiService.getPODetail(this.grnForm.value.purchaseOrder).subscribe((res:any) => {
+      if (res.status === 200) {
+        console.log(res);
+      } else {
+        this.poData = [];
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.poData = [];
       this.alertService.error("Error: " + error.statusText)
     });
   }
@@ -242,121 +301,6 @@ export class MaterialReceiptComponent {
         ],
         "total_amount": 1912.50,
         "remarks": "Payment due in 30 days."
-      },
-      {
-        "projectID": "PR0003",
-        "order_number": "PO006",
-        "date": "2024-03-16",
-        "vendor": {
-          "vendor_id": "V006",
-          "name": "Vendor P",
-          "address": "654 Cedar Street, Hillside, USA",
-          "contact": "David Brown"
-        },
-        "items": [
-          {
-            "item_id": "I007",
-            "itemName": "Product G",
-            "quantity": 80,
-            "uom": "NOS",
-            "unit_price": 18.25,
-            "total_price": 1460.00
-          }
-        ],
-        "total_amount": 1460.00,
-        "remarks": "Payment due upon receipt of goods."
-      },
-      {
-        "projectID": "PR0001",
-        "order_number": "PO007",
-        "date": "2024-03-17",
-        "vendor": {
-          "vendor_id": "V007",
-          "name": "Vendor R",
-          "address": "147 Birch Street, Lakeside, USA",
-          "contact": "Jessica Adams"
-        },
-        "items": [
-          {
-            "item_id": "I008",
-            "itemName": "Product H",
-            "quantity": 120,
-            "uom": "NOS",
-            "unit_price": 6.50,
-            "total_price": 780.00
-          }
-        ],
-        "total_amount": 780.00,
-        "remarks": "Payment due in 15 days from delivery."
-      },
-      {
-        "projectID": "PR0002",
-        "order_number": "PO008",
-        "date": "2024-03-18",
-        "vendor": {
-          "vendor_id": "V008",
-          "name": "Vendor S",
-          "address": "369 Walnut Street, Parkside, USA",
-          "contact": "Matthew Wilson"
-        },
-        "items": [
-          {
-            "item_id": "I009",
-            "itemName": "Product I",
-            "quantity": 90,
-            "uom": "NOS",
-            "unit_price": 14.75,
-            "total_price": 1327.50
-          }
-        ],
-        "total_amount": 1327.50,
-        "remarks": "Payment due in 20 days."
-      },
-      {
-        "projectID": "PR0003",
-        "order_number": "PO009",
-        "date": "2024-03-19",
-        "vendor": {
-          "vendor_id": "V009",
-          "name": "Vendor T",
-          "address": "852 Oak Street, Sunnyville, USA",
-          "contact": "Mark Wilson"
-        },
-        "items": [
-          {
-            "item_id": "I010",
-            "itemName": "Product J",
-            "quantity": 60,
-            "uom": "NOS",
-            "unit_price": 11.25,
-            "total_price": 675.00
-          }
-        ],
-        "total_amount": 675.00,
-        "remarks": "Payment due upon completion of work."
-      },
-      {
-        "projectID": "PR0001",
-        "order_number": "PO010",
-        "date": "2024-03-20",
-        "vendor": {
-          "vendor_id": "V010",
-          "name": "Vendor U",
-          "address": "753 Elm Street, Mountainview, USA",
-          "contact": "Laura Martinez"
-        },
-        "items": [
-          {
-            "item_id": "I011",
-            "itemName": "Product K",
-            "quantity": 40,
-            "uom": "NOS",
-            "unit_price": 22.50,
-            "total_price": 900.00
-          }
-        ],
-        "total_amount": 900.00,
-        "remarks": "Payment due within 15 days of invoice."
       }
     ]
   }

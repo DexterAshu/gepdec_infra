@@ -27,6 +27,7 @@ export class WarehouseMasterComponent {
   isSubmitted: boolean = false;
   cityData: any = [];
   dataDropdownList: any = [];
+  tenderList: any = [];
 
   constructor( private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) { }
 
@@ -37,18 +38,16 @@ export class WarehouseMasterComponent {
 
   initializeForm(): void {
     this.form = this.formBuilder.group({
+      tender_id: [null, Validators.required],
       warehouse_name: [null, Validators.required],
       pincode: [null, Validators.required],
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
-      city_id: [null],
+      city: [null],
       address1: [null, Validators.required],
       address2: [null],
-      contacts: this.formBuilder.array([]),
-      warehouse_id: [null],
-      warehousecontact_id: [null],
-      warehouseaddress_id: [null]
+      contacts: this.formBuilder.array([])
     });
     this.addContact();
   }
@@ -69,6 +68,19 @@ export class WarehouseMasterComponent {
       contactno2: [null],
       email: [null, [Validators.required, Validators.email]],
       usdg_id: [null],
+    });
+  }
+
+  getTenderList(): void {
+    this.apiService.getTenderList().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.tenderList = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.alertService.error("Error: " + error.statusText)
     });
   }
 
@@ -97,11 +109,10 @@ export class WarehouseMasterComponent {
     this.masterService.getWarehouseData().subscribe((res:any) => {
       if (res.status === 200) {
         this.wareHouseData = res.result;
-        this.getCountryData();
-        this.getDropdownList();
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
+      this.getDropdownList();
     }),
     (error: any) => {
       this.alertService.warning(`Some technical issue: ${error.message}`);
@@ -195,6 +206,8 @@ export class WarehouseMasterComponent {
       this.form.patchValue(data);
     } else {
       this.form.reset();
+      this.getCountryData();
+      this.getTenderList();
     }
   }
 

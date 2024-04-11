@@ -23,8 +23,12 @@ export class SupplierComponent {
   countryData:any;
   stateData:any;
   districtData:any;
-  rowData:any;
   cityData:any;
+  factoryStateData:any;
+  factoryDistrictData:any;
+  factoryCityData:any;
+  rowData:any;
+  technicalRating = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,19 +41,29 @@ export class SupplierComponent {
       // supplierCode: [null, Validators.required],
       supplierName: [null, Validators.required],
       category: [null, Validators.required],
+      categoryNo: [null, Validators.required],
       // companyName: [null, Validators.required],
       gstNo: [null, Validators.required],
       gstDate: [null, Validators.required],
       panNo: [null, Validators.required],
       tanNo: [null, Validators.required],
+      techRating: [null, Validators.required],
       doi: [null, Validators.required],
       doiDoc: [null, Validators.required],
-      address: [null, Validators.required],
-      country: [null, Validators.required],
-      state: [null, Validators.required],
-      district: [null, Validators.required],
-      city: [null, Validators.required],
-      pincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
+
+      headAddress: [null, Validators.required],
+      headCountry: [null, Validators.required],
+      headState: [null, Validators.required],
+      headDistrict: [null, Validators.required],
+      headCity: [null, Validators.required],
+      headPincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
+      
+      factoryAddress: [null, Validators.required],
+      factoryCountry: [null, Validators.required],
+      factoryState: [null, Validators.required],
+      factoryDistrict: [null, Validators.required],
+      factoryCity: [null, Validators.required],
+      factoryPincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
 
       bankDetails: this.formBuilder.array([]),
       contactDetails: this.formBuilder.array([]),
@@ -137,9 +151,9 @@ export class SupplierComponent {
     this.stateData = [];
     this.districtData = [];
     this.cityData = [];
-    this.form.controls['state'].reset();
-    this.form.controls['district'].reset();
-    this.form.controls['city'].reset();
+    this.form.controls['headState'].reset();
+    this.form.controls['headDistrict'].reset();
+    this.form.controls['headCity'].reset();
     this.apiService.getCountryDataList().subscribe((res:any) => {
       if (res.status === 200) {
         this.countryData = res.result;
@@ -154,9 +168,9 @@ export class SupplierComponent {
     this.stateData = [];
     this.districtData = [];
     this.cityData = [];
-    this.form.controls['district'].reset();
-    this.form.controls['city'].reset();
-    let countrydata = this.form.value.country;
+    this.form.controls['headDistrict'].reset();
+    this.form.controls['headCity'].reset();
+    let countrydata = this.form.value.headCountry;
     let statedata = null;
     this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
       if (res.status === 200) {
@@ -171,9 +185,9 @@ export class SupplierComponent {
   getDistrictData() {
     this.districtData = [];
     this.cityData = [];
-    this.form.controls['city'].reset();
-    let data = this.form.value.state;
-    let dist = this.form.value.district;
+    this.form.controls['headCity'].reset();
+    let data = this.form.value.headState;
+    let dist = this.form.value.headDistrict;
     this.apiService.getDistData(data, dist).subscribe((res:any) => {
       if (res.status === 200) {
         this.districtData = res.result;
@@ -186,12 +200,59 @@ export class SupplierComponent {
   
   getCityData() {
     this.cityData = [];
-    let dist = this.form.value.district;
+    let dist = this.form.value.headDistrict;
     this.apiService.getCityData(dist).subscribe((res:any) => {
       if (res.status === 200) {
         this.cityData = res.result;
       } else {
         this.cityData = [];
+        this.alertService.warning(`Looks like no city available related to ${this.form.value.district}.`);
+      }
+    });
+  }
+
+  getFactoryStateData() {
+    this.factoryStateData = [];
+    this.factoryDistrictData = [];
+    this.factoryCityData = [];
+    this.form.controls['factoryDistrict'].reset();
+    this.form.controls['factoryCity'].reset();
+    let countrydata = this.form.value.factoryCountry;
+    let statedata = null;
+    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.factoryStateData = res.result;
+      } else {
+        this.factoryStateData = [];
+        this.alertService.warning(`Looks like no state available related to the selected country.`);
+      }
+    });
+  }
+  
+  getFactoryDistrictData() {
+    this.factoryDistrictData = [];
+    this.factoryCityData = [];
+    this.form.controls['factoryCity'].reset();
+    let data = this.form.value.factoryState;
+    let dist = this.form.value.factoryDistrict;
+    this.apiService.getDistData(data, dist).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.factoryDistrictData = res.result;
+      } else {
+        this.factoryDistrictData = [];
+        this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
+      }
+    });
+  }
+  
+  getFactoryCityData() {
+    this.factoryCityData = [];
+    let dist = this.form.value.factoryDistrict;
+    this.apiService.getCityData(dist).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.factoryCityData = res.result;
+      } else {
+        this.factoryCityData = [];
         this.alertService.warning(`Looks like no city available related to ${this.form.value.district}.`);
       }
     });
@@ -268,17 +329,29 @@ export class SupplierComponent {
       // formData.append('suppliercode', this.form.value.supplierCode?.toUpperCase());
       formData.append('suppliername', this.form.value.supplierName);
       formData.append('category_id', this.form.value.category);
+      formData.append('category_no', this.form.value.categoryNo);
       formData.append('gstno', this.form.value.gstNo?.toUpperCase());
       formData.append('gstdate', this.form.value.gstDate);
       formData.append('panno', this.form.value.panNo?.toUpperCase());
       formData.append('tanno', this.form.value.tanNo?.toUpperCase());
       formData.append('doi', this.form.value.doi);
-      formData.append('address', this.form.value.address);
-      formData.append('country_id', this.form.value.country);
-      formData.append('state_id', this.form.value.state);
-      formData.append('district_id', this.form.value.district);
-      formData.append('city_id', this.form.value.city);
-      formData.append('pincode', this.form.value.pincode);
+
+      formData.append('address[0][addresstype_id]', '301');
+      formData.append('address[0][country_id]', this.form.value.headCountry);
+      formData.append('address[0][state_id]', this.form.value.headState);
+      formData.append('address[0][district_id]', this.form.value.headDistrict);
+      formData.append('address[0][city_id]', this.form.value.headCity);
+      formData.append('address[0][pincode]', this.form.value.headPincode);
+      formData.append('address[0][address]', this.form.value.headAddress);
+
+      formData.append('address[1][addresstype_id]', '302');
+      formData.append('address[1][country_id]', this.form.value.factoryCountry);
+      formData.append('address[1][state_id]', this.form.value.factoryState);
+      formData.append('address[1][district_id]', this.form.value.factoryDistrict);
+      formData.append('address[1][city_id]', this.form.value.factoryCity);
+      formData.append('address[1][pincode]', this.form.value.factoryPincode);
+      formData.append('address[1][address]', this.form.value.factoryAddress);
+      
       formData.append('documentname', this.uploadFile != null ? this.uploadFile[0].name : null);
       formData.append('attachment', this.uploadFile != null ? this.uploadFile[0] : null);
       formData.append('count', this.uploadFile != null ? this.uploadFile?.length : 0);
@@ -314,12 +387,12 @@ export class SupplierComponent {
       });
 
       this.form.value.documentDetails.forEach((obj:any, index:any) => {
-          formData.append(`certification[${index}]['mstcertification_id']`, obj.name);
-          formData.append(`certification[${index}]['date']`, obj.date);
-          formData.append(`certification[${index}]['documentname']`, obj.attachment != null ? obj.attachment[0].name : null);
+          formData.append(`certification[${index}][mstcertification_id]`, obj.name);
+          formData.append(`certification[${index}][date]`, obj.date);
+          formData.append(`certification[${index}][documentname]`, obj.attachment != null ? obj.attachment[0].name : null);
           formData.append('attachment', obj.attachment != null ? obj.attachment[0] : null);
-          formData.append(`certification[${index}]['count']`, obj.attachment != null ? obj.attachment?.length : 0);
-          formData.append(`certification[${index}]['document']`, obj.attachment != null ? "true" : "false");
+          formData.append(`certification[${index}][count]`, obj.attachment != null ? obj.attachment?.length : 0);
+          formData.append(`certification[${index}][document]`, obj.attachment != null ? "true" : "false");
       });
 
       // this.form.value.documentDetails.forEach((obj: any, index: any) => {

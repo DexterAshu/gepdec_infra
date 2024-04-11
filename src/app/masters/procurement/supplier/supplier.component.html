@@ -50,7 +50,7 @@
                                 <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Supplier Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.suppliercode }}</td>
                                 <td>{{ a.suppliername }}</td>
                                 <!-- <td>{{ a.company_name }}</td> -->
-                                <td>{{ a.category }}</td>
+                                <td>{{ a?.category }}</td>
                                 <td>{{ a?.contact[0]?.contactno }}</td>
                                 <td>{{ a?.contact[0]?.emailid }}</td>
                                 <td>{{ a.doi }}</td>
@@ -133,10 +133,19 @@
                                                 <label class="form-label">Category<span class="required-asterisk">*</span></label>
                                                 <select formControlName="category" class="form-select form-select-sm">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
-                                                    <option *ngFor="let t of dataDropdownList.category" [value]="t.category_id">{{ t.category }}</option>
+                                                    <option *ngFor="let t of dataDropdownList?.category" [value]="t.category_id">{{ t.category }}</option>
                                                 </select>
                                                 <div *ngIf="f['category'].touched && f['category'].invalid">
                                                     <small class="text-danger" *ngIf="f['category'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">Category No<span class="required-asterisk">*</span></label>
+                                                <input formControlName="categoryNo" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                                <div *ngIf="f['categoryNo'].touched && f['categoryNo'].invalid">
+                                                    <small class="text-danger" *ngIf="f['categoryNo'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -176,6 +185,18 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">Technical Rating (Demo)<span class="required-asterisk">*</span></label>
+                                                <select formControlName="techRating" class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Rating</option>
+                                                    <option *ngFor="let t of technicalRating">{{ t }}</option>
+                                                </select>
+                                                <div *ngIf="f['techRating'].touched && f['techRating'].invalid">
+                                                    <small class="text-danger" *ngIf="f['techRating'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="form-label">DOI (Date of Incorporation)<span class="required-asterisk">*</span></label>
@@ -194,91 +215,143 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        <!-- <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label class="form-label">Contact No<span class="required-asterisk">*</span></label>
-                                                <input formControlName="contactNo" type="text" class="form-control form-control-sm" appNumberOnly appNoSpace>
-                                                <div *ngIf="f['contactNo'].touched && f['contactNo'].invalid">
-                                                    <small class="text-danger" *ngIf="f['contactNo'].errors?.['required']">*Required</small>
-                                                    <small class="text-danger" *ngIf="f['contactNo'].errors?.['pattern']">*Please enter 10 digit number.</small>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <h6 class="my-2 text-secondary">Head Office Address</h6>
+                                    <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
-                                                <input formControlName="emailID" type="text" class="form-control form-control-sm">
-                                                <div *ngIf="f['emailID'].touched && f['emailID'].invalid">
-                                                    <small class="text-danger" *ngIf="f['emailID'].errors?.['required']">*Required</small>
-                                                    <small class="text-danger" *ngIf="f['emailID'].errors?.['pattern']">*Please enter a valid Email ID.</small>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label">Address (House/Flat No, Street No & Area)<span class="required-asterisk">*</span></label>
-                                                <input formControlName="address" type="text" class="form-control form-control-sm">
-                                                <div *ngIf="f['address'].touched && f['address'].invalid">
-                                                    <small class="text-danger" *ngIf="f['address'].errors?.['required']">*Required</small>
+                                                <label class="form-label">Address (House/Flat No, St No & Area)<span class="required-asterisk">*</span></label>
+                                                <input formControlName="headAddress" type="text" class="form-control form-control-sm">
+                                                <div *ngIf="f['headAddress'].touched && f['headAddress'].invalid">
+                                                    <small class="text-danger" *ngIf="f['headAddress'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="country" (change)="getStateData()">
+                                                <select class="form-select form-select-sm" formControlName="headCountry" (change)="getStateData()">
                                                     <option [selected]="true" [disabled]="true">Select Country</option>
                                                     <option *ngFor="let t of countryData" [value]="t.country_id">{{ t.name }}</option>
                                                 </select>
-                                                <div *ngIf="f['country'].touched && f['country'].invalid">
-                                                    <small class="text-danger" *ngIf="f['country'].errors?.['required']">*Required</small>
+                                                <div *ngIf="f['headCountry'].touched && f['headCountry'].invalid">
+                                                    <small class="text-danger" *ngIf="f['headCountry'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">State<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="state" (change)="getDistrictData()">
+                                                <select class="form-select form-select-sm" formControlName="headState" (change)="getDistrictData()">
                                                     <option [selected]="true" [disabled]="true">Select State</option>
                                                     <option *ngFor="let t of stateData" [value]="t.state_id">{{ t.state_name }}</option>
                                                 </select>
-                                                <div *ngIf="f['state'].touched && f['state'].invalid">
-                                                    <small class="text-danger" *ngIf="f['state'].errors?.['required']">*Required</small>
+                                                <div *ngIf="f['headState'].touched && f['headState'].invalid">
+                                                    <small class="text-danger" *ngIf="f['headState'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">District<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="district" (change)="getCityData()">
+                                                <select class="form-select form-select-sm" formControlName="headDistrict" (change)="getCityData()">
                                                     <option [selected]="true" [disabled]="true">Select District</option>
                                                     <option *ngFor="let t of districtData" [value]="t.district_id">{{ t.district_name }}</option>
                                                 </select>
-                                                <div *ngIf="f['district'].touched && f['district'].invalid">
-                                                    <small class="text-danger" *ngIf="f['district'].errors?.['required']">*Required</small>
+                                                <div *ngIf="f['headDistrict'].touched && f['headDistrict'].invalid">
+                                                    <small class="text-danger" *ngIf="f['headDistrict'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">City<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="city">
+                                                <select class="form-select form-select-sm" formControlName="headCity">
                                                 <option [selected]="true" [disabled]="true">Select City</option>
                                                     <option *ngFor="let t of cityData" [value]="t.city_id">{{ t.city }}</option>
                                                 </select>
-                                                <div *ngIf="f['city'].touched && f['city'].invalid">
-                                                    <small class="text-danger" *ngIf="f['city'].errors?.['required']">*Required</small>
+                                                <div *ngIf="f['headCity'].touched && f['headCity'].invalid">
+                                                    <small class="text-danger" *ngIf="f['headCity'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
+                                                <input formControlName="headPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                                <div *ngIf="f['headPincode'].touched && f['headPincode'].invalid">
+                                                    <small class="text-danger" *ngIf="f['headPincode'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger" *ngIf="f['headPincode'].errors?.['pattern']">*Please enter 6 digit code.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h6 class="my-2 text-secondary">Factory Address</h6>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Address (House/Flat No, St No & Area)<span class="required-asterisk">*</span></label>
+                                                <input formControlName="factoryAddress" type="text" class="form-control form-control-sm">
+                                                <div *ngIf="f['factoryAddress'].touched && f['factoryAddress'].invalid">
+                                                    <small class="text-danger" *ngIf="f['factoryAddress'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
+                                                <label class="form-label">Country<span class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm" formControlName="factoryCountry" (change)="getFactoryStateData()">
+                                                    <option [selected]="true" [disabled]="true">Select Country</option>
+                                                    <option *ngFor="let t of countryData" [value]="t.country_id">{{ t.name }}</option>
+                                                </select>
+                                                <div *ngIf="f['factoryCountry'].touched && f['factoryCountry'].invalid">
+                                                    <small class="text-danger" *ngIf="f['factoryCountry'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">State<span class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm" formControlName="factoryState" (change)="getFactoryDistrictData()">
+                                                    <option [selected]="true" [disabled]="true">Select State</option>
+                                                    <option *ngFor="let t of factoryStateData" [value]="t.state_id">{{ t.state_name }}</option>
+                                                </select>
+                                                <div *ngIf="f['factoryState'].touched && f['factoryState'].invalid">
+                                                    <small class="text-danger" *ngIf="f['factoryState'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">District<span class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm" formControlName="factoryDistrict" (change)="getFactoryCityData()">
+                                                    <option [selected]="true" [disabled]="true">Select District</option>
+                                                    <option *ngFor="let t of factoryDistrictData" [value]="t.district_id">{{ t.district_name }}</option>
+                                                </select>
+                                                <div *ngIf="f['factoryDistrict'].touched && f['factoryDistrict'].invalid">
+                                                    <small class="text-danger" *ngIf="f['factoryDistrict'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label">City<span class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm" formControlName="factoryCity">
+                                                <option [selected]="true" [disabled]="true">Select City</option>
+                                                    <option *ngFor="let t of factoryCityData" [value]="t.city_id">{{ t.city }}</option>
+                                                </select>
+                                                <div *ngIf="f['factoryCity'].touched && f['factoryCity'].invalid">
+                                                    <small class="text-danger" *ngIf="f['factoryCity'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
                                                 <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
-                                                <input formControlName="pincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
-                                                <div *ngIf="f['pincode'].touched && f['pincode'].invalid">
-                                                    <small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small>
-                                                    <small class="text-danger" *ngIf="f['pincode'].errors?.['pattern']">*Please enter 6 digit code.</small>
+                                                <input formControlName="factoryPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                                <div *ngIf="f['factoryPincode'].touched && f['factoryPincode'].invalid">
+                                                    <small class="text-danger" *ngIf="f['factoryPincode'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger" *ngIf="f['factoryPincode'].errors?.['pattern']">*Please enter 6 digit code.</small>
                                                 </div>
                                             </div>
                                         </div>
