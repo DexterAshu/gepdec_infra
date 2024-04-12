@@ -28,6 +28,8 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
+                <th>Tender Code</th>
+                <th>Tender Name</th>
                 <th>Warehouse Code</th>
                 <th>Warehouse Name</th>
                 <th>Address 1</th>
@@ -44,6 +46,8 @@
             <tbody class="text-nowrap">
               <tr *ngFor="let a of wareHouseData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit * (p - 1) + i + 1 }}</td>
+                <td>{{ a.tender_id }}</td>
+                <td>{{ a.tender_title }}</td>
                 <td>
                   <a data-bs-toggle="modal" (click)="selectWH(a)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewWH" title="Warehouse Profile">{{ a.warehouse_code}}</a>
                 </td>

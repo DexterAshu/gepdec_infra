@@ -28,11 +28,12 @@
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
-                  <th>Project Code</th>
-                  <th>Order Number</th>
-                  <th>Date</th>
-                  <th>Vendor Name</th>
-                  <th>Contact Person</th>
+                  <th>Tender Ref No.</th>
+                  <th>Tender Title</th>
+                  <th>PO No.</th>
+                  <th>GRN No.</th>
+                  <th>GRN Date</th>
+                  <th>Challan No.</th>
                   <th>Remarks</th>
                   <th>Action</th>
                 </tr>
@@ -40,14 +41,15 @@
               <tbody class="text-nowrap">
                 <tr *ngFor="let purchase of poData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
-                  <td>{{ purchase.projectID }}</td>
+                  <td>{{ purchase.tender_ref_no }}</td>
+                  <td>{{ purchase.tender_title }}</td>
                   <td>
-                    <a data-bs-toggle="modal" (click)="selectPO(purchase)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewModel" title="Warehouse Profile">{{ purchase.order_number }}</a>
+                    <a data-bs-toggle="modal" (click)="getPODetails(purchase.po_id)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewModel" title="Warehouse Profile">{{ purchase.pono }}</a>
                   </td>
-                  <td>{{ purchase.date }}</td>
-                  <td>{{ purchase.vendor.name }}</td>
-                  <td>{{ purchase.vendor.contact }}</td>
-                  <td>{{ purchase.remarks }}</td>
+                  <td>{{ purchase?.grn_number }}</td>
+                  <td>{{ purchase?.grn_date | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ purchase?.challan_number }}</td>
+                  <td>{{ purchase?.remark }}</td>
                   <td>
                     <a data-bs-toggle="modal" (click)="selectPO(purchase)" data-bs-target="#createModal" title="Edit Purchase Order"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
                   </td>
@@ -85,202 +87,213 @@
           <div class="row">
             <form [formGroup]="grnForm" (ngSubmit)="grnSubmit()">
               <div class="row">
-                <div class="col-md-12 p-0">
-                  <div class="table-responsive" style="min-height: 300px">
-                    <h6 class="my-2 text-secondary">Tender & Vender Details</h6>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="form-label">Tender ID<span class="required-asterisk">*</span></label>
-                          <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getVenderData()">
-                            <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                            <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>
-                          </select>
-                          <div *ngIf="grn['tender_id'].touched && grn['tender_id'].invalid"><small class="text-danger" *ngIf="grn['tender_id'].errors?.['required']">*Required</small></div>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="form-label">BOQ<span class="required-asterisk">*</span></label>
-                          <select formControlName="boq_id" class="form-select form-select-sm">
-                            <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                            <option *ngFor="let b of boqList" [value]="b.supplier_id">{{ b.suppliername }}</option>
-                          </select>
-                          <div *ngIf="grn['boq_id'].touched && grn['boq_id'].invalid"><small class="text-danger" *ngIf="grn['boq_id'].errors?.['required']">*Required</small></div>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
-                          <select formControlName="supplier_id" class="form-select form-select-sm" (ngModelChange)="getVenderPOData()">
-                            <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                            <option *ngFor="let vender of vendorDataList" [value]="vender.supplier_id">{{ vender.suppliername }}</option>
-                          </select>
-                          <div *ngIf="grn['supplier_id'].touched && grn['supplier_id'].invalid"><small class="text-danger" *ngIf="grn['supplier_id'].errors?.['required']">*Required</small></div>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="form-label">PO No.<span class="required-asterisk">*</span></label>
-                          <select formControlName="purchaseOrder" class="form-select form-select-sm" (ngModelChange)="getPOData()">
-                            <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                            <option *ngFor="let p of venderPOData" [value]="p.po_id">{{ p.pono }}</option>
-                          </select>
-                          <div *ngIf="grn['purchaseOrder'].touched && grn['purchaseOrder'].invalid"><small class="text-danger" *ngIf="grn['purchaseOrder'].errors?.['required']">*Required</small></div>
-                        </div>
-                      </div>
+                <h6 class="my-2 text-secondary">Tender & Vender Details</h6>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">Tender ID<span class="required-asterisk">*</span></label>
+                      <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getVenderData()">
+                        <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                        <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>
+                      </select>
+                      <div *ngIf="grn['tender_id'].touched && grn['tender_id'].invalid"><small class="text-danger" *ngIf="grn['tender_id'].errors?.['required']">*Required</small></div>
                     </div>
-                    <h6 class="my-2 text-secondary">Purchase Order Details</h6>
-                    <table class="table table-hover table-striped custom-table">
-                      <thead class="hidden-thead"></thead>
-                      <tbody class="text-nowrap">
-                        <tr>
-                          <th>PO No.</th>
-                          <td>{{ selectedPO?.order_number }}</td>
-                          <th>PO Date</th>
-                          <td>{{ selectedPO?.date }}</td>
-                        </tr>
-                        <tr>
-                          <th>Vendor Name</th>
-                          <td>{{ selectedPO?.vendor?.name }}</td>
-                          <th>Contact Person</th>
-                          <td>{{ selectedPO?.vendor?.contact }}</td>
-                        </tr>
-                        <tr>
-                          <th>Remarks</th>
-                          <td>{{ selectedPO?.remarks }}</td>
-                          <th></th>
-                          <td></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <h6 class="my-2 text-secondary">GRN Details</h6>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="form-label">GRN Number<span class="required-asterisk">*</span></label>
-                          <input formControlName="grn_number" type="text" class="form-control form-control-sm" placeholder="Enter GRN Number">
-                          <div *ngIf="grn['grn_number'].touched && grn['grn_number'].invalid">
-                            <small class="text-danger" *ngIf="grn['grn_number'].errors?.['required']">*Required</small>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="form-label">GRN Date<span class="required-asterisk">*</span></label>
-                          <input formControlName="grn_date" type="date" id="toDate" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}" min="{{grnDateLimit}}" class="form-control form-control-sm">
-                          <div *ngIf="grn['grn_date'].touched && grn['grn_date'].invalid">
-                            <small class="text-danger" *ngIf="grn['grn_date'].errors?.['required']">*Required</small>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="form-label">Challan Number<span class="required-asterisk">*</span></label>
-                          <input formControlName="shipmentNumber" type="text" class="form-control form-control-sm" placeholder="Enter Shipment Number">
-                          <div *ngIf="grn['shipmentNumber'].touched && grn['shipmentNumber'].invalid">
-                            <small class="text-danger" *ngIf="grn['shipmentNumber'].errors?.['required']">*Required</small>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="form-label">Remark<span class="required-asterisk">*</span></label>
-                          <input formControlName="grn_remark" type="text" class="form-control form-control-sm" placeholder="Enter Remarks">
-                          <div *ngIf="grn['grn_remark'].touched && grn['grn_remark'].invalid">
-                            <small class="text-danger" *ngIf="grn['grn_number'].errors?.['required']">*Required</small>
-                          </div>
-                        </div>
-                      </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">BOQ<span class="required-asterisk">*</span></label>
+                      <select formControlName="boq_id" class="form-select form-select-sm">
+                        <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                        <option *ngFor="let b of boqList" [value]="b.supplier_id">{{ b.suppliername }}</option>
+                      </select>
+                      <div *ngIf="grn['boq_id'].touched && grn['boq_id'].invalid"><small class="text-danger" *ngIf="grn['boq_id'].errors?.['required']">*Required</small></div>
                     </div>
-                    <h6 class="my-2 text-secondary">Received Document</h6>
-                    <div class="row">
-                      <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" formControlName="docs_tax_invoice" type="checkbox" id="docs_tax_invoice" value="option1">
-                          <label class="form-check-label" for="docs_tax_invoice">Tax Invoice</label>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" formControlName="docs_delivery_challan" type="checkbox" id="docs_delivery_challan" value="option2">
-                          <label class="form-check-label" for="docs_delivery_challan">Delivery Challan</label>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" formControlName="docs_lr_copy" type="checkbox" id="docs_lr_copy" value="option3">
-                          <label class="form-check-label" for="docs_lr_copy">LR Copy </label>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" formControlName="docs_packing_list" type="checkbox" id="docs_packing_list" value="option3">
-                          <label class="form-check-label" for="docs_packing_list">Packing List</label>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input"  formControlName="docs_e_way_bill" type="checkbox" id="docs_e_way_bill" value="option4">
-                          <label class="form-check-label" for="docs_e_way_bill">E-Way Bill</label>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" formControlName="docs_warranty_certificate" id="docs_warranty_certificate" value="option5">
-                          <label class="form-check-label" for="docs_warranty_certificate">Warranty Certificate</label>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" formControlName="docs_quality_inspection" id="docs_quality_inspection" value="option6">
-                          <label class="form-check-label" for="docs_quality_inspection">Quality Inspection Report</label>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" formControlName="docs_operator_manual" id="docs_operator_manual" value="option7">
-                          <label class="form-check-label" for="docs_operator_manual">Operator Manual</label>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" formControlName="docs_technical_manual" id="docs_technical_manual" value="option8">
-                          <label class="form-check-label" for="docs_technical_manual">Technical & Support Manual</label>
-                        </div>
-                      </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
+                      <select formControlName="supplier_id" class="form-select form-select-sm" (ngModelChange)="getVenderPOData()">
+                        <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                        <option *ngFor="let vender of vendorDataList" [value]="vender.supplier_id">{{ vender.suppliername }}</option>
+                      </select>
+                      <div *ngIf="grn['supplier_id'].touched && grn['supplier_id'].invalid"><small class="text-danger" *ngIf="grn['supplier_id'].errors?.['required']">*Required</small></div>
                     </div>
-                    <h6 class="mb-2 mt-4 text-secondary">Item Details</h6>
-                    <table class="table table-hover table-striped custom-table">
-                      <thead class="table-primary text-nowrap">
-                        <tr>
-                          <th>Item ID</th>
-                          <th>Name</th>
-                          <th>PO Qty</th>
-                          <th>PO Balance Qty</th>
-                          <th>UOM</th>
-                          <th>Received QTY</th>
-                          <th>Remain QTY</th>
-                          <th>Item Location</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-nowrap">
-                        <tr *ngFor="let item of selectedPO?.items">
-                          <td>{{ item?.item_id }}</td>
-                          <td>{{ item?.itemName }}</td>
-                          <td>{{ item?.quantity }}</td>
-                          <td>{{ item?.balanceQTY }}</td>
-                          <td>{{ item?.uom }}</td>
-                          <td><input type="number" class="form-control form-control-sm" formControlName="received_qty" [(ngModel)]="item.received_qty" placeholder="Enter Received QTY"></td>
-                          <td>{{item?.quantity - (item.received_qty ? item.received_qty : 0)}}</td>
-                          <td><p contenteditable="true">Location</p></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">PO No.<span class="required-asterisk">*</span></label>
+                      <select formControlName="po_id" class="form-select form-select-sm" (ngModelChange)="getPOData()">
+                        <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                        <option *ngFor="let p of venderPOData" [value]="p.po_id">{{ p.pono }}</option>
+                      </select>
+                      <div *ngIf="grn['po_id'].touched && grn['po_id'].invalid"><small class="text-danger" *ngIf="grn['po_id'].errors?.['required']">*Required</small></div>
+                    </div>
                   </div>
                 </div>
-                <div class="modal-btns mt-2">
-                  <button type="submit" *ngIf="!isSubmitted" [disabled]="!grnForm.valid" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>
+                <h6 class="my-2 text-secondary">Purchase Order Details</h6>
+                <div class="row px-4">
+                  <table class="table table-hover table-striped custom-table">
+                    <thead class="hidden-thead"></thead>
+                    <tbody class="text-nowrap">
+                      <tr>
+                        <th>Tender Title</th>
+                        <td>{{ selectedPO?.tender_title }}</td>
+                        <th>Tender Ref. No.</th>
+                        <td>{{ selectedPO?.tender_ref_no }}</td>
+                        <th>BOQ</th>
+                        <td>{{ selectedPO?.boq_id }}</td>
+                      </tr>
+                      <tr>
+                        <th>PO No.</th>
+                        <td>{{ selectedPO?.pono }}</td>
+                        <th>PO Date</th>
+                        <td>{{ selectedPO?.po_date }}</td>
+                        <th>Supplier Name</th>
+                        <td>{{ selectedPO?.suppliername }}</td>
+                      </tr>
+                      <tr>
+                        <th>Delivery Term</th>
+                        <td>{{ selectedPO?.delivery_terms }}</td>
+                        <th>Remarks</th>
+                        <td>{{ selectedPO?.remarks }}</td>
+                        <th></th>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <h6 class="my-2 text-secondary">GRN Details</h6>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">GRN Number<span class="required-asterisk">*</span></label>
+                      <input formControlName="grn_number" type="text" class="form-control form-control-sm" placeholder="Enter GRN Number">
+                      <div *ngIf="grn['grn_number'].touched && grn['grn_number'].invalid">
+                        <small class="text-danger" *ngIf="grn['grn_number'].errors?.['required']">*Required</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">GRN Date<span class="required-asterisk">*</span></label>
+                      <input formControlName="grn_date" type="date" id="toDate" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}" min="{{grnDateLimit}}" class="form-control form-control-sm">
+                      <div *ngIf="grn['grn_date'].touched && grn['grn_date'].invalid">
+                        <small class="text-danger" *ngIf="grn['grn_date'].errors?.['required']">*Required</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">Shipment/Challan Number<span class="required-asterisk">*</span></label>
+                      <input formControlName="challan_number" type="text" class="form-control form-control-sm" placeholder="Enter Shipment/Challan Number">
+                      <div *ngIf="grn['challan_number'].touched && grn['challan_number'].invalid">
+                        <small class="text-danger" *ngIf="grn['challan_number'].errors?.['required']">*Required</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">Remark<span class="required-asterisk">*</span></label>
+                      <input formControlName="remark" type="text" class="form-control form-control-sm" placeholder="Enter Remarks">
+                      <div *ngIf="grn['remark'].touched && grn['remark'].invalid">
+                        <small class="text-danger" *ngIf="grn['remark'].errors?.['required']">*Required</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <h6 class="my-2 text-secondary">Received Document</h6>
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="tax_invoice" type="checkbox" id="tax_invoice" value="option1">
+                      <label class="form-check-label" for="tax_invoice">Tax Invoice</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="delivery_challan" type="checkbox" id="delivery_challan" value="option2">
+                      <label class="form-check-label" for="delivery_challan">Delivery Challan</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="lr_copy" type="checkbox" id="lr_copy" value="option3">
+                      <label class="form-check-label" for="lr_copy">LR Copy </label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="packing_list" type="checkbox" id="packing_list" value="option3">
+                      <label class="form-check-label" for="packing_list">Packing List</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input"  formControlName="eway_bill" type="checkbox" id="eway_bill" value="option4">
+                      <label class="form-check-label" for="eway_bill">E-Way Bill</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" formControlName="warranty_certificate" id="warranty_certificate" value="option5">
+                      <label class="form-check-label" for="warranty_certificate">Warranty Certificate</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" formControlName="qualityinspection_report" id="qualityinspection_report" value="option6">
+                      <label class="form-check-label" for="qualityinspection_report">Quality Inspection Report</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" formControlName="operator_manual" id="operator_manual" value="option7">
+                      <label class="form-check-label" for="operator_manual">Operator Manual</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" formControlName="technicalsupport_manual" id="technicalsupport_manual" value="option8">
+                      <label class="form-check-label" for="technicalsupport_manual">Technical & Support Manual</label>
+                    </div>
+                  </div>
+                </div>
+                <h6 class="my-2 text-secondary">Item Details</h6>
+                <div class="row px-4">
+                  <table class="table table-hover table-striped custom-table">
+                    <thead class="table-primary text-nowrap">
+                      <tr>
+                        <th>Item Code</th>
+                        <th>Description</th>
+                        <th>PO Qty</th>
+                        <th>PO Balance Qty</th>
+                        <th>UOM</th>
+                        <th>Received QTY</th>
+                        <th>Remain QTY</th>
+                        <th>Item Location</th>
+                        <th>Remark</th>
+                        <th>Select Item</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                      <tr *ngFor="let item of selectedPO?.items">
+                        <td>{{ item?.itemcode }}</td>
+                        <td>{{ item?.description }}</td>
+                        <td>{{ item?.qty }}</td>
+                        <td>{{ item?.pobalance_qty }}</td>
+                        <td>{{ item?.uom }}</td>
+                        <td><input type="number" formControlName="received_qty" class="form-control form-control-sm" [(ngModel)]="item.received_qty" placeholder="Enter Received QTY"></td>
+                        <td>{{item?.qty - (item.received_qty ?? 0)}}</td>
+                        <td><p contenteditable="true">{{ item?.itemcode }}</p></td>
+                        <td><input type="text" formControlName="remarks" class="form-control form-control-sm" [(ngModel)]="item.remarks" placeholder="Enter remarks"></td>
+                        <td><input type="checkbox" (click)="selectItem(item)"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-btns mt-3">
+                  <!-- <button type="submit" *ngIf="!isSubmitted" [disabled]="!grnForm.valid" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button> -->
+                  <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>
                   <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
                   <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -295,9 +308,9 @@
 
 <div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-    <div class="modal-content" *ngIf="selectedPO?.order_number">
+    <div class="modal-content" *ngIf="selectedPO?.pono">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Purchase Order ({{ selectedPO.order_number }}) details</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Purchase Order ({{ selectedPO?.pono }}) details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-3">
@@ -310,20 +323,20 @@
                   <thead class="hidden-thead"></thead>
                   <tbody class="text-nowrap">
                     <tr>
-                      <th>Order Number</th>
-                      <td>{{ selectedPO.order_number }}</td>
+                      <th>PO No.</th>
+                      <td>{{ selectedPO?.pono }}</td>
                       <th>Date</th>
-                      <td>{{ selectedPO.date }}</td>
+                      <td>{{ selectedPO?.date }}</td>
                     </tr>
                     <tr>
                       <th>Vendor Name</th>
-                      <td>{{ selectedPO.vendor.name }}</td>
+                      <td>{{ selectedPO?.vendor?.name }}</td>
                       <th>Contact Person</th>
-                      <td>{{ selectedPO.vendor.contact }}</td>
+                      <td>{{ selectedPO?.vendor?.contact }}</td>
                     </tr>
                     <tr>
                       <th>Remarks</th>
-                      <td>{{ selectedPO.remarks }}</td>
+                      <td>{{ selectedPO?.remarks }}</td>
                       <th></th>
                       <td></td>
                     </tr>
@@ -340,7 +353,7 @@
                     </tr>
                   </thead>
                   <tbody class="text-nowrap">
-                    <tr *ngFor="let item of selectedPO.items">
+                    <tr *ngFor="let item of selectedPO?.items">
                       <td>{{ item.item_id }}</td>
                       <td>{{ item.itemName }}</td>
                       <td>{{ item.quantity }}</td>

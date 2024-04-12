@@ -27,27 +27,31 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>Warehouse Code</th>
-                <th>Location Code</th>
                 <th>Item Code</th>
                 <th>Description</th>
                 <th>Category</th>
                 <th>Sub-Category</th>
                 <th>Qty</th>
                 <th>UOM</th>
+                <th>Warehouse Code</th>
+                <th>Warehouse Name</th>
+                <th>Location Code</th>
+                <th>Location Name</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
               <tr *ngFor="let a of itemData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
-                <td>WH001</td>
-                <td>WH001-L001</td>
                 <td>{{ a.itemcode }}</td>
                 <td>{{ a.description }}</td>
                 <td>{{ a.itemcategory }}</td>
                 <td>{{ a.subcategory }}</td>
-                <td>100</td>
+                <td>{{ a.total_pobalance_qty }}</td>
                 <td>{{ a.uom }}</td>
+                <td>{{ a.warehouse_code }}</td>
+                <td>{{ a.warehouse_name }}</td>
+                <td>{{ a.location_code }}</td>
+                <td>{{ a.location_name }}</td>
               </tr>
               <tr *ngIf="itemData?.length == 0">
                 <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>

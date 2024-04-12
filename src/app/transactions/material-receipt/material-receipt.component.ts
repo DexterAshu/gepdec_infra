@@ -23,14 +23,12 @@ export class MaterialReceiptComponent {
   update:boolean = false;
   isSubmitted:boolean = false;
   selectedPO: any = {};
-  // form!: FormGroup;
   grnForm!: FormGroup;
-  received_qty: any = 0;
   vendorDataList: any = [];
   tenderList: any = [];
   boqList: any = [];
 
-  constructor( private fb: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) {
+  constructor( private fb: FormBuilder, private alertService: AlertService, private apiService: ApiService ) {
     var date = this.date.getDate();
     var month = 1+this.date.getMonth();
     var year = this.date.getFullYear();
@@ -48,74 +46,81 @@ export class MaterialReceiptComponent {
   }
 
   getGRNData(): void {
-    this.getDataList();
-  }
-
-  initForm(): void {
-    // this.form = this.fb.group({
-    //   grn_number: [null, Validators.required],
-    //   date: [null, Validators.required],
-    //   grn_remark: [null, Validators.required],
-    //   items: this.fb.array([])
-    // });
-    this.grnForm = this.fb.group({
-      tender_id: [null, Validators.required],
-      boq_id: [null, Validators.required],
-      supplier_id: [null, Validators.required],
-      purchaseOrder: [null, Validators.required],
-      purchaseOrderDate: [null],
-      shipmentNumber: [null, Validators.required],
-      grn_number: [null, Validators.required],
-      grn_date: [null, Validators.required],
-      grn_remark: [null, Validators.required],
-      received_qty: [null],
-      docs_tax_invoice: [false],
-      docs_delivery_challan: [false],
-      docs_lr_copy: [false],
-      docs_packing_list: [false],
-      docs_e_way_bill: [false],
-      docs_warranty_certificate: [false],
-      docs_quality_inspection: [false],
-      docs_operator_manual: [false],
-      docs_technical_manual: [false]
-    });
     this.getTenderList();
   }
 
-  get grn() { return this.grnForm.controls; }
-
-  onSubmit(): void {
-    this.isSubmitted = true;
-    if (this.grnForm.invalid) {
-      return;
-    }
-    console.log(this.grnForm.value);
-    this.grnForm.reset();
-    this.isSubmitted = false;
+  initForm(): void {
+    this.grnForm = this.fb.group({
+      tender_id: [null, Validators.required],
+      boq_id: [null],
+      supplier_id: [null, Validators.required],
+      po_id: [null, Validators.required],
+      challan_number: [null, Validators.required],
+      grn_number: [null, Validators.required],
+      grn_date: [null, Validators.required],
+      received_qty: [null, Validators.required],
+      remark: [null, Validators.required],
+      remarks: [null],
+      tax_invoice: [false],
+      delivery_challan: [false],
+      lr_copy: [false],
+      packing_list: [false],
+      eway_bill: [false],
+      warranty_certificate: [false],
+      qualityinspection_report: [false],
+      operator_manual: [false],
+      technicalsupport_manual: [false],
+      items: this.fb.array([])
+    });
   }
+
+  get grn() { return this.grnForm.controls; }
 
   selectPO(data: any): void {
     this.selectedPO = data;
   }
 
-  grnSubmit(): void {
-    console.log(this.grnForm.value);
+  selectItem(data: any): void {
+    let dataLength = this.grnForm.value.items.filter((x:any) => x.item_id === data.item_id);
+    if(dataLength.length === 1) {
+      this.grnForm.value.items = this.grnForm.value.items.filter((x:any) => x.item_id !== data.item_id);
+    } else {
+      let match = {
+        "item_id": data.item_id,
+        "unit_id": data.unit_id,
+        "warehouselocation_id": data.warehouselocation_id,
+        "po_qty": data.qty,
+        "pobalance_qty": data.pobalance_qty ?? data.qty - data.received_qty,
+        "received_qty": data.received_qty,
+        "remain_qty": data.qty - data.received_qty,
+        "podetail_id": data.podetail_id
+      }
+      this.grnForm.value.items.push(match);
+    }
+    delete this.grnForm.value.received_qty;
+    delete this.grnForm.value.remark;
   }
 
-  getDataList() {
-    this.vendorDataList = [];
-    let apiLink = "/supplier/api/v1/getSupplierList";
-    this.apiService.getData(apiLink).subscribe((res:any) => {
+  grnSubmit(): void {
+    this.isSubmitted = true;
+    console.log(this.grnForm.value);
+    if (this.grnForm.invalid) {
+      this.isSubmitted = false;
+      return;
+    }
+    this.apiService.createGRN(this.grnForm.value).subscribe((res:any) => {
       if (res.status === 200) {
-        this.vendorDataList = res.result;
+        this.getGRNData();
+        this.alertService.success(res.message);
+        this.grnForm.reset();
       } else {
-        this.vendorDataList = [];
-        this.alertService.warning("Looks like no data available!");
+        this.alertService.warning(res.message);
       }
-    }, error => {
-      this.vendorDataList = [];
+    }),
+    (error: any) => {
       this.alertService.error("Error: " + error.statusText)
-    });
+    }
+    this.isSubmitted = false;
   }
 
   getTenderList(): void {
@@ -131,7 +136,6 @@ export class MaterialReceiptComponent {
     });
   }
 
-  // getVendorListByTender
   getVenderData(): void {
     this.apiService.getVendorListByTender(this.grnForm.value.tender_id).subscribe((res:any) => {
       if (res.status === 200) {
@@ -163,145 +167,48 @@ export class MaterialReceiptComponent {
   }
 
   getPOData(): void {
-    this.apiService.getPODetail(this.grnForm.value.purchaseOrder).subscribe((res:any) => {
+    const apiLink = `/precurement/api/v1/getPoList?po_id=${this.grnForm.value.po_id}`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
-        console.log(res);
+        this.selectedPO = res.result[0];
       } else {
-        this.poData = [];
+        this.selectedPO = [];
         this.alertService.warning("Looks like no data available in type.");
       }
     },
     (error: any) => {
-      this.poData = [];
+      this.selectedPO = [];
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  getPODetails(po_id: any): void {
+    const apiLink = `/precurement/api/v1/getPoList?po_id=${po_id}`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.selectedPO = res.result[0];
+      } else {
+        this.selectedPO = [];
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.selectedPO = [];
       this.alertService.error("Error: " + error.statusText)
     });
   }
 
   getData(): void {
-    this.poData = [
-      {
-        "projectID": "PR0001",
-        "order_number": "PO001",
-        "date": "2024-03-11",
-        "vendor": {
-          "vendor_id": "V001",
-          "name": "Vendor X",
-          "address": "123 Main Street, Cityville, USA",
-          "contact": "John Smith"
-        },
-        "items": [
-          {
-            "item_id": "I001",
-            "itemName": "Product A",
-            "quantity": 50,
-            "uom": "NOS",
-            "unit_price": 10.75,
-            "total_price": 537.50
-          },
-          {
-            "item_id": "I002",
-            "itemName": "Product B",
-            "quantity": 25,
-            "uom": "NOS",
-            "unit_price": 20.50,
-            "total_price": 512.50
-          }
-        ],
-        "total_amount": 1050.00,
-        "remarks": "Payment due upon receipt."
-      },
-      {
-        "projectID": "PR0002",
-        "order_number": "PO002",
-        "date": "2024-03-12",
-        "vendor": {
-          "vendor_id": "V002",
-          "name": "Vendor Y",
-          "address": "456 Elm Street, Townsville, USA",
-          "contact": "Jane Doe"
-        },
-        "items": [
-          {
-            "item_id": "I003",
-            "itemName": "Product C",
-            "quantity": 100,
-            "uom": "NOS",
-            "unit_price": 5.25,
-            "total_price": 525.00
-          }
-        ],
-        "total_amount": 525.00,
-        "remarks": "Payment due in 15 days."
-      },
-      {
-        "projectID": "PR0003",
-        "order_number": "PO003",
-        "date": "2024-03-13",
-        "vendor": {
-          "vendor_id": "V003",
-          "name": "Vendor Z",
-          "address": "789 Oak Avenue, Villagetown, USA",
-          "contact": "Michael Johnson"
-        },
-        "items": [
-          {
-            "item_id": "I004",
-            "itemName": "Product D",
-            "quantity": 75,
-            "uom": "NOS",
-            "unit_price": 15.00,
-            "total_price": 1125.00
-          }
-        ],
-        "total_amount": 1125.00,
-        "remarks": "Net 30 terms."
-      },
-      {
-        "projectID": "PR0001",
-        "order_number": "PO004",
-        "date": "2024-03-14",
-        "vendor": {
-          "vendor_id": "V004",
-          "name": "Vendor W",
-          "address": "321 Pine Street, Hamletville, USA",
-          "contact": "Sarah Johnson"
-        },
-        "items": [
-          {
-            "item_id": "I005",
-            "itemName": "Product E",
-            "quantity": 200,
-            "uom": "NOS",
-            "unit_price": 8.50,
-            "total_price": 1700.00
-          }
-        ],
-        "total_amount": 1700.00,
-        "remarks": "Payment due upon delivery."
-      },
-      {
-        "projectID": "PR0002",
-        "order_number": "PO005",
-        "date": "2024-03-15",
-        "vendor": {
-          "vendor_id": "V005",
-          "name": "Vendor Q",
-          "address": "987 Maple Street, Riverside, USA",
-          "contact": "Emily Smith"
-        },
-        "items": [
-          {
-            "item_id": "I006",
-            "itemName": "Product F",
-            "quantity": 150,
-            "uom": "NOS",
-            "unit_price": 12.75,
-            "total_price": 1912.50
-          }
-        ],
-        "total_amount": 1912.50,
-        "remarks": "Payment due in 30 days."
+    const apiLink = `/inventory/api/v1/getGRNList`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.poData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
       }
-    ]
+    },
+    (error: any) => {
+      this.alertService.error("Error: " + error.statusText)
+    });
   }
 }
