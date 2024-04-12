@@ -35,11 +35,15 @@
                                 <th>Vendor Name</th>
                                 <!-- <th>Company Name</th> -->
                                 <th>Category</th>
+                                <th>Category No</th>
                                 <th>Contact No</th>
                                 <th>Email ID</th>
+                                <th>Pan No</th>
+                                <th>GST No</th>
+                                <th>GST Date</th>
                                 <th>Date of Incorporation</th>
-                                <th>Pincode</th>
-                                <th>Address</th>
+                                <!-- <th>Pincode</th>
+                                <th>Address</th> -->
                                 <!-- <th>Created On</th> -->
                                 <!-- <th>Action</th> -->
                             </tr>
@@ -51,11 +55,15 @@
                                 <td>{{ a.suppliername }}</td>
                                 <!-- <td>{{ a.company_name }}</td> -->
                                 <td>{{ a?.category }}</td>
+                                <td>{{ a?.category_no }}</td>
                                 <td>{{ a?.contact[0]?.contactno }}</td>
                                 <td>{{ a?.contact[0]?.emailid }}</td>
+                                <td>{{ a?.panno }}</td>
+                                <td>{{ a?.gstno }}</td>
+                                <td>{{ a?.gstdate }}</td>
                                 <td>{{ a.doi }}</td>
-                                <td>{{ a.pincode }}</td>
-                                <td>{{ a.address }}</td>
+                                <!-- <td>{{ a.pincode }}</td>
+                                <td>{{ a.address }}</td> -->
                                 <!-- <td>{{ a?.created }}</td> -->
                                 <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
@@ -580,79 +588,128 @@
                                             <td>{{ rowData?.suppliercode }}</td>
                                             <th>Vendor Name</th>
                                             <td>{{ rowData?.suppliername }}</td>
-                                            <th>Company Category</th>
+                                            <th>Category</th>
                                             <td>{{ rowData?.category }}</td>
                                         </tr>
                                         <tr>
+                                            <th>Category No</th>
+                                            <td>{{ rowData?.category_no }}</td>
                                             <th>GST No</th>
                                             <td>{{ rowData?.gstno }}</td>
                                             <th>GST Date</th>
                                             <td>{{ rowData?.gstdate }}</td>
-                                            <th>PAN No</th>
-                                            <td>{{ rowData?.panno }}</td>
                                         </tr>
                                         <tr>
+                                            <th>PAN No</th>
+                                            <td>{{ rowData?.panno }}</td>
                                             <th>TAN No</th>
                                             <td>{{ rowData?.tanno }}</td>
                                             <th>DOI</th>
                                             <td>{{ rowData?.doi }}</td>
-                                            <th>Contact</th>
-                                            <td>{{ rowData?.contact[0]?.contactno }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Email ID</th>
-                                            <td>{{ rowData?.contact[0]?.emailid }}</td>
-                                            <th>Address</th>
-                                            <td>{{ rowData?.address }}</td>
-                                            <th>City</th>
-                                            <td>{{ rowData?.city_name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>District</th>
-                                            <td>{{ rowData?.district_name }}</td>
-                                            <th>State</th>
-                                            <td>{{ rowData?.state_name }}</td>
-                                            <th>Country</th>
-                                            <td>{{ rowData?.name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Pincode</th>
-                                            <td>{{ rowData?.pincode }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <h6 class="mb-2 mt-4 text-secondary">Vendor Bank Details</h6>
+                                
+                                <h6 class="mb-2 mt-3 text-secondary">Head Office Address</h6>
                                 <table class="table table-hover table-striped custom-table">
                                     <thead class="hidden-thead"></thead>
                                     <tbody class="text-nowrap">
                                         <tr>
-                                            <th>Bank Name</th>
-                                            <td>{{ rowData?.bankname }}</td>
-                                            <th>Account Holder Name</th>
-                                            <td>{{ rowData?.account_holder_name }}</td>
-                                            <th>Account No</th>
-                                            <td>{{ rowData?.bankaccountno }}</td>
+                                            <th>Address</th>
+                                            <td>{{ rowData?.address[0]?.address }}</td>
+                                            <th>City</th>
+                                            <td>{{ rowData?.address[0]?.city }}</td>
+                                            <th>District</th>
+                                            <td>{{ rowData?.address[0]?.district_name }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Branch Name</th>
-                                            <td>{{ rowData?.branch_name }}</td>
-                                            <th>IFSC Code</th>
-                                            <td>{{ rowData?.bankifsc }}</td>
-                                            <th>Bank Address</th>
-                                            <td>{{ rowData?.bank_address }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Account Type</th>
-                                            <td>{{ rowData?.accounttype }}</td>
+                                            <th>State</th>
+                                            <td>{{ rowData?.address[0]?.state_name }}</td>
+                                            <th>Vendor Name</th>
+                                            <td>{{ rowData?.address[0]?.name }}</td>
+                                            <th>Category</th>
+                                            <td>{{ rowData?.address[0]?.pincode }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <h6 class="mb-2 mt-3 text-secondary">DOI(Date Of Incorporation) Documents</h6>
+                                
+                                <h6 class="mb-2 mt-3 text-secondary">Factory Address</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{{ rowData?.address[1]?.address }}</td>
+                                            <th>City</th>
+                                            <td>{{ rowData?.address[1]?.city }}</td>
+                                            <th>District</th>
+                                            <td>{{ rowData?.address[1]?.district_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>State</th>
+                                            <td>{{ rowData?.address[1]?.state_name }}</td>
+                                            <th>Vendor Name</th>
+                                            <td>{{ rowData?.address[1]?.name }}</td>
+                                            <th>Category</th>
+                                            <td>{{ rowData?.address[1]?.pincode }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <h6 class="mb-2 mt-3 text-secondary">Contact Details</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr *ngFor="let a of rowData?.contact">
+                                            <th>Person name</th>
+                                            <td>{{ a?.contactperson }}</td>
+                                            <th>Designation</th>
+                                            <td>{{ a?.designationname }}</td>
+                                            <th>Contact</th>
+                                            <td>{{ a?.contactno }}</td>
+                                            <th>Email</th>
+                                            <td>{{ a?.emailid }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h6 class="mb-2 mt-3 text-secondary">Vendor Bank Details</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <ng-container *ngFor="let a of rowData?.bank">
+                                            <tr>
+                                                <th>Bank Name</th>
+                                                <td>{{ a?.bankname }}</td>
+                                                <th>Account Holder Name</th>
+                                                <td>{{ a?.account_holder_name }}</td>
+                                                <th>Account No</th>
+                                                <td>{{ a?.bankaccountno }}</td>
+                                                <th>Branch Name</th>
+                                                <td>{{ a?.branch_name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>IFSC Code</th>
+                                                <td>{{ a?.bankifsc }}</td>
+                                                <th>Account Type</th>
+                                                <td>{{ a?.accounttype }}</td>
+                                                <th>Bank Address</th>
+                                                <td colspan="3">{{ a?.bank_address }}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-3 text-secondary">Documents</h6>
                                 <div class="col-md-12 ps-0">
                                     <div class="d-inline-flex">
-                                        <div class="col-md-3 col-sm-3 col-3 p-2 ps-0">
+                                        <div *ngIf="rowData?.doidocument != null" class="col-md-3 col-sm-3 col-3 p-2 ps-0">
                                             <div class="img-sec shadow">
-                                                <img src="{{apiUrl}}/{{rowData?.DOIdocument}}" class="img-fluid" title="DOI Document" alt="DOI Document not available!">
+                                                <img src="{{apiUrl}}/{{rowData?.doidocument}}" class="img-fluid" title="DOI Document" alt="DOI Document not available!">
+                                            </div>
+                                        </div>
+                                        <div *ngFor="let d of rowData?.certification" class="col-md-3 col-sm-3 col-3 p-2 ps-0">
+                                            <div class="img-sec shadow">
+                                                <img src="{{apiUrl}}/{{d?.document}}" class="img-fluid" [title]="d?.certification_name" alt="Not Available!">
                                             </div>
                                         </div>
                                     </div>

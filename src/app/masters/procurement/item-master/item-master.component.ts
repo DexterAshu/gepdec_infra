@@ -52,25 +52,26 @@ export class ItemMasterComponent {
 
   getDropdownList() {
     this.dataDropdownList = [];
-    this.isNotFound = false;
+    // this.isNotFound = false;
     let apiLink = "/item/api/v1/getItemDropdown";
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
-        this.isNotFound = false;
+        // this.isNotFound = false;
         this.dataDropdownList = res;
       } else {
-        this.isNotFound = true;
+        // this.isNotFound = true;
         this.dataDropdownList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.isNotFound = true;
+      // this.isNotFound = true;
       this.dataDropdownList = undefined;
       this.alertService.error("Error: " + error.statusText)
     });
   }
   
   getDataList() {
+    debugger
     this.dataList = [];
     this.isNotFound = false;
     let apiLink = "/item/api/v1/getItemList";
