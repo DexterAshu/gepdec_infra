@@ -119,7 +119,19 @@
                         <!-- Document Details -->
                         <div class="form-row">
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Module<span class="required-asterisk">*</span></label>
+                                    <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
+                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
+                                    </select>
+                                    <div *ngIf="f['utility_id'].touched && f['utility_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['utility_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
@@ -132,12 +144,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
                                     <select formControlName="tender_id" class="form-select form-select-sm" >
                                         <option [selected]="true" [disabled]="true">Select Project</option>
-                                        <option *ngFor="let c of tenderData" value="{{c.tender_id}}">{{c.tender_title}}</option>
+                                        <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
                                     </select>
                                         <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
                                         <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
@@ -145,7 +157,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Ref. No</label>
                                     <span class="form-control form-control-sm" readonly >{{tendDetails?.tender_ref_no}}</span>
@@ -179,7 +191,7 @@
                                     <small class="text-danger" *ngIf="f['documenttype_id'].errors?.['required']">*Required</small>
                                 </div>  
                             </div> -->
-                            <div class="form-group col-3">
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                                 <label for="">Bank <span class="required-asterisk">*</span></label>
                                 <select class="form-select form-select-sm" formControlName="bank_id">
                                     <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
@@ -204,14 +216,14 @@
                                 <small class="text-danger" *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
                             </div>    
                         </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">Start Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="start_date">
                             <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
                                 <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
                             </div> 
                         </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">End Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="end_date">
                             <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
@@ -222,14 +234,14 @@
 
                       
 
-                            <div class="form-group col-3">
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">Submission Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="submission_date">
                             <div *ngIf="f['submission_date'].touched && f['submission_date'].invalid">
                                 <small class="text-danger" *ngIf="f['submission_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">Extend Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="extend_date">
                           <div *ngIf="f['extend_date'].touched && f['extend_date'].invalid">
@@ -250,7 +262,7 @@
                       
                         <!-- Attachment Documents -->
                         <div class="row">
-                                <div class="col-lg-12 col-sm-6">
+                                <div class="col-lg-12 col-sm-6" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                                     <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
                                     <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
                                       placeholder="Upload a file..." multiple="true" />

@@ -123,15 +123,16 @@ export class FinancialBidComponent {
     }); 
   }
 
-  gettendDetails(event: any) {
+  getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
-    this.apiService.tenderDetails(this.clientListData).subscribe((res: any) => {
+    this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
       this.tenderDetailsData = res.result;
       this.tendDetails = this.tenderDetailsData[0];
       console.log(this.tenderDetailsData);
     });
   }
+
 
   
   // getDetails(event:any) {
@@ -170,28 +171,28 @@ export class FinancialBidComponent {
     this.form.reset();
   }
 
-   getDetails(data:any){
-    this.form.reset();
-    this.button = 'Update';
-    this.update = true;
-    this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
-      this.custDetails = res.result[0];
-        this.form.patchValue({
-          utility: this.custDetails.utility,
-          tender_title: this.custDetails.tender_title,
-          tender_ref_no: this.custDetails.tender_ref_no,
-          publish_date: this.custDetails.publish_date,
-          net_worth: this.custDetails.net_worth,
-          financialyear_id: this.custDetails.financialyear_id,
-          annual_turnover: this.custDetails.annual_turnover,
-          fin_remarks: this.custDetails.fin_remarks,
-          nclt_status: this.custDetails.nclt_status,
-          drt: this.custDetails.drt,
-          cdr: this.custDetails.cdr,
-        }); 
+  //  getDetails(data:any){
+  //   this.form.reset();
+  //   this.button = 'Update';
+  //   this.update = true;
+  //   this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
+  //     this.custDetails = res.result[0];
+  //       this.form.patchValue({
+  //         utility: this.custDetails.utility,
+  //         tender_title: this.custDetails.tender_title,
+  //         tender_ref_no: this.custDetails.tender_ref_no,
+  //         publish_date: this.custDetails.publish_date,
+  //         net_worth: this.custDetails.net_worth,
+  //         financialyear_id: this.custDetails.financialyear_id,
+  //         annual_turnover: this.custDetails.annual_turnover,
+  //         fin_remarks: this.custDetails.fin_remarks,
+  //         nclt_status: this.custDetails.nclt_status,
+  //         drt: this.custDetails.drt,
+  //         cdr: this.custDetails.cdr,
+  //       }); 
       
-  })
-  }
+  // })
+  // }
   OnlyNumbersAllowed(event: any): boolean {
     const charCode = event.which ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {

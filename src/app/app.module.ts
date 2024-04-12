@@ -168,6 +168,7 @@ import { MaterialIssuanceComponent } from './transactions/material-issuance/mate
 import { BoqItemsComponent } from './presales/presales-biding/boq-items/boq-items.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { SignInComponent } from './account/sign-in/sign-in.component';
+import { OurCompanyFinanaceDataComponent } from './masters/our-company-finanace-data/our-company-finanace-data.component';
 
 
 @NgModule({
@@ -180,6 +181,7 @@ import { SignInComponent } from './account/sign-in/sign-in.component';
     CompanyComponent,
     StateComponent,
     DistrictComponent,
+    OurCompanyFinanaceDataComponent,
     CustomerComponent,
     LoginComponent,
     UserLogsComponent,

@@ -112,7 +112,7 @@
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
+                                        <option [selected]="true" [disabled]="true" >Select Tender Company</option>
                                         <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                                     </select>
                                     <div *ngIf="f['utility_id'].touched && f['utility_id'].invalid">
@@ -126,7 +126,7 @@
                                     <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
                                     <select formControlName="tender_id" class="form-select form-select-sm" >
                                         <option [selected]="true" [disabled]="true">Select Project</option>
-                                        <option *ngFor="let c of tenderData" value="{{c.tender_id}}">{{c.tender_title}}</option>
+                                        <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
                                     </select>
                                         <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
                                         <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
@@ -138,9 +138,7 @@
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Ref. No</label>
                                     <span class="form-control form-control-sm" readonly >{{tendDetails?.tender_ref_no}}</span>
-                                    <!-- <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
-                                    </div> -->
+                                 
                                 </div>
                             </div>
 
@@ -151,13 +149,8 @@
                                     <label class="form-label fl-10">Tender Publish Date</label>
                                     <span class="form-control form-control-sm" readonly >{{tendDetails?.publish_date}}</span>
 
-                                    <!-- <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly> -->
-                                    <!-- <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
-                                        <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
-                                    </div> -->
                                 </div>
                             </div>
-
 
                                <div class="col-md-12">
                                    <div class="form-group">
@@ -218,12 +211,68 @@
                       
    
                        <div class="row mt-2">
-                           <div class="modal-btns">
-                               <button type="submit" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm mr-2">+ ADD</button>
-                               <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
-
-                            </div>
+                        <div class="modal-btns">
+                           <button type="button" class="btn btn-primary btn-fw btn-sm mr-2" (click)="addMultiTechPoints()" title="Add your all technical points">+ ADD</button>
+                        </div>
                        </div>
+
+
+                          
+                                <table class="table mt-2"> 
+                                <thead class="table-primary text-nowrap">
+                                    <tr>
+                                        <th>S No</th>
+                                        <th>Client Company</th>
+                                        <th>Title/Project</th>
+                                        <th>Eligibility</th>
+                                        <th>Technical Qualification</th>
+                                        <th>Remarks</th>
+                                    
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-nowrap">
+                                    <tr *ngFor="let a of addTech | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                        <td>{{limit*(p-1)+i+1}}</td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="{{ a.utility_id }}">
+                                            {{a.utility_id| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                        </td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_id }}">
+                                            {{a.tender_id| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                        </td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="{{ a.eligibility }}">
+                                            {{a.eligibility | slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                        </td>
+                                       
+                                        <td data-toggle="tooltip" data-placement="bottom" title="{{ a.technical_qualification }}">
+                                            {{a.technical_qualification| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                        </td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tech_remarks }}">
+                                            {{a.tech_remarks| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                        </td>
+                    
+                                        <td>
+                                            
+                                            <a (click)="deletecsdp(i)" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            <div class="pagination-sec text-center">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+
+                          
+                          <div class="row mt-2">
+                            <div class="modal-btns">
+                                <button type="submit" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm mr-2"  [disabled]="addTech.length==0" (click)="onCreateTech()">+ Submit</button> 
+                                 <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+ 
+                             </div>
+                          </div>
    
                    </form>
                </div>

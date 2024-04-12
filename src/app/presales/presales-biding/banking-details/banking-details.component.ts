@@ -38,24 +38,31 @@ export class BankingDetailsComponent {
   clientList: any;
   tendDetails: any;
   data1: any;
+  userData: any;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private  masterService: MasterService,
     private alertService: AlertService
-  ) {}
+  ) {
+
+    const userDataString = localStorage.getItem('gdUserData');
+    if (userDataString) {
+      this.userData = JSON.parse(userDataString);
+    }
+  }
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
       // documenttype_id: ['',Validators.required],
-      bank_id: ['', Validators.required],
+      bank_id: [''],
       bg_number: ['', Validators.required],
       bg_amount: ['', Validators.required],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required],
-      submission_date: ['', Validators.required],
-      extend_date: ['', Validators.required],
-      attachment: ['', Validators.required],
+      start_date: [''],
+      end_date: [''],
+      submission_date: [''],
+      extend_date: [''],
+      attachment: [''],
       // publish_date: [''],
       // tender_ref_no:[''],
       tender_id:['', Validators.required],
@@ -64,11 +71,30 @@ export class BankingDetailsComponent {
      
     });
 
+    
+
     this.getData();
     this.apiService.getDocType().subscribe((res: any) => {
       this.docType = res.documenttype;
     });
   }
+
+  updateDoc(){
+    this.documentForm.get('bank_id')!.setValidators([Validators.required]);
+    this.documentForm.get('bank_id')!.clearValidators();
+    this.documentForm.get('submission_date')!.setValidators([Validators.required]);
+    this.documentForm.get('submission_date')!.clearValidators();
+    this.documentForm.get('extend_date')!.setValidators([Validators.required]);
+    this.documentForm.get('extend_date')!.clearValidators();
+    this.documentForm.get('attachment')!.setValidators([Validators.required]);
+    this.documentForm.get('attachment')!.clearValidators();
+    this.documentForm.get('end_date')!.setValidators([Validators.required]);
+    this.documentForm.get('end_date')!.clearValidators();
+    this.documentForm.get('start_date')!.setValidators([Validators.required]);
+    this.documentForm.get('start_date')!.clearValidators();
+  }
+
+ 
 
   getData() {
     this.apiService.getDocType().subscribe((res: any) => {
@@ -101,7 +127,7 @@ export class BankingDetailsComponent {
   getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
-    this.apiService.tenderDetails(this.clientListData).subscribe((res: any) => {
+    this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
       this.tenderDetailsData = res.result;
       this.tendDetails = this.tenderDetailsData[0];
       console.log(this.tenderDetailsData);

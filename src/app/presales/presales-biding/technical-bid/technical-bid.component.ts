@@ -26,6 +26,7 @@ export class TechnicalBidComponent {
   val: any;
   country:any;
   limits: any = [];
+  addTech:any = [];
   isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
@@ -49,6 +50,8 @@ export class TechnicalBidComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
+  qualifyPoints: any;
+  techData: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -106,10 +109,10 @@ export class TechnicalBidComponent {
     });
   }
 
-  gettendDetails(event: any) {
+  getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
-    this.apiService.tenderDetails(this.clientListData).subscribe((res: any) => {
+    this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
       this.tenderDetailsData = res.result;
       this.tendDetails = this.tenderDetailsData[0];
       console.log(this.tenderDetailsData);
@@ -153,23 +156,23 @@ export class TechnicalBidComponent {
     this.form.reset();
   }
 
-   getDetails(data:any){
-    this.form.reset();
-    this.button = 'Update';
-    this.update = true;
-    this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
-      this.custDetails = res.result[0];
-        this.form.patchValue({
-          technical_qualification: this.custDetails.technical_qualification,
-          eligibility: this.custDetails.eligibility,
-          tech_remarks: this.custDetails.tech_remarks,
-          attachment: this.custDetails.attachment,
+  //  getDetails(data:any){
+  //   this.form.reset();
+  //   this.button = 'Update';
+  //   this.update = true;
+  //   this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
+  //     this.custDetails = res.result[0];
+  //       this.form.patchValue({
+  //         technical_qualification: this.custDetails.technical_qualification,
+  //         eligibility: this.custDetails.eligibility,
+  //         tech_remarks: this.custDetails.tech_remarks,
+  //         attachment: this.custDetails.attachment,
          
           
-        }); 
+  //       }); 
      
-  })
-  }
+  // })
+  // }
   OnlyNumbersAllowed(event: any): boolean {
     const charCode = event.which ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -212,6 +215,20 @@ downloadPdf() {
  
   }
 
+  addMultiTechPoints(){
+      this.addTech.push(this.form.value);
+      console.log(this.addTech);
+      this.form.reset();
+     
+  }
+
+  deletecsdp(val:any)
+  {
+    this.addTech.splice(val,1)
+    console.log(this.addTech);
+    
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
@@ -249,9 +266,9 @@ downloadPdf() {
 
         this.loading = true;
     if (this.update) {  
-      this.updateTender();
+      this.onUpdateTech();
     } else {
-      this.addTender();
+      this.onCreateTech();
     }
     }
 
@@ -275,21 +292,26 @@ downloadPdf() {
 
   }
 
-  addTender() {
-    this.apiService.createTender(this.form.value).subscribe((res: any) => {
-     let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (response.status == 200) {
-          this.getCompanyData();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      })
+  onCreateTech() {
+    this.techData = this.addTech;
+    console.log( this.techData);
+    
+    this.form.reset();
+    this.alertService.success('Technical Details Added Successfully');
+    // this.apiService.createTender(this.form.value).subscribe((res: any) => {
+    //  let response: any = res;
+    //     document.getElementById('cancel')?.click();
+    //     this.isSubmitted = false;
+    //     if (response.status == 200) {
+    //       this.getCompanyData();
+    //       this.form.reset();
+    //       this.alertService.success(response.message);
+    //     } else {
+    //       this.alertService.warning(response.message);
+    //     }
+    //   })
   }
-  updateTender(): void {
+  onUpdateTech(): void {
     // this.opac=0;
     // this.loadermsg="Updating..."
      this.form.value.company_id =  this.custDetails.company_id;

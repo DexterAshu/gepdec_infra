@@ -144,6 +144,26 @@ export class ApiService {
     return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderlist`, httpOptions );
   }
 
+  getTenderLisById(data:any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    const params= new HttpParams({
+      fromString: `customer_id=${data}`
+    });
+    return this.http.get<any>(
+      `${environment.apiUrl}/biding/api/v1/getTenderlist/?${params}`,
+      httpOptions
+    );
+  }
+  // getTenderLisById(data:any): Observable<any[]> {
+  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  //   return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderlist/${data}`, httpOptions );
+  // }
+
   tenderDetails(data: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderDetail/${data}`, httpOptions );
@@ -223,6 +243,15 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post<any[]>(
       `${environment.apiUrl}/state/api/v1/addDistrict`,
+      data,
+      httpOptions
+    );
+  }
+  //create master our finance details
+  addMasterOurFinData(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/state/api/v1/addOurFinData`,
       data,
       httpOptions
     );
