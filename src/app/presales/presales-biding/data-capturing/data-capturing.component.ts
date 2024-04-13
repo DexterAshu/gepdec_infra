@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -127,8 +127,8 @@ export class DataCapturingComponent {
       remarks:[null],
     });
    
-    this.form.get('termscheckbox')!.setValidators([Validators.required]);
-    this.form.get('termscheckbox')!.clearValidators();
+    // this.form.get('termscheckbox')!.setValidators([Validators.required]);
+    // this.form.get('termscheckbox')!.clearValidators();
   
     this.getCompanyData();
     this.getCountryData();
@@ -137,7 +137,18 @@ export class DataCapturingComponent {
 
   }
 
-  
+  termsCheckbox = new FormControl(false);
+  textColor = 'red'; // Initial text color
+  toggleTextColor(checked: boolean) {
+    this.textColor = checked ? 'green' : 'red';
+  }
+
+  onCheckboxChange(event: Event) {
+    if (event.target instanceof HTMLInputElement) { // Check if the event target is an input element
+      const isChecked = event.target.checked; // Access the checked property safely
+      this.toggleTextColor(isChecked);
+    }
+  }
 
   getCountryData() {
     this.apiService.getCountryDataList().subscribe((res:any) => {

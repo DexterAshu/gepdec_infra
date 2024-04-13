@@ -52,6 +52,7 @@ export class TechnicalBidComponent {
   isExcelDownloadData: boolean = true;
   qualifyPoints: any;
   techData: any = [];
+  filterTenderDetailsData: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -114,10 +115,21 @@ export class TechnicalBidComponent {
     this.clientListData = company_id;
     this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
       this.tenderDetailsData = res.result;
-      this.tendDetails = this.tenderDetailsData[0];
       console.log(this.tenderDetailsData);
     });
   }
+
+  getrefData(tender_id: any){
+    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
+  }
+  
+
+      //button dropdown
+isOpen: boolean = false;
+
+toggleDropdown() {
+  this.isOpen = !this.isOpen;
+}
   
   // getDetails(event:any) {
   //   debugger
@@ -262,7 +274,7 @@ downloadPdf() {
       }
      
   
-     
+ 
 
         this.loading = true;
     if (this.update) {  

@@ -1261,7 +1261,7 @@ export class DashboardComponent implements OnInit {
       align: 'left'
     },
     xAxis: {
-      categories: ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL'],
+      categories: ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida'],
       title: {
         text: null
       },
@@ -1310,7 +1310,7 @@ export class DashboardComponent implements OnInit {
     series: [{
       type: 'bar', // Specify the type of chart series
       name: 'Actual',
-      data: [70, 80, 30, 20, 70, 90, 80, 30, 20]
+      data: [70, 80, 30, 20, 70, 90, 80, 30, 20, 40]
     }],
     colors: ['#49b59a', '#FF6067', '#f9d84a'] // Assign three different colors to the bars
   });

@@ -271,6 +271,23 @@ export class ApiService {
       httpOptions
     );
   }
+  BOQbulkData(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
+      }),
+    };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/boq/api/v1/uploadBoq`,
+      data,
+      httpOptions
+    );
+  }
+  BOQList(): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>( `${environment.apiUrl}/boq/api/v1/getBoqList`, httpOptions);
+  }
+
   AddBank(data: any): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({

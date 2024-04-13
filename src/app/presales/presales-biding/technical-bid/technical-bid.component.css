@@ -1,0 +1,24 @@
+
+.dropdown ul{
+    display: none;
+    transform: translate(8%, 50%);
+  }
+  
+  ul{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    background: #f0f1f7;
+    border-radius: 4px;
+  
+  }
+  ul li {
+    list-style: none;
+  }
+  ul :hover{
+    background: #e1e4fa;
+  }
+  
+  .dropdown.active ul {
+    display: block;
+  }
