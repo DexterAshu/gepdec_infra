@@ -27,6 +27,8 @@ export class AuditRequestComponent {
   wareHouseData: any = [];
   projectData: any = [];
   itemData: any = [];
+  itemCategory: any = [];
+  ItemSubCategory: any = [];
 
   constructor( private fb: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) {
     var date = this.date.getDate();
@@ -50,9 +52,9 @@ export class AuditRequestComponent {
       toDate: [this.toDate]
     });
     this.form = this.fb.group({
-      warehouse_id: ["",Validators.required],
-      projectID: ["",Validators.required],
-      itemCategory: ["",Validators.required],
+      tender_id: [null,Validators.required],
+      warehouse_id: [null,Validators.required],
+      itemcategory_id: [null,Validators.required],
     });
     this.itemAuditForm = this.fb.group({
       itemCode: ["",Validators.required],
@@ -66,36 +68,36 @@ export class AuditRequestComponent {
 
   getModelFormData(): void {
     this.getWarehouseData();
-    this.getProjectData();
+    this.getTenderList();
+    this.getDropdownList();
   }
 
-  getProjectData(): void {
-    this.projectData = [
-      {
-        "projectID": "ABC123",
-        "projectName": "Project 1",
-        "createdBy": "Admin",
-        "createdAt": "2024-03-12T08:00:00Z"
-      },
-      {
-        "projectID": "XYZ456",
-        "projectName": "Project 2",
-        "createdBy": "Manager",
-        "createdAt": "2024-03-11T10:30:00Z"
-      },
-      {
-        "projectID": "PQR789",
-        "projectName": "Project 3",
-        "createdBy": "User",
-        "createdAt": "2024-03-10T14:20:00Z"
-      },
-      {
-        "projectID": "LMN012",
-        "projectName": "Project 4",
-        "createdBy": "Admin",
-        "createdAt": "2024-03-09T16:45:00Z"
+  getDropdownList() {
+    let apiLink = "/item/api/v1/getItemDropdown";
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.itemCategory = res.itemcategory;
+        this.ItemSubCategory = res.subcategory;
+      } else {
+        this.alertService.warning("Looks like no data available!");
       }
-    ]
+    }, error => {
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  getTenderList(): void {
+    let apiLink = `/biding/api/v1/getTenderlist`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.projectData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.alertService.error("Error: " + error.statusText)
+    });
   }
 
   getWarehouseData() {
@@ -112,73 +114,38 @@ export class AuditRequestComponent {
   }
 
   getData(): void {
-    this.auditRequestData = [
-      {
-        "projectID": "ABC123",
-        "warehouseID": "WH001",
-        "locationID": "LOC001",
-        "audit": {
-          "auditID": "AUDIT001",
-          "auditorName": "John Doe",
-          "purpose": "Inventory Audit",
-          "remarks": "Completed without issues",
-          "createdBy": "Admin",
-          "createdAt": "2024-03-12T08:00:00Z"
-        }
-      },
-      {
-        "projectID": "XYZ456",
-        "warehouseID": "WH002",
-        "locationID": "LOC002",
-        "audit": {
-          "auditID": "AUDIT001",
-          "auditorName": "Jane Smith",
-          "purpose": "Asset Verification",
-          "remarks": "Minor discrepancies found",
-          "createdBy": "Manager",
-          "createdAt": "2024-03-11T10:30:00Z"
-        }
-      },
-      {
-        "projectID": "DEF789",
-        "warehouseID": "WH003",
-        "locationID": "LOC003",
-        "audit": {
-          "auditID": "AUDIT001",
-          "auditorName": "Alice Johnson",
-          "purpose": "Inventory Count",
-          "remarks": "Pending further investigation",
-          "createdBy": "Supervisor",
-          "createdAt": "2024-03-10T15:45:00Z"
-        }
+    const apiLink = `/inventory/api/v1/getAuditRequestList`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.auditRequestData = res.result;
+      } else {
+        this.auditRequestData = [];
+        this.alertService.warning("Looks like no data available in type.");
       }
-    ];
+    },
+    (error: any) => {
+      this.auditRequestData = [];
+      this.alertService.error("Error: " + error.statusText)
+    });
   }
 
   searchItems(): void {
-    this.itemData = [
-      {
-        "itemCode": "ABC123",
-        "itemName": "Item 1",
-        "itemCategory": "Category 1",
-        "uom": "Unit",
-        "systemQty": 100,
-      },
-      {
-        "itemCode": "XYZ456",
-        "itemName": "Item 2",
-        "itemCategory": "Category 2",
-        "uom": "Unit",
-        "systemQty": 200,
-      },
-      {
-        "itemCode": "PQR789",
-        "itemName": "Item 3",
-        "itemCategory": "Category 3",
-        "uom": "Unit",
-        "systemQty": 300,
+    this.itemData = [];
+    let tender_id = this.form.value.tender_id;
+    let warehouse_id = this.form.value.warehouse_id;
+    let itemcategory_id = this.form.value.itemcategory_id;
+    this.apiService.getItemListByTender(tender_id, warehouse_id, itemcategory_id).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.itemData = res.result;
+      } else {
+        this.itemData = [];
+        this.alertService.warning("Looks like no data available!");
       }
-    ];
+    }),
+    (error: any) => {
+      this.itemData = [];
+      this.alertService.error("Error: " + error.statusText)
+    }
   }
 
   searchData(): void {

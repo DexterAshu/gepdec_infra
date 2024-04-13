@@ -33,91 +33,9 @@ export class AuditApprovalComponent {
   }
 
   ngOnInit(): void {
+    this.getData();
     console.log(this.currentDate);
     this.formInit();
-    this.auditApprovalData = [
-      {
-        "projectID": "ABC123",
-        "warehouseID": "WH001",
-        "locationID": "LOC001",
-        "audit": {
-          "auditID": "AUDIT001",
-          "auditorName": "John Doe",
-          "purpose": "Inventory Audit",
-          "remarks": "Completed without issues",
-          "createdBy": "Admin",
-          "createdAt": "2024-03-12T08:00:00Z",
-          "item" : [
-            {
-              "itemCode": "ABC123",
-              "systemQTY": 100,
-              "auditQTY": 90,
-              "missingQTY": 10
-            }
-          ]
-        }
-      },
-      {
-        "projectID": "XYZ456",
-        "warehouseID": "WH002",
-        "locationID": "LOC002",
-        "audit": {
-          "auditID": "AUDIT001",
-          "auditorName": "Jane Smith",
-          "purpose": "Asset Verification",
-          "remarks": "Minor discrepancies found",
-          "createdBy": "Manager",
-          "createdAt": "2024-03-11T10:30:00Z",
-          "item" : [
-            {
-              "itemCode": "DEF456",
-              "systemQTY": 150,
-              "auditQTY": 120,
-              "missingQTY": 30
-            },
-            {
-              "itemCode": "GHI789",
-              "systemQTY": 200,
-              "auditQTY": 150,
-              "missingQTY": 50
-            }
-          ]
-        }
-      },
-      {
-        "projectID": "DEF789",
-        "warehouseID": "WH003",
-        "locationID": "LOC003",
-        "audit": {
-          "auditID": "AUDIT001",
-          "auditorName": "Alice Johnson",
-          "purpose": "Inventory Count",
-          "remarks": "Pending further investigation",
-          "createdBy": "Supervisor",
-          "createdAt": "2024-03-10T15:45:00Z",
-          "item" : [
-            {
-              "itemCode": "JKL012",
-              "systemQTY": 300,
-              "auditQTY": 0,
-              "missingQTY": 300
-            },
-            {
-              "itemCode": "MNO345",
-              "systemQTY": 400,
-              "auditQTY": 0,
-              "missingQTY": 400
-            },
-            {
-              "itemCode": "PQR678",
-              "systemQTY": 500,
-              "auditQTY": 0,
-              "missingQTY": 500
-            }
-          ]
-        }
-      }
-    ];
   }
 
   selectRequest(data: any): void {
@@ -133,6 +51,22 @@ export class AuditApprovalComponent {
 
   searchData(): void {
     console.log(this.searchForm.value);
+  }
+
+  getData(): void {
+    const apiLink = `/inventory/api/v1/getAuditRequestList`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.auditApprovalData = res.result;
+      } else {
+        this.auditApprovalData = [];
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    },
+    (error: any) => {
+      this.auditApprovalData = [];
+      this.alertService.error("Error: " + error.statusText)
+    });
   }
 
 }

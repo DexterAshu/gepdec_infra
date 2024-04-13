@@ -39,12 +39,12 @@
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
-                  <th>Project ID</th>
-                  <th>Warehouse ID</th>
-                  <th>Location ID</th>
+                  <th>Tender Code</th>
+                  <th>Warehouse Code</th>
+                  <th>Item Category</th>
                   <th>Auditor Name</th>
                   <th>Purpose</th>
-                  <th>Auditor Remarks</th>
+                  <th>Remark</th>
                   <th>Created By</th>
                   <th>Created On</th>
                 </tr>
@@ -52,22 +52,22 @@
               <tbody class="text-nowrap">
                 <tr *ngFor="let data of auditRequestData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
-                  <td>{{ data.projectID }}</td>
-                  <td>{{ data.warehouseID }}</td>
-                  <td>{{ data.locationID }}</td>
-                  <td>{{ data.audit.auditorName }}</td>
-                  <td>{{ data.audit.purpose }}</td>
-                  <td>{{ data.audit.remarks }}</td>
-                  <td>{{ data.audit.createdBy }}</td>
-                  <td>{{ data.audit.createdAt }}</td>
+                  <td>{{ data.tender_ref_no }}</td>
+                  <td>{{ data.warehouse_code }}</td>
+                  <td>{{ data.itemcategory }}</td>
+                  <td>{{ data.auditor_name }}</td>
+                  <td>{{ data.audit_purpose }}</td>
+                  <td>{{ data.auditor_remarks }}</td>
+                  <td>{{ data.createdby_name }}</td>
+                  <td>{{ data.created | date:"dd-MM-yyyy hh:mm a" }}</td>
                 </tr>
                 <tr *ngIf="isNotFound == true">
-                  <td colspan="9" class="text-center">
+                  <td colspan="10" class="text-center">
                     <div class="spinner-border"></div>
                   </td>
                 </tr>
                 <tr *ngIf="auditRequestData?.length == 0">
-                  <td colspan="9" class="text-center">
+                  <td colspan="10" class="text-center">
                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                   </td>
                 </tr>
@@ -96,11 +96,11 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Project<span class="required-asterisk">*</span></label>
-                  <select formControlName="projectID" class="form-select form-select-sm">
+                  <select formControlName="tender_id" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                    <option *ngFor="let t of projectData" [value]="t.projectID">{{ t.projectName}}</option>
+                    <option *ngFor="let t of projectData" [value]="t.tender_id">{{ t.tender_ref_no}}</option>
                   </select>
-                  <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid"><small class="text-danger" *ngIf="f['warehouse_id'].errors?.['required']">*Required</small></div>
+                  <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid"><small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
@@ -116,16 +116,11 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label">Item Category<span class="required-asterisk">*</span></label>
-                  <select formControlName="itemCategory" class="form-select form-select-sm">
+                  <select formControlName="itemcategory_id" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                    <option value="electrical">Electrical</option>
-                    <option value="material">Material</option>
-                    <option value="plumbing">Plumbing</option>
-                    <option value="hardware">Hardware</option>
-                    <option value="furniture">Furniture</option>
-                    <option value="others">Others</option>
+                    <option *ngFor="let c of itemCategory" [value]="c.itemcategory_id">{{ c.itemcategory | titlecase }}</option>
                   </select>
-                  <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid"><small class="text-danger" *ngIf="f['warehouse_id'].errors?.['required']">*Required</small></div>
+                  <div *ngIf="f['itemcategory_id'].touched && f['itemcategory_id'].invalid"><small class="text-danger" *ngIf="f['itemcategory_id'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-1">

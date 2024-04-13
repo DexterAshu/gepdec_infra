@@ -36,12 +36,12 @@
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
-                  <th>Project ID</th>
-                  <th>Warehouse ID</th>
-                  <th>Location ID</th>
+                  <th>Tender Code</th>
+                  <th>Warehouse Code</th>
+                  <th>Item Category</th>
                   <th>Auditor Name</th>
                   <th>Purpose</th>
-                  <th>Auditor Remarks</th>
+                  <th>Remark</th>
                   <th>Created By</th>
                   <th>Created On</th>
                   <th>Action</th>
@@ -50,14 +50,14 @@
               <tbody class="text-nowrap">
                 <tr *ngFor="let data of auditApprovalData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
-                  <td>{{ data.projectID }}</td>
-                  <td>{{ data.warehouseID }}</td>
-                  <td>{{ data.locationID }}</td>
-                  <td>{{ data.audit.auditorName }}</td>
-                  <td>{{ data.audit.purpose }}</td>
-                  <td>{{ data.audit.remarks }}</td>
-                  <td>{{ data.audit.createdBy }}</td>
-                  <td>{{ data.audit.createdAt }}</td>
+                  <td>{{ data.tender_ref_no }}</td>
+                  <td>{{ data.warehouse_code }}</td>
+                  <td>{{ data.itemcategory }}</td>
+                  <td>{{ data.auditor_name }}</td>
+                  <td>{{ data.audit_purpose }}</td>
+                  <td>{{ data.auditor_remarks }}</td>
+                  <td>{{ data.createdby_name }}</td>
+                  <td>{{ data.created | date:"dd-MM-yyyy hh:mm a" }}</td>
                   <td><a data-bs-toggle="modal" data-bs-target="#authorizeModal" (click)="selectRequest(data)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a></td>
                 </tr>
                 <tr *ngIf="isNotFound == true">

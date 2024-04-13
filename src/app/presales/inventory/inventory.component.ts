@@ -34,7 +34,7 @@ export class InventoryComponent {
 
   getData(): void {
     this.isNotFound = false;
-    let apiLink = "/item/api/v1/getItemList";
+    let apiLink = "/inventory/api/v1/getInventoryList";
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.isNotFound = false;
