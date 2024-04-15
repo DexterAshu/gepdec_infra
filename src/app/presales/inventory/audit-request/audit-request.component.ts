@@ -24,6 +24,7 @@ export class AuditRequestComponent {
   searchForm!: FormGroup;
   form!: FormGroup;
   itemAuditForm!: FormGroup;
+  selectedRow: any;
   wareHouseData: any = [];
   projectData: any = [];
   itemData: any = [];
@@ -64,6 +65,10 @@ export class AuditRequestComponent {
       auditRemarks: ["",Validators.required],
       isItemAudit: ["",Validators.required]
     })
+  }
+
+  selectRequest(data: any): void {
+    this.selectedRow = data;
   }
 
   getModelFormData(): void {

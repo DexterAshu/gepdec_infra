@@ -373,4 +373,9 @@ export class ApiService {
     return this.http.post(`${environment.apiUrl}/inventory/api/v1/addAuditRequest`, data, httpOptions);
   }
 
+  auditRequestApproval(data: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.put(`${environment.apiUrl}/inventory/api/v1/auditRequestApproval`, data, httpOptions);
+  }
+
 }
