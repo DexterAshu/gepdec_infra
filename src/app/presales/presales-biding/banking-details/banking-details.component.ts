@@ -39,6 +39,8 @@ export class BankingDetailsComponent {
   tendDetails: any;
   data1: any;
   userData: any;
+  filterTenderDetailsData: any = [];
+  securityData: any;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -54,7 +56,7 @@ export class BankingDetailsComponent {
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
-      // documenttype_id: ['',Validators.required],
+      security_id: ['',Validators.required],
       bank_id: [''],
       bg_number: ['', Validators.required],
       bg_amount: ['', Validators.required],
@@ -63,15 +65,11 @@ export class BankingDetailsComponent {
       submission_date: [''],
       extend_date: [''],
       attachment: [''],
-      // publish_date: [''],
-      // tender_ref_no:[''],
       tender_id:['', Validators.required],
       utility_id:['', Validators.required],
       document_description: [''],
      
     });
-
-    
 
     this.getData();
     this.apiService.getDocType().subscribe((res: any) => {
@@ -105,6 +103,9 @@ export class BankingDetailsComponent {
     });
     this.apiService.getTenderType().subscribe((res: any) => {  
       this.tenderType = res.bidtype;
+      this.securityData = res.security;
+
+      console.log(this.tenderType)
     });
     this.masterService.getBankData().subscribe((res:any)=>{
       this.bankData = res.bank;
@@ -129,20 +130,13 @@ export class BankingDetailsComponent {
     this.clientListData = company_id;
     this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
       this.tenderDetailsData = res.result;
-      this.tendDetails = this.tenderDetailsData[0];
       console.log(this.tenderDetailsData);
     });
   }
-  
-  // getDetails(event:any) {
-  //   debugger
-  //   this.data1 = this.clientList; // Assuming this assignment is necessary
-  //   this.apiService.tenderDetails(this.data1).subscribe((res: any) => {
-  //     this.tenderDetailsData = res.result;
-  //     this.tendDetails = this.tenderDetailsData[0];
-  //   });
-  // }
-  
+
+  getrefData(tender_id: any){
+    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
+  }
 
 
   onFileChanged(event: any) {
@@ -208,7 +202,7 @@ downloadPdf() {
       formData.append('attachment', this.attachment[i]);
     }
 
-    // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
+    formData.append('security_id', this.documentForm.value.security_id);
     formData.append('bank_id', this.documentForm.value.bank_id);
     formData.append('bg_number', this.documentForm.value.bg_number);
     formData.append('bg_amount', this.documentForm.value.bg_amount);
@@ -216,8 +210,6 @@ downloadPdf() {
     formData.append('end_date', this.documentForm.value.end_date);
     formData.append('submission_date', this.documentForm.value.submission_date);
     formData.append('extend_date', this.documentForm.value.extend_date);
-    // formData.append('publish_date', this.documentForm.value.publish_date);
-    // formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
     formData.append('tender_id', this.documentForm.value.tender_id);
     formData.append('utility_id', this.documentForm.value.utility_id);
     formData.append('document_description', this.documentForm.value.document_description);

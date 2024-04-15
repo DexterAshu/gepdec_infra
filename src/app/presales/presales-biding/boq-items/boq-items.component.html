@@ -21,60 +21,80 @@
                     <hr> -->
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search...">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
                         </div>
-                        <div class="col-lg-4"></div>
-                        <div class="col-lg-4">
-                            <div class="float-right">
-                                <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
-                                    Bulkload Template</button> -->
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
-                                          <span class="mdi mdi-upload"></span>&nbsp; Export
-                                    </button>
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span>&nbsp; Import 
-                                    </button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
-                         
 
+                        <div class="col-lg-2">
+                          
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="float-right">
+                                            <button class="btn btn-primary btn-fw btn-sm dropdown-toggle me-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Export
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li><a class="dropdown-item text-small cursor-pointer" (click)="download()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                                                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+                                                      </svg>
+                                                    Export Data</a></li>
+                                                <li><a class="dropdown-item text-small cursor-pointer" (click)="downloadPdf()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                        <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+                                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                                                      </svg>
+                                                    Download Template</a></li>
+                                            </ul>
+                                     
+                                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                    <span class="mdi mdi-download"></span>&nbsp; Import
+                                </button>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
                             </div>
-                            </div>
+                        </div>
+                        
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <!-- <th>Company ID</th> -->
-                                <th>Company Name</th>
-                                <th>Company Type</th>
-                                <th>Contact Person</th>
-                                <th>Contact No</th>
-                                <th>Email ID</th>
-                                <th>DOI</th>
-                                <th>GST No</th>
-                                <th>PAN No</th>
+                                <th>Client Name</th>
+                                <th>Tender/Project Title</th>
+                                <th>Tender (NIT/RFB) No</th>
+                                <th>published Date</th>
+                                <th>BOQ Code</th>
+                                <th>Item Code</th>
+                                <th>Description Of Item</th>
+                                <th>Item Type</th>
+                                <th>Unit</th>
+                                <th>Status</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="companyData.length">
-                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of boqData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                                <!-- <td>{{ a.company_id }}</td> -->
-                                <td>{{ a.bidder_name}}</td>
-                                <td>{{ a.companytype}}</td>
-                                <td>{{ a.contact[0].name}}</td>
-                                <td>{{ a.contact[0].contactno1 }}</td>
-                                <td>{{ a.contact[0].email }}</td>
-                                <td>{{ a.doi }}</td>
-                                <td>{{ a.gst }}</td>
-                                <td>{{ a.pan }}</td>
+                             
+                                <td>{{ a.company_name}}</td>
+                                <td>{{ a.tender_title}}</td>
+                                <td>{{ a.tender_ref_no}}</td>
+                                <td>{{ a.publish_date }}</td>
+                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Item Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.boq_id}}</td>
+                                <td>{{ a.itemcode }}</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.description }}">
+                                    {{a.description| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                </td>
+                             
+                                <td>{{ a.item_type }}</td>
+                                <td>{{ a.unit }}</td>
+                                <td>{{ a.status }}</td>
                                 <td>{{ a.createdby_name }}</td>
                                 <td>{{ a.created }}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                                      <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
 
                                 </td>
@@ -87,7 +107,7 @@
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="companyData?.length == 0">
+                            <tr *ngIf="boqData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
@@ -125,9 +145,7 @@
                                             <option [selected]="true" [disabled]="true" [value]="null">Select Items</option>
                                             <option *ngFor="let s of dataList" value="{{s.item_id}}">{{ s.description }}</option>
                                         </select>
-                                        <!-- <div *ngIf="f['itemCode'].touched && f['itemCode'].invalid">
-                                            <small class="text-danger" *ngIf="f['itemCode'].errors?.['required']">*Required</small>
-                                        </div> -->
+                                      
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -137,9 +155,7 @@
                                             <option [selected]="true" [disabled]="true" [value]="null">Item Type</option>
                                             <option *ngFor="let s of dataDropdownList" value="{{s.itemtype_id}}">{{ s.itemtype }}</option>
                                         </select>
-                                        <!-- <div *ngIf="f['type'].touched && f['type'].invalid">
-                                            <small class="text-danger" *ngIf="f['type'].errors?.['required']">*Required</small>
-                                        </div> -->
+                                       
                                     </div>
                                 </div>
                             
@@ -147,10 +163,7 @@
                                     <div class="form-group">
                                         <label class="form-label fl-10">Quantity<span class="required-asterisk">*</span></label>
                                         <input formControlName="quantity"  type="text" class="form-control form-control-sm" appNumberOnly>
-                                        <!-- <div *ngIf="f['quantity'].touched && f['quantity'].invalid">
-                                            <small class="text-danger" *ngIf="f['quantity'].errors?.['required']">*Required</small>
-                                           
-                                        </div> -->
+                                     
                                         
                                     </div>
                                 </div>
@@ -165,33 +178,21 @@
                                         <input type="radio" formControlName="isChild" value="false"> &nbsp;&nbsp; No
                                     </label>
                                     </div>
-                                    <!-- <div *ngIf="f['isChild'].touched && f['isChild'].invalid">
-                                        <small class="text-danger" *ngIf="f['isChild'].errors?.['required']">Please select Yes or No.</small>
-                                    </div> -->
+                                  
                                     </div>
                                 </div>
 
                                 <div class="col-md-10">
                                     <div class="form-group">
-                                        <!-- <label class="form-label fl-10">child item<span class="required-asterisk">*</span></label> -->
-
+                                        
                                         <ng-multiselect-dropdown name="addmember" [placeholder]="'Select Member'" [data]="dataDropdownList"
                                         [(ngModel)]="selectedItems" formControlName="childItem" [settings]="dropdownSettings"
                                         (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)"
                                         (onSelectAll)="onSelectAll($event)">
                                       </ng-multiselect-dropdown>
 
-                                       
-
                                         </div>
-                                    
-                                        <!-- <select formControlName="childItem" class="form-select form-select-sm">
-                                            <option [selected]="true" [disabled]="true" [value]="null">Child Item</option>
-                                            <option *ngFor="let s of compData" value="{{s.companytype_id}}">{{ s.companytype }}</option>
-                                        </select> -->
-                                      
-                                   
-
+          
                                     
                                 </div> 
 
@@ -221,4 +222,193 @@
 </div>
 <!-- create modal end-->
 
+<!-- create-bulk data form-model start -->
+<div class="modal fade" id="createBulkModal" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">BOQ Items Bulk Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <form [formGroup]="form1" (ngSubmit)="onBOQSubmit()">
+                <div class="row">
 
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
+                            <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
+                                <option [selected]="true" [disabled]="true" [value]="null">Select Client Company</option>
+                                <option *ngFor="let c of comData" value="{{c.company_id}}">{{ c.company_name }}</option>
+                            </select>
+                            <div *ngIf="fb['utility_id'].touched && fb['utility_id'].invalid">
+                                <small class="text-danger" *ngIf="fb['utility_id'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
+                            <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
+                                <option [selected]="true" [disabled]="true">Select Project</option>
+                                <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
+                            </select>
+                                <div *ngIf="fb['tender_id'].touched && fb['tender_id'].invalid">
+                                <small class="text-danger" *ngIf="fb['tender_id'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Tender Ref. No</label>
+                            <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
+                        
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Tender Publish Date</label>
+                            <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
+
+                        </div>
+                    </div>
+
+                 
+                    <!-- <div *ngFor="let selected of listOfFiles;let index = index">
+                        <div class="panel panel-default mt-2">
+                          <div class="panel-body">
+                            <h3 class="f-attach">{{selected}}
+                              <button (click)="removeSelectedFile(index)" class="remove-btn pull-right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                  class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                  <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                </svg>
+                              </button>
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+    
+
+                      <div class="" [innerHTML]="result" style="cursor: pointer;">
+                        <input style="display: none" formControlName="attachment" #attachments type="file"
+                            (change)="onFileChanged($event)" #fileInput accept=".xlsx, .xls">
+                    </div>
+                      <hr>
+                      <label class="form-label fl-10">Choose your filled BOQ data template 
+                        <small class="form-label fl-10">(Please ensure your file is named 'BOQ_sample_template')</small>
+                        <span class="required-asterisk">*</span>
+                    </label>
+                      
+                      <button type="button" mat-raised-button (click)="fileInput.click()" class="attach-do">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                          class="bi bi-paperclip attach-icon" viewBox="0 0 16 16">
+                          <path
+                            d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
+                        </svg>
+                        <b class="attach-font"> Attach a file</b>
+                      </button><br>
+                      <div class="row" *ngIf="result">
+                        <div class="col-md-12">
+    
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Warning!</strong> {{result}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <br>
+                        </div>
+                    </div> -->
+                    <div class="col-md-12 mt-1" >
+                        <span class="required-asterisk">*</span>&nbsp;
+                        <input type="file" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
+                  
+                   <br>
+                    <div class="float-right mt-2">
+                        <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="form1.invalid" >
+                            <i class="mdi mdi-folder-upload menu-icon"></i>&nbsp;Upload</button>
+                    </div>
+                </div>
+                </div>
+             </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- create-bulk data form-model end -->
+
+
+<!-- detail modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BOQ Item Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive">
+                                <div class="card1">
+                                    <div class="row p-1">
+                                        <div class="col-md-2">Client Name :</div>
+                                        <div class="col-md-4">{{ rowData?.company_name }}</div>
+                                        <div class="col-md-2">Tender/Project Title :</div>
+                                        <div class="col-md-4">{{ rowData?.tender_title }}</div>
+                                    </div>
+                                    <div class="row p-1">
+                                      <div class="col-md-2">Tender (NIT/RFB) No :</div>
+                                      <div class="col-md-2">{{ rowData?.tender_ref_no }}</div>
+                                      <div class="col-md-2">Published Date :</div>
+                                      <div class="col-md-2">{{ rowData?.publish_date }}</div>
+                                      <div class="col-md-2">BOQ Code :</div>
+                                      <div class="col-md-2">{{ rowData?.boq_id }}</div>
+                                    </div>
+                                   
+                                  </div>
+                                <table class="table table-hover table-striped custom-table mt-1">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Item Code</th>
+                                            <td>{{ rowData?.itemcode }}</td>
+                                            <th>Parent Item</th>
+                                            <td>{{ rowData?.parentitem }}</td>
+                                            <th>Status</th>
+                                            <td>{{ rowData?.status }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Item Type</th>
+                                            <td>{{ rowData?.item_type }}</td>
+                                            <th>Unit</th>
+                                            <td>{{ rowData?.unit }}</td>
+                                            <th>Created By</th>
+                                            <td>{{ rowData?.createdby }}</td>
+                                        </tr>
+                                    
+                                      
+                                    </tbody>
+                                </table>
+                             
+                                <label class="form-label fl-10 mt-2">Description of Item</label>
+                              <div class="card p-2" readonly>{{ rowData?.description }}</div>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail modal end-->

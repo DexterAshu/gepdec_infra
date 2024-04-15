@@ -126,15 +126,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <!-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Item Parameter 1</label>
                                     <input formControlName="parameter" type="text" class="form-control form-control-sm">
-                                    <!-- <div *ngIf="f['parameter'].touched && f['parameter'].invalid">
-                                        <small class="text-danger" *ngIf="f['parameter'].errors?.['required']">*Required</small>
-                                    </div> -->
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Type<span class="required-asterisk">*</span></label>
@@ -208,7 +205,7 @@
                             
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Last Procured Cost</label>
+                                    <label class="form-label">Last Procured Cost<span class="required-asterisk">*</span></label>
                                     <input formControlName="cost" type="text" class="form-control form-control-sm" appNoSpace appNumWithDot>
                                     <div *ngIf="f['cost'].touched && f['cost'].invalid">
                                         <small class="text-danger" *ngIf="f['cost'].errors?.['required']">*Required</small>

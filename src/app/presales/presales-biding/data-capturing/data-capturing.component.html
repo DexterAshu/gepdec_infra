@@ -276,7 +276,7 @@
 <div class="col-md-3">
     <div class="form-group">
         <label class="form-label fl-10">Security Deposit<span class="required-asterisk">*</span></label>
-        <select formControlName="securitydeposit_id" class="form-select form-select-sm" (change)="toggleSecurityField($event)">
+        <select formControlName="securitydeposit_id" #sel class="form-select form-select-sm" (change)="toggleSecurityField($event)">
             <option *ngFor="let c of securityDeposit" [value]="c.securitydeposit_id">{{ c.securitydeposit }}</option>
         </select>
         <div *ngIf="f['securitydeposit_id'].touched && f['securitydeposit_id'].invalid">
@@ -285,39 +285,36 @@
     </div>
 </div>
 
-<div class="col-md-4" *ngIf="selectSecurityField">
-    <div class="form-group">
-        <label class="form-label fl-10">Security Amount<span class="required-asterisk">*</span></label>
-        <input formControlName="security_amount" type="text" class="form-control form-control-sm" placeholder="Enter Amount" appNumberOnly>
-        <div *ngIf="f['security_amount'].touched && f['security_amount'].invalid">
-            <small class="text-danger" *ngIf="f['security_amount'].errors?.['required']">*Required</small>
+<ng-container *ngIf="sel.value == '1001'">
+    <div class="col-md-4" *ngIf="toggleSecurityField">
+        <div class="form-group">
+            <label class="form-label fl-10">Security Amount<span class="required-asterisk">*</span></label>
+            <input formControlName="security_amount" type="text" class="form-control form-control-sm" appNumberOnly>
+            <div *ngIf="f['security_amount'].touched && f['security_amount'].invalid">
+                <small class="text-danger" *ngIf="f['security_amount'].errors?.['required']">*Required</small>
+            </div>
         </div>
     </div>
-</div>
-
-
-
-<div class="col-md-4" *ngIf="selectSecurityField">
-  
-    <div class="form-group">
-        <label class="form-label fl-10"> Submission Date<span class="required-asterisk">*</span></label>
-        <input formControlName="securitysubmission_date" type="date" class="form-control form-control-sm">
-        <div *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
-            <small class="text-danger" *ngIf="f['securitysubmission_date'].errors?.['required']">*Required</small>
-        </div>
+    
+    <div class="col-md-4" *ngIf="toggleSecurityField">
+        <div class="form-group">
+            <label class="form-label fl-10"> Submission Date<span class="required-asterisk">*</span></label>
+            <input formControlName="securitysubmission_date" type="date" class="form-control form-control-sm">
+            <div *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
+            </div>
+                <small class="text-danger" *ngIf="f['securitysubmission_date'].errors?.['required']">*Required</small>
+        </div>    
     </div>
+</ng-container>
 
-</div>
-
-
-<!-- Security Deposit end -->
+        <!-- Security Deposit end -->
 
 
 <!-- Performance Guarantee -->
 <div class="col-md-4">
     <div class="form-group">
         <label class="form-label fl-10">Tender Performance Guarantee<span class="required-asterisk">*</span></label>
-        <select formControlName="performanceguarantee_id" class="form-select form-select-sm" (change)="togglePGField($event)">
+        <select formControlName="performanceguarantee_id" #pg class="form-select form-select-sm" (change)="togglePGField($event)">
             <option *ngFor="let c of performanceGuarntee" [value]="c.performanceguarantee_id">{{ c.performanceguarantee }}</option>
         </select>
         <div *ngIf="f['performanceguarantee_id'].touched && f['performanceguarantee_id'].invalid">
@@ -326,10 +323,11 @@
     </div>
 </div>
 
+<ng-container *ngIf="pg.value == '1001'">
 <div class="col-md-4" *ngIf="selectPGField">
     <div class="form-group">
         <label class="form-label fl-10">PG Amount<span class="required-asterisk">*</span></label>
-        <input formControlName="pg_amount" type="text" class="form-control form-control-sm" placeholder="Enter Amount" appNumberOnly>
+        <input formControlName="pg_amount" type="text" class="form-control form-control-sm" appNumberOnly>
         <div *ngIf="f['pg_amount'].touched && f['pg_amount'].invalid">
             <small class="text-danger" *ngIf="f['pg_amount'].errors?.['required']">*Required</small>
         </div>
@@ -348,7 +346,7 @@
         </div>
   
 </div>
-
+</ng-container>
 
 <!-- Performance Guarantee End -->
 
@@ -357,7 +355,7 @@
 <div class="col-md-4">
     <div class="form-group">
         <label class="form-label fl-10">Tender EMD Exemption<span class="required-asterisk">*</span></label>
-        <select formControlName="exemption_id" class="form-select form-select-sm" (change)="toggleEmdField($event)">
+        <select formControlName="exemption_id" #emd class="form-select form-select-sm" (change)="toggleEmdField($event)">
             <option [value]="null" disabled selected>Select Mode</option>
             <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
         </select>
@@ -367,10 +365,11 @@
     </div>
 </div>
 
+<ng-container *ngIf="emd.value == '401'">
 <div class="col-md-3" *ngIf="selectedEmdexemption">
     <div class="form-group">
         <label class="form-label fl-10">EMD Amount<span class="required-asterisk">*</span></label>
-        <input formControlName="emd_ammount" type="text" class="form-control form-control-sm" placeholder="Enter EMD Amount" appNumberOnly>
+        <input formControlName="emd_ammount" type="text" class="form-control form-control-sm" appNumberOnly>
         <div *ngIf="f['emd_ammount'].touched && f['emd_ammount'].invalid">
             <small class="text-danger" *ngIf="f['emd_ammount'].errors?.['required']">*Required</small>
         </div>
@@ -381,7 +380,7 @@
 
 <div class="col-md-3" *ngIf="selectedEmdexemption">
     <div class="form-group">
-        <label class="form-label fl-10">EMD Payment<span class="required-asterisk">*</span></label>
+        <label class="form-label fl-10">EMD Payment Mode<span class="required-asterisk">*</span></label>
 
         <select formControlName="paymentmethod_id" class="form-select form-select-sm">
             <option [selected]="true" [disabled]="true" [value]="null">Select Payment Mode</option>
@@ -419,6 +418,7 @@
         </div>
   
 </div>
+</ng-container>
 <!-- tender EMD end -->
 
                                     <div class="col-md-4">
@@ -500,10 +500,11 @@
                                         </div>
                                     </div> -->
 
-                                    <div class="col-md-12" *ngIf="!update">
+                                    <div class="col-md-12 mt-2">
                                         <div class="form-group">
-                                            <input class="mt-1" type="checkbox" id="termscheckbox" formControlName="termscheckbox"> &nbsp;
-                                            <label for="termscheckbox"> I accept that the selected fields and input data given by me are correct.</label>
+                                            <input class="mt-1" type="checkbox" id="termscheckbox" formControlName="termscheckbox" (change)="onCheckboxChange($event)">
+                                            &nbsp;
+                                            <label for="termscheckbox" [ngStyle]="{ color: textColor }"> I accept that the selected fields and input data given by me are correct.</label>
                                         </div>
                                     </div>
 

@@ -12,10 +12,12 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 })
 export class BoqItemsComponent {
   form!: FormGroup;  
+  form1!: FormGroup;  
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
-  companyData: any = [];
+  result:any;
+  companyData: any;
   isNotFound:boolean = false;
   countryData: any;
   stateData: any;
@@ -42,7 +44,7 @@ export class BoqItemsComponent {
   contactData: any;
   addressDetails: any;
   countryName:any;
-  
+  attachment: any = [];
 
   supgrpmemb: any;
   selectedItems = [];
@@ -55,7 +57,20 @@ export class BoqItemsComponent {
   rmove: any;
   arr: any;
   dataList: any;
- 
+  clientListData: any;
+  tenderDetailsData: any;
+  tendDetails: any;
+  bankData: any;
+  tenderData: any;
+  tenderType: any;
+  docType: any;
+  docListData: any;
+  refData: any;
+  rowData: any;
+  filterTenderDetailsData: any[] = [];
+  listOfFiles: any[] = [];
+  boqData: any;
+  comData: any;
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -64,18 +79,50 @@ export class BoqItemsComponent {
   ) { }
 
  ngOnInit(){
+  this.apiService.getCompanyList().subscribe((res: any) => {  
+    this.comData = res.result;
+    console.log(this.comData);
+    
+  });
+
     this.form = this.formBuilder.group({
-      childItem: this.formBuilder.array([]),
+       childItem: this.formBuilder.array([]),
    
     });
+    this.form1 = this.formBuilder.group({
+      tender_id:['', Validators.required],
+      utility_id:['', Validators.required],
+      attachment:['', Validators.required]
+    });
 
-    this.getCompanyData();
-    this.getCompanyType();
+   
+   
+  
     this.addAnotherRow();
-    this.getDropdownList();
+    // this.getDropdownList();
     this.getDataList();
-    
+    this.getBoqListData();
+  }
 
+
+  rowListData(row:any) {
+    this.rowData = [];
+    this.rowData = row;
+    console.log(this.rowData);
+    
+  }
+  
+  getDetails(event: any) {
+    const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    this.clientListData = company_id;
+    this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
+      this.tenderDetailsData = res.result;
+      console.log(this.tenderDetailsData);
+    });
+  }
+
+  getrefData(tender_id: any){
+    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
 
   boqChildItem() : FormArray {  
@@ -133,25 +180,34 @@ export class BoqItemsComponent {
     
   }
   onItemDeSelect(item: any) {
-    console.log(item);
     this.rmovemember(item)
     this.rmove=item;
-    console.log(this.rmove);
     this.arr.push(this.rmove);    
-    console.log(this.arr);
    
   }
 
-  getDropdownList() {
-    this.dataDropdownList = [];
-    this.isNotFound = false;
-    let apiLink = "/item/api/v1/getItemDropdown";
-    this.apiService.getData(apiLink).subscribe((res:any) => {
-      console.log(res);
+  // getDropdownList() {
+  //   this.dataDropdownList = [];
+  //   this.isNotFound = false;
+  //   let apiLink = "/item/api/v1/getItemDropdown";
+  //   this.apiService.getData(apiLink).subscribe((res:any) => {
+  //     console.log(res);
       
-      this.dataDropdownList = res.itemtype;
-    })
-  } 
+  //     this.dataDropdownList = res.itemtype;
+  //   })
+  // }
+  
+  getBoqListData(){
+    this.apiService.BOQList().subscribe((res: any) => { 
+      if (res.status === 200) {
+        this.boqData = res.result;
+        console.log(this.boqData);
+        
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      } 
+    });
+  }
 
   getDataList() {
     this.dataList = [];
@@ -164,27 +220,58 @@ export class BoqItemsComponent {
   }
 
   get f() { return this.form.controls; }
+  get fb() { return this.form1.controls; }
   
-  getCompanyType() {
-    this.apiService.getourCompanyData().subscribe((res:any) => {
-      if (res.status === 200) {
-        this.compData = res.companytype;
-        console.log(this.compData);
-        
-      } else {
-        this.alertService.warning("Looks like no data available in type.");
-      }
-    });
+
+  onFileChanged(event: any) {
+    
+    for (var i = 0; i <= event.target.files.length - 1; i++) {
+      var selectedFile = event.target.files[i];
+      this.listOfFiles.push(selectedFile.name);
+      this.attachment.push(selectedFile);
+    }
+    console.log(this.attachment);
+    // this.attachment.nativeElement.value = '';
   }
-  
-  getCompanyData() {
-    this.apiService.getourCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
-      this.limits.push({ key: 'ALL', value: this.companyData.length });
-      this.isExcelDownload = true;
-    });
+
+  removeSelectedFile(index: any) {
+    
+    // Delete the item from fileNames list
+    this.listOfFiles.splice(index, 1);
+    this.attachment.splice(index, 1);
+
+  }
+
+   //bulk-load with bulk excel download
+   fileChangeEvent(fileInput: any) {
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+  }
+  validateFile(name: String) {
+    var ext = name
+    if (ext === 'Data_File.xlsx') {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
  
-  }
+  // bulUpload() {
+  //       const formData: FormData = new FormData();
+  //       for (let i = 0; i < this.attachment.length; i++) {
+  //         formData.append('attachment', this.attachment[i]);
+  //       }
+  //       formData.append('utility_id', this.form1.value.utility_id);
+  //       formData.append('tender_id', this.form1.value.tender_id);
+  //       this.addBOQ(formData);
+
+  //     this.masterService.bulkattach(formData).subscribe((res:any)=>{
+      
+  //     if(res){
+  //       this.alertService.success('Bulk Data uploaded successfully')
+  //     }
+  //     })
+  //   }
 
   
   exportAsXLSX1(){
@@ -197,8 +284,8 @@ export class BoqItemsComponent {
                
         }
 downloadPdf() {
-  const pdfUrl = './assets/tamplate/state_bulkload_template_file.xlsx';
-  const pdfName = 'state_bulkload_template_file.xlsx';
+  const pdfUrl = './assets/tamplate/BOQ_sample_template.xlsx';
+  const pdfName = 'BOQ_sample_template.xlsx';
   FileSaver.saveAs(pdfUrl, pdfName);
 }
 
@@ -210,46 +297,51 @@ downloadPdf() {
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 
-
+//create form submit
   onSubmit() {
     if (this.form.valid) {
         this.isSubmitted = true;
         this.loading = true;
-    if (this.update) {  
-      this.companyUpdate();
-    } else {
-      this.createCompany();
-    }
+  
     }
   }
 
-  createCompany() {
+
+
+  // BOQ item bulk data 
+  onBOQSubmit() {
+    const formData: any = new FormData();
+    const files: Array<File> = this.filesToUpload;
+
+    for (let i = 0; i < this.attachment.length; i++) {
+      formData.append("attachment", this.attachment[i]);
+    }
+    // console.log(this.form1.value);
+    // const formData: FormData = new FormData();
+    // for (let i = 0; i < this.attachment.length; i++) {
+    //   formData.append('attachment', this.attachment[i]);
+    // }
+    formData.append('utility_id', this.form1.value.utility_id);
+    formData.append('tender_id', this.form1.value.tender_id);
    
-    this.apiService.ourcreateCompany(this.form.value).subscribe((res: any) => {
-     let response: any = res;
+    this.addBOQ(formData);
+}
+
+addBOQ(formData: FormData) {
+    console.log(formData);
+    
+    this.apiService.BOQbulkData(formData).subscribe((res: any) => {
+        let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
         if (response.status == 200) {
-          this.getCompanyData();
-          this.form.reset();
-          this.alertService.success(response.message);
+            this.form1.reset();
+            this.alertService.success(response.message);
         } else {
-          this.alertService.warning(response.message);
+            this.alertService.warning(response.message);
         }
-      })
-  }
-  companyUpdate(): void {
-     this.form.value.bidder_id =  this.custDetails.bidder_id;
-     this.form.value.contact_id =  this.contDetails.contact_id;
-    this.apiService.ourcompanyUpdation(this.form.value).subscribe((res: any) => {
-       this.isSubmitted = false;
-      if (res.status == 200) {
-        this.ngOnInit();
-        document.getElementById('cancel')?.click();
-      this.alertService.success('Company Updated Successfully');
-    } else {
-      this.alertService.error('Something went wrong please try again');
-    }
-  });
-  }
+    });
+}
+
+  updateBOQ(formData: FormData){}
 }

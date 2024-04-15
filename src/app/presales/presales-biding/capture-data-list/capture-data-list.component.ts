@@ -41,6 +41,7 @@ export class CaptureDataListComponent {
   isExcelDownloadData: boolean = true;
   userData: any;
   statusData: any;
+  rowData: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -58,34 +59,7 @@ export class CaptureDataListComponent {
    }
 
  ngOnInit(){
-    this.form = this.formBuilder.group({
-      // companyId: [null, Validators.required],
-      // name: [null, Validators.required],
-      company_name: [null, Validators.required],
-      bidtype: [null, Validators.required],
-      tender_no: [null, [Validators.required]],
-      tender_name: [null, [ Validators.required]],
-      fund_source: [null, [Validators.required]],
-      emd: [null, [Validators.required]] ,
-      ecv: [null, Validators.required],
-      due_date: [null, Validators.required],  
-      compl_period: [null, Validators.required],
-      location: [null, Validators.required],
-      prebid_date: [null, Validators.required],
-      coment_qr: [null, Validators.required],
-      sbmitted_date: [null, Validators.required],
-      tech_bid_date: [null, Validators.required],
-      pbid_open_date: [null, Validators.required],
-      qt_value: [null, Validators.required],
-      biders: [null, Validators.required],
-      price_gst: [null, Validators.required],
-      tender_description: [null],
-      jv: [null],
-    });
-
     this.getTenderData();
-    // this.getCountryData();
-    
   }
 
   //  getDetails(data:any){
@@ -112,6 +86,13 @@ export class CaptureDataListComponent {
       this.button = 'Update';
       this.update = true;
     } 
+
+    rowListData(row:any) {
+      this.rowData = [];
+      this.rowData = row;
+      console.log( this.rowData);
+      
+    }
    
   //button dropdown
   isOpen: boolean = false;
@@ -132,7 +113,7 @@ export class CaptureDataListComponent {
     });
  
   }
-
+  
 
 //status-filter
 gettaball(data:any)

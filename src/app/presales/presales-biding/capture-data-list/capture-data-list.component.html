@@ -68,7 +68,7 @@
                                     </svg>
                                   </button>
                               <ul>
-                                <li><button type="button" class="btn btn-fw btn-sm" > <span class="mdi mdi-book-open-page-variant" ></span>&nbsp;All</button>
+                                <li><button type="button" class="btn btn-fw btn-sm" > <span class="mdi mdi-book-open-page-variant" ></span>&nbsp;All </button>
                                 </li>
                                 <li> <button type="button" class="btn btn-fw btn-sm" ><span class="mdi mdi-checkbox-marked-outline"></span>&nbsp;Qualified</button>
                                 </li>
@@ -105,7 +105,7 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Company Name</th>
+                                <th>Client Name</th>
                                 <th>Tender/Project Title</th>
                                 <th>Tender (NIT/RFB) No</th>
                                
@@ -130,14 +130,15 @@
                         <tbody class="text-nowrap" *ngIf="companyData.length">
                             <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.company_name }}">
-                                    {{a.company_name| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                <!-- <td data-toggle="tooltip" data-placement="bottom" title="{{ a.company_name }}">
+                                    {{a.company_name| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
                                 </td>
                                 <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                    {{a.tender_title| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
-                                </td>
-                                
-                                <td>{{ a.tender_ref_no }}</td>
+                                    {{a.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                </td> -->
+                                <td>{{ a.company_name }}</td>
+                                <td>{{ a.tender_title }}</td>
+                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.tender_ref_no }}</td>
                                 <td>{{ a.bidtype }}</td>
                                 <td>{{ a.tender_doc_cost }}</td>
                                 <td>{{ a.tender_fee }}</td>
@@ -154,9 +155,9 @@
                                 <td>{{ a.createdby_name}}</td>
                                 <td>{{ a.created }}</td>
                                 <td >
-                                     <a data-bs-toggle="modal" data-bs-target="#techModal" title="Add Technical Details" ><span class="mdi mdi-lightbulb-on text-primary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                     <!-- <a data-bs-toggle="modal" data-bs-target="#techModal" title="Add Technical Details" ><span class="mdi mdi-lightbulb-on text-primary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a data-bs-toggle="modal" data-bs-target="#finModal" title="Add Financial Details" ><span class="mdi mdi-currency-inr text-info cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#bankModal" title="Add Bank Details" ><span class="mdi mdi-bank text-warning cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a data-bs-toggle="modal" data-bs-target="#bankModal" title="Add Bank Details" ><span class="mdi mdi-bank text-warning cursor-pointer mdi-18px"></span></a> &nbsp; -->
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)" ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" ><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                                      <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
@@ -183,9 +184,195 @@
     </div>
 </div>
 
+
+
+
+<!-- detail modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tender/Bid Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+              
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive">
+                                <div class="card1">
+                                  <div class="row p-1">
+                                    <div class="col-md-2">Tender ID :</div>
+                                    <div class="col-md-2">{{ rowData?.tender_id }}</div>
+                                    <div class="col-md-2">Client Name :</div>
+                                    <div class="col-md-6">{{ rowData?.company_name }}</div>
+                                  </div>
+                                  <div class="row p-1">
+                                    <div class="col-md-2">Tender/Project Title :</div>
+                                    <div class="col-md-2">{{ rowData?.tender_title }}</div>
+                                    <div class="col-md-2">Tender (NIT/RFB) No :</div>
+                                    <div class="col-md-2">{{ rowData?.tender_ref_no }}</div>
+                                    <div class="col-md-2">Tender Published Date :</div>
+                                    <div class="col-md-2">{{ rowData?.publish_date }}</div>
+                                   
+                                  </div>
+                                 
+                                </div>
+                                <table class="table table-hover table-striped custom-table mt-2">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                       
+                                        <tr>
+                                            <th>Bidder Company</th>
+                                            <td>{{ rowData?.bidder_name }}</td>
+                                            <th>Tender Type</th>
+                                            <td>{{ rowData?.bidtype }}</td>
+                                            <th>Tender Execution Location</th>
+                                            <td>{{ rowData?.tender_location }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tender Submission Date</th>
+                                            <td>{{ rowData?.tender_submission_date }}</td>
+                                            <th>Tender Description</th>
+                                            <td>{{ rowData?.tender_description }}</td>
+                                            <th>Tender Available Link</th>
+                                            <td>{{ rowData?.tender_detail_link }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tender Opening Date</th>
+                                            <td>{{ rowData?.opening_date }}</td>
+                                            <th>Tender Closing Date</th>
+                                            <td>{{ rowData?.closing_date }}</td>
+                                            <th>Soft Copy Submission Date & Time</th>
+                                            <td>{{ rowData?.tender_detail_link }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Hard Copy Submission Date & Time</th>
+                                          <td>{{ rowData?.tender_detail_link }}</td>
+                                            <th>Pre-bid Meeting Mode</th>
+                                            <td>{{ rowData?.prebidmeetingmode }}</td>
+                                            <th>Tender Pre-bid Meeting Date</th>
+                                            <td>{{ rowData?.prebid_date }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Technical Bid Opening Date & Time</th>
+                                          <td>{{ rowData?.tech_bid_date }}</td>
+                                            <th>Financial Bid Opening Date</th>
+                                            <td>{{ rowData?.fin_bid_opening_date }}</td>
+                                            <th>ECV (Cr)</th>
+                                            <td>{{ rowData?.ecv }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Tender Fee</th>
+                                          <td>{{ rowData?.tender_fee }}</td>
+                                            <th>Tender Document Cost</th>
+                                            <td>{{ rowData?.tender_doc_cost }}</td>
+                                            <th>Security Deposit</th>
+                                          <td>{{ rowData?.security_deposit }}</td>
+                                        </tr>
+                                        <tr>
+                                          
+                                            <th>Tender Performance Guarantee</th>
+                                            <td>{{ rowData?.performance_guarantee }}</td>
+                                            <th>Tender EMD Exemption</th>
+                                            <td>{{ rowData?.emdexemption }}</td>
+                                            <th>EMD Amount</th>
+                                            <td>{{ rowData?.emd_ammount }}</td>
+                                        </tr>
+                                        <tr>
+                                          
+                                            <th>EMD Payment</th>
+                                            <td>{{ rowData?.paymentmethod }}</td>
+                                            <th>EMD Submission Date</th>
+                                            <td>{{ rowData?.emd_submission_date }}</td>
+                                            <th>Forfeiture Condition</th>
+                                            <td>{{ rowData?.emd_submission_date }}</td>
+                                        </tr>
+                                        <tr>
+                                          
+                                            <th>Tender Status</th>
+                                            <td>{{ rowData?.tender_status }}</td>
+                                            <th>Tender Payment Terms</th>
+                                            <td>{{ rowData?.payment_terms }}</td>
+                                            <th>Created By</th>
+                                            <td>{{ rowData?.createdby_name }}</td>
+                                        </tr>
+                                      
+                                    </tbody>
+                                </table>
+                                <!-- qualification details -->
+                                <h6 class="mb-2 mt-4 text-secondary">Tender Qualification Details</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Bank Name</th>
+                                            <td>{{ rowData?.bankname }}</td>
+                                            <th>Account Holder Name</th>
+                                            <td>{{ rowData?.account_holder_name }}</td>
+                                            <th>Account No</th>
+                                            <td>{{ rowData?.bankaccountno }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Branch Name</th>
+                                            <td>{{ rowData?.branch_name }}</td>
+                                            <th>IFSC Code</th>
+                                            <td>{{ rowData?.bankifsc }}</td>
+                                            <th>Bank Address</th>
+                                            <td>{{ rowData?.bank_address }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Account Type</th>
+                                            <td>{{ rowData?.accounttype }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                               <!-- qualification details end-->
+                                <!-- Bank details -->
+                                <h6 class="mb-2 mt-4 text-secondary">Tender Bank Details</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Bank Name</th>
+                                            <td>{{ rowData?.bankname }}</td>
+                                            <th>Account Holder Name</th>
+                                            <td>{{ rowData?.account_holder_name }}</td>
+                                            <th>Account No</th>
+                                            <td>{{ rowData?.bankaccountno }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Branch Name</th>
+                                            <td>{{ rowData?.branch_name }}</td>
+                                            <th>IFSC Code</th>
+                                            <td>{{ rowData?.bankifsc }}</td>
+                                            <th>Bank Address</th>
+                                            <td>{{ rowData?.bank_address }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Account Type</th>
+                                            <td>{{ rowData?.accounttype }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                               <!-- bank details end-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail modal end-->
+
    <!-- Qualifying modal -->
-   <app-technical-bid></app-technical-bid>
+   <!-- <app-technical-bid></app-technical-bid>
    <app-financial-bid></app-financial-bid>
-   <app-banking-details></app-banking-details>
+   <app-banking-details></app-banking-details> -->
 
 <!-- Qualifying modal end-->
+
+
