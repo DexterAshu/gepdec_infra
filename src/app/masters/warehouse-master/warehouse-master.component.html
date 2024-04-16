@@ -20,48 +20,36 @@
               <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
             <div class="col-lg-8">
-              <button type="button" class="btn btn-fw btn-sm text-white float-right ms-2" style="background-color: #175935;" *ngIf="isExcelDownload" (click)="download()" title="Download selected records"><span class="mdi mdi-file-excel-box"></span></button>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWH({})" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+              <button type="button" class="btn btn-primary btn-fw btn-sm float-right ms-2" title="Download List of Data in Excel" (click)="download()"><span class="mdi mdi-upload"></span>&nbsp; Export</button>
+              <button type="button" class="btn btn-primary btn-fw btn-sm float-right" data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWH({})">+ Create</button>
             </div>
           </div>
           <app-responsive-table id="export">
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>Tender Code</th>
-                <th>Tender Name</th>
+                <th>Tender Ref No.</th>
+                <th>Tender Title</th>
                 <th>Warehouse Code</th>
                 <th>Warehouse Name</th>
-                <th>Address 1</th>
-                <th>Address 2</th>
                 <th>City</th>
                 <th>District</th>
                 <th>State</th>
-                <th>Country</th>
-                <th>Pin Code</th>
-                <th>Contact Person</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
               <tr *ngFor="let a of wareHouseData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit * (p - 1) + i + 1 }}</td>
-                <td>{{ a.tender_id }}</td>
+                <td>{{ a.tender_ref_no }}</td>
                 <td>{{ a.tender_title }}</td>
                 <td>
                   <a data-bs-toggle="modal" (click)="selectWH(a)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewWH" title="Warehouse Profile">{{ a.warehouse_code}}</a>
                 </td>
                 <td>{{ a.warehouse_name }}</td>
-                <td>{{ a.address1 }}</td>
-                <td>{{ a.address2 }}</td>
                 <td>{{ a.city }}</td>
                 <td>{{ a.district }}</td>
                 <td>{{ a.state }}</td>
-                <td>{{ a.country }}</td>
-                <td>{{ a.pincode }}</td>
-                <td>
-                  <a data-bs-toggle="modal" data-bs-target="#contactListModal" (click)="selectWH(a)" title="Warehouse Contact persons"><span class="mdi mdi-eye cursor-pointer mdi-18px"></span></a>
-                </td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWH(a)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
                 </td>
@@ -81,43 +69,6 @@
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="contactListModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-    <div class="modal-content" *ngIf="selectedWH?.warehouse_code">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Warehouse Contact Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body p-3">
-        <div class="container-fluid scroll-container">
-          <app-responsive-table id="export">
-            <thead class="table-primary text-nowrap">
-              <tr>
-                <th>S No</th>
-                <th>Person Name</th>
-                <th>Contact No. 1</th>
-                <th>Contact No. 2</th>
-                <th>E-Mail</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody class="text-nowrap">
-              <tr *ngFor="let a of selectedWH?.contacts; index as i">
-                <td>{{ i+1 }}</td>
-                <td>{{ a?.contact_name | titlecase }}</td>
-                <td>{{ a?.contactno1 }}</td>
-                <td>{{ a?.contactno2 }}</td>
-                <td>{{ a?.email }}</td>
-                <td>{{ a?.status }}</td>
-              </tr>
-            </tbody>
-          </app-responsive-table>
         </div>
       </div>
     </div>
@@ -154,24 +105,6 @@
                     </tr>
                   </tbody>
                 </table>
-                <h6 class="mb-2 mt-4 text-secondary">Contact Details</h6>
-                <table class="table table-hover table-striped custom-table">
-                  <thead class="hidden-thead"></thead>
-                  <tbody class="text-nowrap">
-                    <tr>
-                      <th>Person Name</th>
-                      <td>{{ selectedWH.contact_name }}</td>
-                      <th>Contact No.</th>
-                      <td>{{ selectedWH.contactno1 }}</td>
-                    </tr>
-                    <tr>
-                      <th>Contact No.</th>
-                      <td>{{ selectedWH.contactno2 }}</td>
-                      <th>E-Mail</th>
-                      <td>{{ selectedWH.email }}</td>
-                    </tr>
-                  </tbody>
-                </table>
                 <h6 class="mb-2 mt-4 text-secondary">Address Details</h6>
                 <table class="table table-hover table-striped custom-table">
                   <thead class="hidden-thead"></thead>
@@ -202,6 +135,29 @@
                     </tr>
                   </tbody>
                 </table>
+                <h6 class="mb-2 mt-4 text-secondary">Contact Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="table-primary text-nowrap">
+                    <tr>
+                      <th>S No</th>
+                      <th>Person Name</th>
+                      <th>Contact No. 1</th>
+                      <th>Contact No. 2</th>
+                      <th>E-Mail</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-nowrap">
+                    <tr *ngFor="let a of selectedWH?.contacts; index as i">
+                      <td>{{ i+1 }}</td>
+                      <td>{{ a?.contact_name | titlecase }}</td>
+                      <td>{{ a?.contactno1 }}</td>
+                      <td>{{ a?.contactno2 }}</td>
+                      <td>{{ a?.email }}</td>
+                      <td>{{ a?.status }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -225,7 +181,7 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="form-label">Project<span class="required-asterisk">*</span></label>
+                  <label class="form-label">Tender Ref No.<span class="required-asterisk">*</span></label>
                   <select formControlName="tender_id" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">select</option>
                     <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>
@@ -276,7 +232,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">District<span class="required-asterisk">*</span></label>
-                  <select formControlName="district_id" class="form-select form-select-sm" (ngModelChange)="getCityData()">
+                  <select formControlName="district_id" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">select</option>
                     <option *ngFor="let t of districtData" [value]="t.district_id">{{ t.district_name }}</option>
                   </select>
@@ -285,12 +241,8 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="form-label">City<span class="required-asterisk">*</span></label>
-                  <select formControlName="city" class="form-select form-select-sm">
-                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                    <option *ngFor="let t of cityData" [value]="t.city">{{ t.city }}</option>
-                  </select>
-                  <div *ngIf="f['city'].touched && f['city'].invalid"><small class="text-danger" *ngIf="f['city'].errors?.['required']">*Required</small></div>
+                  <label class="form-label">City</label>
+                  <input formControlName="city" type="text" class="form-control form-control-sm" placeholder="Enter City">
                 </div>
               </div>
               <div class="col-md-4">

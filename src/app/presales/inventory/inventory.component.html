@@ -20,7 +20,7 @@
               <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
             <div class="col-lg-8">
-              <!-- <button type="button" (click)="onCreate()" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button> -->
+              <button type="button" class="btn btn-primary btn-fw btn-sm float-right ms-2" title="Download List of Data in Excel" (click)="download()"><span class="mdi mdi-upload"></span>&nbsp; Export</button>
             </div>
           </div>
           <app-responsive-table id="export">
@@ -46,7 +46,7 @@
                 <td>{{ a.description }}</td>
                 <td>{{ a.itemcategory }}</td>
                 <td>{{ a.subcategory }}</td>
-                <td>{{ a.total_pobalance_qty }}</td>
+                <td>{{ a.total_itemquantity }}</td>
                 <td>{{ a.uom }}</td>
                 <td>{{ a.warehouse_code }}</td>
                 <td>{{ a.warehouse_name }}</td>

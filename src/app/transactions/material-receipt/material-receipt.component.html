@@ -82,7 +82,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Generate Material Receipt Note</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body p-3">
+      <div class="modal-body p-1">
         <div class="container-fluid">
           <div class="row">
             <form [formGroup]="grnForm" (ngSubmit)="grnSubmit()">
@@ -91,7 +91,7 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label class="form-label">Tender ID<span class="required-asterisk">*</span></label>
+                      <label class="form-label">Tender Ref No.<span class="required-asterisk">*</span></label>
                       <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getVenderData()">
                         <option [selected]="true" [disabled]="true" [value]="null">select</option>
                         <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>
@@ -318,27 +318,33 @@
           <div class="row">
             <div class="col-md-12 p-0">
               <div class="table-responsive" style="min-height: 300px">
-                <h6 class="my-2 text-secondary">Purchase Order Details</h6>
+                <h6 class="mb-2 text-secondary">Tender & PO Details</h6>
                 <table class="table table-hover table-striped custom-table">
                   <thead class="hidden-thead"></thead>
                   <tbody class="text-nowrap">
                     <tr>
+                      <th>Tender Ref No.</th>
+                      <td>{{ selectedPO?.tender_ref_no }}</td>
+                      <th>Tender Title</th>
+                      <td>{{ selectedPO?.tender_title }}</td>
+                    </tr>
+                    <tr>
                       <th>PO No.</th>
                       <td>{{ selectedPO?.pono }}</td>
                       <th>Date</th>
-                      <td>{{ selectedPO?.date }}</td>
+                      <td>{{ selectedPO?.po_date }}</td>
                     </tr>
                     <tr>
+                      <th>Vendor Code</th>
+                      <td>{{ selectedPO?.suppliercode }}</td>
                       <th>Vendor Name</th>
-                      <td>{{ selectedPO?.vendor?.name }}</td>
-                      <th>Contact Person</th>
-                      <td>{{ selectedPO?.vendor?.contact }}</td>
+                      <td>{{ selectedPO?.suppliername }}</td>
                     </tr>
                     <tr>
+                      <th>Delivery Terms</th>
+                      <td>{{ selectedPO?.delivery_terms }}</td>
                       <th>Remarks</th>
                       <td>{{ selectedPO?.remarks }}</td>
-                      <th></th>
-                      <td></td>
                     </tr>
                   </tbody>
                 </table>
@@ -348,15 +354,17 @@
                     <tr>
                       <th>Item ID</th>
                       <th>Name</th>
-                      <th>Quantity</th>
+                      <th>QTY</th>
+                      <th>Remain QTY</th>
                       <th>UOM</th>
                     </tr>
                   </thead>
                   <tbody class="text-nowrap">
                     <tr *ngFor="let item of selectedPO?.items">
-                      <td>{{ item.item_id }}</td>
-                      <td>{{ item.itemName }}</td>
-                      <td>{{ item.quantity }}</td>
+                      <td>{{ item.itemcode }}</td>
+                      <td>{{ item.description }}</td>
+                      <td>{{ item.qty }}</td>
+                      <td>{{ item.pobalance_qty }}</td>
                       <td>{{ item.uom }}</td>
                     </tr>
                   </tbody>

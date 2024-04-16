@@ -21,7 +21,7 @@ export class AuditApprovalComponent {
   update:boolean = false;
   isSubmitted:boolean = false;
   searchForm!: FormGroup;
-  selectedItem: any = [];
+  selectedRow: any;
 
   constructor( private fb: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) {
     var date = this.date.getDate();
@@ -39,7 +39,7 @@ export class AuditApprovalComponent {
   }
 
   selectRequest(data: any): void {
-    this.selectedItem = [data];
+    this.selectedRow = data;
   }
 
   formInit(): void {
@@ -67,6 +67,78 @@ export class AuditApprovalComponent {
       this.auditApprovalData = [];
       this.alertService.error("Error: " + error.statusText)
     });
+  }
+
+  onApprove(): void {
+    let match = {
+      "inventoryaudit_id": "6006",
+      "warehouse_id": "4012",
+      "itemcategory_id": "404",
+      "audit_purpose": "to test apis",
+      "auditor_remarks": null,
+      "status": "Approved",
+      "items": [
+        {
+          "audititem_id": "1016",
+          "item_id": "896",
+          "inventoryaudit_id": "6006",
+          "unit_id": "9003",
+          "system_qty": 100,
+          "audit_qty": 80,
+          "difference": 20,
+          "remarks": "need to check",
+          "warehouselocation_id": "3020"
+        }
+      ]
+    };
+    this.selectedRow.status = 'Approved';
+    this.apiService.auditRequestApproval(this.selectedRow).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.alertService.success(res.message);
+        this.getData();
+      } else {
+        this.alertService.warning(res.message);
+      }
+    }),
+    (error: any) => {
+      this.alertService.error("Error: " + error.statusText)
+    }
+  }
+
+  onReject(): void {
+    let match = {
+      "inventoryaudit_id": "6006",
+      "warehouse_id": "4012",
+      "itemcategory_id": "404",
+      "audit_purpose": "to test apis",
+      "auditor_remarks": null,
+      "status": "Rejected",
+      "items": [
+        {
+          "audititem_id": "1016",
+          "item_id": "896",
+          "inventoryaudit_id": "6006",
+          "unit_id": "9003",
+          "system_qty": 100,
+          "audit_qty": 80,
+          "difference": 20,
+          "remarks": "need to check",
+          "warehouselocation_id": "3020"
+        }
+      ]
+    };
+    this.selectedRow.status = 'Rejected';
+    this.apiService.auditRequestApproval(this.selectedRow).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.alertService.success(res.message);
+        this.getData();
+      } else {
+        this.alertService.warning(res.message);
+      }
+    }),
+    (error: any) => {
+      this.alertService.error("Error: " + error.statusText)
+    }
   }
 
 }
