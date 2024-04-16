@@ -16,6 +16,7 @@ export class ItemMasterComponent {
   isSubmitted: boolean = false;
   isNotFound:boolean = false;
   dataList: any;
+  file: any;
   dataDropdownList: any;
  
   constructor(
@@ -29,7 +30,6 @@ export class ItemMasterComponent {
     this.form = this.formBuilder.group({
       // itemCode: [null, Validators.required],
       description: [null, Validators.required],
-      specification: [null, Validators.required],
       parameter: [null],
       // itemType: [null, Validators.required],
       itemCategory: [null, Validators.required],
@@ -42,6 +42,7 @@ export class ItemMasterComponent {
       parentItem_id: [null],
       itemClass: [null, Validators.required],
       itemTolerance: [null, Validators.required],
+      specification: [null, Validators.required],
     });
 
     this.getDataList();
@@ -102,14 +103,41 @@ export class ItemMasterComponent {
     }
   }
 
+  fileUpload(event:any) {
+    this.file = [];
+    let file = event.target.files;
+    let type = /(\.pdf)$/i;
+    if (type.exec(file[0].name)) {
+      this.file = file;
+    } else {
+      this.form.controls['specification'].setValue(null);
+      this.alertService.warning("Please choose only pdf file!");
+    }
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
+
+      // const formData = new FormData();
+      // formData.append('unit_id', this.form.value.itemUOM);
+      // formData.append('description', this.form.value.description);
+      // formData.append('parameter', this.form.value.parameter);
+      // formData.append('itemcategory_id', this.form.value.itemCategory);
+      // formData.append('subcategory_id', this.form.value.itemSubCategory);
+      // formData.append('cost', this.form.value.cost);
+      // formData.append('gst', this.form.value.gst);
+      // formData.append('parentitem', this.form.value.parentItem);
+      // formData.append('parentitem_id', this.form.value.parentItem_id);
+      // formData.append('precurementuom_id', this.form.value.procurementUOM);
+      // formData.append('materialclass_id', this.form.value.class);
+      // formData.append('tolerance_id', this.form.value.itemTolerance);
+
       let data = {
         unit_id: this.form.value.itemUOM,
         description: this.form.value.description,
         // itemcode: this.form.value.itemCode.toUpperCase(),
-        specification: this.form.value.specification,
+        // specification: this.form.value.specification,
         parameter: this.form.value.parameter,
         itemcategory_id: this.form.value.itemCategory,
         // itemtype_id: this.form.value.itemType,

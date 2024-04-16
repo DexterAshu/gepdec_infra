@@ -51,8 +51,7 @@ export class BoqComponent {
   getDataList() {
     this.dataList = [];
     this.isNotFound = false;
-    // let apiLink = "/item/api/v1/getItemList";
-    let apiLink = "";
+    let apiLink = "/boq/api/v1/getBoqList";
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.isNotFound = false;
@@ -65,7 +64,7 @@ export class BoqComponent {
     }, error => {
       this.isNotFound = true;
       this.dataList = undefined;
-      // this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: " + error.statusText)
     });
   }
 
