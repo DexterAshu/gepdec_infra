@@ -42,7 +42,7 @@ export class ItemMasterComponent {
       parentItem_id: [null],
       itemClass: [null, Validators.required],
       itemTolerance: [null, Validators.required],
-      specification: [null, Validators.required],
+      // specification: [null, Validators.required],
     });
 
     this.getDataList();
