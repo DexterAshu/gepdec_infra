@@ -108,21 +108,12 @@
                                     </div>
                                 </div>
                             </div> -->
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label class="form-label">Description<span class="required-asterisk">*</span></label>
                                     <input formControlName="description" type="text" class="form-control form-control-sm">
                                     <div *ngIf="f['description'].touched && f['description'].invalid">
                                         <small class="text-danger" *ngIf="f['description'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Technical Specification<span class="required-asterisk">*</span></label>
-                                    <input formControlName="specification" type="text" class="form-control form-control-sm">
-                                    <div *ngIf="f['specification'].touched && f['specification'].invalid">
-                                        <small class="text-danger" *ngIf="f['specification'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -285,6 +276,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Technical Specification<span class="required-asterisk">*</span></label>
+                                    <input formControlName="specification" type="file" class="form-control form-control-sm" (change)="fileUpload($event)" accept=".pdf">
+                                    <div *ngIf="f['specification'].touched && f['specification'].invalid">
+                                        <small class="text-danger" *ngIf="f['specification'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div> -->
                             <div class="modal-btns">
                                 <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
                                 <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
