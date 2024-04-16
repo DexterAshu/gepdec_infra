@@ -58,7 +58,7 @@ export class DataCapturingComponent {
   previousData: any = [];
   performanceGuarntee: any;
   securityDeposit: any;
-
+  removeContact:any[]=[];
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -88,18 +88,19 @@ export class DataCapturingComponent {
       bidtype_id:[null, Validators.required],
       tender_location:[null, Validators.required],
       publish_date:[null, Validators.required],
+      contact: this.formBuilder.array([],Validators.required),
       // prebid_submission_date:[null, Validators.required],
       prebid_date:[null, Validators.required],
       prebidmeetingmode_id:[null, Validators.required],
       tender_submission_date:[null, Validators.required],
-      tenderhardcopysubmission_date: [null, Validators.required],
+      tenderhardcopysubmission_date: [null],
       tender_description:[null],
       tender_detail_link:[null],  
       
       opening_date: [null, Validators.required],
       closing_date: [null, Validators.required],
       tech_bid_date: [null, Validators.required],
-      fin_bid_opening_date: [null, Validators.required],
+      fin_bid_opening_date: [null],
       tender_doc_cost: [null, Validators.required],
       tender_fee: [null, Validators.required],
       tenderpayment_terms: [null, Validators.required],
@@ -139,6 +140,7 @@ export class DataCapturingComponent {
    
     // this.form.get('termscheckbox')!.setValidators([Validators.required]);
     // this.form.get('termscheckbox')!.clearValidators();
+
     this.getCompanyData();
     this.getCountryData();
     this.getDesignDeptData();
@@ -391,14 +393,21 @@ ngAfterViewInit() : void{
   }
 
 
-  handleCheckboxChange(checkbox:any) {
-    if (checkbox.checked) {
-      var contactId = checkbox.value;
-      console.log("Selected contact ID:", contactId);
-    } else {
-      console.log("Checkbox unchecked");
+  handleCheckboxChange(data:any) {
+    debugger
+    let dataLength = this.form.value.contact.filter((x:any)=>x.contact_id == data.contact_id)
+    if(dataLength.length === 1){
+      this.form.value.contact = this.form.value.contact.filter((x:any)=>x.contact_id !== data.contact_id)
+    } 
+    else{
+      let match ={
+        contact_id : data.contact_id
+      }
+      this.form.value.contact.push(match);
     }
+    console.log(this.form.value);
   }
+  
 
   onSubmit1() {
     if (this.form1.valid) {
@@ -409,14 +418,20 @@ ngAfterViewInit() : void{
   }
 
   createCont() {
+    let modID = this.form1.value;
+    modID.module_id = "409";
     let match = this.form1.value;
     match.Action = "add";
-    this.form1.value.company_id =  this.custDetails.company_id;
+    var custID = this.custDetails[0].company_id;
+    console.log(custID);
+    
+    this.form1.value.company_id =  this.custDetails[0].company_id;
     this.apiService.createContacts(match).subscribe((res: any) => {
      let response: any = res;
-        // document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (response.status == 200) {
+     document.getElementById('cancel1')?.click();
+     this.isSubmitted = false;
+     if (response.status == 200) {
+          this.getDetails(custID);
           this.alertService.success(response.message);
         } else {
           this.alertService.warning(response.message);

@@ -181,12 +181,11 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Hard Copy Submission Date & Time<span
-                                                    class="required-asterisk">*</span></label>
+                                            <label class="form-label fl-10">Hard Copy Submission Date & Time</label>
                                             <input formControlName="tenderhardcopysubmission_date" type="datetime-local" class="form-control form-control-sm">
-                                            <div *ngIf="f['tenderhardcopysubmission_date'].touched && f['tenderhardcopysubmission_date'].invalid">
+                                            <!-- <div *ngIf="f['tenderhardcopysubmission_date'].touched && f['tenderhardcopysubmission_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['tenderhardcopysubmission_date'].errors?.['required']">*Required</small>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 
@@ -229,12 +228,11 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Financial Bid Opening Date<span
-                                                    class="required-asterisk">*</span></label>
+                                            <label class="form-label fl-10">Financial Bid Opening Date</label>
                                             <input formControlName="fin_bid_opening_date" type="date" class="form-control form-control-sm">
-                                            <div *ngIf="f['fin_bid_opening_date'].touched && f['fin_bid_opening_date'].invalid">
+                                            <!-- <div *ngIf="f['fin_bid_opening_date'].touched && f['fin_bid_opening_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['fin_bid_opening_date'].errors?.['required']">*Required</small>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 
@@ -289,7 +287,7 @@
     <div class="col-md-4" *ngIf="toggleSecurityField">
         <div class="form-group">
             <label class="form-label fl-10">Security Amount<span class="required-asterisk">*</span></label>
-            <input formControlName="security_amount" type="text" class="form-control form-control-sm" appNumberOnly>
+            <input formControlName="security_amount" type="text" class="form-control form-control-sm" usd-only>
             <div *ngIf="f['security_amount'].touched && f['security_amount'].invalid">
                 <small class="text-danger" *ngIf="f['security_amount'].errors?.['required']">*Required</small>
             </div>
@@ -834,7 +832,8 @@
                                               
                                                 <td>{{a.email}}</td>
                                                 <td>
-                                                    <input type="checkbox" name="contact_id" value="{{a.contact_id}}" onchange="handleCheckboxChange(this)">
+                                                    <input type="checkbox" (click)="handleCheckboxChange(a)">
+                                                    <!-- <input type="checkbox" (click)="handleCheckboxChange(a)"> -->
                                                 </td>
                                               
                                             </tr>
@@ -1007,7 +1006,7 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                         <div class="modal-btns">
                             <button type="submit" *ngIf="!isSubmitted" [disabled]="!form1.valid" class="btn btn-primary btn-fw btn-sm mr-2">+ Add</button>
                             <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                            <button type="button" id="cancel1" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </form>
