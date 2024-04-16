@@ -83,23 +83,16 @@ export class TechnicalBidComponent {
 
 
   getData() {
-    this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
-    });
+  
     this.apiService.getCompanyList().subscribe((res: any) => {  
       this.companyData = res.result;
     });
-    this.apiService.getTenderType().subscribe((res: any) => {  
-      this.tenderType = res.bidtype;
-    });
-    this.masterService.getBankData().subscribe((res:any)=>{
-      this.bankData = res.bank;
-    })
+  
     this.apiService.getTenderList().subscribe((res: any) => {  
       this.tenderData = res.result;
     });
     
-    this.apiService.getDocListData().subscribe((res:any) => {
+    this.apiService.getTechDataList().subscribe((res:any) => {
       
       
       if (res.status === 200) {
@@ -122,7 +115,6 @@ export class TechnicalBidComponent {
   getrefData(tender_id: any){
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
-  
 
       //button dropdown
 isOpen: boolean = false;
@@ -315,6 +307,7 @@ downloadPdf() {
     //     document.getElementById('cancel')?.click();
     //     this.isSubmitted = false;
     //     if (response.status == 200) {
+      this.ngOnInit();
     //       this.getCompanyData();
     //       this.form.reset();
     //       this.alertService.success(response.message);

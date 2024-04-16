@@ -62,13 +62,13 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Tendering Company</th>
+                                <th>Client</th>
                                 <th>Tender Title</th>
-                                <th>Tender Ref No</th>
+                                <th>Ref No</th>
+                                <th>Published Date</th>
                                 <th>Category</th>
                                 <th>Location</th>
                                 <th>Completion Period</th>
-                                <th>Published Date</th>
                                 <th>Attachments</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
@@ -127,7 +127,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
                                         <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
@@ -140,7 +140,7 @@
         
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
                                     <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
                                         <option [selected]="true" [disabled]="true">Select Project</option>
                                         <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
@@ -153,14 +153,14 @@
                           
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Ref. No</label>
+                                    <label class="form-label fl-10">Ref No</label>
                                     <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
                                 
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Publish Date</label>
+                                    <label class="form-label fl-10">Publish Date</label>
                                     <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
         
                                 </div>
@@ -236,7 +236,7 @@
                                 <thead class="table-primary text-nowrap">
                                     <tr>
                                         <th>S No</th>
-                                        <th>Client Company</th>
+                                        <th>Client</th>
                                         <th>Title/Project</th>
                                         <th>Eligibility</th>
                                         <th>Technical Qualification</th>

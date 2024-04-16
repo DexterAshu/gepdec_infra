@@ -256,24 +256,7 @@ export class BoqItemsComponent {
     }
 }
  
-  // bulUpload() {
-  //       const formData: FormData = new FormData();
-  //       for (let i = 0; i < this.attachment.length; i++) {
-  //         formData.append('attachment', this.attachment[i]);
-  //       }
-  //       formData.append('utility_id', this.form1.value.utility_id);
-  //       formData.append('tender_id', this.form1.value.tender_id);
-  //       this.addBOQ(formData);
 
-  //     this.masterService.bulkattach(formData).subscribe((res:any)=>{
-      
-  //     if(res){
-  //       this.alertService.success('Bulk Data uploaded successfully')
-  //     }
-  //     })
-  //   }
-
-  
   exportAsXLSX1(){
     var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
      var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
@@ -284,8 +267,8 @@ export class BoqItemsComponent {
                
         }
 downloadPdf() {
-  const pdfUrl = './assets/tamplate/BOQ_sample_template.xlsx';
-  const pdfName = 'BOQ_sample_template.xlsx';
+  const pdfUrl = './assets/tamplate/BOQ.xlsx';
+  const pdfName = 'BOQ.xlsx';
   FileSaver.saveAs(pdfUrl, pdfName);
 }
 
@@ -302,11 +285,8 @@ downloadPdf() {
     if (this.form.valid) {
         this.isSubmitted = true;
         this.loading = true;
-  
     }
   }
-
-
 
   // BOQ item bulk data 
   onBOQSubmit() {
@@ -316,14 +296,8 @@ downloadPdf() {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append("attachment", this.attachment[i]);
     }
-    // console.log(this.form1.value);
-    // const formData: FormData = new FormData();
-    // for (let i = 0; i < this.attachment.length; i++) {
-    //   formData.append('attachment', this.attachment[i]);
-    // }
     formData.append('utility_id', this.form1.value.utility_id);
-    formData.append('tender_id', this.form1.value.tender_id);
-   
+    formData.append('tender_id', this.form1.value.tender_id);  
     this.addBOQ(formData);
 }
 

@@ -114,11 +114,13 @@ export class BankingDetailsComponent {
       this.tenderData = res.result;
     });
     
-    this.apiService.getDocListData().subscribe((res:any) => {
+    this.apiService.getBankDataList().subscribe((res:any) => {
       
       
       if (res.status === 200) {
         this.docListData = res.result;
+        console.log( this.docListData);
+        
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }

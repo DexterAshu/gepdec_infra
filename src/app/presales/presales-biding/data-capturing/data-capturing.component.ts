@@ -11,7 +11,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class DataCapturingComponent {
   form!: FormGroup;
-   
+  form1!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -126,17 +126,31 @@ export class DataCapturingComponent {
       audit_trail:[null],
       remarks:[null],
     });
+
+    this.form1 = this.formBuilder.group({
+      company_id: [null],
+      name: [null, Validators.required],
+      usdg_id:[null],
+      usdt_id:[null],
+      contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      emailid: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
+    });
+
    
     // this.form.get('termscheckbox')!.setValidators([Validators.required]);
     // this.form.get('termscheckbox')!.clearValidators();
-  
     this.getCompanyData();
     this.getCountryData();
     this.getDesignDeptData();
     this.finYearData();
-
   }
-
+  patchClient()
+  {
+    console.log(this.custDetails)
+    this.form1.patchValue({
+      company_id:this.custDetails[0]?.company_name
+    })
+  }
   termsCheckbox = new FormControl(false);
   textColor = 'red'; // Initial text color
   toggleTextColor(checked: boolean) {
@@ -186,20 +200,16 @@ export class DataCapturingComponent {
   }
 
   getDesignDeptData(){
-    this.masterService.getUserMaster().subscribe((res:any)=>{
-      
+      this.masterService.getUserMaster().subscribe((res:any)=>{
       this.design = res.designation;
       this.departMent = res.department;
-  
-      
       })
   }
 
   finYearData() {
     this.isNotFound = true;
     this.masterService.getFinData().subscribe((res:any) => {
-      
-      this.financialData = res.result;
+    this.financialData = res.result;
   })
 }
 
@@ -260,7 +270,6 @@ ngAfterViewInit() : void{
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
           company_id: this.custDetails.company_id,
-        
           fin_bid_opening_date: this.custDetails.fin_bid_opening_date,
           opening_date: this.custDetails.opening_date,
           closing_date: this.custDetails.closing_date,
@@ -295,15 +304,10 @@ ngAfterViewInit() : void{
           emd_submission_date: this.custDetails.emd_submission_date,
           forfeiture_condition: this.custDetails.forfeiture_condition,
 
-         
-
           remarks:this.custDetails.remarks,
           audit_trail: this.custDetails.audit_trail,
         }); 
 
-
-     
-  
 
       //   console.log(this.custDetails.remarks);
       //   const remarksData = this.custDetails.map((item: any) => {
@@ -351,14 +355,23 @@ ngAfterViewInit() : void{
 
   getDetails(data:any) {
     this.apiService.companyDetails(data).subscribe((res: any) => {
+      console.log(res);
+      
       this.custDetails = res.result;
       this.contactDetails = res.result[0].contact;
+      console.log(this.contactDetails);
+      
       this.addressDetails = res.result[0].adderss;
   })
   }
 
 
   get f() { return this.form.controls; }
+
+  get f1()
+  {
+    return this.form1.controls
+  }
   
   getCompanyData() {
     this.apiService.getCompanyList().subscribe((res: any) => {  
@@ -377,39 +390,54 @@ ngAfterViewInit() : void{
  
   }
 
+
+  handleCheckboxChange(checkbox:any) {
+    if (checkbox.checked) {
+      var contactId = checkbox.value;
+      console.log("Selected contact ID:", contactId);
+    } else {
+      console.log("Checkbox unchecked");
+    }
+  }
+
+  onSubmit1() {
+    if (this.form1.valid) {
+      this.isSubmitted = true;
+        this.loading = true;
+        this.createCont();
+    }
+  }
+
+  createCont() {
+    let match = this.form1.value;
+    match.Action = "add";
+    this.form1.value.company_id =  this.custDetails.company_id;
+    this.apiService.createContacts(match).subscribe((res: any) => {
+     let response: any = res;
+        // document.getElementById('cancel')?.click();
+        this.isSubmitted = false;
+        if (response.status == 200) {
+          this.alertService.success(response.message);
+        } else {
+          this.alertService.warning(response.message);
+        }
+      })
+  }
   onSubmit() {
     if (this.form.valid) {
-      this.isSubmitted = true;
-  
-       //1-passing Comany id
-      //  if (this.form.value.company_name != '') {
-      //   if (this.form.value.company_name) {
-      //     var compName = this.companyData.filter((item: any) => {
-      //       return item.company_name == this.form.value.company_name;
-      //     });
-      //     console.log(compName);
-          
-      //     this.form.value.company_name = compName[0]['company_id'];
-      //   }
-      // } else {
-      //   this.form.value.company_name = null;
-      // }
-    
-     
-
+        this.isSubmitted = true;
         this.loading = true;
     if (this.update) {  
-      this.updateTender();
-      this.form.get('tenderstatus_id')!.setValidators([Validators.required]);
-      this.form.get('working_notes')!.setValidators([Validators.required]);
+        this.updateTender();
+        this.form.get('tenderstatus_id')!.setValidators([Validators.required]);
+        this.form.get('working_notes')!.setValidators([Validators.required]);
     } 
     else {
-      this.addTender();
-      this.form.get('tenderstatus_id')!.clearValidators();
-      this.form.get('working_notes')!.clearValidators();
+        this.addTender();
+        this.form.get('tenderstatus_id')!.clearValidators();
+        this.form.get('working_notes')!.clearValidators();
     }
     }
-
 
   //   const formData: any = new FormData();
   //   for (let i = 0; i < this.attachment.length; i++) {
@@ -423,8 +451,6 @@ ngAfterViewInit() : void{
   // formData.append("tender_ref_no",this.form.value.tender_ref_no);
   // formData.append("remarks",this.form.value.remarks);
  
-
-
   }
 
   addTender() {

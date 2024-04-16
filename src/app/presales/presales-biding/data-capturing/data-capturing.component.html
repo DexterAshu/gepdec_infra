@@ -90,8 +90,8 @@
     
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Tender (NIT/RFB) No <span class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" >
+                                            <label class="form-label fl-10">Ref No <span class="required-asterisk">*</span></label>
+                                            <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
                                             <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
                                             </div>
@@ -240,19 +240,19 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
-                                            <input formControlName="ecv" type="text" class="form-control form-control-sm" appNumberOnly>
-                                            <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
-                                                <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
-                                            </div>
+                                          <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
+                                          <input formControlName="ecv" type="text" class="form-control form-control-sm" usd-only>
+                                          <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
+                                            <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
+                                          </div>
                                         </div>
-                                    </div>
+                                      </div>
 
                                   
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Fee<span class="required-asterisk">*</span></label>
-                                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee" placeholder="Enter Tender Fee '0' if not applicable " appNumberOnly >
+                                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee" placeholder="Enter Tender Fee '0' if not applicable " usd-only>
                                             <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_fee'].errors?.['required']">*Required</small>
                                             </div> 
@@ -263,7 +263,7 @@
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Document Cost<span
                                                     class="required-asterisk">*</span></label>
-                                                    <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost" placeholder="Enter Doc Cost '0' if not applicable " appNumberOnly >
+                                                    <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost" placeholder="Enter Doc Cost '0' if not applicable " usd-only >
                                                     <div *ngIf="f['tender_doc_cost'].touched && f['tender_doc_cost'].invalid">
                                                         <small class="text-danger" *ngIf="f['tender_doc_cost'].errors?.['required']">*Required</small>
                                                     </div> 
@@ -793,8 +793,23 @@
                                         </div>
                                     </div> -->
 
+                                    <div class="row mt-2">
+                                        <div class="col-md-9">
+                                        <h6 class="mt-2">Contacts Information</h6>
+                                        </div>
+                                            <div class="col-md-3">
+                                                <div class="float-right">
+                                                    <button class="btn btn-light btn-fw btn-sm fl-10" style="border: 2px solid #3b62b3; border-radius: 8px;"
+                                                     (click)="patchClient()" data-bs-toggle="modal" data-bs-target="#createContact" >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-forward" viewBox="0 0 16 16">
+                                                            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zm10.762.135a.5.5 0 0 1 .708 0l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5a.5.5 0 0 1-.708-.708L14.293 4H9.5a.5.5 0 0 1 0-1h4.793l-1.647-1.646a.5.5 0 0 1 0-.708"/>
+                                                          </svg>
+                                                        Add New Contacts</button>
+                                                </div>
 
-                                    <h6 class="mt-2">Contacts Information</h6>
+                                    </div>
+                                   </div>
+
 
                                     <app-responsive-table style=" max-height: 140px;"> 
                                         <thead class="table-primary text-nowrap">
@@ -804,8 +819,9 @@
                                                 <th>Designation</th>
                                                  <th>Department</th>
                                                 <th>Contact No</th>
-                                                <th>Secondary No</th>
+                                        
                                                 <th>Email ID</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-nowrap">
@@ -815,8 +831,11 @@
                                                 <td>{{a.designationname}}</td>
                                                 <td>{{a.deptname}}</td>
                                                 <td>{{a.contactno1}}</td>
-                                                <td>{{a.contactno2}}</td>
+                                              
                                                 <td>{{a.email}}</td>
+                                                <td>
+                                                    <input type="checkbox" name="contact_id" value="{{a.contact_id}}" onchange="handleCheckboxChange(this)">
+                                                </td>
                                               
                                             </tr>
                                         
@@ -900,12 +919,104 @@
                     </div>
                 </div>
          
-   <!-- Qualifying modal -->
-   <!-- <app-technical-bid></app-technical-bid>
-   <app-financial-bid></app-financial-bid>
-   <app-banking-details></app-banking-details> -->
+ <!-- create modal -->
+<div class="modal fade" id="createContact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Client Contacts Detail</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid scroll-container">
+                <form [formGroup]="form1" (ngSubmit)="onSubmit1()">
+                    <div class="row">
+                   
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Client<span class="required-asterisk">*</span></label>
+                                <input formControlName="company_id" type="text" class="form-control form-control-sm" readonly>
+                              
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Name<span class="required-asterisk">*</span></label>
+                                <input formControlName="name" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
+                                <div *ngIf="f1['name'].touched && f1['name'].invalid">
+                                    <small class="text-danger" *ngIf="f1['name'].errors?.['required']">*Required</small>
+                                </div>
+                            </div>
+                        </div>
 
-<!-- Qualifying modal end-->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Designation</label>
+                                <select formControlName="usdg_id" class="form-select form-select-sm">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
+                                    <option *ngFor="let d of design" value="{{d.usdg_id}}">{{d.designationname}}</option>
+                                </select>
+                              
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Department</label>
+                                <select formControlName="usdt_id" class="form-select form-select-sm">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Department</option>
+                                    <option *ngFor="let d of departMent" value="{{d.usdt_id}}">{{d.deptname}}</option>
+                                </select>
+                             
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Primary Contact No<span class="required-asterisk">*</span></label>
+                                <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
+                                maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
+                                <div *ngIf="f1['contactno1'].touched && f1['contactno1'].invalid">
+                                    <small class="text-danger" *ngIf="f1['contactno1'].errors?.['required']">*Required</small>
+                                    <small class="text-danger" *ngIf="f1['contactno1'].errors?.['pattern']">*Please enter 10 digit Contact No</small>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Secondary Contact No</label>
+                                <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
+                                maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
+                            </div>
+                        </div> -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
+                                <input formControlName="emailid" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
+                                <div *ngIf="f1['emailid'].touched && f1['emailid'].invalid">
+                                    <small class="text-danger" *ngIf="f1['emailid'].errors?.['required']">*Required</small>
+                                    <small class="text-danger" *ngIf="f1['emailid'].errors?.['pattern']">*Email must be a valid Email ID</small>
+                                </div>
+                            </div>
+                        </div>
+
+                   
+                     
+                        <div class="modal-btns">
+                            <button type="submit" *ngIf="!isSubmitted" [disabled]="!form1.valid" class="btn btn-primary btn-fw btn-sm mr-2">+ Add</button>
+                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- create contact end-->
 
     
 

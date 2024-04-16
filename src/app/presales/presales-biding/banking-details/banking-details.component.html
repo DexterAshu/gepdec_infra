@@ -57,13 +57,17 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Project Name</th>
+                                <th>Client Name</th>
+                                <th>Tender/Project Title</th>
+                                <th>Ref No</th>
+                                <th>Tender Published Date</th>
+                                <th>Bank Name</th>
                                 <th>BG Number</th>
                                 <th>BG Amount</th>
-                                <th>BG Start Date</th>
-                                <th>BG End Date</th>
-                                <th>BG Submission Date</th>
-                                <th>BG Extend Date</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Submission Date</th>
+                                <th>Extend Date</th>
                                 <th>Attachments</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
@@ -73,14 +77,20 @@
                         <tbody class="text-nowrap">
                             <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
-                                <td>{{a.documentname}}</td>
-                                <td>{{a.documentname}}</td>
-                                <td>{{a.documentname}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.filename}}</td>
+                                <td>{{a.company_name}}</td>
+                                <td>{{a.tender_title}}</td>
+                                <td>{{a.tender_ref_no}}</td>
+                                <td>{{a.publish_date}}</td>
+                                <td>{{a.bankname}}</td>
+                                <td>{{a.bg_number}}</td>
+                                <td>{{a.bg_amount}}</td>
+                                <td>{{a.start_date}}</td>
+                                <td>{{a.end_date}}</td>
+                                <td>{{a.submission_date}}</td>
+                                <td>{{a.extend_date}}</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.document }}">
+                                    {{a.document| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                </td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created}}</td>
                                 <td>
@@ -133,7 +143,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
                                         <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
@@ -146,7 +156,7 @@
         
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
                                     <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
                                         <option [selected]="true" [disabled]="true">Select Project</option>
                                         <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
@@ -159,14 +169,14 @@
                           
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Ref. No</label>
+                                    <label class="form-label fl-10">Tender Ref No</label>
                                     <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
                                 
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Publish Date</label>
+                                    <label class="form-label fl-10">Publish Date</label>
                                     <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
         
                                 </div>
@@ -195,26 +205,26 @@
 
                             <div class="form-group col-3">
                             <label for="">BG Number: <span class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="bg_number" placeholder="Enter BG Number">
+                            <input type="text" class="form-control form-control-sm" formControlName="bg_number" >
                             <div *ngIf="f['bg_number'].touched && f['bg_number'].invalid">
                                 <small class="text-danger" *ngIf="f['bg_number'].errors?.['required']">*Required</small>
                             </div>    
                         </div>
                             <div class="form-group col-3">
                             <label for="">BG Amount: <span class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="bg_amount" placeholder="Enter BG Amount" appNumberOnly >
+                            <input type="text" class="form-control form-control-sm" formControlName="bg_amount" usd-only>
                             <div *ngIf="f['bg_amount'].touched && f['bg_amount'].invalid">
                                 <small class="text-danger" *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
                             </div>    
                         </div>
-                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
+                            <div class="form-group col-3">
                             <label for="">Start Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="start_date">
                             <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
                                 <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
                             </div> 
                         </div>
-                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
+                            <div class="form-group col-3" >
                             <label for="">End Date: <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="end_date">
                             <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
@@ -233,11 +243,11 @@
                             </div>
                         </div>
                             <div class="form-group col-3" >
-                            <label for="">Extend Date: <span class="required-asterisk">*</span></label>
+                            <label for="">Extend Date: </label>
                             <input type="date" class="form-control form-control-sm" formControlName="extend_date">
-                          <div *ngIf="f['extend_date'].touched && f['extend_date'].invalid">
+                          <!-- <div *ngIf="f['extend_date'].touched && f['extend_date'].invalid">
                                         <small class="text-danger" *ngIf="f['extend_date'].errors?.['required']">*Required</small>
-                                    </div>
+                                    </div> -->
                         </div>
                        
                         

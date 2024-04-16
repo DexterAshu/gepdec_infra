@@ -274,7 +274,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Name<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Name</label>
                                     <input formControlName="name" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
                                     <div *ngIf="f['name'].touched && f['name'].invalid">
                                         <small class="text-danger" *ngIf="f['name'].errors?.['required']">*Required</small>
@@ -284,7 +284,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Designation<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Designation</label>
                                     <select formControlName="usdg_id" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
                                         <option *ngFor="let d of design" value="{{d.usdg_id}}">{{d.designationname}}</option>
@@ -297,7 +297,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Department<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Department</label>
                                     <select formControlName="usdt_id" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Department</option>
                                         <option *ngFor="let d of departMent" value="{{d.usdt_id}}">{{d.deptname}}</option>
@@ -310,7 +310,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Primary Contact No<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Primary Contact No</label>
                                     <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
                                     maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">
@@ -329,7 +329,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Email ID</label>
                                     <input formControlName="email" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
                                     <div *ngIf="f['email'].touched && f['email'].invalid">
                                         <small class="text-danger" *ngIf="f['email'].errors?.['required']">*Required</small>

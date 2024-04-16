@@ -105,23 +105,24 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Client Name</th>
-                                <th>Tender/Project Title</th>
-                                <th>Tender (NIT/RFB) No</th>
-                               
+                                <th>Client</th>
+                                <th>Tender Title</th>
+                                <th>Ref No</th>
+                                <th>Published Date</th>
+                                <th>Execution Location</th>
                                 <th>Tender Type</th>
-                                <th>Tender Document Cost</th>
+                                <th>Document Cost</th>
                                 <th>Tender Fee</th>
-                                <th>Tender EMD Exemption</th>
-                                <th>Tender ECV</th>
+                                <th>EMD Exemption</th>
+                                <th>ECV</th>
                                 <th>Pre Bid Meeting Mode</th>
-                                <th>Tender Execution Location</th>
-                                <th>Tender Published Date</th>
+                                
+                               
                                 <th>Pre Bid Meeting Date</th>
-                                <th>Tender Submission Date</th>
-                                <th>Tender Opening Date</th>
-                                <th>Technical Bid Opening Date</th>
-                                <th>Financial Bid Opening Date</th>
+                                <th>Submission Date</th>
+                                <th>Opening Date</th>
+                                <th>Bid Opening Date</th>
+                                <th>Bid Opening Date</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
                                 <th>Action</th>
@@ -139,14 +140,16 @@
                                 <td>{{ a.company_name }}</td>
                                 <td>{{ a.tender_title }}</td>
                                 <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.tender_ref_no }}</td>
+                                <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{ a.tender_location }}</td>
                                 <td>{{ a.bidtype }}</td>
                                 <td>{{ a.tender_doc_cost }}</td>
                                 <td>{{ a.tender_fee }}</td>
                                 <td>{{ a.emdexemption }}</td>
                                 <td>{{ a.ecv }}</td>
                                 <td>{{ a.prebidmeetingmode }}</td>
-                                <td>{{ a.tender_location }}</td>
-                                <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                
+                               
                                 <td>{{ a.prebid_date | date: 'dd/MM/yyyy' }}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy:HH:mm'  }}</td>
                                 <td>{{ a.opening_date | date: 'dd/MM/yyyy' }}</td>
@@ -206,13 +209,13 @@
                                   <div class="row p-1">
                                     <div class="col-md-2">Tender ID :</div>
                                     <div class="col-md-2">{{ rowData?.tender_id }}</div>
-                                    <div class="col-md-2">Client Name :</div>
+                                    <div class="col-md-2">Client :</div>
                                     <div class="col-md-6">{{ rowData?.company_name }}</div>
                                   </div>
                                   <div class="row p-1">
                                     <div class="col-md-2">Tender/Project Title :</div>
                                     <div class="col-md-2">{{ rowData?.tender_title }}</div>
-                                    <div class="col-md-2">Tender (NIT/RFB) No :</div>
+                                    <div class="col-md-2">Ref No :</div>
                                     <div class="col-md-2">{{ rowData?.tender_ref_no }}</div>
                                     <div class="col-md-2">Tender Published Date :</div>
                                     <div class="col-md-2">{{ rowData?.publish_date }}</div>

@@ -169,10 +169,11 @@ import { BoqItemsComponent } from './presales/presales-biding/boq-items/boq-item
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { SignInComponent } from './account/sign-in/sign-in.component';
 import { OurCompanyFinanaceDataComponent } from './masters/our-company-finanace-data/our-company-finanace-data.component';
-
-
+import { CurrencyPipe, DecimalPipe } from '@angular/common';
+import { UsdOnlyDirective } from './usd-only.directive';
 @NgModule({
   declarations: [
+    UsdOnlyDirective,
     AppComponent,
     HeaderComponent,
     FooterComponent,
@@ -269,6 +270,7 @@ import { OurCompanyFinanaceDataComponent } from './masters/our-company-finanace-
     //   useClass: HeaderInterceptor,
     //   multi: true
     // }
+    CurrencyPipe, DecimalPipe,
     DatePipe
   ],
   bootstrap: [AppComponent]

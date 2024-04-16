@@ -58,9 +58,9 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Client Name</th>
-                                <th>Tender/Project Title</th>
-                                <th>Tender (NIT/RFB) No</th>
+                                <th>Client</th>
+                                <th>Tender Title</th>
+                                <th>Ref. No</th>
                                 <th>published Date</th>
                                 <th>BOQ Code</th>
                                 <th>Item Code</th>
@@ -87,7 +87,7 @@
                                     {{a.description| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
                                 </td>
                              
-                                <td>{{ a.item_type }}</td>
+                                <td>{{ a.itemtype }}</td>
                                 <td>{{ a.unit }}</td>
                                 <td>{{ a.status }}</td>
                                 <td>{{ a.createdby_name }}</td>
@@ -238,7 +238,7 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
                             <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
                                 <option [selected]="true" [disabled]="true" [value]="null">Select Client Company</option>
                                 <option *ngFor="let c of comData" value="{{c.company_id}}">{{ c.company_name }}</option>
@@ -251,7 +251,7 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
                             <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
                                 <option [selected]="true" [disabled]="true">Select Project</option>
                                 <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
@@ -264,14 +264,14 @@
                   
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Ref. No</label>
+                            <label class="form-label fl-10">Ref No</label>
                             <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
                         
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Publish Date</label>
+                            <label class="form-label fl-10">Publish Date</label>
                             <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
 
                         </div>
@@ -326,8 +326,10 @@
                         </div>
                     </div> -->
                     <div class="col-md-12 mt-1" >
-                        <span class="required-asterisk">*</span>&nbsp;
-                        <input type="file" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
+                        <label class="form-label fl-10">Please ensure your file is named 'BOQ_sample_template'  <span class="required-asterisk">*</span>
+                        </label><br>
+                       
+                        <input class="mt-2" type="file" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
                   
                    <br>
                     <div class="float-right mt-2">
@@ -367,7 +369,7 @@
                                         <div class="col-md-4">{{ rowData?.tender_title }}</div>
                                     </div>
                                     <div class="row p-1">
-                                      <div class="col-md-2">Tender (NIT/RFB) No :</div>
+                                      <div class="col-md-2">Ref No :</div>
                                       <div class="col-md-2">{{ rowData?.tender_ref_no }}</div>
                                       <div class="col-md-2">Published Date :</div>
                                       <div class="col-md-2">{{ rowData?.publish_date }}</div>

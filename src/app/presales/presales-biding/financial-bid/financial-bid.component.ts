@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
 import { AlertService } from 'src/app/_services/alert.service';
@@ -13,7 +13,7 @@ import * as FileSaver from 'file-saver';
 })
 export class FinancialBidComponent {
   form!: FormGroup;
-   
+  filesToUpload: Array<File> = [];
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -50,13 +50,17 @@ export class FinancialBidComponent {
   discardeddata: any;
   isExcelDownloadData: boolean = true;
   filterTenderDetailsData: any = [];
+  attachment: any = [];
+  annualTurnover = new FormControl();
   
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService,
-  ) { }
+  ) {
+   
+   }
 
  ngOnInit(){
     this.form = this.formBuilder.group({
@@ -67,42 +71,36 @@ export class FinancialBidComponent {
         net_worth: [null, Validators.required],
         financialyear_id: [null, Validators.required],
         annual_turnover: [null, Validators.required],
-        fin_remarks: [null, Validators.required],
+        remark: [null, Validators.required],
         nclt_status: [null],
         drt: [null],
         cdr: [null]    
     });
-    this.getCompanyData();
+    this.finListData();
     this.finYearData();
     this.getData();
-
-    this.apiService.getTenderList().subscribe((res: any) => {  
-      this.tenderData = res.result;
-    });
   }
 
   getData() {
-    this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
-    });
     this.apiService.getCompanyList().subscribe((res: any) => {  
       this.companyData = res.result;
     });
-    this.apiService.getTenderType().subscribe((res: any) => {  
-      this.tenderType = res.bidtype;
-    });
-    this.masterService.getBankData().subscribe((res:any)=>{
-      this.bankData = res.bank;
-    })
+  
     this.apiService.getTenderList().subscribe((res: any) => {  
       this.tenderData = res.result;
     });
     
-    this.apiService.getDocListData().subscribe((res:any) => {
-      
+   
+  }
+
+  finListData(){
+    this.apiService.getfinDataList().subscribe((res:any) => {
+      console.log(res);
       
       if (res.status === 200) {
         this.docListData = res.result;
+        console.log(this.docListData);
+        
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
@@ -144,18 +142,9 @@ toggleDropdown() {
   this.isOpen = !this.isOpen;
 }
   
-  // getDetails(event:any) {
-  //   debugger
-  //   this.data1 = this.clientList; // Assuming this assignment is necessary
-  //   this.apiService.tenderDetails(this.data1).subscribe((res: any) => {
-  //     this.tenderDetailsData = res.result;
-  //     this.tendDetails = this.tenderDetailsData[0];
-  //   });
-  // }
 
   fileList: File[] = [];
   listOfFiles: any[] = [];
-  attachment: any = [];
 
   onFileChanged(event: any) { 
     for (var i = 0; i <= event.target.files.length - 1; i++) {
@@ -202,14 +191,6 @@ toggleDropdown() {
       
   // })
   // }
-  OnlyNumbersAllowed(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      console.log('charCode restricted is ' + charCode);
-      return false;
-    }
-    return true;
-  }
 
   get f() { return this.form.controls; }
    exportAsXLSX1(){
@@ -234,79 +215,45 @@ downloadPdf() {
     });
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
-  
-  getCompanyData() {
-    this.apiService.getCompanyList().subscribe((res: any) => {  
-      this.companyData = res.result;
-    });
-    this.apiService.getTenderType().subscribe((res: any) => {  
-      this.tenderType = res.bidtype;
-    });
- 
-  }
 
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
-     
-  
-       //1-passing Comany id
-       if (this.form.value.company_name != '') {
-        if (this.form.value.company_name) {
-          var compName = this.companyData.filter((item: any) => {
-            return item.company_id == this.form.value.company_name;
-          });
-          console.log(compName);
-          
-          this.form.value.company_name = compName[0]['company_id'];
-        }
-      } else {
-        this.form.value.company_name = null;
-      }
-       //2-passing Tender type id
-       if (this.form.value.bidtype != '') {
-        if (this.form.value.bidtype) {
-          var bidTp = this.tenderType.filter((item: any) => {
-            return item.bidtype_id == this.form.value.bidtype;
-          });
-          console.log(bidTp);
-          
-          this.form.value.bidtype = bidTp[0]['bidtype_id'];
-        }
-      } else {
-        this.form.value.bidtype = null;
-      }
         this.loading = true;
     // if (this.update) {  
     //   this.updateTender();
     // } else {
     //   this.addTender();
     // }
-    }
+  
     const formData: any = new FormData();
+    const files: Array<File> = this.filesToUpload;
+
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append("attachment", this.attachment[i]);
     }
-  formData.append("publish_date",this.form.value.publish_date);
-  formData.append("tender_ref_no",this.form.value.tender_ref_no);
-  formData.append("tender_title",this.form.value.tender_title);
-  formData.append("utility",this.form.value.utility);
-  formData.append("net_worth",this.form.value.net_worth);
-  formData.append("financialyear_id",this.form.value.financialyear_id);
-  formData.append("annual_turnover",this.form.value.annual_turnover);
-  formData.append("fin_remarks",this.form.value.fin_remarks);
-  formData.append("nclt_status",this.form.value.nclt_status);
-  formData.append("drt",this.form.value.drt);
-  formData.append("cdr",this.form.value.cdr);
-  this.addDocument(formData);
+    formData.append("publish_date",this.form.value.publish_date);
+    formData.append("tender_ref_no",this.form.value.tender_ref_no);
+    formData.append("tender_id",this.form.value.tender_id);
+    formData.append("utility_id",this.form.value.utility_id);
+    formData.append("net_worth",this.form.value.net_worth);
+    formData.append("financialyear_id",this.form.value.financialyear_id);
+    formData.append("annual_turnover",this.form.value.annual_turnover);
+    formData.append("remark",this.form.value.remark);
+    formData.append("nclt_status",this.form.value.nclt_status);
+    formData.append("drt",this.form.value.drt);
+    formData.append("cdr",this.form.value.cdr);
+    this.addDocument(formData);
   }
+}
 
   addDocument(formData: FormData) {
-    this.apiService.createDocuments(formData).subscribe((res: any) => {
+    this.apiService.addFinData(formData).subscribe((res:any )=> {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
+        this.ngOnInit();
         this.form.reset();
         this.alertService.success(response.message);
       } else {
@@ -315,34 +262,34 @@ downloadPdf() {
     });
   }
 
-  addTender() {
-    this.apiService.createTender(this.form.value).subscribe((res: any) => {
-     let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (response.status == 200) {
-          this.getCompanyData();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      })
-  }
-  updateTender(): void {
-    // this.opac=0;
-    // this.loadermsg="Updating..."
-     this.form.value.company_id =  this.custDetails.company_id;
-    this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
-       this.isSubmitted = false;
-      if (res.status == 200) {
-        this.ngOnInit();
-        document.getElementById('cancel')?.click();
-      this.alertService.success('Company Updated Successfully');
-    } else {
-      this.alertService.error('Something went wrong please try again');
-    }
-  });
-  }
+  // addTender() {
+  //   this.apiService.createTender(this.form.value).subscribe((res: any) => {
+  //    let response: any = res;
+  //       document.getElementById('cancel')?.click();
+  //       this.isSubmitted = false;
+  //       if (response.status == 200) {
+  //         this.getCompanyData();
+  //         this.form.reset();
+  //         this.alertService.success(response.message);
+  //       } else {
+  //         this.alertService.warning(response.message);
+  //       }
+  //     })
+  // }
+  // updateTender(): void {
+  //   // this.opac=0;
+  //   // this.loadermsg="Updating..."
+  //    this.form.value.company_id =  this.custDetails.company_id;
+  //   this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
+  //      this.isSubmitted = false;
+  //     if (res.status == 200) {
+  //       this.ngOnInit();
+  //       document.getElementById('cancel')?.click();
+  //     this.alertService.success('Company Updated Successfully');
+  //   } else {
+  //     this.alertService.error('Something went wrong please try again');
+  //   }
+  // });
+  // }
 }
 

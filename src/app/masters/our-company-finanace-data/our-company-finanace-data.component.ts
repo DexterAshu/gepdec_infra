@@ -127,7 +127,7 @@ downloadPdf() {
         net_worth: this.finDetails.net_worth,
         bidder_id: this.finDetails.bidder_id
       };
-      this.apiService.addMasterOurFinData(params).subscribe((res:any )=> {
+      this.apiService.addFinData(params).subscribe((res:any )=> {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;

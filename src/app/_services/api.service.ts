@@ -248,10 +248,12 @@ export class ApiService {
     );
   }
   //create master our finance details
-  addMasterOurFinData(data: any): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  addFinData(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({
+      //  'Content-Type': 'application/json', 
+       'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post<any[]>(
-      `${environment.apiUrl}/state/api/v1/addOurFinData`,
+      `${environment.apiUrl}/biding/api/v1/addTenderFinancials`,
       data,
       httpOptions
     );
@@ -298,6 +300,29 @@ export class ApiService {
     return this.http.post<any[]>(
       `${environment.apiUrl}/biding/api/v1/addBankGuarantee`,
       data,
+      httpOptions
+    );
+  }
+
+  getBankDataList() {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+
+    return this.http.get<any>(
+      `${environment.apiUrl}/biding/api/v1/getBankGuaranteeList`,
+      httpOptions
+    );
+  }
+  getfinDataList() {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any>(
+      `${environment.apiUrl}/biding/api/v1/getTenderFinancialsList`,
+      httpOptions
+    );
+  }
+  getTechDataList() {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any>(
+      `${environment.apiUrl}/biding/api/v1/getPreQualificationList`,
       httpOptions
     );
   }
