@@ -106,7 +106,8 @@ export class AuditRequestComponent {
   }
 
   getWarehouseData() {
-    this.masterService.getWarehouseData().subscribe((res:any) => {
+    const apiLink = `/warehouse/api/v1/getWareHouseList`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.wareHouseData = res.result;
       } else {

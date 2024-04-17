@@ -11,7 +11,7 @@
     <small style="color: #e48b1e;">{{storedData.deptname}}</small>
   </div>
   <hr>
-  <ul class="nav">
+  <ul class="nav scroll-container">
     <li class="nav-item">
       <div routerLink="/dashboard">
         <a class="nav-link" data-toggle="collapse" href="#ui-dashboard" aria-expanded="false"
@@ -50,7 +50,7 @@
         <span class="menu-title">Master</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse scroll-container" id="ui-master">
+      <div class="collapse" id="ui-master">
         <ul class="nav flex-column sub-menu">
           <!-- <li class="nav-item"> <a class="nav-link" routerLink="/master/biders-company">
              <i class="mdi mdi-checkbox-multiple-marked-outline menu-icon"></i>
@@ -108,46 +108,6 @@
               <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
               <span class="menu-title">Client</span>
             </a></li>
-
-            <li class="nav-item">
-              <div routerLink="/master/project">
-                <a class="nav-link" data-toggle="collapse" href="#Bid-Project" aria-expanded="false" aria-controls="Biding">
-                  <i class="mdi mdi-content-save-settings menu-icon"></i>
-                  <span class="menu-title">Project</span>
-                  <i class="menu-arrow"></i>
-                </a>
-
-              </div>
-              <div class="collapse" id="Bid-Project">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item sub-sub-menu">
-                    <a class="nav-link" routerLink="/l2-bulkdata">
-                      <i class="mdi mdi-file-export menu-icon"></i>
-                      <span class="menu-title">L2 Schedule</span>
-                    </a>
-                  </li>
-                  <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/project">
-                      <i class="mdi mdi-file-document-box menu-icon"></i>
-                      <span class="menu-title">Project</span>
-                    </a>
-                  </li> -->
-                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/proj-milestone">
-                      <i class="mdi mdi-creation menu-icon"></i>
-                      <span class="menu-title">Milestone</span>
-                    </a></li>
-                  <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/milestone-task">
-                      <i class="mdi mdi-credit-card-multiple menu-icon"></i>
-                      <span class="menu-title">Sub Milestone</span>
-                    </a></li>
-                  <!-- <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/project-doc">
-                      <i class="mdi mdi-file-document menu-icon"></i>
-                      <span class="menu-title">Documents</span>
-                    </a></li> -->
-
-                </ul>
-              </div>
-            </li>
-
           <li class="nav-item">
             <!-- <div routerLink="/master/procurement/item"> -->
               <a class="nav-link" data-toggle="collapse" href="#Bid-Procurement" aria-expanded="false" aria-controls="Biding">
@@ -247,7 +207,7 @@
         <i class="menu-arrow"></i>
       </a>
       </div>
-      <div class="collapse scroll-container" id="ui-doc">
+      <div class="collapse" id="ui-doc">
         <ul class="nav flex-column sub-menu">
 
           <li class="nav-item"> <a class="nav-link" routerLink="documentation/tend-doc">
@@ -331,7 +291,7 @@
         <span class="menu-title">Business Process</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse scroll-container" id="business_process">
+      <div class="collapse" id="business_process">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
             <div class="" routerLink="dashboard/presales-dashboard">
@@ -411,9 +371,20 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/presales/design-module">
                     <i class="mdi mdi-chart-donut menu-icon"></i>
-                    <span class="menu-title">Design</span>
+                    <span class="menu-title">Drawing</span>
                   </a></li>
-
+                  <li class="nav-item sub-sub-menu">
+                    <a class="nav-link" routerLink="/l2-bulkdata">
+                      <i class="mdi mdi-file-export menu-icon"></i>
+                      <span class="menu-title">L2 Schedule</span>
+                    </a>
+                  </li>
+                  <li class="nav-item sub-sub-menu">
+                    <a class="nav-link" routerLink="/l2-bulkdata">
+                      <i class="mdi mdi-file-export menu-icon"></i>
+                      <span class="menu-title">Approval</span>
+                    </a>
+                  </li>
               </ul>
             </div>
           </li>

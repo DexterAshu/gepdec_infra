@@ -1,18 +1,16 @@
 .nav .collapse.show {
-    background-color: #ECF1F9;
-}
-.nav-item .nav-link:active,
-.nav-item .nav-link:focus {
-    background-color: #D1DBEB !important;
-   
-}
-.navbar .navbar-brand-wrapper .navbar-brand-inner-wrapper .navbar-toggler:focus{
-    color: transparent !important;
+  background-color: #ECF1F9;
 }
 
-  /* Optional: Set styles for the container with the scrollbar */
-  .scroll-container {
-    height: 300px; /* Set a fixed height for the container */
-    overflow-y: scroll; /* Enable vertical scrollbar */
-    padding: 10px; /* Optional padding for the container */
-  }
+.nav-item .nav-link:active, .nav-item .nav-link:focus {
+  background-color: #D1DBEB !important;
+}
+
+.navbar .navbar-brand-wrapper .navbar-brand-inner-wrapper .navbar-toggler:focus {
+  color: transparent !important;
+}
+
+.scroll-container {
+  height: 30rem;
+  overflow-y: scroll;
+}

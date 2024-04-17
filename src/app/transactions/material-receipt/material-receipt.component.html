@@ -30,6 +30,7 @@
                   <th>S No</th>
                   <th>Tender Ref No.</th>
                   <th>Tender Title</th>
+                  <th>Tender Location</th>
                   <th>PO No.</th>
                   <th>GRN No.</th>
                   <th>GRN Date</th>
@@ -43,6 +44,7 @@
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
                   <td>{{ purchase.tender_ref_no }}</td>
                   <td>{{ purchase.tender_title }}</td>
+                  <td>{{ purchase.tender_location }}</td>
                   <td>
                     <a data-bs-toggle="modal" (click)="getPODetails(purchase.po_id)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewModel" title="Warehouse Profile">{{ purchase.pono }}</a>
                   </td>

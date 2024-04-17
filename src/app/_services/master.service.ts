@@ -16,7 +16,7 @@ export class MasterService {
   }
 
   //user API
-  getUserMaster() {
+  getUserMaster(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/user/api/v1/getUserMaster`, httpOptions);
   }
@@ -42,34 +42,34 @@ export class MasterService {
     return this.http.get<any[]>( `${environment.apiUrl}/user/api/v1/getUserDetails/${user_id}`, httpOptions );
   }
 
-  getCompanyData() {
+  getCompanyData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'companyID': environment.companyID, 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')!).token }) };
     return this.http.get(`${environment.apiUrl}/master/company/getCompany`, httpOptions);
   }
 
-  getCountryData() {
+  getCountryData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/state/api/v1/getCountry`, httpOptions);
   }
-  getStateData() {
+  getStateData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/state/api/v1/getState`, httpOptions);
   }
-  getDistrictData() {
+  getDistrictData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/state/api/v1/getDistrict`, httpOptions);
   }
 
-  getFinData() {
+  getFinData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/financialyear/api/v1/getFinancialYear`, httpOptions);
   }
   //master-bank
-  getBankData() {
+  getBankData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/bank/api/v1/getBankDropdrown`, httpOptions);
   }
-  getProjectList() {
+  getProjectList(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/project/api/v1/projectList`, httpOptions);
   }
@@ -86,57 +86,52 @@ export class MasterService {
     return this.http.put<any>(`${environment.apiUrl}/user/api/v1/updatepassword`, user, httpOptions );
   }
 
-  getECBData() {
+  getECBData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'companyID': environment.companyID, 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')!).token }) };
     return this.http.get(`${environment.apiUrl}/master/ecbMaster/getEcb`, httpOptions);
   }
 
-  getCircleData() {
+  getCircleData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'companyID': environment.companyID, 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')!).token }) };
     return this.http.get(`${environment.apiUrl}/master/circleMaster/getCircle`, httpOptions);
   }
 
-  getMeterData() {
+  getMeterData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'companyID': environment.companyID, 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')!).token }) };
     return this.http.get(`${environment.apiUrl}/master/meterMaster/getAllMeterIds`, httpOptions);
   }
 
-  getSegmentData() {
+  getSegmentData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'companyID': environment.companyID, 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')!).token }) };
     return this.http.get(`${environment.apiUrl}/master/segmentMaster/getSegment`, httpOptions);
   }
 
-  getBillLineData() {
+  getBillLineData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'companyID': environment.companyID, 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')!).token }) };
     return this.http.get(`${environment.apiUrl}/master/billLines/getBillLines`, httpOptions);
   }
 
-  getMeterPricingData() {
+  getMeterPricingData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'companyID': environment.companyID, 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')!).token }) };
     return this.http.get(`${environment.apiUrl}/master/meterPricing/getMeterPricing`, httpOptions);
   }
 
-  getWarehouseData() {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.get(`${environment.apiUrl}/warehouse/api/v1/getWareHouseList`, httpOptions);
-  }
-
-  createWarehouse(data: any) {
+  createWarehouse(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/warehouse/api/v1/addWareHouse`, data, httpOptions);
   }
 
-  updateWarehouse(data: any) {
+  updateWarehouse(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.put(`${environment.apiUrl}/warehouse/api/v1/updateWareHouse`, data, httpOptions);
   }
 
-  getWHLocationData() {
+  getWHLocationData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get(`${environment.apiUrl}/warehouse/api/v1/getLocationList`, httpOptions);
   }
 
-  warehouseLocation(data: any) {
+  warehouseLocation(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/warehouse/api/v1/addLocaton`, data, httpOptions);
   }

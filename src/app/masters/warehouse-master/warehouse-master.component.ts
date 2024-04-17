@@ -72,16 +72,17 @@ export class WarehouseMasterComponent {
   }
 
   getTenderList(): void {
-    this.apiService.getTenderList().subscribe((res:any) => {
+    const apiLink = `/biding/api/v1/getTenderlist`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.tenderList = res.result;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
-    },
+    }),
     (error: any) => {
       this.alertService.error("Error: " + error.statusText)
-    });
+    };
   }
 
   removeContact(index: number): void {
@@ -105,8 +106,9 @@ export class WarehouseMasterComponent {
     });
   }
 
-  getData() {
-    this.masterService.getWarehouseData().subscribe((res:any) => {
+  getData(): void {
+    const apiLink = `/warehouse/api/v1/getWareHouseList`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.wareHouseData = res.result;
       } else {
@@ -128,7 +130,10 @@ export class WarehouseMasterComponent {
       } else {
         this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
       }
-    });
+    }),
+    (error: any) => {
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
   }
 
   getDistrictData() {
@@ -141,7 +146,10 @@ export class WarehouseMasterComponent {
       } else {
         this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
       }
-    });
+    }),
+    (error: any) => {
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
   }
 
   getStateData() {
@@ -153,7 +161,10 @@ export class WarehouseMasterComponent {
       } else {
         this.alertService.warning(`Looks like no state available related to the selected country.`);
       }
-    });
+    }),
+    (error: any) => {
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
   }
 
   getCountryData() {
@@ -163,7 +174,10 @@ export class WarehouseMasterComponent {
       } else {
         this.alertService.warning("Looks like no data available in country data.");
       }
-    });
+    }),
+    (error: any) => {
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
   }
 
   createData(match: any) {

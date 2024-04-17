@@ -2,14 +2,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
-// import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient){ }
 
   getCountryDataList(): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
@@ -49,7 +49,7 @@ export class ApiService {
     return this.http.get<any[]>( `${environment.apiUrl}/company/api/v1/getComapanyList`, httpOptions );
   }
 
-  companyDetails(data: any) {
+  companyDetails(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/company/api/v1/getComapanyDetails/${data}`, httpOptions );
   }
@@ -70,7 +70,7 @@ export class ApiService {
     return this.http.get<any[]>( `${environment.apiUrl}/mycompany/api/v1/getMyComapanyList`, httpOptions );
   }
 
-  ourcompanyDetails(data: any) {
+  ourcompanyDetails(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/mycompany/api/v1/getMyComapanyDetails/${data}`, httpOptions );
   }
@@ -132,39 +132,22 @@ export class ApiService {
   //create tender
   createTender(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/biding/api/v1/addTender`,
-      data,
-      httpOptions
-    );
+    return this.http.post<any[]>(`${environment.apiUrl}/biding/api/v1/addTender`, data, httpOptions);
   }
-//tender list
+
+  //tender list
   getTenderList(): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderlist`, httpOptions );
   }
 
   getTenderLisById(data:any){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
-      }),
-    };
-    const params= new HttpParams({
-      fromString: `customer_id=${data}`
-    });
-    return this.http.get<any>(
-      `${environment.apiUrl}/biding/api/v1/getTenderlist/?${params}`,
-      httpOptions
-    );
+    const httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json','auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
+    const url = data ? `/biding/api/v1/getTenderlist?comapany_id=${data}` : `/biding/api/v1/getTenderlist`;
+    return this.http.get<any>(`${environment.apiUrl}${url}`,httpOptions);
   }
-  // getTenderLisById(data:any): Observable<any[]> {
-  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-  //   return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderlist/${data}`, httpOptions );
-  // }
 
-  tenderDetails(data: any) {
+  tenderDetails(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderDetail/${data}`, httpOptions );
   }
@@ -177,188 +160,101 @@ export class ApiService {
   //create master DEPT
   createMasterDepartment(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/department/api/v1/addDeptName`,
-      data,
-      httpOptions
-    );
+    return this.http.post<any[]>(`${environment.apiUrl}/department/api/v1/addDeptName`, data, httpOptions);
   }
+
   //create master title
   createMasterTitle(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/title/api/v1/addTitle`,
-      data,
-      httpOptions
-    );
+    return this.http.post<any[]>(`${environment.apiUrl}/title/api/v1/addTitle`, data, httpOptions);
   }
   //create master role
   createMasterRole(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/role/api/v1/addUserRoleName`,
-      data,
-      httpOptions
-    );
+    return this.http.post<any[]>(`${environment.apiUrl}/role/api/v1/addUserRoleName`, data, httpOptions);
   }
 
   //create master Designation
   createMasterDesignation(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/designation/api/v1/addDesignation`,
-      data,
-      httpOptions
-    );
+    return this.http.post<any[]>(`${environment.apiUrl}/designation/api/v1/addDesignation`, data, httpOptions);
   }
+
   //create master Financial Year
   createMasterFinYear(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/financialyear/api/v1/addFinancialYear`,
-      data,
-      httpOptions
-    );
+    return this.http.post<any[]>(`${environment.apiUrl}/financialyear/api/v1/addFinancialYear`, data, httpOptions);
   }
+
   //create master country
   createMasterCountry(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/state/api/v1/addCountry`,
-      data,
-      httpOptions
-    );
+    return this.http.post<any[]>(`${environment.apiUrl}/state/api/v1/addCountry`, data, httpOptions);
   }
+
   //create master state
   createMasterState(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/state/api/v1/addState`,
-      data,
-      httpOptions
-    );
+    return this.http.post<any[]>(`${environment.apiUrl}/state/api/v1/addState`, data, httpOptions);
   }
+
   //create master district
   addMasterDistrict(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/state/api/v1/addDistrict`,
-      data,
-      httpOptions
-    );
+    return this.http.post<any[]>(`${environment.apiUrl}/state/api/v1/addDistrict`, data, httpOptions);
   }
+
   //create master our finance details
   addFinData(data: any): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({
-      //  'Content-Type': 'application/json', 
-       'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/biding/api/v1/addTenderFinancials`,
-      data,
-      httpOptions
-    );
+    const httpOptions = { headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.post<any[]>(`${environment.apiUrl}/biding/api/v1/addTenderFinancials`, data, httpOptions);
   }
-//Documentation - API Module
+
   //upload all type of documents
   createDocuments(data: any): Observable<any[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        // 'Content-Type': 'application/json',
-        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
-      }),
-    };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/document/api/v1/addDocument `,
-      data,
-      httpOptions
-    );
+    const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
+    return this.http.post<any[]>(`${environment.apiUrl}/document/api/v1/addDocument `, data, httpOptions);
   }
+
   BOQbulkData(data: any): Observable<any[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
-      }),
-    };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/boq/api/v1/uploadBoq`,
-      data,
-      httpOptions
-    );
+    const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
+    return this.http.post<any[]>(`${environment.apiUrl}/boq/api/v1/uploadBoq`, data, httpOptions);
   }
+
   BOQList(): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/boq/api/v1/getBoqList`, httpOptions);
   }
 
   AddBank(data: any): Observable<any[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        // 'Content-Type': 'application/json',
-        'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
-      }),
-    };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/biding/api/v1/addBankGuarantee`,
-      data,
-      httpOptions
-    );
+    const httpOptions = { headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
+    return this.http.post<any[]>(`${environment.apiUrl}/biding/api/v1/addBankGuarantee`, data, httpOptions);
   }
 
-  getBankDataList() {
+  getBankDataList(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getBankGuaranteeList`, httpOptions);
+  }
 
-    return this.http.get<any>(
-      `${environment.apiUrl}/biding/api/v1/getBankGuaranteeList`,
-      httpOptions
-    );
-  }
-  getfinDataList() {
+  getfinDataList(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.get<any>(
-      `${environment.apiUrl}/biding/api/v1/getTenderFinancialsList`,
-      httpOptions
-    );
+    return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getTenderFinancialsList`, httpOptions);
   }
-  getTechDataList() {
+
+  getTechDataList(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.get<any>(
-      `${environment.apiUrl}/biding/api/v1/getPreQualificationList`,
-      httpOptions
-    );
+    return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getPreQualificationList`, httpOptions);
   }
 
   getDocType(): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.get<any[]>(
-      `${environment.apiUrl}/document/api/v1/getDocumentDropdownList`,
-
-      httpOptions
-    );
+    return this.http.get<any[]>(`${environment.apiUrl}/document/api/v1/getDocumentDropdownList`, httpOptions);
   }
 
-  getDocListData() {
+  getDocListData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-
-    return this.http.get<any>(
-      `${environment.apiUrl}/document/api/v1/getDocumentList`,
-      httpOptions
-    );
+    return this.http.get<any>(`${environment.apiUrl}/document/api/v1/getDocumentList`, httpOptions);
   }
-  // getDocListData(document_id:any){
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //       'auth-token': JSON.parse(localStorage.getItem('user') || '').token,
-  //     }),
-  //   };
-  //   const params= new HttpParams({
-  //     fromString: `document_id=${document_id}`
-  //   });
-  //   return this.http.get<any>(
-  //     `${environment.apiUrl}/api/v1/getDocumentList?${params}`,
-  //     httpOptions
-  //   );
-  // }
 
   //Support ticket list
   incidentList(): Observable<any> {
@@ -374,48 +270,48 @@ export class ApiService {
     return this.http.get<any[]>(`${environment.apiUrl}/biding/api/v1/getTest?${params}`, httpOptions);
   }
 
-  getData(apiLink: any) {
+  getData(apiLink: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token}) };
     return this.http.get(`${environment.apiUrl}${apiLink}`, httpOptions);
   }
 
-  postData(apiLink: any, data: any) {
+  postData(apiLink: any, data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token}) };
     return this.http.post(`${environment.apiUrl}${apiLink}`, data, httpOptions);
   }
 
-  postDataFD(apiLink: any, data: any) {
+  postDataFD(apiLink: any, data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}${apiLink}`, data, httpOptions);
   }
-  getVendorListByTender(tender_id: any) {
+  getVendorListByTender(tender_id: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     const url = tender_id ? `${environment.apiUrl}/precurement/api/v1/getVendorListByTender/${tender_id}` : `${environment.apiUrl}/precurement/api/v1/getVendorListByTender`;
     return this.http.get<any[]>(url, httpOptions);
   }
 
-  getPoListBySupplier(tender_id: any, supplier_id: any) {
+  getPoListBySupplier(tender_id: any, supplier_id: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     const url = tender_id && supplier_id ? `${environment.apiUrl}/precurement/api/v1/getPoListBySupplier/${tender_id}/${supplier_id}` : `${environment.apiUrl}/precurement/api/v1/getPoListBySupplier`;
     return this.http.get<any[]>(url, httpOptions);
   }
 
-  createGRN(data: any) {
+  createGRN(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/inventory/api/v1/createGRN`, data, httpOptions);
   }
 
-  getItemListByTender(tender_id: any, warehouse_id: any, itemcategory_id: any) {
+  getItemListByTender(tender_id: any, warehouse_id: any, itemcategory_id: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any[]>(`${environment.apiUrl}/inventory/api/v1/getItemListByTender/${tender_id}/${warehouse_id}/${itemcategory_id}`, httpOptions);
   }
 
-  addAuditRequest(data: any) {
+  addAuditRequest(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/inventory/api/v1/addAuditRequest`, data, httpOptions);
   }
 
-  auditRequestApproval(data: any) {
+  auditRequestApproval(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.put(`${environment.apiUrl}/inventory/api/v1/auditRequestApproval`, data, httpOptions);
   }
