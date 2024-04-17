@@ -42,6 +42,10 @@ export class CaptureDataListComponent {
   userData: any;
   statusData: any;
   rowData: any;
+  tendStatus: any;
+  showWorkingDetails: boolean = false;
+  showPreNotes: boolean = false;
+  tendStatusData: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -59,7 +63,19 @@ export class CaptureDataListComponent {
    }
 
  ngOnInit(){
+
+  this.form = this.formBuilder.group({
+    tenderstatus_id:['', Validators.required],
+    working_notes:['', Validators.required],
+    audit_trail:[null],
+  });
+
     this.getTenderData();
+
+    this.apiService.getTenderType().subscribe((res: any) => {  
+       this.tendStatus = res.roleStatus;
+    });
+
   }
 
   //  getDetails(data:any){
@@ -106,6 +122,8 @@ export class CaptureDataListComponent {
   getTenderData() {
     this.apiService.getTenderList().subscribe((res: any) => {  
       this.companyData = res.result;
+      console.log(this.companyData);
+      
       this.statusData = res.counts;
     });
     this.apiService.getTenderType().subscribe((res: any) => {  
@@ -203,5 +221,60 @@ download(): void {
 }
 
 
+onSubmit() {
+  if (this.form.valid) {
+      this.isSubmitted = true;
+      this.loading = true;
+      this.sendApproval();
+  }
+ 
+  if (this.form.value.tenderstatus_id) {
+    this.tendStatusData = this.tendStatus.filter((item: any) => {
+      console.log(item);
+      
+      return item.tenderstatus_id == this.form.value.tenderstatus_id;
+    });
+    this.form.value.tenderstatus_id = this.tendStatusData[0]['tenderstatus_id'];
+    console.log(this.form.value.tenderstatus_id);
+    
+  }
+}
+
+
+sendBack(){
+
+  if (this.form.value.tenderstatus_id != '') {
+    this.form.value.tenderstatus_id == '';
+  } else {
+    this.form.value.tenderstatus_id = null;
+  }
+ 
+  this.form.value.tender_id =  this.companyData[0].tender_id;
+  this.apiService.createApproval(this.form.value).subscribe((res: any) => {
+  let response: any = res;
+  document.getElementById('cancel')?.click();
+  this.isSubmitted = false;
+  if (response.status == 200) {
+    this.form.reset();
+    this.alertService.success(response.message);
+  } else {
+    this.alertService.warning(response.message);
+  }
+})
+}
+sendApproval(){
+  this.form.value.tender_id =  this.companyData[0].tender_id;
+  this.apiService.createApproval(this.form.value).subscribe((res: any) => {
+  let response: any = res;
+  document.getElementById('cancel')?.click();
+  this.isSubmitted = false;
+  if (response.status == 200) {
+    this.form.reset();
+    this.alertService.success(response.message);
+  } else {
+    this.alertService.warning(response.message);
+  }
+})
+}
 
 }

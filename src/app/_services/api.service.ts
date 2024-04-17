@@ -206,6 +206,13 @@ export class ApiService {
 
   //create master our finance details
   addFinData(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({
+       'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/biding/api/v1/addTenderFinancials`,
+      data,
+      httpOptions
+    );
     const httpOptions = { headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post<any[]>(`${environment.apiUrl}/biding/api/v1/addTenderFinancials`, data, httpOptions);
   }

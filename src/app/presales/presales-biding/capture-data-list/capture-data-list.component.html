@@ -110,6 +110,7 @@
                                 <th>Ref No</th>
                                 <th>Published Date</th>
                                 <th>Execution Location</th>
+                                <th>Tender Status</th>
                                 <th>Tender Type</th>
                                 <th>Document Cost</th>
                                 <th>Tender Fee</th>
@@ -138,10 +139,13 @@
                                     {{a.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
                                 </td> -->
                                 <td>{{ a.company_name }}</td>
-                                <td>{{ a.tender_title }}</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                                    {{a.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                </td>
                                 <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.tender_ref_no }}</td>
                                 <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{ a.tender_location }}</td>
+                                <td class="badge badge-info text-center">{{ a.tender_status}}</td>
                                 <td>{{ a.bidtype }}</td>
                                 <td>{{ a.tender_doc_cost }}</td>
                                 <td>{{ a.tender_fee }}</td>
@@ -207,18 +211,20 @@
                             <div class="table-responsive">
                                 <div class="card1">
                                   <div class="row p-1">
-                                    <div class="col-md-2">Tender ID :</div>
-                                    <div class="col-md-2">{{ rowData?.tender_id }}</div>
-                                    <div class="col-md-2">Client :</div>
-                                    <div class="col-md-6">{{ rowData?.company_name }}</div>
+                                    <div class="col-md-3">Tender ID : &nbsp;&nbsp; {{ rowData?.tender_id }}</div>
+                                    <div class="col-md-3">Ref No : &nbsp;&nbsp; {{ rowData?.tender_ref_no }}</div>
+                                    <div class="col-md-6">Client : &nbsp;&nbsp; {{ rowData?.company_name }}</div>
+                                    
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col-md-3">Published Date : &nbsp;&nbsp; {{ rowData?.publish_date }}</div>
+                                      <div class="col-md-5" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">Tender Title : &nbsp;&nbsp; {{rowData?.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
+                                      <div class="col-md-4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">Execution Location : &nbsp;&nbsp;{{rowData?.tender_location| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
+                               
+                                 
+                                   
                                   </div>
                                   <div class="row p-1">
-                                    <div class="col-md-2">Tender/Project Title :</div>
-                                    <div class="col-md-2">{{ rowData?.tender_title }}</div>
-                                    <div class="col-md-2">Ref No :</div>
-                                    <div class="col-md-2">{{ rowData?.tender_ref_no }}</div>
-                                    <div class="col-md-2">Tender Published Date :</div>
-                                    <div class="col-md-2">{{ rowData?.publish_date }}</div>
                                    
                                   </div>
                                  
@@ -232,109 +238,149 @@
                                             <td>{{ rowData?.bidder_name }}</td>
                                             <th>Tender Type</th>
                                             <td>{{ rowData?.bidtype }}</td>
-                                            <th>Tender Execution Location</th>
-                                            <td>{{ rowData?.tender_location }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Tender Submission Date</th>
                                             <td>{{ rowData?.tender_submission_date }}</td>
-                                            <th>Tender Description</th>
-                                            <td>{{ rowData?.tender_description }}</td>
-                                            <th>Tender Available Link</th>
-                                            <td>{{ rowData?.tender_detail_link }}</td>
                                         </tr>
                                         <tr>
+                                           
+                                            <th>Tender Description</th>
+                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_description }}">
+                                                {{rowData?.tender_description| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                            </td>
+                                           
+                                            <th>Tender Available Link</th>
+                                            <td>{{ rowData?.tender_detail_link }}</td>
                                             <th>Tender Opening Date</th>
                                             <td>{{ rowData?.opening_date }}</td>
+                                        </tr>
+                                        <tr>
+                                          
                                             <th>Tender Closing Date</th>
                                             <td>{{ rowData?.closing_date }}</td>
                                             <th>Soft Copy Submission Date & Time</th>
                                             <td>{{ rowData?.tender_detail_link }}</td>
+                                            <th>Hard Copy Submission Date & Time</th>
+                                            <td>{{ rowData?.tender_detail_link }}</td>
                                         </tr>
                                         <tr>
-                                          <th>Hard Copy Submission Date & Time</th>
-                                          <td>{{ rowData?.tender_detail_link }}</td>
+                                         
                                             <th>Pre-bid Meeting Mode</th>
                                             <td>{{ rowData?.prebidmeetingmode }}</td>
                                             <th>Tender Pre-bid Meeting Date</th>
                                             <td>{{ rowData?.prebid_date }}</td>
+                                            <th>Technical Bid Opening Date & Time</th>
+                                            <td>{{ rowData?.tech_bid_date }}</td>
                                         </tr>
                                         <tr>
-                                          <th>Technical Bid Opening Date & Time</th>
-                                          <td>{{ rowData?.tech_bid_date }}</td>
+                                         
                                             <th>Financial Bid Opening Date</th>
                                             <td>{{ rowData?.fin_bid_opening_date }}</td>
                                             <th>ECV (Cr)</th>
                                             <td>{{ rowData?.ecv }}</td>
+                                            <th>Tender Fee</th>
+                                            <td>{{ rowData?.tender_fee }}</td>
                                         </tr>
                                         <tr>
-                                          <th>Tender Fee</th>
-                                          <td>{{ rowData?.tender_fee }}</td>
+                                        
                                             <th>Tender Document Cost</th>
                                             <td>{{ rowData?.tender_doc_cost }}</td>
                                             <th>Security Deposit</th>
                                           <td>{{ rowData?.security_deposit }}</td>
+                                          <th>Tender Performance Guarantee</th>
+                                          <td>{{ rowData?.performance_guarantee }}</td>
                                         </tr>
                                         <tr>
                                           
-                                            <th>Tender Performance Guarantee</th>
-                                            <td>{{ rowData?.performance_guarantee }}</td>
+                                           
                                             <th>Tender EMD Exemption</th>
                                             <td>{{ rowData?.emdexemption }}</td>
                                             <th>EMD Amount</th>
                                             <td>{{ rowData?.emd_ammount }}</td>
+                                            <th>EMD Payment</th>
+                                            <td>{{ rowData?.paymentmethod }}</td>
                                         </tr>
                                         <tr>
                                           
-                                            <th>EMD Payment</th>
-                                            <td>{{ rowData?.paymentmethod }}</td>
+                                          
                                             <th>EMD Submission Date</th>
                                             <td>{{ rowData?.emd_submission_date }}</td>
                                             <th>Forfeiture Condition</th>
                                             <td>{{ rowData?.emd_submission_date }}</td>
-                                        </tr>
-                                        <tr>
-                                          
                                             <th>Tender Status</th>
                                             <td>{{ rowData?.tender_status }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Tender Payment Terms</th>
                                             <td>{{ rowData?.payment_terms }}</td>
                                             <th>Created By</th>
                                             <td>{{ rowData?.createdby_name }}</td>
+                                            <th>Created On</th>
+                                            <td>{{ rowData?.created }}</td>
                                         </tr>
                                       
                                     </tbody>
                                 </table>
                                 <!-- qualification details -->
-                                <h6 class="mb-2 mt-4 text-secondary">Tender Qualification Details</h6>
+                                <h6 class="mb-2 mt-4 text-secondary">Qualification Details (Financial)</h6>
                                 <table class="table table-hover table-striped custom-table">
                                     <thead class="hidden-thead"></thead>
                                     <tbody class="text-nowrap">
                                         <tr>
-                                            <th>Bank Name</th>
-                                            <td>{{ rowData?.bankname }}</td>
-                                            <th>Account Holder Name</th>
-                                            <td>{{ rowData?.account_holder_name }}</td>
-                                            <th>Account No</th>
-                                            <td>{{ rowData?.bankaccountno }}</td>
+                                            <th>Financial Year</th>
+                                            <td>{{ rowData?.financialyear }}</td>
+                                            <th>Annuval Turnover</th>
+                                            <td>{{ rowData?.annual_turnover }}</td>
+                                            <th>Net Worth</th>
+                                            <td>{{ rowData?.net_worth }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Branch Name</th>
-                                            <td>{{ rowData?.branch_name }}</td>
-                                            <th>IFSC Code</th>
-                                            <td>{{ rowData?.bankifsc }}</td>
-                                            <th>Bank Address</th>
-                                            <td>{{ rowData?.bank_address }}</td>
+                                            <th>Attachments</th>
+                                            <td></td>
+                                            <th></th>
+                                            <td></td>
+                                           
+                                        </tr>
+                                        <!-- <tr>
+                                            <th>Net Worth</th>
+                                            <td>{{ rowData?.tenderfinancials[0].net_worth }}</td>
+                                            <th>Net Worth</th>
+                                            <td>{{ rowData?.tenderfinancials[0].net_worth }}</td>
+                                            <th>Net Worth</th>
+                                            <td>{{ rowData?.tenderfinancials[0].net_worth }}</td>
+                                        </tr> -->
+                                      
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-4 text-secondary">Qualification Details (Technical)</h6>
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Eligibility</th>
+                                            <td>{{ rowData?.eligibility }}</td>
+                                            <th>Technical Qualification</th>
+                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.technical_qualification }}">
+                                                {{rowData?.technical_qualification| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                            </td>
+                                            <th>Remarks</th>
+                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tech_remarks }}">
+                                                {{rowData?.tech_remarks| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                            </td>
+                                            
                                         </tr>
                                         <tr>
-                                            <th>Account Type</th>
-                                            <td>{{ rowData?.accounttype }}</td>
+                                            <th>Attachments</th>
+                                            <td>{{ rowData?.attachment }}</td>
+                                            <th></th>
+                                            <td></td>
+                                           
                                         </tr>
+                                      
                                     </tbody>
                                 </table>
                                <!-- qualification details end-->
                                 <!-- Bank details -->
-                                <h6 class="mb-2 mt-4 text-secondary">Tender Bank Details</h6>
+                                <!-- <h6 class="mb-2 mt-4 text-secondary">Tender Bank Details</h6>
                                 <table class="table table-hover table-striped custom-table">
                                     <thead class="hidden-thead"></thead>
                                     <tbody class="text-nowrap">
@@ -354,14 +400,115 @@
                                             <th>Bank Address</th>
                                             <td>{{ rowData?.bank_address }}</td>
                                         </tr>
-                                        <tr>
-                                            <th>Account Type</th>
-                                            <td>{{ rowData?.accounttype }}</td>
-                                        </tr>
+                                      
                                     </tbody>
-                                </table>
+                                </table> -->
                                <!-- bank details end-->
                             </div>
+
+
+<div class="row mt-2">
+    <div class="col-md-6">
+        <div class="text-primary cursor-pointer" (click)="showPreNotes=!showPreNotes">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
+                <path d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z"/>
+                <path d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z"/>
+              </svg> &nbsp;
+              Previous Notes</div>
+        <div class="form-group mt-2" *ngIf="showPreNotes">
+            <textarea formControlName="remarks" type="text" rows="4" class="form-control form-control-sm" readonly>
+           </textarea>
+              
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
+                <path d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z"/>
+                <path d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z"/>
+              </svg> &nbsp;
+            Audit Trail</div>
+        <div class="form-group mt-2" *ngIf="showWorkingDetails">
+            <textarea formControlName="audit_trail" type="text" rows="4" class="form-control form-control-sm" readonly>
+           </textarea>
+              
+        </div>
+    </div>
+</div>
+
+
+
+                             <!-- tender status modal start-->
+                             <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                <div class="row mt-3">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Tender Status<span class="required-asterisk">*</span></label>
+                                            <select formControlName="tenderstatus_id" class="form-select form-select-sm">
+                                                <option [value]="null" disabled selected>Select Status</option>
+                                                <option *ngFor="let c of tendStatus" [value]="c.tenderstatus_id">{{ c.tender_status }}</option>
+                                            </select>
+                                            <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
+                                                <small class="text-danger" *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9" >
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Remarks<span class="required-asterisk">*</span></label>
+                                            <input formControlName="working_notes" type="text" class="form-control form-control-sm" placeholder="Describe Your Changes">
+                                            <div *ngIf="f['working_notes'].touched && f['working_notes'].invalid">
+                                                <small class="text-danger" *ngIf="f['working_notes'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Previous Notes</label>
+                                            <textarea formControlName="remarks" type="text" rows="4" class="form-control form-control-sm" readonly>
+                                           </textarea>
+                                        </div>
+                                    </div> -->
+
+                                   
+
+                                    <div class="col-md-12">
+                                        <button *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'" type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right" [disabled]="form.invalid" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                                              </svg> &nbsp;Send For Approval
+                                        </button>
+                                        <ng-container *ngIf="this.userData.rolename === 'Administrator'">
+                                        <button *ngIf="this.userData.rolename !== 'Manager' || this.userData.rolename !== 'PreSales'" type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right" [disabled]="form.invalid" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                                              </svg> &nbsp;Final Update
+                                        </button>
+                                        </ng-container>
+                                        <ng-container *ngIf="this.userData.rolename === 'Manager'">
+                                            <div class="float-right">
+                                                <button (click)="sendBack()" type="text" class="btn btn-danger btn-fw btn-sm me-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z"/>
+                                                      </svg> &nbsp;Send Back
+                                                </button>
+                                                <button  type="submit" class="btn btn-primary btn-fw btn-sm me-2 " [disabled]="form.invalid">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                                        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z"/>
+                                                      </svg> &nbsp;Submit
+                                                </button>
+
+                                            </div>
+                                        </ng-container>
+                                    </div>
+
+                                </div>
+                      
+                        </form>
+
+                    <!-- tender status modal end-->
+
                         </div>
                     </div>
                 </div>
@@ -371,11 +518,6 @@
 </div>
 <!-- detail modal end-->
 
-   <!-- Qualifying modal -->
-   <!-- <app-technical-bid></app-technical-bid>
-   <app-financial-bid></app-financial-bid>
-   <app-banking-details></app-banking-details> -->
 
-<!-- Qualifying modal end-->
-
+                   
 

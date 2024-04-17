@@ -297,24 +297,27 @@ downloadPdf() {
   }
 
   onCreateTech() {
-    this.techData = this.addTech;
+    debugger
+    var formData ={
+      qualification: this.addTech
+    } 
     console.log( this.techData);
-    
     this.form.reset();
-    this.alertService.success('Technical Details Added Successfully');
-    // this.apiService.createTender(this.form.value).subscribe((res: any) => {
-    //  let response: any = res;
-    //     document.getElementById('cancel')?.click();
-    //     this.isSubmitted = false;
-    //     if (response.status == 200) {
-      this.ngOnInit();
-    //       this.getCompanyData();
-    //       this.form.reset();
-    //       this.alertService.success(response.message);
-    //     } else {
-    //       this.alertService.warning(response.message);
-    //     }
-    //   })
+    this.apiService.addTechData(formData).subscribe((res: any) => {
+      console.log(res);
+      let response: any = res;
+      document.getElementById('cancel')?.click();
+      this.isSubmitted = false;
+      if (response.status == 200) {
+          this.alertService.success('Technical Details Added Successfully');
+          this.ngOnInit();
+          this.getCompanyData();
+          // this.form.reset();
+          this.alertService.success(response.message);
+        } else {
+          this.alertService.warning(response.message);
+        }
+      })
   }
   onUpdateTech(): void {
     // this.opac=0;

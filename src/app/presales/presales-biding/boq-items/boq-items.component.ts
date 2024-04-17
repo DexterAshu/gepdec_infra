@@ -71,6 +71,8 @@ export class BoqItemsComponent {
   listOfFiles: any[] = [];
   boqData: any;
   comData: any;
+  dataCatList: any;
+  dataSubList: any;
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -92,6 +94,8 @@ export class BoqItemsComponent {
     this.form1 = this.formBuilder.group({
       tender_id:['', Validators.required],
       utility_id:['', Validators.required],
+      itemCategory:['', Validators.required],
+      itemSubCategory:['', Validators.required],
       attachment:['', Validators.required]
     });
 
@@ -99,7 +103,7 @@ export class BoqItemsComponent {
    
   
     this.addAnotherRow();
-    // this.getDropdownList();
+    this.getDropdownList();
     this.getDataList();
     this.getBoqListData();
   }
@@ -110,6 +114,23 @@ export class BoqItemsComponent {
     this.rowData = row;
     console.log(this.rowData);
     
+  }
+
+  getDropdownList() {
+    this.dataDropdownList = [];
+    let apiLink = "/item/api/v1/getItemDropdown";
+    this.apiService.getData(apiLink).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.dataCatList = res.itemcategory;
+        this.dataSubList = res.subcategory;
+      } else {
+        this.dataDropdownList = undefined;
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.dataDropdownList = undefined;
+      this.alertService.error("Error: " + error.statusText)
+    });
   }
   
   getDetails(event: any) {
@@ -186,17 +207,6 @@ export class BoqItemsComponent {
    
   }
 
-  // getDropdownList() {
-  //   this.dataDropdownList = [];
-  //   this.isNotFound = false;
-  //   let apiLink = "/item/api/v1/getItemDropdown";
-  //   this.apiService.getData(apiLink).subscribe((res:any) => {
-  //     console.log(res);
-      
-  //     this.dataDropdownList = res.itemtype;
-  //   })
-  // }
-  
   getBoqListData(){
     this.apiService.BOQList().subscribe((res: any) => { 
       if (res.status === 200) {
@@ -298,6 +308,8 @@ downloadPdf() {
     }
     formData.append('utility_id', this.form1.value.utility_id);
     formData.append('tender_id', this.form1.value.tender_id);  
+    formData.append('itemCategory', this.form1.value.itemCategory);  
+    formData.append('itemSubCategory', this.form1.value.itemSubCategory);  
     this.addBOQ(formData);
 }
 
