@@ -262,7 +262,8 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">District<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="headDistrict" (change)="getCityData()">
+                                                <!-- <select class="form-select form-select-sm" formControlName="headDistrict" (change)="getCityData()"> -->
+                                                <select class="form-select form-select-sm" formControlName="headDistrict">
                                                     <option [selected]="true" [disabled]="true">Select District</option>
                                                     <option *ngFor="let t of districtData" [value]="t.district_id">{{ t.district_name }}</option>
                                                 </select>
@@ -274,10 +275,11 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">City<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="headCity">
+                                                <!-- <select class="form-select form-select-sm" formControlName="headCity">
                                                 <option [selected]="true" [disabled]="true">Select City</option>
                                                     <option *ngFor="let t of cityData" [value]="t.city_id">{{ t.city }}</option>
-                                                </select>
+                                                </select> -->
+                                                <input type="text" formControlName="headCity" class="form-control form-control-sm">
                                                 <div *ngIf="f['headCity'].touched && f['headCity'].invalid">
                                                     <small class="text-danger" *ngIf="f['headCity'].errors?.['required']">*Required</small>
                                                 </div>
@@ -332,7 +334,8 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">District<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="factoryDistrict" (change)="getFactoryCityData()">
+                                                <!-- <select class="form-select form-select-sm" formControlName="factoryDistrict" (change)="getFactoryCityData()"> -->
+                                                <select class="form-select form-select-sm" formControlName="factoryDistrict">
                                                     <option [selected]="true" [disabled]="true">Select District</option>
                                                     <option *ngFor="let t of factoryDistrictData" [value]="t.district_id">{{ t.district_name }}</option>
                                                 </select>
@@ -344,10 +347,11 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">City<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="factoryCity">
+                                                <!-- <select class="form-select form-select-sm" formControlName="factoryCity">
                                                 <option [selected]="true" [disabled]="true">Select City</option>
                                                     <option *ngFor="let t of factoryCityData" [value]="t.city_id">{{ t.city }}</option>
-                                                </select>
+                                                </select> --> 
+                                                <input type="text" formControlName="factoryCity" class="form-control form-control-sm">
                                                 <div *ngIf="f['factoryCity'].touched && f['factoryCity'].invalid">
                                                     <small class="text-danger" *ngIf="f['factoryCity'].errors?.['required']">*Required</small>
                                                 </div>
