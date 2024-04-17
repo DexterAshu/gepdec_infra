@@ -138,6 +138,14 @@ export class ApiService {
       httpOptions
     );
   }
+
+   //Tender Approval api
+   createApproval(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put<any[]>( `${environment.apiUrl}/biding/api/v1/tenderApproval`, data, httpOptions );
+  }
+  
+ 
 //tender list
   getTenderList(): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
@@ -250,10 +258,20 @@ export class ApiService {
   //create master our finance details
   addFinData(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({
-      //  'Content-Type': 'application/json', 
        'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post<any[]>(
       `${environment.apiUrl}/biding/api/v1/addTenderFinancials`,
+      data,
+      httpOptions
+    );
+  }
+  //create master our Technical details
+  addTechData(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({
+      //  'Content-Type': 'application/json', 
+       'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.post<any[]>(
+      `${environment.apiUrl}/biding/api/v1/addPreQualification`,
       data,
       httpOptions
     );

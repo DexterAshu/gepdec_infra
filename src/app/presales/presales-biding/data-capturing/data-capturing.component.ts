@@ -88,7 +88,7 @@ export class DataCapturingComponent {
       bidtype_id:[null, Validators.required],
       tender_location:[null, Validators.required],
       publish_date:[null, Validators.required],
-      contact: this.formBuilder.array([],Validators.required),
+      contact: this.formBuilder.array([]),
       // prebid_submission_date:[null, Validators.required],
       prebid_date:[null, Validators.required],
       prebidmeetingmode_id:[null, Validators.required],
@@ -444,12 +444,12 @@ ngAfterViewInit() : void{
         this.loading = true;
     if (this.update) {  
         this.updateTender();
-        this.form.get('tenderstatus_id')!.setValidators([Validators.required]);
+        // this.form.get('tenderstatus_id')!.setValidators([Validators.required]);
         this.form.get('working_notes')!.setValidators([Validators.required]);
     } 
     else {
         this.addTender();
-        this.form.get('tenderstatus_id')!.clearValidators();
+        // this.form.get('tenderstatus_id')!.clearValidators();
         this.form.get('working_notes')!.clearValidators();
     }
     }
