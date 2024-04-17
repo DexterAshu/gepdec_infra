@@ -151,7 +151,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">Category No<span class="required-asterisk">*</span></label>
-                                                <input formControlName="categoryNo" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                                <input formControlName="categoryNo" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
                                                 <div *ngIf="f['categoryNo'].touched && f['categoryNo'].invalid">
                                                     <small class="text-danger" *ngIf="f['categoryNo'].errors?.['required']">*Required</small>
                                                 </div>
