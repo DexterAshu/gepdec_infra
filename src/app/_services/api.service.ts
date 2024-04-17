@@ -65,11 +65,6 @@ export class ApiService {
     return this.http.post<any[]>( `${environment.apiUrl}/mycompany/api/v1/addMyComapany`, data, httpOptions );
   }
 
-  getourCompanyList(): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.get<any[]>( `${environment.apiUrl}/mycompany/api/v1/getMyComapanyList`, httpOptions );
-  }
-
   ourcompanyDetails(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/mycompany/api/v1/getMyComapanyDetails/${data}`, httpOptions );
@@ -100,21 +95,6 @@ export class ApiService {
   getCompanyData(): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/company/api/v1/getCompanyDropdown`, httpOptions);
-  }
-
-  getourCompanyData(): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.get<any[]>( `${environment.apiUrl}/mycompany/api/v1/getMyComapanyDropdown`, httpOptions );
-  }
-
-  getModuleList(): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.get<any[]>( `${environment.apiUrl}/contact/api/v1/getContactModulesDropdowm`, httpOptions);
-  }
-
-  getCompaList(module_id: any): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.get<any[]>( `${environment.apiUrl}/contact/api/v1/getCompanyDropdownByModule/${module_id}`, httpOptions );
   }
 
   //bid-qualify
@@ -284,26 +264,10 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}${apiLink}`, data, httpOptions);
   }
-  getVendorListByTender(tender_id: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    const url = tender_id ? `${environment.apiUrl}/precurement/api/v1/getVendorListByTender/${tender_id}` : `${environment.apiUrl}/precurement/api/v1/getVendorListByTender`;
-    return this.http.get<any[]>(url, httpOptions);
-  }
-
-  getPoListBySupplier(tender_id: any, supplier_id: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    const url = tender_id && supplier_id ? `${environment.apiUrl}/precurement/api/v1/getPoListBySupplier/${tender_id}/${supplier_id}` : `${environment.apiUrl}/precurement/api/v1/getPoListBySupplier`;
-    return this.http.get<any[]>(url, httpOptions);
-  }
 
   createGRN(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/inventory/api/v1/createGRN`, data, httpOptions);
-  }
-
-  getItemListByTender(tender_id: any, warehouse_id: any, itemcategory_id: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.get<any[]>(`${environment.apiUrl}/inventory/api/v1/getItemListByTender/${tender_id}/${warehouse_id}/${itemcategory_id}`, httpOptions);
   }
 
   addAuditRequest(data: any): Observable<any> {

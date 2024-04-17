@@ -140,7 +140,8 @@ export class AuditRequestComponent {
     let tender_id = this.form.value.tender_id;
     let warehouse_id = this.form.value.warehouse_id;
     let itemcategory_id = this.form.value.itemcategory_id;
-    this.apiService.getItemListByTender(tender_id, warehouse_id, itemcategory_id).subscribe((res:any) => {
+    const apiLink = `/inventory/api/v1/getItemListByTender/${tender_id}/${warehouse_id}/${itemcategory_id}`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.itemData = res.result;
       } else {

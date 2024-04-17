@@ -9,7 +9,7 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
   styleUrls: ['./company-contacts.component.css']
 })
 export class CompanyContactsComponent {
-  form!: FormGroup;  
+  form!: FormGroup;
   p: number = 1;
   username1:any;
   limit = environment.pageLimit;
@@ -58,10 +58,10 @@ export class CompanyContactsComponent {
       emailid: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
     this.getCustomerData();
-    this.getCompanyData(408); 
-  
-    
-    
+    this.getCompanyData(408);
+
+
+
       this.masterService.getUserMaster().subscribe((res:any)=>{
       this.design = res.designation;
       this.departMent = res.department;
@@ -91,9 +91,9 @@ export class CompanyContactsComponent {
           emailid: this.custDetails.emailid,
           usdt_id: this.custDetails.usdt_id,
           usdg_id: this.custDetails.usdg_id,
-          
-        }); 
- 
+
+        });
+
   })
   }
   OnlyNumbersAllowed(event: any): boolean {
@@ -108,23 +108,26 @@ export class CompanyContactsComponent {
   get f() { return this.form.controls; }
 
   getCustomerData() {
-    this.apiService.getModuleList().subscribe((res: any) => {
-        if (res.status === 200) {
-            this.compData = res.result;
-            console.log(this.compData);
-        } else {
-            this.alertService.warning("Looks like no data available in type.");
-        }
-    });
-
-    // const action: any = "add";
-}
+    const apiLink = `/contact/api/v1/getContactModulesDropdowm`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.compData = res.result;
+        console.log(this.compData);
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      this.alertService.error(`Error: ${error.statusText}`);
+    }
+  }
   tendComp(event:any){
   const module_id = event?.target ? (event.target as HTMLInputElement).value : event;
   this.modListData = module_id;
   console.log(this.modListData);
-  this.apiService.getCompaList(module_id).subscribe((res: any) => {
-        
+  const apiLink = `/contact/api/v1/getCompanyDropdownByModule/${module_id}`;
+  this.apiService.getData(apiLink).subscribe((res: any) => {
+
         this.modList = res.result;
       //   if (res.status === 200) {
       //  } else{
@@ -138,13 +141,13 @@ export class CompanyContactsComponent {
       this.limits.push({ key: 'ALL', value: this.companyData.length });
       this.isExcelDownload = true;
     });
- 
+
   }
 
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
-     
+
       //4-passing Company_id
 
 
@@ -156,7 +159,7 @@ export class CompanyContactsComponent {
       // }
       // else {
       //   this.form.value.module_id = null;
-      // } 
+      // }
 
       // if (this.form.value.company_id !== null) {
       //   var countryType = this.modList.filter((item: any) => {
@@ -166,12 +169,12 @@ export class CompanyContactsComponent {
       // }
       // else {
       //   this.form.value.company_type = null;
-      // } 
-  
-    
+      // }
+
+
 
         this.loading = true;
-    if (this.update) {  
+    if (this.update) {
       this.companyCont();
     } else {
       this.createCont();
@@ -200,7 +203,7 @@ export class CompanyContactsComponent {
     //  this.form.value.action = "add";
     this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
        this.isSubmitted = false;
-     
+
     if (res.status == 200) {
       this.ngOnInit();
       document.getElementById('closed')?.click();
