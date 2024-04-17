@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -206,13 +206,6 @@ export class ApiService {
 
   //create master our finance details
   addFinData(data: any): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({
-       'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post<any[]>(
-      `${environment.apiUrl}/biding/api/v1/addTenderFinancials`,
-      data,
-      httpOptions
-    );
     const httpOptions = { headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post<any[]>(`${environment.apiUrl}/biding/api/v1/addTenderFinancials`, data, httpOptions);
   }
@@ -319,8 +312,17 @@ export class ApiService {
   }
 
   auditRequestApproval(data: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.put(`${environment.apiUrl}/inventory/api/v1/auditRequestApproval`, data, httpOptions);
   }
 
+  addTechData(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.post<any[]>(`${environment.apiUrl}/biding/api/v1/addPreQualification`, data, httpOptions);
+  }
+
+  createApproval(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put<any[]>(`${environment.apiUrl}/biding/api/v1/tenderApproval`, data, httpOptions);
+  }
 }
