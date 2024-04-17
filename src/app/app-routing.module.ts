@@ -110,8 +110,8 @@ import { MaterialIssuanceComponent } from './transactions/material-issuance/mate
 import { SignInComponent } from './account/sign-in/sign-in.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  // {path: 'login', component: SignInComponent},
+  // {path: 'login', component: LoginComponent},
+  {path: 'login', component: SignInComponent},
   {path: 'forget-password', component:ForgetPasswordComponent},
 
 //dashboard

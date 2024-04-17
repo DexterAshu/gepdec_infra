@@ -1,93 +1,73 @@
 <div class="content-wrapper">
-    <div class="row">
-        <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Vendor</h4>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
+  <div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="d-flex align-items-end flex-wrap">
+          <div class="mr-md-3 mr-xl-5">
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Vendor</h4>
           </div>
         </div>
+        <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <!-- <h3 class="card-title">Company</h3>
-                    <hr> -->
-                    <div class="d-flex my-10">
-                        <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
-                        </div>
-                        <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
-                        </div>
-                    </div>
-                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
-                        <thead class="table-primary text-nowrap">
-                            <tr>
-                                <th>S No</th>
-                                <th>Vendor Code</th>
-                                <th>Vendor Name</th>
-                                <!-- <th>Company Name</th> -->
-                                <th>Category</th>
-                                <th>Category No</th>
-                                <th>Contact No</th>
-                                <th>Email ID</th>
-                                <th>Pan No</th>
-                                <th>GST No</th>
-                                <th>GST Date</th>
-                                <th>Date of Incorporation</th>
-                                <!-- <th>Pincode</th>
-                                <th>Address</th> -->
-                                <!-- <th>Created On</th> -->
-                                <!-- <th>Action</th> -->
-                            </tr>
-                        </thead>
-                        <tbody class="text-nowrap">
-                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                                <td>{{ limit*(p-1)+i+1 }}</td>
-                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Supplier Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.suppliercode }}</td>
-                                <td>{{ a.suppliername }}</td>
-                                <!-- <td>{{ a.company_name }}</td> -->
-                                <td>{{ a?.category }}</td>
-                                <td>{{ a?.category_no }}</td>
-                                <td>{{ a?.contact[0]?.contactno }}</td>
-                                <td>{{ a?.contact[0]?.emailid }}</td>
-                                <td>{{ a?.panno }}</td>
-                                <td>{{ a?.gstno }}</td>
-                                <td>{{ a?.gstdate }}</td>
-                                <td>{{ a.doi }}</td>
-                                <!-- <td>{{ a.pincode }}</td>
-                                <td>{{ a.address }}</td> -->
-                                <!-- <td>{{ a?.created }}</td> -->
-                                <!-- <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
-                                </td> -->
-                            </tr>
-                            <tr *ngIf="dataList?.length == 0">
-                                <td colspan="15" class="text-center">
-                                    <div class="spinner-border"> </div>
-                                </td>
-                            </tr>
-                            <tr *ngIf="isNotFound == true">
-                                <td colspan="15" class="text-center">
-                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </app-responsive-table>
-                    <div class="pagination-sec text-center">
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                    </div>
-                </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex my-10">
+            <div class="col-lg-4">
+              <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
+            <div class="col-lg-8">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+            </div>
+          </div>
+          <app-responsive-table id="export">
+            <thead class="table-primary text-nowrap">
+              <tr>
+                <th>S No</th>
+                <th>Vendor Code</th>
+                <th>Vendor Name</th>
+                <th>Category</th>
+                <th>Category No</th>
+                <th>Contact No</th>
+                <th>Email ID</th>
+                <th>Pan No</th>
+                <th>GST No</th>
+                <th>GST Date</th>
+                <th>Date of Incorporation</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap">
+              <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                <td>{{ limit*(p-1)+i+1 }}</td>
+                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Supplier Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.suppliercode }}</td>
+                <td>{{ a.suppliername }}</td>
+                <td>{{ a?.category }}</td>
+                <td>{{ a?.category_no }}</td>
+                <td>{{ a?.contact[0]?.contactno }}</td>
+                <td>{{ a?.contact[0]?.emailid }}</td>
+                <td>{{ a?.panno }}</td>
+                <td>{{ a?.gstno }}</td>
+                <td>{{ a?.gstdate }}</td>
+                <td>{{ a.doi }}</td>
+              </tr>
+              <tr *ngIf="dataList?.length == 0">
+                <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>
+              </tr>
+              <tr *ngIf="isNotFound == true">
+                <td colspan="15" class="text-center"><div class="text-warning fw-semibold">Looks like no data available!</div></td>
+              </tr>
+            </tbody>
+          </app-responsive-table>
+          <div class="pagination-sec text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- create modal -->
@@ -350,7 +330,7 @@
                                                 <!-- <select class="form-select form-select-sm" formControlName="factoryCity">
                                                 <option [selected]="true" [disabled]="true">Select City</option>
                                                     <option *ngFor="let t of factoryCityData" [value]="t.city_id">{{ t.city }}</option>
-                                                </select> --> 
+                                                </select> -->
                                                 <input type="text" formControlName="factoryCity" class="form-control form-control-sm">
                                                 <div *ngIf="f['factoryCity'].touched && f['factoryCity'].invalid">
                                                     <small class="text-danger" *ngIf="f['factoryCity'].errors?.['required']">*Required</small>
@@ -508,7 +488,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                     <span type="button" (click)="addAnotherRow('contactDetails')" class="text-light bg-success float-right p-1 rounded-circle" title="Click to add more contact details"><span class="mdi mdi-plus"></span></span>
@@ -567,163 +547,155 @@
         </div>
     </div>
 </div>
-<!-- create modal end-->
 
-<!-- detail modal -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Vendor Detailed Data</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-3">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12 p-0">
-                            <div class="table-responsive">
-                                <h6 class="mb-2 text-secondary">Vendor Details</h6>
-                                <table class="table table-hover table-striped custom-table">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <tr>
-                                            <th>Vendor Code</th>
-                                            <td>{{ rowData?.suppliercode }}</td>
-                                            <th>Vendor Name</th>
-                                            <td>{{ rowData?.suppliername }}</td>
-                                            <th>Category</th>
-                                            <td>{{ rowData?.category }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Category No</th>
-                                            <td>{{ rowData?.category_no }}</td>
-                                            <th>GST No</th>
-                                            <td>{{ rowData?.gstno }}</td>
-                                            <th>GST Date</th>
-                                            <td>{{ rowData?.gstdate }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>PAN No</th>
-                                            <td>{{ rowData?.panno }}</td>
-                                            <th>TAN No</th>
-                                            <td>{{ rowData?.tanno }}</td>
-                                            <th>DOI</th>
-                                            <td>{{ rowData?.doi }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                
-                                <h6 class="mb-2 mt-3 text-secondary">Head Office Address</h6>
-                                <table class="table table-hover table-striped custom-table">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <tr>
-                                            <th>Address</th>
-                                            <td>{{ rowData?.address[0]?.address }}</td>
-                                            <th>City</th>
-                                            <td>{{ rowData?.address[0]?.city }}</td>
-                                            <th>District</th>
-                                            <td>{{ rowData?.address[0]?.district_name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>State</th>
-                                            <td>{{ rowData?.address[0]?.state_name }}</td>
-                                            <th>Vendor Name</th>
-                                            <td>{{ rowData?.address[0]?.name }}</td>
-                                            <th>Category</th>
-                                            <td>{{ rowData?.address[0]?.pincode }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                
-                                <h6 class="mb-2 mt-3 text-secondary">Factory Address</h6>
-                                <table class="table table-hover table-striped custom-table">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <tr>
-                                            <th>Address</th>
-                                            <td>{{ rowData?.address[1]?.address }}</td>
-                                            <th>City</th>
-                                            <td>{{ rowData?.address[1]?.city }}</td>
-                                            <th>District</th>
-                                            <td>{{ rowData?.address[1]?.district_name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>State</th>
-                                            <td>{{ rowData?.address[1]?.state_name }}</td>
-                                            <th>Vendor Name</th>
-                                            <td>{{ rowData?.address[1]?.name }}</td>
-                                            <th>Category</th>
-                                            <td>{{ rowData?.address[1]?.pincode }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                
-                                <h6 class="mb-2 mt-3 text-secondary">Contact Details</h6>
-                                <table class="table table-hover table-striped custom-table">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <tr *ngFor="let a of rowData?.contact">
-                                            <th>Person name</th>
-                                            <td>{{ a?.contactperson }}</td>
-                                            <th>Designation</th>
-                                            <td>{{ a?.designationname }}</td>
-                                            <th>Contact</th>
-                                            <td>{{ a?.contactno }}</td>
-                                            <th>Email</th>
-                                            <td>{{ a?.emailid }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <h6 class="mb-2 mt-3 text-secondary">Vendor Bank Details</h6>
-                                <table class="table table-hover table-striped custom-table">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <ng-container *ngFor="let a of rowData?.bank">
-                                            <tr>
-                                                <th>Bank Name</th>
-                                                <td>{{ a?.bankname }}</td>
-                                                <th>Account Holder Name</th>
-                                                <td>{{ a?.account_holder_name }}</td>
-                                                <th>Account No</th>
-                                                <td>{{ a?.bankaccountno }}</td>
-                                                <th>Branch Name</th>
-                                                <td>{{ a?.branch_name }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>IFSC Code</th>
-                                                <td>{{ a?.bankifsc }}</td>
-                                                <th>Account Type</th>
-                                                <td>{{ a?.accounttype }}</td>
-                                                <th>Bank Address</th>
-                                                <td colspan="3">{{ a?.bank_address }}</td>
-                                            </tr>
-                                        </ng-container>
-                                    </tbody>
-                                </table>
-                                <h6 class="mb-2 mt-3 text-secondary">Documents</h6>
-                                <div class="col-md-12 ps-0">
-                                    <div class="d-inline-flex">
-                                        <div *ngIf="rowData?.doidocument != null" class="col-md-3 col-sm-3 col-3 p-2 ps-0">
-                                            <div class="img-sec shadow">
-                                                <img src="{{apiUrl}}/{{rowData?.doidocument}}" class="img-fluid" title="DOI Document" alt="DOI Document not available!">
-                                            </div>
-                                        </div>
-                                        <div *ngFor="let d of rowData?.certification" class="col-md-3 col-sm-3 col-3 p-2 ps-0">
-                                            <div class="img-sec shadow">
-                                                <img src="{{apiUrl}}/{{d?.document}}" class="img-fluid" [title]="d?.certification_name" alt="Not Available!">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Vendor Detailed Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-3">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 p-0">
+              <div class="table-responsive">
+                <h6 class="mb-2 text-secondary">Vendor Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Vendor Code</th>
+                      <td>{{ rowData?.suppliercode }}</td>
+                      <th>Vendor Name</th>
+                      <td>{{ rowData?.suppliername }}</td>
+                      <th>Category</th>
+                      <td>{{ rowData?.category }}</td>
+                    </tr>
+                    <tr>
+                      <th>Category No</th>
+                      <td>{{ rowData?.category_no }}</td>
+                      <th>GST No</th>
+                      <td>{{ rowData?.gstno }}</td>
+                      <th>GST Date</th>
+                      <td>{{ rowData?.gstdate }}</td>
+                    </tr>
+                    <tr>
+                      <th>PAN No</th>
+                      <td>{{ rowData?.panno }}</td>
+                      <th>TAN No</th>
+                      <td>{{ rowData?.tanno }}</td>
+                      <th>DOI</th>
+                      <td>{{ rowData?.doi }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h6 class="mb-2 mt-3 text-secondary">Head Office Address</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Address</th>
+                      <td>{{ rowData?.address[0]?.address }}</td>
+                      <th>City</th>
+                      <td>{{ rowData?.address[0]?.city }}</td>
+                      <th>District</th>
+                      <td>{{ rowData?.address[0]?.district_name }}</td>
+                    </tr>
+                    <tr>
+                      <th>State</th>
+                      <td>{{ rowData?.address[0]?.state_name }}</td>
+                      <th>Vendor Name</th>
+                      <td>{{ rowData?.address[0]?.name }}</td>
+                      <th>Category</th>
+                      <td>{{ rowData?.address[0]?.pincode }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h6 class="mb-2 mt-3 text-secondary">Factory Address</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Address</th>
+                      <td>{{ rowData?.address[1]?.address }}</td>
+                      <th>City</th>
+                      <td>{{ rowData?.address[1]?.city }}</td>
+                      <th>District</th>
+                      <td>{{ rowData?.address[1]?.district_name }}</td>
+                    </tr>
+                    <tr>
+                      <th>State</th>
+                      <td>{{ rowData?.address[1]?.state_name }}</td>
+                      <th>Vendor Name</th>
+                      <td>{{ rowData?.address[1]?.name }}</td>
+                      <th>Category</th>
+                      <td>{{ rowData?.address[1]?.pincode }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h6 class="mb-2 mt-3 text-secondary">Contact Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <tr *ngFor="let a of rowData?.contact">
+                      <th>Person name</th>
+                      <td>{{ a?.contactperson }}</td>
+                      <th>Designation</th>
+                      <td>{{ a?.designationname }}</td>
+                      <th>Contact</th>
+                      <td>{{ a?.contactno }}</td>
+                      <th>Email</th>
+                      <td>{{ a?.emailid }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h6 class="mb-2 mt-3 text-secondary">Vendor Bank Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody class="text-nowrap">
+                    <ng-container *ngFor="let a of rowData?.bank">
+                      <tr>
+                        <th>Bank Name</th>
+                        <td>{{ a?.bankname }}</td>
+                        <th>Account Holder Name</th>
+                        <td>{{ a?.account_holder_name }}</td>
+                        <th>Account No</th>
+                        <td>{{ a?.bankaccountno }}</td>
+                        <th>Branch Name</th>
+                        <td>{{ a?.branch_name }}</td>
+                      </tr>
+                      <tr>
+                        <th>IFSC Code</th>
+                        <td>{{ a?.bankifsc }}</td>
+                        <th>Account Type</th>
+                        <td>{{ a?.accounttype }}</td>
+                        <th>Bank Address</th>
+                        <td colspan="3">{{ a?.bank_address }}</td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+                <h6 class="mb-2 mt-3 text-secondary">Documents</h6>
+                <div class="col-md-12 ps-0">
+                  <div class="d-inline-flex">
+                    <div *ngIf="rowData?.doidocument != null" class="col-md-3 col-sm-3 col-3 p-2 ps-0">
+                      <div class="img-sec shadow">
+                        <img src="{{apiUrl}}/{{rowData?.doidocument}}" class="img-fluid" title="DOI Document" alt="DOI Document not available!">
+                      </div>
                     </div>
+                    <div *ngFor="let d of rowData?.certification" class="col-md-3 col-sm-3 col-3 p-2 ps-0">
+                      <div class="img-sec shadow">
+                        <img src="{{apiUrl}}/{{d?.document}}" class="img-fluid" [title]="d?.certification_name" alt="Not Available!">
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-<!-- detail modal end-->

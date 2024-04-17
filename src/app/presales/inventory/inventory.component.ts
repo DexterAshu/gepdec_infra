@@ -27,28 +27,28 @@ export class InventoryComponent {
 
   formInit(): void {
     this.form = this.formBuilder.group({
-      warehouse_id: ["",Validators.required],
-      meterCode: ["",Validators.required],
-      type: ["",Validators.required],
+      warehouse_id: [null, Validators.required],
+      meterCode: [null, Validators.required],
+      type: [null, Validators.required],
     });
   }
 
   getData(): void {
     this.isNotFound = false;
     let apiLink = "/inventory/api/v1/getInventoryList";
-    this.apiService.getData(apiLink).subscribe((res:any) => {
-      if (res.status === 200) {
+    this.apiService.getData(apiLink).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.itemData = res.result;
+        } else {
+          this.isNotFound = true;
+          this.alertService.warning("Looks like no data available!");
+        }
+      },
+      error: (error) => {
         this.isNotFound = false;
-        this.itemData = res.result;
-      } else {
-        this.isNotFound = true;
-        this.itemData = [];
-        this.alertService.warning("Looks like no data available!");
+        this.alertService.error("Error: " + error.statusText);
       }
-    }, error => {
-      this.isNotFound = true;
-      this.itemData = [];
-      this.alertService.error("Error: " + error.statusText)
     });
   }
 
@@ -59,7 +59,8 @@ export class InventoryComponent {
   }
 
   getWarehouseData() {
-    this.masterService.getWarehouseData().subscribe((res:any) => {
+    const apiLink = `/warehouse/api/v1/getWareHouseList`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.wareHouseData = res.result;
       } else {
