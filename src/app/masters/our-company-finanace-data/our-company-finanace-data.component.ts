@@ -11,7 +11,7 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
   styleUrls: ['./our-company-finanace-data.component.css']
 })
 export class OurCompanyFinanaceDataComponent {
-  form!: FormGroup;  
+  form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -41,7 +41,7 @@ export class OurCompanyFinanaceDataComponent {
   financialData: any;
   finDetails: any;
   discardeddata: any = [];
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -57,11 +57,22 @@ export class OurCompanyFinanaceDataComponent {
       bidder_id: [null, Validators.required]
     });
 
-    this.apiService.getourCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
-    })
+    this.getCompanyData();
 
   this.finYearData();
+  }
+
+  getCompanyData(): void {
+    const apiLink = `/mycompany/api/v1/getMyComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      this.companyData = res.result;
+      this.limits.push({ key: 'ALL', value: this.companyData.length });
+      this.isExcelDownload = true;
+    }),
+    (err: any) => {
+      console.log(err);
+      this.alertService.error(err.error.message);
+    }
   }
 
   get f() { return this.form.controls; }
@@ -78,16 +89,16 @@ export class OurCompanyFinanaceDataComponent {
     }, error => {
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
-    }); 
+    });
   }
   exportAsXLSX1(){
     var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
-    var wb = XLSX.utils.book_new(); 
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");  
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");        
+     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
+    var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
+     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
     XLSX.writeFile(wb, "Data_File.xlsx");
-               
+
         }
 downloadPdf() {
   const pdfUrl = './assets/tamplate/dist_bulkload_template_file.xlsx';
@@ -114,7 +125,7 @@ downloadPdf() {
   //         annual_turnover: this.finDetails.annual_turnover,
   //         net_worth: this.finDetails.net_worth,
   //         bidder_id: this.finDetails.bidder_id
-  //       }); 
+  //       });
   // })
   // }
 
@@ -132,7 +143,7 @@ downloadPdf() {
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
         if (response.status == 200) {
-          
+
           this.form.reset();
           this.alertService.success(response.message);
         } else {

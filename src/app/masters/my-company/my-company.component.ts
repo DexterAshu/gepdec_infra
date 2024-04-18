@@ -11,7 +11,7 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
   styleUrls: ['./my-company.component.css']
 })
 export class MyCompanyComponent {
-  form!: FormGroup;  
+  form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -42,9 +42,9 @@ export class MyCompanyComponent {
   contactData: any;
   addressDetails: any;
   countryName:any;
-  
 
- 
+
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -62,7 +62,7 @@ export class MyCompanyComponent {
       email: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       gst: [null, [Validators.required]] ,
       pan: [null, Validators.required],
-      doi: [null, Validators.required],  
+      doi: [null, Validators.required],
       area: [null, Validators.required],
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
@@ -72,7 +72,7 @@ export class MyCompanyComponent {
       address_line2:[null],
       cinno:[null],
       url: [null],
-    
+
     });
 
     this.getCompanyData();
@@ -81,7 +81,7 @@ export class MyCompanyComponent {
 
   }
 
- 
+
 
   createForm(){
     console.clear();
@@ -98,7 +98,7 @@ export class MyCompanyComponent {
       this.custDetails = res.result[0];
       this.contDetails = res.result[0].contact[0];
       this.addressDetails = res.result[0].address[0];
-     
+
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
           companytype_id: this.custDetails.companytype_id,
@@ -118,9 +118,9 @@ export class MyCompanyComponent {
           email: this.contDetails.email,
           name: this.contDetails.name,
 
-         
-          
-        }); 
+
+
+        });
         this.form.controls['country_id'].setValue(this.addressDetails.country_id);
         this.form.controls['state_id'].setValue(this.addressDetails.state_id);
         this.form.controls['district_id'].setValue(this.addressDetails.district_id);
@@ -149,7 +149,7 @@ export class MyCompanyComponent {
       }
     });
   }
-  
+
   getStateData() {
     let countrydata = this.form.value.country_id;
     let statedata = null;
@@ -161,7 +161,7 @@ export class MyCompanyComponent {
       }
     });
   }
-  
+
   getDistrictData() {
     this.districtData = [];
     let data = this.form.value.state_id;
@@ -175,47 +175,42 @@ export class MyCompanyComponent {
     });
   }
   getCompanyType() {
-    this.apiService.getourCompanyData().subscribe((res:any) => {
+    const apiLink = `/mycompany/api/v1/getMyComapanyDropdown`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.compData = res.companytype;
-        console.log(this.compData);
-        
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
-    });
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.error(`Error: ${error.statusText}`);
+    }
   }
 
-  // getCompanyType() {
-  //   this.apiService.getCompData().subscribe((res:any) => {
-  //     if (res.status === 200) {
-  //       this.compData = res.result;
-  //     } else {
-  //       this.alertService.warning("Looks like no data available in type.");
-  //     }
-  //   });
-  // }
-  
-  getCompanyData() {
-    this.apiService.getourCompanyList().subscribe((res: any) => {
+  getCompanyData(): void {
+    const apiLink = `/mycompany/api/v1/getMyComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       this.companyData = res.result;
-      // this.contactData = res.result[0].contact[0];
-
       this.limits.push({ key: 'ALL', value: this.companyData.length });
       this.isExcelDownload = true;
-    });
- 
+    }),
+    (err: any) => {
+      console.log(err);
+      this.alertService.error(err.error.message);
+    }
   }
 
-  
+
   exportAsXLSX1(){
     var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
-    var wb = XLSX.utils.book_new(); 
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");  
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");        
+     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
+    var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
+     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
     XLSX.writeFile(wb, "Data_File.xlsx");
-               
+
         }
 downloadPdf() {
   const pdfUrl = './assets/tamplate/state_bulkload_template_file.xlsx';
@@ -244,8 +239,8 @@ downloadPdf() {
       }
       else {
         this.form.value.country_id = null;
-      } 
-    
+      }
+
        //2-passing State id
        if (this.form.value.state_id != '') {
         if (this.form.value.state_id) {
@@ -269,7 +264,7 @@ downloadPdf() {
         this.form.value.district_id = null;
       }
       //4-passing Company type id
-    
+
       // if (this.form.value.company_type !== null) {
       //   var countryType = this.compData.filter((item: any) => {
       //     return item.mstcompanytype == this.form.value.company_type;
@@ -278,15 +273,15 @@ downloadPdf() {
       // }
       // else {
       //   this.form.value.company_type = null;
-      // } 
-  
+      // }
+
       //passing all values
       if (this.form.value.company_name != '') {
         this.form.value.company_name == '';
       } else {
         this.form.value.company_name = null;
       }
-    
+
       if (this.form.value.name != '') {
         this.form.value.name == '';
       } else {
@@ -344,7 +339,7 @@ downloadPdf() {
       }
 
         this.loading = true;
-    if (this.update) {  
+    if (this.update) {
       this.companyUpdate();
     } else {
       this.createCompany();

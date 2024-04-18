@@ -19,7 +19,7 @@
               <label class="fl-10">Username</label>
               <div class="input-group">
                 <span class="input-group-text form-control-sm" style="border-radius: 16px 0 0 16px" id="loginName"><i class="mdi mdi-account" style="font-size: 20px;"></i></span>
-                <input type="text" formControlName="loginName" class="form-control form-control-sm login-input" style="border-radius: 0 16px 16px 0" placeholder="Enter Username" aria-label="loginName" aria-describedby="loginName">
+                <input type="text" formControlName="loginName" class="form-control form-control-sm login-input" style="border-radius: 0 16px 16px 0;color: white;" placeholder="Enter Username" aria-label="loginName" aria-describedby="loginName">
               </div>
               <div *ngIf="f['loginName'].touched && f['loginName'].invalid">
                 <small class="text-danger" *ngIf="f['loginName'].errors?.['required']">Username is Required</small>
@@ -29,7 +29,7 @@
               <label class="fl-10">Password</label>
               <div class="input-group">
                 <span class="input-group-text form-control-sm" style="border-radius: 16px 0 0 16px" id="Password"><i class="mdi mdi-lock" style="font-size: 20px;"></i></span>
-                <input type="password" formControlName="password" class="form-control form-control-sm login-input" style="border-radius: 0 16px 16px 0" placeholder="Enter Password" aria-label="loginName" aria-describedby="Password">
+                <input type="password" formControlName="password" class="form-control form-control-sm login-input" style="border-radius: 0 16px 16px 0;color: white;" placeholder="Enter Password" aria-label="loginName" aria-describedby="Password">
               </div>
               <div *ngIf="f['password'].touched && f['password'].invalid">
                 <small class="text-danger" *ngIf="f['password'].errors?.['required']">password is Required</small>

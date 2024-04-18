@@ -137,7 +137,9 @@ export class MaterialReceiptComponent {
   }
 
   getVenderData(): void {
-    this.apiService.getVendorListByTender(this.grnForm.value.tender_id).subscribe((res:any) => {
+    let tender_id = this.grnForm.value.tender_id;
+    const apiLink = `/precurement/api/v1/getVendorListByTender/${tender_id}`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.vendorDataList = res.result;
       } else {
@@ -152,7 +154,10 @@ export class MaterialReceiptComponent {
   }
 
   getVenderPOData(): void {
-    this.apiService.getPoListBySupplier(this.grnForm.value.tender_id, this.grnForm.value.supplier_id).subscribe((res:any) => {
+    let tender_id = this.grnForm.value.tender_id;
+    let supplier_id = this.grnForm.value.supplier_id;
+    const apiLink = `/precurement/api/v1/getPoListBySupplier/${tender_id}/${supplier_id}`
+    this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.venderPOData = res.result;
       } else {
