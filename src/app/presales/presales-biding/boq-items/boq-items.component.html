@@ -510,28 +510,6 @@
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="table-responsive">
-                                <div class="card1">
-                                    <div class="row p-1">
-                                        <div class="col-md-3">Ref No : &nbsp;&nbsp; {{ rowData?.tender_ref_no }}</div>
-                                        <div class="col-md-5">Client : &nbsp;&nbsp; {{ rowData?.company_name }}</div>
-                                        <div class="col-md-4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}"> Tender Title : &nbsp;&nbsp; {{rowData?.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
-                                    </div>
-                                 
-                                    <div class="row p-1">
-                                      <div class="col-md-3">Published Date : &nbsp;&nbsp; {{ rowData?.publish_date }} </div>
-                                  
-                                      <div class="col-md-3">BOQ Code : &nbsp;&nbsp; {{ rowData?.boq_id }}</div>
-                                      <div class="col-md-3">Category : &nbsp;&nbsp;{{ rowData?.itemCategory }}</div>
-                                      <div class="col-md-3">Sub Category: &nbsp;&nbsp; {{ rowData?.itemSubCategory }} </div>
-                                    </div>
-                                
-                                    <div class="row p-1">
-                                        <div class="col-md-12">Tender Location : &nbsp;&nbsp; {{ rowData?.tender_location }}</div>
-                                      
-                                    </div>
-
-                                  </div>
-                                 
                                 <!-- <app-responsive-table class="mt-1">
                                     <thead class="hidden-thead"></thead>
                                     <tbody class="text-nowrap">
