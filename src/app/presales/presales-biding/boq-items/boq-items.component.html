@@ -453,20 +453,20 @@
                                             <th>Basic Value</th>
                                             <th>Unit Price</th>
                                             <th>Quantity</th>
+                                            <th>View Child Item</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
                                         <tr *ngFor="let rowDataItem of rowData?.data | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                             <td>{{ limit*(p-1)+i+1 }}</td>
                                          
-                                            <td>{{ rowDataItem?.itemcode }}</td>
+                                            <td data-bs-toggle="modal" data-bs-target="#childDetailModal" title="Child Item Detailed Data" (click)="rowListData(rowDataItem?.itemcode)" class="cursor-pointer text-primary text-decoration-underline">{{ rowDataItem?.itemcode }}</td>
                                             <td data-toggle="tooltip" data-placement="bottom" title="{{ rowDataItem?.description }}">
                                                 {{rowDataItem?.description | slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
                                             </td>
                                             <td>{{ rowDataItem?.basic_value }}</td>
                                             <td>{{ rowDataItem?.unit_price }}</td>
                                             <td>{{ rowDataItem?.qty }}</td>
-                                         
                                           </tr>
                                         <tr *ngIf="isNotFound == true">
                                             <td colspan="15" class="text-center">
@@ -496,3 +496,126 @@
     </div>
 </div>
 <!-- detail modal end-->
+<!-- Child detail modal -->
+<div class="modal fade" id="childDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BOQ Child Item Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive">
+                                <div class="card1">
+                                    <div class="row p-1">
+                                        <div class="col-md-3">Ref No : &nbsp;&nbsp; {{ rowData?.tender_ref_no }}</div>
+                                        <div class="col-md-5">Client : &nbsp;&nbsp; {{ rowData?.company_name }}</div>
+                                        <div class="col-md-4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}"> Tender Title : &nbsp;&nbsp; {{rowData?.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
+                                    </div>
+                                 
+                                    <div class="row p-1">
+                                      <div class="col-md-3">Published Date : &nbsp;&nbsp; {{ rowData?.publish_date }} </div>
+                                  
+                                      <div class="col-md-3">BOQ Code : &nbsp;&nbsp; {{ rowData?.boq_id }}</div>
+                                      <div class="col-md-3">Category : &nbsp;&nbsp;{{ rowData?.itemCategory }}</div>
+                                      <div class="col-md-3">Sub Category: &nbsp;&nbsp; {{ rowData?.itemSubCategory }} </div>
+                                    </div>
+                                
+                                    <div class="row p-1">
+                                        <div class="col-md-12">Tender Location : &nbsp;&nbsp; {{ rowData?.tender_location }}</div>
+                                      
+                                    </div>
+
+                                  </div>
+                                 
+                                <!-- <app-responsive-table class="mt-1">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <ng-container *ngFor="let rowDataItem of rowData?.data">
+                                            <tr>
+                                                <th>Item Code</th>
+                                                <td>{{ rowDataItem?.itemcode }}</td>
+                                                <th>Description</th>
+                                                <td data-toggle="tooltip" data-placement="bottom" title="{{ rowDataItem?.description }}">
+                                                    {{rowDataItem?.description | slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                                </td>
+                                                <th>Category</th>
+                                                <td>{{ rowDataItem?.status }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Sub-Category</th>
+                                                <td>{{ rowDataItem?.item_type }}</td>
+                                                <th>Basic Value</th>
+                                                <td>{{ rowDataItem?.basic_value }}</td>
+                                                <th>Unit Price</th>
+                                                <td>{{ rowDataItem?.unit_price }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Quantity</th>
+                                                <td>{{ rowDataItem?.qty }}</td>
+                                                <th>Created By</th>
+                                                <td>{{ rowDataItem?.basic_value }}</td>
+                                                <th>Created On</th>
+                                                <td>{{ rowDataItem?.createdby }}</td>
+                                            </tr>
+                                        </ng-container>
+                                      
+                                    </tbody>
+                                </app-responsive-table> -->
+
+                                <app-responsive-table class="mt-1"> <!-- Coming for sharedComponent/responsive-table -->
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th>S No</th>
+                                            <th>Item Code</th>
+                                            <th>Description</th>
+                                            <th>Basic Value</th>
+                                            <th>Unit Price</th>
+                                            <th>Quantity</th>
+                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr *ngFor="let rowDataItem of rowData?.data | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                            <td>{{ limit*(p-1)+i+1 }}</td>
+                                         
+                                            <td data-bs-toggle="modal" data-bs-target="#childDetailModal" title="Child Item Detailed Data" (click)="rowListData(rowDataItem?.itemcode)" class="cursor-pointer text-primary text-decoration-underline">{{ rowDataItem?.itemcode }}</td>
+                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowDataItem?.description }}">
+                                                {{rowDataItem?.description | slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                            </td>
+                                            <td>{{ rowDataItem?.basic_value }}</td>
+                                            <td>{{ rowDataItem?.unit_price }}</td>
+                                            <td>{{ rowDataItem?.qty }}</td>
+                                          </tr>
+                                        <tr *ngIf="isNotFound == true">
+                                            <td colspan="15" class="text-center">
+                                                <div class="spinner-border"> </div>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="rowData?.data?.length == 0">
+                                            <td colspan="15" class="text-center">
+                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </app-responsive-table>
+                                <div class="pagination-sec text-center">
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                </div>
+
+
+
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Child detail modal end-->

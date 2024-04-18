@@ -45,13 +45,11 @@ export class BoqItemsComponent {
   addressDetails: any;
   countryName:any;
   attachment: any = [];
-
   supgrpmemb: any;
   selectedItems = [];
   dropdownList = [];
   dropdownSettings = {};
   addmember: any;
-
   @ViewChild('multiSelect') multiSelect: any;
   dataDropdownList: any;
   rmove: any;
@@ -98,18 +96,18 @@ export class BoqItemsComponent {
       itemSubCategory:['', Validators.required],
       attachment:['', Validators.required]
     });
-
-   
-   
-  
     this.addAnotherRow();
     this.getDropdownList();
     this.getDataList();
     this.getBoqListData();
   }
-
-
   rowListData(row:any) {
+    this.rowData = [];
+    this.rowData = row;
+    console.log(this.rowData);
+    
+  }
+  rowListData1(row:any) {
     this.rowData = [];
     this.rowData = row;
     console.log(this.rowData);
