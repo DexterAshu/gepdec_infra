@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
+declare var $: any;
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,9 @@ export class SharedService {
       years.push(currentYear - i);
     }
     return years;
+  }
+
+  initializeTooltips(element: ElementRef) {
+    setTimeout(() => { $(element.nativeElement).find('[data-toggle="tooltip"]').tooltip() }, 1200);
   }
 }

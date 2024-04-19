@@ -297,4 +297,14 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.put<any[]>(`${environment.apiUrl}/biding/api/v1/tenderApproval`, data, httpOptions);
   }
+
+  createInventoryIssuance(data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.post(`${environment.apiUrl}/inventory/api/v1/inventoryIssuance`, data, httpOptions);
+  }
+
+  l1ScheduleUpload(data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.post(`${environment.apiUrl}/document/api/v1/l1ScheduleUpload`, data, httpOptions);
+  }
 }
