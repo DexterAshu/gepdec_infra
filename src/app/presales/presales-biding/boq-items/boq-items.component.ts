@@ -71,6 +71,7 @@ export class BoqItemsComponent {
   comData: any;
   dataCatList: any;
   dataSubList: any;
+  childData: any;
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -102,16 +103,15 @@ export class BoqItemsComponent {
     this.getBoqListData();
   }
   rowListData(row:any) {
+    debugger;
     this.rowData = [];
     this.rowData = row;
     console.log(this.rowData);
-    
   }
-  rowListData1(row:any) {
-    this.rowData = [];
-    this.rowData = row;
-    console.log(this.rowData);
-    
+
+  getChildData(data: any): void {
+    this.childData = data;
+    console.log(this.childData);
   }
 
   getDropdownList() {
@@ -194,9 +194,6 @@ export class BoqItemsComponent {
   }
   rmovemember(data:any)
   {
-    console.log(data);
-    //intergrate api here of delete member
-    
   }
   onItemDeSelect(item: any) {
     this.rmovemember(item)
@@ -232,24 +229,17 @@ export class BoqItemsComponent {
   
 
   onFileChanged(event: any) {
-    
     for (var i = 0; i <= event.target.files.length - 1; i++) {
       var selectedFile = event.target.files[i];
       this.listOfFiles.push(selectedFile.name);
       this.attachment.push(selectedFile);
     }
-    console.log(this.attachment);
-    // this.attachment.nativeElement.value = '';
   }
 
   removeSelectedFile(index: any) {
-    
-    // Delete the item from fileNames list
     this.listOfFiles.splice(index, 1);
     this.attachment.splice(index, 1);
-
   }
-
    //bulk-load with bulk excel download
    fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;

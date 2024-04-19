@@ -41,6 +41,10 @@ export class OurCompanyFinanaceDataComponent {
   financialData: any;
   finDetails: any;
   discardeddata: any = [];
+  filterTenderDetailsData: any[] = [];
+  listOfFiles: any[] = [];
+  attachment: any[] = [];
+  docData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,46 +55,63 @@ export class OurCompanyFinanaceDataComponent {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      financialyear_id:[null, Validators.required],
-      annual_turnover: [null, Validators.required],
-      net_worth: [null, Validators.required],
-      bidder_id: [null, Validators.required]
+      bidder_id: [null, Validators.required],
+      attachment:[null, Validators.required],
+      issue_date:[null],
+      doc_id: [null, Validators.required],
     });
 
-    this.getCompanyData();
-
-  this.finYearData();
+this.getDocData();
+  this.getCompanyType();
   }
 
-  getCompanyData(): void {
-    const apiLink = `/mycompany/api/v1/getMyComapanyList`;
-    this.apiService.getData(apiLink).subscribe((res: any) => {
-      this.companyData = res.result;
-      this.limits.push({ key: 'ALL', value: this.companyData.length });
-      this.isExcelDownload = true;
-    }),
-    (err: any) => {
-      console.log(err);
-      this.alertService.error(err.error.message);
-    }
-  }
+
+  
 
   get f() { return this.form.controls; }
 
-  finYearData() {
-    this.isNotFound = true;
-    this.masterService.getFinData().subscribe((res:any) => {
-      this.isNotFound = false;
-      if (res.status == 200) {
-      this.financialData = res.result;
-      }else {
-        this.alertService.warning("Looks like no data available!");
+  getDocData() {
+    this.apiService.getCompanyDocList().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.docData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in country data.");
       }
-    }, error => {
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
     });
   }
+
+  getCompanyType() {
+    const apiLink = `/mycompany/api/v1/getMyComapanyDropdown`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.compData = res.bidderdocumenttype;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.error(`Error: ${error.statusText}`);
+    }
+  }
+
+  onFileChanged(event: any) {  
+    for (var i = 0; i <= event.target.files.length - 1; i++) {
+      var selectedFile = event.target.files[i];
+      this.listOfFiles.push(selectedFile.name);
+      this.attachment.push(selectedFile);
+    }
+    console.log(this.attachment);
+    // this.attachment.nativeElement.value = '';
+  }
+
+  removeSelectedFile(index: any) { 
+    // Delete the item from fileNames list
+    this.listOfFiles.splice(index, 1);
+    this.attachment.splice(index, 1);
+
+  }
+
   exportAsXLSX1(){
     var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
      var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
@@ -105,7 +126,6 @@ downloadPdf() {
   const pdfName = 'dist_bulkload_template_file.xlsx';
   FileSaver.saveAs(pdfUrl, pdfName);
 }
-
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
       display: false,
@@ -113,50 +133,34 @@ downloadPdf() {
     });
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
-
-  // getDetails(data:any){
-  //   this.form.reset();
-  //   this.button = 'Update';
-  //   this.update = true;
-  //   this.apiService.ourcompanyDetails(data.bidder_id).subscribe((res: any) => {
-  //     this.finDetails = res.result[0];
-  //       this.form.patchValue({
-  //         financialyear_id: this.finDetails.financialyear_id,
-  //         annual_turnover: this.finDetails.annual_turnover,
-  //         net_worth: this.finDetails.net_worth,
-  //         bidder_id: this.finDetails.bidder_id
-  //       });
-  // })
-  // }
-
+  
   onSubmit() {
-    if (this.form.valid) {
-      this.isSubmitted = true;
-      let params = {
-        financialyear_id: this.finDetails.financialyear_id,
-        annual_turnover: this.finDetails.annual_turnover,
-        net_worth: this.finDetails.net_worth,
-        bidder_id: this.finDetails.bidder_id
-      };
-      this.apiService.addFinData(params).subscribe((res:any )=> {
+    const formData: any = new FormData();
+    const files: Array<File> = this.filesToUpload;
+    for (let i = 0; i < this.attachment.length; i++) {
+      formData.append("attachment", this.attachment[i]);
+    }
+    // formData.append('financialyear_id', this.form.value.financialyear_id);
+    formData.append('bidder_id', this.form.value.bidder_id);  
+    formData.append('issue_date', this.form.value.issue_date);  
+    formData.append('doc_id', this.form.value.doc_id);  
+    this.addAttachment(formData);
+}
+
+addAttachment(formData: FormData) {
+    console.log(formData); 
+    this.apiService.myCompanyDoc(formData).subscribe((res: any) => {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
         if (response.status == 200) {
-
-          this.form.reset();
-          this.alertService.success(response.message);
+            this.form.reset();
+            this.alertService.success(response.message);
         } else {
-          this.alertService.warning(response.message);
+            this.alertService.warning(response.message);
         }
-      }, (error) => {
-          document.getElementById('cancel')?.click();
-          this.isSubmitted = false;
-          this.alertService.error("Error: " + error.statusText);
-        })
-    } else {
-      this.alertService.warning("Form is invalid, Please fill the form correctly.");
-    }
-  }
+    });
+}
+
 }
 

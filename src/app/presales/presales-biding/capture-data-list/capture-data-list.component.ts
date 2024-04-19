@@ -46,6 +46,7 @@ export class CaptureDataListComponent {
   showWorkingDetails: boolean = false;
   showPreNotes: boolean = false;
   tendStatusData: any;
+  data: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -104,10 +105,7 @@ export class CaptureDataListComponent {
     } 
 
     rowListData(row:any) {
-      this.rowData = [];
       this.rowData = row;
-      console.log( this.rowData);
-      
     }
    
   //button dropdown

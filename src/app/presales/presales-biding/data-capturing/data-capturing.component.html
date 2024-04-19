@@ -283,8 +283,8 @@
     </div>
 </div>
 
-<ng-container *ngIf="sel.value == '1001'">
-    <div class="col-md-4" *ngIf="toggleSecurityField">
+<ng-container *ngIf="sel.value == '1001' && 'toggleSecurityField'">
+    <div class="col-md-4">
         <div class="form-group">
             <label class="form-label fl-10">Security Amount<span class="required-asterisk">*</span></label>
             <input formControlName="security_amount" type="text" class="form-control form-control-sm" usd-only>
@@ -294,9 +294,9 @@
         </div>
     </div>
     
-    <div class="col-md-4" *ngIf="toggleSecurityField">
+    <div class="col-md-4">
         <div class="form-group">
-            <label class="form-label fl-10"> Submission Date<span class="required-asterisk">*</span></label>
+            <label class="form-label fl-10"> Security Submission Date<span class="required-asterisk">*</span></label>
             <input formControlName="securitysubmission_date" type="date" class="form-control form-control-sm">
             <div *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
             </div>
@@ -321,8 +321,8 @@
     </div>
 </div>
 
-<ng-container *ngIf="pg.value == '1001'">
-<div class="col-md-4" *ngIf="selectPGField">
+<ng-container *ngIf="pg.value == '1001' && 'selectPGField'">
+<div class="col-md-4">
     <div class="form-group">
         <label class="form-label fl-10">PG Amount<span class="required-asterisk">*</span></label>
         <input formControlName="pg_amount" type="text" class="form-control form-control-sm" appNumberOnly>
@@ -333,10 +333,10 @@
 </div>
 
 
-<div class="col-md-4" *ngIf="selectPGField">
+<div class="col-md-4">
   
         <div class="form-group">
-            <label class="form-label fl-10">Submission Date<span class="required-asterisk">*</span></label>
+            <label class="form-label fl-10">PG Submission Date<span class="required-asterisk">*</span></label>
             <input formControlName="pgsubmission_date" type="date" class="form-control form-control-sm">
             <div *ngIf="f['pgsubmission_date'].touched && f['pgsubmission_date'].invalid">
                 <small class="text-danger" *ngIf="f['pgsubmission_date'].errors?.['required']">*Required</small>
@@ -363,8 +363,8 @@
     </div>
 </div>
 
-<ng-container *ngIf="emd.value == '401'">
-<div class="col-md-3" *ngIf="selectedEmdexemption">
+<ng-container *ngIf="emd.value == '401' && 'selectedEmdexemption'">
+<div class="col-md-3" >
     <div class="form-group">
         <label class="form-label fl-10">EMD Amount<span class="required-asterisk">*</span></label>
         <input formControlName="emd_ammount" type="text" class="form-control form-control-sm" appNumberOnly>
@@ -376,7 +376,7 @@
 
 
 
-<div class="col-md-3" *ngIf="selectedEmdexemption">
+<div class="col-md-3">
     <div class="form-group">
         <label class="form-label fl-10">EMD Payment Mode<span class="required-asterisk">*</span></label>
 
@@ -393,7 +393,7 @@
 
 
 
-<div class="col-md-3" *ngIf="selectedEmdexemption">
+<div class="col-md-3">
   
         <div class="form-group">
             <label class="form-label fl-10">EMD Submission Date<span class="required-asterisk">*</span></label>
@@ -404,10 +404,10 @@
         </div>
   
 </div>
-<div class="col-md-3" *ngIf="selectedEmdexemption">
+<div class="col-md-3">
   
         <div class="form-group">
-            <label class="form-label fl-10">Forfeiture Condition <span class="required-asterisk">*</span></label>
+            <label class="form-label fl-10">EMD Forfeiture Condition <span class="required-asterisk">*</span></label>
             <textarea formControlName="forfeiture_condition" type="date" class="form-control form-control-sm">
            </textarea>
                 <div *ngIf="f['forfeiture_condition'].touched && f['forfeiture_condition'].invalid">

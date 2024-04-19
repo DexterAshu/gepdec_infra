@@ -189,6 +189,10 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post<any[]>(`${environment.apiUrl}/biding/api/v1/addTenderFinancials`, data, httpOptions);
   }
+  myCompanyDoc(data: any): Observable<any[]> {
+    const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
+    return this.http.post<any[]>(`${environment.apiUrl}/mycompany/api/v1/addMyComapanyDocuments`, data, httpOptions);
+  }
 
   //upload all type of documents
   createDocuments(data: any): Observable<any[]> {
@@ -204,6 +208,10 @@ export class ApiService {
   BOQList(): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/boq/api/v1/getBoqList`, httpOptions);
+  }
+  getCompanyDocList(): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>( `${environment.apiUrl}/mycompany/api/v1/getMyComapanyDocumnetList`, httpOptions);
   }
 
   AddBank(data: any): Observable<any[]> {

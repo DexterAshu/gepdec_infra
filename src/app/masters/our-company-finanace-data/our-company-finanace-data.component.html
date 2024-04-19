@@ -4,7 +4,7 @@
           <div class="d-flex justify-content-between flex-wrap">
             <div class="d-flex align-items-end flex-wrap">
               <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Our Finance </h4>
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Company Attachment </h4>
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -44,23 +44,24 @@
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
-                                <th>S No</th>
-                                <th>Company Name</th>
-                                <th>Financial Year</th>
-                                <th>Annual Turnover</th>
-                                <th>Net Worth</th>
+                                <th>Company</th>
+                                <th>Document Name</th>
+                                <th>Issued Date</th>
+                                <th>Attachment</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="companyData.length">
-                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                        <tbody class="text-nowrap" *ngIf="docData.length">
+                            <tr *ngFor="let a of docData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
+
+                                {{docData.document}}
                                 <td>{{a.bidder_name}}</td>
-                                <td>{{a.financialyear_id}}</td>
-                                 <td>{{a.annual_turnover}}</td>
-                                 <td>{{a.net_worth}}</td>
+                                <td>{{a.bidderdocumenttype}}</td>
+                                 <td>{{a.issue_date}}</td>
+                                 <td>{{a.doidocument}}</td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created | date:'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
                                 <td>
@@ -75,7 +76,7 @@
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="companyData?.length == 0">
+                            <tr *ngIf="docData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
@@ -97,18 +98,18 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Our Finance Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Attachments</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Our Company<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Company<span class="required-asterisk">*</span></label>
                                     <select formControlName="bidder_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select </option>
                                         <option *ngFor="let f of companyData" value="{{f.bidder_id}}">{{ f.bidder_name }}</option>
                                       
                                     </select>
@@ -118,7 +119,7 @@
     
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <!-- <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
                                     <select formControlName="financialyear_id" class="form-select form-select-sm">
@@ -131,31 +132,29 @@
                                     </div>
     
                                 </div>
+                            </div> -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Documents<span class="required-asterisk">*</span></label>
+                                    <select formControlName="doc_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
+                                        <option *ngFor="let f of compData" value="{{f.bidderdocumenttype_id}}">{{ f.bidderdocumenttype }}</option>
+                                    </select>
+                                </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Annual Turnover (Required)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="annual_turnover" placeholder="Enter Annual Turnover" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
-                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
-                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
-                                    </div>
-                                    
+                                    <label class="form-label fl-10">Issued Date</label>
+                                    <input formControlName="issue_date" type="date" class="form-control form-control-sm">
                                 </div>
                             </div>
     
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Net Worth (Required)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="net_worth" placeholder="Enter Net Worth" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
-                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
-                                        <!-- <small class="text-danger" *ngIf="f['net_worth'].errors?.['pattern']">*Please enter 10 digit Contact No</small> -->
-                                    </div>
-                                    
-                                </div>
-                            </div>
+                            <div class="col-md-12 mt-1" >
+                                <label class="form-label fl-10">Attachments <span class="required-asterisk">*</span>
+                                </label><br>
+                                <input class="mt-2" type="file" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
+                        </div>
                           
                           
                             <div class="modal-btns">
