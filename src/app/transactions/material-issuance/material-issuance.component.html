@@ -19,29 +19,16 @@
             <div class="col-lg-4">
               <input type="search" class="form-control form-control-sm" (click)="p = 1" [(ngModel)]="searchText" placeholder="Search">
             </div>
-            <div class="col-lg-8">
-              <ul class="head-ul d-flex">
-                <form [formGroup]="searchForm" (ngSubmit)="searchData()">
-                  <li><label class="col-form-label">From</label></li>
-                  <li><input class="form-control form-control-sm date-picker" formControlName="fromDate" type="date" [ngModel]="fromDate | date:'yyyy-MM-dd'" max="{{currentDate}}"></li>
-                  <li><label class="col-form-label">To</label></li>
-                  <li><input class="form-control form-control-sm date-picker" formControlName="toDate" type="date" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}"></li>
-                  <li><button class="btn btn-primary btn-sm" type="submit">GO!</button></li>
-                </form>
-                <li>
-                  <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm mt-2 float-right">+ Create</button>
-                </li>
-              </ul>
+            <div class="col-lg-8 text-right">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="getTenderList()" class="btn btn-primary btn-fw btn-sm mt-2 float-right">+ Create</button>
             </div>
           </div>
           <app-responsive-table id="export">
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
-                  <th>Project Code</th>
-                  <th>Order Number</th>
-                  <th>Date</th>
-                  <th>Vendor Name</th>
+                  <th>Tender Ref No</th>
+                  <th>Warehouse Code</th>
                   <th>Remarks</th>
                   <th>Item List</th>
                   <th>Action</th>
@@ -50,12 +37,8 @@
               <tbody class="text-nowrap">
                 <tr *ngFor="let a of materialIssuanceData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
-                  <td>{{ a.projectCode }}</td>
-                  <td>
-                    <a data-bs-toggle="modal" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewModel" title="Warehouse Profile">{{ a.orderNumber }}</a>
-                  </td>
-                  <td>{{ a.orderDate }}</td>
-                  <td>{{ a.venderDetails.name }}</td>
+                  <td>{{ a.tender_ref_no }}</td>
+                  <td>{{ a.warehouse_code }}</td>
                   <td>{{ a.remarks }}</td>
                   <td>
                     <a data-bs-toggle="modal" data-bs-target="#viewItems" (click)="selectRow(a)" title="View Item List"><span class="mdi mdi-eye cursor-pointer mdi-18px"></span></a>
@@ -105,32 +88,21 @@
                 <th scope="col">Item Name</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">UOM</th>
+                <th scope="col">Location</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
               <tr *ngFor="let a of selectedRow?.items; index as i">
                 <td>{{ limit * (p - 1) + i + 1 }}</td>
-                <td>{{ a.itemCode }}</td>
-                <td>{{ a.itemName }}</td>
-                <td>{{ a.quantity }}</td>
+                <td>{{ a.itemcode }}</td>
+                <td>{{ a.description }}</td>
+                <td>{{ a.issue_qty }}</td>
                 <td>{{ a.uom }}</td>
-              </tr>
-              <tr *ngIf="isNotFound == true">
-                <td colspan="5" class="text-center">
-                  <div class="spinner-border"></div>
-                </td>
-              </tr>
-              <tr *ngIf="selectedRow?.items?.length == 0">
-                <td colspan="5" class="text-center">
-                  <div class="text-warning fw-semibold">No Items available.</div>
-                </td>
+                <td>{{ a.location_code }}</td>
               </tr>
             </tbody>
           </table>
         </app-responsive-table>
-        <div class="pagination-sec text-center">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>
       </div>
     </div>
   </div>
@@ -140,7 +112,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">GRN Creation</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Material Issuance</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-3">
@@ -150,37 +122,37 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label class="form-label">Project<span class="required-asterisk">*</span></label>
-                    <select class="form-select form-control-sm" formControlName="projectCode">
+                    <label class="form-label">Tender Ref No<span class="required-asterisk">*</span></label>
+                    <select class="form-select form-control-sm" formControlName="tender_id" (ngModelChange)="getWarehouseData()">
                       <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                      <option *ngFor="let project of projects" [value]="project.projectCode">{{project.projectName}}</option>
+                      <option *ngFor="let t of tenderList" [value]="t.tender_id">{{t.tender_ref_no}}</option>
                     </select>
-                    <div *ngIf="f['projectCode'].touched && f['projectCode'].invalid">
-                      <div *ngIf="f['projectCode'].errors?.['required']" class="text-danger">Project is required.</div>
+                    <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                      <div *ngIf="f['tender_id'].errors?.['required']" class="text-danger">Tender Ref No is required.</div>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Warehouse<span class="required-asterisk">*</span></label>
-                    <select class="form-select form-control-sm" formControlName="warehouseCode">
+                    <select class="form-select form-control-sm" formControlName="warehouse_id">
                       <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                      <option *ngFor="let warehouse of warehouses" [value]="warehouse.warehouseCode">{{warehouse.warehouseName}}</option>
+                      <option *ngFor="let w of wareHouseData" [value]="w.warehouse_id">{{w.warehouse_code}}</option>
                     </select>
-                    <div *ngIf="f['warehouseCode'].touched && f['warehouseCode'].invalid">
-                      <div *ngIf="f['warehouseCode'].errors?.['required']" class="text-danger">Warehouse is required.</div>
+                    <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid">
+                      <div *ngIf="f['warehouse_id'].errors?.['required']" class="text-danger">Warehouse is required.</div>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">Item Category<span class="required-asterisk">*</span></label>
-                    <select class="form-select form-control-sm" formControlName="itemCategory">
+                    <select class="form-select form-control-sm" formControlName="itemcategory_id">
                       <option [selected]="true" [disabled]="true" [value]="null">select</option>
-                      <option *ngFor="let category of itemCategories" [value]="category">{{category}}</option>
+                      <option *ngFor="let c of itemCategories" [value]="c.itemcategory_id">{{c.itemcategory}}</option>
                     </select>
-                    <div *ngIf="f['itemCategory'].touched && f['itemCategory'].invalid">
-                      <div *ngIf="f['itemCategory'].errors?.['required']" class="text-danger">Item Category is required.</div>
+                    <div *ngIf="f['itemcategory_id'].touched && f['itemcategory_id'].invalid">
+                      <div *ngIf="f['itemcategory_id'].errors?.['required']" class="text-danger">Item Category is required.</div>
                     </div>
                   </div>
                 </div>
@@ -189,34 +161,36 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12 p-0">
-                  <div class="table-responsive" style="min-height: 300px">
-                    <h6 class="mb-2 mt-4 text-secondary">Item Details</h6>
-                    <table class="table table-hover table-striped custom-table">
-                      <thead class="table-primary text-nowrap">
-                        <tr>
-                          <th>Item ID</th>
-                          <th>Name</th>
-                          <th>Total Qty</th>
-                          <th>UOM</th>
-                          <th>Issue QTY</th>
-                          <th>Remain QTY</th>
-                          <th>Item Location</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-nowrap">
-                        <tr *ngFor="let item of itemData">
-                          <td>{{ item?.itemCode }}</td>
-                          <td>{{ item?.itemName }}</td>
-                          <td>{{ item?.quantity }}</td>
-                          <td>{{ item?.uom }}</td>
-                          <td><input type="number" class="form-control form-control-sm" formControlName="delivery_qty" [(ngModel)]="item.delivery_qty" placeholder="Enter Delivery QTY"></td>
-                          <td>{{item?.quantity - (item.delivery_qty ? item.delivery_qty : 0)}}</td>
-                          <td><p contenteditable="true">Location</p></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                <div class="table-responsive" style="min-height: 300px">
+                  <h6 class="my-2 text-secondary">Item Details</h6>
+                  <table class="table table-hover table-striped custom-table">
+                    <thead class="table-primary text-nowrap">
+                      <tr>
+                        <th>Warehouse</th>
+                        <th>Item Location</th>
+                        <th>Item Code</th>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>UOM</th>
+                        <th>Issue QTY</th>
+                        <th>Remain QTY</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                      <tr *ngFor="let item of itemData">
+                        <td>{{ item.warehouse_code }}</td>
+                        <td>{{ item.location_code }}</td>
+                        <td>{{ item?.itemcode }}</td>
+                        <td>{{ item?.description.split(' ').slice(0, 5).join(' ') }}{{item?.description.split(' ').length > 5 ? '...' : ''}}</td>
+                        <td>{{ item?.total_itemquantity }}</td>
+                        <td>{{ item?.uom }}</td>
+                        <td><input type="number" style="width: 60%;" max="{{ item?.total_itemquantity }}" class="form-control form-control-sm" formControlName="issue_qty" [(ngModel)]="item.issue_qty" placeholder="Issue QTY"></td>
+                        <td>{{item?.total_itemquantity - (item.issue_qty ? item.issue_qty : 0)}}</td>
+                        <td><input type="checkbox" (click)="selectItem(item)"></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 <div class="modal-btns mt-2">
                   <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>

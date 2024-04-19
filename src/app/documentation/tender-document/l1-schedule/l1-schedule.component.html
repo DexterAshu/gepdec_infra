@@ -49,11 +49,14 @@
               <tr>
                 <th>S No</th>
                 <th>Tendering Company</th>
-                <th>Tender Title</th>
                 <th>Tender Ref No</th>
-                <th>Total Tenure</th>
+                <th>Tender Title</th>
+                <th>Tender Location</th>
+                <th>Tender Publish Date</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Total Tenure</th>
+                <th>Description</th>
                 <th>Attachments</th>
                 <th>Action</th>
               </tr>
@@ -61,18 +64,24 @@
             <tbody class="text-nowrap">
               <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{limit*(p-1)+i+1}}</td>
-                <td>{{a.documentname}}</td>
-                <td>{{a.documentname}}</td>
-                <td>{{a.documentname}}</td>
-                <td>{{a.documentname}}</td>
-                <td>{{a.documentdate}}</td>
-                <td>{{a.documentdate}}</td>
-                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}"> {{a.filename| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span></td>
+                <td>{{a.company_name}}</td>
+                <td>{{a.tender_ref_no}}</td>
+                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                <td>{{a.tender_location}}</td>
+                <td>{{a.publish_date | date:'dd-MM-yyyy'}}</td>
+                <td>{{a.l1_start_date | date:'dd-MM-yyyy'}}</td>
+                <td>{{a.l1_end_date | date:'dd-MM-yyyy'}}</td>
+                <td>{{a.tender_completion_period}}</td>
+                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.description }}">{{a.description | slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                <td><a download="a.filepath" href="{{a.filepath}}"><span class="mdi mdi-cloud-download cursor-pointer mdi-18px"></span></a></td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                   <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
                 </td>
+              </tr>
+              <tr *ngIf="docListData?.length == 0">
+                <td colspan="9" class="text-center"><div class="text-warning fw-semibold">No Data available.</div></td>
               </tr>
             </tbody>
           </app-responsive-table>
@@ -111,12 +120,12 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                  <select formControlName="tender_ref_no" class="form-select form-select-sm" (ngModelChange)="selectTender()">
+                  <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="selectTender()">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
-                    <option *ngFor="let t of tenderList" value="{{t.tender_ref_no}}">{{t.tender_ref_no}} - {{ t.tender_title }}</option>
+                    <option *ngFor="let t of tenderList" value="{{t.tender_id}}">{{t.tender_ref_no}}</option>
                   </select>
-                  <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
-                    <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
+                  <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                    <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
                   </div>
                 </div>
               </div>
@@ -129,16 +138,13 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Tender Publish Date<span class="required-asterisk">*</span></label>
-                  <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly>
-                  <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
-                    <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
-                  </div>
+                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy'" readonly>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">L1 Start Date<span class="required-asterisk">*</span></label>
-                  <input formControlName="start_date" type="date" class="form-control form-control-sm">
+                  <input formControlName="start_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                   <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
                     <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
                   </div>
@@ -147,7 +153,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">L1 End Date<span class="required-asterisk">*</span></label>
-                  <input formControlName="end_date" type="date" class="form-control form-control-sm">
+                  <input formControlName="end_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                   <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
                     <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
                   </div>
