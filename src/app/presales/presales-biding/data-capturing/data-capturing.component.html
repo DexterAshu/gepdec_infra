@@ -67,7 +67,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
+                                            <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
                                             <select formControlName="company_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
                                                 <option [selected]="true" [disabled]="true">Select Company</option>
                                                 <option *ngFor="let c of companyData" value="{{c.company_id}}">{{c.company_name}}</option>
@@ -80,7 +80,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Tender/Project Title<span class="required-asterisk">*</span></label>
+                                            <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
                                             <input formControlName="tender_title" type="text" class="form-control form-control-sm" >
                                                 <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_title'].errors?.['required']">*Required</small>

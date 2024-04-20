@@ -302,53 +302,7 @@
                     </div>
 
                  
-                    <!-- <div *ngFor="let selected of listOfFiles;let index = index">
-                        <div class="panel panel-default mt-2">
-                          <div class="panel-body">
-                            <h3 class="f-attach">{{selected}}
-                              <button (click)="removeSelectedFile(index)" class="remove-btn pull-right">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                  class="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                  <path
-                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                </svg>
-                              </button>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-    
-
-                      <div class="" [innerHTML]="result" style="cursor: pointer;">
-                        <input style="display: none" formControlName="attachment" #attachments type="file"
-                            (change)="onFileChanged($event)" #fileInput accept=".xlsx, .xls">
-                    </div>
-                      <hr>
-                      <label class="form-label fl-10">Choose your filled BOQ data template 
-                        <small class="form-label fl-10">(Please ensure your file is named 'BOQ_sample_template')</small>
-                        <span class="required-asterisk">*</span>
-                    </label>
-                      
-                      <button type="button" mat-raised-button (click)="fileInput.click()" class="attach-do">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                          class="bi bi-paperclip attach-icon" viewBox="0 0 16 16">
-                          <path
-                            d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
-                        </svg>
-                        <b class="attach-font"> Attach a file</b>
-                      </button><br>
-                      <div class="row" *ngIf="result">
-                        <div class="col-md-12">
-    
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong>Warning!</strong> {{result}}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <br>
-                        </div>
-                    </div> -->
+                 
                     <div class="col-md-12 mt-1" >
                         <label class="form-label fl-10">Please ensure your file is named 'BOQ_sample_template'  <span class="required-asterisk">*</span>
                         </label><br>
@@ -385,66 +339,24 @@
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="table-responsive">
-                                <div class="card1">
+                                <div class="card1" style="border: 2px solid #acaaaa;">
                                     <div class="row p-1">
                                         <div class="col-md-3">Ref No : &nbsp;&nbsp; {{ rowData?.tender_ref_no }}</div>
+                                        <div class="col-md-2">BOQ Code : &nbsp;&nbsp; {{ rowData?.boq_id }}</div>
+                                        <div class="col-md-2">Category : &nbsp;&nbsp;{{ rowData?.itemCategory }}</div>
+                                        <div class="col-md-2">Sub Category: &nbsp;&nbsp; {{ rowData?.itemSubCategory }} </div>
+                                        <div class="col-md-3">Tender Location : &nbsp;&nbsp; {{ rowData?.tender_location }}</div>
+                                    </div>
+                                   
+                                    <div class="row p-1">
+                                        <div class="col-md-3">Published Date : &nbsp;&nbsp; {{ rowData?.publish_date }} </div>
                                         <div class="col-md-5">Client : &nbsp;&nbsp; {{ rowData?.company_name }}</div>
                                         <div class="col-md-4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}"> Tender Title : &nbsp;&nbsp; {{rowData?.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
-                                    </div>
-                                 
-                                    <div class="row p-1">
-                                      <div class="col-md-3">Published Date : &nbsp;&nbsp; {{ rowData?.publish_date }} </div>
                                   
-                                      <div class="col-md-3">BOQ Code : &nbsp;&nbsp; {{ rowData?.boq_id }}</div>
-                                      <div class="col-md-3">Category : &nbsp;&nbsp;{{ rowData?.itemCategory }}</div>
-                                      <div class="col-md-3">Sub Category: &nbsp;&nbsp; {{ rowData?.itemSubCategory }} </div>
                                     </div>
                                 
-                                    <div class="row p-1">
-                                        <div class="col-md-12">Tender Location : &nbsp;&nbsp; {{ rowData?.tender_location }}</div>
-                                      
-                                    </div>
-
                                   </div>
                                  
-                                 
-                                <!-- <app-responsive-table class="mt-1">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <ng-container *ngFor="let rowDataItem of rowData?.data">
-                                            <tr>
-                                                <th>Item Code</th>
-                                                <td>{{ rowDataItem?.itemcode }}</td>
-                                                <th>Description</th>
-                                                <td data-toggle="tooltip" data-placement="bottom" title="{{ rowDataItem?.description }}">
-                                                    {{rowDataItem?.description | slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
-                                                </td>
-                                                <th>Category</th>
-                                                <td>{{ rowDataItem?.status }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Sub-Category</th>
-                                                <td>{{ rowDataItem?.item_type }}</td>
-                                                <th>Basic Value</th>
-                                                <td>{{ rowDataItem?.basic_value }}</td>
-                                                <th>Unit Price</th>
-                                                <td>{{ rowDataItem?.unit_price }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Quantity</th>
-                                                <td>{{ rowDataItem?.qty }}</td>
-                                                <th>Created By</th>
-                                                <td>{{ rowDataItem?.basic_value }}</td>
-                                                <th>Created On</th>
-                                                <td>{{ rowDataItem?.createdby }}</td>
-                                            </tr>
-                                        </ng-container>
-                                      
-                                    </tbody>
-                                </app-responsive-table> -->
-
-
-
                                 <app-responsive-table class="mt-1"> <!-- Coming for sharedComponent/responsive-table -->
                                     <thead class="table-primary text-nowrap">
                                         <tr>
@@ -454,7 +366,7 @@
                                             <th>Basic Value</th>
                                             <th>Unit Price</th>
                                             <th>Quantity</th>
-                                            <th>View Child Item</th>
+                                          
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
@@ -485,10 +397,6 @@
                                 <div class="pagination-sec text-center">
                                     <pagination-controls (pageChange)="p = $event"></pagination-controls>
                                 </div>
-
-
-
-                             
                             </div>
                         </div>
                     </div>
@@ -498,6 +406,7 @@
     </div>
 </div>
 <!-- detail modal end-->
+
 <!-- Child detail modal -->
 <div class="modal fade" id="childDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
@@ -505,48 +414,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">BOQ Child Item Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#detailModal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="table-responsive">
-                                <!-- <app-responsive-table class="mt-1">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <ng-container *ngFor="let rowDataItem of rowData?.data">
-                                            <tr>
-                                                <th>Item Code</th>
-                                                <td>{{ rowDataItem?.itemcode }}</td>
-                                                <th>Description</th>
-                                                <td data-toggle="tooltip" data-placement="bottom" title="{{ rowDataItem?.description }}">
-                                                    {{rowDataItem?.description | slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
-                                                </td>
-                                                <th>Category</th>
-                                                <td>{{ rowDataItem?.status }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Sub-Category</th>
-                                                <td>{{ rowDataItem?.item_type }}</td>
-                                                <th>Basic Value</th>
-                                                <td>{{ rowDataItem?.basic_value }}</td>
-                                                <th>Unit Price</th>
-                                                <td>{{ rowDataItem?.unit_price }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Quantity</th>
-                                                <td>{{ rowDataItem?.qty }}</td>
-                                                <th>Created By</th>
-                                                <td>{{ rowDataItem?.basic_value }}</td>
-                                                <th>Created On</th>
-                                                <td>{{ rowDataItem?.createdby }}</td>
-                                            </tr>
-                                        </ng-container>
-                                      
-                                    </tbody>
-                                </app-responsive-table> -->
-
                                 <app-responsive-table class="mt-1"> <!-- Coming for sharedComponent/responsive-table -->
                                     <thead class="table-primary text-nowrap">
                                         <tr>

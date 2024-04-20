@@ -44,6 +44,7 @@
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
+                                <th>S No</th>
                                 <th>Company</th>
                                 <th>Document Name</th>
                                 <th>Issued Date</th>
@@ -56,14 +57,12 @@
                         <tbody class="text-nowrap" *ngIf="docData.length">
                             <tr *ngFor="let a of docData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
-
-                                {{docData.document}}
                                 <td>{{a.bidder_name}}</td>
                                 <td>{{a.bidderdocumenttype}}</td>
                                  <td>{{a.issue_date}}</td>
-                                 <td>{{a.doidocument}}</td>
+                                 <td>{{a.filename.slice(13)}}</td>
                                 <td>{{a.createdby_name}}</td>
-                                <td>{{a.created | date:'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
+                                <td>{{a.created}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -119,27 +118,17 @@
     
                                 </div>
                             </div>
-                            <!-- <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
-                                    <select formControlName="financialyear_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
-                                        <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
-                                      
-                                    </select>
-                                    <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
-                                    </div>
-    
-                                </div>
-                            </div> -->
+                         
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Documents<span class="required-asterisk">*</span></label>
-                                    <select formControlName="doc_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
+                                    <select formControlName="bidderdocumenttype_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                         <option *ngFor="let f of compData" value="{{f.bidderdocumenttype_id}}">{{ f.bidderdocumenttype }}</option>
                                     </select>
+                                    <div *ngIf="f['bidderdocumenttype_id'].touched && f['bidderdocumenttype_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['bidderdocumenttype_id'].errors?.['required']">*Required</small>
+                                    </div>
                                 </div>
                             </div>
 
@@ -153,10 +142,8 @@
                             <div class="col-md-12 mt-1" >
                                 <label class="form-label fl-10">Attachments <span class="required-asterisk">*</span>
                                 </label><br>
-                                <input class="mt-2" type="file" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
-                        </div>
-                          
-                          
+                                <input class="mt-2" type="file" formControlName="attachment" (change)="onFileChanged($event)" />
+                            </div>
                             <div class="modal-btns">
                                 <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary  btn-fw btn-sm mr-2">Add</button>
                                 <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary  btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...</button>
@@ -170,8 +157,6 @@
     </div>
 </div>
 <!-- create modal end-->
-
-
 
 <!-- create-bulk data form-model start -->
 <div class="modal fade" id="createBulkModal" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"

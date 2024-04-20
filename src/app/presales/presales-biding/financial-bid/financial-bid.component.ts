@@ -64,13 +64,12 @@ export class FinancialBidComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-        // publish_date: ['', Validators.required],
-        // tender_ref_no:['', Validators.required],
+        financialyear_id: [null, Validators.required],
+        Net_Working_Capital: ['', Validators.required],
+        annual_turnover: [null, Validators.required],
         tender_id:['', Validators.required],
         utility_id:['', Validators.required],
         net_worth: [null, Validators.required],
-        financialyear_id: [null, Validators.required],
-        annual_turnover: [null, Validators.required],
         remark: [null, Validators.required],
         nclt_status: [null],
         drt: [null],
@@ -142,7 +141,6 @@ toggleDropdown() {
   this.isOpen = !this.isOpen;
 }
   
-
   fileList: File[] = [];
   listOfFiles: any[] = [];
 
@@ -163,8 +161,6 @@ toggleDropdown() {
   createForm(){
     console.clear();
     this.button = 'Create';
-    
-    
     this.update = false;
     this.form.reset();
   }
@@ -220,11 +216,7 @@ downloadPdf() {
     if (this.form.valid) {
       this.isSubmitted = true;
         this.loading = true;
-    // if (this.update) {  
-    //   this.updateTender();
-    // } else {
-    //   this.addTender();
-    // }
+  
   
     const formData: any = new FormData();
     const files: Array<File> = this.filesToUpload;
@@ -232,9 +224,8 @@ downloadPdf() {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append("attachment", this.attachment[i]);
     }
-    formData.append("publish_date",this.form.value.publish_date);
-    formData.append("tender_ref_no",this.form.value.tender_ref_no);
-    formData.append("tender_id",this.form.value.tender_id);
+    formData.append("Net_Working_Capital",this.form.value.Net_Working_Capital);
+    formData.append("tender_id",this.form.value.fixed_asset);
     formData.append("utility_id",this.form.value.utility_id);
     formData.append("net_worth",this.form.value.net_worth);
     formData.append("financialyear_id",this.form.value.financialyear_id);

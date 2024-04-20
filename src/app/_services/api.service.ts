@@ -193,11 +193,21 @@ export class ApiService {
     const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
     return this.http.post<any[]>(`${environment.apiUrl}/mycompany/api/v1/addMyComapanyDocuments`, data, httpOptions);
   }
+  
 
   //upload all type of documents
   createDocuments(data: any): Observable<any[]> {
     const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
     return this.http.post<any[]>(`${environment.apiUrl}/document/api/v1/addDocument `, data, httpOptions);
+  }
+  createOurFinDocuments(data: any): Observable<any[]> {
+    const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
+    return this.http.post<any[]>(`${environment.apiUrl}/mycompany/api/v1/addMyComapanyFinancials`, data, httpOptions);
+  }
+   //Our Company Finance list 
+   getOurFinList(): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>( `${environment.apiUrl}/mycompany/api/v1/getMyComapanyFinancials`, httpOptions );
   }
 
   BOQbulkData(data: any): Observable<any[]> {

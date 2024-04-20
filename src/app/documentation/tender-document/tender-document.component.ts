@@ -29,7 +29,7 @@ export class TenderDocumentComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
-  filterTenderDetailsData: any;
+  filterTenderDetailsData: any = [];
   clientListData: any;
   tenderDetailsData: any;
   isOpen: boolean = false;

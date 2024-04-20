@@ -23,13 +23,14 @@ export class FinBalancesheetComponent {
   limit = environment.pageLimit;
   docType: any;
   docListData: any;
-  companyData: any;
+  companyData: any = [];
   tenderType: any;
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
   financialData: any;
-
+  ourComp: any;
+  isOpen: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -39,46 +40,32 @@ export class FinBalancesheetComponent {
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
-      // utility: ['',Validators.required],
-      // tender_title: ['',Validators.required],
-      // tender_ref_no: ['null',Validators.required],
-      // publish_date: ['',Validators.required],
-      fin_year: ['',Validators.required],
+      bidder_id: ['',Validators.required],
+      financialyear_id: ['',Validators.required],
+      net_working_capital: ['',Validators.required],
       total_liabilities: ['',Validators.required],
-      fixed_asset: ['',Validators.required],
+      total_fixed_assets: ['',Validators.required],
       net_profit: ['',Validators.required],
       net_worth: ['',Validators.required],
-      capital: ['',Validators.required],
-      res_surplus: ['',Validators.required],
-      paid_up_capital: ['',Validators.required],
-      turnover: ['',Validators.required],
-      attachment: ['', Validators.required],
+      net_capital: ['',Validators.required],
+      reserve_surplus: ['',Validators.required],
+      paid_upcapital: ['',Validators.required],
+      annual_turnover: ['',Validators.required],
+      attachment: [''],
       description: [''],
     });
     this.getData();
   }
-
-  
+  get f() {return this.documentForm.controls;}
   getData() { 
-    // let data = this.documentForm.value.document_id;
-    // console.log(data);
-    this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
-    });
-    this.apiService.getCompanyList().subscribe((res: any) => {  
+    const apiLink = `/mycompany/api/v1/getMyComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       this.companyData = res.result;
-    });
-    this.apiService.getTenderType().subscribe((res: any) => {  
-      this.tenderType = res.bidtype;
-    });
-
+    })
     this.masterService.getFinData().subscribe((res:any) => {
       this.financialData = res.result;
     });
-    
-    this.apiService.getDocListData().subscribe((res:any) => {
-      
-      
+    this.apiService.getOurFinList().subscribe((res:any) => {
       if (res.status === 200) {
         this.docListData = res.result;
       } else {
@@ -109,17 +96,9 @@ export class FinBalancesheetComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
-  //button dropdown
-  isOpen: boolean = false;
-
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
-
-  get f() {
-    return this.documentForm.controls;
-  }
-
   exportAsXLSX1(){
     var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
      var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
@@ -129,11 +108,11 @@ export class FinBalancesheetComponent {
     XLSX.writeFile(wb, "Data_File.xlsx");
 
         }
-downloadPdf() {
-  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
-  const pdfName = 'country_bulkload_template_file.xlsx';
-  FileSaver.saveAs(pdfUrl, pdfName);
-}
+    downloadPdf() {
+      const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
+      const pdfName = 'country_bulkload_template_file.xlsx';
+      FileSaver.saveAs(pdfUrl, pdfName);
+    }
 
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
@@ -149,25 +128,22 @@ downloadPdf() {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-    // formData.append('utility', this.documentForm.value.utility);
-    // formData.append('tender_title', this.documentForm.value.tender_title);
-    // formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
-    // formData.append('publish_date', this.documentForm.value.publish_date);
-    formData.append('fin_year', this.documentForm.value.fin_year);
+   formData.append('net_working_capital', this.documentForm.value.net_working_capital)
+    formData.append('bidder_id', this.documentForm.value.bidder_id);
+    formData.append('financialyear_id', this.documentForm.value.financialyear_id);
     formData.append('total_liabilities', this.documentForm.value.total_liabilities);
-    formData.append('fixed_asset', this.documentForm.value.fixed_asset);
+    formData.append('total_fixed_assets', this.documentForm.value.total_fixed_assets);
     formData.append('net_profit', this.documentForm.value.net_profit);
     formData.append('net_worth', this.documentForm.value.net_worth);
-    formData.append('capital', this.documentForm.value.capital);
-    formData.append('res_surplus', this.documentForm.value.res_surplus);
-    formData.append('paid_up_capital', this.documentForm.value.paid_up_capital);
-    formData.append('turnover', this.documentForm.value.turnover);
+    formData.append('net_capital', this.documentForm.value.net_capital);
+    formData.append('reserve_surplus', this.documentForm.value.reserve_surplus);
+    formData.append('paid_upcapital', this.documentForm.value.paid_upcapital);
+    formData.append('annual_turnover', this.documentForm.value.annual_turnover);
     formData.append('description', this.documentForm.value.description);
-    this.addDocument(formData);
+    this.addOurFinDocument(formData);
   }
-
-  addDocument(formData: FormData) {
-    this.apiService.createDocuments(formData).subscribe((res: any) => {
+  addOurFinDocument(formData: FormData) {
+    this.apiService.createOurFinDocuments(formData).subscribe((res: any) => {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
