@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
@@ -59,6 +59,7 @@ export class DataCapturingComponent {
   performanceGuarntee: any;
   securityDeposit: any;
   removeContact:any[]=[];
+  today: any = new Date();
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -68,12 +69,15 @@ export class DataCapturingComponent {
     private router: Router,
   
   ) {
+    // const todayDate = new Date();
+    // todayDate.setDate(todayDate.getDate() - 1);
+    // this.today = todayDate.toISOString().slice(0, 10);
+    // this.openingDateControl.setValue(this.today);
+
     this.route.params.subscribe((params: Params) => {
       this.tenderData = params;
     });
-
     const userDataString = localStorage.getItem('gdUserData');
-   
     if (userDataString) {
       this.userData = JSON.parse(userDataString);
     }
@@ -188,6 +192,8 @@ export class DataCapturingComponent {
     });
   }
   
+
+
   getDistrictData() {
     this.districtData = [];
     let data = this.form.value.state_id;
@@ -369,12 +375,8 @@ ngAfterViewInit() : void{
 
 
   get f() { return this.form.controls; }
+  get f1(){return this.form1.controls}
 
-  get f1()
-  {
-    return this.form1.controls
-  }
-  
   getCompanyData() {
     this.apiService.getCompanyList().subscribe((res: any) => {  
       this.companyData = res.result;

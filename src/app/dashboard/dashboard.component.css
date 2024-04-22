@@ -462,3 +462,12 @@
   text-align: center;
   padding: 5px;
 }
+.fill-between {
+  content: "";
+  position: absolute; /* Inherit position: relative from parent */
+  top: 0; /* Align to top of the parent container */
+  left: 0; /* Align to left of the parent container */
+  width: 100%; /* Span full width of the parent */
+  height: 1px; /* Set a minimal height for the line */
+  background-color: green; /* Set the desired fill color */
+}

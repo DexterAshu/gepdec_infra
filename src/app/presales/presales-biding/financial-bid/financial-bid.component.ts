@@ -118,7 +118,18 @@ export class FinancialBidComponent {
     }, error => {
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
-    }); 
+    });  
+
+  }
+
+  finBidComprision(){
+    let financialyear_id = this.form.value.financialyear_id;
+    let didderID = this.tenderDetailsData.bidder_id;
+    // let didderID = this.tenderDetailsData.filter((data:any)=>data.bidder_id);
+    this.apiService.finComprisionData(didderID, financialyear_id).subscribe((res:any) =>{
+      console.log(res);
+      
+    })
   }
 
   getDetails(event: any) {

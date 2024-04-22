@@ -31,11 +31,13 @@ export class FinBalancesheetComponent {
   financialData: any;
   ourComp: any;
   isOpen: boolean = false;
+ 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private alertService: AlertService,
     private masterService: MasterService,
+    
   ) {}
 
   ngOnInit() {
@@ -57,6 +59,7 @@ export class FinBalancesheetComponent {
     this.getData();
   }
   get f() {return this.documentForm.controls;}
+ 
   getData() { 
     const apiLink = `/mycompany/api/v1/getMyComapanyList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {

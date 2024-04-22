@@ -164,7 +164,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Total Liabilities<span class="required-asterisk">*</span></label>
-                                    <input formControlName="total_liabilities" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="total_liabilities" type="text" class="form-control form-control-sm" appNumberOnly >
                                     <div *ngIf="f['total_liabilities'].touched && f['total_liabilities'].invalid">
                                         <small class="text-danger" *ngIf="f['total_liabilities'].errors?.['required']">*Required</small>
                                     </div>
