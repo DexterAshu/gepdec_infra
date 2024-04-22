@@ -28,8 +28,10 @@
                 <th>Client</th>
                 <th>Tender Ref No</th>
                 <th>Tender Title</th>
+                <th>Location</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Tenure (MONTHS)</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -38,11 +40,13 @@
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.company_name }}</td>
                 <td>{{ a.tender_ref_no }}</td>
-                <td>{{ a.tender_title }}</td>
-                <td>{{ a.start_date | date }}</td>
-                <td>{{ a.end_date | date }}</td>
+                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                <td>{{ a.tender_location }}</td>
+                <td>{{ a.l1_start_date | date }}</td>
+                <td>{{ a.l1_end_date | date }}</td>
+                <td>{{ a.tender_completion_period }}</td>
                 <td>
-                  <a class="" data-bs-toggle="modal" data-bs-target="#viewModel" title="Detail Data"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                  <a class="" (click)="selectedRow(a)" data-bs-toggle="modal" data-bs-target="#viewModel" title="Detail Data"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#createL2Modal" title="Edit Details" (click)="selectedRow(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                   <!-- <a data-bs-toggle="modal" data-bs-target="#deleteModel" title="Delete Data"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                 </td>
@@ -97,7 +101,7 @@
 </div>
 
 <div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Details</h5>
@@ -105,8 +109,70 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="row">
-            <h1>L2 Schedule Information</h1>
+          <div class="table-responsive" style="min-height: 300px">
+            <h6 class="mb-2 text-secondary">Tender Details</h6>
+            <table class="table table-hover table-striped custom-table">
+              <thead class="hidden-thead"></thead>
+              <tbody>
+                <tr>
+                  <th>Company Name</th>
+                  <td>{{ selectedRowData?.company_name }}</td>
+                  <th>Tender Ref No.</th>
+                  <td>{{ selectedRowData?.tender_ref_no }}</td>
+                  <th>Tender Title</th>
+                  <td>{{ selectedRowData?.tender_title }}</td>
+                </tr>
+                <tr>
+                  <th>Tender Location</th>
+                  <td>{{ selectedRowData?.tender_location }}</td>
+                  <th>L1 Start Date</th>
+                  <td>{{ selectedRowData?.l1_start_date | date }}</td>
+                  <th>L1 End Date</th>
+                  <td>{{ selectedRowData?.l1_end_date | date }}</td>
+                </tr>
+                <tr>
+                  <th>Tender Completion Period</th>
+                  <td>{{ selectedRowData?.tender_completion_period }}</td>
+                  <th></th>
+                  <td></td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <h6 class="mb-2 mt-4 text-secondary">Task Details</h6>
+            <app-responsive-table>
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>Task</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Days Difference</th>
+                  <th>Sub Task</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr *ngFor="let row of selectedRowData?.data; index as i">
+                  <td>{{ i+1 }}</td>
+                  <td>{{ row.task }}</td>
+                  <td>{{ row.start_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ row.end_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ row.days_difference }}</td>
+                  <td>
+                    <table class="table">
+                      <tr *ngFor="let ct of row?.childtasks; index as ci">
+                        <td>{{i+1}}.{{ ci+1 }}</td>
+                        <td>{{ ct.task }}</td>
+                        <td>{{ ct.start_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ ct.end_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ ct.days_difference }}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </app-responsive-table>
           </div>
         </div>
       </div>

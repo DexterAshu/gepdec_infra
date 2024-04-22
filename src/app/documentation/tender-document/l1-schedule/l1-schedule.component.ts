@@ -1,9 +1,8 @@
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-l1-schedule',

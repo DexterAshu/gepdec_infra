@@ -44,18 +44,18 @@
               <tr *ngFor="let a of itemData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.tender_ref_no }}</td>
-                <td>{{ a.tender_title }}</td>
+                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
                 <td>{{ a.tender_location }}</td>
                 <td>{{ a.warehouse_code }}</td>
                 <td>{{ a.location_code }}</td>
                 <td><a data-bs-toggle="modal" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#view" title="Warehouse Profile">{{ a.itemcode }}</a></td>
-                <td>{{ a.description }}</td>
+                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.description }}">{{a.description | slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
                 <td>{{ a.itemcategory }}</td>
                 <td>{{ a.subcategory }}</td>
                 <td>{{ a.total_itemquantity }}</td>
                 <td>{{ a.uom }}</td>
               </tr>
-              <tr *ngIf="itemData.length">
+              <tr *ngIf="itemData.length === 0">
                 <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>
               </tr>
               <tr *ngIf="isNotFound">

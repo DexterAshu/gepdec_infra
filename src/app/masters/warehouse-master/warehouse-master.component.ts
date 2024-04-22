@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { AlertService, ApiService, MasterService } from 'src/app/_services';
+import { AlertService, ApiService, MasterService, SharedService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
@@ -29,11 +29,15 @@ export class WarehouseMasterComponent {
   dataDropdownList: any = [];
   tenderList: any = [];
 
-  constructor( private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) { }
+  constructor(private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.getData();
     this.initializeForm();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   initializeForm(): void {

@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
-import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
+import { AlertService, ApiService, SharedService } from 'src/app/_services';
 
 @Component({
   selector: 'app-l2-schedule-bulkdata',
@@ -23,10 +21,15 @@ export class L2ScheduleBulkdataComponent {
   selectedRowData: any;
   l1ScheduleData: any = [];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService: SharedService, private elementRef: ElementRef) { }
 
   ngOnInit() {
     this.formInit();
+    this.getL2ScheduleData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   formInit(): void {
@@ -34,6 +37,23 @@ export class L2ScheduleBulkdataComponent {
       company_name: [null, Validators.required],
       tender_ref_no: [null, Validators.required]
     });
+  }
+
+  getL2ScheduleData(): void {
+    const apiLink = `/document/api/v1/getL2ScheduleList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if(res.status === 200) {
+        this.l1ScheduleData = res.result;
+        this.isNotFound = false;
+      } else {
+        this.isNotFound = true;
+        this.alertService.error(res.message);
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.error(`Error: ${error.message}`);
+    }
   }
 
   selectedRow(data: any) {
