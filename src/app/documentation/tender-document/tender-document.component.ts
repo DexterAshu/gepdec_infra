@@ -29,6 +29,11 @@ export class TenderDocumentComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
+  filterTenderDetailsData: any = [];
+  clientListData: any;
+  tenderDetailsData: any;
+  isOpen: boolean = false;
+  comData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,34 +43,28 @@ export class TenderDocumentComponent {
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
-      tender_submission_date: ['',Validators.required],
-      // prebid_meeting_mode: ['',Validators.required],
-      // prebid_date: ['',Validators.required],
-      prebid_submission_date: ['',Validators.required],
-      publish_date: ['',Validators.required],
-      tender_location: ['',Validators.required],
+      utility_id: ['',Validators.required],
+      tender_id: ['',Validators.required],
       bidtype: ['',Validators.required],
-      tender_ref_no: ['',Validators.required],
-      tender_title: ['',Validators.required],
+      tender_location: ['',Validators.required],
       completion_period: ['',Validators.required],
-      ecv: ['',Validators.required],
-      utility: ['',Validators.required],
       bid_validity: ['',Validators.required],
+      ecv: ['',Validators.required],
+      prebid_submission_date: ['',Validators.required],
+      tender_submission_date: ['',Validators.required],
       attachment: ['', Validators.required],
       description: [''],
-     
+    
+    
     });
-
     this.getData();
-   
-
   }
-
   
   getData() {
-    
-    // let data = this.documentForm.value.document_id;
-    // console.log(data);
+    this.apiService.getCompanyList().subscribe((res: any) => {  
+      this.comData = res.result;
+      console.log(this.comData);
+    });
     this.apiService.getDocType().subscribe((res: any) => {
       this.docType = res.documenttype;
     });
@@ -109,8 +108,10 @@ export class TenderDocumentComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
+
+
   //button dropdown
-  isOpen: boolean = false;
+
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
@@ -143,6 +144,21 @@ downloadPdf() {
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 
+  getDetails(event: any) {
+    const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    this.clientListData = company_id;
+    this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
+      this.tenderDetailsData = res.result;
+      console.log(this.tenderDetailsData);
+    });
+  }
+
+  getrefData(tender_id: any){
+    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
+ console.log(this.filterTenderDetailsData);
+ 
+  }
+
 
   onSubmit() {
     console.log(this.documentForm.value);
@@ -151,19 +167,18 @@ downloadPdf() {
       formData.append('attachment', this.attachment[i]);
     }
    
-    formData.append('tender_title', this.documentForm.value.tender_title);
-    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
-    formData.append('bidtype', this.documentForm.value.bidtype);
-    formData.append('tender_location', this.documentForm.value.tender_location);
-    formData.append('publish_date', this.documentForm.value.publish_date);
-    formData.append('prebid_submission_date', this.documentForm.value.prebid_submission_date);
     // formData.append('prebid_date', this.documentForm.value.prebid_date);
     // formData.append('prebid_meeting_mode', this.documentForm.value.prebid_meeting_mode);
     // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
+
+    formData.append('utility_id', this.documentForm.value.utility_id);
+    formData.append('tender_id', this.documentForm.value.tender_id);
+    formData.append('bidtype', this.documentForm.value.bidtype);
+    formData.append('tender_location', this.documentForm.value.tender_location);
+    formData.append('prebid_submission_date', this.documentForm.value.prebid_submission_date);
     formData.append('tender_submission_date', this.documentForm.value.tender_submission_date);
     formData.append('completion_period', this.documentForm.value.completion_period);
     formData.append('ecv', this.documentForm.value.ecv);
-    formData.append('utility', this.documentForm.value.utility);
     formData.append('bid_validity', this.documentForm.value.bid_validity);
     formData.append('description', this.documentForm.value.description);
     this.addDocument(formData);

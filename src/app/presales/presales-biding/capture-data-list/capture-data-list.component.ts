@@ -45,7 +45,10 @@ export class CaptureDataListComponent {
   tendStatus: any;
   showWorkingDetails: boolean = false;
   showPreNotes: boolean = false;
+  isOpen: boolean = false;
+  techDataShow: boolean = false;
   tendStatusData: any;
+  data: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -104,18 +107,15 @@ export class CaptureDataListComponent {
     } 
 
     rowListData(row:any) {
-      this.rowData = [];
       this.rowData = row;
-      console.log( this.rowData);
-      
     }
    
   //button dropdown
-  isOpen: boolean = false;
-
+  
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
+  
 
   get f() { return this.form.controls; }
   

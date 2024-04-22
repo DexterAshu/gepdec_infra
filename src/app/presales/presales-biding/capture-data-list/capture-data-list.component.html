@@ -145,7 +145,7 @@
                                 <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.tender_ref_no }}</td>
                                 <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{ a.tender_location }}</td>
-                                <td class="badge badge-info text-center">{{ a.tender_status}}</td>
+                                <td>{{ a.tender_status}}</td>
                                 <td>{{ a.bidtype }}</td>
                                 <td>{{ a.tender_doc_cost }}</td>
                                 <td>{{ a.tender_fee }}</td>
@@ -213,19 +213,12 @@
                                   <div class="row p-1">
                                     <div class="col-md-3">Tender ID : &nbsp;&nbsp; {{ rowData?.tender_id }}</div>
                                     <div class="col-md-3">Ref No : &nbsp;&nbsp; {{ rowData?.tender_ref_no }}</div>
-                                    <div class="col-md-6">Client : &nbsp;&nbsp; {{ rowData?.company_name }}</div>
-                                    
+                                    <div class="col-md-3">Published Date : &nbsp;&nbsp; {{ rowData?.publish_date | date: 'dd/MM/yyyy'}}</div>
+                                    <div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">Execution Location : &nbsp;&nbsp;{{rowData?.tender_location| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
                                 </div>
                                 <div class="row p-1">
-                                    <div class="col-md-3">Published Date : &nbsp;&nbsp; {{ rowData?.publish_date }}</div>
-                                      <div class="col-md-5" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">Tender Title : &nbsp;&nbsp; {{rowData?.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
-                                      <div class="col-md-4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">Execution Location : &nbsp;&nbsp;{{rowData?.tender_location| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
-                               
-                                 
-                                   
-                                  </div>
-                                  <div class="row p-1">
-                                   
+                                    <div class="col-md-6">Client : &nbsp;&nbsp; {{ rowData?.company_name }}</div>
+                                      <div class="col-md-6" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">Tender Title : &nbsp;&nbsp; {{rowData?.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
                                   </div>
                                  
                                 </div>
@@ -238,173 +231,168 @@
                                             <td>{{ rowData?.bidder_name }}</td>
                                             <th>Tender Type</th>
                                             <td>{{ rowData?.bidtype }}</td>
-                                            <th>Tender Submission Date</th>
-                                            <td>{{ rowData?.tender_submission_date }}</td>
-                                        </tr>
+                                            </tr>
                                         <tr>
-                                           
+                                            <th>Tender Opening Date</th>
+                                            <td>{{ rowData?.opening_date | date: 'dd/MM/yyyy'}}</td>
                                             <th>Tender Description</th>
                                             <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_description }}">
                                                 {{rowData?.tender_description| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
                                             </td>
-                                           
+                                        </tr>
+                                        <tr>
                                             <th>Tender Available Link</th>
                                             <td>{{ rowData?.tender_detail_link }}</td>
-                                            <th>Tender Opening Date</th>
-                                            <td>{{ rowData?.opening_date }}</td>
-                                        </tr>
-                                        <tr>
-                                          
                                             <th>Tender Closing Date</th>
-                                            <td>{{ rowData?.closing_date }}</td>
-                                            <th>Soft Copy Submission Date & Time</th>
-                                            <td>{{ rowData?.tender_detail_link }}</td>
-                                            <th>Hard Copy Submission Date & Time</th>
-                                            <td>{{ rowData?.tender_detail_link }}</td>
+                                            <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy'}}</td>
+                                           
                                         </tr>
                                         <tr>
-                                         
+                                            <th>Soft Copy Submission Date & Time</th>
+                                            <td>{{ rowData?.tender_submission_date |  date:"dd/MM/yyyy - HH:mm"}}</td>
+                                            <th>Hard Copy Submission Date & Time</th>
+                                            <td>{{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy'}}</td>
+                                          </tr>
+                                          <tr>
                                             <th>Pre-bid Meeting Mode</th>
                                             <td>{{ rowData?.prebidmeetingmode }}</td>
                                             <th>Tender Pre-bid Meeting Date</th>
-                                            <td>{{ rowData?.prebid_date }}</td>
-                                            <th>Technical Bid Opening Date & Time</th>
-                                            <td>{{ rowData?.tech_bid_date }}</td>
+                                            <td>{{ rowData?.prebid_date | date: 'dd/MM/yyyy'}}</td>
+
                                         </tr>
                                         <tr>
-                                         
+                                            <th>Technical Bid Opening Date & Time</th>
+                                            <td>{{ rowData?.tech_bid_date | date:"dd/MM/yyyy - HH:mm"}}</td>
                                             <th>Financial Bid Opening Date</th>
-                                            <td>{{ rowData?.fin_bid_opening_date }}</td>
+                                            <td>{{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy'}}</td>
+                                        </tr>
+                                        <tr>
                                             <th>ECV (Cr)</th>
                                             <td>{{ rowData?.ecv }}</td>
                                             <th>Tender Fee</th>
                                             <td>{{ rowData?.tender_fee }}</td>
-                                        </tr>
-                                        <tr>
-                                        
+                                            </tr>
+                                            <tr>
                                             <th>Tender Document Cost</th>
                                             <td>{{ rowData?.tender_doc_cost }}</td>
                                             <th>Security Deposit</th>
-                                          <td>{{ rowData?.security_deposit }}</td>
-                                          <th>Tender Performance Guarantee</th>
-                                          <td>{{ rowData?.performance_guarantee }}</td>
+                                            <td>{{ rowData?.securitydeposit }}</td>
                                         </tr>
                                         <tr>
-                                          
-                                           
+                                            <th>Security Amount</th>
+                                            <td>{{ rowData?.security_amount }}</td>
+                                            <th>Security Submission Date</th>
+                                            <td>{{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Performance Guarantee</th>
+                                            <td>{{ rowData?.performanceguarantee }}</td>
+                                            <th>Performance Amount</th>
+                                            <td>{{ rowData?.pg_amount }}</td>
+                                            </tr>
+                                            <tr>
+                                            <th>Performance Submission Date</th>
+                                            <td>{{ rowData?.pgsubmission_date | date: 'dd/MM/yyyy'}}</td>
                                             <th>Tender EMD Exemption</th>
                                             <td>{{ rowData?.emdexemption }}</td>
+                                          </tr>
+                                          <tr> 
                                             <th>EMD Amount</th>
                                             <td>{{ rowData?.emd_ammount }}</td>
                                             <th>EMD Payment</th>
                                             <td>{{ rowData?.paymentmethod }}</td>
                                         </tr>
                                         <tr>
-                                          
-                                          
                                             <th>EMD Submission Date</th>
-                                            <td>{{ rowData?.emd_submission_date }}</td>
+                                            <td>{{ rowData?.emd_submission_date | date: 'dd/MM/yyyy'}}</td>
                                             <th>Forfeiture Condition</th>
-                                            <td>{{ rowData?.emd_submission_date }}</td>
+                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.forfeiture_condition }}">
+                                                {{rowData?.forfeiture_condition| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                            </td>
+                                            </tr>
+                                            <tr>
                                             <th>Tender Status</th>
                                             <td>{{ rowData?.tender_status }}</td>
+                                            <th>Tender Payment Terms</th>
+                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tenderpayment_terms }}">
+                                                {{rowData?.tenderpayment_terms| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <th>Tender Payment Terms</th>
-                                            <td>{{ rowData?.payment_terms }}</td>
+                                            <th>Tender Terms & Condition</th>
+                                            <td>{{ rowData?.termscheckbox }}</td>
                                             <th>Created By</th>
                                             <td>{{ rowData?.createdby_name }}</td>
-                                            <th>Created On</th>
-                                            <td>{{ rowData?.created }}</td>
+                                            <!-- <th>Created On</th>
+                                            <td>{{ rowData?.created }}</td> -->
                                         </tr>
                                       
                                     </tbody>
                                 </table>
-                                <!-- qualification details -->
-                                <h6 class="mb-2 mt-4 text-secondary">Qualification Details (Financial)</h6>
-                                <table class="table table-hover table-striped custom-table">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <tr>
-                                            <th>Financial Year</th>
-                                            <td>{{ rowData?.financialyear }}</td>
-                                            <th>Annuval Turnover</th>
-                                            <td>{{ rowData?.annual_turnover }}</td>
-                                            <th>Net Worth</th>
-                                            <td>{{ rowData?.net_worth }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Attachments</th>
-                                            <td></td>
-                                            <th></th>
-                                            <td></td>
-                                           
-                                        </tr>
-                                        <!-- <tr>
-                                            <th>Net Worth</th>
-                                            <td>{{ rowData?.tenderfinancials[0].net_worth }}</td>
-                                            <th>Net Worth</th>
-                                            <td>{{ rowData?.tenderfinancials[0].net_worth }}</td>
-                                            <th>Net Worth</th>
-                                            <td>{{ rowData?.tenderfinancials[0].net_worth }}</td>
-                                        </tr> -->
-                                      
-                                    </tbody>
-                                </table>
-                                <h6 class="mb-2 mt-4 text-secondary">Qualification Details (Technical)</h6>
-                                <table class="table table-hover table-striped custom-table">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <tr>
-                                            <th>Eligibility</th>
-                                            <td>{{ rowData?.eligibility }}</td>
-                                            <th>Technical Qualification</th>
-                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.technical_qualification }}">
-                                                {{rowData?.technical_qualification| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
-                                            </td>
-                                            <th>Remarks</th>
-                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tech_remarks }}">
-                                                {{rowData?.tech_remarks| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
-                                            </td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th>Attachments</th>
-                                            <td>{{ rowData?.attachment }}</td>
-                                            <th></th>
-                                            <td></td>
-                                           
-                                        </tr>
-                                      
-                                    </tbody>
-                                </table>
-                               <!-- qualification details end-->
-                                <!-- Bank details -->
-                                <!-- <h6 class="mb-2 mt-4 text-secondary">Tender Bank Details</h6>
-                                <table class="table table-hover table-striped custom-table">
-                                    <thead class="hidden-thead"></thead>
-                                    <tbody class="text-nowrap">
-                                        <tr>
-                                            <th>Bank Name</th>
-                                            <td>{{ rowData?.bankname }}</td>
-                                            <th>Account Holder Name</th>
-                                            <td>{{ rowData?.account_holder_name }}</td>
-                                            <th>Account No</th>
-                                            <td>{{ rowData?.bankaccountno }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Branch Name</th>
-                                            <td>{{ rowData?.branch_name }}</td>
-                                            <th>IFSC Code</th>
-                                            <td>{{ rowData?.bankifsc }}</td>
-                                            <th>Bank Address</th>
-                                            <td>{{ rowData?.bank_address }}</td>
-                                        </tr>
-                                      
-                                    </tbody>
-                                </table> -->
-                               <!-- bank details end-->
+                         
                             </div>
+
+                                   <!-- qualification details -->
+                                   <h6 class="mb-2 mt-4 text-secondary">Qualification Details (Financial)</h6>
+                                   <table class="table table-hover table-striped custom-table">
+                                       <thead class="hidden-thead"></thead>
+                                       <tbody class="text-nowrap" *ngFor="let a of rowData?.tenderfinancials">
+                                           <tr>
+                                               <th>Financial Year</th>
+                                               <td>{{ a?.financialyear }}</td>
+                                               <th>Annuval Turnover</th>
+                                               <td>{{ a?.annual_turnover }}</td>
+                                               <th>Net Worth</th>
+                                               <td>{{ a?.net_worth }}</td>
+                                           </tr>
+                                           <tr>
+                                               <th>Remarks</th>
+                                               <td>{{a?.remark}}</td>
+                                               <th></th>
+                                               <td></td>
+                                               <th></th>
+                                               <td></td>
+                                           </tr>
+                                       </tbody>
+                                   </table>
+                                   <h6 class="mb-2 mt-4 text-primary cursor-pointer" (click)="techDataShow=!techDataShow"> 
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
+                                           <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708z"/>
+                                         </svg> &nbsp;
+                                       Qualification Details (Technical)</h6>
+
+
+                            <app-responsive-table class="mt-1" *ngIf="techDataShow"> <!-- Coming for sharedComponent/responsive-table -->
+                                <thead class="table-primary text-nowrap">
+                                    <tr>
+                                        <th>S No</th>
+                                        <th>Capacity</th>
+                                        <th>Category</th>
+                                        <th>Sub Category</th>
+                                        <th>Eligibility</th>
+                                        <th>Technical Qualification</th>
+                                        <th>Remarks</th>
+                                    
+                                    </tr>
+                                </thead>
+                                <tbody class="text-nowrap">
+                                    <tr *ngFor="let a of rowData?.prequalification; index as i">
+                                        <td>{{ limit*(p-1)+i+1 }}</td>
+                                     
+                                        <td>{{ a?.capacity }}</td>
+                                        <td>{{ a?.qacatagory }}</td>
+                                        <td>{{ a?.subqacatagory }}</td>
+                                        <td>{{ a?.bideligibility_criteria }}</td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="{{ a?.technical_points }}">
+                                            {{a?.technical_points| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                        </td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="{{ a?.technical_remarks }}">
+                                            {{a?.technical_remarks| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                        </td>
+                                      </tr>
+                                   
+                                </tbody>
+                            </app-responsive-table> 
 
 
 <div class="row mt-2">
@@ -416,8 +404,7 @@
               </svg> &nbsp;
               Previous Notes</div>
         <div class="form-group mt-2" *ngIf="showPreNotes">
-            <textarea formControlName="remarks" type="text" rows="4" class="form-control form-control-sm" readonly>
-           </textarea>
+            <div class="card p-1 text-small">{{rowData?.remarks}}</div>
               
         </div>
     </div>
@@ -429,14 +416,12 @@
               </svg> &nbsp;
             Audit Trail</div>
         <div class="form-group mt-2" *ngIf="showWorkingDetails">
-            <textarea formControlName="audit_trail" type="text" rows="4" class="form-control form-control-sm" readonly>
-           </textarea>
+            <div class="card p-1 text-small">{{rowData?.audit_trail}}</div>
+          
               
         </div>
     </div>
 </div>
-
-
 
                              <!-- tender status modal start-->
                              <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -505,7 +490,7 @@
 
                                 </div>
                       
-                        </form>
+                             </form>
 
                     <!-- tender status modal end-->
 

@@ -414,55 +414,61 @@
     </div>
 
     <div class="col-md-6 col-sm-7 grid-margin stretch-card pe-0">
-      <div class="card" data-bs-toggle="modal" data-bs-target="#createModal" style="cursor: pointer;">
+      <div class="card" data-bs-toggle="modal" data-bs-target="#createModal">
         <div class="card-body">
-          <p class="card-title mb-2">Top 5 Upcoming Projects</p>
-          <div class="cardHead">
+          <div class="row">
+            <p class="card-title mb-2 col-md-9">Top 5 Orders</p>
+            <div class="float-right col-md-3">
+                 <!-- <a class="" href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a> -->
+            </div>
+          </div>
+
+          <div class="cardHead" style="cursor: pointer;">
             <div class="row">
-              <div class="col-md-2 col-2">S No</div>
-              <div class="col-md-4 col-4">Project Name</div>
-              <div class="col-md-3 col-3">Category</div>
-              <div class="col-md-3 col-3">Values(Cr)</div>
+              <div class="col-md-2 col-2" >S No</div>
+              <div class="col-md-4 col-4"  style="text-align: left;">Project Name</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">Category</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">Amount (Cr)</div>
             </div>
           </div>
           <div class="card1 mt-1">
             <div class="row">
-              <div class="col-md-2 col-2">1</div>
-              <div class="col-md-4 col-4">Taldihi</div>
-              <div class="col-md-3 col-3">330 Kv</div>
-              <div class="col-md-3 col-3">300</div>
+              <div class="col-md-2 col-2" >1</div>
+              <div class="col-md-4 col-4"  style="text-align: left;">Taldihi</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">330 Kv</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">300</div>
             </div>
           </div>
           <div class="card2 mt-1">
             <div class="row">
-              <div class="col-md-2 col-2">2</div>
-              <div class="col-md-4 col-4">Jaunpur</div>
-              <div class="col-md-3 col-3">220 Kv</div>
-              <div class="col-md-3 col-3">400</div>
+              <div class="col-md-2 col-2" >2</div>
+              <div class="col-md-4 col-4"  style="text-align: left;">Jaunpur</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">220 Kv</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">400</div>
             </div>
           </div>
           <div class="card3 mt-1">
             <div class="row">
-              <div class="col-md-2 col-2">3</div>
-              <div class="col-md-4 col-4">Noida Sec-45</div>
-              <div class="col-md-3 col-3">220 Kv</div>
-              <div class="col-md-3 col-3">300</div>
+              <div class="col-md-2 col-2" >3</div>
+              <div class="col-md-4 col-4"  style="text-align: left;">Noida Sec-45</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">220 Kv</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">300</div>
             </div>
           </div>
           <div class="card4 mt-1">
             <div class="row">
-              <div class="col-md-2 col-2">4</div>
-              <div class="col-md-4 col-4">Delhi</div>
-              <div class="col-md-3 col-3">320 Kv</div>
-              <div class="col-md-3 col-3">100</div>
+              <div class="col-md-2 col-2" >4</div>
+              <div class="col-md-4 col-4"  style="text-align: left;">Delhi</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">320 Kv</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">100</div>
             </div>
           </div>
           <div class="card5 mt-1">
             <div class="row">
-              <div class="col-md-2 col-2">5</div>
-              <div class="col-md-4 col-4">Noida</div>
-              <div class="col-md-3 col-3">240 Kv</div>
-              <div class="col-md-3 col-3">200</div>
+              <div class="col-md-2 col-2" >5</div>
+              <div class="col-md-4 col-4"  style="text-align: left;">Noida</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">240 Kv</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">200</div>
             </div>
           </div>
         </div>
@@ -492,68 +498,7 @@
   </div> -->
 
   </div>
-  <!-- <div class="row mt-1">
-  <div class="col-md-6 grid-margin stretch-card pe-0">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <p class="card-title mb-2 col-md-6">Average Revenue Per Unit</p>
-          <p class=" col-md-6 p-1 bg-warning text-center rounded">$000</p>
-        </div>
-        <div class="chartBar" #containerRef5>
-          <ngx-charts-line-chart
-          [view]="[containerRef5.offsetWidth, 210]"
-          [scheme]="lineColorScheme"
-          [results]="lineChart"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [showXAxisLabel]="showYAxisLabelLine"
-          [gradient]="true"
-          [showYAxisLabel]="showYAxisLabelLine"
-          [xAxisLabel]="xAxisLabelLine"
-          [yAxisLabel]="yAxisLabelLine">
-        </ngx-charts-line-chart>
-        </div>
-        <ul class="cust-legend">
-          <li><i class="mdi mdi-checkbox-blank l_box1"></i> Last Year</li>
-          <li><i class="mdi mdi-checkbox-blank l_box2"></i> This Year</li>
-        </ul>
-                         
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <p class="card-title mb-2 col-md-6">Customer Acquisition Cost</p>
-          <p class=" col-md-6 p-1 bg-primary text-center rounded">$000</p>
-        </div>
-        <div class="chartBar" #containerRef>
-          <ngx-charts-bar-vertical-2d
-          [view]="[containerRef.offsetWidth, 190]"
-          [scheme]="mainColorScheme"
-          [results]="multi1"
-          [xAxis]="showXAxis"
-          [gradient]="true"
-          [yAxis]="showYAxis"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxisLabel]="xAxisLabelBar"
-          [yAxisLabel]="yAxisLabelBar"
-          [barPadding]="5"
-          [groupPadding]="7">
-        </ngx-charts-bar-vertical-2d>
-        </div>
-        <ul class="cust-legend">
-          <li><i class="mdi mdi-checkbox-blank box1"></i> Last Year</li>
-          <li><i class="mdi mdi-checkbox-blank box2"></i> This Year</li>
-        </ul>
-        
-      </div>
-    </div>
-  </div>
-</div> -->
+
 
 
 </div>

@@ -58,33 +58,24 @@
                                           <span class="mdi mdi-download"></span>&nbsp; Import 
                                     </button>
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
-                         
-
+                                </div>
                             </div>
-                            </div>
-
-                        <div class="col-lg-2">
-                            <button class="btn btn-primary btn-fw btn-sm float-right" data-bs-toggle="modal" data-bs-target="#createModal"><span class="mdi mdi-plus"></span>
-                                Create</button> 
-                        </div>
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Tendering Company</th>
-                                <th>Tender Title</th>
-                                <th>Tender Ref No</th>
-                                <th>Published Date</th>
+                                <th>Company</th>
                                 <th>Financial Year</th>
                                 <th>Total Liabilities</th>
                                 <th>Total Fixed Assets</th>
                                 <th>Net Profit</th>
                                 <th>Net Worth</th>
-                                <th>Capital</th>
+                                <th>Net Capital</th>
+                                <th>Net Working Capital</th>
                                 <th>Reserve & Surplus</th>
                                 <th>Paid Up Capital</th>
-                                <th>Turnover</th>
+                                <th>Annuval Turnover</th>
                                 <th>Attachments</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
@@ -94,19 +85,17 @@
                         <tbody class="text-nowrap">
                             <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
-                                <td>{{a.documentname}}</td>
-                                <td>{{a.documentname}}</td>
-                                <td>{{a.documentname}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.created}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
+                                <td>{{a.bidder_name}}</td>
+                                <td>{{a.financialyear}}</td>
+                                <td>{{a.total_liabilities}}</td>
+                                <td>{{a.total_fixed_assets}}</td>
+                                <td>{{a.net_profit}}</td>
+                                <td>{{a.net_worth}}</td>
+                                <td>{{a.net_capital}}</td>
+                                <td>{{a.net_working_capital}}</td>
+                                <td>{{a.reserve_surplus}}</td>
+                                <td>{{a.paid_upcapital}}</td>
+                                <td>{{a.annual_turnover}}</td>
                                 <td data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
                                     {{a.filename| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
                                 </td>
@@ -138,8 +127,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Balance Sheet Form</h5>
-                
+                <h5 class="modal-title" id="exampleModalLabel">Balance Sheet Form</h5>           
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -147,62 +135,28 @@
                     <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
                         <!-- Document Details -->
                         <div class="form-row">
-<!-- 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Utility/Tendering Company<span class="required-asterisk">*</span></label>
-                                    <select formControlName="utility" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
-                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
+                                    <label class="form-label fl-10">Company<span class="required-asterisk">*</span></label>
+                                    <select formControlName="bidder_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select </option>
+                                        <option *ngFor="let f of companyData" value="{{f.bidder_id}}">{{ f.bidder_name }}</option>
                                     </select>
-                                    <div *ngIf="f['utility'].touched && f['utility'].invalid">
-                                        <small class="text-danger" *ngIf="f['utility'].errors?.['required']">*Required</small>
+                                    <div *ngIf="f['bidder_id'].touched && f['bidder_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['bidder_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
-                                    <select formControlName="tender_title" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
-                                        <option *ngFor="let c of tenderType" value="{{c.bidtype_id}}">{{ c.bidtype }}</option>
-                                    </select>
-                                        <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_title'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Ref. No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" readonly >
-                                    <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Publish Date<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly>
-                                  
-                                </div>
-                            </div> -->
-
 
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
-                                    <select formControlName="fin_year" class="form-select form-select-sm">
+                                    <select formControlName="financialyear_id" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Tender Category</option>
                                         <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
                                     </select>
-                                    <div *ngIf="f['fin_year'].touched && f['fin_year'].invalid">
-                                        <small class="text-danger" *ngIf="f['fin_year'].errors?.['required']">*Required</small>
+                                    <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -210,78 +164,87 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Total Liabilities<span class="required-asterisk">*</span></label>
-                                    <input formControlName="total_liabilities" type="text" class="form-control form-control-sm" placeholder="Enter Total Liabilities" appNumberOnly>
+                                    <input formControlName="total_liabilities" type="text" class="form-control form-control-sm" appNumberOnly >
                                     <div *ngIf="f['total_liabilities'].touched && f['total_liabilities'].invalid">
                                         <small class="text-danger" *ngIf="f['total_liabilities'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Total Fixed Assets<span class="required-asterisk">*</span></label>
-                                    <input formControlName="fixed_asset" type="text" class="form-control form-control-sm" placeholder="Enter Fixed Asset" appNumberOnly>
-                                    <div *ngIf="f['fixed_asset'].touched && f['fixed_asset'].invalid">
-                                        <small class="text-danger" *ngIf="f['fixed_asset'].errors?.['required']">*Required</small>
+                                    <input formControlName="total_fixed_assets" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['total_fixed_assets'].touched && f['total_fixed_assets'].invalid">
+                                        <small class="text-danger" *ngIf="f['total_fixed_assets'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Net Profit (Cr)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="net_profit" type="text" class="form-control form-control-sm" placeholder="Enter Net Profit" appNumberOnly>
+                                    <input formControlName="net_profit" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['net_profit'].touched && f['net_profit'].invalid">
                                         <small class="text-danger" *ngIf="f['net_profit'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Net Worth (Cr)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="net_worth" type="text" class="form-control form-control-sm" placeholder="Enter Net Worth" appNumberOnly>
+                                    <input formControlName="net_worth" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
                                         <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Net Capital (Cr)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="capital" type="text" class="form-control form-control-sm" placeholder="Enter Net Capital" appNumberOnly>
-                                    <div *ngIf="f['capital'].touched && f['capital'].invalid">
-                                        <small class="text-danger" *ngIf="f['capital'].errors?.['required']">*Required</small>
+                                    <input formControlName="net_capital" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['net_capital'].touched && f['net_capital'].invalid">
+                                        <small class="text-danger" *ngIf="f['net_capital'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                         
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Reserve & Surplus<span
                                             class="required-asterisk">*</span></label>
-                                    <input formControlName="res_surplus" type="text" class="form-control form-control-sm" placeholder="Enter Surplus">
-                                    <div *ngIf="f['res_surplus'].touched && f['res_surplus'].invalid">
-                                        <small class="text-danger" *ngIf="f['res_surplus'].errors?.['required']">*Required</small>
+                                    <input formControlName="reserve_surplus" type="text" class="form-control form-control-sm">
+                                    <div *ngIf="f['reserve_surplus'].touched && f['reserve_surplus'].invalid">
+                                        <small class="text-danger" *ngIf="f['reserve_surplus'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                          
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Paid Up Capital<span
                                             class="required-asterisk">*</span></label>
-                                    <input formControlName="paid_up_capital" type="text" class="form-control form-control-sm" placeholder="Enter Paid Up Capital">
-                                    <div *ngIf="f['paid_up_capital'].touched && f['paid_up_capital'].invalid">
-                                        <small class="text-danger" *ngIf="f['paid_up_capital'].errors?.['required']">*Required</small>
+                                    <input formControlName="paid_upcapital" type="text" class="form-control form-control-sm">
+                                    <div *ngIf="f['paid_upcapital'].touched && f['paid_upcapital'].invalid">
+                                        <small class="text-danger" *ngIf="f['paid_upcapital'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Turnover (Cr)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="turnover" type="text" class="form-control form-control-sm" placeholder="Enter Total Turnover" appNumberOnly>
-                                    <div *ngIf="f['turnover'].touched && f['turnover'].invalid">
-                                        <small class="text-danger" *ngIf="f['turnover'].errors?.['required']">*Required</small>
+                                    <label class="form-label fl-10">Annuval Turnover (Cr)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
+                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Net Working Capital (Cr)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="net_working_capital" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['net_working_capital'].touched && f['net_working_capital'].invalid">
+                                        <small class="text-danger" *ngIf="f['net_working_capital'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -294,22 +257,17 @@
                                </textarea>
                                 </div>
                         </div>
-                        <!-- Other Fields... -->
-                      
                         <!-- Attachment Documents -->
                         <div class="row">
                                 <div class="col-lg-12 col-sm-6">
-                                    <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
+                                    <label id="label1"> Upload Documents </label><br>
                                     <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
                                       placeholder="Upload a file..." multiple="true" />
-                                   
                               </div>
-                          
                         </div>
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
                             <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
-
                         </div>
                       </form>
                       

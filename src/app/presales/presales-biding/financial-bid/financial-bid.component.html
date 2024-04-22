@@ -77,7 +77,9 @@
                             <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
-                                <td>{{a.tender_title}}</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                                    {{a.tender_title | slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                </td>
                                 <td>{{a.tender_ref_no}}</td>
                                 <td>{{a.publish_date}}</td>
                                 <td>{{a.financialyear}}</td>
@@ -167,7 +169,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
-                                    <select formControlName="financialyear_id" class="form-select form-select-sm">
+                                    <select formControlName="financialyear_id" class="form-select form-select-sm" (ngModelChange)="finBidComprision()">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
                                         <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
                                     </select>
@@ -181,7 +183,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Annual Turnover (Required)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" usd-only>
+                                    <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" usd-only appNumberOnly>
                                     <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
                                         <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
                                     </div>
@@ -192,11 +194,21 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Net Worth (Required)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="net_worth" placeholder="Enter Net Worth" type="text" class="form-control form-control-sm" usd-only>
+                                    <input formControlName="net_worth" type="text" class="form-control form-control-sm" usd-only appNumberOnly>
                                     <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
                                         <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
                                     </div>
                                     
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Net Working Capital (Cr)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="Net_Working_Capital" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['Net_Working_Capital'].touched && f['Net_Working_Capital'].invalid">
+                                        <small class="text-danger" *ngIf="f['Net_Working_Capital'].errors?.['required']">*Required</small>
+                                    </div>
                                 </div>
                             </div>
                           

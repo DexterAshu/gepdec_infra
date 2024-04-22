@@ -67,7 +67,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
+                                            <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
                                             <select formControlName="company_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
                                                 <option [selected]="true" [disabled]="true">Select Company</option>
                                                 <option *ngFor="let c of companyData" value="{{c.company_id}}">{{c.company_name}}</option>
@@ -80,7 +80,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Tender/Project Title<span class="required-asterisk">*</span></label>
+                                            <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
                                             <input formControlName="tender_title" type="text" class="form-control form-control-sm" >
                                                 <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_title'].errors?.['required']">*Required</small>
@@ -124,7 +124,7 @@
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Publish Date<span
                                                     class="required-asterisk">*</span></label>
-                                            <input formControlName="publish_date" type="date" class="form-control form-control-sm">
+                                            <input formControlName="publish_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                                             <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -151,7 +151,7 @@
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Opening Date<span
                                                     class="required-asterisk">*</span></label>
-                                            <input formControlName="opening_date" type="date" class="form-control form-control-sm">
+                                            <input formControlName="opening_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                                             <div *ngIf="f['opening_date'].touched && f['opening_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['opening_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -161,7 +161,7 @@
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Closing Date<span
                                                     class="required-asterisk">*</span></label>
-                                            <input formControlName="closing_date" type="date" class="form-control form-control-sm">
+                                            <input formControlName="closing_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                                             <div *ngIf="f['closing_date'].touched && f['closing_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['closing_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -173,7 +173,7 @@
                                         <div class="form-group">
                                             <label class="form-label fl-10">Soft Copy Submission Date & Time<span
                                                     class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_submission_date" type="datetime-local" class="form-control form-control-sm">
+                                            <input formControlName="tender_submission_date" type="datetime-local" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
                                             <div *ngIf="f['tender_submission_date'].touched && f['tender_submission_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_submission_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -181,8 +181,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Hard Copy Submission Date & Time</label>
-                                            <input formControlName="tenderhardcopysubmission_date" type="datetime-local" class="form-control form-control-sm">
+                                            <label class="form-label fl-10">Hard Copy Submission Date & Time</label> 
+                                            <input formControlName="tenderhardcopysubmission_date" type="datetime-local" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
                                             <!-- <div *ngIf="f['tenderhardcopysubmission_date'].touched && f['tenderhardcopysubmission_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['tenderhardcopysubmission_date'].errors?.['required']">*Required</small>
                                             </div> -->
@@ -208,7 +208,7 @@
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Pre-bid Meeting Date<span
                                                     class="required-asterisk">*</span></label>
-                                            <input formControlName="prebid_date" type="date" class="form-control form-control-sm">
+                                            <input formControlName="prebid_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                                             <div *ngIf="f['prebid_date'].touched && f['prebid_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['prebid_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -219,7 +219,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Technical Bid Opening Date & Time<span class="required-asterisk">*</span></label>
-                                            <input formControlName="tech_bid_date" type="datetime-local" class="form-control form-control-sm">
+                                            <input formControlName="tech_bid_date" type="datetime-local" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
                                             <div *ngIf="f['tech_bid_date'].touched && f['tech_bid_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['tech_bid_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -229,7 +229,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Financial Bid Opening Date</label>
-                                            <input formControlName="fin_bid_opening_date" type="date" class="form-control form-control-sm">
+                                            <input formControlName="fin_bid_opening_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                                             <!-- <div *ngIf="f['fin_bid_opening_date'].touched && f['fin_bid_opening_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['fin_bid_opening_date'].errors?.['required']">*Required</small>
                                             </div> -->
@@ -283,8 +283,8 @@
     </div>
 </div>
 
-<ng-container *ngIf="sel.value == '1001'">
-    <div class="col-md-4" *ngIf="toggleSecurityField">
+<ng-container *ngIf="sel.value == '1001' && 'toggleSecurityField'">
+    <div class="col-md-4">
         <div class="form-group">
             <label class="form-label fl-10">Security Amount<span class="required-asterisk">*</span></label>
             <input formControlName="security_amount" type="text" class="form-control form-control-sm" usd-only>
@@ -294,10 +294,10 @@
         </div>
     </div>
     
-    <div class="col-md-4" *ngIf="toggleSecurityField">
+    <div class="col-md-4">
         <div class="form-group">
-            <label class="form-label fl-10"> Submission Date<span class="required-asterisk">*</span></label>
-            <input formControlName="securitysubmission_date" type="date" class="form-control form-control-sm">
+            <label class="form-label fl-10"> Security Submission Date<span class="required-asterisk">*</span></label>
+            <input formControlName="securitysubmission_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
             <div *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
             </div>
                 <small class="text-danger" *ngIf="f['securitysubmission_date'].errors?.['required']">*Required</small>
@@ -321,8 +321,8 @@
     </div>
 </div>
 
-<ng-container *ngIf="pg.value == '1001'">
-<div class="col-md-4" *ngIf="selectPGField">
+<ng-container *ngIf="pg.value == '1001' && 'selectPGField'">
+<div class="col-md-4">
     <div class="form-group">
         <label class="form-label fl-10">PG Amount<span class="required-asterisk">*</span></label>
         <input formControlName="pg_amount" type="text" class="form-control form-control-sm" appNumberOnly>
@@ -333,11 +333,11 @@
 </div>
 
 
-<div class="col-md-4" *ngIf="selectPGField">
+<div class="col-md-4">
   
         <div class="form-group">
-            <label class="form-label fl-10">Submission Date<span class="required-asterisk">*</span></label>
-            <input formControlName="pgsubmission_date" type="date" class="form-control form-control-sm">
+            <label class="form-label fl-10">PG Submission Date<span class="required-asterisk">*</span></label>
+            <input formControlName="pgsubmission_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
             <div *ngIf="f['pgsubmission_date'].touched && f['pgsubmission_date'].invalid">
                 <small class="text-danger" *ngIf="f['pgsubmission_date'].errors?.['required']">*Required</small>
             </div>
@@ -363,8 +363,8 @@
     </div>
 </div>
 
-<ng-container *ngIf="emd.value == '401'">
-<div class="col-md-3" *ngIf="selectedEmdexemption">
+<ng-container *ngIf="emd.value == '401' && 'selectedEmdexemption'">
+<div class="col-md-3" >
     <div class="form-group">
         <label class="form-label fl-10">EMD Amount<span class="required-asterisk">*</span></label>
         <input formControlName="emd_ammount" type="text" class="form-control form-control-sm" appNumberOnly>
@@ -376,7 +376,7 @@
 
 
 
-<div class="col-md-3" *ngIf="selectedEmdexemption">
+<div class="col-md-3">
     <div class="form-group">
         <label class="form-label fl-10">EMD Payment Mode<span class="required-asterisk">*</span></label>
 
@@ -393,21 +393,21 @@
 
 
 
-<div class="col-md-3" *ngIf="selectedEmdexemption">
+<div class="col-md-3">
   
         <div class="form-group">
             <label class="form-label fl-10">EMD Submission Date<span class="required-asterisk">*</span></label>
-            <input formControlName="emd_submission_date" type="date" class="form-control form-control-sm">
+            <input formControlName="emd_submission_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
             <div *ngIf="f['emd_submission_date'].touched && f['emd_submission_date'].invalid">
                 <small class="text-danger" *ngIf="f['emd_submission_date'].errors?.['required']">*Required</small>
             </div>
         </div>
   
 </div>
-<div class="col-md-3" *ngIf="selectedEmdexemption">
+<div class="col-md-3">
   
         <div class="form-group">
-            <label class="form-label fl-10">Forfeiture Condition <span class="required-asterisk">*</span></label>
+            <label class="form-label fl-10">EMD Forfeiture Condition <span class="required-asterisk">*</span></label>
             <textarea formControlName="forfeiture_condition" type="date" class="form-control form-control-sm">
            </textarea>
                 <div *ngIf="f['forfeiture_condition'].touched && f['forfeiture_condition'].invalid">

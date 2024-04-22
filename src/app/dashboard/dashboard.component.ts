@@ -1470,7 +1470,7 @@ LineChartGraph = new Chart({
 //  }
 ],
 colors: [
-  '#d6a974',  '#97daa7',
+  '#d6a974',  '#97daa7'
 ],
 });
 
