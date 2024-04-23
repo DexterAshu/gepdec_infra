@@ -194,6 +194,11 @@ export class ApiService {
     const params = new HttpParams({ fromString: `bidder_id=${bidder_id}&financialyear_id=${financialyear_id}` });
     return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getMyComapanyFinancials?${params}`, httpOptions );
   }
+  finCalculateData(year: any, check: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+    return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/checkMyComapanyFinancials?${params}`, httpOptions );
+  }
   myCompanyDoc(data: any): Observable<any[]> {
     const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
     return this.http.post<any[]>(`${environment.apiUrl}/mycompany/api/v1/addMyComapanyDocuments`, data, httpOptions);
@@ -205,6 +210,31 @@ export class ApiService {
     const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
     return this.http.post<any[]>(`${environment.apiUrl}/document/api/v1/addDocument `, data, httpOptions);
   }
+  tenderDocuments(data: any): Observable<any[]> {
+    const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
+    return this.http.post<any[]>(`${environment.apiUrl}/document/api/v1/addTenderDocument `, data, httpOptions);
+  }
+
+  getTendListData(Tender: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    const params = new HttpParams({fromString: `doc_type=${Tender}`});
+    return this.http.get<any[]>(`${environment.apiUrl}/document/api/v1/getTenderDocumentList?${params}`, httpOptions);
+  }
+  getamendmentListData(amendment: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    const params = new HttpParams({fromString: `doc_type=${amendment}`});
+    return this.http.get<any[]>(`${environment.apiUrl}/document/api/v1/getTenderDocumentList?${params}`, httpOptions);
+  }
+  getinitialBOQListData(initialboq: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    const params = new HttpParams({fromString: `doc_type=${initialboq}`});
+    return this.http.get<any[]>(`${environment.apiUrl}/document/api/v1/getTenderDocumentList?${params}`, httpOptions);
+  }
+
+  // getTendListData(): Observable<any> {
+  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  //   return this.http.get<any>(`${environment.apiUrl}/document/api/v1/getTenderDocumentList`, httpOptions);
+  // }
   createOurFinDocuments(data: any): Observable<any[]> {
     const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
     return this.http.post<any[]>(`${environment.apiUrl}/mycompany/api/v1/addMyComapanyFinancials`, data, httpOptions);

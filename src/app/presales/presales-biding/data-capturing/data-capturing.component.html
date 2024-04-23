@@ -12,7 +12,7 @@
                                         Bid | Tender: Data Capturing
                                     </div>
                                     <div class="col-lg-6 " *ngIf="this.userData.rolename === 'Administrator'" >
-                                     <div class="float-right" *ngIf="update">
+                                     <!-- <div class="float-right" *ngIf="update">
                                          <button type="button" class="btn btn-secondary btn-fw btn-sm me-2">
                                             <span class="mdi mdi-backburger"></span>&nbsp;
                                              Send Back</button>
@@ -23,7 +23,7 @@
                                             <span class="mdi mdi-close-outline"></span>&nbsp;
                                              Rejected</button>
                 
-                                     </div>
+                                     </div> -->
                                       
                                     </div>
                 
@@ -124,7 +124,7 @@
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Publish Date<span
                                                     class="required-asterisk">*</span></label>
-                                            <input formControlName="publish_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+                                            <input formControlName="publish_date" type="date" class="form-control form-control-sm" >
                                             <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -133,9 +133,12 @@
 
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Tender Description</label>
+                                            <label class="form-label fl-10">Tender Description<span
+                                                class="required-asterisk">*</span></label>
                                             <input formControlName="tender_description" type="text" class="form-control form-control-sm">
-                                          
+                                            <div *ngIf="f['tender_description'].touched && f['tender_description'].invalid">
+                                                <small class="text-danger" *ngIf="f['tender_description'].errors?.['required']">*Required</small>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -147,21 +150,21 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <!-- <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Opening Date<span
                                                     class="required-asterisk">*</span></label>
-                                            <input formControlName="opening_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+                                            <input formControlName="opening_date" type="date" class="form-control form-control-sm">
                                             <div *ngIf="f['opening_date'].touched && f['opening_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['opening_date'].errors?.['required']">*Required</small>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Closing Date<span
                                                     class="required-asterisk">*</span></label>
-                                            <input formControlName="closing_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+                                            <input formControlName="closing_date" type="date" class="form-control form-control-sm" >
                                             <div *ngIf="f['closing_date'].touched && f['closing_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['closing_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -171,9 +174,9 @@
                                     
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Soft Copy Submission Date & Time<span
+                                            <label class="form-label fl-10">Soft Copy Submission Date<span
                                                     class="required-asterisk">*</span></label>
-                                            <input formControlName="tender_submission_date" type="datetime-local" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
+                                            <input formControlName="tender_submission_date" type="date" class="form-control form-control-sm">
                                             <div *ngIf="f['tender_submission_date'].touched && f['tender_submission_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_submission_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -181,45 +184,86 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Hard Copy Submission Date & Time</label> 
-                                            <input formControlName="tenderhardcopysubmission_date" type="datetime-local" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
-                                            <!-- <div *ngIf="f['tenderhardcopysubmission_date'].touched && f['tenderhardcopysubmission_date'].invalid">
-                                                <small class="text-danger" *ngIf="f['tenderhardcopysubmission_date'].errors?.['required']">*Required</small>
-                                            </div> -->
+                                            <label class="form-label fl-10">Hard Copy Submission Date</label> 
+                                            <input formControlName="tenderhardcopysubmission_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
+                                          
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Completion Period (Months)<span class="required-asterisk">*</span></label>
+                                            <input formControlName="completion_period" type="text" class="form-control form-control-sm" placeholder="Enter Completion Period in months" minlength="1" maxlength="2" appNumberOnly>
+                                            <div *ngIf="f['completion_period'].touched && f['completion_period'].invalid">
+                                                <small class="text-danger" *ngIf="f['completion_period'].errors?.['required']">*Required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Bid Validity (Days)<span class="required-asterisk">*</span></label>
+                                            <input formControlName="bid_validity" type="text" class="form-control form-control-sm" placeholder="Enter Bid Validity in Days" minlength="1" maxlength="3" appNumberOnly>
+                                            <div *ngIf="f['bid_validity'].touched && f['bid_validity'].invalid">
+                                                <small class="text-danger" *ngIf="f['bid_validity'].errors?.['required']">*Required</small>
+                                            </div>
                                         </div>
                                     </div>
 
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Pre-bid Meeting Mode<span class="required-asterisk">*</span></label>
-                                            <select formControlName="prebidmeetingmode_id" class="form-select form-select-sm">
-                                                <option [selected]="true" [disabled]="true" [value]="null">Select Mode</option>
-                                                <option *ngFor="let c of meetingMode" value="{{c.prebidmeetingmode_id}}">{{ c.prebidmeetingmode }}</option>
+                                            <label class="form-label fl-10">Reverse Auction<span class="required-asterisk">*</span></label>
+                                            <select formControlName="reserve_auction" class="form-select form-select-sm">
+                                                <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
-                                            <div *ngIf="f['prebidmeetingmode_id'].touched && f['prebidmeetingmode_id'].invalid">
-                                                <small class="text-danger" *ngIf="f['prebidmeetingmode_id'].errors?.['required']">*Required</small>
-                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Pre-bid Meeting<span class="required-asterisk">*</span></label>
+                                            <select formControlName="pre_meeting" #prebid_meeting class="form-select form-select-sm" (change)="togglePrebidField($event)">
+                                                <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                          
                                         </div>
                                     </div>
 
-                                 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Pre-bid Meeting Date<span
-                                                    class="required-asterisk">*</span></label>
-                                            <input formControlName="prebid_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
-                                            <div *ngIf="f['prebid_date'].touched && f['prebid_date'].invalid">
-                                                <small class="text-danger" *ngIf="f['prebid_date'].errors?.['required']">*Required</small>
+                                   
+                                        <div class="col-md-3" *ngIf="prebid_meeting.value == 'Yes' && 'selectPrebidField'">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10"> Tender Pre-bid Meeting Mode<span class="required-asterisk">*</span></label>
+                                                <select formControlName="prebidmeetingmode_id" class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Mode</option>
+                                                    <option *ngFor="let c of meetingMode" value="{{c.prebidmeetingmode_id}}">{{ c.prebidmeetingmode }}</option>
+                                                </select>
+                                                <div *ngIf="f['prebidmeetingmode_id'].touched && f['prebidmeetingmode_id'].invalid">
+                                                    <small class="text-danger" *ngIf="f['prebidmeetingmode_id'].errors?.['required']">*Required</small>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+    
+                                     
+                                        <div class="col-md-3" *ngIf="prebid_meeting.value == 'Yes' && 'selectPrebidField'">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10">Tender Pre-bid Meeting Date<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="prebid_date" type="date" class="form-control form-control-sm" >
+                                                <div *ngIf="f['prebid_date'].touched && f['prebid_date'].invalid">
+                                                    <small class="text-danger" *ngIf="f['prebid_date'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
 
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Technical Bid Opening Date & Time<span class="required-asterisk">*</span></label>
-                                            <input formControlName="tech_bid_date" type="datetime-local" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
+                                            <label class="form-label fl-10">Technical Bid Opening Date<span class="required-asterisk">*</span></label>
+                                            <input formControlName="tech_bid_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
                                             <div *ngIf="f['tech_bid_date'].touched && f['tech_bid_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['tech_bid_date'].errors?.['required']">*Required</small>
                                             </div>
@@ -229,7 +273,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Financial Bid Opening Date</label>
-                                            <input formControlName="fin_bid_opening_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+                                            <input formControlName="fin_bid_opening_date" type="date" class="form-control form-control-sm" >
                                             <!-- <div *ngIf="f['fin_bid_opening_date'].touched && f['fin_bid_opening_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['fin_bid_opening_date'].errors?.['required']">*Required</small>
                                             </div> -->
@@ -239,7 +283,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                           <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
-                                          <input formControlName="ecv" type="text" class="form-control form-control-sm" usd-only>
+                                          <input formControlName="ecv" type="text" class="form-control form-control-sm" appNumberOnly>
                                           <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
                                             <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
                                           </div>
@@ -250,7 +294,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Fee<span class="required-asterisk">*</span></label>
-                                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee" placeholder="Enter Tender Fee '0' if not applicable " usd-only>
+                                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee" placeholder="Enter Tender Fee '0' if not applicable " appNumberOnly>
                                             <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
                                                 <small class="text-danger" *ngIf="f['tender_fee'].errors?.['required']">*Required</small>
                                             </div> 
@@ -261,7 +305,7 @@
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Document Cost<span
                                                     class="required-asterisk">*</span></label>
-                                                    <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost" placeholder="Enter Doc Cost '0' if not applicable " usd-only >
+                                                    <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost" placeholder="Enter Doc Cost '0' if not applicable" appNumberOnly >
                                                     <div *ngIf="f['tender_doc_cost'].touched && f['tender_doc_cost'].invalid">
                                                         <small class="text-danger" *ngIf="f['tender_doc_cost'].errors?.['required']">*Required</small>
                                                     </div> 
@@ -284,20 +328,20 @@
 </div>
 
 <ng-container *ngIf="sel.value == '1001' && 'toggleSecurityField'">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group">
             <label class="form-label fl-10">Security Amount<span class="required-asterisk">*</span></label>
-            <input formControlName="security_amount" type="text" class="form-control form-control-sm" usd-only>
+            <input formControlName="security_amount" type="text" class="form-control form-control-sm" appNumberOnly>
             <div *ngIf="f['security_amount'].touched && f['security_amount'].invalid">
                 <small class="text-danger" *ngIf="f['security_amount'].errors?.['required']">*Required</small>
             </div>
         </div>
     </div>
     
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group">
             <label class="form-label fl-10"> Security Submission Date<span class="required-asterisk">*</span></label>
-            <input formControlName="securitysubmission_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+            <input formControlName="securitysubmission_date" type="date" class="form-control form-control-sm">
             <div *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
             </div>
                 <small class="text-danger" *ngIf="f['securitysubmission_date'].errors?.['required']">*Required</small>
@@ -309,7 +353,7 @@
 
 
 <!-- Performance Guarantee -->
-<div class="col-md-4">
+<div class="col-md-3">
     <div class="form-group">
         <label class="form-label fl-10">Tender Performance Guarantee<span class="required-asterisk">*</span></label>
         <select formControlName="performanceguarantee_id" #pg class="form-select form-select-sm" (change)="togglePGField($event)">
@@ -322,10 +366,10 @@
 </div>
 
 <ng-container *ngIf="pg.value == '1001' && 'selectPGField'">
-<div class="col-md-4">
+<div class="col-md-3">
     <div class="form-group">
-        <label class="form-label fl-10">PG Amount<span class="required-asterisk">*</span></label>
-        <input formControlName="pg_amount" type="text" class="form-control form-control-sm" appNumberOnly>
+        <label class="form-label fl-10">PG Amount (%)<span class="required-asterisk">*</span></label>
+        <input formControlName="pg_amount" type="text" class="form-control form-control-sm" appNumberOnly maxlength="3">
         <div *ngIf="f['pg_amount'].touched && f['pg_amount'].invalid">
             <small class="text-danger" *ngIf="f['pg_amount'].errors?.['required']">*Required</small>
         </div>
@@ -333,24 +377,24 @@
 </div>
 
 
-<div class="col-md-4">
+<!-- <div class="col-md-4">
   
         <div class="form-group">
             <label class="form-label fl-10">PG Submission Date<span class="required-asterisk">*</span></label>
-            <input formControlName="pgsubmission_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+            <input formControlName="pgsubmission_date" type="date" class="form-control form-control-sm">
             <div *ngIf="f['pgsubmission_date'].touched && f['pgsubmission_date'].invalid">
                 <small class="text-danger" *ngIf="f['pgsubmission_date'].errors?.['required']">*Required</small>
             </div>
         </div>
   
-</div>
+</div> -->
 </ng-container>
 
 <!-- Performance Guarantee End -->
 
 
 <!-- tender EMD -->
-<div class="col-md-4">
+<div class="col-md-3">
     <div class="form-group">
         <label class="form-label fl-10">Tender EMD Exemption<span class="required-asterisk">*</span></label>
         <select formControlName="exemption_id" #emd class="form-select form-select-sm" (change)="toggleEmdField($event)">
@@ -394,32 +438,27 @@
 
 
 <div class="col-md-3">
-  
         <div class="form-group">
             <label class="form-label fl-10">EMD Submission Date<span class="required-asterisk">*</span></label>
-            <input formControlName="emd_submission_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+            <input formControlName="emd_submission_date" type="date" class="form-control form-control-sm" >
             <div *ngIf="f['emd_submission_date'].touched && f['emd_submission_date'].invalid">
                 <small class="text-danger" *ngIf="f['emd_submission_date'].errors?.['required']">*Required</small>
             </div>
         </div>
-  
 </div>
 <div class="col-md-3">
-  
         <div class="form-group">
-            <label class="form-label fl-10">EMD Forfeiture Condition <span class="required-asterisk">*</span></label>
+            <label class="form-label fl-10">EMD Forfeiture Condition </label>
             <textarea formControlName="forfeiture_condition" type="date" class="form-control form-control-sm">
            </textarea>
-                <div *ngIf="f['forfeiture_condition'].touched && f['forfeiture_condition'].invalid">
-                <small class="text-danger" *ngIf="f['forfeiture_condition'].errors?.['required']">*Required</small>
-            </div>
+              
         </div>
   
 </div>
 </ng-container>
 <!-- tender EMD end -->
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Tender Payment Terms<span class="required-asterisk">*</span></label>
                                             <textarea type="text" class="form-control form-control-sm" formControlName="tenderpayment_terms" >
@@ -469,11 +508,10 @@
                                                     <td>{{a.designationname}}</td>
                                                     <td>{{a.deptname}}</td>
                                                     <td>{{a.contactno1}}</td>
-                                                  
                                                     <td>{{a.email}}</td>
                                                     <td>
-                                                        <input type="checkbox" (click)="handleCheckboxChange(a)">
-                                                        <!-- <input type="checkbox" (click)="handleCheckboxChange(a)"> -->
+                                                        <input formControlName="contactperson_check" type="checkbox" (click)="handleCheckboxChange(a)">
+                                                      
                                                     </td>
                                                   
                                                 </tr>
@@ -554,22 +592,16 @@
 
                                     <div class="col-md-12 mt-2">
                                         <div class="form-group">
-                                            <input class="mt-1" type="checkbox" id="termscheckbox" formControlName="termscheckbox" (change)="onCheckboxChange($event)">
+                                            <input class="mt-1" type="checkbox" id="termscheckbox" formControlName="termscheckbox">
                                             &nbsp;
-                                            <label for="termscheckbox" [ngStyle]="{ color: textColor }"> I accept that the selected fields and input data given by me are correct.</label>
+                                            <label for="termscheckbox" > I accept that the selected fields and input data given by me are correct.</label>
                                         </div>
                                     </div>
-
-                              
                                     <div class="modal-btns mt-3">
                                         <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
-                                        <!-- <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Save & Continue</button> -->
                                         <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
                                         <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" routerLink="/presales/presales-biding/data-capture-list">Close</button>
                                     </div>
-                                   
-                                   
-
                                 </div>
 
                             </div>
@@ -577,7 +609,6 @@
                             <div class="card p-3 mt-2">
                                 <div class="row" (click)="showClientDetails=!showClientDetails" style="cursor: pointer;"> 
                                     <div class="col-6">
-                                      
                                         <h5>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 1 16 16">
                                                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
@@ -596,7 +627,6 @@
 
                                 </div>
                                 <div class="row" *ngIf="showClientDetails">
-
                                     <table class="table table-hover table-striped custom-table">
                                         <thead class="hidden-thead"></thead>
                                         <tbody class="text-nowrap" *ngFor="let a of custDetails">
@@ -647,381 +677,111 @@
                                           </tr>
                                         </tbody>
                                       </table>
-                                 <!-- <div class="row" *ngFor="let a of custDetails">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Category</label> :
-                                            <span type="text" class=" form-control-sm">{{a.company_type}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">GST No</label> :
-                                            <span type="text" class=" form-control-sm">{{a.gst}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">PAN No</label> :
-                                            <span type="text" class=" form-control-sm">{{a.pan}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">DOI (Date of Incorporation)</label> :
-                                            <span type="text" class=" form-control-sm">{{a.doi}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Web Url</label> :
-                                            <span type="text" class=" form-control-sm">{{a.websiteurl}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Cin No</label> :
-                                            <span type="text" class=" form-control-sm">{{a.cinno}}</span>
-                                        </div>
-                                    </div>
-                                   
-
-                                 </div> -->
-                                 <!-- <h6 class="mt-2">Address Information</h6>
-                                 <div class="row" *ngFor="let a of addressDetails">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Country</label> :
-                                            <span type="text" class=" form-control-sm">{{a.name}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">State</label> :
-                                            <span type="text" class=" form-control-sm">{{a.state_name}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">District</label> :
-                                            <span type="text" class=" form-control-sm">{{a.district_name}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">City</label> :
-                                            <span type="text" class=" form-control-sm">{{a.city}}</span>
-                                        </div>
-                                    </div>
-                                   
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Pin Code</label> :
-                                            <span type="text" class=" form-control-sm">{{a.pincode}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Area</label> :
-                                            <span type="text" class=" form-control-sm">{{a.area}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Address line 1</label> :
-                                            <span type="text" class=" form-control-sm">{{a.address_line1}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Address line 2</label> :
-                                            <span type="text" class=" form-control-sm">{{a.address_line2}}</span>
-                                        </div>
-                                    </div>
-
-
-
-
-                                 </div> -->
-
-                                    <!-- <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Category</label>
-                                            <input formControlName="company_type" type="text" class="form-control form-control-sm" appUpperCase readonly>
-                                         
-                                           
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">GST No</label>
-                                            <input formControlName="gst" type="text" class="form-control form-control-sm" appUpperCase appNoSpace readonly>
-                                          
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">PAN No</label>
-                                            <input formControlName="pan" type="text" class="form-control form-control-sm" appUpperCase appNoSpace readonly>
-                                          
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">DOI (Date of Incorporation)</label>
-                                            <input formControlName="doi" type="date" class="form-control form-control-sm" readonly>
-                                          
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Country</label>
-                                            <input formControlName="country_id" type="text" class="form-control form-control-sm" (ngModelChange)="getStateData()" readonly>
-
-                                          
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">State</label>
-                                            <input formControlName="state_id" type="text" class="form-control form-control-sm" (ngModelChange)="getDistrictData()" readonly>
-
-                                          
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">District</label>
-                                            <input formControlName="district_id" type="text" class="form-control form-control-sm" readonly>
-
-                                          
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">City</label>
-                                            <input type="text" formControlName="city" class="form-control form-control-sm" readonly>
-                                          
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Web Url</label>
-                                            <input type="text" formControlName="web_url" class="form-control form-control-sm" readonly>
-                                          
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Cin No</label>
-                                            <input type="text" formControlName="cin_no" class="form-control form-control-sm" appUpperCase appNoSpace readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Pincode</label>
-                                            <input type="text" formControlName="pincode" class="form-control form-control-sm" appNumberOnly readonly>
-                                          
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Lane / Area</label>
-                                            <input type="text" formControlName="area" class="form-control form-control-sm" readonly>
-                                           
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Address line 1</label>
-                                            <input type="text" formControlName="address_line1" class="form-control form-control-sm" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Address line 2</label>
-                                            <input type="text" formControlName="address_line2" class="form-control form-control-sm" readonly>
-                                        </div>
-                                    </div> -->
-
-                                 
-
-                                  
-                                
                                 </div>
                              </div>
-
-                             <!-- <div class="card p-3 mt-2">
-
-                                <div class="row" (click)="showEligibility=!showEligibility" style="cursor: pointer;"> 
-                                    <div class="col-6">
-                                        <h5>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders" viewBox="0 1 16 16">
-                                                <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
-                                              </svg> &nbsp;
-                                            Qualifying Requirements | Eligibility 
-                                        </h5>
-
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="float-right" title="Show/Hide Details">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row" *ngIf="showEligibility">
-                                    
-                                        <button type="button" class="col-md-4 btn btn-primary fl-10" data-bs-toggle="modal" data-bs-target="#techModal"
-                                         style="border-radius: 15px;"> 1. Technical Qualification</button>
-                                         <button type="button" class="col-md-4 btn btn-info fl-10" data-bs-toggle="modal" data-bs-target="#finModal"
-                                         style="border-radius: 15px;"> 2. Financial Qualification</button>
-                                         <button type="button" class="col-md-4 btn btn-success fl-10" data-bs-toggle="modal" data-bs-target="#bankModal"
-                                         style="border-radius: 15px;"> 3. Bank Guarantee & Security Deposit</button>
-                                         
-                                </div>
-
-                              
-                            </div> -->
-                             <!-- <div class="card p-3 mt-2">
-
-                                <div class="row" (click)="showL1Schedule=!showL1Schedule" style="cursor: pointer;"> 
-                                    <div class="col-6">
-                                        <h5>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-bottom" viewBox="0 1 16 16">
-                                                <rect width="4" height="12" x="6" y="1" rx="1"/>
-                                                <path d="M1.5 14a.5.5 0 0 0 0 1zm13 1a.5.5 0 0 0 0-1zm-13 0h13v-1h-13z"/>
-                                              </svg> &nbsp;
-                                            L1 Schedule 
-                                        </h5>
-
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="float-right" title="Show/Hide Details">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                             
-
-                              
-                            </div> -->
-
-                            <!-- <div class="card p-2 mt-1" style="background-color: #f8faff;"> </div> -->
-<br>
+                            <br>
                         </form>
-
                     </div>
                 </div>
          
- <!-- create modal -->
-<div class="modal fade" id="createContact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-data-bs-backdrop="static" data-bs-keyboard="true">
-<div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Client Contacts Detail</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="container-fluid scroll-container">
-                <form [formGroup]="form1" (ngSubmit)="onSubmit1()">
-                    <div class="row">
-                   
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Client<span class="required-asterisk">*</span></label>
-                                <input formControlName="company_id" type="text" class="form-control form-control-sm" readonly>
-                              
-                            </div>
+                <!-- create modal -->
+                <div class="modal fade" id="createContact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+                data-bs-backdrop="static" data-bs-keyboard="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Client Contacts Detail</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Name<span class="required-asterisk">*</span></label>
-                                <input formControlName="name" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
-                                <div *ngIf="f1['name'].touched && f1['name'].invalid">
-                                    <small class="text-danger" *ngIf="f1['name'].errors?.['required']">*Required</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Designation</label>
-                                <select formControlName="usdg_id" class="form-select form-select-sm">
-                                    <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
-                                    <option *ngFor="let d of design" value="{{d.usdg_id}}">{{d.designationname}}</option>
-                                </select>
-                              
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Department</label>
-                                <select formControlName="usdt_id" class="form-select form-select-sm">
-                                    <option [selected]="true" [disabled]="true" [value]="null">Select Department</option>
-                                    <option *ngFor="let d of departMent" value="{{d.usdt_id}}">{{d.deptname}}</option>
-                                </select>
-                             
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Primary Contact No<span class="required-asterisk">*</span></label>
-                                <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
-                                maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
-                                <div *ngIf="f1['contactno1'].touched && f1['contactno1'].invalid">
-                                    <small class="text-danger" *ngIf="f1['contactno1'].errors?.['required']">*Required</small>
-                                    <small class="text-danger" *ngIf="f1['contactno1'].errors?.['pattern']">*Please enter 10 digit Contact No</small>
-                                </div>
+                        <div class="modal-body">
+                            <div class="container-fluid scroll-container">
+                                <form [formGroup]="form1" (ngSubmit)="onSubmit1()">
+                                    <div class="row">
                                 
-                            </div>
-                        </div>
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Secondary Contact No</label>
-                                <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
-                                maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
-                            </div>
-                        </div> -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
-                                <input formControlName="emailid" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
-                                <div *ngIf="f1['emailid'].touched && f1['emailid'].invalid">
-                                    <small class="text-danger" *ngIf="f1['emailid'].errors?.['required']">*Required</small>
-                                    <small class="text-danger" *ngIf="f1['emailid'].errors?.['pattern']">*Email must be a valid Email ID</small>
-                                </div>
-                            </div>
-                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Client<span class="required-asterisk">*</span></label>
+                                                <input formControlName="company_id" type="text" class="form-control form-control-sm" readonly>
+                                            
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Name<span class="required-asterisk">*</span></label>
+                                                <input formControlName="name" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
+                                                <div *ngIf="f1['name'].touched && f1['name'].invalid">
+                                                    <small class="text-danger" *ngIf="f1['name'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                   
-                     
-                        <div class="modal-btns">
-                            <button type="submit" *ngIf="!isSubmitted" [disabled]="!form1.valid" class="btn btn-primary btn-fw btn-sm mr-2">+ Add</button>
-                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                            <button type="button" id="cancel1" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Designation</label>
+                                                <select formControlName="usdg_id" class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
+                                                    <option *ngFor="let d of design" value="{{d.usdg_id}}">{{d.designationname}}</option>
+                                                </select>
+                                            
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Department</label>
+                                                <select formControlName="usdt_id" class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Department</option>
+                                                    <option *ngFor="let d of departMent" value="{{d.usdt_id}}">{{d.deptname}}</option>
+                                                </select>
+                                            
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Primary Contact No<span class="required-asterisk">*</span></label>
+                                                <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
+                                                maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                <div *ngIf="f1['contactno1'].touched && f1['contactno1'].invalid">
+                                                    <small class="text-danger" *ngIf="f1['contactno1'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger" *ngIf="f1['contactno1'].errors?.['pattern']">*Please enter 10 digit Contact No</small>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Secondary Contact No</label>
+                                                <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
+                                                maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
+                                                <input formControlName="emailid" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
+                                                <div *ngIf="f1['emailid'].touched && f1['emailid'].invalid">
+                                                    <small class="text-danger" *ngIf="f1['emailid'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger" *ngIf="f1['emailid'].errors?.['pattern']">*Email must be a valid Email ID</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                
+                                    
+                                        <div class="modal-btns">
+                                            <button type="submit" *ngIf="!isSubmitted" [disabled]="!form1.valid" class="btn btn-primary btn-fw btn-sm mr-2">+ Add</button>
+                                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                                            <button type="button" id="cancel1" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<!-- create contact end-->
+                </div>
+                </div>
+                <!-- create contact end-->
 
     
 

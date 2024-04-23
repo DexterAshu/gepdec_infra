@@ -19,7 +19,6 @@ export class DepartmentMasterComponent {
   isSubmitted: boolean = false;
   isExcelDownload: boolean = false;
   isExcelDownloadData:boolean = true;
-
   deptData: any = [];
   deptCount: any;
   inserteddata: any;
@@ -36,7 +35,7 @@ export class DepartmentMasterComponent {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       deptname: [null, Validators.required],
-      deptheadid: [null, Validators.required],
+      // deptheadid: [null, Validators.required],
      
     });
     this.departmentData();
@@ -97,23 +96,11 @@ downloadPdf() {
     if (this.form.valid) {
       this.isSubmitted = true;
 
-      // if (this.form.value.deptname !== null) {
-      //   var countryVal = this.countryData.filter((item: any) => {
-      //     return item.deptheadid == this.form.value.deptname;
-      //   });
-      //   this.form.value.deptname = countryVal[0]['deptheadid'];
-      // }
-      // else {
-      //   this.form.value.deptname = null;
-      // } 
-
       let params = {
         deptname: this.form.value.deptname,
-        deptheadid: this.form.value.deptheadid,
+        // deptheadid: this.form.value.deptheadid,
       };
-      this.apiService.createMasterDepartment( params).subscribe((res:any) => {
-        
-        
+      this.apiService.createMasterDepartment( params).subscribe((res:any) => {   
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;

@@ -30,6 +30,7 @@ export class TenderDocumentComponent {
   discardeddata: any;
   isExcelDownloadData: boolean = true;
   filterTenderDetailsData: any = [];
+  showTypeField: boolean = true;
   clientListData: any;
   tenderDetailsData: any;
   isOpen: boolean = false;
@@ -45,19 +46,12 @@ export class TenderDocumentComponent {
     this.documentForm = this.formBuilder.group({
       utility_id: ['',Validators.required],
       tender_id: ['',Validators.required],
-      bidtype: ['',Validators.required],
-      tender_location: ['',Validators.required],
-      completion_period: ['',Validators.required],
-      bid_validity: ['',Validators.required],
-      ecv: ['',Validators.required],
-      prebid_submission_date: ['',Validators.required],
-      tender_submission_date: ['',Validators.required],
       attachment: ['', Validators.required],
-      description: [''],
-    
-    
+      description: ['', Validators.required],
+      doc_type: ['Tender'],
     });
     this.getData();
+    this.listAPIData('Tender');
   }
   
   getData() {
@@ -75,9 +69,12 @@ export class TenderDocumentComponent {
       this.tenderType = res.bidtype;
     });
     
-    this.apiService.getDocListData().subscribe((res:any) => {
-      
-      
+
+  
+  }
+
+  listAPIData(data:any){
+    this.apiService.getTendListData(data).subscribe((res:any) => {
       if (res.status === 200) {
         this.docListData = res.result;
       } else {
@@ -107,10 +104,6 @@ export class TenderDocumentComponent {
   onResize(event: Event) {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
-
-
-
-  //button dropdown
 
 
   toggleDropdown() {
@@ -166,30 +159,20 @@ downloadPdf() {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-   
-    // formData.append('prebid_date', this.documentForm.value.prebid_date);
-    // formData.append('prebid_meeting_mode', this.documentForm.value.prebid_meeting_mode);
-    // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
-
     formData.append('utility_id', this.documentForm.value.utility_id);
     formData.append('tender_id', this.documentForm.value.tender_id);
-    formData.append('bidtype', this.documentForm.value.bidtype);
-    formData.append('tender_location', this.documentForm.value.tender_location);
-    formData.append('prebid_submission_date', this.documentForm.value.prebid_submission_date);
-    formData.append('tender_submission_date', this.documentForm.value.tender_submission_date);
-    formData.append('completion_period', this.documentForm.value.completion_period);
-    formData.append('ecv', this.documentForm.value.ecv);
-    formData.append('bid_validity', this.documentForm.value.bid_validity);
     formData.append('description', this.documentForm.value.description);
+    formData.append('doc_type', this.documentForm.value.doc_type);
     this.addDocument(formData);
   }
 
   addDocument(formData: FormData) {
-    this.apiService.createDocuments(formData).subscribe((res: any) => {
+    this.apiService.tenderDocuments(formData).subscribe((res: any) => {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
+        this.ngOnInit();
         this.documentForm.reset();
         this.alertService.success(response.message);
       } else {

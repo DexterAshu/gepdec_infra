@@ -48,6 +48,7 @@ export class DataCapturingComponent {
   selectedEmdexemption: boolean = false;
   selectSecurityField: boolean = false;
   selectPGField: boolean = false;
+  selectPrebidField: boolean = false;
   tenderData:any
   companyDetails: any;
   update: boolean = false;
@@ -69,11 +70,6 @@ export class DataCapturingComponent {
     private router: Router,
   
   ) {
-    // const todayDate = new Date();
-    // todayDate.setDate(todayDate.getDate() - 1);
-    // this.today = todayDate.toISOString().slice(0, 10);
-    // this.openingDateControl.setValue(this.today);
-
     this.route.params.subscribe((params: Params) => {
       this.tenderData = params;
     });
@@ -82,8 +78,8 @@ export class DataCapturingComponent {
       this.userData = JSON.parse(userDataString);
     }
    }
-
-
+   get f() { return this.form.controls; }
+   get f1(){return this.form1.controls}
  ngOnInit(){
     this.form = this.formBuilder.group({
       company_id: [null, Validators.required],
@@ -94,14 +90,16 @@ export class DataCapturingComponent {
       publish_date:[null, Validators.required],
       contact: this.formBuilder.array([]),
       // prebid_submission_date:[null, Validators.required],
-      prebid_date:[null, Validators.required],
-      prebidmeetingmode_id:[null, Validators.required],
+      prebid_date:[null],
+      completion_period:[null, Validators.required],
+      pre_meeting:[null, Validators.required],
+      prebidmeetingmode_id:[null],
       tender_submission_date:[null, Validators.required],
       tenderhardcopysubmission_date: [null],
-      tender_description:[null],
+      tender_description:[null, Validators.required],
       tender_detail_link:[null],  
-      
-      opening_date: [null, Validators.required],
+      bid_validity: [null, Validators.required],
+      reserve_auction: [null, Validators.required],
       closing_date: [null, Validators.required],
       tech_bid_date: [null, Validators.required],
       fin_bid_opening_date: [null],
@@ -122,9 +120,9 @@ export class DataCapturingComponent {
       //performance guarantee
       performanceguarantee_id:[null, Validators.required],
       pg_amount: [null],
-      pgsubmission_date:[null],
+      // pgsubmission_date:[null],
 
-      
+      contactperson_check: [null, Validators.required],
       termscheckbox:[null, Validators.required],
       tenderstatus_id:[null],
       working_notes:[null],
@@ -157,18 +155,18 @@ export class DataCapturingComponent {
       company_id:this.custDetails[0]?.company_name
     })
   }
-  termsCheckbox = new FormControl(false);
-  textColor = 'red'; // Initial text color
-  toggleTextColor(checked: boolean) {
-    this.textColor = checked ? 'green' : 'red';
-  }
+  // termsCheckbox = new FormControl(true);
+  // textColor = 'red'; 
+  // toggleTextColor(checked: boolean) {
+  //   this.textColor = checked ? 'green' : 'red';
+  // }
 
-  onCheckboxChange(event: Event) {
-    if (event.target instanceof HTMLInputElement) { // Check if the event target is an input element
-      const isChecked = event.target.checked; // Access the checked property safely
-      this.toggleTextColor(isChecked);
-    }
-  }
+  // onCheckboxChange(event: Event) {
+  //   if (event.target instanceof HTMLInputElement) { // Check if the event target is an input element
+  //     const isChecked = event.target.checked; // Access the checked property safely
+  //     this.toggleTextColor(isChecked);
+  //   }
+  // }
 
   getCountryData() {
     this.apiService.getCountryDataList().subscribe((res:any) => {
@@ -192,8 +190,6 @@ export class DataCapturingComponent {
     });
   }
   
-
-
   getDistrictData() {
     this.districtData = [];
     let data = this.form.value.state_id;
@@ -254,12 +250,24 @@ togglePGField(event: Event): void {
   const selectedValue = (event.target as HTMLSelectElement)?.value;
   if(selectedValue == '1001'){
     this.form.get('pg_amount')!.setValidators([Validators.required]);
-    this.form.get('pgsubmission_date')!.setValidators([Validators.required]);
+    // this.form.get('pgsubmission_date')!.setValidators([Validators.required]);
     this.selectPGField = !this.selectPGField;
   }
   else{
     this.form.get('pg_amount')!.clearValidators();
-    this.form.get('pgsubmission_date')!.clearValidators();
+    // this.form.get('pgsubmission_date')!.clearValidators();
+  }
+}
+togglePrebidField(event: Event): void {
+  const selectedValue = (event.target as HTMLSelectElement)?.value;
+  if(selectedValue == 'Yes'){
+    this.form.get('prebidmeetingmode_id')!.setValidators([Validators.required]);
+    this.form.get('prebid_date')!.setValidators([Validators.required]);
+    this.selectPrebidField = !this.selectPrebidField;
+  }
+  else{
+    this.form.get('prebidmeetingmode_id')!.clearValidators();
+    this.form.get('prebid_date')!.clearValidators();
   }
 }
 
@@ -278,15 +286,20 @@ ngAfterViewInit() : void{
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
           company_id: this.custDetails.company_id,
+          paymentmethod_id: this.custDetails.paymentmethod_id ,
           fin_bid_opening_date: this.custDetails.fin_bid_opening_date,
-          opening_date: this.custDetails.opening_date,
+          // opening_date: this.custDetails.opening_date,
+          reserve_auction: this.custDetails.reserve_auction,
           closing_date: this.custDetails.closing_date,
           prebid_date: this.custDetails.prebid_date,
+          pre_meeting: this.custDetails.pre_meeting,
           prebid_submission_date: this.custDetails.prebid_submission_date,
           prebidmeetingmode_id: this.custDetails.prebidmeetingmode_id,
           publish_date: this.custDetails.publish_date,
           tech_bid_date: this.custDetails.tech_bid_date,
           tender_description: this.custDetails.tender_description,
+          completion_period: this.custDetails.completion_period,
+          bid_validity: this.custDetails.bid_validity,
           tender_detail_link: this.custDetails.tender_detail_link,
           tender_doc_cost: this.custDetails.tender_doc_cost,
           tender_fee: this.custDetails.tender_fee,
@@ -305,7 +318,7 @@ ngAfterViewInit() : void{
       //performance Details
           performanceguarantee_id: this.custDetails.performanceguarantee_id,
           pg_amount: this.custDetails.pg_amount,
-          pgsubmission_date: this.custDetails.pgsubmission_date,
+          // pgsubmission_date: this.custDetails.pgsubmission_date,
       //exemption details
           exemption_id: this.custDetails.exemption_id,
           emd_ammount: this.custDetails.emd_ammount,
@@ -353,29 +366,20 @@ ngAfterViewInit() : void{
       this.listOfFiles.push(selectedFile.name);
       this.attachment.push(selectedFile);
     }
-    console.log(this.attachment);
   }
-
   removeSelectedFile(index: any) {
     this.listOfFiles.splice(index, 1);
     this.fileList.splice(index, 1);
   }
 
   getDetails(data:any) {
-    this.apiService.companyDetails(data).subscribe((res: any) => {
-      console.log(res);
-      
+    this.apiService.companyDetails(data).subscribe((res: any) => {      
       this.custDetails = res.result;
-      this.contactDetails = res.result[0].contact;
-      console.log(this.contactDetails);
-      
+      this.contactDetails = res.result[0].contact;     
       this.addressDetails = res.result[0].adderss;
   })
   }
-
-
-  get f() { return this.form.controls; }
-  get f1(){return this.form1.controls}
+  
 
   getCompanyData() {
     this.apiService.getCompanyList().subscribe((res: any) => {  
@@ -396,7 +400,6 @@ ngAfterViewInit() : void{
 
 
   handleCheckboxChange(data:any) {
-    debugger
     let dataLength = this.form.value.contact.filter((x:any)=>x.contact_id == data.contact_id)
     if(dataLength.length === 1){
       this.form.value.contact = this.form.value.contact.filter((x:any)=>x.contact_id !== data.contact_id)

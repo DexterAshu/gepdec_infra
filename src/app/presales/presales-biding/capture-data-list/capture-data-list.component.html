@@ -121,7 +121,7 @@
                                
                                 <th>Pre Bid Meeting Date</th>
                                 <th>Submission Date</th>
-                                <th>Opening Date</th>
+                               
                                 <th>Bid Opening Date</th>
                                 <th>Bid Opening Date</th>
                                 <th>Created By</th>
@@ -156,7 +156,7 @@
                                
                                 <td>{{ a.prebid_date | date: 'dd/MM/yyyy' }}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy:HH:mm'  }}</td>
-                                <td>{{ a.opening_date | date: 'dd/MM/yyyy' }}</td>
+                              
                                 <td>{{ a.tech_bid_date | date: 'dd/MM/yyyy:HH:mm'  }}</td>
                                 <td>{{ a.fin_bid_opening_date | date: 'dd/MM/yyyy' }}</td>
                                 <td>{{ a.createdby_name}}</td>
@@ -233,27 +233,30 @@
                                             <td>{{ rowData?.bidtype }}</td>
                                             </tr>
                                         <tr>
-                                            <th>Tender Opening Date</th>
-                                            <td>{{ rowData?.opening_date | date: 'dd/MM/yyyy'}}</td>
+                                        
                                             <th>Tender Description</th>
                                             <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_description }}">
                                                 {{rowData?.tender_description| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
                                             </td>
-                                        </tr>
-                                        <tr>
                                             <th>Tender Available Link</th>
                                             <td>{{ rowData?.tender_detail_link }}</td>
-                                            <th>Tender Closing Date</th>
-                                            <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy'}}</td>
-                                           
                                         </tr>
                                         <tr>
-                                            <th>Soft Copy Submission Date & Time</th>
-                                            <td>{{ rowData?.tender_submission_date |  date:"dd/MM/yyyy - HH:mm"}}</td>
-                                            <th>Hard Copy Submission Date & Time</th>
+                                            
+                                            <th>Tender Closing Date</th>
+                                            <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy'}}</td>
+                                            <th>Soft Copy Submission Date </th>
+                                            <td>{{ rowData?.tender_submission_date |  date:"dd/MM/yyyy"}}</td>
+                                        </tr>
+                                        <tr>
+
+                                            <th>Hard Copy Submission Date </th>
                                             <td>{{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy'}}</td>
+                                            <th>Pre-bid meeting</th>
+                                            <td>{{ rowData?.pre_meeting }}</td>
                                           </tr>
                                           <tr>
+                                           
                                             <th>Pre-bid Meeting Mode</th>
                                             <td>{{ rowData?.prebidmeetingmode }}</td>
                                             <th>Tender Pre-bid Meeting Date</th>
@@ -261,70 +264,94 @@
 
                                         </tr>
                                         <tr>
-                                            <th>Technical Bid Opening Date & Time</th>
-                                            <td>{{ rowData?.tech_bid_date | date:"dd/MM/yyyy - HH:mm"}}</td>
+                                          
+                                            <th>Technical Bid Opening Date </th>
+                                            <td>{{ rowData?.tech_bid_date | date:"dd/MM/yyyy"}}</td>
                                             <th>Financial Bid Opening Date</th>
                                             <td>{{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy'}}</td>
                                         </tr>
                                         <tr>
+                                           
                                             <th>ECV (Cr)</th>
                                             <td>{{ rowData?.ecv }}</td>
                                             <th>Tender Fee</th>
                                             <td>{{ rowData?.tender_fee }}</td>
                                             </tr>
                                             <tr>
+                                          
                                             <th>Tender Document Cost</th>
                                             <td>{{ rowData?.tender_doc_cost }}</td>
+                                            <th>Bid Validity</th>
+                                            <td>{{ rowData?.bid_validity }}</td>
+                                        </tr>
+                                        <tr>
+                                          
+                                            <th>Complition period</th>
+                                            <td>{{ rowData?.completion_period }}</td>
                                             <th>Security Deposit</th>
                                             <td>{{ rowData?.securitydeposit }}</td>
                                         </tr>
                                         <tr>
+                                           
                                             <th>Security Amount</th>
                                             <td>{{ rowData?.security_amount }}</td>
                                             <th>Security Submission Date</th>
                                             <td>{{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy' }}</td>
                                         </tr>
                                         <tr>
+                                        
                                             <th>Performance Guarantee</th>
                                             <td>{{ rowData?.performanceguarantee }}</td>
-                                            <th>Performance Amount</th>
+                                            <th>Performance Amount (%)</th>
                                             <td>{{ rowData?.pg_amount }}</td>
                                             </tr>
                                             <tr>
-                                            <th>Performance Submission Date</th>
-                                            <td>{{ rowData?.pgsubmission_date | date: 'dd/MM/yyyy'}}</td>
+                                         
                                             <th>Tender EMD Exemption</th>
                                             <td>{{ rowData?.emdexemption }}</td>
-                                          </tr>
-                                          <tr> 
                                             <th>EMD Amount</th>
                                             <td>{{ rowData?.emd_ammount }}</td>
+                                          </tr>
+                                           
+                                          <tr> 
+                                            
                                             <th>EMD Payment</th>
                                             <td>{{ rowData?.paymentmethod }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>EMD Submission Date</th>
                                             <td>{{ rowData?.emd_submission_date | date: 'dd/MM/yyyy'}}</td>
+                                        </tr>
+                                        <tr>
+                                           
                                             <th>Forfeiture Condition</th>
                                             <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.forfeiture_condition }}">
                                                 {{rowData?.forfeiture_condition| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
                                             </td>
-                                            </tr>
-                                            <tr>
                                             <th>Tender Status</th>
                                             <td>{{ rowData?.tender_status }}</td>
+                                            </tr>
+                                            <tr>
+                                          
                                             <th>Tender Payment Terms</th>
                                             <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tenderpayment_terms }}">
                                                 {{rowData?.tenderpayment_terms| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
                                             </td>
+                                            <th>Reverse Auction</th>
+                                            <td>{{ rowData?.reserve_auction }}</td>
                                         </tr>
+                                      
                                         <tr>
+                                           
                                             <th>Tender Terms & Condition</th>
                                             <td>{{ rowData?.termscheckbox }}</td>
                                             <th>Created By</th>
                                             <td>{{ rowData?.createdby_name }}</td>
-                                            <!-- <th>Created On</th>
-                                            <td>{{ rowData?.created }}</td> -->
+                                            </tr>
+                                            <tr>
+                                            
+                                            <th>Created On</th>
+                                            <td>{{ rowData?.created }}</td>
+                                            <th></th>
+                                            <td></td>
                                         </tr>
                                       
                                     </tbody>
@@ -481,7 +508,7 @@
                                                 <button  type="submit" class="btn btn-primary btn-fw btn-sm me-2 " [disabled]="form.invalid">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
                                                         <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z"/>
-                                                      </svg> &nbsp;Submit
+                                                      </svg> &nbsp;Approved
                                                 </button>
 
                                             </div>

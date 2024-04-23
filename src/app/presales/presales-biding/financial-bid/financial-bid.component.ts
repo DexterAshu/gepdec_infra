@@ -29,6 +29,7 @@ export class FinancialBidComponent {
   isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
+  ourCompanyFinDataField: boolean = false;
   update: boolean = false;
   button: string = 'Create';
   custDetails: any;
@@ -52,6 +53,8 @@ export class FinancialBidComponent {
   filterTenderDetailsData: any = [];
   attachment: any = [];
   annualTurnover = new FormControl();
+  finData: any;
+  finCalData: any;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -65,12 +68,22 @@ export class FinancialBidComponent {
  ngOnInit(){
     this.form = this.formBuilder.group({
         financialyear_id: [null, Validators.required],
-        Net_Working_Capital: ['', Validators.required],
+       
         annual_turnover: [null, Validators.required],
         tender_id:['', Validators.required],
         utility_id:['', Validators.required],
         net_worth: [null, Validators.required],
         remark: [null, Validators.required],
+        net_working_capital: [''],
+        total_liabilities: [''],
+        total_fixed_assets: [''],
+        net_profit: [''],
+        reserve_surplus: [''],
+        paid_upcapital: [''],
+        ebidta: [''],
+        itr:[''],
+        year:[''],
+        check:[''],
         nclt_status: [null],
         drt: [null],
         cdr: [null]    
@@ -122,14 +135,28 @@ export class FinancialBidComponent {
 
   }
 
+  yearBasedCalculateData(){
+    this.form.value.year;
+    let year = this.form.value.year;
+    let check = this.form.value.check;
+    this.apiService.finCalculateData(year, check).subscribe((res:any) =>{
+    this.finCalData = res.result;
+    console.log(this.finCalData);
+    
+  })
+    
+  }
+
   finBidComprision(){
     let financialyear_id = this.form.value.financialyear_id;
-    let didderID = this.tenderDetailsData.bidder_id;
-    // let didderID = this.tenderDetailsData.filter((data:any)=>data.bidder_id);
-    this.apiService.finComprisionData(didderID, financialyear_id).subscribe((res:any) =>{
-      console.log(res);
+      console.log(this.filterTenderDetailsData);
+    let didderID = this.filterTenderDetailsData[0].bidder_id;
+       this.apiService.finComprisionData(didderID, financialyear_id).subscribe((res:any) =>{
+        this.finData = res.result;
+       
       
     })
+    // this.ourCompanyFinDataField = !this.ourCompanyFinDataField;
   }
 
   getDetails(event: any) {
@@ -145,12 +172,15 @@ export class FinancialBidComponent {
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
 
+  
+
 //button dropdown
 isOpen: boolean = false;
 
 toggleDropdown() {
   this.isOpen = !this.isOpen;
 }
+
   
   fileList: File[] = [];
   listOfFiles: any[] = [];
@@ -235,12 +265,23 @@ downloadPdf() {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append("attachment", this.attachment[i]);
     }
-    formData.append("Net_Working_Capital",this.form.value.Net_Working_Capital);
+    formData.append('net_working_capital', this.form.value.net_working_capital)
+    formData.append('financialyear_id', this.form.value.financialyear_id);
+    formData.append('total_liabilities', this.form.value.total_liabilities);
+    formData.append('total_fixed_assets', this.form.value.total_fixed_assets);
+    formData.append('net_profit', this.form.value.net_profit);
+    formData.append('net_worth', this.form.value.net_worth);
+    formData.append('net_capital', this.form.value.net_capital);
+    formData.append('reserve_surplus', this.form.value.reserve_surplus);
+    formData.append('paid_upcapital', this.form.value.paid_upcapital);
+    formData.append('annual_turnover', this.form.value.annual_turnover);
+    formData.append('description', this.form.value.description);
+    formData.append('ebidta', this.form.value.ebidta);
+    formData.append('itr', this.form.value.itr);
+    formData.append('year', this.form.value.year);
+    formData.append('check', this.form.value.check);
     formData.append("tender_id",this.form.value.fixed_asset);
     formData.append("utility_id",this.form.value.utility_id);
-    formData.append("net_worth",this.form.value.net_worth);
-    formData.append("financialyear_id",this.form.value.financialyear_id);
-    formData.append("annual_turnover",this.form.value.annual_turnover);
     formData.append("remark",this.form.value.remark);
     formData.append("nclt_status",this.form.value.nclt_status);
     formData.append("drt",this.form.value.drt);

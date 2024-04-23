@@ -53,6 +53,10 @@ export class FinBalancesheetComponent {
       reserve_surplus: ['',Validators.required],
       paid_upcapital: ['',Validators.required],
       annual_turnover: ['',Validators.required],
+      ebidta: [''],
+      // itr:['',Validators.required],
+      // itr_date:[''],
+      // itr_number:[''],
       attachment: [''],
       description: [''],
     });
@@ -143,6 +147,14 @@ export class FinBalancesheetComponent {
     formData.append('paid_upcapital', this.documentForm.value.paid_upcapital);
     formData.append('annual_turnover', this.documentForm.value.annual_turnover);
     formData.append('description', this.documentForm.value.description);
+    formData.append('ebidta', this.documentForm.value.ebidta);
+    // formData.append('itr', this.documentForm.value.itr);
+    // if(this.documentForm.value.itr_number != '' || this.documentForm.value.itr_number != null){
+    //   formData.append('itr_number', this.documentForm.value.itr_number);
+    // }else{}
+    // if(this.documentForm.value.itr_date != '' || this.documentForm.value.itr_date != null){
+    //   formData.append('itr_date', this.documentForm.value.itr_date);
+    // }else{}
     this.addOurFinDocument(formData);
   }
   addOurFinDocument(formData: FormData) {
@@ -151,6 +163,7 @@ export class FinBalancesheetComponent {
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
+        this.ngOnInit();
         this.documentForm.reset();
         this.alertService.success(response.message);
       } else {

@@ -29,7 +29,12 @@ export class AmendmentsComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
-
+  clientListData: any;
+  tenderDetailsData: any;
+  filterTenderDetailsData: any = [];
+  showTypeField: boolean = true;
+  comData: any;
+ isOpen: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -38,25 +43,35 @@ export class AmendmentsComponent {
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({ 
-      publish_date: ['',Validators.required],
-      tender_ref_no: ['',Validators.required],
-      tender_title: ['',Validators.required],
-      utility: ['',Validators.required],
+      tender_id: ['',Validators.required],
+      utility_id: ['',Validators.required],
       attachment: ['', Validators.required],
       description: [''],
-     
+      doc_type: ['amendments'],
     });
-
+    this.listAPIData('amendments');
     this.getData();
-   
-
+  }
+  getDetails(event: any) {
+    const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    this.clientListData = company_id;
+    this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
+      this.tenderDetailsData = res.result;
+      console.log(this.tenderDetailsData);
+    });
   }
 
-  
+  getrefData(tender_id: any){
+    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
+   console.log(this.filterTenderDetailsData);
+ 
+  }
+
   getData() {
-    
-    // let data = this.documentForm.value.document_id;
-    // console.log(data);
+    this.apiService.getCompanyList().subscribe((res: any) => {  
+      this.comData = res.result;
+      console.log(this.comData);
+    });
     this.apiService.getDocType().subscribe((res: any) => {
       this.docType = res.documenttype;
     });
@@ -67,9 +82,10 @@ export class AmendmentsComponent {
       this.tenderType = res.bidtype;
     });
     
-    this.apiService.getDocListData().subscribe((res:any) => {
-      
-      
+   
+  }
+  listAPIData(data:any){
+    this.apiService.getamendmentListData(data).subscribe((res:any) => {
       if (res.status === 200) {
         this.docListData = res.result;
       } else {
@@ -100,8 +116,6 @@ export class AmendmentsComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
-  //button dropdown
-  isOpen: boolean = false;
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
@@ -110,7 +124,6 @@ export class AmendmentsComponent {
   get f() {
     return this.documentForm.controls;
   }
-
   exportAsXLSX1(){
     var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
      var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
@@ -133,29 +146,26 @@ downloadPdf() {
     });
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
-
-
   onSubmit() {
     console.log(this.documentForm.value);
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-   
-    formData.append('tender_title', this.documentForm.value.tender_title);
-    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
-    formData.append('publish_date', this.documentForm.value.publish_date);
-    formData.append('utility', this.documentForm.value.utility);
+    formData.append('doc_type', this.documentForm.value.doc_type);
+    formData.append('utility_id', this.documentForm.value.utility_id);
+    formData.append('tender_id', this.documentForm.value.tender_id);
     formData.append('description', this.documentForm.value.description);
     this.addDocument(formData);
   }
 
   addDocument(formData: FormData) {
-    this.apiService.createDocuments(formData).subscribe((res: any) => {
+    this.apiService.tenderDocuments(formData).subscribe((res: any) => {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
+        this.ngOnInit();
         this.documentForm.reset();
         this.alertService.success(response.message);
       } else {

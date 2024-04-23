@@ -137,151 +137,66 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Utility/Tendering Company<span class="required-asterisk">*</span></label>
-                                    <select formControlName="utility" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
-                                        <option *ngFor="let c of tenderType" value="{{c.bidtype_id}}">{{ c.bidtype }}</option>
+                                    <label class="form-label fl-10">Company<span class="required-asterisk">*</span></label>
+                                    <select formControlName="bidder_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select </option>
+                                        <option *ngFor="let f of companyData" value="{{f.bidder_id}}">{{ f.bidder_name }}</option>
                                     </select>
-                                    <div *ngIf="f['utility'].touched && f['utility'].invalid">
-                                        <small class="text-danger" *ngIf="f['utility'].errors?.['required']">*Required</small>
+                                    <div *ngIf="f['bidder_id'].touched && f['bidder_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['bidder_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Title/Projects<span class="required-asterisk">*</span></label>
-                                    <select formControlName="tender_title" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
-                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
-                                    </select>
-                                    <!-- <input formControlName="tender_title" type="text" class="form-control form-control-sm" placeholder="Enter Tender Title" appWordCapitalize> -->
-                                        <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_title'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Ref. No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" readonly >
-                                    <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                         
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Publish Date<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly>
-                                    <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
-                                        <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Category<span class="required-asterisk">*</span></label>
-                                    <select formControlName="bidtype" class="form-select form-select-sm">
+                                    <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
+                                    <select formControlName="financialyear_id" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Tender Category</option>
-                                        <option *ngFor="let c of tenderType" value="{{c.bidtype_id}}">{{ c.bidtype }}</option>
+                                        <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
                                     </select>
-                                    <div *ngIf="f['bidtype'].touched && f['bidtype'].invalid">
-                                        <small class="text-danger" *ngIf="f['bidtype'].errors?.['required']">*Required</small>
+                                    <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Execution Location<span class="required-asterisk">*</span></label>
-                                    <input formControlName="tender_location" type="text" class="form-control form-control-sm" placeholder="Enter Tender Execution Location" appWordCapitalize>
-                                    <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_location'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Completion Period (Months)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="completion_period" type="text" class="form-control form-control-sm" placeholder="Enter Completion Period in months" minlength="1" maxlength="2" appNumberOnly>
-                                    <div *ngIf="f['completion_period'].touched && f['completion_period'].invalid">
-                                        <small class="text-danger" *ngIf="f['completion_period'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Bid Validity (Days)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="bid_validity" type="text" class="form-control form-control-sm" placeholder="Enter Bid Validity in Days" minlength="1" maxlength="3" appNumberOnly>
-                                    <div *ngIf="f['bid_validity'].touched && f['bid_validity'].invalid">
-                                        <small class="text-danger" *ngIf="f['bid_validity'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="ecv" type="text" class="form-control form-control-sm" placeholder="Enter ECV" appNumberOnly>
-                                    <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
-                                        <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                       
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Pre-bid Submission Date<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="prebid_submission_date" type="date" class="form-control form-control-sm">
-                                    <div *ngIf="f['prebid_submission_date'].touched && f['prebid_submission_date'].invalid">
-                                        <small class="text-danger" *ngIf="f['prebid_submission_date'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Pre-bid Meeting Date<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="prebid_date" type="date" class="form-control form-control-sm">
-                                    <div *ngIf="f['prebid_date'].touched && f['prebid_date'].invalid">
-                                        <small class="text-danger" *ngIf="f['prebid_date'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Pre-bid Meeting Mode<span class="required-asterisk">*</span></label>
-                                    <select formControlName="prebid_meeting_mode" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Mode</option>
-                                        <option *ngFor="let c of tenderType" value="{{c.bidtype_id}}">{{ c.bidtype }}</option>
+                                    <label class="form-label fl-10">ITR<span class="required-asterisk">*</span></label>
+                                    <select formControlName="itr" #itr class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
                                     </select>
-                                    <div *ngIf="f['prebid_meeting_mode'].touched && f['prebid_meeting_mode'].invalid">
-                                        <small class="text-danger" *ngIf="f['prebid_meeting_mode'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Submission Date<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="tender_submission_date" type="date" class="form-control form-control-sm">
-                                    <div *ngIf="f['tender_submission_date'].touched && f['tender_submission_date'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_submission_date'].errors?.['required']">*Required</small>
+                                    <div *ngIf="f['itr'].touched && f['itr'].invalid">
+                                        <small class="text-danger" *ngIf="f['itr'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
+                            <ng-container *ngIf="itr.value =='Yes'">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">ITR Ref No</label>
+                                        <input formControlName="itr_number" type="text" class="form-control form-control-sm" >
+                                        <div *ngIf="f['itr_number'].touched && f['itr_number'].invalid">
+                                            <small class="text-danger" *ngIf="f['itr_number'].errors?.['required']">*Required</small>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">ITR Date</label>
+                                        <input formControlName="itr_date" type="date" class="form-control form-control-sm">
+                                        <div *ngIf="f['itr_date'].touched && f['itr_date'].invalid">
+                                            <small class="text-danger" *ngIf="f['itr_date'].errors?.['required']">*Required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
                         
                         </div>
                         <div class="form-row">

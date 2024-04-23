@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, MasterService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 @Component({
@@ -28,28 +28,22 @@ export class FinItrComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
+  financialData: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private masterService: MasterService,
   ) {}
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
-      tender_submission_date: ['',Validators.required],
-      // prebid_meeting_mode: ['',Validators.required],
-      // prebid_date: ['',Validators.required],
-      prebid_submission_date: ['',Validators.required],
-      publish_date: ['',Validators.required],
-      tender_location: ['',Validators.required],
-      bidtype: ['',Validators.required],
-      tender_ref_no: ['',Validators.required],
-      tender_title: ['',Validators.required],
-      completion_period: ['',Validators.required],
-      ecv: ['',Validators.required],
-      utility: ['',Validators.required],
-      bid_validity: ['',Validators.required],
+      bidder_id: ['',Validators.required],
+      financialyear_id: ['',Validators.required],
+      itr:['',Validators.required],
+      itr_date:[''],
+      itr_number:[''],
       attachment: ['', Validators.required],
       description: [''],
      
@@ -61,23 +55,15 @@ export class FinItrComponent {
   }
 
   
-  getData() {
-    
-    // let data = this.documentForm.value.document_id;
-    // console.log(data);
-    this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
-    });
-    this.apiService.getCompanyList().subscribe((res: any) => {  
+  getData() { 
+    const apiLink = `/mycompany/api/v1/getMyComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       this.companyData = res.result;
+    })
+    this.masterService.getFinData().subscribe((res:any) => {
+      this.financialData = res.result;
     });
-    this.apiService.getTenderType().subscribe((res: any) => {  
-      this.tenderType = res.bidtype;
-    });
-    
-    this.apiService.getDocListData().subscribe((res:any) => {
-      
-      
+    this.apiService.getOurFinList().subscribe((res:any) => {
       if (res.status === 200) {
         this.docListData = res.result;
       } else {
@@ -149,31 +135,27 @@ downloadPdf() {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-   
-    formData.append('tender_title', this.documentForm.value.tender_title);
-    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
-    formData.append('bidtype', this.documentForm.value.bidtype);
-    formData.append('tender_location', this.documentForm.value.tender_location);
-    formData.append('publish_date', this.documentForm.value.publish_date);
-    formData.append('prebid_submission_date', this.documentForm.value.prebid_submission_date);
-    // formData.append('prebid_date', this.documentForm.value.prebid_date);
-    // formData.append('prebid_meeting_mode', this.documentForm.value.prebid_meeting_mode);
-    // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
-    formData.append('tender_submission_date', this.documentForm.value.tender_submission_date);
-    formData.append('completion_period', this.documentForm.value.completion_period);
-    formData.append('ecv', this.documentForm.value.ecv);
-    formData.append('utility', this.documentForm.value.utility);
-    formData.append('bid_validity', this.documentForm.value.bid_validity);
+
+    formData.append('bidder_id', this.documentForm.value.bidder_id);
+    formData.append('financialyear_id', this.documentForm.value.financialyear_id);
+    formData.append('itr', this.documentForm.value.itr);
+    if(this.documentForm.value.itr_number != '' || this.documentForm.value.itr_number != null){
+      formData.append('itr_number', this.documentForm.value.itr_number);
+    }
+    if(this.documentForm.value.itr_date != '' || this.documentForm.value.itr_date != null){
+      formData.append('itr_date', this.documentForm.value.itr_date);
+    }
     formData.append('description', this.documentForm.value.description);
     this.addDocument(formData);
   }
 
   addDocument(formData: FormData) {
-    this.apiService.createDocuments(formData).subscribe((res: any) => {
+    this.apiService.createOurFinDocuments(formData).subscribe((res: any) => {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
+        this.ngOnInit();
         this.documentForm.reset();
         this.alertService.success(response.message);
       } else {

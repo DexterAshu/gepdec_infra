@@ -41,13 +41,13 @@ export class BankingDetailsComponent {
   userData: any;
   filterTenderDetailsData: any = [];
   securityData: any;
+  isOpen: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private  masterService: MasterService,
     private alertService: AlertService
   ) {
-
     const userDataString = localStorage.getItem('gdUserData');
     if (userDataString) {
       this.userData = JSON.parse(userDataString);
@@ -92,8 +92,6 @@ export class BankingDetailsComponent {
     this.documentForm.get('start_date')!.clearValidators();
   }
 
- 
-
   getData() {
     this.apiService.getDocType().subscribe((res: any) => {
       this.docType = res.documenttype;
@@ -104,8 +102,6 @@ export class BankingDetailsComponent {
     this.apiService.getTenderType().subscribe((res: any) => {  
       this.tenderType = res.bidtype;
       this.securityData = res.security;
-
-      console.log(this.tenderType)
     });
     this.masterService.getBankData().subscribe((res:any)=>{
       this.bankData = res.bank;
@@ -113,14 +109,9 @@ export class BankingDetailsComponent {
     this.apiService.getTenderList().subscribe((res: any) => {  
       this.tenderData = res.result;
     });
-    
     this.apiService.getBankDataList().subscribe((res:any) => {
-      
-      
       if (res.status === 200) {
         this.docListData = res.result;
-        console.log( this.docListData);
-        
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
@@ -131,15 +122,13 @@ export class BankingDetailsComponent {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
     this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
-      this.tenderDetailsData = res.result;
-      console.log(this.tenderDetailsData);
+    this.tenderDetailsData = res.result;
     });
   }
 
   getrefData(tender_id: any){
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
-
 
   onFileChanged(event: any) {
     try {
@@ -166,28 +155,22 @@ export class BankingDetailsComponent {
   get f() {
     return this.documentForm.controls;
   }
-
-  //button dropdown
-  isOpen: boolean = false;
-
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
   exportAsXLSX1(){
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
-    var wb = XLSX.utils.book_new();
+      var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
+      var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
+      var wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
-    XLSX.writeFile(wb, "Data_File.xlsx");
-
-        }
-downloadPdf() {
+      XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
+      XLSX.writeFile(wb, "Data_File.xlsx");
+    }
+  downloadPdf() {
   const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
   const pdfName = 'country_bulkload_template_file.xlsx';
   FileSaver.saveAs(pdfUrl, pdfName);
 }
-
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
       display: false,
@@ -196,14 +179,18 @@ downloadPdf() {
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
   
-
   onSubmit() {
+    // if (this.documentForm.value.extend_date != '') {
+    //   this.documentForm.value.extend_date == '';
+    // } else {
+    //   this.documentForm.value.extend_date = null;
+    // }
+
     console.log(this.documentForm.value);
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-
     formData.append('security_id', this.documentForm.value.security_id);
     formData.append('bank_id', this.documentForm.value.bank_id);
     formData.append('bg_number', this.documentForm.value.bg_number);
@@ -211,7 +198,12 @@ downloadPdf() {
     formData.append('start_date', this.documentForm.value.start_date);
     formData.append('end_date', this.documentForm.value.end_date);
     formData.append('submission_date', this.documentForm.value.submission_date);
-    formData.append('extend_date', this.documentForm.value.extend_date);
+
+    // const formValues = this.documentForm.value;
+    // Object.keys(formValues).forEach(extend_date => {   const value = formValues[extend_date];   if (value !== undefined && value !== null) {     formData.append(extend_date, value);   } });
+    if(this.documentForm.value.extend_date != '' || this.documentForm.value.extend_date != null){
+      formData.append('extend_date', this.documentForm.value.extend_date);
+    }
     formData.append('tender_id', this.documentForm.value.tender_id);
     formData.append('utility_id', this.documentForm.value.utility_id);
     formData.append('document_description', this.documentForm.value.document_description);
