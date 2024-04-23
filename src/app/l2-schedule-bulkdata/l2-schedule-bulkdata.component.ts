@@ -179,17 +179,12 @@ export class L2ScheduleBulkdataComponent {
 
   formatDate(date: Date): string {
     const year = date.getFullYear();
-    const month = this.padZero(date.getMonth() + 1);
-    const day = this.padZero(date.getDate());
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
 
-  padZero(num: number): string {
-      return `${num < 10 ? '0' : ''}${num}`;
-  }
-
   editSubTaskRow(task: any, subTask: any) {
-    console.log(task, subTask);
     this.selectedSubTaskForEdit = subTask;
     subTask.start_date = this.formatDate(new Date(subTask.start_date));
     subTask.end_date = this.formatDate(new Date(subTask.end_date));
