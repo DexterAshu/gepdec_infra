@@ -139,7 +139,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">GST No<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">GST No</label>
                                                 <input formControlName="gstNo" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
                                                 <div *ngIf="f['gstNo'].touched && f['gstNo'].invalid">
                                                     <small class="text-danger" *ngIf="f['gstNo'].errors?.['required']">*Required</small>
@@ -148,7 +148,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">GST Reg Date<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">GST Reg Date</label>
                                                 <input formControlName="gstDate" type="date" class="form-control form-control-sm" [max]="currentDate | date: 'yyyy-MM-dd'">
                                                 <div *ngIf="f['gstDate'].touched && f['gstDate'].invalid">
                                                     <small class="text-danger" *ngIf="f['gstDate'].errors?.['required']">*Required</small>
@@ -166,7 +166,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">TAN No<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">TAN No</label>
                                                 <input formControlName="tanNo" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
                                                 <div *ngIf="f['tanNo'].touched && f['tanNo'].invalid">
                                                     <small class="text-danger" *ngIf="f['tanNo'].errors?.['required']">*Required</small>

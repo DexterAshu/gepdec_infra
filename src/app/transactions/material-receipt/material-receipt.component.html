@@ -43,7 +43,7 @@
                 <tr *ngFor="let purchase of poData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
                   <td>{{ purchase.tender_ref_no }}</td>
-                  <td>{{ purchase.tender_title }}</td>
+                  <td data-toggle="tooltip" data-placement="bottom" title="{{ purchase.tender_title }}">{{purchase.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
                   <td>{{ purchase.tender_location }}</td>
                   <td>
                     <a data-bs-toggle="modal" (click)="getPODetails(purchase.po_id)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewModel" title="Warehouse Profile">{{ purchase.pono }}</a>
@@ -139,7 +139,7 @@
                     <tbody class="text-nowrap">
                       <tr>
                         <th>Tender Title</th>
-                        <td>{{ selectedPO?.tender_title }}</td>
+                        <td data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO.tender_title }}">{{selectedPO.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
                         <th>Tender Ref. No.</th>
                         <td>{{ selectedPO?.tender_ref_no }}</td>
                         <th>BOQ</th>
@@ -280,7 +280,7 @@
                     <tbody class="text-nowrap">
                       <tr *ngFor="let item of selectedPO?.items">
                         <td>{{ item?.itemcode }}</td>
-                        <td>{{ item?.description }}</td>
+                        <td data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}">{{item?.description | slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
                         <td>{{ item?.qty }}</td>
                         <td>{{ item?.pobalance_qty }}</td>
                         <td>{{ item?.uom }}</td>

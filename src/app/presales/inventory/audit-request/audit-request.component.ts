@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { MasterService, AlertService, ApiService, SharedService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -31,7 +31,7 @@ export class AuditRequestComponent {
   itemCategory: any = [];
   ItemSubCategory: any = [];
 
-  constructor( private fb: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) {
+  constructor( private fb: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef ) {
     var date = this.date.getDate();
     var month = 1+this.date.getMonth();
     var year = this.date.getFullYear();
@@ -43,6 +43,10 @@ export class AuditRequestComponent {
   ngOnInit(): void {
     this.formInit();
     this.getData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   get f() { return this.form.controls; }

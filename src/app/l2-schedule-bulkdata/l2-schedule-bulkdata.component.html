@@ -19,7 +19,9 @@
             <div class="col-lg-4 col-4">
               <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
-            <div class="col-lg-8 col-8"></div>
+            <div class="col-lg-8 col-8">
+              <button type="button" data-bs-toggle="modal" (click)="getCompanyList()" data-bs-target="#createL2Modal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+            </div>
           </div>
           <app-responsive-table>
             <thead class="table-primary text-nowrap">
@@ -28,21 +30,25 @@
                 <th>Client</th>
                 <th>Tender Ref No</th>
                 <th>Tender Title</th>
+                <th>Location</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Tenure (MONTHS)</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let a of l1ScheduleData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+              <tr *ngFor="let a of l2ScheduleData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.company_name }}</td>
                 <td>{{ a.tender_ref_no }}</td>
-                <td>{{ a.tender_title }}</td>
-                <td>{{ a.start_date | date }}</td>
-                <td>{{ a.end_date | date }}</td>
+                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                <td>{{ a.tender_location }}</td>
+                <td>{{ a.l1_start_date | date:'dd-MM-yyyy' }}</td>
+                <td>{{ a.l1_end_date | date:'dd-MM-yyyy' }}</td>
+                <td>{{ a.tender_completion_period }}</td>
                 <td>
-                  <a class="" data-bs-toggle="modal" data-bs-target="#viewModel" title="Detail Data"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                  <a class="" (click)="selectedRow(a)" data-bs-toggle="modal" data-bs-target="#viewModel" title="Detail Data"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#createL2Modal" title="Edit Details" (click)="selectedRow(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                   <!-- <a data-bs-toggle="modal" data-bs-target="#deleteModel" title="Delete Data"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                 </td>
@@ -50,7 +56,7 @@
               <tr *ngIf="isNotFound == true">
                 <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>
               </tr>
-              <tr *ngIf="l1ScheduleData?.length == 0">
+              <tr *ngIf="l2ScheduleData?.length == 0">
                 <td colspan="15" class="text-center"><div class="text-warning fw-semibold">Looks like no data available!</div></td>
               </tr>
             </tbody>
@@ -65,7 +71,7 @@
 </div>
 
 <div class="modal fade" id="createL2Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">L2 Schedule Information</h5>
@@ -79,14 +85,86 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="fl-10">Client</label>
-                  <input type="text" formControlName="company_name" class="form-control form-control-sm login-input" style="border-radius: 6px;" placeholder="Enter Client Name">
+                  <select formControlName="company_id" class="form-select form-select-sm login-input" style="border-radius: 6px;" (ngModelChange)="getTenderListByCompany()">
+                    <option value=null disabled selected>Select Client</option>
+                    <option *ngFor="let c of companyList" value="{{c.company_id}}">{{ c.company_name }}</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="fl-10">Tender Ref No</label>
-                  <input type="text" formControlName="tender_ref_no" class="form-control form-control-sm login-input" style="border-radius: 6px;" placeholder="Enter Tender Ref No">
+                  <select formControlName="tender_id" class="form-select form-select-sm login-input" style="border-radius: 6px;" (ngModelChange)="getL1ScheduleDataByTender()">
+                    <option value=null disabled selected>Select Tender</option>
+                    <option *ngFor="let t of tenderList" value="{{t.tender_id}}">{{ t.tender_ref_no }}</option>
+                  </select>
                 </div>
+              </div>
+            </div>
+            <h6 class="my-2 text-secondary">Tender Details</h6>
+            <table class="table table-hover table-striped custom-table">
+              <thead class="hidden-thead"></thead>
+              <tbody>
+                <tr>
+                  <th>Company Name</th>
+                  <td>{{ l1ScheduleData?.company_name }}</td>
+                  <th>Tender Ref No.</th>
+                  <td>{{ l1ScheduleData?.tender_ref_no }}</td>
+                  <th>Tender Title</th>
+                  <td colspan="3">{{ l1ScheduleData?.tender_title }}</td>
+                </tr>
+                <tr>
+                  <th>Tender Location</th>
+                  <td>{{ l1ScheduleData?.tender_location }}</td>
+                  <th>L1 Start Date</th>
+                  <td>{{ l1ScheduleData?.l1_start_date | date:'dd-MM-yyyy' }}</td>
+                  <th>L1 End Date</th>
+                  <td>{{ l1ScheduleData?.l1_end_date | date:'dd-MM-yyyy' }}</td>
+                  <th>L1 Completion Period (MONTHS)</th>
+                  <td>{{ l1ScheduleData?.tender_completion_period }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h6 class="text-secondary mt-3 mb-2">Update for L2 Schedule</h6>
+            <div class="row">
+              <app-responsive-table>
+                <thead class="table-primary text-nowrap">
+                  <tr>
+                    <th>S No</th>
+                    <th>Task</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Days Difference</th>
+                    <th>Action</th>
+                    <th>Sub Task</th>
+                  </tr>
+                </thead>
+                <tbody class="text-nowrap">
+                  <tr *ngFor="let row of l1ScheduleData?.data; index as i">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ row.task }}</td>
+                    <td>{{ row.start_date | date:'dd-MM-yyyy' }}</td>
+                    <td>{{ row.end_date | date:'dd-MM-yyyy' }}</td>
+                    <td>{{ row.days_difference }}</td>
+                    <td><a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editTask" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a></td>
+                    <td>
+                      <table class="table">
+                        <tr *ngFor="let ct of row?.childtasks; index as ci">
+                          <td>{{i+1}}.{{ ci+1 }}</td>
+                          <td>{{ ct.task }}</td>
+                          <td>{{ ct.start_date | date:'dd-MM-yyyy' }}</td>
+                          <td>{{ ct.end_date | date:'dd-MM-yyyy' }}</td>
+                          <td>{{ ct.days_difference }}</td>
+                          <td><a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask" (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </app-responsive-table>
+              <div class="modal-btns mt-3">
+                <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2"> Create </button>
+                <button type="button" id="closed" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
               </div>
             </div>
           </form>
@@ -96,17 +174,217 @@
   </div>
 </div>
 
-<div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+<!-- editTask Model -->
+<div class="modal fade" id="editTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">View Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="exampleModalLabel">Task Update for L2 Schedule</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
-            <h1>L2 Schedule Information</h1>
+            <form [formGroup]="editTaskForm" (ngSubmit)="updateTask()">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label">Task ID<span class="required-asterisk">*</span></label>
+                    <input formControlName="task_id" type="text" readonly class="form-control form-control-sm" placeholder="Enter Task">
+                    <div *ngIf="etf['task_id'].touched && etf['task_id'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_id'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label">Task<span class="required-asterisk">*</span></label>
+                    <input formControlName="task" type="text" class="form-control form-control-sm" placeholder="Enter Task">
+                    <div *ngIf="etf['task'].touched && etf['task'].invalid">
+                      <small class="text-danger" *ngIf="etf['task'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
+                    <input formControlName="start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
+                    <div *ngIf="etf['start_date'].touched && etf['start_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['start_date'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label">End Date<span class="required-asterisk">*</span></label>
+                    <input formControlName="end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
+                    <div *ngIf="etf['end_date'].touched && etf['end_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['end_date'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-btns mt-3">
+                  <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#createL2Modal"> Update</button>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- editSubTask -->
+<div class="modal fade" id="editSubTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sub Task Update for L2 Schedule</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <form [formGroup]="editSubTaskForm" (ngSubmit)="updateSubTask()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Task ID<span class="required-asterisk">*</span></label>
+                    <input formControlName="task_id" type="text" readonly class="form-control form-control-sm" placeholder="Enter Task">
+                    <div *ngIf="etf['task_id'].touched && etf['task_id'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_id'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Parent Task ID<span class="required-asterisk">*</span></label>
+                    <input formControlName="parent_task_id" type="text" class="form-control form-control-sm" placeholder="Enter Task">
+                    <div *ngIf="etf['parent_task_id'].touched && etf['parent_task_id'].invalid">
+                      <small class="text-danger" *ngIf="etf['parent_task_id'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Task<span class="required-asterisk">*</span></label>
+                    <input formControlName="task" type="text" class="form-control form-control-sm" placeholder="Enter Task">
+                    <div *ngIf="etf['task'].touched && etf['task'].invalid">
+                      <small class="text-danger" *ngIf="etf['task'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
+                    <input formControlName="start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
+                    <div *ngIf="etf['start_date'].touched && etf['start_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['start_date'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">End Date<span class="required-asterisk">*</span></label>
+                    <input formControlName="end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
+                    <div *ngIf="etf['end_date'].touched && etf['end_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['end_date'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-btns mt-3">
+                  <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#createL2Modal"> Update</button>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">L2 Schedule Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="table-responsive" style="min-height: 300px">
+            <h6 class="mb-2 text-secondary">Tender Details</h6>
+            <table class="table table-hover table-striped custom-table">
+              <thead class="hidden-thead"></thead>
+              <tbody>
+                <tr>
+                  <th>Company Name</th>
+                  <td>{{ selectedRowData?.company_name }}</td>
+                  <th>Tender Ref No.</th>
+                  <td>{{ selectedRowData?.tender_ref_no }}</td>
+                  <th>Tender Title</th>
+                  <td colspan="3">{{ selectedRowData?.tender_title }}</td>
+                </tr>
+                <tr>
+                  <th>Tender Location</th>
+                  <td>{{ selectedRowData?.tender_location }}</td>
+                  <th>L1 Start Date</th>
+                  <td>{{ selectedRowData?.l1_start_date | date:'dd-MM-yyyy' }}</td>
+                  <th>L1 End Date</th>
+                  <td>{{ selectedRowData?.l1_end_date | date:'dd-MM-yyyy' }}</td>
+                  <th>L1 Completion Period (MONTHS)</th>
+                  <td>{{ selectedRowData?.tender_completion_period }}</td>
+                </tr>
+                <tr>
+                  <th>L2 Start Date</th>
+                  <td>{{ selectedRowData?.l1_start_date | date:'dd-MM-yyyy' }}</td>
+                  <th>L2 End Date</th>
+                  <td>{{ selectedRowData?.l1_end_date | date:'dd-MM-yyyy' }}</td>
+                  <th>L2 Completion Period (MONTHS)</th>
+                  <td>{{ selectedRowData?.tender_completion_period }}</td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <h6 class="mb-2 mt-4 text-secondary">Task Details for L2 Schedule</h6>
+            <app-responsive-table>
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>Task</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Days Difference</th>
+                  <th>Sub Task</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr *ngFor="let row of selectedRowData?.data; index as i">
+                  <td>{{ i+1 }}</td>
+                  <td>{{ row.task }}</td>
+                  <td>{{ row.start_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ row.end_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ row.days_difference }}</td>
+                  <td>
+                    <table class="table">
+                      <tr *ngFor="let ct of row?.childtasks; index as ci">
+                        <td>{{i+1}}.{{ ci+1 }}</td>
+                        <td>{{ ct.task }}</td>
+                        <td>{{ ct.start_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ ct.end_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ ct.days_difference }}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </app-responsive-table>
           </div>
         </div>
       </div>
