@@ -20,38 +20,19 @@ export class TechnicalBidComponent {
   searchText: any;
   companyData: any = [];
   isNotFound: boolean = false;
-  countryData: any;
-  stateData: any;
-  districtData: any = [];
   isSubmitted: boolean = false;
-  val: any;
-  country: any;
-  limits: any = [];
   addTech: any = [];
-  isExcelDownload: boolean = false;
-  updateData: any;
-  createModal: boolean = false;
-  update: boolean = false;
-  button: string = 'Create';
-  custDetails: any;
-  loadermsg: any;
   loading: boolean = false;
   companyList: any;
   tenderType: any;
-  design: any;
-  departMent: any;
-  financialData: any;
   clientListData: any;
   tendDetails: any;
   tenderDetailsData: any;
   tenderData: any;
   docListData: any;
-  bankData: any;
-  docType: any;
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
-  qualifyPoints: any;
   techData: any = [];
   filterTenderDetailsData: any = [];
   uploadFile: any;
@@ -60,6 +41,7 @@ export class TechnicalBidComponent {
   subCategoryData: any;
   capacityData: any;
   apiLink: any;
+  rowData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -78,10 +60,6 @@ export class TechnicalBidComponent {
       technical_points: [null, Validators.required],
     });
 
-    this.apiService.getTenderList().subscribe((res: any) => {
-      this.tenderData = res.result;
-    });
-
     this.getCompanyData();
     this.getData();
     this.getCategoryData();
@@ -94,10 +72,6 @@ export class TechnicalBidComponent {
     this.isNotFound = false;
     this.apiService.getCompanyList().subscribe((res: any) => {
       this.companyData = res.result;
-    });
-
-    this.apiService.getTenderList().subscribe((res: any) => {
-      this.tenderData = res.result;
     });
 
     this.apiService.getTechDataList().subscribe((res: any) => {
@@ -180,6 +154,11 @@ export class TechnicalBidComponent {
       this.tenderDetailsData = res.result;
       console.log(this.tenderDetailsData);
     });
+  }
+
+  rowListData(row:any) {
+    this.rowData = [];
+    this.rowData = row;
   }
 
   getrefData(tender_id: any) {

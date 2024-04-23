@@ -78,11 +78,11 @@
                                 <th>Tender Title</th>
                                 <th>Ref No</th>
                                 <th>Published Date</th>
-                                <th>Category</th>
+                                <!-- <th>Category</th>
                                 <th>Sub-Category</th>
                                 <th>Capacity</th>
-                                <th>Technical Points</th>
-                                <!-- <th>Action</th> -->
+                                <th>Technical Points</th> -->
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
@@ -95,21 +95,13 @@
                                 </td>
                                 <td>{{a.tender_ref_no}}</td>
                                 <td>{{a.publish_date}}</td>
-                                <td>{{a.qacatagory}}</td>
+                                <!-- <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
-                                <td>{{a.technical_points}}</td>
-                                <!-- <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
-                                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                                    &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details"><span
-                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal"
-                                        title="Delete Details"><span
-                                            class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
-                                </td> -->
+                                <td>{{a.technical_points}}</td> -->
+                                <td>
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                </td>
                             </tr>
                             <tr *ngIf="docListData?.length == 0">
                                 <td colspan="15" class="text-center">
@@ -304,3 +296,59 @@
     </div>
 </div>
 <!-- Technical modal end-->
+
+<!-- detail modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Technical Points List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive tableStyle">
+                                <table class="table table-hover table-striped mb-3">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th>S No</th>
+                                            <th>Category</th>
+                                            <th>Sub-Category</th>
+                                            <th>Capacity</th>
+                                            <th>Technical Point</th>
+                                            <th>Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr *ngFor="let a of rowData?.qualification; index as i">
+                                            <td>{{ limit*(p-1)+i+1 }}</td>
+                                            <td>{{ a?.qacatagory }}</td>
+                                            <td>{{ a?.subqacatagory }}</td>
+                                            <td>{{ a?.capacity }}</td>
+                                            <td>{{ a?.technical_points }}</td>
+                                            <td>--</td>
+                                        </tr>
+                                        <!-- <tr *ngIf="rowData?.length == 0">
+                                            <td colspan="15" class="text-center">
+                                                <div class="spinner-border"> </div>
+                                            </td>
+                                        </tr> -->
+                                        <tr *ngIf="rowData?.qualification?.length == 0">
+                                            <td colspan="15" class="text-center">
+                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail modal end-->
