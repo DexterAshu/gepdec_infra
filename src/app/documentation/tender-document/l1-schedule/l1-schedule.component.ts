@@ -15,7 +15,6 @@ export class L1ScheduleComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
   isSubmitted = false;
-  listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
   searchText: string = '';
@@ -103,7 +102,6 @@ export class L1ScheduleComponent {
     try {
       const files = event.target.files;
       for (let i = 0; i < files.length; i++) {
-        this.listOfFiles.push(files[i].name);
         this.attachment.push(files[i]);
       }
     } catch (error) {
@@ -142,11 +140,11 @@ export class L1ScheduleComponent {
       if (res.status == 200) {
         this.documentForm.reset();
         this.alertService.success(res.message);
+        document.getElementById('cancel')?.click();
       } else {
         this.alertService.warning(res.message);
       }
       this.isSubmitted = false;
-      document.getElementById('cancel')?.click();
     }),
     (error: any) => {
       this.isSubmitted = false;

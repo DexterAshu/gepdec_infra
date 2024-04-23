@@ -180,6 +180,7 @@ export class MaterialReceiptComponent {
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.selectedPO = res.result[0];
+        this.ngAfterViewInit();
       } else {
         this.selectedPO = [];
         this.alertService.warning("Looks like no data available in type.");
