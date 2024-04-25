@@ -39,7 +39,7 @@
           <li class="nav-item"> <a class="nav-link" routerLink="/dashboard/performance-dashboard">
               <i class="mdi mdi-chart-donut-variant menu-icon"></i>
               <span class="menu-title">Dashboard 4</span>
-              </a></li> 
+              </a></li>
         </ul>
       </div> -->
     </li>
@@ -159,7 +159,25 @@
               </ul>
             </div>
           </li>
-
+            <li class="nav-item">
+              <div class="ware" routerLink="/master/warehouse">
+                <a class="nav-link" data-toggle="collapse" href="#WarehouseMaster" aria-expanded="false" aria-controls="Biding">
+                  <i class="mdi mdi-content-save-settings menu-icon"></i>
+                  <span class="menu-title">Warehouse</span>
+                  <i class="menu-arrow"></i>
+                </a>
+              </div>
+              <div class="collapse" id="WarehouseMaster">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item sub-sub-menu">
+                    <a class="nav-link"routerLink="/master/items-location">
+                      <i class="mdi mdi-contacts menu-icon"></i>
+                      <span class="menu-title">Item Location</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#Bid-others" aria-expanded="false" aria-controls="Biding">
                   <i class="mdi mdi-content-save-settings menu-icon"></i>
@@ -191,8 +209,6 @@
                 </ul>
               </div>
             </li>
-
-
         </ul>
       </div>
     </li>
@@ -445,28 +461,6 @@
             </div>
             <div class="collapse" id="warehouse">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item sub-sub-menu">
-                  <div class="ware">
-                    <a class="nav-link" data-toggle="collapse" href="#slmaster" aria-expanded="false" aria-controls="slmaster">
-                      <i class="mdi mdi-home-assistant menu-icon"></i>
-                      <span class="menu-title">Master</span>
-                      <i class="menu-arrow"></i>
-                    </a>
-                  </div>
-                  <div class="collapse" id="slmaster">
-                    <ul class="nav flex-column sub-menu">
-                      <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/warehouse">
-                          <i class="mdi mdi-home-variant menu-icon"></i>
-                          <span class="menu-title">Warehouse</span>
-                        </a></li>
-                      <li class="nav-item sub-sub-menu"> <a class="nav-link" routerLink="/master/items-location">
-                          <i class="mdi mdi-home-variant menu-icon"></i>
-                          <span class="menu-title">Item Location</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
                   <li class="nav-item sub-sub-menu">
                     <div class="ware" routerLink="/presales/inventory">
                       <a class="nav-link" data-toggle="collapse" href="#inventory" aria-expanded="false" aria-controls="inventory">

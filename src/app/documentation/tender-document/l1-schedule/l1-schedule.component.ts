@@ -15,20 +15,15 @@ export class L1ScheduleComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
   isSubmitted = false;
-  fileList: any[] = [];
-  tableHeight: any;
   searchText: string = '';
   isNotFound: boolean = false;
-  meterData: any;
   p: number = 1;
   limit = environment.pageLimit;
-  docType: any;
   docListData: any;
   companyData: any;
   tenderList: any = [];
-  inserteddata: any;
   selectedTender: any;
-  discardeddata: any;
+  selectedRow: any;
   isExcelDownloadData: boolean = true;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService: SharedService, private elementRef: ElementRef) { }
@@ -79,6 +74,10 @@ export class L1ScheduleComponent {
     (error: any) => {
       this.alertService.error(`Error: ${error.message}`);
     }
+  }
+
+  selectRow(data: any): void {
+    this.selectedRow = data;
   }
 
   selectTender(): void {
