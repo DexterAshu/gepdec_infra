@@ -28,12 +28,12 @@
               <tr>
                 <th>S No</th>
                 <th>Client</th>
-                <th>Tender Ref No</th>
+                <th>Ref No</th>
                 <th>Tender Title</th>
                 <th>Location</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Tenure (MONTHS)</th>
+                <th>Completion Period (Months)</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -93,7 +93,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="fl-10">Tender Ref No</label>
+                  <label class="fl-10">Ref No</label>
                   <select formControlName="tender_id" class="form-select form-select-sm login-input" style="border-radius: 6px;" (ngModelChange)="getL1ScheduleDataByTender()">
                     <option value=null disabled selected>Select Tender</option>
                     <option *ngFor="let t of tenderList" value="{{t.tender_id}}">{{ t.tender_ref_no }}</option>
@@ -106,21 +106,23 @@
               <thead class="hidden-thead"></thead>
               <tbody>
                 <tr>
-                  <th>Company Name</th>
-                  <td>{{ l1ScheduleData?.company_name }}</td>
-                  <th>Tender Ref No.</th>
-                  <td>{{ l1ScheduleData?.tender_ref_no }}</td>
                   <th>Tender Title</th>
-                  <td colspan="3">{{ l1ScheduleData?.tender_title }}</td>
+                  <td colspan="5">{{ l1ScheduleData?.tender_title }}</td>
                 </tr>
                 <tr>
-                  <th>Tender Location</th>
+                  <th>Client</th>
+                  <td>{{ l1ScheduleData?.company_name }}</td>
+                  <th>Ref No</th>
+                  <td>{{ l1ScheduleData?.tender_ref_no }}</td>
+                  <th>Execution Location</th>
                   <td>{{ l1ScheduleData?.tender_location }}</td>
+                </tr>
+                <tr>
                   <th>L1 Start Date</th>
                   <td>{{ l1ScheduleData?.l1_start_date | date:'dd-MM-yyyy' }}</td>
                   <th>L1 End Date</th>
                   <td>{{ l1ScheduleData?.l1_end_date | date:'dd-MM-yyyy' }}</td>
-                  <th>L1 Completion Period (MONTHS)</th>
+                  <th>L1 Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
               </tbody>
@@ -146,7 +148,10 @@
                     <td>{{ row.start_date | date:'dd-MM-yyyy' }}</td>
                     <td>{{ row.end_date | date:'dd-MM-yyyy' }}</td>
                     <td>{{ row.days_difference }}</td>
-                    <td><a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editTask" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a></td>
+                    <td>
+                      <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                      <a title="Delete Details" (click)="removeTask(row)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                    </td>
                     <td>
                       <table class="table">
                         <tr *ngFor="let ct of row?.childtasks; index as ci">
@@ -155,10 +160,19 @@
                           <td>{{ ct.start_date | date:'dd-MM-yyyy' }}</td>
                           <td>{{ ct.end_date | date:'dd-MM-yyyy' }}</td>
                           <td>{{ ct.days_difference }}</td>
-                          <td><a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask" (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a></td>
+                          <td class="text-right">
+                            <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask" (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                            <a title="Delete Details" (click)="removeSubTask(row, ct)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="6" class="text-right"><a title="Create Details" (click)="addSubTask(row)" data-bs-toggle="modal" data-bs-target="#addSubTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
                         </tr>
                       </table>
                     </td>
+                  </tr>
+                  <tr>
+                    <td colspan="7" class="text-right"><a title="Create Details" class="me-3" data-bs-toggle="modal" data-bs-target="#addTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a>&nbsp;</td>
                   </tr>
                 </tbody>
               </app-responsive-table>
@@ -174,7 +188,59 @@
   </div>
 </div>
 
-<!-- editTask Model -->
+<div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Task Create for L2 Schedule</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row mt-3">
+            <form [formGroup]="addTaskForm" (ngSubmit)="createTask()">
+              <h6 class="mb-2 text-secondary">Add Task</h6>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label">Task<span class="required-asterisk">*</span></label>
+                    <input formControlName="task" type="text" class="form-control form-control-sm" placeholder="Enter Task">
+                    <div *ngIf="etf['task'].touched && etf['task'].invalid">
+                      <small class="text-danger" *ngIf="etf['task'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
+                    <input formControlName="start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
+                    <div *ngIf="etf['start_date'].touched && etf['start_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['start_date'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">End Date<span class="required-asterisk">*</span></label>
+                    <input formControlName="end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
+                    <div *ngIf="etf['end_date'].touched && etf['end_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['end_date'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-btns mt-3">
+                  <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#createL2Modal">Add Task</button>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="editTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
@@ -236,7 +302,77 @@
   </div>
 </div>
 
-<!-- editSubTask -->
+<div class="modal fade" id="addSubTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sub Task Create for L2 Schedule</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <h6 class="my-2 text-secondary">Task Details</h6>
+          <table class="table table-hover table-striped custom-table">
+            <thead class="hidden-thead"></thead>
+            <tbody>
+              <tr>
+                <th>Task</th>
+                <td>{{ addNewSubTaskInSelectedTask?.task }}</td>
+                <th>Completion Period (Days)</th>
+                <td>{{ addNewSubTaskInSelectedTask?.days_difference }}</td>
+              </tr>
+              <tr>
+                <th>L1 Start Date</th>
+                <td>{{ addNewSubTaskInSelectedTask?.start_date | date:'dd-MM-yyyy' }}</td>
+                <th>L1 End Date</th>
+                <td>{{ addNewSubTaskInSelectedTask?.end_date | date:'dd-MM-yyyy' }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row mt-3">
+            <form [formGroup]="addSubTaskForm" (ngSubmit)="createSubTask()">
+              <h6 class="mb-2 text-secondary">Add Sub Task</h6>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label">Sub Task<span class="required-asterisk">*</span></label>
+                    <input formControlName="task" type="text" class="form-control form-control-sm" placeholder="Enter Task">
+                    <div *ngIf="etf['task'].touched && etf['task'].invalid">
+                      <small class="text-danger" *ngIf="etf['task'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
+                    <input formControlName="start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
+                    <div *ngIf="etf['start_date'].touched && etf['start_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['start_date'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">End Date<span class="required-asterisk">*</span></label>
+                    <input formControlName="end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
+                    <div *ngIf="etf['end_date'].touched && etf['end_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['end_date'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-btns mt-3">
+                  <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#createL2Modal">Add Sub Task</button>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="editSubTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
@@ -307,7 +443,6 @@
   </div>
 </div>
 
-
 <div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
@@ -323,21 +458,23 @@
               <thead class="hidden-thead"></thead>
               <tbody>
                 <tr>
-                  <th>Company Name</th>
-                  <td>{{ selectedRowData?.company_name }}</td>
-                  <th>Tender Ref No.</th>
-                  <td>{{ selectedRowData?.tender_ref_no }}</td>
                   <th>Tender Title</th>
-                  <td colspan="3">{{ selectedRowData?.tender_title }}</td>
+                  <td colspan="5">{{ selectedRowData?.tender_title }}</td>
                 </tr>
                 <tr>
-                  <th>Tender Location</th>
+                  <th>Client</th>
+                  <td>{{ selectedRowData?.company_name }}</td>
+                  <th>Ref No</th>
+                  <td>{{ selectedRowData?.tender_ref_no }}</td>
+                  <th>Execution Location</th>
                   <td>{{ selectedRowData?.tender_location }}</td>
+                </tr>
+                <tr>
                   <th>L1 Start Date</th>
                   <td>{{ selectedRowData?.l1_start_date | date:'dd-MM-yyyy' }}</td>
                   <th>L1 End Date</th>
                   <td>{{ selectedRowData?.l1_end_date | date:'dd-MM-yyyy' }}</td>
-                  <th>L1 Completion Period (MONTHS)</th>
+                  <th>L1 Completion Period (Months)</th>
                   <td>{{ selectedRowData?.tender_completion_period }}</td>
                 </tr>
                 <tr>
@@ -345,10 +482,8 @@
                   <td>{{ selectedRowData?.l1_start_date | date:'dd-MM-yyyy' }}</td>
                   <th>L2 End Date</th>
                   <td>{{ selectedRowData?.l1_end_date | date:'dd-MM-yyyy' }}</td>
-                  <th>L2 Completion Period (MONTHS)</th>
+                  <th>L2 Completion Period (Months)</th>
                   <td>{{ selectedRowData?.tender_completion_period }}</td>
-                  <th></th>
-                  <td></td>
                 </tr>
               </tbody>
             </table>

@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AlertService, ApiService, SharedService } from 'src/app/_services';
 
@@ -12,7 +12,9 @@ import { AlertService, ApiService, SharedService } from 'src/app/_services';
 export class L2ScheduleBulkdataComponent {
   form!: FormGroup;
   editTaskForm!: FormGroup;
+  addTaskForm!: FormGroup;
   editSubTaskForm!: FormGroup;
+  addSubTaskForm!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -27,6 +29,7 @@ export class L2ScheduleBulkdataComponent {
   tenderList: any = [];
   selectedTaskForEdit: any;
   selectedSubTaskForEdit: any;
+  addNewSubTaskInSelectedTask: any;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService: SharedService, private elementRef: ElementRef) { }
 
@@ -52,12 +55,24 @@ export class L2ScheduleBulkdataComponent {
       end_date: [null, Validators.required],
       childtasks: this.fb.array([])
     });
+    this.addSubTaskForm = this.fb.group({
+      parent_task_id: [null, Validators.required],
+      task: [null, Validators.required],
+      start_date: [null, Validators.required],
+      end_date: [null, Validators.required]
+    });
     this.editSubTaskForm = this.fb.group({
       task_id: [null, Validators.required],
       parent_task_id: [null, Validators.required],
       task: [null, Validators.required],
       start_date: [null, Validators.required],
       end_date: [null, Validators.required]
+    });
+    this.addTaskForm = this.fb.group({
+      task: [null, Validators.required],
+      start_date: [null, Validators.required],
+      end_date: [null, Validators.required],
+      days_difference: [null],
     });
   }
 
@@ -68,6 +83,7 @@ export class L2ScheduleBulkdataComponent {
         match.task = this.editTaskForm.value.task;
         match.start_date = new Date(this.editTaskForm.value.start_date).toISOString();
         match.end_date = new Date(this.editTaskForm.value.end_date).toISOString();
+        match.days_difference = this.calculateAgeInDays(new Date(this.editTaskForm.value.start_date), new Date(this.editTaskForm.value.end_date));
         match.update = true;
         return match;
       } else {
@@ -76,42 +92,93 @@ export class L2ScheduleBulkdataComponent {
     });
   }
 
- updateSubTask(): void {
-   this.l1ScheduleData.data = this.l1ScheduleData.data.map((task: any) => {
-     if (task.task_id === this.editSubTaskForm.value.parent_task_id) {
+  createTask(): void {
+    this.addTaskForm.value.start_date = new Date(this.addTaskForm.value.start_date).toISOString();
+    this.addTaskForm.value.end_date = new Date(this.addTaskForm.value.end_date).toISOString();
+    this.addTaskForm.value.days_difference = this.calculateAgeInDays(new Date(this.addTaskForm.value.start_date), new Date(this.addTaskForm.value.end_date));
+    this.addTaskForm.value.added = true;
+    this.l1ScheduleData.data.push(this.addTaskForm.value);
+  }
+
+  removeTask(task: any): void {
+    this.l1ScheduleData.data = this.l1ScheduleData.data.filter((t: any) => t.task_id !== task.task_id);
+  }
+
+  addSubTask(task: any): void {
+    console.log(task);
+    this.addNewSubTaskInSelectedTask = task;
+  }
+
+  updateSubTask(): void {
+    this.l1ScheduleData.data = this.l1ScheduleData.data.map((task: any) => {
+      if (task.task_id === this.editSubTaskForm.value.parent_task_id) {
         task.childtasks = task.childtasks.map((subtask: any) => {
-         if (subtask.task_id === this.editSubTaskForm.value.task_id) {
-           debugger;
-           let match: any = subtask;
-           match.task = this.editSubTaskForm.value.task;
-           match.start_date = new Date(this.editSubTaskForm.value.start_date).toISOString();
-           match.end_date = new Date(this.editSubTaskForm.value.end_date).toISOString();
-           match.update = true;
-           return match;
-         } else {
-           return subtask;
-         }
-       });
-       return task;
-     } else {
-       return task;
-     }
-   });
- }
+          if (subtask.task_id === this.editSubTaskForm.value.task_id) {
+            let match: any = subtask;
+            match.task = this.editSubTaskForm.value.task;
+            match.start_date = new Date(this.editSubTaskForm.value.start_date).toISOString();
+            match.end_date = new Date(this.editSubTaskForm.value.end_date).toISOString();
+            match.days_difference = this.calculateAgeInDays(new Date(this.editSubTaskForm.value.start_date), new Date(this.editSubTaskForm.value.end_date));
+            match.update = true;
+            return match;
+          } else {
+            return subtask;
+          }
+        });
+        return task;
+      } else {
+        return task;
+      }
+    });
+  }
+
+  createSubTask(): void {
+    debugger;
+    this.l1ScheduleData.data = this.l1ScheduleData.data.map((task: any) => {
+      if (task.task_id === this.addNewSubTaskInSelectedTask.task_id) {
+        this.addSubTaskForm.value.start_date = new Date(this.addSubTaskForm.value.start_date).toISOString();
+        this.addSubTaskForm.value.end_date = new Date(this.addSubTaskForm.value.end_date).toISOString();
+        this.addSubTaskForm.value.days_difference = this.calculateAgeInDays(new Date(this.addSubTaskForm.value.start_date), new Date(this.addSubTaskForm.value.end_date));
+        this.addSubTaskForm.value.parent_task_id = this.addNewSubTaskInSelectedTask.task_id;
+        this.addSubTaskForm.value.added = true;
+        if(task?.childtasks?.length) {
+          task.childtasks.push(this.addSubTaskForm.value);
+        } else {
+          task.childtasks = [this.addSubTaskForm.value];
+        }
+        return task;
+      } else {
+        return task;
+      }
+    });
+    this.addSubTaskForm.reset();
+    this.addNewSubTaskInSelectedTask = null;
+  }
+
+  removeSubTask(task: any, subTask: any): void {
+    this.l1ScheduleData.data = this.l1ScheduleData.data.map((t: any) => {
+      if (t.task_id === task.task_id) {
+        t.childtasks = t.childtasks.filter((s: any) => s.task_id !== subTask.task_id);
+        return t;
+      } else {
+        return t;
+      }
+    });
+  }
 
   getCompanyList(): void {
     const apiLink = `/company/api/v1/getComapanyList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
-      if(res.status === 200) {
+      if (res.status === 200) {
         this.companyList = res.result;
       } else {
         this.alertService.error(res.message);
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.error(`Error: ${error.message}`);
-    }
+      (error: any) => {
+        console.log(error);
+        this.alertService.error(`Error: ${error.message}`);
+      }
   }
 
   getTenderListByCompany(): void {
@@ -123,30 +190,30 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
-    }
+      (error: any) => {
+        this.alertService.error(`Error: ${error.message}`);
+      }
   }
 
   getL1ScheduleDataByTender(): void {
     this.l1ScheduleData = null;
     const apiLink = `/document/api/v1/getL1ScheduleListByTender/${this.form.value.tender_id}`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
-      if(res.status === 200) {
+      if (res.status === 200) {
         this.l1ScheduleData = res.result[0];
       } else {
         this.alertService.error(res.message);
       }
     }),
-    (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
-    }
+      (error: any) => {
+        this.alertService.error(`Error: ${error.message}`);
+      }
   }
 
   getL2ScheduleData(): void {
     const apiLink = `/document/api/v1/getL2ScheduleList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
-      if(res.status === 200) {
+      if (res.status === 200) {
         this.l2ScheduleData = res.result;
         this.isNotFound = false;
       } else {
@@ -154,10 +221,10 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.error(res.message);
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.error(`Error: ${error.message}`);
-    }
+      (error: any) => {
+        console.log(error);
+        this.alertService.error(`Error: ${error.message}`);
+      }
   }
 
   selectedRow(data: any) {
@@ -184,6 +251,12 @@ export class L2ScheduleBulkdataComponent {
     return `${year}-${month}-${day}`;
   }
 
+  calculateAgeInDays(startDate: Date, endDate: Date): number {
+    const differenceInMs = endDate.getTime() - startDate.getTime();
+    const daysDifference = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
+    return daysDifference;
+  }
+
   editSubTaskRow(task: any, subTask: any) {
     this.selectedSubTaskForEdit = subTask;
     subTask.start_date = this.formatDate(new Date(subTask.start_date));
@@ -204,8 +277,8 @@ export class L2ScheduleBulkdataComponent {
       data: this.l1ScheduleData.data
     };
     console.log(match);
-    this.apiService.l2ScheduleCreate(match).subscribe((res:any) => {
-      if(res.status === 200) {
+    this.apiService.l2ScheduleCreate(match).subscribe((res: any) => {
+      if (res.status === 200) {
         this.alertService.success(res.message);
         this.getL2ScheduleData();
         document.getElementById('closed')?.click();
@@ -214,9 +287,9 @@ export class L2ScheduleBulkdataComponent {
       }
       this.isSubmitted = false;
     }),
-    (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
-      this.isSubmitted = false;
-    }
+      (error: any) => {
+        this.alertService.error(`Error: ${error.message}`);
+        this.isSubmitted = false;
+      }
   }
 }
