@@ -224,6 +224,44 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Total Experience (In years)</label>
+                                    <input formControlName="experience" type="text" class="form-control form-control-sm" appNumWithDot>
+                                    <div *ngIf="f['experience'].touched && f['experience'].invalid">
+                                        <small class="text-danger" *ngIf="f['experience'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Completion Period (In Months)</label>
+                                    <input formControlName="compPeriod" type="text" class="form-control form-control-sm" appNumWithDot>
+                                    <div *ngIf="f['compPeriod'].touched && f['compPeriod'].invalid">
+                                        <small class="text-danger" *ngIf="f['compPeriod'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Resource Used</label>
+                                    <input formControlName="resourceUsed" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['resourceUsed'].touched && f['resourceUsed'].invalid">
+                                        <small class="text-danger" *ngIf="f['resourceUsed'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Completion Year</label>
+                                    <input formControlName="compYear" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['compYear'].touched && f['compYear'].invalid">
+                                        <small class="text-danger" *ngIf="f['compYear'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Technical Points<span class="required-asterisk">*</span></label>

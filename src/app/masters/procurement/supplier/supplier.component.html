@@ -197,7 +197,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="form-label">DOI Document<span class="required-asterisk">*</span></label>
-                                                <input formControlName="doiDoc" type="file" class="form-control form-control-sm" (change)="profileUpload($event)" accept=".jpg, .jpeg, .png">
+                                                <input formControlName="doiDoc" type="file" class="form-control form-control-sm" (change)="profileUpload($event)" accept=".jpg, .jpeg, .png, .pdf">
                                                 <div *ngIf="f['doiDoc'].touched && f['doiDoc'].invalid">
                                                     <small class="text-danger" *ngIf="f['doiDoc'].errors?.['required']">*Required</small>
                                                 </div>

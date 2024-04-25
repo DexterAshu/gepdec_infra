@@ -302,12 +302,12 @@ export class SupplierComponent {
   profileUpload(event:any) {
     this.uploadFile = [];
     let file = event.target.files;
-    let type = /(\.jpg|\.jpeg|\.png)$/i;
+    let type = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
     if (type.exec(file[0].name)) {
       this.uploadFile = file;
     } else {
       this.form.controls['doiDoc'].setValue('');
-      this.alertService.warning("Please choose only jpg, jpeg or png file!");
+      this.alertService.warning("Please choose only jpg, jpeg, png or pdf file!");
     }
   }
 
