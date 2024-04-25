@@ -91,6 +91,10 @@ export class InitialBoqComponent {
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 
@@ -171,6 +175,10 @@ downloadPdf() {
       } else {
         this.alertService.warning(response.message);
       }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 }

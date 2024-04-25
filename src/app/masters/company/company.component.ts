@@ -99,8 +99,6 @@ export class CompanyComponent implements OnInit {
   createForm(){
     console.clear();
     this.button = 'Create';
-    
-    
     this.update = false;
     this.form.reset();
   }

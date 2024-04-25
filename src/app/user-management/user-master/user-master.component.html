@@ -34,12 +34,10 @@
                                     <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
                                           <span class="mdi mdi-download"></span>&nbsp; Import 
                                     </button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
-                         
-
-                            </div>
-                            </div>
-                    </div>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                                  </div>
+                             </div>
+                          </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
@@ -51,15 +49,12 @@
                                 <th>Role</th>
                                 <th>Department</th>
                                 <th>Status</th>
-                                <th>Created By</th>
-                                <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="tabledata.length">
                             <tr *ngFor="let a of tabledata | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
-                                
                                 <td>{{a.empid}}</td>
                                 <td>{{a.fullname}}</td>
                                 <td>{{a.mobile}}</td>
@@ -67,15 +62,11 @@
                                 <td>{{a.rolename}}</td>
                                 <td>{{a.deptname}}</td>
                                 <td>{{a.status}}</td>
-                                <td>{{a.createdby_name}}</td>
-                                <td>{{a.created}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="userDetail(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="userDetail(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
-                                    <!--  <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Billing Data Profile" (click)="filterWiseData(a, 2)"><span class="mdi mdi-calculator text-secondary cursor-pointer mdi-18px"></span></a>
-                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Daily Data Profile" (click)="filterWiseData(a, 3)"><span class="mdi mdi-book-open text-info cursor-pointer mdi-18px"></span></a>
-                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Block Load Profile" (click)="filterWiseData(a, 4)"><span class="mdi mdi-battery-unknown text-muted cursor-pointer mdi-18px"></span></a> -->
+                                
                                 </td>
                             </tr>
                             <tr *ngIf="isNotFound == true">

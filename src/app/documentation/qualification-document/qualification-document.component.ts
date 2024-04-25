@@ -72,8 +72,6 @@ export class QualificationDocumentComponent {
     });
     
     this.apiService.getDocListData().subscribe((res:any) => {
-      
-      
       if (res.status === 200) {
         this.docListData = res.result;
       } else {
@@ -106,7 +104,6 @@ export class QualificationDocumentComponent {
 
   //button dropdown
   isOpen: boolean = false;
-
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
@@ -121,7 +118,6 @@ export class QualificationDocumentComponent {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-   
     formData.append('tender_title', this.documentForm.value.tender_title);
     formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
     formData.append('bidtype', this.documentForm.value.bidtype);
@@ -151,6 +147,10 @@ export class QualificationDocumentComponent {
       } else {
         this.alertService.warning(response.message);
       }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 }
