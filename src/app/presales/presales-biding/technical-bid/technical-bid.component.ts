@@ -57,6 +57,10 @@ export class TechnicalBidComponent {
       qacatagory_id: [null, Validators.required],
       subqacatagory_id: [null],
       capacity_id: [null],
+      experience: [null],
+      compPeriod: [null],
+      resourceUsed: [null],
+      compYear: [null],
       technical_points: [null, Validators.required],
     });
 
