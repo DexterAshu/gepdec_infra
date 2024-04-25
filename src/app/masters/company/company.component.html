@@ -44,38 +44,26 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <!-- <th>Company ID</th> -->
-                                <th>Company Name</th>
-                                <th>Company Type</th>
-                                <th>Contact Person</th>
-                                <th>Contact No</th>
-                                <th>Email ID</th>
-                                <th>DOI</th>
+                                <th>Client Name</th>
+                                <th>Client Type</th>
                                 <th>GST No</th>
                                 <th>PAN No</th>
-                                <th>Created By</th>
-                                <th>Created On</th>
+                                <th>Country</th>
+                                <th>State</th>
+                                <th>District</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="companyData.length">
                             <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                                <!-- <td>{{ a.company_id }}</td> -->
                                 <td>{{ a.company_name }}</td>
                                 <td>{{ a.mstcompanytype }}</td>
-                                <td>{{ a.contact[0].name }}</td>
-                                <td>{{ a.contact[0].contactno1 }}</td>
-                                <td>{{ a.contact[0].email }}</td>
-                                <td>{{ a.doi }}</td>
                                 <td>{{ a.gst }}</td>
                                 <td>{{ a.pan }}</td>
-                                <td>{{ a.createdby_name }}</td>
-                                <td>{{ a.created }}</td>
-                                <!-- <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
-                                </td> -->
-
+                                <td>{{ a.country_id }}</td>
+                                <td>{{ a.state_id }}</td>
+                                <td>{{ a.district_id }}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -118,11 +106,11 @@
                 <div class="container-fluid scroll-container">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <h6 class="">Company Details:</h6>
+                            <h6 class="">Client Details:</h6>
                           
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Company Name<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Client Name<span class="required-asterisk">*</span></label>
                                     <input formControlName="company_name" type="text" class="form-control form-control-sm" placeholder="Enter company name" appWordCapitalize>
                                     <div *ngIf="f['company_name'].touched && f['company_name'].invalid">
                                         <small class="text-danger" *ngIf="f['company_name'].errors?.['required']">*Required</small>
@@ -131,7 +119,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Company Type<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Client Type<span class="required-asterisk">*</span></label>
                                     <select formControlName="company_type" class="form-select form-select-sm" (change)="selfFun()">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Company Type</option>
                                         <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
@@ -400,10 +388,6 @@
                                 </div>
                             </div>
                     
-                        
-                          
-                          
-                         
                             <div class="modal-btns">
                                 <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
                                 <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>

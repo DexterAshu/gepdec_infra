@@ -26,6 +26,8 @@ export class CountryMasterComponent {
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;
+  countryDetails: any;
+  rowData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,6 +47,22 @@ export class CountryMasterComponent {
   }
 
   get f() { return this.form.controls; }
+
+
+  getDetails(data:any){
+    this.rowData = data;
+    // this.button = 'Update';
+    // this.update = true;
+  //   this.form.reset();
+  //   this.apiService.ourcompanyDetails(data.bidder_id).subscribe((res: any) => {
+  //     this.countryDetails = res.result[0];
+  //       this.form.patchValue({
+  //         country_code: this.countryDetails.country_code,
+  //         companytype_id: this.countryDetails.companytype_id,
+
+  //       });
+  // })
+  }
 
   getCountryList() {
     this.isNotFound = true;

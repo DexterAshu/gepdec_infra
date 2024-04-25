@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ApiService, AlertService } from 'src/app/_services';
@@ -11,6 +11,7 @@ import * as FileSaver from 'file-saver';
   styleUrls: ['./tender-document.component.css']
 })
 export class TenderDocumentComponent {
+  // @ViewChild('attachments') attachment: any;
   documentForm!: FormGroup;
   attachment: File[] = [];
   isSubmitted = false;
@@ -84,6 +85,15 @@ export class TenderDocumentComponent {
   }
 
   onFileChanged(event: any) {
+
+    // for (var i = 0; i <= event.target.files.length - 1; i++) {
+    //   var selectedFile = event.target.files[i];
+    //   if (this.listOfFiles.indexOf(selectedFile.name) === -1) {
+    //     this.fileList.push(selectedFile);
+    //     this.listOfFiles.push(selectedFile.name);
+    //   }
+    // }
+
     try {
       const files = event.target.files;
       for (let i = 0; i < files.length; i++) {
@@ -156,6 +166,7 @@ downloadPdf() {
   onSubmit() {
     console.log(this.documentForm.value);
     const formData: FormData = new FormData();
+   
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }

@@ -169,7 +169,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
-                                    <select formControlName="financialyear_id" #finnData class="form-select form-select-sm" (ngModelChange)="finBidComprision()" #fin>
+                                    <select formControlName="financialyear_id" class="form-select form-select-sm" (ngModelChange)="finBidComprision()" #finValue>
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year</option>
                                         <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
                                     </select>
@@ -180,320 +180,26 @@
                                 </div>
                             </div>
 
-                         
 
-
-                            <div class="container" *ngIf="finnData.value == 'financials_id'">
-                                <div class="card p-2">
-                                <div class=" row">
-                                        <div class="p-2 col-md-6" >
-                                            <h6>Our Financial Details</h6><hr>
-                                            <table class="table table-hover table-striped custom-table mt-2">
-                                                <thead class="hidden-thead"></thead>
-                                                <tbody class="text-nowrap" *ngFor="let rowData of finData">
-                                                    <tr>
-                                                        <th>Fin Year</th>
-                                                        <td>{{ rowData?.financialyear }}</td>
-                                                        <th>Net Profit</th>
-                                                        <td>{{ rowData?.net_profit }}</td>
-                                                       
-                                                        </tr>
-                                                    <tr>
-                                                        <th>Annuval Turnover</th>
-                                                        <td>{{ rowData?.annual_turnover }}</td>
-                                                        <th>Net Worth</th>
-                                                        <td>{{rowData?.net_worth}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                        <th>Net Working Capital</th>
-                                                        <td>{{ rowData?.net_working_capital }}</td>
-                                                        <th>Paid Uncapital</th>
-                                                        <td>{{ rowData?.paid_upcapital }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Reserve Surplus</th>
-                                                        <td>{{ rowData?.reserve_surplus}}</td>
-                                                        <th>Total Fixed Asset</th>
-                                                        <td>{{ rowData?.total_fixed_assets}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                        <th>Total Liabilities</th>
-                                                        <td>{{ rowData?.total_liabilities}}</td>
-                                                        <th>Ebidta</th>
-                                                        <td>{{ rowData?.ebidta}}</td>
-                                                    </tr>
-                                                        <tr>
-                                                        <th>ITR</th>
-                                                        <td>{{ rowData?.itr}}</td>
-                                                        <th></th>
-                                                        <td></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                      <div class="p-2 col-md-6">
-                                        <h6>Client Financial Details</h6><hr>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-label fl-10">Annual Turnover</label>
-                                                    <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
-                                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
-                                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
-                                                    </div>
-                                                    
-                                                </div>
-                                              
-                                            </div>
-                                            <div class="col-md-2">
-                                                <br>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                                  </svg> &nbsp;
-                                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                                  </svg>
-                                               
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-label fl-10">Net Worth</label>
-                                                    <input formControlName="net_worth" type="text" class="form-control form-control-sm" appNumberOnly>
-                                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
-                                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <br>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                                  </svg> &nbsp;
-                                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                                  </svg>
-                                               
-                                            </div>
-                
-                                        </div>
-
-                                        <div class="row">
-
-                                 
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Net Working Capital (Cr)</label>
-                                                <input formControlName="net_working_capital" type="text" class="form-control form-control-sm" appNumberOnly>
-                                                <div *ngIf="f['net_working_capital'].touched && f['net_working_capital'].invalid">
-                                                    <small class="text-danger" *ngIf="f['net_working_capital'].errors?.['required']">*Required</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-                                           
-                                        </div>
-
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Total Liabilities</label>
-                                                <input formControlName="total_liabilities" type="text" class="form-control form-control-sm" appNumberOnly >
-                                               
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-                                           
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Total Fixed Assets</label>
-                                                <input formControlName="total_fixed_assets" type="text" class="form-control form-control-sm" appNumberOnly>
-                                              
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-                                           
-                                        </div>
-                              
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Net Profit (Cr)</label>
-                                                <input formControlName="net_profit" type="text" class="form-control form-control-sm" appNumberOnly>
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-                                           
-                                        </div>
-                                    </div>
-
-                                      
-                                    <div class="row">
-
-                               
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Net Capital (Cr)</label>
-                                                <input formControlName="net_capital" type="text" class="form-control form-control-sm" appNumberOnly>
-                                              
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-                                           
-                                        </div>
-                           
-                                    
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Reserve & Surplus</label>
-                                                <input formControlName="reserve_surplus" type="text" class="form-control form-control-sm" appNumberOnly>
-                                              
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-                                           
-                                        </div>
-                                        </div>
-            
-
-                                        <div class="row">
-
-                                     
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Paid Up Capital</label>
-                                                <input formControlName="paid_upcapital" type="text" class="form-control form-control-sm" appNumberOnly>
-                                               
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-                                           
-                                        </div>
-            
-                                        
+                            <ng-container *ngIf="form.value.financialyear_id">
+                                <div class="container" *ngFor="let rowData of finData">
+                                    <h6>Our Financial VS Client Financial Comparison</h6><hr>
                                    
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">EBIDTA</label>
-                                                <input formControlName="ebidta" type="text" class="form-control form-control-sm" appNumberOnly>
-                                              
-                                            </div>
+                                   
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10">Annual Turnover</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-                                           
-                                        </div>
-                                        </div>
+                                            <label class="form-label fl-10 text-small">Value</label>
+                                            <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
 
-                                        <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">ITR</label>
-                                                <select formControlName="itr" class="form-select form-select-sm">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                                                    <option value="Yes">Yes</option>
-                                                    <option value="No">No</option>
-                                                </select>
-                                                
-                                            </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
-                                           
-                                        </div>
-                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label fl-10">Years</label>
+                                                <label class="form-label fl-10 text-small">Years</label>
                                                 <select formControlName="year" #year class="form-select form-select-sm">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
                                                     <option value="2">Last 2 Year</option>
@@ -505,61 +211,643 @@
                                                 
                                             </div>
                                         </div>
-                                      
-                                     </div>
-                                        <div class="row" *ngIf="year.value">
-                                        <div class="col-md-6">
+                                        <div class="col-md-2" *ngIf="year.value">
                                             <div class="form-group">
-                                                <label class="form-label fl-10">Condition</label>
+                                                <label class="form-label fl-10 text-small">Condition</label>
                                                 <select formControlName="check" class="form-select form-select-sm" (ngModelChange)="yearBasedCalculateData()">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
                                                     <option value="AVG">Average</option>
-                                                    <option value="ANY">Any</option>
                                                 </select>
                                                 
                                             </div>
                                         </div>
-                                        <!-- <div class="col-md-2">
-                                            <br>
-                                            <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2 mt-2" >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
-                                                    <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                    <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                                                  </svg>
-                                                </button>
-                                        </div> -->
-                                       
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <span class="form-control form-control-sm" aria-readonly="">{{finCalData}}</span>
+
+                                            <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
+                                        </div>
+                                       <div class="col-md-2">
+                                                    <br>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                    </svg> &nbsp;
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                    </svg>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10">Net Worth</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Value</label>
+                                            <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
+
+                                        </div>
+                                        <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label fl-10">Calculated Value</label>
-                                              <span class="form-control form-control-sm" aria-readonly="">{{finCalData}}</span>
-                                                <!-- <input type="text" class="form-control form-control-sm" readonly> -->
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="year" #year class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
+                                                    <option value="0">Current Year</option>
+                                                    <option value="1">Last 1 Year</option>
+                                                    <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="year.value">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Condition</label>
+                                                <select formControlName="check" class="form-select form-select-sm" (ngModelChange)="yearBasedCalculateData()">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                    <option value="MIN">Minimum</option>
+                                                    <option value="MAX">Maximum</option>
+                                                    <option value="AVG">Average</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <span class="form-control form-control-sm" aria-readonly="">{{finCalData}}</span>
+
+                                            <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
+                                        </div>
+                                       <div class="col-md-2">
+                                                    <br>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                    </svg> &nbsp;
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                    </svg>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10">Net Working Capital</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Value</label>
+                                            <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="year" #year class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
+                                                    <option value="0">Current Year</option>
+                                                    <option value="1">Last 1 Year</option>
+                                                    <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="year.value">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Condition</label>
+                                                <select formControlName="check" class="form-select form-select-sm" (ngModelChange)="yearBasedCalculateData()">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                    <option value="MIN">Minimum</option>
+                                                    <option value="MAX">Maximum</option>
+                                                    <option value="AVG">Average</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <span class="form-control form-control-sm" aria-readonly="">{{finCalData}}</span>
+
+                                            <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
+                                        </div>
+                                       <div class="col-md-2">
+                                                    <br>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                    </svg> &nbsp;
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                    </svg>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10">Total Liabilities</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Value</label>
+                                            <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="year" #year class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
+                                                    <option value="0">Current Year</option>
+                                                    <option value="1">Last 1 Year</option>
+                                                    <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="year.value">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Condition</label>
+                                                <select formControlName="check" class="form-select form-select-sm" (ngModelChange)="yearBasedCalculateData()">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                    <option value="MIN">Minimum</option>
+                                                    <option value="MAX">Maximum</option>
+                                                    <option value="AVG">Average</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <span class="form-control form-control-sm" aria-readonly="">{{finCalData}}</span>
+
+                                            <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
+                                        </div>
+                                       <div class="col-md-2">
+                                                    <br>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                    </svg> &nbsp;
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                    </svg>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10">Total Fixed Assets</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Value</label>
+                                            <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="year" #year class="form-select form-select-sm">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
+                                                    <option value="0">Current Year</option>
+                                                    <option value="1">Last 1 Year</option>
+                                                    <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="year.value">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Condition</label>
+                                                <select formControlName="check" class="form-select form-select-sm" (ngModelChange)="yearBasedCalculateData()">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                    <option value="MIN">Minimum</option>
+                                                    <option value="MAX">Maximum</option>
+                                                    <option value="AVG">Average</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <span class="form-control form-control-sm" aria-readonly="">{{finCalData}}</span>
+
+                                            <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
+                                        </div>
+                                       <div class="col-md-2">
+                                                    <br>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                    </svg> &nbsp;
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                    </svg>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+                                    <div class="card p-2">
+                                    <div class="row">
+                                            <div class="p-2 col-md-6">
+                                                <h6>Our Financial Details</h6><hr>
+                                                <table class="table table-hover table-striped custom-table mt-2">
+                                                    <thead class="hidden-thead"></thead>
+                                                    <tbody class="text-nowrap" *ngFor="let rowData of finData">
+                                                        <tr>
+                                                            <th>Fin Year</th>
+                                                            <td>{{ rowData?.financialyear }}</td>
+                                                            <th>Net Profit</th>
+                                                            <td>{{ rowData?.net_profit }}</td>
+                                                        
+                                                            </tr>
+                                                        <tr>
+                                                            <th>Annuval Turnover</th>
+                                                            <td>{{ rowData?.annual_turnover }}</td>
+                                                            <th>Net Worth</th>
+                                                            <td>{{rowData?.net_worth}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <th>Net Working Capital</th>
+                                                            <td>{{ rowData?.net_working_capital }}</td>
+                                                            <th>Paid Uncapital</th>
+                                                            <td>{{ rowData?.paid_upcapital }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Reserve Surplus</th>
+                                                            <td>{{ rowData?.reserve_surplus}}</td>
+                                                            <th>Total Fixed Asset</th>
+                                                            <td>{{ rowData?.total_fixed_assets}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <th>Total Liabilities</th>
+                                                            <td>{{ rowData?.total_liabilities}}</td>
+                                                            <th>Ebidta</th>
+                                                            <td>{{ rowData?.ebidta}}</td>
+                                                        </tr>
+                                                            <tr>
+                                                            <th>ITR</th>
+                                                            <td>{{ rowData?.itr}}</td>
+                                                            <th></th>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        <div class="p-2 col-md-6">
+                                            <h6>Client Financial Details</h6><hr>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label fl-10">Annual Turnover</label>
+                                                        <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                        <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
+                                                            <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <br>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                    </svg> &nbsp;
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                    </svg>
+                                                
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label fl-10">Net Worth</label>
+                                                        <input formControlName="net_worth" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                        <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
+                                                            <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <br>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                    </svg> &nbsp;
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                    </svg>
+                                                
+                                                </div>
+                    
+                                            </div>
+
+                                            <div class="row">
+
+                                    
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Net Working Capital (Cr)</label>
+                                                    <input formControlName="net_working_capital" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                    <div *ngIf="f['net_working_capital'].touched && f['net_working_capital'].invalid">
+                                                        <small class="text-danger" *ngIf="f['net_working_capital'].errors?.['required']">*Required</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Total Liabilities</label>
+                                                    <input formControlName="total_liabilities" type="text" class="form-control form-control-sm" appNumberOnly >
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            
                                             </div>
                                         </div>
 
-                                        <div class="col-md-2">
-                                            <br>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                              </svg> &nbsp;
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                              </svg>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Total Fixed Assets</label>
+                                                    <input formControlName="total_fixed_assets" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            
+                                            </div>
+                                
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Net Profit (Cr)</label>
+                                                    <input formControlName="net_profit" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            
+                                            </div>
                                         </div>
-                                      
-                                     </div>
 
-                                      </div>
-    
+                                        
+                                        <div class="row">
+
+                                
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Net Capital (Cr)</label>
+                                                    <input formControlName="net_capital" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            
+                                            </div>
+                            
+                                        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Reserve & Surplus</label>
+                                                    <input formControlName="reserve_surplus" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            
+                                            </div>
+                                            </div>
+                
+
+                                            <div class="row">
+
+                                        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Paid Up Capital</label>
+                                                    <input formControlName="paid_upcapital" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            
+                                            </div>
+                
+                                            
+                                    
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">EBIDTA</label>
+                                                    <input formControlName="ebidta" type="text" class="form-control form-control-sm" appNumberOnly>
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            
+                                            </div>
+                                            </div>
+
+                                            <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">ITR</label>
+                                                    <select formControlName="itr" class="form-select form-select-sm">
+                                                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Years</label>
+                                                    <select formControlName="year" #year class="form-select form-select-sm">
+                                                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                        <option value="0">Current Year</option>
+                                                        <option value="1">Last 1 Year</option>
+                                                        <option value="2">Last 2 Year</option>
+                                                        <option value="3">Last 3 Years</option>
+                                                        <option value="4">Last 4 Years</option>
+                                                        <option value="5">Last 5 Years</option>
+                                                        <option value="7">Last 7 Years</option>
+                                                    </select>
+                                                    
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                            <div class="row" *ngIf="year.value">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Condition</label>
+                                                    <select formControlName="check" class="form-select form-select-sm" (ngModelChange)="yearBasedCalculateData()">
+                                                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                        <option value="MIN">Minimum</option>
+                                                        <option value="MAX">Maximum</option>
+                                                        <option value="AVG">Average</option>
+                                                        <!-- <option value="ANY">Any</option> -->
+                                                    </select>
+                                                    
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-md-2">
+                                                <br>
+                                                <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2 mt-2" >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
+                                                        <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                        <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                                                    </svg>
+                                                    </button>
+                                            </div> -->
+                                        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10">Calculated Value</label>
+                                                <span class="form-control form-control-sm" aria-readonly="">{{finCalData}}</span>
+                                                    <!-- <input type="text" class="form-control form-control-sm" readonly> -->
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <br>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                                </svg> &nbsp;
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
+                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                </svg>
+                                            </div>
+                                        
+                                        </div>
+
+                                        </div>
+        
+                                        </div>
+        
                                     </div>
-    
-                                </div>
 
-                            </div>
+                                </div>
+                            </ng-container>
                    
                    
 

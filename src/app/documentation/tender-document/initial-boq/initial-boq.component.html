@@ -81,8 +81,8 @@
                                 <td>{{a.tender_ref_no}}</td>
                                 <td>{{a.publish_date}}</td>
                                 <td>{{a.tender_location}}</td>
-                                <td><a download="a.document" href="{{a.document}}"><span class="mdi mdi-cloud-download cursor-pointer mdi-18px"></span></a></td>
-                                <!-- <td >{{a.filename.slice(13)}}</td> -->
+                                <!-- <td><a download="a.document" href=`${environment.apiUrl}{{a.document}}`><span class="mdi mdi-cloud-download cursor-pointer mdi-18px"></span></a></td> -->
+                                <td >{{a.filename.slice(13)}}</td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created}}</td>
                                 <td>
@@ -146,6 +146,7 @@
                                 </div>
                             </div>
 
+                            <ng-container *ngIf="documentForm.value.tender_id">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Ref No</label>
@@ -170,6 +171,7 @@
                                         <input class="form-control form-control-sm" formControlName="doc_type">
                                     </div>
                                 </div>
+                                </ng-container>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12">

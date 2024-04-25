@@ -80,9 +80,6 @@ export class MyCompanyComponent {
     this.getCountryData();
 
   }
-
-
-
   createForm(){
     console.clear();
     this.button = 'Create';
@@ -91,6 +88,7 @@ export class MyCompanyComponent {
   }
 
    getDetails(data:any){
+    
     this.form.reset();
     this.button = 'Update';
     this.update = true;
@@ -117,7 +115,6 @@ export class MyCompanyComponent {
           contactno2: this.contDetails.contactno2,
           email: this.contDetails.email,
           name: this.contDetails.name,
-
 
 
         });

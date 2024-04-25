@@ -259,7 +259,6 @@
                                             </div>
                                         </div>
 
-
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label fl-10">Technical Bid Opening Date<span class="required-asterisk">*</span></label>
@@ -274,15 +273,13 @@
                                         <div class="form-group">
                                             <label class="form-label fl-10">Financial Bid Opening Date</label>
                                             <input formControlName="fin_bid_opening_date" type="date" class="form-control form-control-sm" >
-                                            <!-- <div *ngIf="f['fin_bid_opening_date'].touched && f['fin_bid_opening_date'].invalid">
-                                                <small class="text-danger" *ngIf="f['fin_bid_opening_date'].errors?.['required']">*Required</small>
-                                            </div> -->
+                                          
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                          <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
+                                          <label class="form-label fl-10">ECV (INR)<span class="required-asterisk">*</span></label>
                                           <input formControlName="ecv" type="text" class="form-control form-control-sm" appNumberOnly>
                                           <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
                                             <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
@@ -397,7 +394,7 @@
 <div class="col-md-3">
     <div class="form-group">
         <label class="form-label fl-10">Tender EMD Exemption<span class="required-asterisk">*</span></label>
-        <select formControlName="exemption_id" #emd class="form-select form-select-sm" (change)="toggleEmdField($event)">
+        <select formControlName="exemption_id" #emd class="form-select form-select-sm" (change)="toggleEmdField(emd.value)">
             <option [value]="null" disabled selected>Select Mode</option>
             <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
         </select>

@@ -217,9 +217,8 @@ export class DataCapturingComponent {
   })
 }
 
-toggleEmdField(event: Event): void {
-  const selectedValue = (event.target as HTMLSelectElement)?.value;
-  if(selectedValue == '401'){
+toggleEmdField(data: any): void {
+  if(data == '401'){
     this.form.get('emd_ammount')!.setValidators([Validators.required]);
     this.form.get('paymentmethod_id')!.setValidators([Validators.required]);
     this.form.get('emd_submission_date')!.setValidators([Validators.required]);
@@ -227,13 +226,13 @@ toggleEmdField(event: Event): void {
     this.selectedEmdexemption = !this.selectedEmdexemption;
   }
   else{
-    this.form.get('emd_ammount')!.clearValidators();
-    this.form.get('paymentmethod_id')!.clearValidators();
-    this.form.get('emd_submission_date')!.clearValidators();
-    this.form.get('forfeiture_condition')!.clearValidators();
+    this.form.controls['emd_ammount'].clearValidators();
+    this.form.controls['paymentmethod_id'].clearValidators();
+    this.form.controls['emd_submission_date'].clearValidators();
+    this.form.controls['forfeiture_condition'].clearValidators();
   }
 }
-//
+
 toggleSecurityField(event: Event): void {
   const selectedValue = (event.target as HTMLSelectElement)?.value;
   if(selectedValue == '1001'){
@@ -242,8 +241,8 @@ toggleSecurityField(event: Event): void {
     this.selectSecurityField = !this.selectSecurityField;
   }
   else{
-    this.form.get('security_amount')!.clearValidators();
-    this.form.get('securitysubmission_date')!.clearValidators();
+    this.form.controls['security_amount'].clearValidators();
+    this.form.controls['securitysubmission_date'].clearValidators();
   }
 }
 togglePGField(event: Event): void {
@@ -254,8 +253,8 @@ togglePGField(event: Event): void {
     this.selectPGField = !this.selectPGField;
   }
   else{
-    this.form.get('pg_amount')!.clearValidators();
     // this.form.get('pgsubmission_date')!.clearValidators();
+    this.form.controls['pg_amount'].clearValidators();
   }
 }
 togglePrebidField(event: Event): void {
@@ -266,8 +265,9 @@ togglePrebidField(event: Event): void {
     this.selectPrebidField = !this.selectPrebidField;
   }
   else{
-    this.form.get('prebidmeetingmode_id')!.clearValidators();
-    this.form.get('prebid_date')!.clearValidators();
+    this.form.controls['prebidmeetingmode_id'].clearValidators();
+    this.form.controls['prebid_date'].clearValidators();
+    
   }
 }
 

@@ -61,8 +61,8 @@
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" (click)="getDetails(a)" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                                      <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
 
                                 </td>
@@ -101,18 +101,7 @@
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <!-- <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                                    <select formControlName="country_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
-                                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
-                                    </select>
-                                    <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div> -->
+                          
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Country Code<span class="required-asterisk">*</span></label>
@@ -146,6 +135,44 @@
     </div>
 </div>
 <!-- create modal end-->
+
+
+
+<!-- details modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Country Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Country Code</label>
+                                    <input formControlName="country_code" type="text" class="form-control form-control-sm" readonly>
+                                </div>
+                            </div>
+                         
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Country Name</label>
+                                    <input formControlName="name" type="text" class="form-control form-control-sm" readonly>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- details modal end-->
 
 
 
