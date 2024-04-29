@@ -65,8 +65,8 @@
                 <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
                 <td>{{a.tender_location}}</td>
                 <td>{{a.publish_date | date:'dd-MM-yyyy'}}</td>
-                <td>{{a.l1_start_date | date:'dd-MM-yyyy'}}</td>
-                <td>{{a.l1_end_date | date:'dd-MM-yyyy'}}</td>
+                <td>{{a.schedule_start_date | date:'dd-MM-yyyy'}}</td>
+                <td>{{a.schedule_start_date | date:'dd-MM-yyyy'}}</td>
                 <td>{{a.tender_completion_period}}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#viewModel" title="View Details" (click)="selectRow(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -93,7 +93,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">L2 Schedule Details</h5>
+        <h5 class="modal-title" id="exampleModalLabel">L1 Schedule Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -117,9 +117,9 @@
                 </tr>
                 <tr>
                   <th>L1 Start Date</th>
-                  <td>{{ selectedRow?.l1_start_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ selectedRow?.schedule_start_date | date:'dd-MM-yyyy' }}</td>
                   <th>L1 End Date</th>
-                  <td>{{ selectedRow?.l1_end_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ selectedRow?.schedule_end_date | date:'dd-MM-yyyy' }}</td>
                   <th>L1 Completion Period (Months)</th>
                   <td>{{ selectedRow?.tender_completion_period }}</td>
                 </tr>
@@ -129,7 +129,7 @@
                 </tr>
               </tbody>
             </table>
-            <h6 class="mb-2 mt-4 text-secondary">Task Details for L2 Schedule</h6>
+            <h6 class="mb-2 mt-4 text-secondary">Task Details for L1 Schedule</h6>
             <app-responsive-table>
               <thead class="table-primary text-nowrap">
                 <tr>
@@ -142,19 +142,19 @@
                 </tr>
               </thead>
               <tbody class="text-nowrap">
-                <tr *ngFor="let row of selectedRow?.data; index as i">
+                <tr *ngFor="let row of selectedRow?.tasks; index as i">
                   <td>{{ i+1 }}</td>
                   <td>{{ row.task }}</td>
-                  <td>{{ row.start_date | date:'dd-MM-yyyy' }}</td>
-                  <td>{{ row.end_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ row.task_start_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ row.task_end_date | date:'dd-MM-yyyy' }}</td>
                   <td>{{ row.days_difference }}</td>
                   <td>
                     <table class="table">
                       <tr *ngFor="let ct of row?.childtasks; index as ci">
                         <td>{{i+1}}.{{ ci+1 }}</td>
                         <td>{{ ct.task }}</td>
-                        <td>{{ ct.start_date | date:'dd-MM-yyyy' }}</td>
-                        <td>{{ ct.end_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ ct.task_start_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ ct.task_end_date | date:'dd-MM-yyyy' }}</td>
                         <td>{{ ct.days_difference }}</td>
                       </tr>
                     </table>

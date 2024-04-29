@@ -9,7 +9,7 @@ export const environment = {
   companyID : 'GEPDEC',
 
   //  apiUrl: 'http://103.149.113.102:8039', //public API
-  apiUrl: 'http://172.16.15.18:8039', //GEPDEC INFRA Private APi
-  // apiUrl: 'http://localhost:8039', //GEPDEC INFRA Private APi
+  // apiUrl: 'http://172.16.15.18:8039', //GEPDEC INFRA Private APi
+  apiUrl: 'http://localhost:8039', //GEPDEC INFRA Private APi
 
 };

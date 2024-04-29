@@ -44,8 +44,8 @@
                 <td>{{ a.tender_ref_no }}</td>
                 <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
                 <td>{{ a.tender_location }}</td>
-                <td>{{ a.l1_start_date | date:'dd-MM-yyyy' }}</td>
-                <td>{{ a.l1_end_date | date:'dd-MM-yyyy' }}</td>
+                <td>{{ a.schedule_start_date | date:'dd-MM-yyyy' }}</td>
+                <td>{{ a.schedule_end_date | date:'dd-MM-yyyy' }}</td>
                 <td>{{ a.tender_completion_period }}</td>
                 <td>
                   <a class="" (click)="selectedRow(a)" data-bs-toggle="modal" data-bs-target="#viewModel" title="Detail Data"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -53,7 +53,7 @@
                   <!-- <a data-bs-toggle="modal" data-bs-target="#deleteModel" title="Delete Data"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                 </td>
               </tr>
-              <tr *ngIf="isNotFound == true">
+              <tr *ngIf="isNotFound">
                 <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>
               </tr>
               <tr *ngIf="l2ScheduleData?.length == 0">
@@ -119,9 +119,9 @@
                 </tr>
                 <tr>
                   <th>L1 Start Date</th>
-                  <td>{{ l1ScheduleData?.l1_start_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd-MM-yyyy' }}</td>
                   <th>L1 End Date</th>
-                  <td>{{ l1ScheduleData?.l1_end_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd-MM-yyyy' }}</td>
                   <th>L1 Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -142,35 +142,39 @@
                   </tr>
                 </thead>
                 <tbody class="text-nowrap">
-                  <tr *ngFor="let row of l1ScheduleData?.data; index as i">
-                    <td>{{ i+1 }}</td>
-                    <td>{{ row.task }}</td>
-                    <td>{{ row.start_date | date:'dd-MM-yyyy' }}</td>
-                    <td>{{ row.end_date | date:'dd-MM-yyyy' }}</td>
-                    <td>{{ row.days_difference }}</td>
-                    <td>
-                      <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                      <a title="Delete Details" (click)="removeTask(row)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
-                    </td>
-                    <td>
-                      <table class="table">
-                        <tr *ngFor="let ct of row?.childtasks; index as ci">
-                          <td>{{i+1}}.{{ ci+1 }}</td>
-                          <td>{{ ct.task }}</td>
-                          <td>{{ ct.start_date | date:'dd-MM-yyyy' }}</td>
-                          <td>{{ ct.end_date | date:'dd-MM-yyyy' }}</td>
-                          <td>{{ ct.days_difference }}</td>
-                          <td class="text-right">
-                            <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask" (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                            <a title="Delete Details" (click)="removeSubTask(row, ct)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colspan="6" class="text-right"><a title="Create Details" (click)="addSubTask(row)" data-bs-toggle="modal" data-bs-target="#addSubTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
+                  <tr *ngFor="let row of l1ScheduleData?.tasks; index as i" class="text-nowrap"  [style.color]="row?.is_added ? 'green' : (row?.is_updated ? 'blue' : 'black')">
+                    <ng-container *ngIf="!row.is_deleted">
+                      <td>{{ i+1 }}</td>
+                      <td>{{ row.task }}</td>
+                      <td>{{ row.task_start_date | date:'dd-MM-yyyy' }}</td>
+                      <td>{{ row.task_end_date | date:'dd-MM-yyyy' }}</td>
+                      <td>{{ row.days_difference }}</td>
+                      <td>
+                        <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                        <a title="Delete Details" (click)="removeTask(row)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                      </td>
+                      <td>
+                        <table class="table">
+                          <tr *ngFor="let ct of row?.childtasks; index as ci" [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
+                            <ng-container *ngIf="!ct.is_deleted">
+                              <td>{{i+1}}.{{ ci+1 }}</td>
+                              <td>{{ ct.task }}</td>
+                              <td>{{ ct.task_start_date | date:'dd-MM-yyyy' }}</td>
+                              <td>{{ ct.task_end_date | date:'dd-MM-yyyy' }}</td>
+                              <td>{{ ct.days_difference }}</td>
+                              <td class="text-right">
+                                <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask" (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                                <a title="Delete Details" (click)="removeSubTask(row, ct)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                              </td>
+                            </ng-container>
+                          </tr>
+                          <tr>
+                            <td colspan="6" class="text-right"><a title="Create Details" (click)="addSubTask(row)" data-bs-toggle="modal" data-bs-target="#addSubTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </ng-container>
+                    </tr>
                   <tr>
                     <td colspan="7" class="text-right"><a title="Create Details" class="me-3" data-bs-toggle="modal" data-bs-target="#addTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a>&nbsp;</td>
                   </tr>
@@ -213,18 +217,18 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
-                    <div *ngIf="etf['start_date'].touched && etf['start_date'].invalid">
-                      <small class="text-danger" *ngIf="etf['start_date'].errors?.['required']">*Required</small>
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
+                    <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
-                    <div *ngIf="etf['end_date'].touched && etf['end_date'].invalid">
-                      <small class="text-danger" *ngIf="etf['end_date'].errors?.['required']">*Required</small>
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
+                    <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
@@ -274,18 +278,18 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
-                    <div *ngIf="etf['start_date'].touched && etf['start_date'].invalid">
-                      <small class="text-danger" *ngIf="etf['start_date'].errors?.['required']">*Required</small>
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
+                    <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
-                    <div *ngIf="etf['end_date'].touched && etf['end_date'].invalid">
-                      <small class="text-danger" *ngIf="etf['end_date'].errors?.['required']">*Required</small>
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
+                    <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
@@ -323,9 +327,9 @@
               </tr>
               <tr>
                 <th>L1 Start Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.start_date | date:'dd-MM-yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_start_date | date:'dd-MM-yyyy' }}</td>
                 <th>L1 End Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.end_date | date:'dd-MM-yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_end_date | date:'dd-MM-yyyy' }}</td>
               </tr>
             </tbody>
           </table>
@@ -345,18 +349,18 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
-                    <div *ngIf="etf['start_date'].touched && etf['start_date'].invalid">
-                      <small class="text-danger" *ngIf="etf['start_date'].errors?.['required']">*Required</small>
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
+                    <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
-                    <div *ngIf="etf['end_date'].touched && etf['end_date'].invalid">
-                      <small class="text-danger" *ngIf="etf['end_date'].errors?.['required']">*Required</small>
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
+                    <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
@@ -415,18 +419,18 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
-                    <div *ngIf="etf['start_date'].touched && etf['start_date'].invalid">
-                      <small class="text-danger" *ngIf="etf['start_date'].errors?.['required']">*Required</small>
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" placeholder="Enter Start Date">
+                    <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
-                    <div *ngIf="etf['end_date'].touched && etf['end_date'].invalid">
-                      <small class="text-danger" *ngIf="etf['end_date'].errors?.['required']">*Required</small>
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" placeholder="Enter End Date">
+                    <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
+                      <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
@@ -470,18 +474,10 @@
                   <td>{{ selectedRowData?.tender_location }}</td>
                 </tr>
                 <tr>
-                  <th>L1 Start Date</th>
-                  <td>{{ selectedRowData?.l1_start_date | date:'dd-MM-yyyy' }}</td>
-                  <th>L1 End Date</th>
-                  <td>{{ selectedRowData?.l1_end_date | date:'dd-MM-yyyy' }}</td>
-                  <th>L1 Completion Period (Months)</th>
-                  <td>{{ selectedRowData?.tender_completion_period }}</td>
-                </tr>
-                <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ selectedRowData?.l1_start_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ selectedRowData?.schedule_start_date | date:'dd-MM-yyyy' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ selectedRowData?.l1_end_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ selectedRowData?.schedule_end_date | date:'dd-MM-yyyy' }}</td>
                   <th>L2 Completion Period (Months)</th>
                   <td>{{ selectedRowData?.tender_completion_period }}</td>
                 </tr>
@@ -500,19 +496,19 @@
                 </tr>
               </thead>
               <tbody class="text-nowrap">
-                <tr *ngFor="let row of selectedRowData?.data; index as i">
+                <tr *ngFor="let row of selectedRowData?.tasks; index as i">
                   <td>{{ i+1 }}</td>
                   <td>{{ row.task }}</td>
-                  <td>{{ row.start_date | date:'dd-MM-yyyy' }}</td>
-                  <td>{{ row.end_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ row.task_start_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ row.task_end_date | date:'dd-MM-yyyy' }}</td>
                   <td>{{ row.days_difference }}</td>
                   <td>
                     <table class="table">
                       <tr *ngFor="let ct of row?.childtasks; index as ci">
                         <td>{{i+1}}.{{ ci+1 }}</td>
                         <td>{{ ct.task }}</td>
-                        <td>{{ ct.start_date | date:'dd-MM-yyyy' }}</td>
-                        <td>{{ ct.end_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ ct.task_start_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ ct.task_end_date | date:'dd-MM-yyyy' }}</td>
                         <td>{{ ct.days_difference }}</td>
                       </tr>
                     </table>
