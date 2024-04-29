@@ -80,13 +80,11 @@ export class BoqItemsComponent {
   ) { }
 
  ngOnInit(){
-  this.apiService.getCompanyList().subscribe((res: any) => {  
+    this.apiService.getCompanyList().subscribe((res: any) => {  
     this.comData = res.result;
-    console.log(this.comData);
-    
   });
 
-    this.form = this.formBuilder.group({
+       this.form = this.formBuilder.group({
        childItem: this.formBuilder.array([]),
    
     });
@@ -95,7 +93,7 @@ export class BoqItemsComponent {
       utility_id:['', Validators.required],
       itemCategory:['', Validators.required],
       itemSubCategory:['', Validators.required],
-      itemcode:['', Validators.required],
+      // itemcode:['', Validators.required],
       attachment:['', Validators.required]
     });
     this.addAnotherRow();
@@ -219,7 +217,6 @@ export class BoqItemsComponent {
 
   get f() { return this.form.controls; }
   get fb() { return this.form1.controls; }
-  
 
   onFileChanged(event: any) {
     for (var i = 0; i <= event.target.files.length - 1; i++) {
@@ -247,7 +244,6 @@ export class BoqItemsComponent {
     }
 }
  
-
   exportAsXLSX1(){
     var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
      var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
@@ -292,19 +288,19 @@ downloadPdf() {
     formData.append('tender_id', this.form1.value.tender_id);  
     formData.append('itemCategory', this.form1.value.itemCategory);  
     formData.append('itemSubCategory', this.form1.value.itemSubCategory);  
-    formData.append('itemcode', this.form1.value.itemcode);  
+    // formData.append('itemcode', this.form1.value.itemcode);  
     this.addBOQ(formData);
 }
 
-addBOQ(formData: FormData) {
-    console.log(formData);
-    
-    this.apiService.BOQbulkData(formData).subscribe((res: any) => {
+
+      addBOQ(formData: FormData) {
+        this.apiService.BOQbulkData(formData).subscribe((res: any) => {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
+        this.getDataList();
         if (response.status == 200) {
-            this.form1.reset();
+             this.form1.reset();
             this.alertService.success(response.message);
         } else {
             this.alertService.warning(response.message);
@@ -314,7 +310,5 @@ addBOQ(formData: FormData) {
       document.getElementById('cancel')?.click();
       this.alertService.error("Error: " + error.statusText);
     });
-}
-
- 
+  } 
 }

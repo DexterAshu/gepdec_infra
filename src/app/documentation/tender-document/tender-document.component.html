@@ -81,9 +81,17 @@
                             <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                    {{a.tender_title| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                <td>
+                                    <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        {{a.tender_title}}
+                                    </ng-template>
                                 </td>
+                                <!-- <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                                    {{a.tender_title| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                </td> -->
                                 <td>{{a.tender_ref_no}}</td>
                                 <td>{{a.publish_date}}</td>
                                 <td>{{a.tender_location}}</td>

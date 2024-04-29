@@ -66,8 +66,7 @@
                                 <th>Category</th>
                                 <th>Sub Category</th>
                                 <th>Status</th>
-                                <th>Created By</th>
-                                <th>Created On</th>
+                               
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -76,10 +75,15 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                              
                                 <td>{{ a.company_name}}</td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                    {{a.tender_title| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                              
+                                <td>
+                                    <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        {{a.tender_title}}
+                                    </ng-template>
                                 </td>
-                               
                                 <td>{{ a.tender_ref_no}}</td>
                                 <td>{{ a.publish_date }}</td>
                                 <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Item Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.boq_code}}</td>
@@ -87,10 +91,9 @@
                                 <td>{{ a.itemSubCategory }}</td>
                                
                                 <td>{{ a.status }}</td>
-                                <td>{{ a.createdby_name }}</td>
-                                <td>{{ a.created }}</td>
+                             
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                                      <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
 
@@ -209,7 +212,7 @@
                           <div class="modal-btns mt-2">
                                     <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
                                     <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                                    <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                    <!-- <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button> -->
                                 </div>
                     </form>
                 </div>
@@ -273,18 +276,15 @@
 
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Item Code <span class="required-asterisk">*</span></label>
                             <input formControlName="itemcode" type="text" class="form-control form-control-sm" >
-                            <!-- <div *ngIf="f['itemcode'].touched && f['itemcode'].invalid">
-                                <small class="text-danger" *ngIf="f['itemcode'].errors?.['required']">*Required</small>
-                            </div> -->
-
+                         
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Category<span class="required-asterisk">*</span></label>
                             <select formControlName="itemCategory" class="form-select form-select-sm">
@@ -297,7 +297,7 @@
                             </div> -->
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Sub-Category<span class="required-asterisk">*</span></label>
                             <select formControlName="itemSubCategory" class="form-select form-select-sm">
@@ -316,9 +316,11 @@
                         <input class="mt-2" type="file" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
                        <br>
                     <div class="float-right mt-2">
-                        <button type="submit" *ngIf="isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="form1.invalid" >
-                            <i class="mdi mdi-folder-upload menu-icon"></i>&nbsp;Upload</button>
-                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Documents Uploading...</button>
+                        <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="form1.invalid" >
+                            Upload</button>
+                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span>Uploading...</button>
+                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+
                      </div>
                    </div>
                 </div>
@@ -381,8 +383,14 @@
                                             <td>{{ limit*(p-1)+i+1 }}</td>
                                          
                                             <td data-bs-toggle="modal" data-bs-target="#childDetailModal" title="Child Item Detailed Data" (click)="getChildData(rowDataItem)" class="cursor-pointer text-primary text-decoration-underline">{{ rowDataItem?.itemcode }}</td>
-                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowDataItem?.description }}">
-                                                {{rowDataItem?.description | slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                           
+                                            <td>
+                                                <div *ngIf="!!rowDataItem?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ rowDataItem?.description }}">
+                                                    {{rowDataItem?.description | slice:0:30}} <span *ngIf="rowDataItem?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock>
+                                                    {{rowDataItem?.tender_title}}
+                                                </ng-template>
                                             </td>
                                             <td>{{ rowDataItem?.basic_value }}</td>
                                             <td>{{ rowDataItem?.unit_price }}</td>
@@ -444,9 +452,15 @@
                                             <td>{{ limit*(p-1)+i+1 }}</td>
                                          
                                             <td >{{ c?.itemcode }}</td>
-                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ c?.description }}">
-                                                {{c?.description | slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                            <td>
+                                                <div *ngIf="!!c?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ c?.description }}">
+                                                    {{c?.description | slice:0:30}} <span *ngIf="c?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock>
+                                                    {{c?.tender_title}}
+                                                </ng-template>
                                             </td>
+                                          
                                             <td>{{ c?.basic_value }}</td>
                                             <td>{{ c?.unit_price }}</td>
                                             <td>{{ c?.qty }}</td>
