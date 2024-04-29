@@ -18,6 +18,7 @@ export class L2ScheduleBulkdataComponent {
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
+  update: boolean = false;
   isNotFound: boolean = false;
   isSubmitted: boolean = false;
   limits: any = [];
@@ -244,6 +245,11 @@ export class L2ScheduleBulkdataComponent {
     this.selectedRowData = data;
   }
 
+  updateSelectedRow(data: any) {
+    this.update = true;
+    this.l1ScheduleData = data;
+  }
+
   get f() { return this.form.controls; }
 
   get etf() { return this.editTaskForm.controls; }
@@ -294,8 +300,37 @@ export class L2ScheduleBulkdataComponent {
     this.apiService.l2ScheduleCreate(match).subscribe((res: any) => {
       if (res.status === 200) {
         this.alertService.success(res.message);
-        // this.getL2ScheduleData();
-        // document.getElementById('closed')?.click();
+        this.getL2ScheduleData();
+        document.getElementById('closed')?.click();
+      } else {
+        this.alertService.error(res.message);
+      }
+    }),
+    (error: any) => {
+      this.alertService.error(`Error: ${error.message}`);
+    }
+    this.isSubmitted = false;
+  }
+
+  updateSubmit() {
+    this.isSubmitted = true;
+    let match: any = {
+      schedule_id: this.l1ScheduleData.schedule_id,
+      tender_id: this.l1ScheduleData.tender_id,
+      level: this.l1ScheduleData.level,
+      schedule_start_date: this.l1ScheduleData.schedule_start_date,
+      schedule_end_date: this.l1ScheduleData.schedule_end_date,
+      tender_completion_period: this.l1ScheduleData.tender_completion_period,
+      description: this.l1ScheduleData.description,
+      publish_date: this.l1ScheduleData.publish_date,
+      tasks: this.l1ScheduleData.tasks
+    };
+    console.log(match);
+    this.apiService.l2ScheduleUpdate(match).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.alertService.success(res.message);
+        this.getL2ScheduleData();
+        document.getElementById('closed')?.click();
       } else {
         this.alertService.error(res.message);
       }

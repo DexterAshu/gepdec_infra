@@ -85,6 +85,8 @@ export class L1ScheduleComponent {
   }
 
   getTenderListByCompany(): void {
+    this.tenderList = [];
+    this.selectTender();
     this.apiService.getTenderLisById(this.documentForm.value.company_id).subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderList = res.result;
