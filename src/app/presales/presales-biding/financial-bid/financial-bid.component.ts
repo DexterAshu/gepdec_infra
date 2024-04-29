@@ -55,20 +55,30 @@ export class FinancialBidComponent {
   annualTurnover = new FormControl();
   finData: any;
   finCalData: any;
+  isOpen: boolean = false;
+  fileList: File[] = [];
+  listOfFiles: any[] = [];
+  data: any;
+  data1: any;
+  data2: any;
+  liabVal: any;
+  assetVal: any;
+  netProf: any;
+  netCapitalVal: any;
+  rAnds: any;
+  paiCapitalVal: any;
+  ebidtaVal: any;
   
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService,
-  ) {
-   
-   }
+  ) {}
 
  ngOnInit(){
     this.form = this.formBuilder.group({
         financialyear_id: [null, Validators.required],
-       
         annual_turnover: [null, Validators.required],
         tender_id:['', Validators.required],
         utility_id:['', Validators.required],
@@ -84,6 +94,26 @@ export class FinancialBidComponent {
         itr:[''],
         year:[''],
         check:[''],
+        year1:[''],
+        check1:[''],
+        year2:[''],
+        check2:[''],
+        year3:[''],
+        check3:[''],
+        year4:[''],
+        check4:[''],
+        year5:[''],
+        check5:[''],
+        year6:[''],
+        check6:[''],
+        year7:[''],
+        check7:[''],
+        year8:[''],
+        check8:[''],
+        year9:[''],
+        check9:[''],
+        year10:[''],
+        check10:[''],
         nclt_status: [null],
         drt: [null],
         cdr: [null]    
@@ -107,15 +137,14 @@ export class FinancialBidComponent {
 
   finListData(){
     this.apiService.getfinDataList().subscribe((res:any) => {
-      console.log(res);
-      
       if (res.status === 200) {
         this.docListData = res.result;
-        console.log(this.docListData);
-        
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
     });
   }
 
@@ -132,31 +161,106 @@ export class FinancialBidComponent {
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
     });  
-
+  
   }
 
-  yearBasedCalculateData(){
-    this.form.value.year;
-    let year = this.form.value.year;
-    let check = this.form.value.check;
-    this.apiService.finCalculateData(year, check).subscribe((res:any) =>{
-    this.finCalData = res.result;
-    console.log(this.finCalData);
-    
-  })
-    
+  annuvalTurnVal(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finAnnuvalTournover(year, check).subscribe((res:any) =>{
+      this.data =res.result;
+     })
   }
+  netWorthVal(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finNetWorth(year, check).subscribe((res:any) =>{
+      this.data1 =res.result;
+     })
+  }
+  netWorkingCapitalVal(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finNetWorkingCap(year, check).subscribe((res:any) =>{
+      this.data2 =res.result;
+     })
+  }
+  totalLiabilityVal(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finLiability(year, check).subscribe((res:any) =>{
+      this.liabVal =res.result;
+     })
+  }
+  fixAsset(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finFixedAsset(year, check).subscribe((res:any) =>{
+      this.assetVal =res.result;
+     })
+  }
+  netProfitData(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finNetProfit(year, check).subscribe((res:any) =>{
+      this.netProf =res.result;
+     })
+  }
+  natCapitalData(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finNetCapital(year, check).subscribe((res:any) =>{
+      this.netCapitalVal =res.result;
+     })
+  }
+  resAndsurplus(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finRS(year, check).subscribe((res:any) =>{
+      this.rAnds =res.result;
+     })
+  }
+  paidUpCapital(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finPaidupCapital(year, check).subscribe((res:any) =>{
+      this.paiCapitalVal =res.result;
+     })
+  }
+  ebidtaData(year:any,check:any){
+    year = this.form.value.year
+    check = this.form.value.check
+    this.apiService.finAbidta(year, check).subscribe((res:any) =>{
+      this.ebidtaVal =res.result;
+     })
+  }
+
+  // yearBasedCalculateData(year:any,checkVal:any,column:any){
+  //   let data={
+  //     year:this.form.value[year],
+  //     check:this.form.value[checkVal],
+  //     column:name,
+  //   }
+  //  console.log(data);
+  //    this.apiService.finAnnuvalTournover(data).subscribe((res:any) =>{
+  //     console.log(res);
+  //     this.data =res.result;
+  //    })
+    
+
+    
+  //   // this.apiService.finCalculateData(year, check).subscribe((res:any) =>{
+  //   // this.finCalData = res.result;
+  //   // console.log(this.finCalData);
+  //   // console.log(this.form.value.annual_turnover);
+  // }
 
   finBidComprision(){
     let financialyear_id = this.form.value.financialyear_id;
-      console.log(this.filterTenderDetailsData);
     let didderID = this.filterTenderDetailsData[0].bidder_id;
-       this.apiService.finComprisionData(didderID, financialyear_id).subscribe((res:any) =>{
-        this.finData = res.result;
-       
-      
+      this.apiService.finComprisionData(didderID, financialyear_id).subscribe((res:any) =>{
+      this.finData = res.result;
     })
-    // this.ourCompanyFinDataField = !this.ourCompanyFinDataField;
   }
 
   getDetails(event: any) {
@@ -172,26 +276,15 @@ export class FinancialBidComponent {
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
 
-  
-
-//button dropdown
-isOpen: boolean = false;
-
 toggleDropdown() {
   this.isOpen = !this.isOpen;
 }
-
-  
-  fileList: File[] = [];
-  listOfFiles: any[] = [];
-
   onFileChanged(event: any) { 
     for (var i = 0; i <= event.target.files.length - 1; i++) {
       var selectedFile = event.target.files[i];
       this.listOfFiles.push(selectedFile.name);
       this.attachment.push(selectedFile);
     }
-    console.log(this.attachment);
   }
 
   removeSelectedFile(index: any) {
@@ -253,15 +346,14 @@ downloadPdf() {
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 
+
+
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
-        this.loading = true;
-  
-  
+      this.loading = true;
     const formData: any = new FormData();
     const files: Array<File> = this.filesToUpload;
-
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append("attachment", this.attachment[i]);
     }
@@ -286,11 +378,11 @@ downloadPdf() {
     formData.append("nclt_status",this.form.value.nclt_status);
     formData.append("drt",this.form.value.drt);
     formData.append("cdr",this.form.value.cdr);
-    this.addDocument(formData);
+    this.addFinancial(formData);
   }
 }
 
-  addDocument(formData: FormData) {
+  addFinancial(formData: FormData) {
     this.apiService.addFinData(formData).subscribe((res:any )=> {
       let response: any = res;
       document.getElementById('cancel')?.click();
@@ -302,37 +394,10 @@ downloadPdf() {
       } else {
         this.alertService.warning(response.message);
       }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
     });
   }
-
-  // addTender() {
-  //   this.apiService.createTender(this.form.value).subscribe((res: any) => {
-  //    let response: any = res;
-  //       document.getElementById('cancel')?.click();
-  //       this.isSubmitted = false;
-  //       if (response.status == 200) {
-  //         this.getCompanyData();
-  //         this.form.reset();
-  //         this.alertService.success(response.message);
-  //       } else {
-  //         this.alertService.warning(response.message);
-  //       }
-  //     })
-  // }
-  // updateTender(): void {
-  //   // this.opac=0;
-  //   // this.loadermsg="Updating..."
-  //    this.form.value.company_id =  this.custDetails.company_id;
-  //   this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
-  //      this.isSubmitted = false;
-  //     if (res.status == 200) {
-  //       this.ngOnInit();
-  //       document.getElementById('cancel')?.click();
-  //     this.alertService.success('Company Updated Successfully');
-  //   } else {
-  //     this.alertService.error('Something went wrong please try again');
-  //   }
-  // });
-  // }
 }
 

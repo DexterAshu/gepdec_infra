@@ -14,7 +14,7 @@ import * as FileSaver from 'file-saver';
 export class BankingDetailsComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
@@ -57,6 +57,8 @@ export class BankingDetailsComponent {
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
       security_id: ['',Validators.required],
+      utility_id:['', Validators.required],
+      tender_id:['', Validators.required],
       bank_id: [''],
       bg_number: ['', Validators.required],
       bg_amount: ['', Validators.required],
@@ -65,8 +67,6 @@ export class BankingDetailsComponent {
       submission_date: [''],
       extend_date: [''],
       attachment: [''],
-      tender_id:['', Validators.required],
-      utility_id:['', Validators.required],
       document_description: [''],
      
     });
@@ -79,17 +79,17 @@ export class BankingDetailsComponent {
 
   updateDoc(){
     this.documentForm.get('bank_id')!.setValidators([Validators.required]);
-    this.documentForm.get('bank_id')!.clearValidators();
+    this.documentForm.controls['bank_id'].clearValidators();
     this.documentForm.get('submission_date')!.setValidators([Validators.required]);
-    this.documentForm.get('submission_date')!.clearValidators();
+    this.documentForm.controls['submission_date'].clearValidators();
     this.documentForm.get('extend_date')!.setValidators([Validators.required]);
-    this.documentForm.get('extend_date')!.clearValidators();
+    this.documentForm.controls['extend_date'].clearValidators();
     this.documentForm.get('attachment')!.setValidators([Validators.required]);
-    this.documentForm.get('attachment')!.clearValidators();
+    this.documentForm.controls['attachment'].clearValidators();
     this.documentForm.get('end_date')!.setValidators([Validators.required]);
-    this.documentForm.get('end_date')!.clearValidators();
+    this.documentForm.controls['end_date'].clearValidators();
     this.documentForm.get('start_date')!.setValidators([Validators.required]);
-    this.documentForm.get('start_date')!.clearValidators();
+    this.documentForm.controls['start_date'].clearValidators();
   }
 
   getData() {
@@ -180,13 +180,7 @@ export class BankingDetailsComponent {
   }
   
   onSubmit() {
-    // if (this.documentForm.value.extend_date != '') {
-    //   this.documentForm.value.extend_date == '';
-    // } else {
-    //   this.documentForm.value.extend_date = null;
-    // }
-
-    console.log(this.documentForm.value);
+    this.isSubmitted = true;
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
@@ -221,6 +215,10 @@ export class BankingDetailsComponent {
       } else {
         this.alertService.warning(response.message);
       }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 }

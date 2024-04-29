@@ -29,12 +29,12 @@
                                 <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
                                     Bulkload Template</button> -->
                                     <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
-                                          <span class="mdi mdi-upload"></span>&nbsp; Export
+                                          <span class="mdi mdi-upload"></span> Export
                                     </button>
                                     <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span>&nbsp; Import 
+                                          <span class="mdi mdi-download"></span> Import 
                                     </button>
-                                    <button type="button" data-bs-toggle="modal" (click)="createForm()" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                                    <button type="button" data-bs-toggle="modal" (click)="createForm()" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
                          
 
                             </div>
@@ -46,8 +46,8 @@
                                 <th>S No</th>
                                 <th>Client Name</th>
                                 <th>Client Type</th>
-                                <th>GST No</th>
-                                <th>PAN No</th>
+                                <!-- <th>GST No</th>
+                                <th>PAN No</th> -->
                                 <th>Country</th>
                                 <th>State</th>
                                 <th>District</th>
@@ -59,13 +59,13 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.company_name }}</td>
                                 <td>{{ a.mstcompanytype }}</td>
-                                <td>{{ a.gst }}</td>
-                                <td>{{ a.pan }}</td>
+                                <!-- <td>{{ a.gst }}</td>
+                                <td>{{ a.pan }}</td> -->
                                 <td>{{ a.name }}</td>
                                 <td>{{ a.state_name }}</td>
                                 <td>{{ a.district_name }}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                                      <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
 
@@ -111,7 +111,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Client Name<span class="required-asterisk">*</span></label>
-                                    <input formControlName="company_name" type="text" class="form-control form-control-sm" placeholder="Enter company name" appWordCapitalize>
+                                    <input formControlName="company_name" type="text" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['company_name'].touched && f['company_name'].invalid">
                                         <small class="text-danger" *ngIf="f['company_name'].errors?.['required']">*Required</small>
                                     </div>
@@ -134,7 +134,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">GST No</label>
-                                    <input formControlName="gst" placeholder="Enter GST NO." minlength="15"
+                                    <input formControlName="gst" minlength="15"
                                     maxlength="15" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
                                     <!-- <div *ngIf="f['gst'].touched && f['gst'].invalid">
                                         <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
@@ -144,7 +144,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">PAN No</label>
-                                    <input formControlName="pan" placeholder="Enter Pan No." minlength="10"
+                                    <input formControlName="pan" minlength="10"
                                     maxlength="10" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
                                     <!-- <div *ngIf="f['pan'].touched && f['pan'].invalid">
                                         <small class="text-danger" *ngIf="f['pan'].errors?.['required']">*Required</small>
@@ -207,20 +207,20 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Web Url</label>
-                                    <input type="text" formControlName="websiteurl" class="form-control form-control-sm" placeholder="Enter Url">
+                                    <input type="text" formControlName="websiteurl" class="form-control form-control-sm">
                                   
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Cin No</label>
-                                    <input type="text" formControlName="cinno" class="form-control form-control-sm" placeholder="Enter Cin No" minlength="21" maxlength="21" appUpperCase appNoSpace>
+                                    <input type="text" formControlName="cinno" class="form-control form-control-sm" minlength="21" maxlength="21" appUpperCase appNoSpace>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="pincode" maxlength="6" minlength="6" placeholder="Enter Pin Code" class="form-control form-control-sm" appNumberOnly>
+                                    <input type="text" formControlName="pincode" maxlength="6" minlength="6" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['pincode'].touched && f['pincode'].invalid">
                                         <small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small>
                                         <small class="text-danger" *ngIf="f['pincode'].errors?.['pattern']">*Please enter 6 digit only.</small>
@@ -230,7 +230,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Lane/Area<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="area" class="form-control form-control-sm" placeholder="Enter lane/area...">
+                                    <input type="text" formControlName="area" class="form-control form-control-sm">
                                     <div *ngIf="f['area'].touched && f['area'].invalid">
                                         <small class="text-danger" *ngIf="f['area'].errors?.['required']">*Required</small>
                                     </div>
@@ -239,13 +239,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Address line 1</label>
-                                    <input type="text" formControlName="address_line1" class="form-control form-control-sm" placeholder="Enter Address Line 1">
+                                    <input type="text" formControlName="address_line1" class="form-control form-control-sm">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Address line 2</label>
-                                    <input type="text" formControlName="address_line2" class="form-control form-control-sm" placeholder="Enter Address line 2">
+                                    <input type="text" formControlName="address_line2" class="form-control form-control-sm" >
                                        
                                     
                                 </div>
@@ -254,8 +254,7 @@
                             <div class="row">
                                 <div class="col-md-6"> <h6 class="mt-2">Contact Details: </h6></div>
                                 <div class="col-md-6">
-                                    <!-- <a routerLink="/master/tender-company-contacts" class="float-right" data-bs-dismiss="modal" style="font-size: 14px;"><i class="mdi mdi-credit-card-plus mdi-2"></i>
-                                       Add More Contacts</a> -->
+                                   
                                 </div>
                                
                             </div>
@@ -263,7 +262,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Name</label>
-                                    <input formControlName="name" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
+                                    <input formControlName="name" type="text" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['name'].touched && f['name'].invalid">
                                         <small class="text-danger" *ngIf="f['name'].errors?.['required']">*Required</small>
                                     </div>
@@ -299,8 +298,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Primary Contact No</label>
-                                    <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
-                                    maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="contactno1" minlength="10"
+                                    maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">
                                         <small class="text-danger" *ngIf="f['contactno1'].errors?.['required']">*Required</small>
                                         <small class="text-danger" *ngIf="f['contactno1'].errors?.['pattern']">*Please enter 10 digit Contact No</small>
@@ -311,14 +310,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Secondary Contact No</label>
-                                    <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
-                                    maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="contactno2" minlength="10"
+                                    maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Email ID</label>
-                                    <input formControlName="email" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
+                                    <input formControlName="email" type="text" class="form-control form-control-sm" appNoSpace>
                                     <div *ngIf="f['email'].touched && f['email'].invalid">
                                         <small class="text-danger" *ngIf="f['email'].errors?.['required']">*Required</small>
                                         <small class="text-danger" *ngIf="f['email'].errors?.['pattern']">*Email must be a valid Email ID</small>
@@ -343,60 +342,104 @@
 
 
 
-<a style="display: none;" data-bs-toggle="modal" data-bs-target="#createModall" id="selfModel"></a>
-<div class="modal fade" id="createModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<!-- details modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Financial Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#createModal"></button>
+                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">
-                    <form [formGroup]="form">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Net Worth<span class="required-asterisk">*</span></label>
-                                    <input formControlName="net_worth" type="text" class="form-control form-control-sm" placeholder="Enter net worth">
-                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
-                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-       
-                       
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">financial year<span
-                                            class="required-asterisk">*</span></label>
-                                    <input formControlName="financialyear_id" type="date" class="form-control form-control-sm">
-                                    <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Annual Turnover<span class="required-asterisk">*</span></label>
-                                    <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" placeholder="Enter net worth">
-                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
-                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
-                                    </div>
 
-                                </div>
-                            </div>
-                    
-                            <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createModal">Close</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <table class="table table-hover table-striped custom-table">
+                    <thead class="hidden-thead"></thead>
+                    <tbody class="text-nowrap">
+                        <tr>
+                            <th>Client</th>
+                            <td>{{ rowData?.company_name }}</td>
+                            <th>GST No</th>
+                            <td>{{ rowData?.gst }}</td>
+                           
+                        </tr>
+                        <tr>
+                            <th>PAN No</th>
+                            <td>{{ rowData?.pan }}</td>
+                            <th>Cin No</th>
+                            <td>{{ rowData?.cinno }}</td>
+                        </tr>
+                        <tr>
+                           
+                            <th>DOI (Date of Incorporation)</th>
+                            <td>{{ rowData?.doi }}</td>
+                            <th>Country</th>
+                            <td>{{ rowData?.name }}</td>
+                        </tr>
+                        <tr>
+                          
+                            <th>State</th>
+                            <td>{{ rowData?.state_name }}</td>
+                            <th>District</th>
+                            <td>{{ rowData?.district_name }}</td>
+                        </tr>
+                        <tr>
+                         
+                            <th>City</th>
+                            <td>{{ rowData?.city }}</td>
+                            <th>Web Url</th>
+                            <td>{{ rowData?.url }}</td>
+                        </tr>
+                        <tr>
+                           
+                            <th>Pincode</th>
+                            <td>{{ rowData?.pincode }}</td>
+                            <th>Lane/Area</th>
+                            <td>{{ rowData?.area }}</td>
+                            </tr>
+                           
+                            <tr>
+                            <th>Address 1</th>
+                            <td>{{ rowData?.address_line1 }}</td>
+                            <th>Address 2</th>
+                            <td>{{ rowData?.address_line2 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Created By</th>
+                            <td>{{rowData?.createdby_name}}</td>
+                            <th>Created At</th>
+                            <td>{{rowData?.created}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-hover table-striped custom-table">
+                    <thead class="table-primary text-nowrap">
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Contact Person</th>
+                            <th>Mobile No</th>
+                            <th>Secondary Number</th>
+                            <th>Email ID</th>
+                            <!-- <th>Department</th>
+                            <th>Designation</th> -->
+                        </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                        <tr>
+                            <tr *ngFor="let a of rowData?.contact | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                            <td>{{ limit*(p-1)+i+1 }}</td>
+                            <td>{{ a?.name }}</td>
+                            <td>{{ a?.contactno1 }}</td>
+                            <td>{{ a?.contactno2 }}</td>
+                            <td>{{ a?.email }}</td>
+                            <!-- <td>{{ a?.deptname }}</td>
+                            <td>{{ a?.designationname }}</td> -->
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+<!-- details modal end-->

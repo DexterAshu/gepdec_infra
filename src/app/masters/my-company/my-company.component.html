@@ -29,12 +29,12 @@
                                 <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
                                     Bulkload Template</button> -->
                                     <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
-                                          <span class="mdi mdi-upload"></span>&nbsp; Export
+                                          <span class="mdi mdi-upload"></span> Export
                                     </button>
                                     <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span>&nbsp; Import 
+                                          <span class="mdi mdi-download"></span> Import 
                                     </button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
                          
 
                             </div>
@@ -53,15 +53,12 @@
                                 <th>DOI</th>
                                 <th>GST No</th>
                                 <th>PAN No</th>
-                                <th>Created By</th>
-                                <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="companyData.length">
                             <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                                <!-- <td>{{ a.company_id }}</td> -->
                                 <td>{{ a.bidder_name}}</td>
                                 <td>{{ a.companytype}}</td>
                                 <td>{{ a.contact[0].name}}</td>
@@ -70,10 +67,9 @@
                                 <td>{{ a.doi }}</td>
                                 <td>{{ a.gst }}</td>
                                 <td>{{ a.pan }}</td>
-                                <td>{{ a.createdby_name }}</td>
-                                <td>{{ a.created }}</td>
+                               
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                                      <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
 
@@ -316,177 +312,81 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Company Information</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">
-                    <form [formGroup]="form">
-                        <div class="row">
-                         
+
+                <table class="table table-hover table-striped custom-table">
+                    <thead class="hidden-thead"></thead>
+                    <tbody class="text-nowrap">
+                        <tr>
+                            <th>Company</th>
+                            <td>{{ rowData?.bidder_name }}</td>
+                            <th>Company Type</th>
+                            <td>{{ rowData?.companytype }}</td>
+                           
+                        </tr>
+                        <tr>
+                            <th>Contact Person</th>
+                            <td>{{ rowData?.contact[0]?.name }}</td>
+                            <th>Mobile No</th>
+                            <td>{{ rowData?.contact[0]?.contactno1 }}</td>
+                            </tr>
+                            <tr>
+                            <th>Secondary Number (optional)</th>
+                            <td>{{ rowData?.contact[0]?.contactno2 }}</td>
+                            <th>Email ID</th>
+                            <td>{{ rowData?.contact[0]?.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>GST No</th>
+                            <td>{{ rowData?.gst }}</td>
+                            <th>PAN No</th>
+                            <td>{{ rowData?.pan }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cin No</th>
+                            <td>{{ rowData?.cinno }}</td>
+                            <th>DOI (Date of Incorporation)</th>
+                            <td>{{ rowData?.doi }}</td>
+                        </tr>
+                        <tr>
                             
+                            <th>Country</th>
+                            <td>{{ rowData?.address[0]?.name }}</td>
+                            <th>State</th>
+                            <td>{{ rowData?.address[0]?.state_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>District</th>
+                            <td>{{ rowData?.address[0]?.district_name }}</td>
+                            <th>Web Url</th>
+                            <td>{{ rowData?.url }}</td>
                           
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Company Name</label>
-                                    <input formControlName="bidder_name" type="text" class="form-control form-control-sm" readonly appWordCapitalize>
-                                   
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Company Type</label>
-                                    <select formControlName="companytype_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Company Type</option>
-                                        <option *ngFor="let s of compData" value="{{s.companytype_id}}">{{ s.companytype }}</option>
-                                    </select>
-                                   
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Contact Person</label>
-                                    <input formControlName="name" type="text" class="form-control form-control-sm" readonly appWordCapitalize>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Mobile No</label>
-                                    <input formControlName="contactno1" type="text" class="form-control form-control-sm" readonly appNumberOnly>
-                                   
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Secondary Number (optional)</label>
-                                    <input formControlName="contactno2" type="text" class="form-control form-control-sm" readonly appNumberOnly>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Email ID</label>
-                                    <input formControlName="email" type="text" readonly class="form-control form-control-sm" appNoSpace>
-                                   
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">GST No</label>
-                                    <input formControlName="gst" type="text" class="form-control form-control-sm" readonly appUpperCase appNoSpace>
-                                   
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">PAN No</label>
-                                    <input formControlName="pan" type="text" class="form-control form-control-sm" readonly appUpperCase appNoSpace>
-                                   
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">CIN No</label>
-                                    <input formControlName="cinno" type="text" class="form-control form-control-sm" readonly appUpperCase appNoSpace>
-                                  
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">DOI (Date of Incorporation)</label>
-                                    <input formControlName="doi" type="date" class="form-control form-control-sm" readonly>
-                                    
-                                </div>
-                            </div>
+                        </tr>
+                        <tr>
+                            <th>Pincode</th>
+                            <td>{{ rowData?.address[0]?.pincode }}</td>
+                            <th>Lane/Area</th>
+                            <td>{{ rowData?.address[0]?.area }}</td>
+                            </tr>
+                            <tr>
+                            <th>Address 1</th>
+                            <td>{{ rowData?.address[0]?.address_line1 }}</td>
+                            <th>Address 2</th>
+                            <td>{{ rowData?.address[0]?.address_line2 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Created By</th>
+                            <td>{{rowData?.createdby_name}}</td>
+                            <th>Created At</th>
+                            <td>{{rowData?.created}}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Country</label>
-                                    <select formControlName="country_id" class="form-select form-select-sm" (ngModelChange)="getStateData()" readonly>
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
-                                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
-                                    </select>
-                                  
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">State</label>
-                                    <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData()" readonly>
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
-                                        <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
-                                    </select>
-                                  
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group" readonly>
-                                    <label class="form-label">District</label>
-                                    <select formControlName="district_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
-                                        <option *ngFor="let d of districtData" value="{{d.district_id}}">{{ d.district_name }}</option>
-                                    </select>
-                                  
-                                </div>
-                            </div>
-
-                            <!-- <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Country</label>
-                                    <input formControlName="country_id"  [(ngModel)]="countryName" readonly type="text" class="form-control form-control-sm" (ngModelChange)="getStateData()" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">State</label>
-                                    <input formControlName="state_id" type="text" class="form-control form-control-sm" (ngModelChange)="getDistrictData()" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">District</label>
-                                    <input formControlName="district_id" type="text" class="form-control form-control-sm" readonly>
-                                </div>
-                            </div> -->
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Web Url</label>
-                                    <input type="text" formControlName="url" class="form-control form-control-sm" readonly>
-                                 
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Pincode</label>
-                                    <input type="text" formControlName="pincode" class="form-control form-control-sm" readonly appNumberOnly>
-                                   
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Lane/Area</label>
-                                    <input type="text" formControlName="area" class="form-control form-control-sm" readonly>
-                                   
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Address line 1</label>
-                                    <input type="text" formControlName="address_line1" class="form-control form-control-sm" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Address line 2</label>
-                                    <input type="text" formControlName="address_line2" class="form-control form-control-sm" readonly>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>

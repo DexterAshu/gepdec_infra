@@ -149,8 +149,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Detail Available Link</label>
-                            <input formControlName="tender_detail_link" type="text"
-                                class="form-control form-control-sm">
+                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm" appNoSpace>
 
                         </div>
                     </div>
@@ -308,7 +307,7 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">ECV (INR)<span class="required-asterisk">*</span></label>
                             <input formControlName="ecv" type="text" class="form-control form-control-sm" appNumberOnly>
                             <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
                                 <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
@@ -355,7 +354,8 @@
                                     c.securitydeposit }}</option>
                             </select>
                             <div *ngIf="f['securitydeposit_id'].touched && f['securitydeposit_id'].invalid">
-                                <small class="text-danger" *ngIf="f['securitydeposit_id'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['securitydeposit_id'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
@@ -368,7 +368,8 @@
                                 <input formControlName="security_amount" type="text"
                                     class="form-control form-control-sm" appNumberOnly>
                                 <div *ngIf="f['security_amount'].touched && f['security_amount'].invalid">
-                                    <small class="text-danger" *ngIf="f['security_amount'].errors?.['required']">*Required</small>
+                                    <small class="text-danger"
+                                        *ngIf="f['security_amount'].errors?.['required']">*Required</small>
                                 </div>
                             </div>
                         </div>
@@ -382,7 +383,8 @@
                                 <div
                                     *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
                                 </div>
-                                <small class="text-danger" *ngIf="f['securitysubmission_date'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['securitysubmission_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </ng-container>
@@ -485,8 +487,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label fl-10">EMD Submission Date<span
@@ -499,15 +499,13 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label fl-10">EMD Forfeiture Condition </label>
                                 <textarea formControlName="forfeiture_condition" type="date"
-                                    class="form-control form-control-sm">
-           </textarea>
-
+                                    class="form-control form-control-sm"></textarea>
                             </div>
-
                         </div>
                     </ng-container>
                     <!-- tender EMD end -->
@@ -533,7 +531,9 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="float-right">
-                                    <button class="btn btn-fw btn-sm fl-10 text-primary" (click)="patchClient()"  data-bs-toggle="modal" data-bs-target="#createContact" [disabled] = "contactDetails?.length == 0">
+                                    <button class="btn btn-fw btn-sm fl-10 text-primary" (click)="patchClient()"
+                                        data-bs-toggle="modal" data-bs-target="#createContact"
+                                        [disabled]="contactDetails?.length == 0">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-telephone-forward" viewBox="0 0 16 16">
                                             <path
@@ -568,7 +568,8 @@
                                         <td>{{a.contactno1}}</td>
                                         <td>{{a.email}}</td>
                                         <td>
-                                            <input formControlName="contactperson_check" type="checkbox" (click)="handleCheckboxChange($event, a)">
+                                            <input formControlName="contactperson_check" type="checkbox"
+                                                (click)="handleCheckboxChange($event, a)">
                                         </td>
                                     </tr>
                                     <tr *ngIf="isContactFound == true">
@@ -668,7 +669,9 @@
                         </div>
                     </div>
                     <div class="modal-btns mt-3">
-                        <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid || (form.value.termscheckbox == false)" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                        <button type="submit" *ngIf="!isSubmitted"
+                            [disabled]="!form.valid || (form.value.termscheckbox == false)"
+                            class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
                         <button type="button" *ngIf="isSubmitted" disabled
                             class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm"
                                 aria-hidden="true"></span> Adding...</button>

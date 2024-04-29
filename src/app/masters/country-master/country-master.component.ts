@@ -28,6 +28,9 @@ export class CountryMasterComponent {
   discardeddata: any;
   countryDetails: any;
   rowData: any;
+  update: boolean = false;
+  button: string = 'Create';
+  loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,25 +46,23 @@ export class CountryMasterComponent {
     });
 
     this.getCountryList();
-     this.getCountryData();
+
   }
 
   get f() { return this.form.controls; }
-
-
   getDetails(data:any){
+    this.rowData = [];
     this.rowData = data;
-    // this.button = 'Update';
-    // this.update = true;
-  //   this.form.reset();
-  //   this.apiService.ourcompanyDetails(data.bidder_id).subscribe((res: any) => {
-  //     this.countryDetails = res.result[0];
-  //       this.form.patchValue({
-  //         country_code: this.countryDetails.country_code,
-  //         companytype_id: this.countryDetails.companytype_id,
+  }
 
-  //       });
-  // })
+  getdatapatch(data:any){
+    this.button = 'Update';
+    this.update = true;
+      this.countryDetails = data;
+        this.form.patchValue({
+          country_code: this.countryDetails.country_code,
+          name: this.countryDetails.name,
+        });
   }
 
   getCountryList() {
@@ -71,7 +72,6 @@ export class CountryMasterComponent {
       if (res.status == 200) {
       this.countCount = res;
       this.countData = res.result;
-          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
       }else {
         this.alertService.warning("Looks like no data available!");
       }
@@ -79,16 +79,6 @@ export class CountryMasterComponent {
       this.countData = [];
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
-    });
-  }
-
-  getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
-      if (res.status === 200) {
-        this.countryData = res.result;
-      } else {
-        this.alertService.warning("Looks like no data available in country data.");
-      }
     });
   }
 
@@ -115,40 +105,67 @@ downloadPdf() {
     });
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
+  createForm(){
+    this.button = 'Create';
+    this.update = false;
+    this.form.reset();
+  }
 
+  
   onSubmit() {
     if (this.form.valid) {
-      this.isSubmitted = true;
-
-      // if (this.form.value.country_id !== null) {
-      //   var countryVal = this.countryData.filter((item: any) => {
-      //     return item.country_id == this.form.value.country_id;
-      //   });
-      //   this.form.value.country_id = countryVal[0]['country_id'];
-      // }
-      // else {
-      //   this.form.value.country_id = null;
-      // }
-
-      let params = {
-        name: this.form.value.name,
-        country_code: this.form.value.country_code.toUpperCase(),
-      };
-      this.apiService.createMasterCountry( params).subscribe((res:any) => {
-        
-        let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (res.status == 200) {
-          this.ngOnInit();
-          document.getElementById('closed')?.click();
-          this.alertService.success(res.message);
-        } else if(res.status == 201) {
-          this.alertService.error(res.message);
-        }else{
-          this.alertService.error('Error, Something went wrong please check');
-        }
-      })
-      }
+        this.isSubmitted = true;
+        this.loading = true;
+    if (this.update) {  
+      this.countryUpdate();
+    } else {
+      this.createCountry();
+    }
+    }
   }
+
+  createCountry() {
+    let params = {
+      name: this.form.value.name,
+      country_code: this.form.value.country_code.toUpperCase(),
+    };
+    this.apiService.createMasterCountry( params).subscribe((res:any) => {
+      let response: any = res;
+      document.getElementById('cancel')?.click();
+      this.isSubmitted = false;
+      if (res.status == 200) {
+        this.ngOnInit();
+        document.getElementById('closed')?.click();
+        this.alertService.success(res.message);
+      } else if(res.status == 201) {
+        this.alertService.error(res.message);
+      }else{
+        this.alertService.error('Error, Something went wrong please check');
+      }
+    }, error => {
+      this.countData = [];
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
+    })
+  }
+  countryUpdate(): void {
+    this.form.value.country_id =  this.countryDetails.country_id;
+    this.apiService.countryMasterUpdation(this.form.value).subscribe((res: any) => {
+      document.getElementById('cancel')?.click();
+      this.getCountryList();
+       this.isSubmitted = false;
+       if (res.status == 200) {
+        this.alertService.success(res.message);
+      } else if(res.status == 201) {
+        this.alertService.error(res.message);
+      }else{
+        this.alertService.error('Error, Something went wrong please check');
+      }
+  }, (error) => {
+    this.isSubmitted = false;
+    document.getElementById('cancel')?.click();
+    this.alertService.error("Error: " + error.statusText);
+  });
+  }
+
 }

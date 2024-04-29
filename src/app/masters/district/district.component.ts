@@ -26,6 +26,11 @@ export class DistrictComponent implements OnInit {
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;
+  rowData: any;
+  update: boolean = false;
+  button: string = 'Create';
+  loading: boolean = false;
+  districtDetails: any;
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -45,7 +50,25 @@ export class DistrictComponent implements OnInit {
   }
 
   get f() { return this.form.controls; }
+  getDetails(data:any){
+    this.rowData = [];
+    this.rowData = data;
+   
+  }
 
+  getdatapatch(data:any){
+    this.button = 'Update';
+    this.update = true;
+      this.districtDetails = data;
+      console.log( this.districtDetails);
+      
+        this.form.patchValue({
+          state_id: this.districtDetails.state_id,
+          district_name: this.districtDetails.district_name,
+
+        });
+ 
+  }
   getStateData() {
     this.masterService.getStateData().subscribe((res: any) => {
       if (res.status === 200) {
@@ -63,9 +86,10 @@ export class DistrictComponent implements OnInit {
       this.isNotFound = false;
       if (res.status == 200) {
         this.distCount = res;
-      this.districtData = res.result;
-        // this.districtData = res.data.filter((data:any) => data.active == 'Y');
+        this.districtData = res.result;
       } else {
+        this.isNotFound = true;
+        this.districtData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
@@ -100,45 +124,77 @@ downloadPdf() {
   }
 
 
+  createForm(){
+    this.button = 'Create';
+    this.update = false;
+    this.form.reset();
+  }
+
+  
   onSubmit() {
     if (this.form.valid) {
-      this.isSubmitted = true;
-      //passing state id
-      if (this.form.value.state_id != '') {
-        if (this.form.value.state_id) {
-          var stat = this.stateData.filter((item: any) => {
-            return item.state_id == this.form.value.state_id;
-          });
-          this.form.value.state_id = stat[0]['state_id'];
+        this.isSubmitted = true;
+        this.loading = true;
+        if (this.form.value.state_id != '') {
+          if (this.form.value.state_id) {
+            var stat = this.stateData.filter((item: any) => {
+              return item.state_id == this.form.value.state_id;
+            });
+            this.form.value.state_id = stat[0]['state_id'];
+          }
+        } else {
+          this.form.value.state_id = null;
         }
-      } else {
-        this.form.value.state_id = null;
-      }
-      let params = {
+    if (this.update) {  
+      this.districtUpdate();
+    } else {
+      this.createDistrict();
+    }
+
+    }
+  }
+
+  createDistrict() {
+    let params = {
         state_id: this.form.value.state_id,
         district_name: this.form.value.district_name,
-      };
-      // let apiLink = '/master/district/createDistrict';
-      this.apiService.addMasterDistrict(params).subscribe((res:any )=> {
-        
-        
-        let response: any = res;
+    };
+    this.apiService.addMasterDistrict(params).subscribe((res:any )=> {
+      let response: any = res;
+      document.getElementById('cancel')?.click();
+      this.isSubmitted = false;
+      if (response.status == 200) {
+        this.getDistrictData();
+        this.form.reset();
+        this.alertService.success(response.message);
+      } else {
+        this.alertService.warning(response.message);
+      }
+    }, (error) => {
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
-        if (response.status == 200) {
-          this.getDistrictData();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      }, (error) => {
-          document.getElementById('cancel')?.click();
-          this.isSubmitted = false;
-          this.alertService.error("Error: " + error.statusText);
-        })
-    } else {
-      this.alertService.warning("Form is invalid, Please fill the form correctly.");
-    }
+        this.alertService.error("Error: " + error.statusText);
+      })
+  } 
+  
+  districtUpdate(): void {
+    this.form.value.state_id =  this.districtDetails.state_id;
+    this.form.value.district_id =  this.districtDetails.district_id;
+    this.apiService.districtMasterUpdation(this.form.value).subscribe((res: any) => {
+      document.getElementById('cancel')?.click();
+      this.getDistrictData();
+       this.isSubmitted = false;
+       if (res.status == 200) {
+        this.alertService.success(res.message);
+      } else if(res.status == 201) {
+        this.alertService.error(res.message);
+      }else{
+        this.alertService.error('Error, Something went wrong please check');
+      }
+  }, (error) => {
+    this.isSubmitted = false;
+    document.getElementById('cancel')?.click();
+    this.alertService.error("Error: " + error.statusText);
+  });
   }
 }

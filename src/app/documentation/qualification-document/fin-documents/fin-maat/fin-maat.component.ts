@@ -77,8 +77,6 @@ export class FinMaatComponent {
     });
     
     this.apiService.getDocListData().subscribe((res:any) => {
-      
-      
       if (res.status === 200) {
         this.docListData = res.result;
       } else {
@@ -145,21 +143,17 @@ downloadPdf() {
 
 
   onSubmit() {
-    console.log(this.documentForm.value);
+    this.isSubmitted = true;
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-   
     formData.append('tender_title', this.documentForm.value.tender_title);
     formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
     formData.append('bidtype', this.documentForm.value.bidtype);
     formData.append('tender_location', this.documentForm.value.tender_location);
     formData.append('publish_date', this.documentForm.value.publish_date);
     formData.append('prebid_submission_date', this.documentForm.value.prebid_submission_date);
-    // formData.append('prebid_date', this.documentForm.value.prebid_date);
-    // formData.append('prebid_meeting_mode', this.documentForm.value.prebid_meeting_mode);
-    // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
     formData.append('tender_submission_date', this.documentForm.value.tender_submission_date);
     formData.append('completion_period', this.documentForm.value.completion_period);
     formData.append('ecv', this.documentForm.value.ecv);
@@ -180,6 +174,10 @@ downloadPdf() {
       } else {
         this.alertService.warning(response.message);
       }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 }

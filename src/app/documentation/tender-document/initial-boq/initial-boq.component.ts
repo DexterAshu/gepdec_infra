@@ -151,7 +151,7 @@ downloadPdf() {
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
   onSubmit() {
-    console.log(this.documentForm.value);
+    this.isSubmitted = true;
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);

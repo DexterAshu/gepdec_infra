@@ -130,7 +130,7 @@ downloadPdf() {
 
 
   onSubmit() {
-    console.log(this.documentForm.value);
+    this.isSubmitted = true;
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
@@ -161,6 +161,10 @@ downloadPdf() {
       } else {
         this.alertService.warning(response.message);
       }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 }

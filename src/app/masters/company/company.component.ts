@@ -41,7 +41,7 @@ export class CompanyComponent implements OnInit {
   inserteddata: any;
   discardeddata: any;
   addressDetails: any;
- 
+  rowData: any;
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -51,7 +51,6 @@ export class CompanyComponent implements OnInit {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      // companyId: [null, Validators.required],
       name: [null],
       company_name: [null, Validators.required],
       company_type: [null, Validators.required],
@@ -73,37 +72,24 @@ export class CompanyComponent implements OnInit {
       cinno:[null],
       address_line2:[null],
       address_line3:[null],
-
       net_worth: [null],
       financialyear_id: [null],
       annual_turnover: [null]
     
     });
-
-    // const financialsData = {
-    //   Financials: [
-    //     {
-    //       net_worth: [null, Validators.required],
-    //       financialyear_id: [null, Validators.required],
-    //       annual_turnover: [null, Validators.required]
-    //     }
-    //   ]
-    // };
-
     this.getCompanyData();
     this.getData();
     this.getCountryData();
-    
   }
+   get f() { return this.form.controls; }
 
-  createForm(){
-    console.clear();
-    this.button = 'Create';
-    this.update = false;
-    this.form.reset();
-  }
 
    getDetails(data:any){
+    this.rowData = [];
+    this.rowData = data;
+   
+  }
+  getPatchDetails(data:any){
     this.form.reset();
     this.button = 'Update';
     this.update = true;
@@ -111,8 +97,7 @@ export class CompanyComponent implements OnInit {
       this.custDetails = res.result[0];
       this.contactDetails = res.result[0].contact[0];
       this.addressDetails = res.result[0].adderss[0];
-     
-        this.form.patchValue({
+      this.form.patchValue({
           company_name: this.custDetails.company_name,
           company_type: this.custDetails.company_type,
           gst: this.custDetails.gst,
@@ -121,13 +106,11 @@ export class CompanyComponent implements OnInit {
           websiteurl: this.custDetails.websiteurl,
           cinno:this.custDetails.cinno,
           city:this.addressDetails.city,
-         
             //address-patch-details
-            area: this.addressDetails.area,
-          
-            address_line1: this.addressDetails.address_line1,
-            address_line2: this.addressDetails.address_line2,
-            pincode: this.addressDetails.pincode,
+          area: this.addressDetails.area,
+          address_line1: this.addressDetails.address_line1,
+          address_line2: this.addressDetails.address_line2,
+          pincode: this.addressDetails.pincode,
           //contact-path data
           name: this.contactDetails.name,
           contactno1: this.contactDetails.contactno1,
@@ -136,7 +119,6 @@ export class CompanyComponent implements OnInit {
           usdt_id: this.contactDetails.usdt_id,
           usdg_id: this.contactDetails.usdg_id,
         }); 
-
         this.form.controls['country_id'].setValue(this.addressDetails.country_id);
         this.form.controls['state_id'].setValue(this.addressDetails.state_id);
         this.form.controls['district_id'].setValue(this.addressDetails.district_id);
@@ -146,16 +128,6 @@ export class CompanyComponent implements OnInit {
         }, 500);
   })
   }
-  OnlyNumbersAllowed(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      console.log('charCode restricted is ' + charCode);
-      return false;
-    }
-    return true;
-  }
-
-  get f() { return this.form.controls; }
   getCountryData() {
     this.apiService.getCountryDataList().subscribe((res:any) => {
       if (res.status === 200) {
@@ -165,7 +137,6 @@ export class CompanyComponent implements OnInit {
       }
     });
   }
-  
   getStateData() {
     let countrydata = this.form.value.country_id;
     let statedata = null;
@@ -177,7 +148,6 @@ export class CompanyComponent implements OnInit {
       }
     });
   }
-  
   getDistrictData() {
     this.districtData = [];
     let data = this.form.value.state_id;
@@ -190,33 +160,37 @@ export class CompanyComponent implements OnInit {
       }
     });
   }
-
   getData() {
     this.apiService.getCompanyData().subscribe((res:any) => {
       if (res.status === 200) {
         this.compData = res.companytype;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning("Looks like no data available.");
       }
     });
-
     this.masterService.getUserMaster().subscribe((res:any)=>{
-    
-    this.design = res.designation;
-    this.departMent = res.department;
-
-    
+      if (res.status === 200) {
+        this.design = res.designation;
+        this.departMent = res.department;
+      } else {
+        this.alertService.warning("Looks like no data available.");
+      }
     })
-
   }
-  
+
   getCompanyData() {
+    this.isNotFound = true;
     this.apiService.getCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
-      this.limits.push({ key: 'ALL', value: this.companyData.length });
-      this.isExcelDownload = true;
+      this.isNotFound = false;
+      if (res.status == 200) {
+        this.companyData = res.result;
+      }else {
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
     });
- 
   }
 
   selfFun() {
@@ -224,9 +198,6 @@ export class CompanyComponent implements OnInit {
     if (inputElement !== null) {
       if (inputElement === "Self" || inputElement === "4002") {
         document.getElementById('selfModel')?.click();
-        // if (modal !== null) {
-        //   modal.click();
-        // }
       } 
     }
   }
@@ -245,7 +216,6 @@ downloadPdf() {
   const pdfName = 'country_bulkload_template_file.xlsx';
   FileSaver.saveAs(pdfUrl, pdfName);
 }
-
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
       display: false,
@@ -253,109 +223,14 @@ downloadPdf() {
     });
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
-
-
+  createForm(){
+    this.button = 'Create';
+    this.update = false;
+    this.form.reset();
+  }
   onSubmit() {
     if (this.form.valid) {
-      this.isSubmitted = true;
-       //1-passing Country id
-       if (this.form.value.country_id !== null) {
-        var countryVal = this.countryData.filter((item: any) => {
-          return item.country_id == this.form.value.country_id;
-        });
-        this.form.value.country_id = countryVal[0]['country_id'];
-      }
-      else {
-        this.form.value.country_id = null;
-      } 
-    
-       //2-passing State id
-       if (this.form.value.state_id != '') {
-        if (this.form.value.state_id) {
-          var stat = this.stateData.filter((item: any) => {
-            return item.state_id == this.form.value.state_id;
-          });
-          this.form.value.state_id = stat[0]['state_id'];
-        }
-      } else {
-        this.form.value.state_id = null;
-      }
-       //3-passing District id
-       if (this.form.value.district_id != '') {
-        if (this.form.value.district_id) {
-          var distt = this.districtData.filter((item: any) => {
-            return item.district_id == this.form.value.district_id;
-          });
-          this.form.value.district_id = distt[0]['district_id'];
-        }
-      } else {
-        this.form.value.district_id = null;
-      }
-      //4-passing Company type id
-    
-      if (this.form.value.company_type !== null) {
-        var countryType = this.compData.filter((item: any) => {
-          return item.mstcompanytype == this.form.value.company_type;
-        });
-        this.form.value.company_type = countryType[0]['mstcompanytype_id'];
-      }
-      else {
-        this.form.value.company_type = null;
-      } 
-  
-      //passing all values
-      if (this.form.value.company_name != '') {
-        this.form.value.company_name == '';
-      } else {
-        this.form.value.company_name = null;
-      }
-     
-      if (this.form.value.name != '') {
-        this.form.value.name == '';
-      } else {
-        this.form.value.name = null;
-      }
-      if (this.form.value.contactno1 != '') {
-        this.form.value.contactno1 == '';
-      } else {
-        this.form.value.contactno1 = null;
-      }
-      if (this.form.value.contactno2 != '') {
-        this.form.value.contactno2 == '';
-      } else {
-        this.form.value.contactno2 = null;
-      }
-      if (this.form.value.email != '') {
-        this.form.value.email == '';
-      } else {
-        this.form.value.email = null;
-      }
-      if (this.form.value.gst != '') {
-        this.form.value.gst == '';
-      } else {
-        this.form.value.gst = null;
-      }
-      if (this.form.value.pan != '') {
-        this.form.value.pan == '';
-      } else {
-        this.form.value.pan = null;
-      }
-      if (this.form.value.doi != '') {
-        this.form.value.doi == '';
-      } else {
-        this.form.value.doi = null;
-      }
-      if (this.form.value.area != '') {
-        this.form.value.area == '';
-      } else {
-        this.form.value.area = null;
-      }
-      if (this.form.value.pincode != '') {
-        this.form.value.pincode == '';
-      } else {
-        this.form.value.pincode = null;
-      }
-
+        this.isSubmitted = true;
         this.loading = true;
     if (this.update) {  
       this.companyUpdate();
@@ -370,8 +245,8 @@ downloadPdf() {
      let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
+        this.getCompanyData();
         if (res.status == 200) {
-          this.ngOnInit();
           document.getElementById('closed')?.click();
           this.alertService.success(res.message);
         } else if(res.status == 201) {
@@ -379,17 +254,20 @@ downloadPdf() {
         }else{
           this.alertService.error('Error, Something went wrong please check');
         }
+      }, (error) => {
+        this.isSubmitted = false;
+        document.getElementById('cancel')?.click();
+        this.alertService.error("Error: " + error.statusText);
       })
   }
   companyUpdate(): void {
-   
      this.form.value.company_id =  this.custDetails.company_id;
      this.form.value.contact_id =  this.contactDetails.contact_id;
      this.form.value.address_id =  this.addressDetails.address_id;
-    this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
+     this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
        this.isSubmitted = false;
+       this.getCompanyData();
        if (res.status == 200) {
-        this.ngOnInit();
         document.getElementById('closed')?.click();
         this.alertService.success(res.message);
       } else if(res.status == 201) {
@@ -397,6 +275,10 @@ downloadPdf() {
       }else{
         this.alertService.error('Error, Something went wrong please check');
       }
+  }, (error) => {
+    this.isSubmitted = false;
+    document.getElementById('cancel')?.click();
+    this.alertService.error("Error: " + error.statusText);
   });
   }
 

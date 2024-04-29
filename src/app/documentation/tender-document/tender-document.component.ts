@@ -14,7 +14,7 @@ export class TenderDocumentComponent {
   // @ViewChild('attachments') attachment: any;
   documentForm!: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
@@ -85,15 +85,6 @@ export class TenderDocumentComponent {
   }
 
   onFileChanged(event: any) {
-
-    // for (var i = 0; i <= event.target.files.length - 1; i++) {
-    //   var selectedFile = event.target.files[i];
-    //   if (this.listOfFiles.indexOf(selectedFile.name) === -1) {
-    //     this.fileList.push(selectedFile);
-    //     this.listOfFiles.push(selectedFile.name);
-    //   }
-    // }
-
     try {
       const files = event.target.files;
       for (let i = 0; i < files.length; i++) {
@@ -114,7 +105,6 @@ export class TenderDocumentComponent {
   onResize(event: Event) {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
-
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
@@ -151,19 +141,20 @@ downloadPdf() {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
     this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
-      this.tenderDetailsData = res.result;
-      console.log(this.tenderDetailsData);
+    this.tenderDetailsData = res.result;
     });
   }
 
   getrefData(tender_id: any){
-    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
- console.log(this.filterTenderDetailsData);
- 
+    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id); 
   }
 
 
   onSubmit() {
+    this.isSubmitted = true;
+    if (this.documentForm.invalid) {
+      return;
+    }
     console.log(this.documentForm.value);
     const formData: FormData = new FormData();
    

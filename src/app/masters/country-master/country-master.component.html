@@ -30,12 +30,12 @@
                                 <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
                                     Bulkload Template</button> -->
                                     <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
-                                          <span class="mdi mdi-upload"></span>&nbsp; Export
+                                          <span class="mdi mdi-upload"></span> Export
                                     </button>
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span>&nbsp; Import 
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Upload bulk Data">
+                                          <span class="mdi mdi-download"></span> Import 
                                     </button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
                          
 
                             </div>
@@ -48,8 +48,6 @@
                                 <th>S No</th>
                                 <th>Country Code</th>
                                 <th>Country</th>
-                                <th>Created By</th>
-                                <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -58,10 +56,9 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.country_code}}</td>
                                 <td>{{a.name}}</td>
-                                <td>{{a.createdby_name}}</td>
-                                <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
+                             
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getdatapatch(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" (click)="getDetails(a)" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                                      <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
 
@@ -122,7 +119,7 @@
                             </div>
                           
                             <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Add</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
                                 <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...</button>
                                 <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
                                     data-bs-dismiss="modal">Close</button>
@@ -148,26 +145,27 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Country Code</label>
-                                    <input formControlName="country_code" type="text" class="form-control form-control-sm" readonly>
-                                </div>
-                            </div>
-                         
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Country Name</label>
-                                    <input formControlName="name" type="text" class="form-control form-control-sm" readonly>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-                </div>
+              
+                <table class="table table-hover table-striped custom-table">
+                    <thead class="hidden-thead"></thead>
+                    <tbody class="text-nowrap">
+                        <tr>
+                            <th>Country Code</th>
+                            <td>{{ rowData?.country_code }}</td>
+                            <th>Country Name</th>
+                            <td>{{ rowData?.name }}</td>
+                          
+                        </tr>
+                        <tr>
+                            <th>Created By</th>
+                            <td>{{rowData?.createdby_name}}</td>
+                            <th>Created At</th>
+                            <td>{{rowData?.created | date: 'dd/MM/yyyy'}}</td>
+                           
+                            
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

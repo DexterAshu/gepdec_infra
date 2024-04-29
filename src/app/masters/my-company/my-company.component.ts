@@ -42,6 +42,7 @@ export class MyCompanyComponent {
   contactData: any;
   addressDetails: any;
   countryName:any;
+  rowData: any;
 
 
 
@@ -80,15 +81,14 @@ export class MyCompanyComponent {
     this.getCountryData();
 
   }
-  createForm(){
-    console.clear();
-    this.button = 'Create';
-    this.update = false;
-    this.form.reset();
-  }
+ 
+  getDetails(data:any){
+    this.rowData = [];
+    this.rowData = data;
+   
+  } 
 
-   getDetails(data:any){
-    
+   getPatchDetails(data:any){
     this.form.reset();
     this.button = 'Update';
     this.update = true;
@@ -223,118 +223,15 @@ downloadPdf() {
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 
-
+  createForm(){
+    console.clear();
+    this.button = 'Create';
+    this.update = false;
+    this.form.reset();
+  }
   onSubmit() {
     if (this.form.valid) {
-      this.isSubmitted = true;
-       //1-passing Country id
-       if (this.form.value.country_id !== null) {
-        var countryVal = this.countryData.filter((item: any) => {
-          return item.country_id == this.form.value.country_id;
-        });
-        this.form.value.country_id = countryVal[0]['country_id'];
-      }
-      else {
-        this.form.value.country_id = null;
-      }
-
-       //2-passing State id
-       if (this.form.value.state_id != '') {
-        if (this.form.value.state_id) {
-          var stat = this.stateData.filter((item: any) => {
-            return item.state_id == this.form.value.state_id;
-          });
-          this.form.value.state_id = stat[0]['state_id'];
-        }
-      } else {
-        this.form.value.state_id = null;
-      }
-       //3-passing District id
-       if (this.form.value.district_id != '') {
-        if (this.form.value.district_id) {
-          var distt = this.districtData.filter((item: any) => {
-            return item.district_id == this.form.value.district_id;
-          });
-          this.form.value.district_id = distt[0]['district_id'];
-        }
-      } else {
-        this.form.value.district_id = null;
-      }
-      //4-passing Company type id
-
-      // if (this.form.value.company_type !== null) {
-      //   var countryType = this.compData.filter((item: any) => {
-      //     return item.mstcompanytype == this.form.value.company_type;
-      //   });
-      //   this.form.value.company_type = countryType[0]['companytype_id'];
-      // }
-      // else {
-      //   this.form.value.company_type = null;
-      // }
-
-      //passing all values
-      if (this.form.value.company_name != '') {
-        this.form.value.company_name == '';
-      } else {
-        this.form.value.company_name = null;
-      }
-
-      if (this.form.value.name != '') {
-        this.form.value.name == '';
-      } else {
-        this.form.value.name = null;
-      }
-      if (this.form.value.contactno1 != '') {
-        this.form.value.contactno1 == '';
-      } else {
-        this.form.value.contactno1 = null;
-      }
-      if (this.form.value.contactno2 != '') {
-        this.form.value.contactno2 == '';
-      } else {
-        this.form.value.contactno2 = null;
-      }
-      if (this.form.value.email != '') {
-        this.form.value.email == '';
-      } else {
-        this.form.value.email = null;
-      }
-      if (this.form.value.gst != '') {
-        this.form.value.gst == '';
-      } else {
-        this.form.value.gst = null;
-      }
-      if (this.form.value.pan != '') {
-        this.form.value.pan == '';
-      } else {
-        this.form.value.pan = null;
-      }
-      if (this.form.value.websiteUrl != '') {
-        this.form.value.websiteUrl == '';
-      } else {
-        this.form.value.websiteUrl = null;
-      }
-      if (this.form.value.cinNo != '') {
-        this.form.value.cinNo == '';
-      } else {
-        this.form.value.cinNo = null;
-      }
-      if (this.form.value.doi != '') {
-        this.form.value.doi == '';
-      } else {
-        this.form.value.doi = null;
-      }
-      if (this.form.value.area != '') {
-        this.form.value.area == '';
-      } else {
-        this.form.value.area = null;
-      }
-      if (this.form.value.pincode != '') {
-        this.form.value.pincode == '';
-      } else {
-        this.form.value.pincode = null;
-      }
-
+        this.isSubmitted = true;
         this.loading = true;
     if (this.update) {
       this.companyUpdate();
@@ -356,20 +253,28 @@ downloadPdf() {
         } else {
           this.alertService.warning(response.message);
         }
+      }, (error) => {
+        this.isSubmitted = false;
+        document.getElementById('cancel')?.click();
+        this.alertService.error("Error: " + error.statusText);
       })
   }
   companyUpdate(): void {
      this.form.value.bidder_id =  this.custDetails.bidder_id;
      this.form.value.contact_id =  this.contDetails.contact_id;
     this.apiService.ourcompanyUpdation(this.form.value).subscribe((res: any) => {
-       this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.getCompanyData();
+      this.isSubmitted = false;
       if (res.status == 200) {
-        this.ngOnInit();
-        document.getElementById('cancel')?.click();
       this.alertService.success('Company Updated Successfully');
     } else {
       this.alertService.error('Something went wrong please try again');
     }
+  }, (error) => {
+    this.isSubmitted = false;
+    document.getElementById('cancel')?.click();
+    this.alertService.error("Error: " + error.statusText);
   });
   }
 }

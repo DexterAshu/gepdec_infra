@@ -130,7 +130,7 @@ export class FinBalancesheetComponent {
   }
 
   onSubmit() {
-    console.log(this.documentForm.value);
+    this.isSubmitted = true;
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
@@ -148,13 +148,7 @@ export class FinBalancesheetComponent {
     formData.append('annual_turnover', this.documentForm.value.annual_turnover);
     formData.append('description', this.documentForm.value.description);
     formData.append('ebidta', this.documentForm.value.ebidta);
-    // formData.append('itr', this.documentForm.value.itr);
-    // if(this.documentForm.value.itr_number != '' || this.documentForm.value.itr_number != null){
-    //   formData.append('itr_number', this.documentForm.value.itr_number);
-    // }else{}
-    // if(this.documentForm.value.itr_date != '' || this.documentForm.value.itr_date != null){
-    //   formData.append('itr_date', this.documentForm.value.itr_date);
-    // }else{}
+  
     this.addOurFinDocument(formData);
   }
   addOurFinDocument(formData: FormData) {
@@ -169,6 +163,10 @@ export class FinBalancesheetComponent {
       } else {
         this.alertService.warning(response.message);
       }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 }

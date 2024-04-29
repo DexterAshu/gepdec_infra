@@ -51,12 +51,12 @@
                             <div class="float-right">
                                
                                     <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
-                                          <span class="mdi mdi-upload"></span>&nbsp; Export
+                                          <span class="mdi mdi-upload"></span> Export
                                     </button>
                                     <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span>&nbsp; Import 
+                                          <span class="mdi mdi-download"></span> Import 
                                     </button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#bankModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#bankModal" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
                          
 
                             </div>
@@ -79,8 +79,7 @@
                                 <th>BG Submission Date</th>
                                 <th>BG Extend Date</th>
                                 <th>Attachments</th>
-                                <th>Created By</th>
-                                <th>Created On</th>
+                               
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -95,8 +94,7 @@
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.documentdate}}</td>
                                 <td>{{a.filename}}</td>
-                                <td>{{a.createdby_name}}</td>
-                                <td>{{a.created}}</td>
+                             
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
