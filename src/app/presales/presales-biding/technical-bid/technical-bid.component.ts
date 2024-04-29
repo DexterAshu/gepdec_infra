@@ -57,11 +57,12 @@ export class TechnicalBidComponent {
       qacatagory_id: [null, Validators.required],
       subqacatagory_id: [null],
       capacity_id: [null],
-      experience: [null],
-      compPeriod: [null],
-      resourceUsed: [null],
-      compYear: [null],
+      total_experience: [null],
+      completion_period: [null],
+      resource_used: [null],
+      completion_year: [null],
       technical_points: [null, Validators.required],
+      qualified: [null, Validators.required],
     });
 
     this.getCompanyData();
@@ -156,7 +157,6 @@ export class TechnicalBidComponent {
     this.clientListData = company_id;
     this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
       this.tenderDetailsData = res.result;
-      console.log(this.tenderDetailsData);
     });
   }
 
@@ -220,11 +220,16 @@ export class TechnicalBidComponent {
   addMultiTechPoints() {
     debugger
     let formData = {... this.form.value };
-    // let mergedData = { ...formData, 'attachment': this.uploadFile}
     this.addTech.push(formData);
+    this.form.controls['qacatagory_id'].reset();
+    this.form.controls['subqacatagory_id'].reset();
+    this.form.controls['capacity_id'].reset();
+    this.form.controls['total_experience'].reset();
+    this.form.controls['completion_period'].reset();
+    this.form.controls['resource_used'].reset();
+    this.form.controls['completion_year'].reset();
     this.form.controls['technical_points'].reset();
-    // this.uploadFile = [];
-    // console.log(this.addTech); 
+    this.form.controls['qualified'].reset();
   }
 
   deletecsdp(val: any) {
