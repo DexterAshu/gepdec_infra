@@ -113,7 +113,9 @@ export class CaptureDataListComponent {
   getTenderData() {
     this.tenderData = [];
     this.tenderType = [];
+    this.tendStatus = [];
     this.isNotFound = false;
+
     this.apiService.getTenderList().subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderData = res.result;
@@ -133,12 +135,15 @@ export class CaptureDataListComponent {
     this.apiService.getTenderType().subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderType = res.bidtype;
+        this.tendStatus = res.roleStatus;
       } else {
         this.tenderType = undefined;
+        this.tendStatus = undefined;
         // this.alertService.warning("Looks like no data available!");
       }
     }, error => {
       this.tenderType = undefined;
+      this.tendStatus = undefined;
       this.alertService.error("Error: " + error.statusText)
     });
   }
