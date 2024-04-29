@@ -298,8 +298,9 @@ downloadPdf() {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
-        this.getDataList();
         if (response.status == 200) {
+            this.getDataList();
+            this.ngOnInit();
              this.form1.reset();
             this.alertService.success(response.message);
         } else {
