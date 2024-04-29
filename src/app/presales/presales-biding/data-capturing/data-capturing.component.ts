@@ -224,7 +224,7 @@ export class DataCapturingComponent {
       this.form.get('emd_ammount')!.setValidators([Validators.required]);
       this.form.get('paymentmethod_id')!.setValidators([Validators.required]);
       this.form.get('emd_submission_date')!.setValidators([Validators.required]);
-      this.form.get('forfeiture_condition')!.setValidators([Validators.required]);
+      // this.form.get('forfeiture_condition')!.setValidators([Validators.required]);
       this.form.controls['emd_ammount'].reset();
       this.form.controls['paymentmethod_id'].reset();
       this.form.controls['emd_submission_date'].reset();
@@ -234,7 +234,7 @@ export class DataCapturingComponent {
       this.form.controls['emd_ammount'].clearValidators();
       this.form.controls['paymentmethod_id'].clearValidators();
       this.form.controls['emd_submission_date'].clearValidators();
-      this.form.controls['forfeiture_condition'].clearValidators();
+      // this.form.controls['forfeiture_condition'].clearValidators();
       this.form.controls['emd_ammount'].reset();
       this.form.controls['paymentmethod_id'].reset();
       this.form.controls['emd_submission_date'].reset();
