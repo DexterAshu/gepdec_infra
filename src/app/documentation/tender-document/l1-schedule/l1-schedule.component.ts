@@ -140,6 +140,7 @@ export class L1ScheduleComponent {
         this.documentForm.reset();
         this.alertService.success(res.message);
         document.getElementById('cancel')?.click();
+        this.getData();
       } else {
         this.alertService.warning(res.message);
       }

@@ -265,9 +265,11 @@ export class TechDocumentsComponent {
         this.getData();
         this.isSubmitted = false;
         if (res.status == 200) {
-          // this.form.reset();
+          this.form.reset();
+          document.getElementById('cancel')?.click();
           this.alertService.success(res.message);
         } else {
+          document.getElementById('cancel')?.click();
           this.alertService.warning(res.message);
         }
       }, (error) => {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -16,13 +16,13 @@ export class DataCapturingComponent {
   limit = environment.pageLimit;
   searchText: any;
   companyData: any = [];
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   countryData: any;
   stateData: any;
   districtData: any = [];
   isSubmitted: boolean = false;
   val: any;
-  country:any;
+  country: any;
   limits: any = [];
   isExcelDownload: boolean = false;
   updateData: any;
@@ -41,7 +41,7 @@ export class DataCapturingComponent {
   showWorkingDetails: boolean = false;
   showL1Schedule: boolean = false;
   bankData: any;
-  contactDetails: any;
+  contactDetails: any = [];
   addressDetails: any;
   meetingMode: any;
   emdExp: any;
@@ -49,7 +49,7 @@ export class DataCapturingComponent {
   selectSecurityField: boolean = false;
   selectPGField: boolean = false;
   selectPrebidField: boolean = false;
-  tenderData:any
+  tenderData: any
   companyDetails: any;
   update: boolean = false;
   button: string = 'Save & Continue';
@@ -59,8 +59,11 @@ export class DataCapturingComponent {
   previousData: any = [];
   performanceGuarntee: any;
   securityDeposit: any;
-  removeContact:any[]=[];
+  removeContact: any[] = [];
   today: any = new Date();
+  isContactFound: boolean = true;
+
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -68,7 +71,7 @@ export class DataCapturingComponent {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-  
+
   ) {
     this.route.params.subscribe((params: Params) => {
       this.tenderData = params;
@@ -77,27 +80,27 @@ export class DataCapturingComponent {
     if (userDataString) {
       this.userData = JSON.parse(userDataString);
     }
-   }
-   get f() { return this.form.controls; }
-   get f1(){return this.form1.controls}
- ngOnInit(){
+  }
+  get f() { return this.form.controls; }
+  get f1() { return this.form1.controls }
+  ngOnInit() {
     this.form = this.formBuilder.group({
       company_id: [null, Validators.required],
-      tender_title:[null, Validators.required],
-      tender_ref_no:[null, Validators.required],
-      bidtype_id:[null, Validators.required],
-      tender_location:[null, Validators.required],
-      publish_date:[null, Validators.required],
+      tender_title: [null, Validators.required],
+      tender_ref_no: [null, Validators.required],
+      bidtype_id: [null, Validators.required],
+      tender_location: [null, Validators.required],
+      publish_date: [null, Validators.required],
       contact: this.formBuilder.array([]),
       // prebid_submission_date:[null, Validators.required],
-      prebid_date:[null],
-      completion_period:[null, Validators.required],
-      pre_meeting:[null, Validators.required],
-      prebidmeetingmode_id:[null],
-      tender_submission_date:[null, Validators.required],
+      prebid_date: [null],
+      completion_period: [null, Validators.required],
+      pre_meeting: [null, Validators.required],
+      prebidmeetingmode_id: [null],
+      tender_submission_date: [null, Validators.required],
       tenderhardcopysubmission_date: [null],
-      tender_description:[null, Validators.required],
-      tender_detail_link:[null],  
+      tender_description: [null, Validators.required],
+      tender_detail_link: [null],
       bid_validity: [null, Validators.required],
       reserve_auction: [null, Validators.required],
       closing_date: [null, Validators.required],
@@ -108,38 +111,38 @@ export class DataCapturingComponent {
       tenderpayment_terms: [null, Validators.required],
       exemption_id: [null, Validators.required],
       ecv: [null, Validators.required],
-      emd_ammount:[null],
-      paymentmethod_id:[null],
-      emd_submission_date:[null],
-      forfeiture_condition:[null],
+      emd_ammount: [null],
+      paymentmethod_id: [null],
+      emd_submission_date: [null],
+      forfeiture_condition: [null],
 
       //securitydeposit
-      securitydeposit_id:[null, Validators.required] , 
-      security_amount:[null],
-      securitysubmission_date:[null],
+      securitydeposit_id: [null, Validators.required],
+      security_amount: [null],
+      securitysubmission_date: [null],
       //performance guarantee
-      performanceguarantee_id:[null, Validators.required],
+      performanceguarantee_id: [null, Validators.required],
       pg_amount: [null],
       // pgsubmission_date:[null],
 
       contactperson_check: [null, Validators.required],
-      termscheckbox:[null, Validators.required],
-      tenderstatus_id:[null],
-      working_notes:[null],
-      audit_trail:[null],
-      remarks:[null],
+      termscheckbox: [false, Validators.required],
+      tenderstatus_id: [null],
+      working_notes: [null],
+      audit_trail: [null],
+      remarks: [null],
     });
 
     this.form1 = this.formBuilder.group({
       company_id: [null],
       name: [null, Validators.required],
-      usdg_id:[null],
-      usdt_id:[null],
+      usdg_id: [null],
+      usdt_id: [null],
       contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      emailid: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
+      emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
 
-   
+
     // this.form.get('termscheckbox')!.setValidators([Validators.required]);
     // this.form.get('termscheckbox')!.clearValidators();
 
@@ -148,11 +151,10 @@ export class DataCapturingComponent {
     this.getDesignDeptData();
     this.finYearData();
   }
-  patchClient()
-  {
+  patchClient() {
     console.log(this.custDetails)
     this.form1.patchValue({
-      company_id:this.custDetails[0]?.company_name
+      company_id: this.custDetails[0]?.company_name
     })
   }
   // termsCheckbox = new FormControl(true);
@@ -169,7 +171,7 @@ export class DataCapturingComponent {
   // }
 
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
+    this.apiService.getCountryDataList().subscribe((res: any) => {
       if (res.status === 200) {
         this.countryData = res.result;
       } else {
@@ -177,7 +179,7 @@ export class DataCapturingComponent {
       }
     });
   }
-  
+
   getStateData() {
     let countrydata = this.form.value.country_id;
     let statedata = null;
@@ -189,12 +191,12 @@ export class DataCapturingComponent {
       }
     });
   }
-  
+
   getDistrictData() {
     this.districtData = [];
     let data = this.form.value.state_id;
     let dist = this.form.value.district_id;
-    this.apiService.getDistData(data, dist).subscribe((res:any) => {
+    this.apiService.getDistData(data, dist).subscribe((res: any) => {
       if (res.status === 200) {
         this.districtData = res.result;
       } else {
@@ -203,90 +205,103 @@ export class DataCapturingComponent {
     });
   }
 
-  getDesignDeptData(){
-      this.masterService.getUserMaster().subscribe((res:any)=>{
+  getDesignDeptData() {
+    this.masterService.getUserMaster().subscribe((res: any) => {
       this.design = res.designation;
       this.departMent = res.department;
-      })
+    })
   }
 
   finYearData() {
     this.isNotFound = true;
-    this.masterService.getFinData().subscribe((res:any) => {
-    this.financialData = res.result;
-  })
-}
+    this.masterService.getFinData().subscribe((res: any) => {
+      this.financialData = res.result;
+    })
+  }
 
-toggleEmdField(data: any): void {
-  if(data == '401'){
-    this.form.get('emd_ammount')!.setValidators([Validators.required]);
-    this.form.get('paymentmethod_id')!.setValidators([Validators.required]);
-    this.form.get('emd_submission_date')!.setValidators([Validators.required]);
-    this.form.get('forfeiture_condition')!.setValidators([Validators.required]);
-    this.selectedEmdexemption = !this.selectedEmdexemption;
+  toggleEmdField(val: any): void {
+    if (val == '401') {
+      this.form.get('emd_ammount')!.setValidators([Validators.required]);
+      this.form.get('paymentmethod_id')!.setValidators([Validators.required]);
+      this.form.get('emd_submission_date')!.setValidators([Validators.required]);
+      this.form.get('forfeiture_condition')!.setValidators([Validators.required]);
+      this.form.controls['emd_ammount'].reset();
+      this.form.controls['paymentmethod_id'].reset();
+      this.form.controls['emd_submission_date'].reset();
+      this.form.controls['forfeiture_condition'].reset();
+    }
+    else {
+      this.form.controls['emd_ammount'].clearValidators();
+      this.form.controls['paymentmethod_id'].clearValidators();
+      this.form.controls['emd_submission_date'].clearValidators();
+      this.form.controls['forfeiture_condition'].clearValidators();
+      this.form.controls['emd_ammount'].reset();
+      this.form.controls['paymentmethod_id'].reset();
+      this.form.controls['emd_submission_date'].reset();
+      this.form.controls['forfeiture_condition'].reset();
+    }
   }
-  else{
-    this.form.controls['emd_ammount'].clearValidators();
-    this.form.controls['paymentmethod_id'].clearValidators();
-    this.form.controls['emd_submission_date'].clearValidators();
-    this.form.controls['forfeiture_condition'].clearValidators();
+  //
+  toggleSecurityField(val: any): void {
+    debugger
+    if (val == '1001') {
+      this.form.get('security_amount')!.setValidators([Validators.required]);
+      this.form.get('securitysubmission_date')!.setValidators([Validators.required]);
+      this.form.controls['security_amount'].reset();
+      this.form.controls['securitysubmission_date'].reset();
+    }
+    else {
+      this.form.controls['security_amount'].clearValidators();
+      this.form.controls['securitysubmission_date'].clearValidators();
+      this.form.controls['security_amount'].reset();
+      this.form.controls['securitysubmission_date'].reset();
+    }
   }
-}
 
-toggleSecurityField(event: Event): void {
-  const selectedValue = (event.target as HTMLSelectElement)?.value;
-  if(selectedValue == '1001'){
-    this.form.get('security_amount')!.setValidators([Validators.required]);
-    this.form.get('securitysubmission_date')!.setValidators([Validators.required]);
-    this.selectSecurityField = !this.selectSecurityField;
+  togglePGField(val: any): void {
+    if (val == '1001') {
+      this.form.get('pg_amount')!.setValidators([Validators.required]);
+      this.form.controls['pg_amount'].reset();
+      // this.form.get('pgsubmission_date')!.setValidators([Validators.required]);
+    }
+    else {
+      this.form.controls['pg_amount'].clearValidators();
+      this.form.controls['pg_amount'].reset();
+      // this.form.get('pgsubmission_date')!.clearValidators();
+    }
   }
-  else{
-    this.form.controls['security_amount'].clearValidators();
-    this.form.controls['securitysubmission_date'].clearValidators();
-  }
-}
-togglePGField(event: Event): void {
-  const selectedValue = (event.target as HTMLSelectElement)?.value;
-  if(selectedValue == '1001'){
-    this.form.get('pg_amount')!.setValidators([Validators.required]);
-    // this.form.get('pgsubmission_date')!.setValidators([Validators.required]);
-    this.selectPGField = !this.selectPGField;
-  }
-  else{
-    // this.form.get('pgsubmission_date')!.clearValidators();
-    this.form.controls['pg_amount'].clearValidators();
-  }
-}
-togglePrebidField(event: Event): void {
-  const selectedValue = (event.target as HTMLSelectElement)?.value;
-  if(selectedValue == 'Yes'){
-    this.form.get('prebidmeetingmode_id')!.setValidators([Validators.required]);
-    this.form.get('prebid_date')!.setValidators([Validators.required]);
-    this.selectPrebidField = !this.selectPrebidField;
-  }
-  else{
-    this.form.controls['prebidmeetingmode_id'].clearValidators();
-    this.form.controls['prebid_date'].clearValidators();
-    
-  }
-}
 
-ngAfterViewInit() : void{
-  this.button = 'Save & Continue';
+  togglePrebidField(val: any): void {
+    if (val == 'Yes') {
+      this.form.get('prebidmeetingmode_id')!.setValidators([Validators.required]);
+      this.form.get('prebid_date')!.setValidators([Validators.required]);
+      this.form.controls['prebidmeetingmode_id'].reset();
+      this.form.controls['prebid_date'].reset();
+    }
+    else {
+      this.form.controls['prebidmeetingmode_id'].clearValidators();
+      this.form.controls['prebid_date'].clearValidators();
+      this.form.controls['prebidmeetingmode_id'].reset();
+      this.form.controls['prebid_date'].reset();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.button = 'Save & Continue';
     this.update = false;
-  if(this.tenderData?.id){
-    this.button = 'Update';
-    this.update = true;
+    if (this.tenderData?.id) {
+      this.button = 'Update';
+      this.update = true;
 
-    this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-     
-      console.log(res);
+      this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
+
+        console.log(res);
         this.custDetails = res.result[0];
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
           company_id: this.custDetails.company_id,
-          paymentmethod_id: this.custDetails.paymentmethod_id ,
+          paymentmethod_id: this.custDetails.paymentmethod_id,
           fin_bid_opening_date: this.custDetails.fin_bid_opening_date,
           // opening_date: this.custDetails.opening_date,
           reserve_auction: this.custDetails.reserve_auction,
@@ -311,56 +326,56 @@ ngAfterViewInit() : void{
           tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date,
           tender_title: this.custDetails.tender_title,
           ecv: this.custDetails.ecv,
-      //Security Details
+          //Security Details
           securitydeposit_id: this.custDetails.securitydeposit_id,
           security_amount: this.custDetails.security_amount,
           securitysubmission_date: this.custDetails.securitysubmission_date,
-      //performance Details
+          //performance Details
           performanceguarantee_id: this.custDetails.performanceguarantee_id,
           pg_amount: this.custDetails.pg_amount,
           // pgsubmission_date: this.custDetails.pgsubmission_date,
-      //exemption details
+          //exemption details
           exemption_id: this.custDetails.exemption_id,
           emd_ammount: this.custDetails.emd_ammount,
           emd_submission_date: this.custDetails.emd_submission_date,
           forfeiture_condition: this.custDetails.forfeiture_condition,
 
-          remarks:this.custDetails.remarks,
+          remarks: this.custDetails.remarks,
           audit_trail: this.custDetails.audit_trail,
-        }); 
+        });
 
 
-      //   console.log(this.custDetails.remarks);
-      //   const remarksData = this.custDetails.map((item: any) => {
-      //     console.log(item.remarks.split("."));
-      //     return item.remarks.split(".");
-          
-      // });
-      
-      // console.log(remarksData);
-      
+        //   console.log(this.custDetails.remarks);
+        //   const remarksData = this.custDetails.map((item: any) => {
+        //     console.log(item.remarks.split("."));
+        //     return item.remarks.split(".");
+
+        // });
+
+        // console.log(remarksData);
+
         // const dataArray = this.custDetails.remarks.split('\n');
         //  const newData = dataArray.join(',\n');
         // console.log(newData);
 
-      //   this.custDetails = this.custDetails.remarks.map((item: any) => ({
-      //     data: `\n${item}`
-      // }));
-      // console.log(this.custDetails);
-      // for (const iterator of this.custDetails) {
-      //     this.previousData.push(iterator.data);
-      // }
-      // console.log(this.custDetails);
-      
-  })
+        //   this.custDetails = this.custDetails.remarks.map((item: any) => ({
+        //     data: `\n${item}`
+        // }));
+        // console.log(this.custDetails);
+        // for (const iterator of this.custDetails) {
+        //     this.previousData.push(iterator.data);
+        // }
+        // console.log(this.custDetails);
+
+      })
+    }
   }
-}
 
   fileList: File[] = [];
   listOfFiles: any[] = [];
   attachment: any = [];
 
-  onFileChanged(event: any) { 
+  onFileChanged(event: any) {
     for (var i = 0; i <= event.target.files.length - 1; i++) {
       var selectedFile = event.target.files[i];
       this.listOfFiles.push(selectedFile.name);
@@ -372,53 +387,91 @@ ngAfterViewInit() : void{
     this.fileList.splice(index, 1);
   }
 
-  getDetails(data:any) {
-    this.apiService.companyDetails(data).subscribe((res: any) => {      
-      this.custDetails = res.result;
-      this.contactDetails = res.result[0].contact;     
-      this.addressDetails = res.result[0].adderss;
-  })
+  getDetails(data: any) {
+    this.isContactFound = false;
+    this.custDetails = []
+    this.contactDetails = []
+    this.addressDetails = []
+    this.apiService.companyDetails(data).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.custDetails = res.result;
+        this.contactDetails = res.result[0].contact;
+        this.addressDetails = res.result[0].adderss;
+        this.isContactFound = false;
+      } else {
+        this.isContactFound = true;
+        this.custDetails = undefined;
+        this.contactDetails = undefined;
+        this.addressDetails = undefined;
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }, error => {
+        this.isContactFound = true;
+        this.custDetails = undefined;
+        this.contactDetails = undefined;
+        this.addressDetails = undefined;
+        this.alertService.error("Error: " + error.statusText);
+    });
   }
-  
+
 
   getCompanyData() {
-    this.apiService.getCompanyList().subscribe((res: any) => {  
+    this.apiService.getCompanyList().subscribe((res: any) => {
       this.companyData = res.result;
     });
-    this.apiService.getTenderType().subscribe((res: any) => {  
+    this.apiService.getTenderType().subscribe((res: any) => {
       this.tenderType = res.bidtype;
       this.meetingMode = res.mettingmode;
       this.emdExp = res.emdexemption;
       this.performanceGuarntee = res.performanceguarantee;
       this.securityDeposit = res.securitydeposit;
       this.payment = res.paymentmethod;
-       this.tendStatus = res.tenderstatus;
+      this.tendStatus = res.tenderstatus;
     });
-   
- 
+
+
   }
 
 
-  handleCheckboxChange(data:any) {
-    let dataLength = this.form.value.contact.filter((x:any)=>x.contact_id == data.contact_id)
-    if(dataLength.length === 1){
-      this.form.value.contact = this.form.value.contact.filter((x:any)=>x.contact_id !== data.contact_id)
-    } 
-    else{
-      let match ={
-        contact_id : data.contact_id
+  // handleCheckboxChange(e: any, data: any) {
+  //   if(e.target.checked == true) {
+  //     let match = { contact_id: data.contact_id };
+  //     this.form.value.contact.push(match);
+  //   } else {
+  //     let remainData = this.form.value.contact.filter((x: any) => x.contact_id != data.contact_id);
+  //     this.form.controls['contact'].setValue(remainData);
+  //   }
+  //   if(this.form.value.contact.length == 0) {
+  //     this.form.controls['contact'].reset();
+  //   }
+  // }
+
+  handleCheckboxChange(event: any, data: any) {
+    const contactArray = this.form.get('contact') as FormArray;
+    const contactId = data.contact_id;
+
+    if (event.target.checked) {
+      // Checkbox is checked, add item to contact array
+      contactArray.push(this.formBuilder.group({ contact_id: contactId }));
+    } else {
+      // Checkbox is unchecked, remove item from contact array
+      const index = contactArray.controls.findIndex((x:any) => x.value.contact_id === contactId);
+      if (index !== -1) {
+        contactArray.removeAt(index);
       }
-      this.form.value.contact.push(match);
     }
-    console.log(this.form.value);
+
+    // Reset contact control if array is empty
+    if (contactArray.length === 0) {
+      this.form.controls['contact'].reset;
+    }
   }
-  
 
   onSubmit1() {
     if (this.form1.valid) {
       this.isSubmitted = true;
-        this.loading = true;
-        this.createCont();
+      this.loading = true;
+      this.createCont();
     }
   }
 
@@ -429,83 +482,89 @@ ngAfterViewInit() : void{
     match.Action = "add";
     var custID = this.custDetails[0].company_id;
     console.log(custID);
-    
-    this.form1.value.company_id =  this.custDetails[0].company_id;
+
+    this.form1.value.company_id = this.custDetails[0].company_id;
     this.apiService.createContacts(match).subscribe((res: any) => {
-     let response: any = res;
-     document.getElementById('cancel1')?.click();
-     this.isSubmitted = false;
-     if (response.status == 200) {
-          this.getDetails(custID);
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      })
+      let response: any = res;
+      document.getElementById('cancel1')?.click();
+      this.isSubmitted = false;
+      if (response.status == 200) {
+        this.getDetails(custID);
+        this.alertService.success(response.message);
+      } else {
+        this.alertService.warning(response.message);
+      }
+    }, error => {
+      this.alertService.error("Error: " + error.statusText);
+    });
   }
+
   onSubmit() {
     if (this.form.valid) {
-        this.isSubmitted = true;
-        this.loading = true;
-    if (this.update) {  
+      this.isSubmitted = true;
+      this.loading = true;
+      if (this.update) {
         this.updateTender();
         // this.form.get('tenderstatus_id')!.setValidators([Validators.required]);
         this.form.get('working_notes')!.setValidators([Validators.required]);
-    } 
-    else {
+      }
+      else {
         this.addTender();
         // this.form.get('tenderstatus_id')!.clearValidators();
         this.form.get('working_notes')!.clearValidators();
-    }
+      }
     }
 
-  //   const formData: any = new FormData();
-  //   for (let i = 0; i < this.attachment.length; i++) {
-  //     formData.append("attachment", this.attachment[i]);
-  //   }
+    //   const formData: any = new FormData();
+    //   for (let i = 0; i < this.attachment.length; i++) {
+    //     formData.append("attachment", this.attachment[i]);
+    //   }
 
-  // formData.append("eligibility",this.form.value.eligibility);
-  // formData.append("technical_qualification",this.form.value.technical_qualification);
-  // formData.append("tender_company_name",this.form.value.tender_company_name);
-  // formData.append("tender_title",this.form.value.tender_title);
-  // formData.append("tender_ref_no",this.form.value.tender_ref_no);
-  // formData.append("remarks",this.form.value.remarks);
- 
+    // formData.append("eligibility",this.form.value.eligibility);
+    // formData.append("technical_qualification",this.form.value.technical_qualification);
+    // formData.append("tender_company_name",this.form.value.tender_company_name);
+    // formData.append("tender_title",this.form.value.tender_title);
+    // formData.append("tender_ref_no",this.form.value.tender_ref_no);
+    // formData.append("remarks",this.form.value.remarks);
+
   }
 
   addTender() {
+    debugger
     this.button = 'Save & Continue';
     this.update = false;
     this.apiService.createTender(this.form.value).subscribe((res: any) => {
-     let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-  
-        if (response.status == 200) {
-          this.getCompanyData();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      })
+      let response: any = res;
+      document.getElementById('cancel')?.click();
+      this.isSubmitted = false;
+      if (response.status == 200) {
+        this.getCompanyData();
+        this.form.reset();
+        this.alertService.success(response.message);
+      } else {
+        this.alertService.warning(response.message);
+      }
+    }, error => {
+      this.alertService.error("Error: " + error.statusText);
+    });
   }
+
   updateTender(): void {
-     this.form.value.tender_id =  this.tenderData.id;
-     console.log( this.form.value.tender_id);
-     
+    this.form.value.tender_id = this.tenderData.id;
+    console.log(this.form.value.tender_id);
+
     this.apiService.tenderUpdation(this.form.value).subscribe((res: any) => {
       this.update = true;
       this.isSubmitted = false;
-       if (res.status == 200) {
+      if (res.status == 200) {
         this.ngOnInit();
         this.router.navigate(['/presales/presales-biding/data-capture-list']);
         this.alertService.success(res.message);
-      } else if(res.status == 201) {
+      } else if (res.status == 201) {
         this.alertService.error(res.message);
-      }else{
+      } else {
         this.alertService.error('Error, Something went wrong please check');
       }
-  });
+    });
   }
 }

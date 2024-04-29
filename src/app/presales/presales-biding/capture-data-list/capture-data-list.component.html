@@ -1,23 +1,24 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Bid | Tender Data</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Bid | Tender
+                            Data</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                  
+
                     <!-- <div class="row">
                         <div class="col-lg-12">
                             <nav>
@@ -55,51 +56,57 @@
 
                     <div class="d-flex my-10 mt-2">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search">
                         </div>
 
                         <div class="col-lg-4">
-                          <div class="dropdown float-right" [class.active]="isOpen" (click)="toggleDropdown()">
-                              <button class="btn filter-col btn-fw btn-sm float-right cursor-pointer">
-                               
-                                   Tender Published &nbsp;&nbsp;&nbsp;&nbsp;
-                                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                      <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                            <div class="dropdown float-right" [class.active]="isOpen" (click)="toggleDropdown()">
+                                <button class="btn filter-col btn-fw btn-sm float-right cursor-pointer">
+
+                                    Tender Published &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                        class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
                                     </svg>
-                                  </button>
-                              <ul>
-                                <li><button type="button" class="btn btn-fw btn-sm" > <span class="mdi mdi-book-open-page-variant" ></span>&nbsp;All </button>
-                                </li>
-                                <li> <button type="button" class="btn btn-fw btn-sm" ><span class="mdi mdi-checkbox-marked-outline"></span>&nbsp;Qualified</button>
-                                </li>
-                                <li> <button type="button" class="btn btn-fw btn-sm"><span class="mdi mdi-account-multiple"></span>&nbsp;Participated </button>
-                                </li>
-                                <li> <button type="button" class="btn btn-fw btn-sm"><span class="mdi mdi-drawing"></span>&nbsp;Won </button>
-                                </li>
-                                <li> <button type="button" class="btn btn-fw btn-sm"><span class="mdi mdi-steering"></span>&nbsp;Lost </button>
-                                </li>
-                              </ul>
+                                </button>
+                                <ul>
+                                    <li><button type="button" class="btn btn-fw btn-sm"> <span
+                                                class="mdi mdi-book-open-page-variant"></span>&nbsp;All </button>
+                                    </li>
+                                    <li> <button type="button" class="btn btn-fw btn-sm"><span
+                                                class="mdi mdi-checkbox-marked-outline"></span>&nbsp;Qualified</button>
+                                    </li>
+                                    <li> <button type="button" class="btn btn-fw btn-sm"><span
+                                                class="mdi mdi-account-multiple"></span>&nbsp;Participated </button>
+                                    </li>
+                                    <li> <button type="button" class="btn btn-fw btn-sm"><span
+                                                class="mdi mdi-drawing"></span>&nbsp;Won </button>
+                                    </li>
+                                    <li> <button type="button" class="btn btn-fw btn-sm"><span
+                                                class="mdi mdi-steering"></span>&nbsp;Lost </button>
+                                    </li>
+                                </ul>
                             </div>
-                      </div>
+                        </div>
 
                         <div class="col-lg-4">
                             <div class="float-right">
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
-                                          <span class="mdi mdi-upload"></span>&nbsp; Export
-                                    </button>
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span>&nbsp; Import 
-                                    </button>
-                                    <button type="button" routerLink="/presales/presales-biding/data-capture" class="btn btn-primary btn-fw btn-sm float-right" >+ Create</button>
-                         
-
+                                <button class="btn btn-primary btn-fw btn-sm me-2"
+                                    title="Download List of Data in Excel" *ngIf="isExcelDownloadData"
+                                    (click)="download()">
+                                    <span class="mdi mdi-upload"></span>&nbsp; Export
+                                </button>
+                                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                                    data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                    <span class="mdi mdi-download"></span>&nbsp; Import
+                                </button>
+                                <button type="button" routerLink="/presales/presales-biding/data-capture"
+                                    class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
                             </div>
-                            </div>
-                      
-               
+                        </div>
                     </div>
-
-                  
 
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
@@ -110,72 +117,44 @@
                                 <th>Ref No</th>
                                 <th>Published Date</th>
                                 <th>Execution Location</th>
-                                <th>Tender Status</th>
-                                <th>Tender Type</th>
-                                <th>Document Cost</th>
-                                <th>Tender Fee</th>
-                                <th>EMD Exemption</th>
                                 <th>ECV</th>
-                                <th>Pre Bid Meeting Mode</th>
-                                
-                               
-                                <th>Pre Bid Meeting Date</th>
                                 <th>Submission Date</th>
-                               
-                                <th>Bid Opening Date</th>
-                                <th>Bid Opening Date</th>
-                                <th>Created By</th>
-                                <th>Created On</th>
+                                <th>Tender Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="companyData.length">
-                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                        <tbody class="text-nowrap">
+                            <tr
+                                *ngFor="let a of tenderData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                                <!-- <td data-toggle="tooltip" data-placement="bottom" title="{{ a.company_name }}">
-                                    {{a.company_name| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
-                                </td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                    {{a.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
-                                </td> -->
                                 <td>{{ a.company_name }}</td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                    {{a.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                <td>
+                                    <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        {{a.tender_title}}
+                                    </ng-template>
                                 </td>
-                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.tender_ref_no }}</td>
+                                <td>{{ a.tender_ref_no }} </td>
                                 <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{ a.tender_location }}</td>
-                                <td>{{ a.tender_status}}</td>
-                                <td>{{ a.bidtype }}</td>
-                                <td>{{ a.tender_doc_cost }}</td>
-                                <td>{{ a.tender_fee }}</td>
-                                <td>{{ a.emdexemption }}</td>
                                 <td>{{ a.ecv }}</td>
-                                <td>{{ a.prebidmeetingmode }}</td>
-                                
-                               
-                                <td>{{ a.prebid_date | date: 'dd/MM/yyyy' }}</td>
-                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy:HH:mm'  }}</td>
-                              
-                                <td>{{ a.tech_bid_date | date: 'dd/MM/yyyy:HH:mm'  }}</td>
-                                <td>{{ a.fin_bid_opening_date | date: 'dd/MM/yyyy' }}</td>
-                                <td>{{ a.createdby_name}}</td>
-                                <td>{{ a.created }}</td>
-                                <td >
-                                     <!-- <a data-bs-toggle="modal" data-bs-target="#techModal" title="Add Technical Details" ><span class="mdi mdi-lightbulb-on text-primary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#finModal" title="Add Financial Details" ><span class="mdi mdi-currency-inr text-info cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#bankModal" title="Add Bank Details" ><span class="mdi mdi-bank text-warning cursor-pointer mdi-18px"></span></a> &nbsp; -->
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)" ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" ><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
-                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy:HH:mm' }}</td>
+                                <td>{{ a.tender_status}}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                    &nbsp;
+                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
                                 </td>
-                                </tr>
-                            <tr *ngIf="isNotFound == true">
+                            </tr>
+                            <tr *ngIf="tenderData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="companyData?.length == 0">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
@@ -191,9 +170,6 @@
     </div>
 </div>
 
-
-
-
 <!-- detail modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
@@ -205,190 +181,274 @@
             </div>
             <div class="modal-body p-3">
                 <div class="container-fluid">
-              
                     <div class="row">
                         <div class="col-md-12 p-0">
-                            <div class="table-responsive">
-                                <div class="card1">
-                                  <div class="row p-1">
-                                    <div class="col-md-3">Tender ID : &nbsp;&nbsp; {{ rowData?.tender_id }}</div>
-                                    <div class="col-md-3">Ref No : &nbsp;&nbsp; {{ rowData?.tender_ref_no }}</div>
-                                    <div class="col-md-3">Published Date : &nbsp;&nbsp; {{ rowData?.publish_date | date: 'dd/MM/yyyy'}}</div>
-                                    <div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">Execution Location : &nbsp;&nbsp;{{rowData?.tender_location| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
-                                </div>
-                                <div class="row p-1">
-                                    <div class="col-md-6">Client : &nbsp;&nbsp; {{ rowData?.company_name }}</div>
-                                      <div class="col-md-6" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">Tender Title : &nbsp;&nbsp; {{rowData?.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
-                                  </div>
-                                </div>
-                                <table class="table table-hover table-striped custom-table mt-2">
-                                    <thead class="hidden-thead"></thead>
+                            <div class="table-responsive pt-2" style="min-height: auto;">
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th colspan="6" class="text-center">Tender Information</th>
+                                        </tr>
+                                    </thead>
                                     <tbody class="text-nowrap">
-                                       
+                                        <tr>
+                                            <th>Tender ID</th>
+                                            <td>{{rowData?.tender_id}}</td>
+                                            <th>Ref No</th>
+                                            <td>{{rowData?.tender_ref_no}}</td>
+                                            <th>Published Date</th>
+                                            <td>{{rowData?.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Execution Location</th>
+                                            <td>
+                                                <div *ngIf="!!rowData?.tender_location; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">
+                                                    {{rowData?.tender_location | slice:0:30}} <span *ngIf="rowData?.tender_location.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock1>
+                                                    {{rowData?.tender_location}}
+                                                </ng-template>
+                                            </td>
+                                            <th>Client</th>
+                                            <td>{{ rowData?.company_name }}</td>
+                                            <th>Tender Title</th>
+                                            <td>
+                                                <div *ngIf="!!rowData?.tender_title; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">
+                                                    {{rowData?.tender_title | slice:0:30}} <span *ngIf="rowData?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock2>
+                                                    {{rowData?.tender_title}}
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive mt-2">
+                                <table class="table table-hover table-striped custom-table mt-2">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th colspan="6" class="text-center">Bid Information</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>Tender Description</th>
+                                            <td colspan="5">{{rowData?.tender_description}}</td>
+                                        </tr>
                                         <tr>
                                             <th>Bidder Company</th>
                                             <td>{{ rowData?.bidder_name }}</td>
                                             <th>Tender Type</th>
                                             <td>{{ rowData?.bidtype }}</td>
-                                            </tr>
-                                        <tr>
-                                        
-                                            <th>Tender Description</th>
-                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_description }}">
-                                                {{rowData?.tender_description| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
-                                            </td>
-                                            <th>Tender Available Link</th>
-                                            <td>{{ rowData?.tender_detail_link }}</td>
-                                        </tr>
-                                        <tr>
-                                            
                                             <th>Tender Closing Date</th>
                                             <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tender Available Link</th>
+                                            <td>
+                                                <div *ngIf="!!rowData?.tender_detail_link; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_detail_link }}">
+                                                    <a [href]="rowData?.tender_detail_link" target="_blank">{{rowData?.tender_detail_link | slice:0:20}} <span *ngIf="rowData?.tender_detail_link.length > 20">...<i class="mdi mdi-information"></i></span></a>
+                                                </div>
+                                                <ng-template #elseBlock3>
+                                                    <!-- <a [href]="rowData?.tender_detail_link" target="_blank">{{rowData?.tender_detail_link}}</a> -->
+                                                    --
+                                                </ng-template>
+                                            </td>
                                             <th>Soft Copy Submission Date </th>
-                                            <td>{{ rowData?.tender_submission_date |  date:"dd/MM/yyyy"}}</td>
-                                        </tr>
-                                        <tr>
-
+                                            <td>{{ rowData?.tender_submission_date | date:"dd/MM/yyyy"}}</td>
                                             <th>Hard Copy Submission Date </th>
-                                            <td>{{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy'}}</td>
-                                            <th>Pre-bid meeting</th>
-                                            <td>{{ rowData?.pre_meeting }}</td>
-                                          </tr>
-                                          <tr>
-                                           
-                                            <th>Pre-bid Meeting Mode</th>
-                                            <td>{{ rowData?.prebidmeetingmode }}</td>
-                                            <th>Tender Pre-bid Meeting Date</th>
-                                            <td>{{ rowData?.prebid_date | date: 'dd/MM/yyyy'}}</td>
-
+                                            <td>
+                                                <span *ngIf="!!rowData?.tenderhardcopysubmission_date; else elseBlock4">
+                                                    {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy'}}
+                                                </span>
+                                                <ng-template #elseBlock4>
+                                                    --
+                                                </ng-template>
+                                            </td>
                                         </tr>
                                         <tr>
-                                          
+                                            <th>Pre-bid Meeting</th>
+                                            <td>
+                                                {{ rowData?.pre_meeting }}
+                                            </td>
+                                            <th>Pre-bid Meeting Mode</th>
+                                            <td>
+                                                <span *ngIf="!!rowData?.prebidmeetingmode; else elseBlock5">
+                                                    {{ rowData?.prebidmeetingmode }}
+                                                </span>
+                                                <ng-template #elseBlock5>
+                                                    --
+                                                </ng-template>
+                                            </td>
+                                            <th>Tender Pre-bid Meeting Date</th>
+                                            <td>
+                                                <span *ngIf="!!rowData?.prebid_date; else elseBlock6">
+                                                    {{ rowData?.prebid_date | date: 'dd/MM/yyyy'}}
+                                                </span>
+                                                <ng-template #elseBlock6>
+                                                    --
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th>Technical Bid Opening Date </th>
                                             <td>{{ rowData?.tech_bid_date | date:"dd/MM/yyyy"}}</td>
                                             <th>Financial Bid Opening Date</th>
-                                            <td>{{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy'}}</td>
+                                            <td>
+                                                <span *ngIf="!!rowData?.fin_bid_opening_date; else elseBlock7">
+                                                    {{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy'}}
+                                                </span>
+                                                <ng-template #elseBlock7>
+                                                    --
+                                                </ng-template>
+                                            </td>
+                                            <th>ECV (INR)</th>
+                                            <td>{{ rowData?.ecv | currency:'INR':'':'1.2-2' }}</td>
                                         </tr>
                                         <tr>
-                                           
-                                            <th>ECV (Cr)</th>
-                                            <td>{{ rowData?.ecv }}</td>
                                             <th>Tender Fee</th>
-                                            <td>{{ rowData?.tender_fee }}</td>
-                                            </tr>
-                                            <tr>
-                                          
+                                            <td>{{ rowData?.tender_fee | currency:'INR':'':'1.2-2' }}</td>
                                             <th>Tender Document Cost</th>
-                                            <td>{{ rowData?.tender_doc_cost }}</td>
+                                            <td>{{ rowData?.tender_doc_cost  | currency:'INR':'':'1.2-2' }}</td>
                                             <th>Bid Validity</th>
                                             <td>{{ rowData?.bid_validity }}</td>
                                         </tr>
                                         <tr>
-                                          
                                             <th>Complition period</th>
                                             <td>{{ rowData?.completion_period }}</td>
                                             <th>Security Deposit</th>
                                             <td>{{ rowData?.securitydeposit }}</td>
-                                        </tr>
-                                        <tr>
-                                           
                                             <th>Security Amount</th>
-                                            <td>{{ rowData?.security_amount }}</td>
-                                            <th>Security Submission Date</th>
-                                            <td>{{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy' }}</td>
+                                            <td>
+                                                <span *ngIf="!!rowData?.security_amount; else elseBlock8">
+                                                    {{ rowData?.security_amount | currency:'INR':'':'1.2-2' }}
+                                                </span>
+                                                <ng-template #elseBlock8>
+                                                    --
+                                                </ng-template>
+                                            </td>
                                         </tr>
                                         <tr>
-                                        
+                                            <th>Security Submission Date</th>
+                                            <td>
+                                                <span *ngIf="!!rowData?.securitysubmission_date; else elseBlock9">
+                                                    {{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy' }}
+                                                </span>
+                                                <ng-template #elseBlock9>
+                                                    --
+                                                </ng-template>
+                                            </td>
                                             <th>Performance Guarantee</th>
                                             <td>{{ rowData?.performanceguarantee }}</td>
                                             <th>Performance Amount (%)</th>
-                                            <td>{{ rowData?.pg_amount }}</td>
-                                            </tr>
-                                            <tr>
-                                         
+                                            <td>
+                                                <span *ngIf="!!rowData?.pg_amount; else elseBlock10">
+                                                    {{ rowData?.pg_amount }}
+                                                </span>
+                                                <ng-template #elseBlock10>
+                                                    --
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th>Tender EMD Exemption</th>
                                             <td>{{ rowData?.emdexemption }}</td>
                                             <th>EMD Amount</th>
-                                            <td>{{ rowData?.emd_ammount }}</td>
-                                          </tr>
-                                           
-                                          <tr> 
-                                            
-                                            <th>EMD Payment</th>
-                                            <td>{{ rowData?.paymentmethod }}</td>
-                                            <th>EMD Submission Date</th>
-                                            <td>{{ rowData?.emd_submission_date | date: 'dd/MM/yyyy'}}</td>
+                                            <td>
+                                                <span *ngIf="!!rowData?.emd_ammount; else elseBlock11">
+                                                    {{ rowData?.emd_ammount | currency:'INR':'':'1.2-2'  }}
+                                                </span>
+                                                <ng-template #elseBlock11>
+                                                    --
+                                                </ng-template>    
+                                            </td>
+                                            <th>EMD Payment Mode</th>
+                                            <td>
+                                                <span *ngIf="!!rowData?.paymentmethod; else elseBlock12">
+                                                    {{ rowData?.paymentmethod }}
+                                                </span>
+                                                <ng-template #elseBlock12>
+                                                    --
+                                                </ng-template>    
+                                            </td>
                                         </tr>
                                         <tr>
-                                           
+                                            <th>EMD Submission Date</th>
+                                            <td>
+                                                <span *ngIf="!!rowData?.emd_submission_date; else elseBlock13">
+                                                    {{ rowData?.emd_submission_date | date: 'dd/MM/yyyy'}}
+                                                </span>
+                                                <ng-template #elseBlock13>
+                                                    --
+                                                </ng-template>    
+                                            </td>
                                             <th>Forfeiture Condition</th>
-                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.forfeiture_condition }}">
-                                                {{rowData?.forfeiture_condition| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                                            <td>
+                                                <div *ngIf="!!rowData?.forfeiture_condition; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.forfeiture_condition }}">
+                                                    {{rowData?.forfeiture_condition | slice:0:30}} <span *ngIf="rowData?.forfeiture_condition.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock14>
+                                                    <!-- {{rowData?.forfeiture_condition}} -->
+                                                    --
+                                                </ng-template>
                                             </td>
                                             <th>Tender Status</th>
                                             <td>{{ rowData?.tender_status }}</td>
-                                            </tr>
-                                            <tr>
-                                          
-                                            <th>Tender Payment Terms</th>
-                                            <td data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tenderpayment_terms }}">
-                                                {{rowData?.tenderpayment_terms| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
-                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th>Reverse Auction</th>
                                             <td>{{ rowData?.reserve_auction }}</td>
-                                        </tr>
-                                      
-                                        <tr>
-                                           
-                                            <th>Tender Terms & Condition</th>
-                                            <td>{{ rowData?.termscheckbox }}</td>
-                                            <th>Created By</th>
-                                            <td>{{ rowData?.createdby_name }}</td>
-                                            </tr>
-                                            <tr>
-                                            
                                             <th>Created On</th>
                                             <td>{{ rowData?.created }}</td>
-                                            <th></th>
-                                            <td></td>
+                                            <th>Created By</th>
+                                            <td>{{ rowData?.createdby_name }}</td>
                                         </tr>
-                                      
+                                        <tr>
+                                            <th>Tender Payment Terms</th>
+                                            <td colspan="5">
+                                                {{rowData?.tenderpayment_terms}}
+                                            </td>
+                                        </tr>
+                                        <tr>
                                     </tbody>
                                 </table>
-                         
                             </div>
 
-                                   <!-- qualification details -->
-                                   <h6 class="mb-2 mt-4 text-secondary">Qualification Details (Financial)</h6>
-                                   <table class="table table-hover table-striped custom-table">
-                                       <thead class="hidden-thead"></thead>
-                                       <tbody class="text-nowrap" *ngFor="let a of rowData?.tenderfinancials">
-                                           <tr>
-                                               <th>Financial Year</th>
-                                               <td>{{ a?.financialyear }}</td>
-                                               <th>Annuval Turnover</th>
-                                               <td>{{ a?.annual_turnover }}</td>
-                                               <th>Net Worth</th>
-                                               <td>{{ a?.net_worth }}</td>
-                                           </tr>
-                                           <tr>
-                                               <th>Remarks</th>
-                                               <td>{{a?.remark}}</td>
-                                               <th></th>
-                                               <td></td>
-                                               <th></th>
-                                               <td></td>
-                                           </tr>
-                                       </tbody>
-                                   </table>
-                                   <h6 class="mb-2 mt-4 text-primary cursor-pointer" (click)="techDataShow=!techDataShow"> 
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
-                                           <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708z"/>
-                                         </svg> &nbsp;
-                                       Qualification Details (Technical)</h6>
+                            <!-- qualification details -->
+                            <h6 class="mb-2 mt-4 text-secondary">Qualification Details (Financial)</h6>
+                            <table class="table table-hover table-striped custom-table">
+                                <thead class="hidden-thead"></thead>
+                                <tbody class="text-nowrap" *ngFor="let a of rowData?.tenderfinancials">
+                                    <tr>
+                                        <th>Financial Year</th>
+                                        <td>{{ a?.financialyear }}</td>
+                                        <th>Annuval Turnover</th>
+                                        <td>{{ a?.annual_turnover }}</td>
+                                        <th>Net Worth</th>
+                                        <td>{{ a?.net_worth }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Remarks</th>
+                                        <td>{{a?.remark}}</td>
+                                        <th></th>
+                                        <td></td>
+                                        <th></th>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h6 class="mb-2 mt-4 text-primary cursor-pointer" (click)="techDataShow=!techDataShow">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708z" />
+                                </svg> &nbsp;
+                                Qualification Details (Technical)
+                            </h6>
 
 
-                            <app-responsive-table class="mt-1" *ngIf="techDataShow"> <!-- Coming for sharedComponent/responsive-table -->
+                            <app-responsive-table class="mt-1" *ngIf="techDataShow">
+                                <!-- Coming for sharedComponent/responsive-table -->
                                 <thead class="table-primary text-nowrap">
                                     <tr>
                                         <th>S No</th>
@@ -398,78 +458,99 @@
                                         <th>Eligibility</th>
                                         <th>Technical Qualification</th>
                                         <th>Remarks</th>
-                                    
+
                                     </tr>
                                 </thead>
                                 <tbody class="text-nowrap">
                                     <tr *ngFor="let a of rowData?.prequalification; index as i">
                                         <td>{{ limit*(p-1)+i+1 }}</td>
-                                     
+
                                         <td>{{ a?.capacity }}</td>
                                         <td>{{ a?.qacatagory }}</td>
                                         <td>{{ a?.subqacatagory }}</td>
                                         <td>{{ a?.bideligibility_criteria }}</td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="{{ a?.technical_points }}">
-                                            {{a?.technical_points| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                        <td data-toggle="tooltip" data-placement="bottom"
+                                            title="{{ a?.technical_points }}">
+                                            {{a?.technical_points| slice:0:15}} <span>...<i
+                                                    class="mdi mdi-information"></i></span>
                                         </td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="{{ a?.technical_remarks }}">
-                                            {{a?.technical_remarks| slice:0:15}} <span>...<i class="mdi mdi-information"></i></span>
+                                        <td data-toggle="tooltip" data-placement="bottom"
+                                            title="{{ a?.technical_remarks }}">
+                                            {{a?.technical_remarks| slice:0:15}} <span>...<i
+                                                    class="mdi mdi-information"></i></span>
                                         </td>
-                                      </tr>
-                                   
+                                    </tr>
+
                                 </tbody>
-                            </app-responsive-table> 
+                            </app-responsive-table>
 
 
-<div class="row mt-2">
-    <div class="col-md-6">
-        <div class="text-primary cursor-pointer" (click)="showPreNotes=!showPreNotes">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
-                <path d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z"/>
-                <path d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z"/>
-              </svg> &nbsp;
-              Previous Notes</div>
-        <div class="form-group mt-2" *ngIf="showPreNotes">
-            <div class="card p-1 text-small">{{rowData?.remarks}}</div>
-              
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
-                <path d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z"/>
-                <path d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z"/>
-              </svg> &nbsp;
-            Audit Trail</div>
-        <div class="form-group mt-2" *ngIf="showWorkingDetails">
-            <div class="card p-1 text-small">{{rowData?.audit_trail}}</div>
-          
-              
-        </div>
-    </div>
-</div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <div class="text-primary cursor-pointer" (click)="showPreNotes=!showPreNotes">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
+                                            <path
+                                                d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
+                                        </svg> &nbsp;
+                                        Previous Notes
+                                    </div>
+                                    <div class="form-group mt-2" *ngIf="showPreNotes">
+                                        <div class="card p-1 text-small">{{rowData?.remarks}}</div>
 
-                             <!-- tender status modal start-->
-                             <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-primary cursor-pointer"
+                                        (click)="showWorkingDetails=!showWorkingDetails">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
+                                            <path
+                                                d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
+                                        </svg> &nbsp;
+                                        Audit Trail
+                                    </div>
+                                    <div class="form-group mt-2" *ngIf="showWorkingDetails">
+                                        <div class="card p-1 text-small">{{rowData?.audit_trail}}</div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- tender status modal start-->
+                            <form [formGroup]="form" (ngSubmit)="onSubmit()">
                                 <div class="row mt-3">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Tender Status<span class="required-asterisk">*</span></label>
-                                            <select formControlName="tenderstatus_id" class="form-select form-select-sm">
+                                            <label class="form-label fl-10">Tender Status<span
+                                                    class="required-asterisk">*</span></label>
+                                            <select formControlName="tenderstatus_id"
+                                                class="form-select form-select-sm">
                                                 <option [value]="null" disabled selected>Select Status</option>
-                                                <option *ngFor="let c of tendStatus" [value]="c.tenderstatus_id">{{ c.tender_status }}</option>
+                                                <option *ngFor="let c of tendStatus" [value]="c.tenderstatus_id">{{
+                                                    c.tender_status }}</option>
                                             </select>
                                             <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
-                                                <small class="text-danger" *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
+                                                <small class="text-danger"
+                                                    *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-9" >
+                                    <div class="col-md-9">
                                         <div class="form-group">
-                                            <label class="form-label fl-10">Remarks<span class="required-asterisk">*</span></label>
-                                            <input formControlName="working_notes" type="text" class="form-control form-control-sm" placeholder="Describe Your Changes">
+                                            <label class="form-label fl-10">Remarks<span
+                                                    class="required-asterisk">*</span></label>
+                                            <input formControlName="working_notes" type="text"
+                                                class="form-control form-control-sm"
+                                                placeholder="Describe Your Changes">
                                             <div *ngIf="f['working_notes'].touched && f['working_notes'].invalid">
-                                                <small class="text-danger" *ngIf="f['working_notes'].errors?.['required']">*Required</small>
+                                                <small class="text-danger"
+                                                    *ngIf="f['working_notes'].errors?.['required']">*Required</small>
                                             </div>
                                         </div>
                                     </div>
@@ -482,32 +563,49 @@
                                         </div>
                                     </div> -->
 
-                                   
+
 
                                     <div class="col-md-12">
-                                        <button *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'" type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right" [disabled]="form.invalid" >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
-                                              </svg> &nbsp;Send For Approval
+                                        <button
+                                            *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'"
+                                            type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right"
+                                            [disabled]="form.invalid">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                            </svg> &nbsp;Send For Approval
                                         </button>
                                         <ng-container *ngIf="this.userData.rolename === 'Administrator'">
-                                        <button *ngIf="this.userData.rolename !== 'Manager' || this.userData.rolename !== 'PreSales'" type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right" [disabled]="form.invalid" >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
-                                              </svg> &nbsp;Final Update
-                                        </button>
+                                            <button
+                                                *ngIf="this.userData.rolename !== 'Manager' || this.userData.rolename !== 'PreSales'"
+                                                type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right"
+                                                [disabled]="form.invalid">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                                </svg> &nbsp;Final Update
+                                            </button>
                                         </ng-container>
                                         <ng-container *ngIf="this.userData.rolename === 'Manager'">
                                             <div class="float-right">
-                                                <button (click)="sendBack()" type="text" class="btn btn-danger btn-fw btn-sm me-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z"/>
-                                                      </svg> &nbsp;Send Back
+                                                <button (click)="sendBack()" type="text"
+                                                    class="btn btn-danger btn-fw btn-sm me-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-arrow-90deg-left"
+                                                        viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z" />
+                                                    </svg> &nbsp;Send Back
                                                 </button>
-                                                <button  type="submit" class="btn btn-primary btn-fw btn-sm me-2 " [disabled]="form.invalid">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
-                                                        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z"/>
-                                                      </svg> &nbsp;Approved
+                                                <button type="submit" class="btn btn-primary btn-fw btn-sm me-2 "
+                                                    [disabled]="form.invalid">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
+                                                    </svg> &nbsp;Approved
                                                 </button>
 
                                             </div>
@@ -515,10 +613,10 @@
                                     </div>
 
                                 </div>
-                      
-                             </form>
 
-                    <!-- tender status modal end-->
+                            </form>
+
+                            <!-- tender status modal end-->
 
                         </div>
                     </div>
@@ -528,7 +626,3 @@
     </div>
 </div>
 <!-- detail modal end-->
-
-
-                   
-
