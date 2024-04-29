@@ -427,4 +427,9 @@ finAbidta(year:any, check:any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/document/api/v1/l2ScheduleCreate`, data, httpOptions);
   }
+
+  l2ScheduleUpdate(data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.put(`${environment.apiUrl}/document/api/v1/l2ScheduleUpdate`, data, httpOptions);
+  }
 }
