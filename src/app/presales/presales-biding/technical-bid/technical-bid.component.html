@@ -55,16 +55,15 @@
                                 <button class="btn btn-primary btn-fw btn-sm me-2"
                                     title="Download List of Data in Excel" *ngIf="isExcelDownloadData"
                                     (click)="download()">
-                                    <span class="mdi mdi-upload"></span>&nbsp; Export
+                                    <span class="mdi mdi-upload"></span> Export
                                 </button>
                                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
                                     data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                    <span class="mdi mdi-download"></span>&nbsp; Import
+                                    <span class="mdi mdi-download"></span> Import
                                 </button>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#techModal"
-                                    class="btn btn-primary btn-fw btn-sm s">+ Create</button>
-
-
+                                    class="btn btn-primary btn-fw btn-sm">
+                                    <span class="mdi mdi-plus"></span> Create</button>
                             </div>
                         </div>
 
@@ -90,8 +89,13 @@
                                 *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title  }}">
-                                    {{a.tender_title | slice:0:20}} <span>...<i class="mdi mdi-information"></i></span>
+                                <td>
+                                    <div *ngIf="!!a.tender_title; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock14>
+                                        {{a.tender_title}}
+                                    </ng-template>
                                 </td>
                                 <td>{{a.tender_ref_no}}</td>
                                 <td>{{a.publish_date}}</td>
@@ -294,7 +298,7 @@
                                 </thead>
                                 <tbody class="text-nowrap">
                                     <tr
-                                        *ngFor="let a of addTech | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                        *ngFor="let a of addTech; index as i">
                                         <td>{{limit*(p-1)+i+1}}</td>
                                         <td>{{a?.client_id}}</td>
                                         <td>{{a.tender_id}}</td>
@@ -311,13 +315,8 @@
                                             <div class="text-warning fw-semibold">Please Add Technical Data first!</div>
                                         </td>
                                     </tr>
-                            
                                 </tbody>
                             </table>
-                        </div>
-
-                        <div class="pagination-sec text-center">
-                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         </div>
 
                         <div class="row mt-2">

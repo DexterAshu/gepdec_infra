@@ -96,14 +96,14 @@
                                 <button class="btn btn-primary btn-fw btn-sm me-2"
                                     title="Download List of Data in Excel" *ngIf="isExcelDownloadData"
                                     (click)="download()">
-                                    <span class="mdi mdi-upload"></span>&nbsp; Export
+                                    <span class="mdi mdi-upload"></span> Export
                                 </button>
                                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
                                     data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                    <span class="mdi mdi-download"></span>&nbsp; Import
+                                    <span class="mdi mdi-download"></span> Import
                                 </button>
                                 <button type="button" routerLink="/presales/presales-biding/data-capture"
-                                    class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+                                    class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span> Create</button>
                             </div>
                         </div>
                     </div>
@@ -140,13 +140,13 @@
                                 <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.ecv }}</td>
-                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy:HH:mm' }}</td>
+                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
                                 <td>{{ a.tender_status}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
                                     <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
                             </tr>
                             <tr *ngIf="tenderData?.length == 0">
