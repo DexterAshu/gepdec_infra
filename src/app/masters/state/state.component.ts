@@ -25,6 +25,12 @@ export class StateComponent implements OnInit {
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;
+  rowData: any;
+  update: boolean = false;
+  button: string = 'Create';
+  loading: boolean = false;
+  districtDetails: any;
+  stateDetails: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,6 +52,22 @@ export class StateComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
+  getDetails(data:any){
+    this.rowData = [];
+    this.rowData = data;
+  }
+
+  getdatapatch(data:any){
+    this.button = 'Update';
+    this.update = true;
+      this.stateDetails = data;
+        this.form.patchValue({
+          country_id: this.stateDetails.country_id,
+          state_code: this.stateDetails.state_code,
+          state_name: this.stateDetails.state_name,
+        });
+  }
+
   getStateData() {
     this.isNotFound = true;
     this.masterService.getStateData().subscribe((res:any) => {
@@ -53,7 +75,6 @@ export class StateComponent implements OnInit {
       if (res.status == 200) {
       this.stateCount = res;
       this.stateData = res.result;
-          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
       }else {
         this.alertService.warning("Looks like no data available!");
       }
@@ -97,46 +118,66 @@ downloadPdf() {
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 
+  createForm(){
+    this.button = 'Create';
+    this.update = false;
+    this.form.reset();
+  }
 
+  
   onSubmit() {
     if (this.form.valid) {
-      this.isSubmitted = true;
-
-      if (this.form.value.country_id !== null) {
-        var countryVal = this.countryData.filter((item: any) => {
-          return item.country_id == this.form.value.country_id;
-        });
-        this.form.value.country_id = countryVal[0]['country_id'];
-      }
-      else {
-        this.form.value.country_id = null;
-      }
-
-      let params = {
-        country_id: this.form.value.country_id,
-        state_name: this.form.value.state_name,
-        state_code: this.form.value.state_code.toUpperCase(),
-      };
-      // let apiLink = '/master/state/createState';
-      this.apiService.createMasterState( params).subscribe((res:any) => {
-        
-
-        let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (response.status == 200) {
-          this.getStateData();
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      }, (error:any) => {
-          document.getElementById('cancel')?.click();
-          this.alertService.error("Error: " + error.statusText);
-        })
+        this.isSubmitted = true;
+        this.loading = true;
+    if (this.update) {  
+      this.stateUpdate();
     } else {
-      this.alertService.warning("Form is invalid, Please fill the form correctly.");
-     }
+      this.createState();
+    }
+    }
   }
+
+  createState() {
+    let params = {
+      country_id: this.form.value.country_id,
+      state_name: this.form.value.state_name,
+      state_code: this.form.value.state_code.toUpperCase(),
+    };
+    this.apiService.createMasterState( params).subscribe((res:any) => {
+      let response: any = res;
+      document.getElementById('cancel')?.click();
+      this.isSubmitted = false;
+      if (response.status == 200) {
+        this.getStateData();
+        this.form.reset();
+        this.alertService.success(response.message);
+      } else {
+        this.alertService.warning(response.message);
+      }
+    }, (error:any) => {
+        document.getElementById('cancel')?.click();
+        this.alertService.error("Error: " + error.statusText);
+      })
+  }
+  stateUpdate(): void {
+    this.form.value.country_id =  this.stateDetails.country_id;
+    this.form.value.state_id =  this.stateDetails.state_id;
+    this.apiService.stateMasterUpdation(this.form.value).subscribe((res: any) => {
+      document.getElementById('cancel')?.click();
+      this.getStateData();
+       this.isSubmitted = false;
+       if (res.status == 200) {
+        this.alertService.success(res.message);
+      } else if(res.status == 201) {
+        this.alertService.error(res.message);
+      }else{
+        this.alertService.error('Error, Something went wrong please check');
+      }
+  }, (error) => {
+    this.isSubmitted = false;
+    document.getElementById('cancel')?.click();
+    this.alertService.error("Error: " + error.statusText);
+  });
+  }
+
 }

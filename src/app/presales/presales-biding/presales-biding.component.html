@@ -85,31 +85,31 @@
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Costing Type<span class="required-asterisk">*</span></label>
                                     <select formControlName="type_id" class="form-select form-select-sm"  (ngModelChange)="getExpenseDetails($event)">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Expense Type</option>
-                                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                                        <option *ngFor="let c of costType" value="{{c.costtype_id}}">{{ c.cost_type }}</option>
                                     </select>
                                     <div *ngIf="f['type_id'].touched && f['type_id'].invalid">
                                         <small class="text-danger" *ngIf="f['type_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Expense Type<span class="required-asterisk">*</span></label>
                                     <select formControlName="expensetype_id" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Expense Type</option>
-                                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                                        <option *ngFor="let c of expenseTypeData" value="{{c.expensetype_id}}">{{ c.expense_type }}</option>
                                     </select>
                                     <div *ngIf="f['expensetype_id'].touched && f['expensetype_id'].invalid">
                                         <small class="text-danger" *ngIf="f['expensetype_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">UOM<span class="required-asterisk">*</span></label>
                                     <select formControlName="uom" class="form-select form-select-sm">
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Multiplier<span class="required-asterisk">*</span></label>
                                     <input formControlName="multiplier" type="text" class="form-control form-control-sm" appNumberOnly>
@@ -130,12 +130,21 @@
                                     </div>
                                 </div>
                             </div> 
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Unit Cost<span class="required-asterisk">*</span></label>
                                     <input formControlName="unitcost" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['unitcost'].touched && f['unitcost'].invalid">
                                         <small class="text-danger" *ngIf="f['unitcost'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Total Cost<span class="required-asterisk">*</span></label>
+                                    <input formControlName="total_cost" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['total_cost'].touched && f['total_cost'].invalid">
+                                        <small class="text-danger" *ngIf="f['total_cost'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>                            

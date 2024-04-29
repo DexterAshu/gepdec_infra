@@ -34,6 +34,8 @@ export class PresalesBidingComponent {
   companyList: any;
   tenderType: any;
   dataDropdownList: any;
+  costType: any;
+  expenseTypeData: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -49,6 +51,7 @@ export class PresalesBidingComponent {
       uom: [null, [Validators.required]],
       multiplier: [null, [ Validators.required]],
       unitcost: [null, [Validators.required]],
+      total_cost: [null, [Validators.required]],
    
     });
 
@@ -56,13 +59,7 @@ export class PresalesBidingComponent {
     this.getDropdownList();
   }
 
-  createForm(){
-    console.clear();
-    this.button = 'Create';
-    this.update = false;
-    this.form.reset();
-  }
-
+ 
    getDetails(data:any){
     this.form.reset();
     this.button = 'Update';
@@ -79,14 +76,7 @@ export class PresalesBidingComponent {
     
   })
   }
-  getExpenseDetails(event: any) {
-    // const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
-    // this.clientListData = company_id;
-    // this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
-    //   this.tenderDetailsData = res.result;
-    //   console.log(this.tenderDetailsData);
-    // });
-  }
+  
 
   getDropdownList() {
     this.dataDropdownList = [];
@@ -106,11 +96,23 @@ export class PresalesBidingComponent {
     this.apiService.getCompanyList().subscribe((res: any) => {  
       this.companyData = res.result;
     });
-    this.apiService.getTenderType().subscribe((res: any) => {  
-      this.tenderType = res.bidtype;
+    this.apiService.getCostType().subscribe((res: any) => {  
+      this.costType = res.costtype;
     });
  
   }
+  getExpenseDetails(costtype_id: any) {
+    this.expenseTypeData = this.costType.filter((x:any) => x.expense_type == costtype_id);
+    // const costtype_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    // this.expenseTypeData = costtype_id;
+    // console.log(this.expenseTypeData);
+    
+    // this.apiService.getTenderLisById(this.expenseTypeData).subscribe((res: any) => {
+    //   this.tenderDetailsData = res.result;
+    //   console.log(this.tenderDetailsData);
+    // });
+  }
+
 
   onSubmit() {
     if (this.form.valid) {
@@ -123,6 +125,13 @@ export class PresalesBidingComponent {
     }
     }
   }
+  createForm(){
+    console.clear();
+    this.button = 'Create';
+    this.update = false;
+    this.form.reset();
+  }
+
 
   addTender() {
     this.apiService.createTender(this.form.value).subscribe((res: any) => {

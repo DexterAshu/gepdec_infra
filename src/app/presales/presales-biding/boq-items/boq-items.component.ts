@@ -95,6 +95,7 @@ export class BoqItemsComponent {
       utility_id:['', Validators.required],
       itemCategory:['', Validators.required],
       itemSubCategory:['', Validators.required],
+      itemcode:['', Validators.required],
       attachment:['', Validators.required]
     });
     this.addAnotherRow();
@@ -103,15 +104,12 @@ export class BoqItemsComponent {
     this.getBoqListData();
   }
   rowListData(row:any) {
-    debugger;
     this.rowData = [];
     this.rowData = row;
-    console.log(this.rowData);
   }
 
   getChildData(data: any): void {
     this.childData = data;
-    console.log(this.childData);
   }
 
   getDropdownList() {
@@ -136,7 +134,6 @@ export class BoqItemsComponent {
     this.clientListData = company_id;
     this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
       this.tenderDetailsData = res.result;
-      console.log(this.tenderDetailsData);
     });
   }
 
@@ -174,12 +171,8 @@ export class BoqItemsComponent {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
-    console.log(this.arr);
-   
     var a = this.arr
-    var b =this.selectedItems
-    
+    var b =this.selectedItems 
     var c = a.filter(function(objFromA:any) {
       return !b.find(function(objFromB:any) {
         return objFromA.ussg_id === objFromB.ussg_id
@@ -219,7 +212,7 @@ export class BoqItemsComponent {
     this.isNotFound = false;
     let apiLink = "/item/api/v1/getItemList";
     this.apiService.getData(apiLink).subscribe((res:any) => {
-      this.dataList = res.result;
+    this.dataList = res.result;
      
     });
   }
@@ -288,6 +281,7 @@ downloadPdf() {
 
   // BOQ item bulk data 
   onBOQSubmit() {
+    this.isSubmitted = true;
     const formData: any = new FormData();
     const files: Array<File> = this.filesToUpload;
 
@@ -298,6 +292,7 @@ downloadPdf() {
     formData.append('tender_id', this.form1.value.tender_id);  
     formData.append('itemCategory', this.form1.value.itemCategory);  
     formData.append('itemSubCategory', this.form1.value.itemSubCategory);  
+    formData.append('itemcode', this.form1.value.itemcode);  
     this.addBOQ(formData);
 }
 
@@ -314,8 +309,12 @@ addBOQ(formData: FormData) {
         } else {
             this.alertService.warning(response.message);
         }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
 }
 
-  updateBOQ(formData: FormData){}
+ 
 }

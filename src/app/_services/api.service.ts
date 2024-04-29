@@ -91,6 +91,10 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>( `${environment.apiUrl}/biding/api/v1/getTenderDropdown`, httpOptions);
   }
+  getCostType(): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>( `${environment.apiUrl}/costing/api/v1/getCostingDropdown`, httpOptions);
+  }
 
   getCompanyData(): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
@@ -171,17 +175,29 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post<any[]>(`${environment.apiUrl}/state/api/v1/addCountry`, data, httpOptions);
   }
+  countryMasterUpdation(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put<any[]>( `${environment.apiUrl}/state/api/v1/updateCountry`, data, httpOptions );
+  }
 
   //create master state
   createMasterState(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post<any[]>(`${environment.apiUrl}/state/api/v1/addState`, data, httpOptions);
   }
+  stateMasterUpdation(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put<any[]>( `${environment.apiUrl}/state/api/v1/updateState`, data, httpOptions );
+  }
 
   //create master district
   addMasterDistrict(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post<any[]>(`${environment.apiUrl}/state/api/v1/addDistrict`, data, httpOptions);
+  }
+  districtMasterUpdation(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put<any[]>( `${environment.apiUrl}/state/api/v1/updateDistrict`, data, httpOptions );
   }
 
   //create master our finance details
@@ -194,11 +210,65 @@ export class ApiService {
     const params = new HttpParams({ fromString: `bidder_id=${bidder_id}&financialyear_id=${financialyear_id}` });
     return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getMyComapanyFinancials?${params}`, httpOptions );
   }
-  finCalculateData(year: any, check: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
-    return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/checkMyComapanyFinancials?${params}`, httpOptions );
-  }
+  // finCalculateData(data:any): Observable<any> {
+  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  //   const params = new HttpParams({ fromString: `year=${data.year}&check=${data.check}&column=${data.column}` });
+  //   return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/checkMyComapanyFinancials?${params}`, httpOptions );
+  // }
+
+//fin-all fields-api
+finAnnuvalTournover(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getAnnualTurnover?${params}`, httpOptions );
+}
+finNetWorth(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getNetWorth?${params}`, httpOptions );
+}
+finNetWorkingCap(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getNetWorkingCapital?${params}`, httpOptions );
+}
+finLiability(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getTotalLiabilities?${params}`, httpOptions );
+}
+finFixedAsset(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getTotalFixedAssets?${params}`, httpOptions );
+}
+finNetProfit(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getNetProfit?${params}`, httpOptions );
+}
+finNetCapital(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getNetCapital?${params}`, httpOptions );
+}
+finRS(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getReserveSurplus?${params}`, httpOptions );
+}
+finPaidupCapital(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getPaidUpCapital?${params}`, httpOptions );
+}
+finAbidta(year:any, check:any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+  const params = new HttpParams({ fromString: `year=${year}&check=${check}` });
+  return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/getEbidta?${params}`, httpOptions );
+}
+
+
   myCompanyDoc(data: any): Observable<any[]> {
     const httpOptions = {headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
     return this.http.post<any[]>(`${environment.apiUrl}/mycompany/api/v1/addMyComapanyDocuments`, data, httpOptions);

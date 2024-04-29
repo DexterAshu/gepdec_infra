@@ -77,8 +77,7 @@
                                 <th>Paid Up Capital</th>
                                 <th>Annuval Turnover</th>
                                 <th>Attachments</th>
-                                <th>Created By</th>
-                                <th>Created On</th>
+                             
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -99,8 +98,7 @@
                                 <td data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
                                     {{a.filename| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
                                 </td>
-                                <td>{{a.createdby_name}}</td>
-                                <td>{{a.created}}</td>
+                             
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -329,7 +327,9 @@
                               </div>
                         </div>
                         <div class="float-right">
-                            <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
+                            <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
+                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Documents Uploading...</button>
+
                             <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                         </div>
                       </form>

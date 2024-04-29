@@ -166,7 +166,7 @@
                           
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Ref No</label>
+                                    <label class="form-label fl-10">Ref No</label>
                                     <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
                                 
                                 </div>
@@ -179,17 +179,7 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="form-group col-3">
-                                <label for="">Projects: <span class="required-asterisk">*</span></label>
-                                <select class="form-select form-select-sm" formControlName="documenttype_id">
-                                    <option [selected]="true" [disabled]="true" [value]="null">Select Projects</option>
-                                    <option *ngFor="let d of docType" value="{{d.documenttype_id}}">{{d.documenttype}}</option>
-                                </select>
-                                <div *ngIf="f['documenttype_id'].touched && f['documenttype_id'].invalid">
-                                    <small class="text-danger" *ngIf="f['documenttype_id'].errors?.['required']">*Required</small>
-                                </div>  
-                            </div> -->
-                            <div class="form-group col-3" >
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                                 <label for="">Bank <span class="required-asterisk">*</span></label>
                                 <select class="form-select form-select-sm" formControlName="bank_id">
                                     <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
@@ -214,14 +204,14 @@
                                 <small class="text-danger" *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
                             </div>    
                         </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">Start Date <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="start_date">
                             <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
                                 <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
                             </div> 
                         </div>
-                            <div class="form-group col-3" >
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">End Date <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="end_date">
                             <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
@@ -229,51 +219,42 @@
                             </div>
                         </div>
 
-
-                      
-
-                            <div class="form-group col-3" >
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">Submission Date <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="submission_date">
                             <div *ngIf="f['submission_date'].touched && f['submission_date'].invalid">
                                 <small class="text-danger" *ngIf="f['submission_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
-                            <div class="form-group col-3" >
+                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">Extend Date </label>
                             <input type="date" class="form-control form-control-sm" formControlName="extend_date">
-                          <!-- <div *ngIf="f['extend_date'].touched && f['extend_date'].invalid">
-                                        <small class="text-danger" *ngIf="f['extend_date'].errors?.['required']">*Required</small>
-                                    </div> -->
                         </div>
-                       
-                        
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="">Document Description</label>
                                 <textarea type="text" class="form-control form-control-sm" formControlName="document_description" placeholder="Describe your attached documents...">
                                </textarea>
-                                </div>
+                            </div>
                         </div>
                         <!-- Other Fields... -->
                       
                         <!-- Attachment Documents -->
-                        <div class="row">
+                        <div class="row" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                                 <div class="col-lg-12 col-sm-6" >
                                     <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
                                     <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
                                       placeholder="Upload a file..." multiple="true" />
-                                      <!-- <div *ngIf="f['attachment'].touched && f['attachment'].invalid">
-                                        <small class="text-danger" *ngIf="f['attachment'].errors?.['required']">*Required</small>
-                                    </div> -->
+                                   
                               </div>
                           
                         </div>
                         <div class="float-right">
-
-                            <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
-                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>                        </div>
+                            <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="!documentForm.valid">Submit</button>
+                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...</button>
+                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                        </div>
                       </form>
                       
                 </div>
