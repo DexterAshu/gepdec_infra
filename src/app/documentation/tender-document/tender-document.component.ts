@@ -23,6 +23,7 @@ export class TenderDocumentComponent {
   meterData: any;
   p: number = 1;
   limit = environment.pageLimit;
+  apiLink: any = environment.apiUrl;
   docType: any;
   docListData: any;
   companyData: any;
