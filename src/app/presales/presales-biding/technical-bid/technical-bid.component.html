@@ -98,7 +98,7 @@
                                     </ng-template>
                                 </td>
                                 <td>{{a.tender_ref_no}}</td>
-                                <td>{{a.publish_date}}</td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <!-- <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
@@ -159,7 +159,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                                    <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
+                                    <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)" [disabled] = "addTech.length != 0">
                                         <option [selected]="true" [disabled]="true">Select Title</option>
                                         <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">
                                             {{c.tender_title}}</option>
@@ -231,9 +231,9 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Total Experience (In years)</label>
-                                    <input formControlName="experience" type="text" class="form-control form-control-sm" appNumWithDot>
-                                    <div *ngIf="f['experience'].touched && f['experience'].invalid">
-                                        <small class="text-danger" *ngIf="f['experience'].errors?.['required']">*Required</small>
+                                    <input formControlName="total_experience" type="text" class="form-control form-control-sm" appNumWithDot>
+                                    <div *ngIf="f['total_experience'].touched && f['total_experience'].invalid">
+                                        <small class="text-danger" *ngIf="f['total_experience'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -241,27 +241,27 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Completion Period (In Months)</label>
-                                    <input formControlName="compPeriod" type="text" class="form-control form-control-sm" appNumWithDot>
-                                    <div *ngIf="f['compPeriod'].touched && f['compPeriod'].invalid">
-                                        <small class="text-danger" *ngIf="f['compPeriod'].errors?.['required']">*Required</small>
+                                    <input formControlName="completion_period" type="text" class="form-control form-control-sm" appNumWithDot>
+                                    <div *ngIf="f['completion_period'].touched && f['completion_period'].invalid">
+                                        <small class="text-danger" *ngIf="f['completion_period'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Resource Used</label>
-                                    <input formControlName="resourceUsed" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['resourceUsed'].touched && f['resourceUsed'].invalid">
-                                        <small class="text-danger" *ngIf="f['resourceUsed'].errors?.['required']">*Required</small>
+                                    <input formControlName="resource_used" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['resource_used'].touched && f['resource_used'].invalid">
+                                        <small class="text-danger" *ngIf="f['resource_used'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Completion Year</label>
-                                    <input formControlName="compYear" type="text" class="form-control form-control-sm" appNumberOnly>
-                                    <div *ngIf="f['compYear'].touched && f['compYear'].invalid">
-                                        <small class="text-danger" *ngIf="f['compYear'].errors?.['required']">*Required</small>
+                                    <input formControlName="completion_year" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['completion_year'].touched && f['completion_year'].invalid">
+                                        <small class="text-danger" *ngIf="f['completion_year'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -272,6 +272,20 @@
                                     <input formControlName="technical_points" type="text" class="form-control form-control-sm" placeholder="eg: Put your bid points one by one">
                                     <div *ngIf="f['technical_points'].touched && f['technical_points'].invalid">
                                         <small class="text-danger" *ngIf="f['technical_points'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Is Qualified<span class="required-asterisk">*</span></label>
+                                    <select formControlName="qualified" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true">Select Capacity</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                    <div *ngIf="f['qualified'].touched && f['qualified'].invalid">
+                                        <small class="text-danger"
+                                            *ngIf="f['qualified'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -292,7 +306,12 @@
                                         <th>Category</th>
                                         <th>Sub-Category</th>
                                         <th>Capacity</th>
+                                        <th>Experience</th>
+                                        <th>Completion Period</th>
+                                        <th>Resource Used</th>
+                                        <th>Completion Year</th>
                                         <th>Technical Point</th>
+                                        <th>Result</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -305,7 +324,19 @@
                                         <td>{{a.qacatagory_id}}</td>
                                         <td>{{a.subqacatagory_id}}</td>
                                         <td>{{a.capacity_id}}</td>
+                                        <td>{{a.total_experience}}</td>
+                                        <td>{{a.completion_period}}</td>
+                                        <td>{{a.resource_used}}</td>
+                                        <td>{{a.completion_year}}</td>
                                         <td>{{a.technical_points}}</td>
+                                        <td>
+                                            <div *ngIf="a.qualified == 'true'; else ifNot">
+                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"></i>
+                                            </div>
+                                            <ng-template #ifNot>
+                                                <i class="mdi mdi-close-circle mdi-18px text-danger"></i>
+                                            </ng-template>
+                                        </td>
                                         <td>
                                             <a (click)="deletecsdp(i)" title="Delete"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
                                         </td>
@@ -355,6 +386,10 @@
                                             <th>Category</th>
                                             <th>Sub-Category</th>
                                             <th>Capacity</th>
+                                            <th>Experience</th>
+                                            <th>Completion Period</th>
+                                            <th>Resource Used</th>
+                                            <th>Completion Year</th>
                                             <th>Technical Point</th>
                                             <th>Result</th>
                                         </tr>
@@ -365,8 +400,19 @@
                                             <td>{{ a?.qacatagory }}</td>
                                             <td>{{ a?.subqacatagory }}</td>
                                             <td>{{ a?.capacity }}</td>
-                                            <td>{{ a?.technical_points }}</td>
-                                            <td>--</td>
+                                            <td>{{ a?.total_experience}}</td>
+                                            <td>{{ a?.completion_period}}</td>
+                                            <td>{{ a?.resource_used}}</td>
+                                            <td>{{ a?.completion_year}}</td>
+                                            <td>{{ a?.technical_points}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.qualified == true; else ifNot2">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"></i>
+                                                </div>
+                                                <ng-template #ifNot2>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"></i>
+                                                </ng-template>
+                                            </td>
                                         </tr>
                                         <!-- <tr *ngIf="rowData?.length == 0">
                                             <td colspan="15" class="text-center">
