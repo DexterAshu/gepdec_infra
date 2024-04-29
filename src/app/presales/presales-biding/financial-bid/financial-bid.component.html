@@ -218,7 +218,15 @@
                                         </div>
                                         <div class="col-md-2">
                                             <br>
-                                            <div class="status-icon float-right"
+                                           
+                                                <div *ngIf="form.value.annual_turnover < data == true; else ifNot">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"></i>
+                                                </div>
+                                                <ng-template #ifNot>
+                                                    <i class="mdi mdi-close-circle mdi-18px text-danger"></i>
+                                                </ng-template>
+                                           
+                                            <!-- <div class="status-icon float-right"
                                                 [ngClass]="{ 'accept': form.value.annual_turnover < data, 'rejected': form.value.annual_turnover >= data }">
                                                 <ng-container *ngIf="form.value.annual_turnover < data; else rejectedIcon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
@@ -238,7 +246,7 @@
                                                             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
                                                     </svg>
                                                 </ng-template>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         
                                        <!-- <div class="col-md-2">
