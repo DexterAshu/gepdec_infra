@@ -194,10 +194,10 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="fl-10">Ref No</label>
+                  <label class="fl-10">Tender Title</label>
                   <select formControlName="tender_id" class="form-select form-select-sm login-input" style="border-radius: 6px;" (ngModelChange)="getL1ScheduleDataByTender()">
                     <option value=null disabled selected>Select Tender</option>
-                    <option *ngFor="let t of tenderList" value="{{t.tender_id}}">{{ t.tender_ref_no }}</option>
+                    <option *ngFor="let t of tenderList" value="{{t.tender_id}}">{{ t.tender_title }}</option>
                   </select>
                 </div>
               </div>
