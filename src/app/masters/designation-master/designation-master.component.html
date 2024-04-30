@@ -45,7 +45,7 @@
                                 <th>Designation Name</th>
                                 <!-- <th>Created By</th>
                                 <th>Created On</th> -->
-                                <th>Action</th>
+                                <!-- <th>Action</th> -->
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="designData.length">
@@ -54,13 +54,13 @@
                                 <td>{{a.designationname}}</td>
                                 <!-- <td>{{a.createdby_name}}</td>
                                 <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td> -->
-                                <td>
+                                <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" ><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
-                                    <!-- &nbsp; -->
-                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+                                   
+                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
 
-                                </td>
+                                </td> -->
                             </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
@@ -100,7 +100,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Designation Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="designationname" placeholder="Enter your new designation" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="designationname" placeholder="Enter your new designation" class="form-control form-control-sm">
                                     <div *ngIf="f['designationname'].touched && f['designationname'].invalid">
                                         <small class="text-danger" *ngIf="f['designationname'].errors?.['required']">*Required</small>
                                     </div>

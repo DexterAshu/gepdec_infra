@@ -43,20 +43,20 @@
                             <tr>
                                 <th>S No</th>
                                 <th>Department</th>
-                                <th>Action</th>
+                                <!-- <th>Action</th> -->
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="deptData.length">
                             <tr *ngFor="let a of deptData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.deptname}}</td>
-                                <td>
+                                <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" ><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
-                                    <!-- &nbsp; -->
-                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+                                   
+                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
 
-                                </td>
+                                </td> -->
                             </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
@@ -96,7 +96,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Department Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="deptname" placeholder="Enter New Department" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="deptname" placeholder="Enter New Department" class="form-control form-control-sm">
                                     <div *ngIf="f['deptname'].touched && f['deptname'].invalid">
                                         <small class="text-danger" *ngIf="f['deptname'].errors?.['required']">*Required</small>
                                     </div>
