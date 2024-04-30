@@ -81,12 +81,12 @@ export class MyCompanyComponent {
     this.getCountryData();
 
   }
- 
+
   getDetails(data:any){
     this.rowData = [];
     this.rowData = data;
-   
-  } 
+
+  }
 
    getPatchDetails(data:any){
     this.form.reset();
@@ -198,22 +198,6 @@ export class MyCompanyComponent {
       this.alertService.error(err.error.message);
     }
   }
-
-
-  exportAsXLSX1(){
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
-    var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
-    XLSX.writeFile(wb, "Data_File.xlsx");
-
-        }
-downloadPdf() {
-  const pdfUrl = './assets/tamplate/state_bulkload_template_file.xlsx';
-  const pdfName = 'state_bulkload_template_file.xlsx';
-  FileSaver.saveAs(pdfUrl, pdfName);
-}
 
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {

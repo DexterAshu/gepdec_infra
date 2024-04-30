@@ -1,15 +1,15 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ApiService, AlertService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-design-document',
   templateUrl: './design-document.component.html',
   styleUrls: ['./design-document.component.css']
 })
+
 export class DesignDocumentComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
@@ -27,17 +27,17 @@ export class DesignDocumentComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
-  companyData: any;
-  tenderType: any;
-  constructor(
-    private formBuilder: FormBuilder,
-    private apiService: ApiService,
-    private alertService: AlertService
-  ) {}
+  companyData: any = [];
+  tenderList: any = [];
+  selectedTender: any;
+  isOpen: boolean = false;
+
+  constructor(private formBuilder: FormBuilder, private apiService: ApiService, private alertService: AlertService) { }
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
-      // documenttype_id: ['',Validators.required],
+      client: ['null', Validators.required],
+      tender_id: ['', Validators.required],
       bank_name: ['null', Validators.required],
       bgamount: ['', Validators.required],
       bgnumber: ['', Validators.required],
@@ -46,40 +46,42 @@ export class DesignDocumentComponent {
       submission_date: ['', Validators.required],
       extend_date: ['', Validators.required],
       attachment: ['', Validators.required],
-      publish_date: ['', Validators.required],
-      tender_ref_no:['', Validators.required],
-      tender_title:['', Validators.required],
-      utility:['null', Validators.required],
-      description: [''],
-     
-    });
-
-    this.getData();
-    this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
+      description: ['']
     });
   }
 
-  getData() {
-    this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
-    });
-    this.apiService.getCompanyList().subscribe((res: any) => {  
-      this.companyData = res.result;
-    });
-    this.apiService.getTenderType().subscribe((res: any) => {  
-      this.tenderType = res.bidtype;
-    });
-    
-    this.apiService.getDocListData().subscribe((res:any) => {
-      
-      
-      if (res.status === 200) {
-        this.docListData = res.result;
+  getClient(): void {
+    this.companyData = [];
+    const apiLink = `/company/api/v1/getComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if(res.status === 200) {
+        this.companyData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
-    });
+    }),
+    (error: any) => {
+      this.alertService.error(error);
+    }
+  }
+
+  getTenderList(): void {
+    this.tenderList = [];
+    const apiLink = `/biding/api/v1/getTenderlist?comapany_id=${this.documentForm.value.client}`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if(res.status === 200) {
+        this.tenderList = res.result;
+      } else {
+        this.alertService.warning(res.message);
+      }
+    }),
+    (error: any) => {
+      this.alertService.error(error);
+    }
+  }
+
+  selectTender(): void {
+    this.selectedTender = this.tenderList.filter((tender: any) => tender.tender_id == this.documentForm.value.tender_id)[0];
   }
 
   onFileChanged(event: any) {
@@ -94,47 +96,10 @@ export class DesignDocumentComponent {
     }
   }
 
-  removeSelectedFile(index: number) {
-    this.listOfFiles.splice(index, 1);
-    this.attachment.splice(index, 1);
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.tableHeight = `${window.innerHeight * 0.65}px`;
-  }
-
-  get f() {
-    return this.documentForm.controls;
-  }
-
-  //button dropdown
-  isOpen: boolean = false;
-
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
-  exportAsXLSX1(){
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
-    var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
-    XLSX.writeFile(wb, "Data_File.xlsx");
-
-        }
-downloadPdf() {
-  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
-  const pdfName = 'country_bulkload_template_file.xlsx';
-  FileSaver.saveAs(pdfUrl, pdfName);
-}
+  get f() { return this.documentForm.controls }
 
   download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
-      display: false,
-      raw: true,
-    });
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 
@@ -144,8 +109,6 @@ downloadPdf() {
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-
-    // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
     formData.append('bank_name', this.documentForm.value.bank_name);
     formData.append('bgnumber', this.documentForm.value.bgnumber);
     formData.append('bgamount', this.documentForm.value.bgamount);
@@ -158,22 +121,20 @@ downloadPdf() {
     formData.append('tender_title', this.documentForm.value.tender_title);
     formData.append('utility', this.documentForm.value.utility);
     formData.append('description', this.documentForm.value.description);
-    this.addDocument(formData);
-  }
-
-  addDocument(formData: FormData) {
+    this.isSubmitted = true;
     this.apiService.createDocuments(formData).subscribe((res: any) => {
-      let response: any = res;
-      document.getElementById('cancel')?.click();
-      this.isSubmitted = false;
-      if (response.status == 200) {
+      if (res.status == 200) {
         this.documentForm.reset();
-        this.alertService.success(response.message);
+        this.alertService.success(res.message);
+        document.getElementById('cancel')?.click();
       } else {
-        this.alertService.warning(response.message);
+        this.alertService.warning(res.message);
       }
-    });
+    }),
+    (error: any) => {
+      this.alertService.error(error);
+    }
+    this.isSubmitted = false;
   }
+
 }
-
-

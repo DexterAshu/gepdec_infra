@@ -95,8 +95,13 @@
                                 <td>{{a.reserve_surplus}}</td>
                                 <td>{{a.paid_upcapital}}</td>
                                 <td>{{a.annual_turnover}}</td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
-                                    {{a.filename| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                <td>
+                                    <div *ngIf="!!a.filename; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
+                                        {{a.filename | slice:0:30}} <span *ngIf="a.filename.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock14>
+                                        {{a.filename}}
+                                    </ng-template>
                                 </td>
                              
                                 <td>

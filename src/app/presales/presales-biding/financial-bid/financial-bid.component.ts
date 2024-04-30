@@ -58,7 +58,7 @@ export class FinancialBidComponent {
   isOpen: boolean = false;
   fileList: File[] = [];
   listOfFiles: any[] = [];
-  data: any;
+  data: any = null;
   data1: any;
   data2: any;
   liabVal: any;
@@ -68,7 +68,8 @@ export class FinancialBidComponent {
   rAnds: any;
   paiCapitalVal: any;
   ebidtaVal: any;
-  
+  isSuccess: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -116,7 +117,7 @@ export class FinancialBidComponent {
         check10:[''],
         nclt_status: [null],
         drt: [null],
-        cdr: [null]    
+        cdr: [null]
     });
     this.finListData();
     this.finYearData();
@@ -124,53 +125,70 @@ export class FinancialBidComponent {
   }
 
   getData() {
-    this.apiService.getCompanyList().subscribe((res: any) => {  
+    this.apiService.getCompanyList().subscribe((res: any) => {
       this.companyData = res.result;
     });
-  
-    this.apiService.getTenderList().subscribe((res: any) => {  
+
+    this.apiService.getTenderList().subscribe((res: any) => {
       this.tenderData = res.result;
     });
-    
-   
+
+
   }
 
   finListData(){
+    this.docListData = [];
+    this.isNotFound = false;
     this.apiService.getfinDataList().subscribe((res:any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.docListData = res.result;
       } else {
+        this.docListData = undefined;
+        this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       }
     }, error => {
-      this.isNotFound = false;
+      this.docListData = undefined;
+      this.isNotFound = true;
       this.alertService.error("Error: " + error.statusText)
     });
   }
 
   finYearData() {
-    this.isNotFound = true;
     this.masterService.getFinData().subscribe((res:any) => {
-      this.isNotFound = false;
       if (res.status == 200) {
       this.financialData = res.result;
       }else {
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
-    });  
-  
+    });
+
   }
 
-  annuvalTurnVal(year:any,check:any){
-    year = this.form.value.year
-    check = this.form.value.check
-    this.apiService.finAnnuvalTournover(year, check).subscribe((res:any) =>{
-      this.data =res.result;
-     })
+  annuvalTurnVal(year:any, check:any, annual:any){
+    debugger
+    if(check != '') {
+      this.apiService.finAnnuvalTournover(year, check).subscribe((res:any) =>{
+        this.data = res.result;
+        this.comparisonData(annual);
+       })
+    }
   }
+
+  comparisonData(annual: any) {
+    debugger
+    if(this.data != null) {
+      if(parseInt(annual) < parseInt(this.data)) {
+        this.isSuccess = true;
+      } else {
+        this.isSuccess = false;
+      }
+    }
+  }
+
   netWorthVal(year:any,check:any){
     year = this.form.value.year
     check = this.form.value.check
@@ -246,9 +264,9 @@ export class FinancialBidComponent {
   //     console.log(res);
   //     this.data =res.result;
   //    })
-    
 
-    
+
+
   //   // this.apiService.finCalculateData(year, check).subscribe((res:any) =>{
   //   // this.finCalData = res.result;
   //   // console.log(this.finCalData);
@@ -279,7 +297,7 @@ export class FinancialBidComponent {
 toggleDropdown() {
   this.isOpen = !this.isOpen;
 }
-  onFileChanged(event: any) { 
+  onFileChanged(event: any) {
     for (var i = 0; i <= event.target.files.length - 1; i++) {
       var selectedFile = event.target.files[i];
       this.listOfFiles.push(selectedFile.name);
@@ -317,26 +335,12 @@ toggleDropdown() {
   //         nclt_status: this.custDetails.nclt_status,
   //         drt: this.custDetails.drt,
   //         cdr: this.custDetails.cdr,
-  //       }); 
-      
+  //       });
+
   // })
   // }
 
   get f() { return this.form.controls; }
-   exportAsXLSX1(){
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
-    var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
-    XLSX.writeFile(wb, "Data_File.xlsx");
-
-        }
-downloadPdf() {
-  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
-  const pdfName = 'country_bulkload_template_file.xlsx';
-  FileSaver.saveAs(pdfUrl, pdfName);
-}
 
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
@@ -395,7 +399,6 @@ downloadPdf() {
         this.alertService.warning(response.message);
       }
     }, error => {
-      this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
     });
   }
