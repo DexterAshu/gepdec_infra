@@ -42,16 +42,22 @@
               <tr *ngFor="let a of wareHouseData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit * (p - 1) + i + 1 }}</td>
                 <td>{{ a.tender_ref_no }}</td>
-                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
                 <td>
-                  <a data-bs-toggle="modal" (click)="selectWH(a)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#viewWH" title="Warehouse Profile">{{ a.warehouse_code}}</a>
+                  <div *ngIf="!!a.tender_title; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                    {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock14>
+                      {{a.tender_title}}
+                  </ng-template>
                 </td>
+                <td>{{ a.warehouse_code}}</td>
                 <td>{{ a.warehouse_name }}</td>
                 <td>{{ a.city }}</td>
                 <td>{{ a.district }}</td>
                 <td>{{ a.state }}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWH(a)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
+                  <a class="" data-bs-toggle="modal" data-bs-target="#viewWH" title="Warehouse Profile" (click)="selectWH(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">
@@ -181,7 +187,7 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="form-label">Tender Ref No.<span class="required-asterisk">*</span></label>
+                  <label class="form-label">Tender Title<span class="required-asterisk">*</span></label>
                   <select formControlName="tender_id" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">select</option>
                     <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>

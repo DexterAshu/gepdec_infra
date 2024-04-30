@@ -37,12 +37,13 @@
                 <th>GST No</th>
                 <th>GST Date</th>
                 <th>Date of Incorporation</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
               <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
-                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Supplier Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.suppliercode }}</td>
+                <td>{{ a.suppliercode }}</td>
                 <td>{{ a.suppliername }}</td>
                 <td>{{ a?.category }}</td>
                 <td>{{ a?.category_no }}</td>
@@ -52,6 +53,9 @@
                 <td>{{ a?.gstno }}</td>
                 <td>{{ a?.gstdate }}</td>
                 <td>{{ a.doi }}</td>
+                <td>
+                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="Supplier Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                </td>
               </tr>
               <tr *ngIf="dataList?.length == 0">
                 <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>

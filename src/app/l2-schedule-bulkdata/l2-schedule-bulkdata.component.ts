@@ -85,7 +85,9 @@ export class L2ScheduleBulkdataComponent {
         match.task_start_date = new Date(this.editTaskForm.value.task_start_date).toISOString();
         match.task_end_date = new Date(this.editTaskForm.value.task_end_date).toISOString();
         match.days_difference = this.calculateAgeInDays(new Date(this.editTaskForm.value.task_start_date), new Date(this.editTaskForm.value.task_end_date));
+        task.is_added = false;
         match.is_updated = true;
+        task.is_deleted = false;
         return match;
       } else {
         return task;
@@ -98,12 +100,16 @@ export class L2ScheduleBulkdataComponent {
     this.addTaskForm.value.task_end_date = new Date(this.addTaskForm.value.task_end_date).toISOString();
     this.addTaskForm.value.days_difference = this.calculateAgeInDays(new Date(this.addTaskForm.value.task_start_date), new Date(this.addTaskForm.value.task_end_date));
     this.addTaskForm.value.is_added = true;
+    this.addTaskForm.value.is_updated = false;
+    this.addTaskForm.value.is_deleted = false;
     this.l1ScheduleData.tasks.push(this.addTaskForm.value);
   }
 
   removeTask(task: any): void {
     this.l1ScheduleData.tasks = this.l1ScheduleData.tasks.map((t: any) => {
       if (t.task_id === task.task_id) {
+        t.is_added = false;
+        t.is_updated = false;
         t.is_deleted = true;
         return t;
       } else {
@@ -127,7 +133,9 @@ export class L2ScheduleBulkdataComponent {
             match.task_start_date = new Date(this.editSubTaskForm.value.task_start_date).toISOString();
             match.task_end_date = new Date(this.editSubTaskForm.value.task_end_date).toISOString();
             match.days_difference = this.calculateAgeInDays(new Date(this.editSubTaskForm.value.task_start_date), new Date(this.editSubTaskForm.value.task_end_date));
+            subtask.is_added = false;
             match.is_updated = true;
+            subtask.is_deleted = false;
             return match;
           } else {
             return subtask;
@@ -148,7 +156,9 @@ export class L2ScheduleBulkdataComponent {
         this.addSubTaskForm.value.days_difference = this.calculateAgeInDays(new Date(this.addSubTaskForm.value.task_start_date), new Date(this.addSubTaskForm.value.task_end_date));
         this.addSubTaskForm.value.parent_task_id = this.addNewSubTaskInSelectedTask.task_id;
         this.addSubTaskForm.value.is_added = true;
-        if(task?.childtasks?.length) {
+        this.addSubTaskForm.value.is_updated = false;
+        this.addSubTaskForm.value.is_deleted = false;
+        if (task?.childtasks?.length) {
           task.childtasks.push(this.addSubTaskForm.value);
         } else {
           task.childtasks = [this.addSubTaskForm.value];
@@ -167,6 +177,8 @@ export class L2ScheduleBulkdataComponent {
       if (t.task_id === task.task_id) {
         t.childtasks = t.childtasks.map((s: any) => {
           if (s.task_id === subTask.task_id) {
+            s.is_added = false;
+            s.is_updated = false;
             s.is_deleted = true;
             return s;
           } else {
@@ -181,6 +193,7 @@ export class L2ScheduleBulkdataComponent {
   }
 
   getCompanyList(): void {
+    this.update = false;
     const apiLink = `/company/api/v1/getComapanyList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
@@ -189,10 +202,10 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.error(res.message);
       }
     }),
-      (error: any) => {
-        console.log(error);
-        this.alertService.error(`Error: ${error.message}`);
-      }
+    (error: any) => {
+      console.log(error);
+      this.alertService.error(`Error: ${error.message}`);
+    }
   }
 
   getTenderListByCompany(): void {
@@ -204,9 +217,9 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-      (error: any) => {
-        this.alertService.error(`Error: ${error.message}`);
-      }
+    (error: any) => {
+      this.alertService.error(`Error: ${error.message}`);
+    }
   }
 
   getL1ScheduleDataByTender(): void {
@@ -219,9 +232,9 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.error(res.message);
       }
     }),
-      (error: any) => {
-        this.alertService.error(`Error: ${error.message}`);
-      }
+    (error: any) => {
+      this.alertService.error(`Error: ${error.message}`);
+    }
   }
 
   getL2ScheduleData(): void {
@@ -248,6 +261,18 @@ export class L2ScheduleBulkdataComponent {
   updateSelectedRow(data: any) {
     this.update = true;
     this.l1ScheduleData = data;
+    this.l1ScheduleData.tasks = this.l1ScheduleData.tasks.map((task: any) => {
+      if(task?.childtasks) {
+        task.childtasks = task.childtasks.map((subtask: any) => {
+          subtask.is_added = false;
+          subtask.is_updated = false;
+          return subtask;
+        });
+      }
+      task.is_added = false;
+      task.is_updated = false;
+      return task;
+    });
   }
 
   get f() { return this.form.controls; }
@@ -301,7 +326,7 @@ export class L2ScheduleBulkdataComponent {
       if (res.status === 200) {
         this.alertService.success(res.message);
         this.getL2ScheduleData();
-        document.getElementById('closed')?.click();
+        document.getElementById('createModelClose')?.click();
       } else {
         this.alertService.error(res.message);
       }
@@ -330,14 +355,15 @@ export class L2ScheduleBulkdataComponent {
       if (res.status === 200) {
         this.alertService.success(res.message);
         this.getL2ScheduleData();
-        document.getElementById('closed')?.click();
+        document.getElementById('updateModelClose')?.click();
       } else {
         this.alertService.error(res.message);
       }
     }),
-    (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
-    }
+      (error: any) => {
+        this.alertService.error(`Error: ${error.message}`);
+      }
     this.isSubmitted = false;
+    this.update = false;
   }
 }

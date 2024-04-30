@@ -49,15 +49,15 @@
                         <tbody class="text-nowrap">
                             <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                                <td>{{ a.itemcode }}</td>
-                                <td>{{ a.description }}</td>
+                                <td>{{ a?.itemcode }}</td>
+                                <td>{{ a?.description }}</td>
                                 <!-- <td>{{ a.itemtype }}</td> -->
-                                <td>{{ a.itemcategory }}</td>
-                                <td>{{ a.subcategory }}</td>
-                                <td>{{ a.precurementuom }}</td>
-                                <td>{{ a.uom }}</td>
-                                <td>{{ a.cost }}</td>
-                                <td>{{ a.gst }}</td>
+                                <td>{{ a?.itemcategory }}</td>
+                                <td>{{ a?.subcategory }}</td>
+                                <td>{{ a?.precurementuom }}</td>
+                                <td>{{ a?.uom }}</td>
+                                <td>{{ a?.cost }}</td>
+                                <td>{{ a?.gst }}</td>
                                 <td>--</td>
                                 <!-- <td>{{ a.createdby_name }}</td> -->
                                 <!-- <td>{{ a.created }}</td> -->
@@ -128,7 +128,7 @@
                                     <label class="form-label">Type<span class="required-asterisk">*</span></label>
                                     <select formControlName="itemType" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Item</option>
-                                        <option *ngFor="let t of dataDropdownList.itemtype" [value]="t.itemtype_id">{{ t.itemtype }}</option>
+                                        <option *ngFor="let t of dataDropdownList?.itemtype" [value]="t.itemtype_id">{{ t.itemtype }}</option>
                                     </select>
                                     <div *ngIf="f['itemType'].touched && f['itemType'].invalid">
                                         <small class="text-danger" *ngIf="f['itemType'].errors?.['required']">*Required</small>
@@ -141,7 +141,7 @@
                                     <!-- <input formControlName="itemCategory" type="text" class="form-control form-control-sm"> -->
                                     <select formControlName="itemCategory" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
-                                        <option *ngFor="let t of dataDropdownList.itemcategory" [value]="t.itemcategory_id">{{ t.itemcategory }}</option>
+                                        <option *ngFor="let t of dataDropdownList?.itemcategory" [value]="t?.itemcategory_id">{{ t?.itemcategory }}</option>
                                         <!-- <option>Supply</option>
                                         <option>Service</option> -->
                                     </select>
@@ -156,7 +156,7 @@
                                     <!-- <input formControlName="itemProperty" type="text" class="form-control form-control-sm"> -->
                                     <select formControlName="itemSubCategory" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Sub-category</option>
-                                        <option *ngFor="let t of dataDropdownList.subcategory" [value]="t.subcategory_id">{{ t.subcategory }}</option>
+                                        <option *ngFor="let t of dataDropdownList?.subcategory" [value]="t?.subcategory_id">{{ t?.subcategory }}</option>
                                         <!-- <option>Electrical</option>
                                         <option>Mechanical</option>
                                         <option>Civil</option>
@@ -173,7 +173,7 @@
                                     <!-- <input formControlName="procurementUOM" type="text" class="form-control form-control-sm"> -->
                                     <select formControlName="procurementUOM" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Procurement UOM</option>
-                                        <option *ngFor="let t of dataDropdownList.precurementuom" [value]="t.precurementuom_id">{{ t.precurementuom }}</option>
+                                        <option *ngFor="let t of dataDropdownList?.precurementuom" [value]="t.precurementuom_id">{{ t.precurementuom }}</option>
                                     </select>
                                     <div *ngIf="f['procurementUOM'].touched && f['procurementUOM'].invalid">
                                         <small class="text-danger" *ngIf="f['procurementUOM'].errors?.['required']">*Required</small>
@@ -186,7 +186,7 @@
                                     <!-- <input formControlName="itemUOM" type="text" class="form-control form-control-sm"> -->
                                     <select formControlName="itemUOM" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select UOM</option>
-                                        <option *ngFor="let t of dataDropdownList.uom" [value]="t.unit_id">{{ t.uom }}</option>
+                                        <option *ngFor="let t of dataDropdownList?.uom" [value]="t.unit_id">{{ t.uom }}</option>
                                     </select>
                                     <div *ngIf="f['itemUOM'].touched && f['itemUOM'].invalid">
                                         <small class="text-danger" *ngIf="f['itemUOM'].errors?.['required']">*Required</small>
@@ -254,7 +254,7 @@
                                         <!-- <option>A</option>
                                         <option>B</option>
                                         <option>C</option> -->
-                                        <option *ngFor="let t of dataDropdownList.materialclass" [value]="t.materialclass_id">{{ t.materialclass }}</option>
+                                        <option *ngFor="let t of dataDropdownList?.materialclass" [value]="t.materialclass_id">{{ t.materialclass }}</option>
                                     </select>
                                     <div *ngIf="f['itemClass'].touched && f['itemClass'].invalid">
                                         <small class="text-danger" *ngIf="f['itemClass'].errors?.['required']">*Required</small>
@@ -269,7 +269,7 @@
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Tolerance</option>
                                         <!-- <option>0%</option>
                                         <option>0.5%</option> -->
-                                        <option *ngFor="let t of dataDropdownList.tolerance" [value]="t.tolerance_id">{{ t.tolerance }}</option>
+                                        <option *ngFor="let t of dataDropdownList?.tolerance" [value]="t.tolerance_id">{{ t.tolerance }}</option>
                                     </select>
                                     <div *ngIf="f['itemTolerance'].touched && f['itemTolerance'].invalid">
                                         <small class="text-danger" *ngIf="f['itemTolerance'].errors?.['required']">*Required</small>
