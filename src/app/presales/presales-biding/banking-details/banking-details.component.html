@@ -91,8 +91,13 @@
                                 <td>{{a.end_date}}</td>
                                 <td>{{a.submission_date}}</td>
                                 <td>{{a.extend_date}}</td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.document }}">
-                                    {{a.document| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                <td>
+                                    <div *ngIf="!!a.document; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.document }}">
+                                        {{a.document | slice:0:30}} <span *ngIf="a.document.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock14>
+                                        {{a.document}}
+                                    </ng-template>
                                 </td>
                           
                                 <td>

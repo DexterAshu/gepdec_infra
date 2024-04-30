@@ -58,7 +58,7 @@ export class FinancialBidComponent {
   isOpen: boolean = false;
   fileList: File[] = [];
   listOfFiles: any[] = [];
-  data: any;
+  data: any = null;
   data1: any;
   data2: any;
   liabVal: any;
@@ -68,6 +68,7 @@ export class FinancialBidComponent {
   rAnds: any;
   paiCapitalVal: any;
   ebidtaVal: any;
+  isSuccess: boolean = false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -136,41 +137,58 @@ export class FinancialBidComponent {
   }
 
   finListData(){
+    this.docListData = [];
+    this.isNotFound = false;
     this.apiService.getfinDataList().subscribe((res:any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.docListData = res.result;
       } else {
+        this.docListData = undefined;
+        this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       }
     }, error => {
-      this.isNotFound = false;
+      this.docListData = undefined;
+      this.isNotFound = true;
       this.alertService.error("Error: " + error.statusText)
     });
   }
 
   finYearData() {
-    this.isNotFound = true;
     this.masterService.getFinData().subscribe((res:any) => {
-      this.isNotFound = false;
       if (res.status == 200) {
       this.financialData = res.result;
       }else {
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
     });  
   
   }
 
-  annuvalTurnVal(year:any,check:any){
-    year = this.form.value.year
-    check = this.form.value.check
-    this.apiService.finAnnuvalTournover(year, check).subscribe((res:any) =>{
-      this.data =res.result;
-     })
+  annuvalTurnVal(year:any, check:any, annual:any){
+    debugger
+    if(check != '') {
+      this.apiService.finAnnuvalTournover(year, check).subscribe((res:any) =>{
+        this.data = res.result;
+        this.comparisonData(annual);
+       })
+    }
   }
+
+  comparisonData(annual: any) {
+    debugger
+    if(this.data != null) {
+      if(parseInt(annual) < parseInt(this.data)) {
+        this.isSuccess = true;
+      } else {
+        this.isSuccess = false;
+      }
+    }
+  }
+
   netWorthVal(year:any,check:any){
     year = this.form.value.year
     check = this.form.value.check
@@ -395,7 +413,6 @@ downloadPdf() {
         this.alertService.warning(response.message);
       }
     }, error => {
-      this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
     });
   }
