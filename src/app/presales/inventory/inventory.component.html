@@ -38,22 +38,40 @@
                 <th>Sub-Category</th>
                 <th>Qty</th>
                 <th>UOM</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
               <tr *ngFor="let a of itemData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.tender_ref_no }}</td>
-                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                <td>
+                  <div *ngIf="!!a.tender_title; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                    {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock14>
+                      {{a.tender_title}}
+                  </ng-template>
+                </td>
                 <td>{{ a.tender_location }}</td>
                 <td>{{ a.warehouse_code }}</td>
                 <td>{{ a.location_code }}</td>
-                <td><a data-bs-toggle="modal" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#view" title="Warehouse Profile">{{ a.itemcode }}</a></td>
-                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.description }}">{{a.description | slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                <td>{{ a.itemcode }}</td>
+                <td>
+                  <div *ngIf="!!a.description; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.description }}">
+                    {{a.description | slice:0:30}} <span *ngIf="a.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock14>
+                      {{a.description}}
+                  </ng-template>
+                </td>
                 <td>{{ a.itemcategory }}</td>
                 <td>{{ a.subcategory }}</td>
                 <td>{{ a.total_itemquantity }}</td>
                 <td>{{ a.uom }}</td>
+                <td>
+                  <a class="" data-bs-toggle="modal" data-bs-target="#view" title="Warehouse Profile"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                </td>
               </tr>
               <tr *ngIf="itemData.length === 0">
                 <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>

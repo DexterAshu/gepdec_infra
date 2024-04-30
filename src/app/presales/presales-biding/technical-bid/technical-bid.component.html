@@ -302,7 +302,7 @@
                                     <tr>
                                         <th>S No</th>
                                         <th>Client</th>
-                                        <th>Title/Project</th>
+                                        <th>Tender Title</th>
                                         <th>Category</th>
                                         <th>Sub-Category</th>
                                         <th>Capacity</th>
@@ -331,10 +331,10 @@
                                         <td>{{a.technical_points}}</td>
                                         <td>
                                             <div *ngIf="a.qualified == 'true'; else ifNot">
-                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"></i>
+                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
                                             </div>
                                             <ng-template #ifNot>
-                                                <i class="mdi mdi-close-circle mdi-18px text-danger"></i>
+                                                <i class="mdi mdi-close-circle mdi-18px text-danger" title="Not-Qualified"></i>
                                             </ng-template>
                                         </td>
                                         <td>
@@ -407,10 +407,10 @@
                                             <td>{{ a?.technical_points}}</td>
                                             <td>
                                                 <div *ngIf=" a?.qualified == true; else ifNot2">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"></i>
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
                                                 </div>
                                                 <ng-template #ifNot2>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"></i>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
                                                 </ng-template>
                                             </td>
                                         </tr>

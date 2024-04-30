@@ -61,7 +61,7 @@
                                 <th>Tender Type</th>
                                 <th>Tender Price</th>
                                 <th>Created By</th>
-                                <th>Action</th>
+                                <!-- <th>Action</th> -->
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="companyData.length">
@@ -73,9 +73,9 @@
                                 <td>{{ a.name }}</td>
                                 <td>{{ a.doi | date: 'dd/MM/yyyy' }}</td>
                                 <td>{{ a.created }}</td>
-                                <td>
+                                <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
-                                </td>
+                                </td> -->
                               </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
