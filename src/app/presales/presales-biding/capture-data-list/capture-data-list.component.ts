@@ -260,6 +260,9 @@ export class CaptureDataListComponent {
       } else {
         this.alertService.warning(response.message);
       }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
     })
   }
 
@@ -275,6 +278,9 @@ export class CaptureDataListComponent {
       } else {
         this.alertService.warning(response.message);
       }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
     })
   }
 

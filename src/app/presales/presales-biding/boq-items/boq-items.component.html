@@ -30,7 +30,7 @@
                                 <div class="col-lg-6">
                                     <div class="float-right">
                                             <button class="btn btn-primary btn-fw btn-sm dropdown-toggle me-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Export
+                                                <span class="mdi mdi-upload"></span>&nbsp;Export
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                 <li><a class="dropdown-item text-small cursor-pointer" (click)="download()">
@@ -86,21 +86,18 @@
                                 </td>
                                 <td>{{ a.tender_ref_no}}</td>
                                 <td>{{ a.publish_date }}</td>
-                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Item Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.boq_code}}</td>
+                                <td>{{ a.boq_code }}</td>
+                                <!-- <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Item Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.boq_code}}</td> -->
                                 <td>{{ a.itemCategory }}</td>
                                 <td>{{ a.itemSubCategory }}</td>
-                               
                                 <td>{{ a.status }}</td>
                              
                                 <td>
-                                    <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
-                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
+                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 
                                 </td>
-                                <!-- <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
-                                </td> -->
                               </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">

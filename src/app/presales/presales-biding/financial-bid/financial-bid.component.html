@@ -219,12 +219,14 @@
                                         <div class="col-md-2">
                                             <br>
                                            
-                                                <div *ngIf="form.value.annual_turnover < data == true; else ifNot">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"></i>
-                                                </div>
-                                                <ng-template #ifNot>
-                                                    <i class="mdi mdi-close-circle mdi-18px text-danger"></i>
-                                                </ng-template>
+                                            <div class="status-icon">
+                                                <ng-container *ngIf="form.value.annual_turnover < data">
+                                                  <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"></i>
+                                                </ng-container>
+                                                <ng-container *ngElse>
+                                                  <i class="mdi mdi-close-circle mdi-18px text-danger"></i>
+                                                </ng-container>
+                                              </div>
                                            
                                             <!-- <div class="status-icon float-right"
                                                 [ngClass]="{ 'accept': form.value.annual_turnover < data, 'rejected': form.value.annual_turnover >= data }">

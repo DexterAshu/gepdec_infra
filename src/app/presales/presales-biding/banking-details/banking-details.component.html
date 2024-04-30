@@ -256,7 +256,7 @@
                           
                         </div>
                         <div class="float-right">
-                            <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="!documentForm.valid">Submit</button>
+                            <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="!documentForm.valid">Submit</button>
                             <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...</button>
                             <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                         </div>

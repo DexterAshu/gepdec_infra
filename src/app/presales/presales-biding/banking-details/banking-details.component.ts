@@ -56,25 +56,23 @@ export class BankingDetailsComponent {
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
-      security_id: ['',Validators.required],
-      utility_id:['', Validators.required],
-      tender_id:['', Validators.required],
-      bank_id: [''],
-      bg_number: ['', Validators.required],
-      bg_amount: ['', Validators.required],
-      start_date: [''],
-      end_date: [''],
-      submission_date: [''],
-      extend_date: [''],
-      attachment: [''],
-      document_description: [''],
+      security_id: [null,Validators.required],
+      utility_id:[null, Validators.required],
+      tender_id:[null, Validators.required],
+      bank_id: [null],
+      bg_number: [null, Validators.required],
+      bg_amount: [null, Validators.required],
+      start_date: [null],
+      end_date: [null],
+      submission_date: [null],
+      extend_date: [null],
+      attachment: [null], 
+      document_description: [null],
      
     });
 
     this.getData();
-    this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
-    });
+    this.bankList();
   }
 
   updateDoc(){
@@ -109,12 +107,20 @@ export class BankingDetailsComponent {
     this.apiService.getTenderList().subscribe((res: any) => {  
       this.tenderData = res.result;
     });
+   
+  }
+
+  bankList(){
     this.apiService.getBankDataList().subscribe((res:any) => {
       if (res.status === 200) {
         this.docListData = res.result;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 
@@ -192,9 +198,6 @@ export class BankingDetailsComponent {
     formData.append('start_date', this.documentForm.value.start_date);
     formData.append('end_date', this.documentForm.value.end_date);
     formData.append('submission_date', this.documentForm.value.submission_date);
-
-    // const formValues = this.documentForm.value;
-    // Object.keys(formValues).forEach(extend_date => {   const value = formValues[extend_date];   if (value !== undefined && value !== null) {     formData.append(extend_date, value);   } });
     if(this.documentForm.value.extend_date != '' || this.documentForm.value.extend_date != null){
       formData.append('extend_date', this.documentForm.value.extend_date);
     }
@@ -210,6 +213,7 @@ export class BankingDetailsComponent {
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
+        this.bankList();
         this.documentForm.reset();
         this.alertService.success(response.message);
       } else {

@@ -262,6 +262,7 @@ downloadPdf() {
   companyUpdate(): void {
      this.form.value.bidder_id =  this.custDetails.bidder_id;
      this.form.value.contact_id =  this.contDetails.contact_id;
+     this.form.value.address_id =  this.addressDetails.address_id;
     this.apiService.ourcompanyUpdation(this.form.value).subscribe((res: any) => {
       document.getElementById('cancel')?.click();
       this.getCompanyData();
