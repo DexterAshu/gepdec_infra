@@ -66,7 +66,6 @@
                                 <th>Category</th>
                                 <th>Sub Category</th>
                                 <th>Status</th>
-                               
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -89,13 +88,13 @@
                                 <td data-bs-toggle="modal" data-bs-target="#detailModal" title="Item Detailed Data" (click)="rowListData(a)" class="cursor-pointer text-primary text-decoration-underline">{{ a.boq_code}}</td>
                                 <td>{{ a.itemCategory }}</td>
                                 <td>{{ a.itemSubCategory }}</td>
-                               
                                 <td>{{ a.status }}</td>
                              
                                 <td>
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
-                                     <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <!-- &nbsp; -->
+                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 
                                 </td>
                                 <!-- <td>

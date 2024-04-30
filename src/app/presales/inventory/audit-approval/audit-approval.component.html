@@ -53,7 +53,7 @@
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
                   <td>{{ data.tender_ref_no }}</td>
                   <td>{{ data.tender_title }}</td>
-                  <td><a data-bs-toggle="modal" (click)="selectRequest(data)" class="cursor-pointer text-primary" style="text-decoration: underline" data-bs-target="#view" title="Warehouse Profile">{{ data.warehouse_code }}</a></td>
+                  <td>{{ data.warehouse_code }}</td>
                   <td>{{ data.itemcategory }}</td>
                   <td>{{ data.auditor_name }}</td>
                   <td>{{ data.audit_purpose }}</td>
@@ -61,7 +61,11 @@
                   <td>{{ data.createdby_name }}</td>
                   <td>{{ data.created | date:"dd-MM-yyyy hh:mm a" }}</td>
                   <td *ngIf="data?.status == 'Approved' || data?.status == 'Rejected'"> <span class="badge badge-{{ (data?.status == 'Approved') ? 'success' : (data?.status == 'Rejected' ? 'danger' : 'warning') }}">{{ data?.status }}</span> </td>
-                  <td *ngIf="!data?.status"><a data-bs-toggle="modal" data-bs-target="#authorizeModal" (click)="selectRequest(data)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a></td>
+                  <td *ngIf="!data?.status">
+                    <a data-bs-toggle="modal" data-bs-target="#authorizeModal" (click)="selectRequest(data)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>&nbsp;
+                    <a class="" data-bs-toggle="modal" (click)="selectRequest(data)" data-bs-target="#view" title="Warehouse Profile"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                  
+                  </td>
                 </tr>
                 <tr *ngIf="isNotFound == true">
                   <td colspan="10" class="text-center">

@@ -71,8 +71,9 @@
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#viewModel" title="View Details" (click)="selectRow(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                  <a download="a.filepath" href="{{a.filepath}}"><span class="mdi mdi-cloud-download cursor-pointer mdi-18px"></span></a>&nbsp;
-                  <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+                  <a download="a.filepath" href="{{a.filepath}}"><span class="mdi mdi-cloud-download cursor-pointer mdi-18px"></span></a>
+                  <!-- &nbsp; -->
+                  <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                 </td>
               </tr>
               <tr *ngIf="docListData?.length == 0">
