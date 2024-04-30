@@ -69,7 +69,7 @@ export class FinancialBidComponent {
   paiCapitalVal: any;
   ebidtaVal: any;
   isSuccess: boolean = false;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -117,7 +117,7 @@ export class FinancialBidComponent {
         check10:[''],
         nclt_status: [null],
         drt: [null],
-        cdr: [null]    
+        cdr: [null]
     });
     this.finListData();
     this.finYearData();
@@ -125,15 +125,15 @@ export class FinancialBidComponent {
   }
 
   getData() {
-    this.apiService.getCompanyList().subscribe((res: any) => {  
+    this.apiService.getCompanyList().subscribe((res: any) => {
       this.companyData = res.result;
     });
-  
-    this.apiService.getTenderList().subscribe((res: any) => {  
+
+    this.apiService.getTenderList().subscribe((res: any) => {
       this.tenderData = res.result;
     });
-    
-   
+
+
   }
 
   finListData(){
@@ -164,8 +164,8 @@ export class FinancialBidComponent {
       }
     }, error => {
       this.alertService.error("Error: " + error.statusText)
-    });  
-  
+    });
+
   }
 
   annuvalTurnVal(year:any, check:any, annual:any){
@@ -264,9 +264,9 @@ export class FinancialBidComponent {
   //     console.log(res);
   //     this.data =res.result;
   //    })
-    
 
-    
+
+
   //   // this.apiService.finCalculateData(year, check).subscribe((res:any) =>{
   //   // this.finCalData = res.result;
   //   // console.log(this.finCalData);
@@ -297,7 +297,7 @@ export class FinancialBidComponent {
 toggleDropdown() {
   this.isOpen = !this.isOpen;
 }
-  onFileChanged(event: any) { 
+  onFileChanged(event: any) {
     for (var i = 0; i <= event.target.files.length - 1; i++) {
       var selectedFile = event.target.files[i];
       this.listOfFiles.push(selectedFile.name);
@@ -335,26 +335,12 @@ toggleDropdown() {
   //         nclt_status: this.custDetails.nclt_status,
   //         drt: this.custDetails.drt,
   //         cdr: this.custDetails.cdr,
-  //       }); 
-      
+  //       });
+
   // })
   // }
 
   get f() { return this.form.controls; }
-   exportAsXLSX1(){
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
-    var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
-    XLSX.writeFile(wb, "Data_File.xlsx");
-
-        }
-downloadPdf() {
-  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
-  const pdfName = 'country_bulkload_template_file.xlsx';
-  FileSaver.saveAs(pdfUrl, pdfName);
-}
 
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {

@@ -24,7 +24,7 @@ export class DesignationMasterComponent implements OnInit {
   isExcelDownloadData:boolean = true;
   inserteddata: any;
   discardeddata: any;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -35,11 +35,11 @@ export class DesignationMasterComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       designationname: [null, Validators.required],
-    
+
     });
-    
+
     this.designationData();
- 
+
   }
 
   get f() { return this.form.controls; }
@@ -59,7 +59,7 @@ export class DesignationMasterComponent implements OnInit {
       this.designData = [];
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
-    }); 
+    });
   }
 
   getCountryData() {
@@ -71,22 +71,6 @@ export class DesignationMasterComponent implements OnInit {
       }
     });
   }
-
-  
-  exportAsXLSX1(){
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
-    var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
-    XLSX.writeFile(wb, "Data_File.xlsx");
-
-        }
-downloadPdf() {
-  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
-  const pdfName = 'country_bulkload_template_file.xlsx';
-  FileSaver.saveAs(pdfUrl, pdfName);
-}
 
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
@@ -108,13 +92,13 @@ downloadPdf() {
       // }
       // else {
       //   this.form.value.country_id = null;
-      // } 
+      // }
 
       let params = {
         designationname: this.form.value.designationname,
       };
       this.apiService.createMasterDesignation( params).subscribe((res:any) => {
-        
+
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;

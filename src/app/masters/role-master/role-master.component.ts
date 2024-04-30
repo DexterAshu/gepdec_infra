@@ -24,7 +24,7 @@ export class RoleMasterComponent {
   isExcelDownloadData:boolean = true;
   inserteddata: any;
   discardeddata: any;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -36,11 +36,11 @@ export class RoleMasterComponent {
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
       description: [null],
-    
+
     });
-    
+
     this.roleData();
- 
+
   }
 
   get f() { return this.form.controls; }
@@ -59,24 +59,8 @@ export class RoleMasterComponent {
       this.rolData = [];
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
-    }); 
+    });
   }
-
-  
-  exportAsXLSX1(){
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
-    var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
-    XLSX.writeFile(wb, "Data_File.xlsx");
-
-        }
-downloadPdf() {
-  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
-  const pdfName = 'country_bulkload_template_file.xlsx';
-  FileSaver.saveAs(pdfUrl, pdfName);
-}
 
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
@@ -100,14 +84,14 @@ downloadPdf() {
       // }
       // else {
       //   this.form.value.country_id = null;
-      // } 
+      // }
 
       let params = {
         name: this.form.value.name,
         description: this.form.value.description,
       };
       this.apiService.createMasterRole( params).subscribe((res:any) => {
-        
+
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;

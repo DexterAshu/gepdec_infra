@@ -244,15 +244,6 @@ export class BoqItemsComponent {
     }
 }
  
-  exportAsXLSX1(){
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
-    var wb = XLSX.utils.book_new(); 
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");  
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");        
-    XLSX.writeFile(wb, "Data_File.xlsx");
-               
-        }
 downloadPdf() {
   const pdfUrl = './assets/tamplate/BOQ.xlsx';
   const pdfName = 'BOQ.xlsx';
