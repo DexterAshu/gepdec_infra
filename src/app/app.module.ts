@@ -20,16 +20,8 @@ import { LoginComponent } from './account/login/login.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { HeaderInterceptor } from './_services/header.interceptor';
 import { UserLogsComponent } from './user-management/user-logs/user-logs.component';
 import { UserRolesComponent } from './user-management/user-roles/user-roles.component';
-import { Process1Component } from './customer-registration/process1/process1.component';
-import { Process2Component } from './customer-registration/process2/process2.component';
-import { Process3Component } from './customer-registration/process3/process3.component';
-import { Process4Component } from './customer-registration/process4/process4.component';
-import { MeterLinkComponent } from './transactions/meter-link/meter-link.component';
-import { BillDateConfigComponent } from './transactions/bill-date-config/bill-date-config.component';
-import { FirmwareUpgradeComponent } from './transactions/firmware-upgrade/firmware-upgrade.component';
 import { UserMasterComponent } from './user-management/user-master/user-master.component';
 import { ResponsiveTableComponent } from './sharedComponent/responsive-table/responsive-table.component';
 import { LineBreakPipe } from './_pipes/line-break.pipe';
@@ -41,11 +33,6 @@ import { NoSpaceDirective } from './_directive/no-space.directive';
 import { UpperCaseDirective } from './_directive/upper-case.directive';
 import { NumWithDotDirective } from './_directive/num-with-dot.directive';
 import { AlphaNumericDirective } from './_directive/alpha-numeric.directive';
-import { CustomerDataUsageComponent } from './customer/customer-data-usage/customer-data-usage.component';
-import { CustomerBillingDataComponent } from './customer/customer-billing-data/customer-billing-data.component';
-import { AccountInfoComponent } from './customer/account-info/account-info.component';
-import { ConsumptionCalculatorComponent } from './customer/consumption-calculator/consumption-calculator.component';
-import { CustomerFaqComponent } from './customer/customer-faq/customer-faq.component';
 import { NgxPrintModule } from 'ngx-print';
 import { AlphaWithSpaceDirective } from './_directive/alpha-with-space.directive';
 import { DatePipe } from '@angular/common';
@@ -190,13 +177,6 @@ import { FinalBOQComponent } from './documentation/final-boq/final-boq.component
     LoginComponent,
     UserLogsComponent,
     UserRolesComponent,
-    Process1Component,
-    Process2Component,
-    Process3Component,
-    Process4Component,
-    MeterLinkComponent,
-    BillDateConfigComponent,
-    FirmwareUpgradeComponent,
     UserMasterComponent,
     ResponsiveTableComponent,
     LineBreakPipe,
@@ -208,11 +188,6 @@ import { FinalBOQComponent } from './documentation/final-boq/final-boq.component
     UpperCaseDirective,
     NumWithDotDirective,
     AlphaNumericDirective,
-    CustomerDataUsageComponent,
-    CustomerBillingDataComponent,
-    AccountInfoComponent,
-    ConsumptionCalculatorComponent,
-    CustomerFaqComponent,
     AlphaWithSpaceDirective,
     FilterPipe,
     PresalesBidingComponent,
@@ -253,12 +228,11 @@ import { FinalBOQComponent } from './documentation/final-boq/final-boq.component
     BrowserModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(),
     NgxChartsModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    //Ng2SearchPipeModule,
     NgxPrintModule,
     NgSelectModule,
     NgMultiSelectDropDownModule,
@@ -267,13 +241,8 @@ import { FinalBOQComponent } from './documentation/final-boq/final-boq.component
 
   ],
   providers: [
-
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: HeaderInterceptor,
-    //   multi: true
-    // }
-    CurrencyPipe, DecimalPipe,
+    CurrencyPipe,
+    DecimalPipe,
     DatePipe
   ],
   bootstrap: [AppComponent]

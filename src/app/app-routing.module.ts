@@ -2,22 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './_helpers/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './account/login/login.component';
 import { UserLogsComponent } from './user-management/user-logs/user-logs.component';
 import { UserRolesComponent } from './user-management/user-roles/user-roles.component';
-import { Process1Component } from './customer-registration/process1/process1.component';
-import { Process2Component } from './customer-registration/process2/process2.component';
-import { Process3Component } from './customer-registration/process3/process3.component';
-import { Process4Component } from './customer-registration/process4/process4.component';
-import { MeterLinkComponent } from './transactions/meter-link/meter-link.component';
-import { BillDateConfigComponent } from './transactions/bill-date-config/bill-date-config.component';
-import { FirmwareUpgradeComponent } from './transactions/firmware-upgrade/firmware-upgrade.component';
 import { UserMasterComponent } from './user-management/user-master/user-master.component';
-import { CustomerDataUsageComponent } from './customer/customer-data-usage/customer-data-usage.component';
-import { CustomerBillingDataComponent } from './customer/customer-billing-data/customer-billing-data.component';
-import { AccountInfoComponent } from './customer/account-info/account-info.component';
-import { ConsumptionCalculatorComponent } from './customer/consumption-calculator/consumption-calculator.component';
-import { CustomerFaqComponent } from './customer/customer-faq/customer-faq.component';
 import { PresalesBidingComponent } from './presales/presales-biding/presales-biding.component';
 import { DesignModuleComponent } from './presales/design-module/design-module.component';
 import { WarehouseStoreComponent } from './presales/warehouse-store/warehouse-store.component';
@@ -42,7 +29,6 @@ import { QualityDashboardComponent } from './dashboard/quality-dashboard/quality
 import { TicketDashboardComponent } from './dashboard/ticket-dashboard/ticket-dashboard.component';
 import { ReportDashboardComponent } from './dashboard/report-dashboard/report-dashboard.component';
 import { AlertDashboardComponent } from './dashboard/alert-dashboard/alert-dashboard.component';
-
 import { TenderPublishedComponent } from './dashboard/presales-dashboard/tender-published/tender-published.component';
 import { UnderEvaluationComponent } from './dashboard/presales-dashboard/under-evaluation/under-evaluation.component';
 import { ParticipationsComponent } from './dashboard/presales-dashboard/participations/participations.component';
@@ -50,19 +36,15 @@ import { AbandonedComponent } from './dashboard/presales-dashboard/abandoned/aba
 import { TenderWinsComponent } from './dashboard/presales-dashboard/tender-wins/tender-wins.component';
 import { CompletedComponent } from './dashboard/presales-dashboard/completed/completed.component';
 import { L2ScheduleBulkdataComponent } from './l2-schedule-bulkdata/l2-schedule-bulkdata.component';
-
 import { BidQualifyComponent } from './presales/presales-biding/bid-qualify/bid-qualify.component';
 import { DirectBidingComponent } from './presales/presales-biding/direct-biding/direct-biding.component';
 import { IndirectBidingComponent } from './presales/presales-biding/indirect-biding/indirect-biding.component';
 import { DataCapturingComponent } from './presales/presales-biding/data-capturing/data-capturing.component';
 import { CaptureDataListComponent } from './presales/presales-biding/capture-data-list/capture-data-list.component';
-// import { MangagementTenderApprovalComponent } from './presales/presales-biding/mangagement-tender-approval/mangagement-tender-approval.component';
 import { TechnicalBidComponent } from './presales/presales-biding/technical-bid/technical-bid.component';
 import { FinancialBidComponent } from './presales/presales-biding/financial-bid/financial-bid.component';
 import { BankingDetailsComponent } from './presales/presales-biding/banking-details/banking-details.component';
 import { BoqItemsComponent } from './presales/presales-biding/boq-items/boq-items.component';
-
-
 import { ProblemTicketComponent } from './problem-ticket/problem-ticket.component';
 import { HelpSupportComponent } from './help-support/help-support.component';
 import { DocumentationComponent } from './documentation/documentation.component';
@@ -70,7 +52,6 @@ import { TenderDocumentComponent } from './documentation/tender-document/tender-
 import { AmendmentsComponent } from './documentation/tender-document/amendments/amendments.component';
 import { InitialBoqComponent } from './documentation/tender-document/initial-boq/initial-boq.component';
 import { L1ScheduleComponent } from './documentation/tender-document/l1-schedule/l1-schedule.component';
-
 import { QualificationDocumentComponent } from './documentation/qualification-document/qualification-document.component';
 import { FinDocumentsComponent } from './documentation/qualification-document/fin-documents/fin-documents.component';
 import { FinBalancesheetComponent } from './documentation/qualification-document/fin-documents/fin-balancesheet/fin-balancesheet.component';
@@ -82,12 +63,9 @@ import { FinTenderFeesComponent } from './documentation/qualification-document/f
 import { TechQualificationComponent } from './documentation/qualification-document/tech-documents/tech-qualification/tech-qualification.component';
 import { TechDocumentsComponent } from './documentation/qualification-document/tech-documents/tech-documents.component';
 import { OtherDocumentsComponent } from './documentation/qualification-document/other-documents/other-documents.component';
-
 import { ProcurementDocumentComponent } from './documentation/procurement-document/procurement-document.component';
 import { ProjectDocumentComponent } from './documentation/project-document/project-document.component';
 import { FinanceDocumentComponent } from './documentation/finance-document/finance-document.component';
-
-
 import { BgDocumentComponent } from './documentation/bg-document/bg-document.component';
 import { LcDocumentComponent } from './documentation/lc-document/lc-document.component';
 import { CommunicationDocumentComponent } from './documentation/communication-document/communication-document.component';
@@ -116,25 +94,19 @@ const routes: Routes = [
   // {path: 'login', component: LoginComponent},
   {path: 'login', component: SignInComponent},
   {path: 'forget-password', component:ForgetPasswordComponent},
-
-//dashboard
+  //dashboard
   {path: 'dashboard', component:DashboardComponent, canActivate:[AuthGuard]},
-
   //L2-schedule-bulkdata
   {path: 'l2-bulkdata', component:L2ScheduleBulkdataComponent, canActivate:[AuthGuard]},
-
   {path: 'issue-tickets', component:ProblemTicketComponent, canActivate:[AuthGuard]},
   {path: 'help-support', component:HelpSupportComponent, canActivate:[AuthGuard]},
-
-
   //Documentation-routing
   {path: 'documentation', component:DocumentationComponent, canActivate:[AuthGuard]},
- //teder-documnets
+  //teder-documnets
   {path: 'documentation/tend-doc', component:TenderDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/amedments', component:AmendmentsComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/initial-boq', component:InitialBoqComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/l1-schedule', component:L1ScheduleComponent, canActivate:[AuthGuard]},
-
   {path: 'documentation/qualification-doc', component:QualificationDocumentComponent, canActivate:[AuthGuard]},
   //financial-documents
   {path: 'documentation/qualification-doc/fin', component:FinDocumentsComponent, canActivate:[AuthGuard]},
@@ -142,15 +114,12 @@ const routes: Routes = [
   {path: 'documentation/qualification-doc/fin/maat', component:FinMaatComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/liq-asset', component:FinLiquidAssetComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/bank-certificate', component:FinBankCertificateComponent, canActivate:[AuthGuard]},
-
   {path: 'documentation/qualification-doc/fin/itr', component:FinItrComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/fin/tender-fees', component:FinTenderFeesComponent, canActivate:[AuthGuard]},
   //tech-qualification-documents
   {path: 'documentation/qualification-doc/tech', component:TechDocumentsComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/tech/qualification', component:TechQualificationComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc/others', component:OtherDocumentsComponent, canActivate:[AuthGuard]},
-
-
   {path: 'documentation/bg-doc', component:BgDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/lc-doc', component:LcDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/comm-doc', component:CommunicationDocumentComponent, canActivate:[AuthGuard]},
@@ -164,7 +133,6 @@ const routes: Routes = [
   {path: 'documentation/others-doc', component:OthersDocumentComponent, canActivate:[AuthGuard]},
   {path: 'project-report', component:ProjReportsComponent, canActivate:[AuthGuard]},
   {path: 'reset-password', component:ResetPasswordComponent, canActivate:[AuthGuard]},
-
   //dashboard-child-module
   {path: 'dashboard/fin-dashboard', component:FinanceDashboardComponent, canActivate:[AuthGuard]},
   {path: 'dashboard/comp-dashboard', component:CompanyDashboardComponent, canActivate:[AuthGuard]},
@@ -179,7 +147,6 @@ const routes: Routes = [
   {path: 'dashboard/ticket-dashboard', component:TicketDashboardComponent, canActivate:[AuthGuard]},
   {path: 'dashboard/report-dashboard', component:ReportDashboardComponent, canActivate:[AuthGuard]},
   {path: 'dashboard/alert-dashboard', component:AlertDashboardComponent, canActivate:[AuthGuard]},
-
   //presales tender list
   {path: 'dashboard/presales-dashboard/published-tender', component:TenderPublishedComponent, canActivate:[AuthGuard]},
   {path: 'dashboard/presales-dashboard/under-evaluation', component:UnderEvaluationComponent, canActivate:[AuthGuard]},
@@ -187,24 +154,15 @@ const routes: Routes = [
   {path: 'dashboard/presales-dashboard/abandoned', component:AbandonedComponent, canActivate:[AuthGuard]},
   {path: 'dashboard/presales-dashboard/win', component:TenderWinsComponent, canActivate:[AuthGuard]},
   {path: 'dashboard/presales-dashboard/completed', component:CompletedComponent, canActivate:[AuthGuard]},
-
   {path: 'procurement/boq', component:BoqComponent, canActivate:[AuthGuard]},
   {path: 'procurement/proposal-1', component:ProposalOneComponent, canActivate:[AuthGuard]},
   {path: 'procurement/proposal-2', component:ProposalTwoComponent, canActivate:[AuthGuard]},
   {path: 'procurement/final-proposal', component:FinalProposalComponent, canActivate:[AuthGuard]},
   {path: 'procurement/approval', component:ApprovalComponent, canActivate:[AuthGuard]},
   {path: 'procurement/po', component:PoDataComponent, canActivate:[AuthGuard]},
-
-
-  //Welcome to lazy-loading Programming
-     //Master root
-  {
-      path: 'master',loadChildren: () =>
-      import('./masters/master.module').then((m) => m.MasterModule),canActivate: [AuthGuard],
-  },
-
-
-//presales
+  // Masters
+  {path: 'master',loadChildren: () => import('./masters/master.module').then((m) => m.MasterModule),canActivate: [AuthGuard]},
+  //presales
   {path: 'presales/presales-biding', component:PresalesBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/design-module', component:DesignModuleComponent, canActivate:[AuthGuard]},
   {path: 'presales/warehouse', component:WarehouseStoreComponent, canActivate:[AuthGuard]},
@@ -220,7 +178,6 @@ const routes: Routes = [
   {path: 'presales/presales-biding/indirect-biding', component:IndirectBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/bid-qualify', component:BidQualifyComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture-list', component:CaptureDataListComponent, canActivate:[AuthGuard]},
-  // {path: 'presales/presales-biding/management-approval/:id', component:MangagementTenderApprovalComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture', component:DataCapturingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/data-capture/:id', component:DataCapturingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/technical', component:TechnicalBidComponent, canActivate:[AuthGuard]},
@@ -230,30 +187,13 @@ const routes: Routes = [
   {path: 'presales/inventory', component:InventoryComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory/audit-request', component: AuditRequestComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory/audit-approval', component:AuditApprovalComponent, canActivate:[AuthGuard]},
-//Customer
-  {path: 'customer-registration/process-1', component:Process1Component, canActivate:[AuthGuard]},
-  {path: 'customer-registration/process-2', component:Process2Component, canActivate:[AuthGuard]},
-  {path: 'customer-registration/process-3', component:Process3Component, canActivate:[AuthGuard]},
-  {path: 'customer-registration/process-4', component:Process4Component, canActivate:[AuthGuard]},
-//user
+  //user
   {path: 'user-management/user-logs', component:UserLogsComponent, canActivate:[AuthGuard]},
   {path: 'user-management/user-roles', component:UserRolesComponent, canActivate:[AuthGuard]},
   {path: 'user-management/user-master', component:UserMasterComponent, canActivate:[AuthGuard]},
-
-  {path: 'transactions/link-meter-with-customer', component:MeterLinkComponent, canActivate:[AuthGuard]},
-  {path: 'transactions/billing-date-configuration', component:BillDateConfigComponent, canActivate:[AuthGuard]},
-  {path: 'transactions/firmware-upgrade', component:FirmwareUpgradeComponent, canActivate:[AuthGuard]},
   {path: 'transactions/material-receipt-note', component:MaterialReceiptComponent, canActivate:[AuthGuard]},
   {path: 'transactions/material-issuance-note', component:MaterialIssuanceComponent, canActivate:[AuthGuard]},
-
-  {path: 'customer/customer-data-usage', component:CustomerDataUsageComponent},
-  {path: 'customer/customer-billing-data', component:CustomerBillingDataComponent},
-  {path: 'customer/account-information', component:AccountInfoComponent},
-  {path: 'customer/consumption-calculator', component:ConsumptionCalculatorComponent},
-  {path: 'customer/customer-faq', component:CustomerFaqComponent},
-
-  // otherwise redirect to home
-  { path: '**', redirectTo: '/login', pathMatch: 'full' }
+  {path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];
 
 @NgModule({
