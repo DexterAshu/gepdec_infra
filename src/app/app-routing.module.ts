@@ -83,7 +83,6 @@ import { TechQualificationComponent } from './documentation/qualification-docume
 import { TechDocumentsComponent } from './documentation/qualification-document/tech-documents/tech-documents.component';
 import { OtherDocumentsComponent } from './documentation/qualification-document/other-documents/other-documents.component';
 
-import { DesignDocumentComponent } from './documentation/design-document/design-document.component';
 import { ProcurementDocumentComponent } from './documentation/procurement-document/procurement-document.component';
 import { ProjectDocumentComponent } from './documentation/project-document/project-document.component';
 import { FinanceDocumentComponent } from './documentation/finance-document/finance-document.component';
@@ -155,7 +154,6 @@ const routes: Routes = [
   {path: 'documentation/bg-doc', component:BgDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/lc-doc', component:LcDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/comm-doc', component:CommunicationDocumentComponent, canActivate:[AuthGuard]},
-  {path: 'documentation/design-doc', component:DesignDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/master-drawing-list', component:MasterDrawingListComponent, canActivate:[AuthGuard]},
   {path: 'documentation/drawing-doc', component:DrawingComponent, canActivate:[AuthGuard]},
   {path: 'documentation/technical-gtps', component:TechnicalGTPsComponent, canActivate:[AuthGuard]},

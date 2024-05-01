@@ -23,10 +23,10 @@
               <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
                 <button class="btn filter-col btn-fw btn-sm cursor-pointer">Technical GTPs &nbsp;&nbsp;&nbsp;&nbsp;<span class="mdi mdi-chevron-down"></span></button>
                 <ul style="margin-top: -20px;" class="text-nowrap">
-                  <li> <a class="btn btn-fw btn-sm" routerLink="/documentation/master-drawing-list"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp;Master Drawing List (MDL) </a></li>
-                  <li> <a class="btn btn-fw btn-sm" routerLink="/documentation/design-doc"> <span class="mdi mdi-file-document" ></span>&nbsp;Design </a></li>
-                  <li> <a class="btn btn-fw btn-sm" routerLink="/documentation/drawing-doc"><span class="mdi mdi-chart-donut-variant"></span>&nbsp;&nbsp;Drawing </a></li>
-                  <li> <a class="btn btn-fw btn-sm" routerLink="/documentation/final-boq"><span class="mdi mdi-flower"></span>&nbsp;&nbsp;Final BOQ </a></li>
+                  <li routerLink="/documentation/master-drawing-list"> <a class="btn btn-fw btn-sm"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp;Master Drawing List (MDL) </a></li>
+                  <li routerLink="/documentation/design-doc"> <a class="btn btn-fw btn-sm"> <span class="mdi mdi-file-document" ></span>&nbsp;Design </a></li>
+                  <li routerLink="/documentation/drawing-doc"> <a class="btn btn-fw btn-sm"><span class="mdi mdi-chart-donut-variant"></span>&nbsp;&nbsp;Drawing </a></li>
+                  <li routerLink="/documentation/final-boq"> <a class="btn btn-fw btn-sm"><span class="mdi mdi-flower"></span>&nbsp;&nbsp;Final BOQ </a></li>
                 </ul>
               </div>
             </div>
