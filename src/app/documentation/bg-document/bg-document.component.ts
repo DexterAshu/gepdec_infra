@@ -83,20 +83,20 @@ export class BgDocumentComponent {
       this.tenderType = res.bidtype;
     });
 
-    this.apiService.getDocListData().subscribe((res:any) => {
-      if (res.status === 200) {
-        this.isNotFound = false;
-        this.docListData = res.result;
-      } else {
-        this.docListData = undefined;
-        this.isNotFound = true;
-        this.alertService.warning("Looks like no data available in type.");
-      }
-    }, error => {
-      this.docListData = undefined;
-      this.isNotFound = true;
-      this.alertService.error("Error: " + error.statusText)
-    });
+    // this.apiService.getDocListData().subscribe((res:any) => {
+    //   if (res.status === 200) {
+    //     this.isNotFound = false;
+    //     this.docListData = res.result;
+    //   } else {
+    //     this.docListData = undefined;
+    //     this.isNotFound = true;
+    //     this.alertService.warning("Looks like no data available in type.");
+    //   }
+    // }, error => {
+    //   this.docListData = undefined;
+    //   this.isNotFound = true;
+    //   this.alertService.error("Error: " + error.statusText)
+    // });
   }
 
 
