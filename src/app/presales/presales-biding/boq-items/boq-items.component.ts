@@ -193,15 +193,23 @@ export class BoqItemsComponent {
    
   }
 
+
   getBoqListData(){
+    this.boqData = [];
+    this.isNotFound = false;
     this.apiService.BOQList().subscribe((res: any) => { 
       if (res.status === 200) {
+        this.isNotFound = false;
         this.boqData = res.result;
-        console.log(this.boqData);
-        
       } else {
+        this.boqData = undefined;
+        this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       } 
+    }, error => {
+      this.docListData = undefined;
+      this.isNotFound = true;
+      this.alertService.error("Error: " + error.statusText)
     });
   }
 
@@ -210,10 +218,23 @@ export class BoqItemsComponent {
     this.isNotFound = false;
     let apiLink = "/item/api/v1/getItemList";
     this.apiService.getData(apiLink).subscribe((res:any) => {
-    this.dataList = res.result;
-     
+      if (res.status === 200) {
+        this.isNotFound = false;
+        this.dataList = res.result;
+    } else {
+      this.dataList = undefined;
+      this.isNotFound = true;
+      this.alertService.warning("Looks like no data available in type.");
+    }
+    }, error => {
+      this.docListData = undefined;
+      this.isNotFound = true;
+      this.alertService.error("Error: " + error.statusText)
     });
   }
+
+ 
+
 
   get f() { return this.form.controls; }
   get fb() { return this.form1.controls; }
@@ -244,6 +265,15 @@ export class BoqItemsComponent {
     }
 }
  
+  exportAsXLSX1(){
+    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
+     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);          
+    var wb = XLSX.utils.book_new(); 
+      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");  
+     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");        
+    XLSX.writeFile(wb, "Data_File.xlsx");
+               
+        }
 downloadPdf() {
   const pdfUrl = './assets/tamplate/BOQ.xlsx';
   const pdfName = 'BOQ.xlsx';

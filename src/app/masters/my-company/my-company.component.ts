@@ -199,6 +199,7 @@ export class MyCompanyComponent {
     }
   }
 
+
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
       display: false,
@@ -238,7 +239,6 @@ export class MyCompanyComponent {
           this.alertService.warning(response.message);
         }
       }, (error) => {
-        this.isSubmitted = false;
         document.getElementById('cancel')?.click();
         this.alertService.error("Error: " + error.statusText);
       })
@@ -257,7 +257,6 @@ export class MyCompanyComponent {
       this.alertService.error('Something went wrong please try again');
     }
   }, (error) => {
-    this.isSubmitted = false;
     document.getElementById('cancel')?.click();
     this.alertService.error("Error: " + error.statusText);
   });

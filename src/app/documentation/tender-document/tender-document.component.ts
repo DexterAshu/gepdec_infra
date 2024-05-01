@@ -55,26 +55,42 @@ export class TenderDocumentComponent {
     this.getData();
     this.listAPIData('Tender');
   }
-
+  
   getData() {
+    this.apiService.getCompanyList().subscribe((res: any) => {  
+      this.comData = res.result;
+      console.log(this.comData);
+    });
     this.apiService.getDocType().subscribe((res: any) => {
       this.docType = res.documenttype;
     });
-    this.apiService.getTenderType().subscribe((res: any) => {
+    this.apiService.getCompanyList().subscribe((res: any) => {  
+      this.companyData = res.result;
+    });
+    this.apiService.getTenderType().subscribe((res: any) => {  
       this.tenderType = res.bidtype;
     });
+    
 
-
-
+  
   }
 
   listAPIData(data:any){
+    this.docListData = [];
+    this.isNotFound = false;
     this.apiService.getTendListData(data).subscribe((res:any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.docListData = res.result;
       } else {
+        this.docListData = undefined;
+        this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       }
+    }, error => {
+      this.docListData = undefined;
+      this.isNotFound = true;
+      this.alertService.error("Error: " + error.statusText)
     });
   }
 
@@ -108,6 +124,21 @@ export class TenderDocumentComponent {
     return this.documentForm.controls;
   }
 
+  exportAsXLSX1(){
+    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
+     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
+    var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
+     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
+    XLSX.writeFile(wb, "Data_File.xlsx");
+
+        }
+downloadPdf() {
+  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
+  const pdfName = 'country_bulkload_template_file.xlsx';
+  FileSaver.saveAs(pdfUrl, pdfName);
+}
+
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
       display: false,
@@ -125,7 +156,7 @@ export class TenderDocumentComponent {
   }
 
   getrefData(tender_id: any){
-    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
+    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id); 
   }
 
 
@@ -136,7 +167,7 @@ export class TenderDocumentComponent {
     }
     console.log(this.documentForm.value);
     const formData: FormData = new FormData();
-
+   
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }

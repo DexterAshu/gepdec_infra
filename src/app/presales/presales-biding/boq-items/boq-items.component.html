@@ -99,14 +99,16 @@
 
                                 </td>
                               </tr>
+                            
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
-                                    <div class="spinner-border"> </div>
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                  
                                 </td>
                             </tr>
                             <tr *ngIf="boqData?.length == 0">
                                 <td colspan="15" class="text-center">
-                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                    <div class="spinner-border"></div>
                                 </td>
                             </tr>
                         </tbody>

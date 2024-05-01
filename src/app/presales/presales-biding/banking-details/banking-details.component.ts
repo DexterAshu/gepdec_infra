@@ -111,16 +111,21 @@ export class BankingDetailsComponent {
   }
 
   bankList(){
+    this.docListData = [];
+    this.isNotFound = false;
     this.apiService.getBankDataList().subscribe((res:any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.docListData = res.result;
       } else {
+        this.docListData = undefined;
+        this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, (error) => {
-      this.isSubmitted = false;
-      document.getElementById('cancel')?.click();
-      this.alertService.error("Error: " + error.statusText);
+    }, error => {
+      this.docListData = undefined;
+      this.isNotFound = true;
+      this.alertService.error("Error: " + error.statusText)
     });
   }
 

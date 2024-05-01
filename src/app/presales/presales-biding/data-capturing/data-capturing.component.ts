@@ -505,13 +505,14 @@ export class DataCapturingComponent {
       this.loading = true;
       if (this.update) {
         this.updateTender();
-        // this.form.get('tenderstatus_id')!.setValidators([Validators.required]);
+        // this.form.get('working_notes')!.setValidators([Validators.required]);
         this.form.get('working_notes')!.setValidators([Validators.required]);
+        this.form.controls['working_notes'].reset();
       }
       else {
         this.addTender();
-        // this.form.get('tenderstatus_id')!.clearValidators();
-        this.form.get('working_notes')!.clearValidators();
+        this.form.controls['working_notes'].clearValidators();
+        this.form.controls['working_notes'].reset();
       }
     }
 
@@ -530,7 +531,6 @@ export class DataCapturingComponent {
   }
 
   addTender() {
-    debugger
     this.button = 'Save & Continue';
     this.update = false;
     this.apiService.createTender(this.form.value).subscribe((res: any) => {
