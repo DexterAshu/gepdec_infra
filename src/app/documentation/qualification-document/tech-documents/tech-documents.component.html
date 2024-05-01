@@ -23,7 +23,7 @@
                                 [(ngModel)]="searchText">
                         </div>
                         <div class="col-lg-4">
-                            <div class="dropdown float-right" [class.active]="isOpen" (click)="toggleDropdown()">
+                            <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
                                 <button class="btn filter-col btn-fw btn-sm float-right cursor-pointer">
                                     Technical &nbsp;&nbsp;&nbsp;&nbsp;
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"

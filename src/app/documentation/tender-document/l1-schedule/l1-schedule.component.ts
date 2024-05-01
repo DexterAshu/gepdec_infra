@@ -112,10 +112,7 @@ export class L1ScheduleComponent {
 
   isOpen: boolean = false;
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   get f() {
     return this.documentForm.controls;
   }

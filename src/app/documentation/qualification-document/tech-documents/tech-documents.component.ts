@@ -180,10 +180,7 @@ export class TechDocumentsComponent {
   }
 
   //button dropdown
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   showPdf(a:any) {
     debugger
     this.showAsPdf = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.apiUrl}${a?.document}`);

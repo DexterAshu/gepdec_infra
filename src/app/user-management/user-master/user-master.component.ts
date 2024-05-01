@@ -6,7 +6,6 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as XLSX from 'xlsx';
- import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-user-master',

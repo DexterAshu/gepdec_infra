@@ -178,10 +178,7 @@ export class TechnicalBidComponent {
   }
 
   //button dropdown
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   // getDetails(event:any) {
   //   debugger
   //   this.data1 = this.clientList; // Assuming this assignment is necessary

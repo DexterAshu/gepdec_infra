@@ -104,10 +104,7 @@ export class CaptureDataListComponent {
     this.rowData = row;
   }
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   get f() { return this.form.controls; }
 
   getTenderData() {

@@ -116,10 +116,7 @@ export class TenderDocumentComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   get f() {
     return this.documentForm.controls;
   }

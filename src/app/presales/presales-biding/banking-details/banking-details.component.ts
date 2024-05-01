@@ -182,10 +182,7 @@ export class BankingDetailsComponent {
   get f() {
     return this.documentForm.controls;
   }
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
    download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
     XLSX.writeFile(wb, 'Export Excel File.xlsx');

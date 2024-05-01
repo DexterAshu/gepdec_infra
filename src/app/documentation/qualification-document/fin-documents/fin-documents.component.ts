@@ -3,14 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ApiService, AlertService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
+
 @Component({
   selector: 'app-fin-documents',
   templateUrl: './fin-documents.component.html',
   styleUrls: ['./fin-documents.component.css']
 })
-export class FinDocumentsComponent {
 
+export class FinDocumentsComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
   isSubmitted = false;
@@ -29,6 +29,7 @@ export class FinDocumentsComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
+  isOpen: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -123,13 +124,9 @@ export class FinDocumentsComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
-  //button dropdown
-  isOpen: boolean = false;
+  
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   get f() {
     return this.documentForm.controls;
   }

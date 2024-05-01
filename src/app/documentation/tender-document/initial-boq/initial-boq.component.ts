@@ -126,10 +126,7 @@ export class InitialBoqComponent {
   }
 
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   get f() {
     return this.documentForm.controls;
   }

@@ -28,6 +28,8 @@ export class OtherDocumentsComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
+  isOpen: boolean = false;
+  
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -121,13 +123,9 @@ export class OtherDocumentsComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
-  //button dropdown
-  isOpen: boolean = false;
+  
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   get f() {
     return this.documentForm.controls;
   }

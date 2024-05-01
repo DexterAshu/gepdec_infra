@@ -19,6 +19,7 @@ export class CommunicationDocumentComponent {
   tableHeight: any;
   searchText: string = '';
   isNotFound: boolean = false;
+  isOpen: boolean = false;
   meterData: any;
   p: number = 1;
   limit = environment.pageLimit;
@@ -117,13 +118,6 @@ export class CommunicationDocumentComponent {
 
   get f() {
     return this.documentForm.controls;
-  }
-
-  //button dropdown
-  isOpen: boolean = false;
-
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
   }
 
    download(): void {

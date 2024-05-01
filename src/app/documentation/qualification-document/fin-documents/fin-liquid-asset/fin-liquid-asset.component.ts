@@ -28,6 +28,7 @@ export class FinLiquidAssetComponent {
   inserteddata: any;
   discardeddata: any;
   isExcelDownloadData: boolean = true;
+  isOpen: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -128,13 +129,9 @@ export class FinLiquidAssetComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
-  //button dropdown
-  isOpen: boolean = false;
+  
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   get f() {
     return this.documentForm.controls;
   }

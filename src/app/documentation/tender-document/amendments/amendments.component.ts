@@ -128,10 +128,7 @@ export class AmendmentsComponent {
   }
 
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   get f() {
     return this.documentForm.controls;
   }

@@ -29,6 +29,8 @@ export class OthersDocumentComponent {
   isExcelDownloadData: boolean = true;
   companyData: any;
   tenderType: any;
+  isOpen: boolean = false;
+  
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -119,13 +121,9 @@ export class OthersDocumentComponent {
     return this.documentForm.controls;
   }
 
-  //button dropdown
-  isOpen: boolean = false;
+  
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
    download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
     XLSX.writeFile(wb, 'Export Excel File.xlsx');

@@ -24,7 +24,8 @@ export class TechQualificationComponent {
   docListData: any;
   companyData: any;
   tenderType: any;
-
+  isOpen: boolean = false;
+  
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -118,13 +119,9 @@ export class TechQualificationComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
-  //button dropdown
-  isOpen: boolean = false;
+  
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
+ 
   get f() {
     return this.documentForm.controls;
   }

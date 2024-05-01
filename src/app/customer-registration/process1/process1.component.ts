@@ -294,26 +294,6 @@ export class Process1Component implements OnInit {
           branch: this.form.value.branch,
         }
       }
-
-      // let apiLink = "/master/customerMaster/createCustomer";
-      // this.apiService.postData(apiLink, data).subscribe((res:any) => {
-      //   this.isFormSubmitted = false;
-      //   this.customerData = [];
-      //   if (res.status === true) {
-      //     this.alertService.success("Customer Data added. Please upload required documents for Kyc!");
-      //     this.customerID = res.id;
-      //     this.getCustomerData();
-      //     this.next();
-      //   } else {
-      //     document.getElementById('cancel')?.click();
-      //     this.alertService.warning(res.message);
-      //   }
-      // }, error => {
-      //   this.customerData = [];
-      //   this.isFormSubmitted = false;
-      //   document.getElementById('cancel')?.click();
-      //   this.alertService.error("Error: " + error.statusText)
-      // });
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }
