@@ -354,11 +354,6 @@ finAbidta(year:any, check:any): Observable<any> {
     return this.http.get<any[]>(`${environment.apiUrl}/document/api/v1/getDocumentDropdownList`, httpOptions);
   }
 
-  getDocListData(): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.get<any>(`${environment.apiUrl}/document/api/v1/getDocumentList`, httpOptions);
-  }
-
   //Support ticket list
   incidentList(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};

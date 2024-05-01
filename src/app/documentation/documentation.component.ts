@@ -38,26 +38,17 @@ export class DocumentationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData();
     this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
-    });
-  }
-
-  getData() {
-    
-    // let data = this.documentForm.value.document_id;
-    
-    
-    this.apiService.getDocListData().subscribe((res:any) => {
-      
-      
-      if (res.status === 200) {
-        this.docListData = res.result;
+      if(res.status == 200) {
+        this.docType = res.documenttype;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
-    });
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
   }
 
   onFileChanged(event: any) {

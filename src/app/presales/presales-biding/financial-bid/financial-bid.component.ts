@@ -135,8 +135,16 @@ export class FinancialBidComponent {
 
   getData() {
     this.apiService.getCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
-    });
+      if(res.status == 200) {
+        this.companyData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
 
     this.apiService.getTenderList().subscribe((res: any) => {
       this.tenderData = res.result;
@@ -446,12 +454,9 @@ toggleDropdown() {
 
   get f() { return this.form.controls; }
 
-  download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
-      display: false,
-      raw: true,
-    });
-    XLSX.writeFile(wb, 'Data_File.xlsx');
+   download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+    XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
 

@@ -83,7 +83,6 @@ import { TechQualificationComponent } from './documentation/qualification-docume
 import { TechDocumentsComponent } from './documentation/qualification-document/tech-documents/tech-documents.component';
 import { OtherDocumentsComponent } from './documentation/qualification-document/other-documents/other-documents.component';
 
-import { DesignDocumentComponent } from './documentation/design-document/design-document.component';
 import { ProcurementDocumentComponent } from './documentation/procurement-document/procurement-document.component';
 import { ProjectDocumentComponent } from './documentation/project-document/project-document.component';
 import { FinanceDocumentComponent } from './documentation/finance-document/finance-document.component';
@@ -108,6 +107,10 @@ import { AuditApprovalComponent } from './presales/inventory/audit-approval/audi
 import { MaterialReceiptComponent } from './transactions/material-receipt/material-receipt.component';
 import { MaterialIssuanceComponent } from './transactions/material-issuance/material-issuance.component';
 import { SignInComponent } from './account/sign-in/sign-in.component';
+import { MasterDrawingListComponent } from './documentation/master-drawing-list/master-drawing-list.component';
+import { DrawingComponent } from './documentation/drawing/drawing.component';
+import { TechnicalGTPsComponent } from './documentation/technical-gtps/technical-gtps.component';
+import { FinalBOQComponent } from './documentation/final-boq/final-boq.component';
 
 const routes: Routes = [
   // {path: 'login', component: LoginComponent},
@@ -151,7 +154,10 @@ const routes: Routes = [
   {path: 'documentation/bg-doc', component:BgDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/lc-doc', component:LcDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/comm-doc', component:CommunicationDocumentComponent, canActivate:[AuthGuard]},
-  {path: 'documentation/design-doc', component:DesignDocumentComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/master-drawing-list', component:MasterDrawingListComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/drawing-doc', component:DrawingComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/technical-gtps', component:TechnicalGTPsComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/final-boq', component:FinalBOQComponent, canActivate:[AuthGuard]},
   {path: 'documentation/proc-doc', component:ProcurementDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/proj-doc', component:ProjectDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/fin-doc', component:FinanceDocumentComponent, canActivate:[AuthGuard]},

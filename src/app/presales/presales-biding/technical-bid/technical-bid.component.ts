@@ -76,8 +76,16 @@ export class TechnicalBidComponent {
     this.docListData = [];
     this.isNotFound = false;
     this.apiService.getCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
-    });
+      if(res.status == 200) {
+        this.companyData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
 
     this.apiService.getTechDataList().subscribe((res: any) => {
       if (res.status === 200) {
@@ -183,21 +191,34 @@ export class TechnicalBidComponent {
   //   });
   // }
 
-  download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
-      display: false,
-      raw: true,
-    });
-    XLSX.writeFile(wb, 'Data_File.xlsx');
+   download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+    XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
   getCompanyData() {
     this.apiService.getCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
-    });
+      if(res.status == 200) {
+        this.companyData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
     this.apiService.getTenderType().subscribe((res: any) => {
-      this.tenderType = res.bidtype;
-    });
+      if(res.status == 200) {
+        this.tenderType = res.bidtype;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
 
   }
 
