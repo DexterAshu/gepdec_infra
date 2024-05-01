@@ -58,24 +58,38 @@ export class BgDocumentComponent {
 
   getData() {
     this.apiService.getDocType().subscribe((res: any) => {
-      this.docType = res.documenttype;
-    });
-    this.apiService.getCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
-    });
-    this.apiService.getTenderType().subscribe((res: any) => {
-      this.tenderType = res.bidtype;
-    });
-
-    this.apiService.getDocListData().subscribe((res:any) => {
-
-
-      if (res.status === 200) {
-        this.docListData = res.result;
+      if(res.status == 200) {
+        this.docType = res.documenttype;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
-    });
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
+    this.apiService.getCompanyList().subscribe((res: any) => {
+      if(res.status == 200) {
+        this.companyData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
+    this.apiService.getTenderType().subscribe((res: any) => {
+      if(res.status == 200) {
+        this.tenderType = res.bidtype;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
   }
 
   onFileChanged(event: any) {
@@ -111,12 +125,9 @@ export class BgDocumentComponent {
     this.isOpen = !this.isOpen;
   }
 
-  download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
-      display: false,
-      raw: true,
-    });
-    XLSX.writeFile(wb, 'Data_File.xlsx');
+   download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+    XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
   onSubmit() {

@@ -417,8 +417,16 @@ export class DataCapturingComponent {
 
   getCompanyData() {
     this.apiService.getCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
-    });
+      if(res.status == 200) {
+        this.companyData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
     this.apiService.getTenderType().subscribe((res: any) => {
       this.tenderType = res.bidtype;
       this.meetingMode = res.mettingmode;

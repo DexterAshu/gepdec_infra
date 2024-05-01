@@ -235,12 +235,9 @@ export class ProjReportsComponent {
   }
 
 
-  download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
-      display: false,
-      raw: true,
-    });
-    XLSX.writeFile(wb, 'Data_File.xlsx');
+   download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+    XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
 
