@@ -33,7 +33,7 @@
               <div class="float-right">
                 <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()"><span class="mdi mdi-upload"></span>Export</button>
                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s" (click)="getClient()">+ Create</button>
               </div>
             </div>
           </div>
@@ -72,6 +72,77 @@
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Drawing Document Creation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
+                  <select formControlName="client" class="form-select form-select-sm" (ngModelChange)="getTenderList()">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select </option>
+                    <option *ngFor="let c of companyData" [value]=c.company_id>{{ c.company_name }}</option>
+                  </select>
+                  <div *ngIf="f['client'].touched && f['client'].invalid">
+                    <small class="text-danger" *ngIf="f['client'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
+                  <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="selectTender()">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
+                    <option *ngFor="let c of tenderList" value="{{c.tender_id}}">{{ c.tender_title }}</option>
+                  </select>
+                  <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                    <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label fl-10">Tender Ref. No<span class="required-asterisk">*</span></label>
+                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_ref_no" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label fl-10">Tender Publish Date<span class="required-asterisk">*</span></label>
+                  <input type="date" class="form-control form-control-sm" [value]="selectedTender?.publish_date" readonly>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
+                  <input id="cin" class="form-control form-control-sm" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" placeholder="Upload a file..." multiple="true" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Document Description:</label>
+                  <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="float-right">
+              <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="form.invalid">Submit</button>
+              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
