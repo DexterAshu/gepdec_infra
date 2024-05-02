@@ -189,7 +189,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year" #year class="form-select form-select-sm" (change)="annuvalTurnVal(year.value, form.value.check, annual.value)">
+                                                <select formControlName="annual_turnover_year" #year class="form-select form-select-sm" (change)="annuvalTurnVal(year.value, form.value.annual_turnover_check, annual.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -204,7 +204,7 @@
                                         <div class="col-md-2" *ngIf="year.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check" class="form-select form-select-sm" (change)="annuvalTurnVal(year.value, form.value.check, annual.value)">
+                                                <select formControlName="annual_turnover_check" class="form-select form-select-sm" (change)="annuvalTurnVal(year.value, form.value.annual_turnover_check, annual.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -214,15 +214,15 @@
                                         </div>
                                         <div class="col-md-2" *ngIf="year.value">
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{data}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_annual_turnover" readonly [value]="data">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check != ''">
+                                        <div class="col-md-2" *ngIf="form.value.annual_turnover_check != ''">
                                             <br> 
-                                            <div class="status-icon mt-2">
+                                            <div class="status-icon mt-2" >
                                                 <ng-container *ngIf="isSuccess == true; else lowData">
                                                   <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
                                                 </ng-container>
-                                                <ng-template #lowData>
+                                                <ng-template #lowData formControlName="annual_turnover_status">
                                                   <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
                                                 </ng-template>
                                             </div>
@@ -243,7 +243,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year1" #year1 class="form-select form-select-sm"  (change)="netWorthVal(year1.value, form.value.check1, networth.value)">
+                                                <select formControlName="net_worth_year" #year1 class="form-select form-select-sm"  (change)="netWorthVal(year1.value, form.value.net_worth_check, networth.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -259,7 +259,7 @@
                                         <div class="col-md-2" *ngIf="year1.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check1" class="form-select form-select-sm" (change)="netWorthVal(year1.value, form.value.check1, networth.value)" >
+                                                <select formControlName="net_worth_check" class="form-select form-select-sm" (change)="netWorthVal(year1.value, form.value.net_worth_check, networth.value)" >
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -268,14 +268,14 @@
                                                 
                                             </div>
                                         </div>
-                                        <div class="col-md-2" *ngIf="year1.value">
+                                        <div class="col-md-2" *ngIf="year1.value" >
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{data1}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_net_worth" readonly [value]="data1">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check1 != ''">
+                                        <div class="col-md-2" *ngIf="form.value.net_worth_check != ''">
                                             <br> 
                                             <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isNetWorth == true; else netWorthData">
+                                                <ng-container *ngIf="isNetWorth == true; else netWorthData" >
                                                   <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
                                                 </ng-container>
                                                 <ng-template #netWorthData>
@@ -297,7 +297,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year2" #year2 class="form-select form-select-sm" (change)="netWorkingCapitalVal(year2.value, form.value.check2, networkCap.value)" >
+                                                <select formControlName="net_working_capital_year" #year2 class="form-select form-select-sm" (change)="netWorkingCapitalVal(year2.value, form.value.net_working_capital_check, networkCap.value)" >
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -312,7 +312,7 @@
                                         <div class="col-md-2" *ngIf="year2.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check2" class="form-select form-select-sm" (change)="netWorkingCapitalVal(year2.value, form.value.check2, networkCap.value)">
+                                                <select formControlName="net_working_capital_check" class="form-select form-select-sm" (change)="netWorkingCapitalVal(year2.value, form.value.net_working_capital_check, networkCap.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -322,12 +322,12 @@
                                         </div>
                                         <div class="col-md-2" *ngIf="year2.value">
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{data2}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_net_working_capital" readonly [value]="data2">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check2 != ''">
+                                        <div class="col-md-2" *ngIf="form.value.net_working_capital_check != ''">
                                             <br> 
-                                            <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isNetWorkingCap == true; else netWorkCapData">
+                                            <div class="status-icon mt-2" >
+                                                <ng-container *ngIf="isNetWorkingCap == true; else netWorkCapData" >
                                                   <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
                                                 </ng-container>
                                                 <ng-template #netWorkCapData>
@@ -347,7 +347,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year3" #year3 class="form-select form-select-sm"  (change)="totalLiabilityVal(year3.value, form.value.check3, libi.value)">
+                                                <select formControlName="total_liabilities_year" #year3 class="form-select form-select-sm"  (change)="totalLiabilityVal(year3.value, form.value.total_liabilities_check, libi.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -362,7 +362,7 @@
                                         <div class="col-md-2" *ngIf="year3.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check3" class="form-select form-select-sm" (change)="totalLiabilityVal(year3.value, form.value.check3, libi.value)">
+                                                <select formControlName="total_liabilities_check" class="form-select form-select-sm" (change)="totalLiabilityVal(year3.value, form.value.total_liabilities_check, libi.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -372,12 +372,12 @@
                                         </div>
                                         <div class="col-md-2" *ngIf="year3.value">
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{liabVal}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_total_liabilities" readonly [value]="liabVal">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check3 != ''">
+                                        <div class="col-md-2" *ngIf="form.value.total_liabilities_check != ''">
                                             <br> 
                                             <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isLiability == true; else libData">
+                                                <ng-container *ngIf="isLiability == true; else libData" >
                                                   <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
                                                 </ng-container>
                                                 <ng-template #libData>
@@ -398,7 +398,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year4" #year4 class="form-select form-select-sm" (change)="fixAsset(year4.value, form.value.check4, fixedasset.value)">
+                                                <select formControlName="total_fixed_assets_year" #year4 class="form-select form-select-sm" (change)="fixAsset(year4.value, form.value.total_fixed_assets_check, fixedasset.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -414,7 +414,7 @@
                                         <div class="col-md-2" *ngIf="year4.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check4" class="form-select form-select-sm" (change)="fixAsset(year4.value, form.value.check4, fixedasset.value)">
+                                                <select formControlName="total_fixed_assets_check" class="form-select form-select-sm" (change)="fixAsset(year4.value, form.value.total_fixed_assets_check, fixedasset.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -425,12 +425,12 @@
                                         </div>
                                         <div class="col-md-2" *ngIf="year4.value">
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{assetVal}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_total_fixed_assets" readonly [value]="assetVal">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check4 != ''">
+                                        <div class="col-md-2" *ngIf="form.value.total_fixed_assets_check != ''">
                                             <br> 
                                             <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isTotaAsset == true; else assetData">
+                                                <ng-container *ngIf="isTotaAsset == true; else assetData" >
                                                   <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
                                                 </ng-container>
                                                 <ng-template #assetData>
@@ -451,7 +451,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year5" #year5 class="form-select form-select-sm" (change)="netProfitData(year5.value, form.value.check5, netprofit.value)">
+                                                <select formControlName="net_profit_year" #year5 class="form-select form-select-sm" (change)="netProfitData(year5.value, form.value.net_profit_check, netprofit.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -467,7 +467,7 @@
                                         <div class="col-md-2" *ngIf="year5.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check5" class="form-select form-select-sm" (change)="netProfitData(year5.value, form.value.check5, netprofit.value)">
+                                                <select formControlName="net_profit_check" class="form-select form-select-sm" (change)="netProfitData(year5.value, form.value.net_profit_check, netprofit.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -478,15 +478,15 @@
                                         </div>
                                         <div class="col-md-2" *ngIf="year5.value">
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{netProf}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_net_profit" readonly [value]="netProf">
 
                                             <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check5 != ''">
+                                        <div class="col-md-2" *ngIf="form.value.net_profit_check != ''">
                                             <br> 
                                             <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isNetProfit == true; else netProfData">
-                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
+                                                <ng-container *ngIf="isNetProfit == true; else netProfData" >
+                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success" ></i>
                                                 </ng-container>
                                                 <ng-template #netProfData>
                                                   <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
@@ -506,7 +506,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year6" #year6 class="form-select form-select-sm" (change)="natCapitalData(year6.value, form.value.check6, netcapital.value)">
+                                                <select formControlName="net_capital_year" #year6 class="form-select form-select-sm" (change)="natCapitalData(year6.value, form.value.net_capital_check, netcapital.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -522,7 +522,7 @@
                                         <div class="col-md-2" *ngIf="year6.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check6" class="form-select form-select-sm" (change)="natCapitalData(year6.value, form.value.check6, netcapital.value)">
+                                                <select formControlName="net_capital_check" class="form-select form-select-sm" (change)="natCapitalData(year6.value, form.value.net_capital_check, netcapital.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -533,14 +533,14 @@
                                         </div>
                                         <div class="col-md-2" *ngIf="year6.value">
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{netCapitalVal}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_net_capital" readonly [value]="netCapitalVal">
 
                                             <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check6 != ''">
+                                        <div class="col-md-2" *ngIf="form.value.net_capital_check != ''">
                                             <br> 
                                             <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isNetCapital == true; else netCap">
+                                                <ng-container *ngIf="isNetCapital == true; else netCap" >
                                                   <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
                                                 </ng-container>
                                                 <ng-template #netCap>
@@ -561,7 +561,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year7" #year7 class="form-select form-select-sm" (change)="resAndsurplus(year7.value, form.value.check7, rsVal.value)">
+                                                <select formControlName="reserve_surplus_year" #year7 class="form-select form-select-sm" (change)="resAndsurplus(year7.value, form.value.reserve_surplus_check, rsVal.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -577,7 +577,7 @@
                                         <div class="col-md-2" *ngIf="year7.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check7" class="form-select form-select-sm" (change)="resAndsurplus(year7.value, form.value.check7, rsVal.value)">
+                                                <select formControlName="reserve_surplus_check" class="form-select form-select-sm" (change)="resAndsurplus(year7.value, form.value.reserve_surplus_check, rsVal.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -588,15 +588,15 @@
                                         </div>
                                         <div class="col-md-2" *ngIf="year7.value">
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{rAnds}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_reserve_surplus" readonly [value]="rAnds">
 
                                             <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check7 != ''">
+                                        <div class="col-md-2" *ngIf="form.value.reserve_surplus_check != ''">
                                             <br> 
                                             <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isRS == true; else rs">
-                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
+                                                <ng-container *ngIf="isRS == true; else rs" >
+                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success" ></i>
                                                 </ng-container>
                                                 <ng-template #rs>
                                                   <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
@@ -616,7 +616,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year8" #year8 class="form-select form-select-sm" (change)="paidUpCapital(year8.value, form.value.check8, paiupcapi.value)">
+                                                <select formControlName="paid_upcapital_year" #year8 class="form-select form-select-sm" (change)="paidUpCapital(year8.value, form.value.paid_upcapital_check, paiupcapi.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -632,7 +632,7 @@
                                         <div class="col-md-2" *ngIf="year8.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check8" class="form-select form-select-sm" (change)="paidUpCapital(year8.value, form.value.check8, paiupcapi.value)">
+                                                <select formControlName="paid_upcapital_check" class="form-select form-select-sm" (change)="paidUpCapital(year8.value, form.value.paid_upcapital_check, paiupcapi.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -643,11 +643,11 @@
                                         </div>
                                         <div class="col-md-2" *ngIf="year8.value">
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{paiCapitalVal}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_paid_upcapital" readonly [value]="paiCapitalVal">
 
                                             <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check8 != ''">
+                                        <div class="col-md-2" *ngIf="form.value.paid_upcapital_check != ''">
                                             <br> 
                                             <div class="status-icon mt-2">
                                                 <ng-container *ngIf="isPaidupCapital == true; else paidupCa">
@@ -671,7 +671,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year9" #year9 class="form-select form-select-sm" (change)="ebidtaData(year9.value, form.value.check9, ebdt.value)">
+                                                <select formControlName="ebidta_year" #year9 class="form-select form-select-sm" (change)="ebidtaData(year9.value, form.value.ebidta_check, ebdt.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Last 1 Year</option>
@@ -687,7 +687,7 @@
                                         <div class="col-md-2" *ngIf="year9.value">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check9" class="form-select form-select-sm" (change)="ebidtaData(year9.value, form.value.check9, ebdt.value)">
+                                                <select formControlName="ebidta_check" class="form-select form-select-sm" (change)="ebidtaData(year9.value, form.value.ebidta_check, ebdt.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
                                                     <option value="MAX">Maximum</option>
@@ -698,13 +698,13 @@
                                         </div>
                                         <div class="col-md-2" *ngIf="year9.value">
                                             <label class="form-label fl-10 text-small">Our Values</label>
-                                            <span class="form-control form-control-sm" aria-readonly="">{{ebidtaVal}}</span>
+                                            <input class="form-control form-control-sm" formControlName="our_ebidta" readonly [value]="ebidtaVal">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.check9 != ''">
+                                        <div class="col-md-2" *ngIf="form.value.ebidta_check != ''">
                                             <br> 
                                             <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isEbidta == true; else ebd">
-                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
+                                                <ng-container *ngIf="isEbidta == true; else ebd" >
+                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success" ></i>
                                                 </ng-container>
                                                 <ng-template #ebd>
                                                   <i class="mdi mdi-close-circle mdi-24px text-danger"></i>

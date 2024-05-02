@@ -202,7 +202,6 @@ export class CaptureDataListComponent {
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
-
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
@@ -212,8 +211,6 @@ export class CaptureDataListComponent {
 
     if (this.form.value.tenderstatus_id) {
       this.tendStatusData = this.tendStatus.filter((item: any) => {
-        console.log(item);
-
         return item.tenderstatus_id == this.form.value.tenderstatus_id;
       });
       this.form.value.tenderstatus_id = this.tendStatusData[0]['tenderstatus_id'];
@@ -262,5 +259,4 @@ export class CaptureDataListComponent {
       this.alertService.error("Error: " + error.statusText)
     })
   }
-
 }

@@ -459,13 +459,11 @@
                                         <th>Eligibility</th>
                                         <th>Technical Qualification</th>
                                         <th>Remarks</th>
-
                                     </tr>
                                 </thead>
                                 <tbody class="text-nowrap">
                                     <tr *ngFor="let a of rowData?.prequalification; index as i">
                                         <td>{{ limit*(p-1)+i+1 }}</td>
-
                                         <td>{{ a?.capacity }}</td>
                                         <td>{{ a?.qacatagory }}</td>
                                         <td>{{ a?.subqacatagory }}</td>
@@ -481,7 +479,6 @@
                                                     class="mdi mdi-information"></i></span>
                                         </td>
                                     </tr>
-
                                 </tbody>
                             </app-responsive-table>
 
@@ -500,7 +497,6 @@
                                     </div>
                                     <div class="form-group mt-2" *ngIf="showPreNotes">
                                         <div class="card p-1 text-small">{{rowData?.remarks}}</div>
-
                                     </div>
                                 </div>
                                 <div class="col-md-6">
