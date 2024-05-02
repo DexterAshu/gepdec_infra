@@ -89,6 +89,7 @@ import { MasterDrawingListComponent } from './documentation/master-drawing-list/
 import { DrawingComponent } from './documentation/drawing/drawing.component';
 import { TechnicalGTPsComponent } from './documentation/technical-gtps/technical-gtps.component';
 import { FinalBOQComponent } from './documentation/final-boq/final-boq.component';
+import { IndirectCostingComponent } from './presales/presales-biding/indirect-costing/indirect-costing.component';
 
 const routes: Routes = [
   // {path: 'login', component: LoginComponent},
@@ -184,6 +185,7 @@ const routes: Routes = [
   {path: 'presales/presales-biding/financial', component:FinancialBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/boq-item', component:BoqItemsComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/indirect-cost', component:IndirectCostingComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory', component:InventoryComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory/audit-request', component: AuditRequestComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory/audit-approval', component:AuditApprovalComponent, canActivate:[AuthGuard]},

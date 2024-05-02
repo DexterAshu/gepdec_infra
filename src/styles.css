@@ -287,6 +287,7 @@ input[type=search] {
   box-sizing: content-box;
   font-family: inherit;
   font-size: 100%;
+  height: 1rem !important;
 }
 
 input::-webkit-search-decoration,
@@ -306,7 +307,7 @@ input[type=search] {
   -webkit-transition: all .5s;
   -moz-transition: all .5s;
   transition: all .5s;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 input[type=search]:focus {

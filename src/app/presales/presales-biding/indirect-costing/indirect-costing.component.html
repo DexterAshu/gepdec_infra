@@ -1,0 +1,168 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>In-direct Costing</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                        </div>
+                        <div class="col-lg-8">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+                        </div>
+                    </div>
+                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Code</th>
+                                <th>Description</th>
+                                <!-- <th>Type</th> -->
+                                <th>Category</th>
+                                <th>Sub-Category</th>
+                                <th>Procurement UOM</th>
+                                <th>UOM</th>
+                                <th>Cost</th>
+                                <th>GST</th>
+                                <th>Last Procured Date</th>
+                                <!-- <th>Created By</th> -->
+                                <!-- <th>Created On</th> -->
+                                <!-- <th>Action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <!-- <td>{{ limit*(p-1)+i+1 }}</td>
+                                <td>{{ a?.itemcode }}</td>
+                                <td>{{ a?.description }}</td>
+                                <td>{{ a?.itemcategory }}</td>
+                                <td>{{ a?.subcategory }}</td>
+                                <td>{{ a?.precurementuom }}</td>
+                                <td>{{ a?.uom }}</td>
+                                <td>{{ a?.cost }}</td>
+                                <td>{{ a?.gst }}</td> -->
+                                <td>--</td>
+                                <!-- <td>{{ a.createdby_name }}</td> -->
+                                <!-- <td>{{ a.created }}</td> -->
+                                <!-- <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
+                                </td> -->
+                            </tr>
+                            <tr *ngIf="dataList?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add In-direct Costing</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
+                                    <select formControlName="client_id" class="form-select form-select-sm" (change)="getTenderData()">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
+                                        <option *ngFor="let c of clientData" value="{{c?.company_id}}">{{ c?.company_name }}</option>
+                                    </select>
+                                    <div *ngIf="f['client_id'].touched && f['client_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['client_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
+                                    <select formControlName="tender_id" #t_ID class="form-select form-select-sm" (change)="getDetailedData(t_ID.value)">
+                                        <option [selected]="true" [disabled]="true">Select Title</option>
+                                        <option *ngFor="let c of tenderData" value="{{c?.tender_id}}">
+                                            {{c?.tender_title}}</option>
+                                    </select>
+                                    <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                                        <small class="text-danger"
+                                            *ngIf="f['tender_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Ref No</label>
+                                    <span class="form-control form-control-sm" readonly>{{tenderDetailedData[0]?.tender_ref_no}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Publish Date</label>
+                                    <span class="form-control form-control-sm" readonly>{{tenderDetailedData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Overhead Expenses<span class="required-asterisk">*</span></label>
+                                    <select formControlName="expenses" #overhead class="form-select form-select-sm" (change)="overHeadDetails(overhead.value)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Overhead Expenses</option>
+                                        <option *ngFor="let t of dataDropdownList?.costtype" [value]="t?.costtype_id">{{ t?.costtype }}</option>
+                                    </select>
+                                    <div *ngIf="f['expenses'].touched && f['expenses'].invalid">
+                                        <small class="text-danger" *ngIf="f['expenses'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="modal-btns">
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->
