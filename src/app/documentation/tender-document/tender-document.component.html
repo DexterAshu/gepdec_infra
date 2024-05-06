@@ -8,7 +8,7 @@
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
+
             </div>
           </div>
         </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-4">
                             <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
                                 <button class="btn filter-col btn-fw btn-sm float-right cursor-pointer">
-                                 
+
                                      Tender Documents&nbsp;&nbsp;&nbsp;&nbsp;
                                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
@@ -47,20 +47,18 @@
 
                         <div class="col-lg-4">
                             <div class="float-right">
-                                <!-- <button (click)="downloadPdf()" class="btn exp-excel me-2" title="Export Bulk Data Attachment File"><i class="mdi mdi-file-excel mdi-2"></i>&nbsp;
-                                    Bulkload Template</button> -->
                                     <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" *ngIf="isExcelDownloadData" (click)="download()">
                                           <span class="mdi mdi-upload"></span> Export
                                     </button>
                                     <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span> Import 
+                                          <span class="mdi mdi-download"></span> Import
                                     </button>
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
 
                             </div>
                             </div>
 
-                      
+
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
@@ -98,10 +96,10 @@
                                 <td>{{a.bid_validity}}</td>
                                 <td>{{a.completion_period}}</td>
                                 <td >{{a.filename.slice(13)}}</td>
-                               
+
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                      <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
@@ -144,7 +142,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
@@ -177,14 +175,14 @@
                                         <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
                                     </div>
                                 </div>
-            
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender Type</label>
                                         <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.bidtype}}</span>
                                     </div>
                                 </div>
-    
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Completion Period (Months)</label>
@@ -201,17 +199,17 @@
                                     <div class="form-group">
                                         <label class="form-label fl-10">Bid Validity (Days)</label>
                                         <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.bid_validity}}</span>
-            
+
                                     </div>
                                 </div>
-                              
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender Location</label>
                                         <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_location}}</span>
                                     </div>
                                 </div>
-                              
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender Description</label>
@@ -226,7 +224,7 @@
                                     <input class="form-control form-control-sm" formControlName="doc_type">
                                 </div>
                             </div>
-                        
+
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12">
@@ -239,16 +237,16 @@
                                 </div>
                         </div>
                         <!-- Other Fields... -->
-                      
+
                         <!-- Attachment Documents -->
                         <div class="row">
                                 <div class="col-lg-12 col-sm-6">
                                     <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
                                     <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
                                       placeholder="Upload a file..." multiple="true" />
-                                   
+
                               </div>
-                          
+
                         </div>
                         <div class="float-right">
                             <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="!documentForm.valid">Submit</button>
@@ -258,7 +256,7 @@
 
                         </div>
                       </form>
-                      
+
                 </div>
             </div>
         </div>
