@@ -54,7 +54,7 @@ export class BoqItemsComponent {
   dataDropdownList: any;
   rmove: any;
   arr: any;
-  dataList: any;
+  itemList: any = [];
   clientListData: any;
   tenderDetailsData: any;
   tendDetails: any;
@@ -99,12 +99,7 @@ export class BoqItemsComponent {
     });
     this.addAnotherRow();
     this.getDropdownList();
-    this.getDataList();
     this.getBoqListData();
-  }
-  rowListData(row: any) {
-    this.rowData = [];
-    this.rowData = row;
   }
 
   getChildData(data: any): void {
@@ -195,7 +190,8 @@ export class BoqItemsComponent {
   getBoqListData() {
     this.boqData = [];
     this.isNotFound = false;
-    this.apiService.BOQList().subscribe((res: any) => {
+    const apiLink = `/boq/api/v1/getBoqList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.isNotFound = false;
         this.boqData = res.result;
@@ -211,24 +207,8 @@ export class BoqItemsComponent {
     });
   }
 
-  getDataList() {
-    this.dataList = [];
-    this.isNotFound = false;
-    let apiLink = "/item/api/v1/getItemList";
-    this.apiService.getData(apiLink).subscribe((res: any) => {
-      if (res.status === 200) {
-        this.isNotFound = false;
-        this.dataList = res.result;
-      } else {
-        this.dataList = undefined;
-        this.isNotFound = true;
-        this.alertService.warning("Looks like no data available in type.");
-      }
-    }, error => {
-      this.docListData = undefined;
-      this.isNotFound = true;
-      this.alertService.error("Error: " + error.statusText)
-    });
+  getBOQItemList(data: any) {
+    this.itemList = data;
   }
 
   get f() { return this.form.controls; }
@@ -251,7 +231,7 @@ export class BoqItemsComponent {
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
   }
-  
+
   exportAsXLSX1() {
     var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
@@ -280,7 +260,7 @@ export class BoqItemsComponent {
     }
   }
 
-  // BOQ item bulk data 
+  // BOQ item bulk data
   onBOQSubmit() {
     this.isSubmitted = true;
     const formData: any = new FormData();
@@ -292,22 +272,21 @@ export class BoqItemsComponent {
     formData.append('tender_id', this.form1.value.tender_id);
     formData.append('itemCategory', this.form1.value.itemCategory);
     formData.append('itemSubCategory', this.form1.value.itemSubCategory);
-    // formData.append('itemcode', this.form1.value.itemcode);  
+    // formData.append('itemcode', this.form1.value.itemcode);
     this.addBOQ(formData);
   }
 
   addBOQ(formData: FormData) {
+    this.isSubmitted = true;
     this.apiService.BOQbulkData(formData).subscribe((res: any) => {
-      let response: any = res;
-      document.getElementById('cancel')?.click();
-      this.isSubmitted = false;
-      if (response.status == 200) {
-        this.getDataList();
+      if (res.status == 200) {
         this.ngOnInit();
+        this.alertService.success(res.message);
+        document.getElementById('cancel')?.click();
+        this.isSubmitted = false;
         this.form1.reset();
-        this.alertService.success(response.message);
       } else {
-        this.alertService.warning(response.message);
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       this.isSubmitted = false;
