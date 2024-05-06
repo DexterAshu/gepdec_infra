@@ -194,21 +194,21 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Warehouse Name<span class="required-asterisk">*</span></label>
-                  <input formControlName="warehouse_name" type="text" class="form-control form-control-sm" placeholder="Enter Warehouse Name" appWordCapitalize />
+                  <input formControlName="warehouse_name" type="text" class="form-control form-control-sm" appWordCapitalize />
                   <div *ngIf="f['warehouse_name'].touched && f['warehouse_name'].invalid"><small class="text-danger" *ngIf="f['warehouse_name'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Address<span class="required-asterisk">*</span></label>
-                  <input formControlName="address1" type="text" class="form-control form-control-sm" placeholder="Enter Address">
+                  <input formControlName="address1" type="text" class="form-control form-control-sm">
                   <div *ngIf="f['address1'].touched && f['address1'].invalid"><small class="text-danger" *ngIf="f['address1'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Address</label>
-                  <input formControlName="address2" type="text" class="form-control form-control-sm" placeholder="Enter Address">
+                  <input formControlName="address2" type="text" class="form-control form-control-sm">
                 </div>
               </div>
               <div class="col-md-4">
@@ -244,13 +244,13 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">City</label>
-                  <input formControlName="city" type="text" class="form-control form-control-sm" placeholder="Enter City" appWordCapitalize>
+                  <input formControlName="city" type="text" class="form-control form-control-sm" appWordCapitalize>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Pin Code<span class="required-asterisk">*</span></label>
-                  <input formControlName="pincode" type="text" class="form-control form-control-sm" [maxlength]="6" placeholder="Enter Pin Code" appNumberOnly appNoSpace>
+                  <input formControlName="pincode" type="text" class="form-control form-control-sm" [maxlength]="6" appNumberOnly appNoSpace>
                   <div *ngIf="f['pincode'].touched && f['pincode'].invalid"><small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
@@ -262,7 +262,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label>Contact Person Name<span class="required-asterisk">*</span></label>
-                          <input formControlName="contact_name" type="text" class="form-control form-control-sm" placeholder="Enter person name" appWordCapitalize>
+                          <input formControlName="contact_name" type="text" class="form-control form-control-sm" appWordCapitalize>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -277,19 +277,19 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label>Primary No<span class="required-asterisk">*</span></label>
-                        <input formControlName="contactno1" type="text" class="form-control form-control-sm" placeholder="Enter contact no.">
+                        <input formControlName="contactno1" type="text" class="form-control form-control-sm">
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label>Secondary Contact No.</label>
-                        <input formControlName="contactno2" type="text" class="form-control form-control-sm" [maxlength]="10" placeholder="Enter contact no." appNumberOnly appNoSpace>
+                        <label>Secondary No</label>
+                        <input formControlName="contactno2" type="text" class="form-control form-control-sm" [maxlength]="10" appNumberOnly appNoSpace>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label>Person E-Mail<span class="required-asterisk">*</span></label>
-                        <input formControlName="email" type="email" class="form-control form-control-sm" placeholder="Enter person e-mail">
+                        <input formControlName="email" type="email" class="form-control form-control-sm">
                       </div>
                     </div>
                     <div class="col-md-4">
