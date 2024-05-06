@@ -8,7 +8,7 @@
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
+
             </div>
           </div>
         </div>
@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="col-lg-2">
-                          
+
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="float-right">
@@ -45,14 +45,14 @@
                                                       </svg>
                                                     Download Template</a></li>
                                             </ul>
-                                     
+
                                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
                                     <span class="mdi mdi-download"></span>&nbsp; Import
                                 </button>
                                 <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s">+ Create</button> -->
                             </div>
                         </div>
-                        
+
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
@@ -72,9 +72,9 @@
                         <tbody class="text-nowrap">
                             <tr *ngFor="let a of boqData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                             
+
                                 <td>{{ a.company_name}}</td>
-                              
+
                                 <td>
                                     <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
                                         {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -90,20 +90,20 @@
                                 <td>{{ a.itemCategory }}</td>
                                 <td>{{ a.itemSubCategory }}</td>
                                 <td>{{ a.status }}</td>
-                             
+
                                 <td>
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="getBOQItemList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                      <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 
                                 </td>
                               </tr>
-                            
+
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                  
+
                                 </td>
                             </tr>
                             <tr *ngIf="boqData?.length == 0">
@@ -136,15 +136,15 @@
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <ng-container formArrayName="childItem">
                             <div class="row" *ngFor="let quantity of boqChildItem().controls; let i=index" [formGroupName]="i">
-                            
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Item<span class="required-asterisk">*</span></label>
                                         <select formControlName="itemCode" class="form-select form-select-sm">
                                             <option [selected]="true" [disabled]="true" [value]="null">Select Items</option>
-                                            <option *ngFor="let s of dataList" value="{{s.item_id}}">{{ s.description }}</option>
+                                            <option *ngFor="let s of itemList?.items" value="{{s.item_id}}">{{ s.description }}</option>
                                         </select>
-                                      
+
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -154,16 +154,16 @@
                                             <option [selected]="true" [disabled]="true" [value]="null">Item Type</option>
                                             <option *ngFor="let s of dataDropdownList" value="{{s.itemtype_id}}">{{ s.itemtype }}</option>
                                         </select>
-                                       
+
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Quantity<span class="required-asterisk">*</span></label>
                                         <input formControlName="quantity"  type="text" class="form-control form-control-sm" appNumberOnly>
-                                     
-                                        
+
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -172,18 +172,18 @@
                                     <div class="row">
                                     <label class="col-md-6 fl-10">
                                         <input type="radio" formControlName="isChild" value="true" > &nbsp;&nbsp; Yes
-                                    </label> 
+                                    </label>
                                     <label class="col-md-6 fl-10">
                                         <input type="radio" formControlName="isChild" value="false"> &nbsp;&nbsp; No
                                     </label>
                                     </div>
-                                  
+
                                     </div>
                                 </div>
 
                                 <div class="col-md-10">
                                     <div class="form-group">
-                                        
+
                                         <ng-multiselect-dropdown name="addmember" [placeholder]="'Select Member'" [data]="dataDropdownList"
                                         [(ngModel)]="selectedItems" formControlName="childItem" [settings]="dropdownSettings"
                                         (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)"
@@ -191,9 +191,9 @@
                                       </ng-multiselect-dropdown>
 
                                         </div>
-          
-                                    
-                                </div> 
+
+
+                                </div>
 
                                 <div class="col-md-1">
                                     <button *ngIf="i > 0" type="button" (click)="removeRow(i, 'contactDetails')" class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span class="mdi mdi-close"></span></button>
@@ -201,10 +201,10 @@
                                 <div class="col-md-1">
                                     <span type="button" (click)="addAnotherRow()" class="mt-3 text-light bg-success float-right p-1 rounded-circle" title="Click to add more bank details"><span class="mdi mdi-plus"></span></span>
                                 </div>
-                                
-                              
+
+
                             </div>
-                        
+
 
                         </ng-container>
 
@@ -260,12 +260,12 @@
                             </div>
                         </div>
                     </div>
-                  
+
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label fl-10">Ref No</label>
                             <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
-                        
+
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -279,7 +279,7 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Item Code <span class="required-asterisk">*</span></label>
                             <input formControlName="itemcode" type="text" class="form-control form-control-sm" >
-                         
+
                         </div>
                     </div> -->
 
@@ -289,7 +289,7 @@
                             <select formControlName="itemCategory" class="form-select form-select-sm">
                                 <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
                                 <option *ngFor="let t of dataCatList" [value]="t.itemcategory_id">{{ t.itemcategory }}</option>
-                            
+
                             </select>
                             <!-- <div *ngIf="f['itemCategory'].touched && f['itemCategory'].invalid">
                                 <small class="text-danger" *ngIf="f['itemCategory'].errors?.['required']">*Required</small>
@@ -308,7 +308,7 @@
                             </div> -->
                         </div>
                     </div>
-                 
+
                     <div class="col-md-12 mt-1" >
                         <label class="form-label fl-10">Please ensure your file is named 'BOQ_sample_template'  <span class="required-asterisk">*</span>
                         </label><br>
@@ -354,16 +354,16 @@
                                         <div class="col-md-2">Sub Category: &nbsp;&nbsp; {{ rowData?.itemSubCategory }} </div>
                                         <div class="col-md-3">Tender Location : &nbsp;&nbsp; {{ rowData?.tender_location }}</div>
                                     </div>
-                                   
+
                                     <div class="row p-1">
                                         <div class="col-md-3">Published Date : &nbsp;&nbsp; {{ rowData?.publish_date }} </div>
                                         <div class="col-md-5">Client : &nbsp;&nbsp; {{ rowData?.company_name }}</div>
                                         <div class="col-md-4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}"> Tender Title : &nbsp;&nbsp; {{rowData?.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></div>
-                                  
+
                                     </div>
-                                
+
                                   </div>
-                                 
+
                                 <app-responsive-table class="mt-1"> <!-- Coming for sharedComponent/responsive-table -->
                                     <thead class="table-primary text-nowrap">
                                         <tr>
@@ -373,27 +373,18 @@
                                             <th>Basic Value</th>
                                             <th>Unit Price</th>
                                             <th>Quantity</th>
-                                          
+
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
-                                       
-                                        <tr *ngFor="let rowDataItem of rowData?.data | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+
+                                        <tr *ngFor="let item of itemList?.items; index as i">
                                             <td>{{ limit*(p-1)+i+1 }}</td>
-                                         
-                                            <td data-bs-toggle="modal" data-bs-target="#childDetailModal" title="Child Item Detailed Data" (click)="getChildData(rowDataItem)" class="cursor-pointer text-primary text-decoration-underline">{{ rowDataItem?.itemcode }}</td>
-                                           
-                                            <td>
-                                                <div *ngIf="!!rowDataItem?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ rowDataItem?.description }}">
-                                                    {{rowDataItem?.description | slice:0:30}} <span *ngIf="rowDataItem?.description.length > 30">...<i class="mdi mdi-information"></i></span>
-                                                </div>
-                                                <ng-template #elseBlock>
-                                                    {{rowDataItem?.tender_title}}
-                                                </ng-template>
-                                            </td>
-                                            <td>{{ rowDataItem?.basic_value }}</td>
-                                            <td>{{ rowDataItem?.unit_price }}</td>
-                                            <td>{{ rowDataItem?.qty }}</td>
+                                            <td>{{ item?.itemcode }}</td>
+                                            <td>{{ item?.description }}</td>
+                                            <td>{{ item?.basic_value }}</td>
+                                            <td>{{ item?.unit_price }}</td>
+                                            <td>{{ item?.qty }}</td>
                                           </tr>
                                         <tr *ngIf="isNotFound == true">
                                             <td colspan="15" class="text-center">
@@ -407,9 +398,6 @@
                                         </tr>
                                     </tbody>
                                 </app-responsive-table>
-                                <div class="pagination-sec text-center">
-                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -443,13 +431,13 @@
                                             <th>Basic Value</th>
                                             <th>Unit Price</th>
                                             <th>Quantity</th>
-                                        
+
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
                                         <tr *ngFor="let c of childData?.childitem; index as i">
                                             <td>{{ limit*(p-1)+i+1 }}</td>
-                                         
+
                                             <td >{{ c?.itemcode }}</td>
                                             <td>
                                                 <div *ngIf="!!c?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ c?.description }}">
@@ -459,7 +447,7 @@
                                                     {{c?.tender_title}}
                                                 </ng-template>
                                             </td>
-                                          
+
                                             <td>{{ c?.basic_value }}</td>
                                             <td>{{ c?.unit_price }}</td>
                                             <td>{{ c?.qty }}</td>
@@ -470,7 +458,7 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                                </app-responsive-table>                             
+                                </app-responsive-table>
                             </div>
                         </div>
                     </div>
