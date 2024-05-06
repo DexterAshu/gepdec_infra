@@ -98,7 +98,7 @@ export class CompanyComponent implements OnInit {
       this.addressDetails = res.result[0].adderss[0];
       this.form.patchValue({
           company_name: this.custDetails.company_name.toUpperCase(),
-          company_type: this.custDetails.company_type,
+          // company_type: this.custDetails.company_type,
           gst: this.custDetails.gst,
           pan: this.custDetails.pan,
           doi: this.custDetails.doi,
@@ -118,6 +118,7 @@ export class CompanyComponent implements OnInit {
           usdt_id: this.contactDetails.usdt_id,
           usdg_id: this.contactDetails.usdg_id,
         }); 
+        this.form.controls['company_type'].setValue(this.custDetails.mstcompanytype_id);
         this.form.controls['country_id'].setValue(this.addressDetails.country_id);
         this.form.controls['state_id'].setValue(this.addressDetails.state_id);
         this.form.controls['district_id'].setValue(this.addressDetails.district_id);
@@ -225,11 +226,10 @@ export class CompanyComponent implements OnInit {
   createCompany() {
     this.apiService.createCompany(this.form.value).subscribe((res: any) => {
      let response: any = res;
-        document.getElementById('cancel')?.click();
         this.isSubmitted = false;
         this.getCompanyData();
         if (res.status == 200) {
-          document.getElementById('closed')?.click();
+          document.getElementById('cancel')?.click();
           this.alertService.success(res.message);
         } else if(res.status == 201) {
           this.alertService.error(res.message);
@@ -248,9 +248,9 @@ export class CompanyComponent implements OnInit {
      this.form.value.address_id =  this.addressDetails.address_id;
      this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
        this.isSubmitted = false;
-       this.getCompanyData();
        if (res.status == 200) {
-        document.getElementById('closed')?.click();
+         this.getCompanyData();
+         document.getElementById('cancel')?.click();
         this.alertService.success(res.message);
       } else if(res.status == 201) {
         this.alertService.error(res.message);

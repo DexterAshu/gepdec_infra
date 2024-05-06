@@ -4,7 +4,7 @@
           <div class="d-flex justify-content-between flex-wrap">
             <div class="d-flex align-items-end flex-wrap">
               <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Bank Guarantee Documents</h4>
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Security Deposit</h4>
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -22,7 +22,7 @@
                             <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
                         </div>
                         <div class="col-lg-4">
-                            <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
+                            <!-- <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
                                 <button class="btn filter-col btn-fw btn-sm float-right cursor-pointer">
                                  
                                     Bank Guarantee Documents 
@@ -30,22 +30,8 @@
                                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
                                       </svg>
                                     </button>
-                                    <!-- <ul>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/balance-sheet" class="btn btn-fw btn-sm"> <span class="mdi mdi-file-document" ></span>&nbsp;&nbsp; Balance Sheet </button>
-                                        </li>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/maat" class="btn btn-fw btn-sm"><span class="mdi mdi-flower"></span>&nbsp;&nbsp; MAAT </button>
-                                        </li>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/liq-asset" class="btn btn-fw btn-sm"><span class="mdi mdi-chart-donut-variant"></span>&nbsp;&nbsp; Liquid Assets </button>
-                                        </li>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/bank-certificate" class="btn btn-fw btn-sm"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp; Bank certificate </button>
-                                        </li>
-                                     
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/itr" class="btn btn-fw btn-sm"><span class="mdi mdi-file-send"></span>&nbsp;&nbsp; ITR </button>
-                                        </li>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/tender-fees" class="btn btn-fw btn-sm"><span class="mdi mdi-cannabis"></span>&nbsp;&nbsp; Tender Fees </button>
-                                        </li>
-                                      </ul> -->
-                              </div>
+                                 
+                              </div> -->
                         </div>
                         <div class="col-lg-4">
                             <div class="float-right">
@@ -62,39 +48,58 @@
                             </div>
                             </div>
 
-                        <div class="col-lg-2">
-                            <button class="btn btn-primary btn-fw btn-sm float-right" data-bs-toggle="modal" data-bs-target="#createModal"><span class="mdi mdi-plus"></span>
-                                Create</button> 
-                        </div>
+                       
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Project Name</th>
+                                <th>Client</th>
+                                <th>Tender Title</th>
+                                <th>Ref No</th>
+                                <th>Published Date</th>
+                                <th>Bank Name</th>
                                 <th>BG Number</th>
                                 <th>BG Amount</th>
-                                <th>BG Start Date</th>
-                                <th>BG End Date</th>
-                                <th>BG Submission Date</th>
-                                <th>BG Extend Date</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Submission Date</th>
+                                <th>Extend Date</th>
                                 <th>Attachments</th>
-                               
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
                             <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
-                                <td>{{a.documentname}}</td>
-                                <td>{{a.documentname}}</td>
-                                <td>{{a.documentname}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.documentdate}}</td>
-                                <td>{{a.filename}}</td>
-                             
+                                <td>{{a.company_name}}</td>
+                                <td>
+                                    <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        {{a.tender_title}}
+                                    </ng-template>
+                                </td>
+                               
+                                <td>{{a.tender_ref_no}}</td>
+                                <td>{{a.publish_date}}</td>
+                                <td>{{a.bankname}}</td>
+                                <td>{{a.bg_number}}</td>
+                                <td>{{a.bg_amount}}</td>
+                                <td>{{a.start_date}}</td>
+                                <td>{{a.end_date}}</td>
+                                <td>{{a.submission_date}}</td>
+                                <td>{{a.extend_date}}</td>
+                                <td>
+                                    <div *ngIf="!!a.document; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.document }}">
+                                        {{a.document | slice:0:30}} <span *ngIf="a.document.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock14>
+                                        {{a.document}}
+                                    </ng-template>
+                                </td>
+                          
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
@@ -104,7 +109,17 @@
                                 </td>
                                
                             </tr>
-                           
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                  
+                                </td>
+                            </tr>
+                            <tr *ngIf="docListData?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"></div>
+                                </td>
+                            </tr>
                         </tbody>
                     </app-responsive-table>
                     <div class="pagination-sec text-center">
@@ -115,7 +130,158 @@
         </div>
     </div>
 </div>
+ 
+ <!-- Banking modal -->
 
-<!-- create modal -->
-<app-banking-details></app-banking-details>
-<!-- create modal end-->
+<div class="modal fade" id="bankModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Security Deposit Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
+                        <!-- Document Details -->
+                        <div class="form-row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Security<span class="required-asterisk">*</span></label>
+                                    <select formControlName="security_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Security</option>
+                                        <option *ngFor="let c of securityData" value="{{c.security_id}}">{{ c.security }}</option>
+                                    </select>
+                                    <div *ngIf="f['security_id'].touched && f['security_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['security_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
+                                    <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
+                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
+                                    </select>
+                                    <div *ngIf="f['utility_id'].touched && f['utility_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['utility_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
+                                    <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
+                                        <option [selected]="true" [disabled]="true">Select Project</option>
+                                        <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
+                                    </select>
+                                        <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Ref No</label>
+                                    <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
+                                
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Publish Date</label>
+                                    <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
+        
+                                </div>
+                            </div>
+
+                            <div class="form-group col-3">
+                                <label for="">Bank <span class="required-asterisk">*</span></label>
+                                <select class="form-select form-select-sm" formControlName="bank_id">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
+                                    <option *ngFor="let b of bankData" value="{{b.bank_id}}">{{b.bankname}}</option>
+                                </select>
+                                <div *ngIf="f['bank_id'].touched && f['bank_id'].invalid">
+                                    <small class="text-danger" *ngIf="f['bank_id'].errors?.['required']">*Required</small>
+                                </div>  
+                            </div>
+
+                            <div class="form-group col-3">
+                            <label for="">Number (BG/DD/PBG) <span class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="bg_number" >
+                            <div *ngIf="f['bg_number'].touched && f['bg_number'].invalid">
+                                <small class="text-danger" *ngIf="f['bg_number'].errors?.['required']">*Required</small>
+                            </div>    
+                        </div>
+                            <div class="form-group col-3">
+                            <label for="">Amount <span class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="bg_amount" usd-only>
+                            <div *ngIf="f['bg_amount'].touched && f['bg_amount'].invalid">
+                                <small class="text-danger" *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
+                            </div>    
+                        </div>
+                            <div class="form-group col-3" >
+                            <label for="">Start Date <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="start_date">
+                            <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
+                                <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
+                            </div> 
+                        </div>
+                            <div class="form-group col-3">
+                            <label for="">End Date <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="end_date">
+                            <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
+                                <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+
+                            <div class="form-group col-3" >
+                            <label for="">Submission Date <span class="required-asterisk">*</span></label>
+                            <input type="date" class="form-control form-control-sm" formControlName="submission_date">
+                            <div *ngIf="f['submission_date'].touched && f['submission_date'].invalid">
+                                <small class="text-danger" *ngIf="f['submission_date'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                            <div class="form-group col-3">
+                            <label for="">Extend Date </label>
+                            <input type="date" class="form-control form-control-sm" formControlName="extend_date">
+                        </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="">Document Description</label>
+                                <textarea type="text" class="form-control form-control-sm" formControlName="document_description" placeholder="Describe your attached documents...">
+                               </textarea>
+                            </div>
+                        </div>
+                        <!-- Other Fields... -->
+                      
+                        <!-- Attachment Documents -->
+                        <div class="row" >
+                                <div class="col-lg-12 col-sm-6" >
+                                    <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
+                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
+                                      placeholder="Upload a file..." multiple="true" />
+                                   
+                              </div>
+                          
+                        </div>
+                        <div class="float-right">
+                            <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="!documentForm.valid">Submit</button>
+                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...</button>
+                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </form>
+                      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Banking modal end-->

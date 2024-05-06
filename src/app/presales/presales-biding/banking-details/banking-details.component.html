@@ -147,7 +147,7 @@
                         <!-- Document Details -->
                         <div class="form-row">
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Security<span class="required-asterisk">*</span></label>
                                     <select formControlName="security_id" class="form-select form-select-sm">
@@ -159,7 +159,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
@@ -172,7 +172,7 @@
                                 </div>
                             </div>
         
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
                                     <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
@@ -185,14 +185,14 @@
                                 </div>
                             </div>
                           
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Ref No</label>
                                     <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
                                 
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
                                     <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
@@ -200,7 +200,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
+                            <div class="form-group col-4" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                                 <label for="">Bank <span class="required-asterisk">*</span></label>
                                 <select class="form-select form-select-sm" formControlName="bank_id">
                                     <option [selected]="true" [disabled]="true" [value]="null">Select Bank</option>
@@ -211,28 +211,28 @@
                                 </div>  
                             </div>
 
-                            <div class="form-group col-3">
+                            <div class="form-group col-4" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">Number (BG/DD/PBG) <span class="required-asterisk">*</span></label>
                             <input type="text" class="form-control form-control-sm" formControlName="bg_number" >
                             <div *ngIf="f['bg_number'].touched && f['bg_number'].invalid">
                                 <small class="text-danger" *ngIf="f['bg_number'].errors?.['required']">*Required</small>
                             </div>    
                         </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-4">
                             <label for="">Amount <span class="required-asterisk">*</span></label>
                             <input type="text" class="form-control form-control-sm" formControlName="bg_amount" usd-only>
                             <div *ngIf="f['bg_amount'].touched && f['bg_amount'].invalid">
                                 <small class="text-danger" *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
                             </div>    
                         </div>
-                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
+                            <div class="form-group col-4" >
                             <label for="">Start Date <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="start_date">
                             <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
                                 <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
                             </div> 
                         </div>
-                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
+                            <div class="form-group col-4">
                             <label for="">End Date <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="end_date">
                             <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
@@ -240,14 +240,14 @@
                             </div>
                         </div>
 
-                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
+                            <div class="form-group col-4" >
                             <label for="">Submission Date <span class="required-asterisk">*</span></label>
                             <input type="date" class="form-control form-control-sm" formControlName="submission_date">
                             <div *ngIf="f['submission_date'].touched && f['submission_date'].invalid">
                                 <small class="text-danger" *ngIf="f['submission_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
-                            <div class="form-group col-3" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
+                            <div class="form-group col-4" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
                             <label for="">Extend Date </label>
                             <input type="date" class="form-control form-control-sm" formControlName="extend_date">
                         </div>
