@@ -4,8 +4,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Bid | Tender
-                            Data</h4>
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Synopsis</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -98,12 +97,12 @@
                                     (click)="download()">
                                     <span class="mdi mdi-upload"></span> Export
                                 </button>
-                                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                                <!-- <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
                                     data-bs-target="#createBulkModal" title="Upload bulk Data">
                                     <span class="mdi mdi-download"></span> Import
                                 </button>
                                 <button type="button" routerLink="/presales/presales-biding/data-capture"
-                                    class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span> Create</button>
+                                    class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span> Create</button> -->
                             </div>
                         </div>
                     </div>
@@ -143,7 +142,7 @@
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
                                 <td>{{ a.tender_status}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> -->
                                     &nbsp;
                                     <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                                     <!-- &nbsp; -->
@@ -177,7 +176,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tender/Bid Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tender Synopsis Report</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cancel"></button>
             </div>
             <div class="modal-body p-3">
@@ -394,16 +393,17 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                            <th>Tender Status</th>
-                                            <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Reverse Auction</th>
                                             <td>{{ rowData?.reserve_auction }}</td>
+                                        </tr>
+                                        <tr>
+                                           
                                             <th>Created On</th>
                                             <td>{{ rowData?.created }}</td>
                                             <th>Created By</th>
                                             <td>{{ rowData?.createdby_name }}</td>
+                                            <th></th>
+                                            <td></td>
                                         </tr>
                                         <tr>
                                             <th>Tender Payment Terms</th>
@@ -417,35 +417,95 @@
                             </div>
 
                             <!-- qualification details -->
-                            <h6 class="mb-2 mt-4 text-primary cursor-pointer" (click)="finDataShow=!finDataShow">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708z" />
-                            </svg> &nbsp;
-                                Qualification Details (Financial)</h6>
-                            <!-- <table class="table table-hover table-striped custom-table">
-                                <thead class="hidden-thead"></thead>
-                                <tbody class="text-nowrap" *ngFor="let a of rowData?.tenderfinancials">
-                                    <tr>
-                                        <th>Financial Year</th>
-                                        <td>{{ a?.financialyear }}</td>
-                                        <th>Annuval Turnover</th>
-                                        <td>{{ a?.annual_turnover }}</td>
-                                        <th>Net Worth</th>
-                                        <td>{{ a?.net_worth }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Remarks</th>
-                                        <td>{{a?.remark}}</td>
-                                        <th></th>
-                                        <td></td>
-                                        <th></th>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
+                           
+                    
+                                <div class="card p-2">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="status">
+                                                <h6> Tender Current Status</h6>
+                                                <span class="badge badge-primary mt-2">{{ rowData?.tender_status }}</span>  
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6 class="mt-2 text-primary cursor-pointer" (click)="techDataShow=!techDataShow">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                               class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
+                                               <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708z" />
+                                               </svg> &nbsp;
+                                           Technical Qualification
+                                       </h6>
+                                        </div>
+                                        <div class="col-md-4">
+    
+                                            <h6 class=" mt-2 text-primary cursor-pointer" (click)="finDataShow=!finDataShow">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708z" />
+                                                 </svg> &nbsp;
+                                                Financial Qualification
+                                            </h6>
+                                        </div>
 
+                                    </div>
 
+                                       
+                                </div>
+                                  
+                             
+                           
+
+                                <div class="container-fluid mt-1" *ngIf="techDataShow">
+                                    <div class="row">
+                                        <div class="col-md-12 p-0">
+                                            <div class="table-responsive tableStyle">
+                                                <table class="table table-hover table-striped mb-3">
+                                                    <thead class="table-primary text-nowrap">
+                                                        <tr>
+                                                            <th>S No</th>
+                                                            <th>Category</th>
+                                                            <th>Sub-Category</th>
+                                                            <th>Capacity</th>
+                                                            <th>Experience</th>
+                                                            <th>Completion Period</th>
+                                                            <th>Resource Used</th>
+                                                            <th>Completion Year</th>
+                                                            <th>Technical Point</th>
+                                                            <th>Result</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-nowrap">
+                                                        <tr *ngFor="let a of rowData?.prequalification; index as i">
+                                                            <td>{{ limit*(p-1)+i+1 }}</td>
+                                                            <td>{{ a?.qacatagory }}</td>
+                                                            <td>{{ a?.subqacatagory }}</td>
+                                                            <td>{{ a?.capacity }}</td>
+                                                            <td>{{ a?.total_experience}}</td>
+                                                            <td>{{ a?.completion_period}}</td>
+                                                            <td>{{ a?.resource_used}}</td>
+                                                            <td>{{ a?.completion_year}}</td>
+                                                            <td>{{ a?.technical_points}}</td>
+                                                            <td>
+                                                                <div *ngIf=" a?.qualified == true; else ifNot2">
+                                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                                                                </div>
+                                                                <ng-template #ifNot2>
+                                                                    <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                                                                </ng-template>
+                                                            </td>
+                                                        </tr>
+                                                     
+                                                        <tr *ngIf="rowData?.qualification?.length == 0">
+                                                            <td colspan="15" class="text-center">
+                                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             <div class="table-responsive tableStyle mt-2" *ngIf="finDataShow">
                                 <table class="table table-hover table-striped mb-3" *ngFor="let a of rowData?.tenderfinancials">
                                   
@@ -595,105 +655,8 @@
                                 </table>
                             </div>
 
+                         
 
-
-
-                            <h6 class="mb-2 mt-4 text-primary cursor-pointer" (click)="techDataShow=!techDataShow">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708z" />
-                                </svg> &nbsp;
-                                Qualification Details (Technical)
-                            </h6>
-
-                            <div class="container-fluid mt-1" *ngIf="techDataShow">
-                                <div class="row">
-                                    <div class="col-md-12 p-0">
-                                        <div class="table-responsive tableStyle">
-                                            <table class="table table-hover table-striped mb-3">
-                                                <thead class="table-primary text-nowrap">
-                                                    <tr>
-                                                        <th>S No</th>
-                                                        <th>Category</th>
-                                                        <th>Sub-Category</th>
-                                                        <th>Capacity</th>
-                                                        <th>Experience</th>
-                                                        <th>Completion Period</th>
-                                                        <th>Resource Used</th>
-                                                        <th>Completion Year</th>
-                                                        <th>Technical Point</th>
-                                                        <th>Result</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-nowrap">
-                                                    <tr *ngFor="let a of rowData?.prequalification; index as i">
-                                                        <td>{{ limit*(p-1)+i+1 }}</td>
-                                                        <td>{{ a?.qacatagory }}</td>
-                                                        <td>{{ a?.subqacatagory }}</td>
-                                                        <td>{{ a?.capacity }}</td>
-                                                        <td>{{ a?.total_experience}}</td>
-                                                        <td>{{ a?.completion_period}}</td>
-                                                        <td>{{ a?.resource_used}}</td>
-                                                        <td>{{ a?.completion_year}}</td>
-                                                        <td>{{ a?.technical_points}}</td>
-                                                        <td>
-                                                            <div *ngIf=" a?.qualified == true; else ifNot2">
-                                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
-                                                            </div>
-                                                            <ng-template #ifNot2>
-                                                                <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
-                                                            </ng-template>
-                                                        </td>
-                                                    </tr>
-                                                 
-                                                    <tr *ngIf="rowData?.qualification?.length == 0">
-                                                        <td colspan="15" class="text-center">
-                                                            <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-<!-- 
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <div class="text-primary cursor-pointer" (click)="showPreNotes=!showPreNotes">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
-                                            <path
-                                                d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
-                                        </svg> &nbsp;
-                                        Previous Notes
-                                    </div>
-                                    <div class="form-group mt-2" *ngIf="showPreNotes">
-                                        <div class="card p-1 text-small">{{rowData?.remarks}}</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="text-primary cursor-pointer"
-                                        (click)="showWorkingDetails=!showWorkingDetails">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
-                                            <path
-                                                d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
-                                        </svg> &nbsp;
-                                        Audit Trail
-                                    </div>
-                                    <div class="form-group mt-2" *ngIf="showWorkingDetails">
-                                        <div class="card p-1 text-small">{{rowData?.audit_trail}}</div>
-
-
-                                    </div>
-                                </div>
-                            </div> -->
 
                             <!-- tender status modal start-->
                             <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -751,11 +714,12 @@
                                                 *ngIf="this.userData.rolename !== 'Manager' || this.userData.rolename !== 'PreSales'"
                                                 type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right"
                                                 [disabled]="form.invalid">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                                                     <path
                                                         d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                                                </svg> &nbsp;Final Update
+                                                </svg> &nbsp; -->
+                                                Submit
                                             </button>
                                         </ng-container>
                                         <ng-container *ngIf="this.userData.rolename === 'Manager'">

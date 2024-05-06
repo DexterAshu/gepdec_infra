@@ -121,7 +121,7 @@
                                     <label class="form-label">Client Type<span class="required-asterisk">*</span></label>
                                     <select formControlName="company_type" class="form-select form-select-sm" (change)="selfFun()">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Company Type</option>
-                                        <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
+                                        <option *ngFor="let s of compData" value="{{s.mstcompanytype_id}}">{{ s.mstcompanytype }}</option>
                                     </select>
                                     <div *ngIf="f['company_type'].touched && f['company_type'].invalid">
                                         <small class="text-danger" *ngIf="f['company_type'].errors?.['required']">*Required</small>

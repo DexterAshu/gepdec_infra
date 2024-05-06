@@ -61,7 +61,7 @@ export class FinancialBidComponent {
   data: any = null;
   data1: any;
   data2: any;
-  liabVal: any;
+  liabilityData: any;
   assetVal: any;
   netProf: any;
   netCapitalVal: any;
@@ -93,7 +93,7 @@ export class FinancialBidComponent {
       tender_id:[null, Validators.required],
       utility_id:[null, Validators.required],
       financialyear_id: [null, Validators.required],
-        annual_turnover: ['', Validators.required],
+        annual_turnover: [''],
         annual_turnover_year:[''],
         annual_turnover_check: [''],
         annual_turnover_status: [''],
@@ -173,6 +173,7 @@ export class FinancialBidComponent {
   rowListData(row:any) {
     this.rowData = [];
     this.rowData = row;
+    console.log(this.rowData)
   }
 
   finListData(){
@@ -209,7 +210,7 @@ export class FinancialBidComponent {
 
   //Annuval data
   annuvalTurnVal(year:any, check:any, annual:any){
-    if(check != '') {
+    if(check) {
       this.apiService.finAnnuvalTournover(year, check).subscribe((res:any) =>{
         this.data = res.result;
         this.comparisonData(annual);
@@ -225,35 +226,47 @@ export class FinancialBidComponent {
         this.isSuccess = false;
       }
     }
+   
     this.form.controls['our_annual_turnover'].setValue(this.data); 
     this.form.controls['annual_turnover_status'].setValue(this.isSuccess); 
   }
 
 //networth data
   netWorthVal(year1:any, check1:any, networth:any){
-    if(check1 != '') {
+    if(check1) {
       this.apiService.finNetWorth(year1, check1).subscribe((res:any) =>{
         this.data1 =res.result;
         this.comparisonNetWorthData(networth);
        })
     }
   }
-
   comparisonNetWorthData(networth: any) {
-    if(this.data1 != null ) {
-      if(parseInt(networth) < parseInt(this.data1)) {
-        this.isNetWorth = true;
-      } else {
-        this.isNetWorth = false;
-      }
+    if (this.data1 != null) {
+      this.isNetWorth = parseInt(networth) < parseInt(this.data1);
+    } else {
+      this.isNetWorth = false;
     }
+  
     this.form.controls['our_net_worth'].setValue(this.data1); 
     this.form.controls['net_worth_status'].setValue(this.isNetWorth);
   }
 
+  // comparisonNetWorthData(networth: any) {
+  //   if(this.data1 != null ) {
+  //     if(parseInt(networth) < parseInt(this.data1)) {
+  //       this.isNetWorth = true;
+  //     } else {
+  //       this.isNetWorth = false;
+  //     }
+  //   }
+  
+  //   this.form.controls['our_net_worth'].setValue(this.data1); 
+  //   this.form.controls['net_worth_status'].setValue(this.isNetWorth);
+  // }
+
 //networking capital data
   netWorkingCapitalVal(year2:any, check2:any, networkCap:any){
-    if(check2 != '') {
+    if(check2) {
       this.apiService.finNetWorkingCap(year2, check2).subscribe((res:any) =>{
         this.data2 =res.result;
         this.comparisonNetWorkData(networkCap);
@@ -262,41 +275,41 @@ export class FinancialBidComponent {
    
   }
   comparisonNetWorkData(networkCap: any) {
-    if(this.data2 != null) {
-      if(parseInt(networkCap) < parseInt(this.data2)) {
-        this.isNetWorkingCap = true;
-      } else {
-        this.isNetWorkingCap = false;
-      }
+    if (this.data2 != null) {
+      this.isNetWorkingCap = parseInt(networkCap) < parseInt(this.data2);
+    } else {
+      this.isNetWorkingCap = false;
     }
+  
     this.form.controls['our_net_working_capital'].setValue(this.data2); 
     this.form.controls['net_working_status'].setValue(this.isNetWorkingCap);
   }
 
 //Liability data
   totalLiabilityVal(year3:any, check3:any, libi:any){
-    if(check3 != '') {
+    if(check3) {
       this.apiService.finLiability(year3, check3).subscribe((res:any) =>{
-        this.liabVal =res.result;
-        this.comparisonNetWorkData(libi);
+        this.liabilityData =res.result;
+        this.comparisonLibData(libi);
        })
     }
   }
   comparisonLibData(libi: any) {
-    if(this.liabVal != null) {
-      if(parseInt(libi) < parseInt(this.liabVal)) {
+
+    if(this.liabilityData != null) {
+      if(parseInt(libi) < parseInt(this.liabilityData)) {
         this.isLiability = true;
       } else {
         this.isLiability = false;
       }
     }
-    this.form.controls['our_total_liabilities'].setValue(this.liabVal); 
+    this.form.controls['our_total_liabilities'].setValue(this.liabilityData); 
     this.form.controls['total_liabilities_status'].setValue(this.isLiability);
   }
 
   //fixed asset data
   fixAsset(year4:any, check4:any, fixedasset:any){
-    if(check4 != '') {
+    if(check4) {
       this.apiService.finFixedAsset(year4, check4).subscribe((res:any) =>{
         this.assetVal =res.result;
         this.comparisonAssetData(fixedasset);
@@ -311,13 +324,14 @@ export class FinancialBidComponent {
         this.isTotaAsset = false;
       }
     }
+    
     this.form.controls['our_total_fixed_assets'].setValue(this.assetVal); 
     this.form.controls['total_fixed_assets_status'].setValue(this.isTotaAsset);
   }
 
   //net profit data
   netProfitData(year5:any, check5:any, netprofit:any){
-    if(check5 != '') {
+    if(check5) {
       this.apiService.finNetProfit(year5, check5).subscribe((res:any) =>{
         this.netProf =res.result;
         this.comparisonNetProfitData(netprofit);
@@ -332,13 +346,14 @@ export class FinancialBidComponent {
         this.isNetProfit = false;
       }
     }
+   
     this.form.controls['our_net_profit'].setValue(this.netProf); 
     this.form.controls['net_profit_status'].setValue(this.isNetProfit);
   }
 
 //netcapital data
   natCapitalData(year6:any, check6:any, netcapital:any){
-    if(check6 != '') {
+    if(check6) {
       this.apiService.finNetCapital(year6, check6).subscribe((res:any) =>{
         this.netCapitalVal =res.result;
         this.comparisonNetCapitalData(netcapital);
@@ -353,6 +368,7 @@ export class FinancialBidComponent {
         this.isNetCapital = false;
       }
     }
+   
     this.form.controls['our_net_capital'].setValue(this.netCapitalVal); 
     this.form.controls['net_capital_status'].setValue(this.isNetCapital);
 
@@ -360,14 +376,14 @@ export class FinancialBidComponent {
 
   //RS Data
   resAndsurplus(year7:any, check7:any, rsVal:any){
-    if(check7 != '') {
+    if(check7) {
       this.apiService.finRS(year7, check7).subscribe((res:any) =>{
         this.rAnds =res.result;
         this.comparisonRSData(rsVal);
        })
     }
   }
-  comparisonRSData(rsVal: any) {
+  comparisonRSData(rsVal: any) {  
     if(this.rAnds != null) {
       if(parseInt(rsVal) < parseInt(this.rAnds)) {
         this.isRS = true;
@@ -375,6 +391,9 @@ export class FinancialBidComponent {
         this.isRS = false;
       }
     }
+
+
+  
     this.form.controls['our_reserve_surplus'].setValue(this.rAnds); 
     this.form.controls['reserve_surplus_status'].setValue(this.isRS);
 
@@ -382,7 +401,7 @@ export class FinancialBidComponent {
   
   //paidupcapital data
   paidUpCapital(year8:any, check8:any, paiupcapi:any){
-    if(check8 != '') {
+    if(check8) {
       this.apiService.finPaidupCapital(year8, check8).subscribe((res:any) =>{
         this.paiCapitalVal =res.result;
         this.comparisonPaidupData(paiupcapi);
@@ -397,13 +416,14 @@ export class FinancialBidComponent {
         this.isPaidupCapital = false;
       }
     }
+   
     this.form.controls['our_paid_upcapital'].setValue(this.paiCapitalVal); 
     this.form.controls['paid_upcapital_status'].setValue(this.isPaidupCapital);
   }
 
   //ebidta data
   ebidtaData(year9:any, check9:any, ebdt:any){
-    if(check9 != '') {
+    if(check9) {
       this.apiService.finAbidta(year9, check9).subscribe((res:any) =>{
         this.ebidtaVal =res.result;
         this.comparisonEbidtaData(ebdt);
@@ -412,13 +432,14 @@ export class FinancialBidComponent {
     
   }
   comparisonEbidtaData(ebdt: any) {
-    if( this.ebidtaVal != null) {
+    if( this.ebidtaVal != null ) {
       if(parseInt(ebdt) < parseInt(this.ebidtaVal)) {
         this.isEbidta = true;
       } else {
         this.isEbidta = false;
       }
     }
+   
     this.form.controls['our_ebidta'].setValue(this.ebidtaVal); 
     this.form.controls['ebidta_status'].setValue(this.isEbidta);
   }
@@ -442,6 +463,10 @@ export class FinancialBidComponent {
   //   // console.log(this.finCalData);
   //   // console.log(this.form.value.annual_turnover);
   // }
+
+
+
+
 
   finBidComprision(){
     let financialyear_id = this.form.value.financialyear_id;
@@ -467,25 +492,6 @@ export class FinancialBidComponent {
 toggleDropdown() {
   this.isOpen = !this.isOpen;
 }
-  onFileChanged(event: any) {
-    for (var i = 0; i <= event.target.files.length - 1; i++) {
-      var selectedFile = event.target.files[i];
-      this.listOfFiles.push(selectedFile.name);
-      this.attachment.push(selectedFile);
-    }
-  }
-
-  removeSelectedFile(index: any) {
-    this.listOfFiles.splice(index, 1);
-    this.fileList.splice(index, 1);
-  }
-
-  createForm(){
-    console.clear();
-    // this.button = 'Create';
-    // this.update = false;
-    this.form.reset();
-  }
 
 
   get f() { return this.form.controls; }
@@ -498,47 +504,86 @@ toggleDropdown() {
 
 
   onSubmit() {
-    if (this.form.valid) {
+    if (this.form.value) {
       this.isSubmitted = true;
       this.loading = true;
-    // const formData: any = new FormData();
-    // const files: Array<File> = this.filesToUpload;
-    // for (let i = 0; i < this.attachment.length; i++) {
-    //   formData.append("attachment", this.attachment[i]);
-    // }
-    // formData.append('net_working_capital', this.form.value.net_working_capital)
-    // formData.append('financialyear_id', this.form.value.financialyear_id);
-    // formData.append('total_liabilities', this.form.value.total_liabilities);
-    // formData.append('total_fixed_assets', this.form.value.total_fixed_assets);
-    // formData.append('net_profit', this.form.value.net_profit);
-    // formData.append('net_worth', this.form.value.net_worth);
-    // formData.append('net_capital', this.form.value.net_capital);
-    // formData.append('reserve_surplus', this.form.value.reserve_surplus);
-    // formData.append('paid_upcapital', this.form.value.paid_upcapital);
-    // formData.append('annual_turnover', this.form.value.annual_turnover);
-    // formData.append('description', this.form.value.description);
-    // formData.append('ebidta', this.form.value.ebidta);
-    // formData.append('itr', this.form.value.itr);
-    // formData.append('year', this.form.value.year);
-    // formData.append('check', this.form.value.check);
-    // formData.append("tender_id",this.form.value.fixed_asset);
-    // formData.append("utility_id",this.form.value.utility_id);
-    // formData.append("remark",this.form.value.remark);
-    // formData.append("nclt_status",this.form.value.nclt_status);
-    // formData.append("drt",this.form.value.drt);
-    // formData.append("cdr",this.form.value.cdr);
-    this.addFinancial();
+      console.log(this.form.value)
+    this.addFinancial(this.form.value);
   }
 }
 
-  addFinancial() {
-    this.apiService.addFinData(this.form.value).subscribe((res:any )=> {
+  addFinancial(formValues:any) {
+    for (const key in formValues) {
+      if (formValues[key] === '') {
+        formValues[key] = null;
+      }
+    }
+    var finValueData = {
+      tender_id: formValues.tender_id || null,
+      utility_id: formValues.utility_id || null,
+      financialyear_id: formValues.financialyear_id || null,
+      annual_turnover: formValues.annual_turnover || null,
+      annual_turnover_year: formValues.annual_turnover_year || null,
+      annual_turnover_check: formValues.annual_turnover_check || null,
+      annual_turnover_status: formValues.annual_turnover_status || null,
+      our_annual_turnover: formValues.our_annual_turnover || null,
+      net_worth: formValues.net_worth || null,
+      net_worth_year: formValues.net_worth_year || null,
+      net_worth_check: formValues.net_worth_check || null,
+      net_worth_status: formValues.net_worth_status || null,
+      our_net_worth: formValues.our_net_worth || null,
+      net_working_capital: formValues.net_working_capital || null,
+      net_working_capital_year: formValues.net_working_capital_year || null,
+      net_working_capital_check: formValues.net_working_capital_check || null,
+      net_working_status: formValues.net_working_status || null,
+      our_net_working_capital: formValues.our_net_working_capital || null,
+      total_liabilities: formValues.total_liabilities || null,
+      total_liabilities_year: formValues.total_liabilities_year || null,
+      total_liabilities_check: formValues.total_liabilities_check || null,
+      our_total_liabilities: formValues.our_total_liabilities || null,
+      total_liabilities_status: formValues.total_liabilities_status || null,
+      total_fixed_assets: formValues.total_fixed_assets || null,
+      total_fixed_assets_year: formValues.total_fixed_assets_year || null,
+      total_fixed_assets_check: formValues.total_fixed_assets_check || null,
+      our_total_fixed_assets: formValues.our_total_fixed_assets || null,
+      total_fixed_assets_status: formValues.total_fixed_assets_status || null,
+      net_profit: formValues.net_profit || null,
+      net_profit_year: formValues.net_profit_year || null,
+      net_profit_check: formValues.net_profit_check || null,
+      our_net_profit: formValues.our_net_profit || null,
+      net_profit_status: formValues.net_profit_status || null,
+      net_capital: formValues.net_capital || null,
+      net_capital_year: formValues.net_capital_year || null,
+      net_capital_check: formValues.net_capital_check || null,
+      our_net_capital: formValues.our_net_capital || null,
+      net_capital_status: formValues.net_capital_status || null,
+      reserve_surplus: formValues.reserve_surplus || null,
+      reserve_surplus_year: formValues.reserve_surplus_year || null,
+      reserve_surplus_check: formValues.reserve_surplus_check || null,
+      our_reserve_surplus: formValues.our_reserve_surplus || null,
+      reserve_surplus_status: formValues.reserve_surplus_status || null,
+      paid_upcapital: formValues.paid_upcapital || null,
+      paid_upcapital_year: formValues.paid_upcapital_year || null,
+      paid_upcapital_check: formValues.paid_upcapital_check || null,
+      our_paid_upcapital: formValues.our_paid_upcapital || null,
+      paid_upcapital_status: formValues.paid_upcapital_status || null,
+      ebidta: formValues.ebidta || null,
+      ebidta_year: formValues.ebidta_year || null,
+      ebidta_check: formValues.ebidta_check || null,
+      our_ebidta: formValues.our_ebidta || null,
+      ebidta_status: formValues.ebidta_status || null,
+      remark: formValues.remark || null,
+    };
+
+
+    this.apiService.addFinData(finValueData ).subscribe((res:any )=> {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       this.finListData();
       if (response.status == 200) {
         this.form.reset();
+        this.ngOnInit();
         this.alertService.success(response.message);
      
       } else {

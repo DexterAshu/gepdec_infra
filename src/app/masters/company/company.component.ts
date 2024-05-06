@@ -69,8 +69,8 @@ export class CompanyComponent implements OnInit {
       usdt_id:[null],
       websiteurl:[null],
       cinno:[null],
+      address_line1:[null],
       address_line2:[null],
-      address_line3:[null],
       net_worth: [null],
       financialyear_id: [null],
       annual_turnover: [null]

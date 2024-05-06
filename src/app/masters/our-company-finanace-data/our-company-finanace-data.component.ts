@@ -77,6 +77,9 @@ export class OurCompanyFinanaceDataComponent {
       const apiLink = `/mycompany/api/v1/getMyComapanyList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       this.companyData = res.result;
+    },(error: any) => {
+      console.log(error);
+      this.alertService.error(`Error: ${error.statusText}`);
     })
   }
 
@@ -88,6 +91,9 @@ export class OurCompanyFinanaceDataComponent {
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
+    },(error: any) => {
+      console.log(error);
+      this.alertService.error(`Error: ${error.statusText}`);
     })
   }
 
@@ -111,6 +117,7 @@ export class OurCompanyFinanaceDataComponent {
     XLSX.writeFile(wb, 'Data_File.xlsx');
   }
   onSubmit() {
+    this.isSubmitted = true;
     const formData: any = new FormData();
     const files: Array<File> = this.filesToUpload;
     for (let i = 0; i < this.attachment.length; i++) {
@@ -133,6 +140,9 @@ export class OurCompanyFinanaceDataComponent {
         } else {
         this.alertService.warning(response.message);
         }
+    }, (error) => {
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 }

@@ -84,7 +84,7 @@
                                 <td>{{a.status}}</td>
                                 <td>
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                                     <!-- &nbsp; -->
                                      <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
@@ -177,13 +177,13 @@
 
                             <ng-container class="mt-2">
                                 <div class="container" *ngFor="let rowData of finData">
-                                    <h6 class="text-center text-white bg-primary p-2">Our Financial VS Client Financial Comparison</h6><hr>
+                                    <h6 class="text-center text-white bg-primary p-2">Financial Comparison</h6><hr>
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label class="form-label fl-10 ">Annual Turnover</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
                                             <input formControlName="annual_turnover" #annual type="text" class="form-control form-control-sm" (keyup)="comparisonData(annual.value)" appNumberOnly>
                                         </div>
                                         <div class="col-md-2">
@@ -207,8 +207,8 @@
                                                 <select formControlName="annual_turnover_check" class="form-select form-select-sm" (change)="annuvalTurnVal(year.value, form.value.annual_turnover_check, annual.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
                                                     <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -236,7 +236,7 @@
                                             <label class="form-label fl-10">Net Worth</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
                                             <input formControlName="net_worth" type="text" class="form-control form-control-sm" #networth (keyup)="comparisonNetWorthData(networth.value)" appNumberOnly>
 
                                         </div>
@@ -262,8 +262,8 @@
                                                 <select formControlName="net_worth_check" class="form-select form-select-sm" (change)="netWorthVal(year1.value, form.value.net_worth_check, networth.value)" >
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
                                                     <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
                                                 </select>
                                                 
                                             </div>
@@ -290,7 +290,7 @@
                                             <label class="form-label fl-10">Net Working Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
                                             <input formControlName="net_working_capital" type="text" class="form-control form-control-sm" #networkCap (keyup)="comparisonNetWorkData(networkCap.value)" appNumberOnly>
 
                                         </div>
@@ -315,8 +315,8 @@
                                                 <select formControlName="net_working_capital_check" class="form-select form-select-sm" (change)="netWorkingCapitalVal(year2.value, form.value.net_working_capital_check, networkCap.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
                                                     <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -336,115 +336,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-1">
-                                        <div class="col-md-2">
-                                            <label class="form-label fl-10">Total Liabilities</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
-                                            <input formControlName="total_liabilities" type="text" class="form-control form-control-sm" #libi (keyup)="comparisonLibData(libi.value)" appNumberOnly>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="total_liabilities_year" #year3 class="form-select form-select-sm"  (change)="totalLiabilityVal(year3.value, form.value.total_liabilities_check, libi.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Last 1 Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year3.value">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="total_liabilities_check" class="form-select form-select-sm" (change)="totalLiabilityVal(year3.value, form.value.total_liabilities_check, libi.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                                                    <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
-                                                    <option value="AVG">Average</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year3.value">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
-                                            <input class="form-control form-control-sm" formControlName="our_total_liabilities" readonly [value]="liabVal">
-                                        </div>
-                                        <div class="col-md-2" *ngIf="form.value.total_liabilities_check != ''">
-                                            <br> 
-                                            <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isLiability == true; else libData" >
-                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
-                                                </ng-container>
-                                                <ng-template #libData>
-                                                  <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
-                                                </ng-template>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-1">
-                                        <div class="col-md-2">
-                                            <label class="form-label fl-10">Total Fixed Assets</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
-                                            <input formControlName="total_fixed_assets" type="text" class="form-control form-control-sm" #fixedasset (keyup)="comparisonAssetData(fixedasset.value)" appNumberOnly>
-
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="total_fixed_assets_year" #year4 class="form-select form-select-sm" (change)="fixAsset(year4.value, form.value.total_fixed_assets_check, fixedasset.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Last 1 Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year4.value">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="total_fixed_assets_check" class="form-select form-select-sm" (change)="fixAsset(year4.value, form.value.total_fixed_assets_check, fixedasset.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                                                    <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
-                                                    <option value="AVG">Average</option>
-                                                </select>
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year4.value">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
-                                            <input class="form-control form-control-sm" formControlName="our_total_fixed_assets" readonly [value]="assetVal">
-                                        </div>
-                                        <div class="col-md-2" *ngIf="form.value.total_fixed_assets_check != ''">
-                                            <br> 
-                                            <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isTotaAsset == true; else assetData" >
-                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
-                                                </ng-container>
-                                                <ng-template #assetData>
-                                                  <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
-                                                </ng-template>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  
                                     <div class="row mt-1">
                                         <div class="col-md-2">
                                             <label class="form-label fl-10">Net Profit</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
                                             <input formControlName="net_profit" type="text" class="form-control form-control-sm" #netprofit (keyup)="comparisonNetProfitData(netprofit.value)" appNumberOnly>
 
                                         </div>
@@ -470,8 +368,8 @@
                                                 <select formControlName="net_profit_check" class="form-select form-select-sm" (change)="netProfitData(year5.value, form.value.net_profit_check, netprofit.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
                                                     <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
                                                 </select>
                                                 
                                             </div>
@@ -494,12 +392,116 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- <div class="row mt-1">
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10">Total Liabilities</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <input formControlName="total_liabilities" type="text" class="form-control form-control-sm" #libi (keyup)="comparisonLibData(libi.value)" appNumberOnly>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="total_liabilities_year" #year3 class="form-select form-select-sm"  (change)="totalLiabilityVal(year3.value, form.value.total_liabilities_check, libi.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
+                                                    <option value="0">Current Year</option>
+                                                    <option value="1">Last 1 Year</option>
+                                                    <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="year3.value">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Condition</label>
+                                                <select formControlName="total_liabilities_check" class="form-select form-select-sm" (change)="totalLiabilityVal(year3.value, form.value.total_liabilities_check, libi.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                    <option value="MIN">Minimum</option>
+                                                    <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="year3.value">
+                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <input class="form-control form-control-sm" formControlName="our_total_liabilities" readonly [value]="liabilityData">
+                                        </div>
+                                        <div class="col-md-2" *ngIf="form.value.total_liabilities_check != ''">
+                                            <br> 
+                                            <div class="status-icon mt-2">
+                                                <ng-container *ngIf="isLiability == true; else libData" >
+                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
+                                                </ng-container>
+                                                <ng-template #libData>
+                                                  <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10">Total Fixed Assets</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <input formControlName="total_fixed_assets" type="text" class="form-control form-control-sm" #fixedasset (keyup)="comparisonAssetData(fixedasset.value)" appNumberOnly>
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="total_fixed_assets_year" #year4 class="form-select form-select-sm" (change)="fixAsset(year4.value, form.value.total_fixed_assets_check, fixedasset.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
+                                                    <option value="0">Current Year</option>
+                                                    <option value="1">Last 1 Year</option>
+                                                    <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="year4.value">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Condition</label>
+                                                <select formControlName="total_fixed_assets_check" class="form-select form-select-sm" (change)="fixAsset(year4.value, form.value.total_fixed_assets_check, fixedasset.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                                    <option value="MIN">Minimum</option>
+                                                    <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="year4.value">
+                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <input class="form-control form-control-sm" formControlName="our_total_fixed_assets" readonly [value]="assetVal">
+                                        </div>
+                                        <div class="col-md-2" *ngIf="form.value.total_fixed_assets_check != ''">
+                                            <br> 
+                                            <div class="status-icon mt-2">
+                                                <ng-container *ngIf="isTotaAsset == true; else assetData" >
+                                                  <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
+                                                </ng-container>
+                                                <ng-template #assetData>
+                                                  <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row mt-1">
                                         <div class="col-md-2">
                                             <label class="form-label fl-10">Net Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
                                             <input formControlName="net_capital" type="text" class="form-control form-control-sm" #netcapital (keyup)="comparisonNetCapitalData(netcapital.value)" appNumberOnly>
 
                                         </div>
@@ -525,8 +527,8 @@
                                                 <select formControlName="net_capital_check" class="form-select form-select-sm" (change)="natCapitalData(year6.value, form.value.net_capital_check, netcapital.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
                                                     <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
                                                 </select>
                                                 
                                             </div>
@@ -535,7 +537,6 @@
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm" formControlName="our_net_capital" readonly [value]="netCapitalVal">
 
-                                            <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
                                         </div>
                                         <div class="col-md-2" *ngIf="form.value.net_capital_check != ''">
                                             <br> 
@@ -554,7 +555,7 @@
                                             <label class="form-label fl-10">Reserve & Surplus</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
                                             <input formControlName="reserve_surplus" type="text" class="form-control form-control-sm" #rsVal (keyup)="comparisonRSData(rsVal.value)" appNumberOnly>
 
                                         </div>
@@ -580,8 +581,8 @@
                                                 <select formControlName="reserve_surplus_check" class="form-select form-select-sm" (change)="resAndsurplus(year7.value, form.value.reserve_surplus_check, rsVal.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
                                                     <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
                                                 </select>
                                                 
                                             </div>
@@ -590,7 +591,6 @@
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm" formControlName="our_reserve_surplus" readonly [value]="rAnds">
 
-                                            <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
                                         </div>
                                         <div class="col-md-2" *ngIf="form.value.reserve_surplus_check != ''">
                                             <br> 
@@ -609,7 +609,7 @@
                                             <label class="form-label fl-10">Paid Up Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
                                             <input formControlName="paid_upcapital" type="text" class="form-control form-control-sm" #paiupcapi (keyup)="comparisonPaidupData(paiupcapi.value)" appNumberOnly>
 
                                         </div>
@@ -635,8 +635,8 @@
                                                 <select formControlName="paid_upcapital_check" class="form-select form-select-sm" (change)="paidUpCapital(year8.value, form.value.paid_upcapital_check, paiupcapi.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
                                                     <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
                                                 </select>
                                                 
                                             </div>
@@ -645,7 +645,6 @@
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm" formControlName="our_paid_upcapital" readonly [value]="paiCapitalVal">
 
-                                            <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
                                         </div>
                                         <div class="col-md-2" *ngIf="form.value.paid_upcapital_check != ''">
                                             <br> 
@@ -664,7 +663,7 @@
                                             <label class="form-label fl-10">EBIDTA</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Values</label>
+                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
                                             <input formControlName="ebidta" type="text" class="form-control form-control-sm" #ebdt (keyup)="comparisonEbidtaData(ebdt.value)" appNumberOnly>
 
                                         </div>
@@ -690,8 +689,8 @@
                                                 <select formControlName="ebidta_check" class="form-select form-select-sm" (change)="ebidtaData(year9.value, form.value.ebidta_check, ebdt.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                                     <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
                                                     <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
                                                 </select>
                                                 
                                             </div>
@@ -711,58 +710,8 @@
                                                 </ng-template>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- <div class="row mt-1">
-                                        <div class="col-md-2">
-                                            <label class="form-label fl-10">ITR</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Value</label>
-                                            <input formControlName="itr" type="text" class="form-control form-control-sm" appNumberOnly>
-
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="year10" #year10 class="form-select form-select-sm">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Last 1 Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year10.value">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="check10" class="form-select form-select-sm">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                                                    <option value="MIN">Minimum</option>
-                                                    <option value="MAX">Maximum</option>
-                                                    <option value="AVG">Average</option>
-                                                </select>
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                        </div>
-                                       <div class="col-md-2">
-                                                    <br>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check-square text-success mt-2" viewBox="0 0 16 16">
-                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                                                    </svg> &nbsp;
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-square text-danger mt-2" viewBox="0 0 16 16">
-                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                                    </svg>
-                                        </div>
                                     </div> -->
+                                   
 
                                 </div>
                             </ng-container>
@@ -778,19 +727,6 @@
                                 </div>  
                                 </div>
                             </div>
-    
-                            <!-- <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="row ">
-                                        <div class="col-lg-12 col-sm-6">
-                                          <label id="label1" class="fl-10"> Upload Evidence </label><br>
-                                          <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
-                                            placeholder="Upload a file..." multiple="true" />
-                                        </div>
-                                     
-                                      </div>
-                                </div>
-                            </div> -->
     
                         </div>
                        
@@ -853,40 +789,46 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                                 {{rowData?.tender_title}}
                                             </ng-template>
                                         </td>
+                                        <th></th>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="table-responsive tableStyle">
+                        <div class="table-responsive tableStyle mt-2">
                             <table class="table table-hover table-striped mb-3">
                                 <thead class="table-primary text-nowrap">
-                                    <tr>
-                                        <th>S No</th>
-                                        <th>Annuval Turnover</th>
-                                        <th>Net Worth</th>
-                                        <th>Net Working Capital</th>
-                                        <th>Total Liabilities</th>
-                                        <th>Total Fixed Assets</th>
-                                        <th>Net Profit</th>
-                                        <th>Net Capital</th>
-                                        <th>Reserve & Surplus</th>
-                                        <th>Paid Up Capital</th>
-                                        <th>EBIDTA</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Points</th>
+                                            <th>Amounts (Cr)</th>
+                                            <th>Years</th>
+                                            <th>Condition</th>
+                                            <th>Our Values</th>
+                                            <th>Result</th>
+                                        </tr>
                                 </thead>
-                                <tbody class="text-nowrap">
-                                    <tr *ngFor="let a of rowData?.qualification; index as i">
-                                        <td>{{ limit*(p-1)+i+1 }}</td>
-                                        <td>{{ a?.annual_turnover }}</td>
-                                        <td>{{ a?.net_worth }}</td>
-                                        <td>{{ a?.capacity }}</td>
-                                        <td>{{ a?.total_experience}}</td>
-                                        <td>{{ a?.completion_period}}</td>
-                                        <td>{{ a?.resource_used}}</td>
-                                        <td>{{ a?.completion_year}}</td>
-                                        <td>{{ a?.remark}}</td>
+                               
+                                <!-- annuval turnover -->
+                             
+
+                                    <tr *ngIf=" rowData?.annual_turnover > 0">
+                                        <th>Annuval Turnover</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+
+                                <tbody class="text-nowrap" *ngIf=" rowData?.annual_turnover > 0">
+                                    <tr>
+                                        <td></td>
+                                        <td>{{ rowData?.annual_turnover }}</td>
+                                        <td>{{ rowData?.annual_turnover_year }}</td>
+                                        <td>{{ rowData?.annual_turnover_check}}</td>
+                                        <td>{{ rowData?.our_annual_turnover}}</td>
                                         <td>
-                                            <div *ngIf=" a?.qualified == true; else ifNot2">
+                                            <div *ngIf=" rowData?.annual_turnover_status == true; else ifNot2">
                                                 <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
                                             </div>
                                             <ng-template #ifNot2>
@@ -894,17 +836,107 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                             </ng-template>
                                         </td>
                                     </tr>
-                                    <!-- <tr *ngIf="rowData?.length == 0">
-                                        <td colspan="15" class="text-center">
-                                            <div class="spinner-border"> </div>
-                                        </td>
-                                    </tr> -->
-                                    <tr *ngIf="rowData?.qualification?.length == 0">
-                                        <td colspan="15" class="text-center">
-                                            <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </tbody>
+                             
+                                <!-- Net Worth -->
+                             
+
+                                    <tr *ngIf=" rowData?.net_worth > 0">
+                                        <th>Net Worth </th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                       
+                                    </tr>
+
+                                <tbody class="text-nowrap" *ngIf=" rowData?.net_worth > 0">
+                                    <tr>
+                                        <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                        <td></td>
+                                        <td>{{ rowData?.net_worth }}</td>
+                                        <td>{{ rowData?.net_worth_year }}</td>
+                                        <td>{{ rowData?.net_worth_check}}</td>
+                                        <td>{{ rowData?.our_net_worth}}</td>
+                                        <td>
+                                            <div *ngIf=" rowData?.net_worth_status == true; else ifNot3">
+                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                                            </div>
+                                            <ng-template #ifNot3>
+                                                <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                                            </ng-template>
                                         </td>
                                     </tr>
                                 </tbody>
+                             
+                                <!-- Net Working Capital -->
+                               
+
+                                    <tr *ngIf=" rowData?.net_working_capital > 0">
+                                        <th>Net Working Capital</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                       
+                                    </tr>
+
+                                <tbody class="text-nowrap" *ngIf=" rowData?.net_working_capital > 0">
+                                    <tr>
+                                        <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                        <td></td>
+                                        <td>{{ rowData?.net_working_capital }}</td>
+                                        <td>{{ rowData?.net_working_capital_year }}</td>
+                                        <td>{{ rowData?.net_working_capital_check}}</td>
+                                        <td>{{ rowData?.our_net_working_capital}}</td>
+                                        <td>
+                                            <div *ngIf=" rowData?.net_working_status == true; else ifNot4">
+                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                                            </div>
+                                            <ng-template #ifNot4>
+                                                <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                                            </ng-template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            
+                                <!-- Net Profit -->
+                                    <tr *ngIf=" rowData?.net_profit > 0">
+                                        <th>Net Profit</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                       
+                                    </tr>
+
+                                <tbody class="text-nowrap"  *ngIf=" rowData?.net_profit > 0">
+                                    <tr>
+                                        <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                        <td></td>
+                                        <td>{{ rowData?.net_profit }}</td>
+                                        <td>{{ rowData?.net_profit_year }}</td>
+                                        <td>{{ rowData?.net_profit_check}}</td>
+                                        <td>{{ rowData?.our_net_profit}}</td>
+                                        <td>
+                                            <div *ngIf=" rowData?.net_profit_status == true; else ifNot5">
+                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                                            </div>
+                                            <ng-template #ifNot5>
+                                                <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                                            </ng-template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                             
+                                <tr *ngIf="rowData?.length == 0">
+                                    <td colspan="15" class="text-center">
+                                        <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>

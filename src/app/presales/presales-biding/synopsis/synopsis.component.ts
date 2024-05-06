@@ -7,11 +7,11 @@ import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-capture-data-list',
-  templateUrl: './capture-data-list.component.html',
-  styleUrls: ['./capture-data-list.component.css']
+  selector: 'app-synopsis',
+  templateUrl: './synopsis.component.html',
+  styleUrls: ['./synopsis.component.css']
 })
-export class CaptureDataListComponent {
+export class SynopsisComponent {
   form!: FormGroup;
 
   p: number = 1;
@@ -245,6 +245,7 @@ console.log(this.statusList)
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
+        this.getTenderData();
         this.form.reset();
         this.alertService.success(response.message);
       } else {
@@ -263,7 +264,7 @@ console.log(this.statusList)
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
-        this.userData.rolename === 'Manager' && this.sendForApprovalClicked == true;
+        // this.userData.rolename === 'Manager' && this.sendForApprovalClicked == true;
         this.form.reset();
         this.alertService.success(response.message);
       } else {
