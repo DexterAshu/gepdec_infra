@@ -97,7 +97,7 @@ export class CompanyComponent implements OnInit {
       this.contactDetails = res.result[0].contact[0];
       this.addressDetails = res.result[0].adderss[0];
       this.form.patchValue({
-          company_name: this.custDetails.company_name,
+          company_name: this.custDetails.company_name.toUpperCase(),
           company_type: this.custDetails.company_type,
           gst: this.custDetails.gst,
           pan: this.custDetails.pan,
@@ -192,14 +192,14 @@ export class CompanyComponent implements OnInit {
     });
   }
 
-  selfFun() {
-    var inputElement = this.form.value.company_type;
-    if (inputElement !== null) {
-      if (inputElement === "Self" || inputElement === "4002") {
-        document.getElementById('selfModel')?.click();
-      } 
-    }
-  }
+  // selfFun() {
+  //   var inputElement = this.form.value.company_type;
+  //   if (inputElement !== null) {
+  //     if (inputElement === "Self" || inputElement === "4002") {
+  //       document.getElementById('selfModel')?.click();
+  //     } 
+  //   }
+  // }
 
    download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});

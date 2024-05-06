@@ -1162,7 +1162,7 @@ export class DashboardComponent implements OnInit {
     this.getCountryData();
     this.getSegmentData();
     this.finYearData();
-    this.projectlist();
+    // this.projectlist();
 
     this.form = this.formBuilder.group({
       country_id: [null, Validators.required],
@@ -1220,20 +1220,20 @@ export class DashboardComponent implements OnInit {
     }); 
   }
 
-  projectlist(){
-    this.masterService.getProjectList().subscribe((res:any) => {
-      if (res.status == 200) {
-      this.projData = res.result;
-      console.log(this.projData);
+  // projectlist(){
+  //   this.masterService.getProjectList().subscribe((res:any) => {
+  //     if (res.status == 200) {
+  //     this.projData = res.result;
+  //     console.log(this.projData);
       
-      }else {
-        this.alertService.warning("Looks like no data available!");
-      }
-    }, error => {
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
-    }); 
-  }
+  //     }else {
+  //       this.alertService.warning("Looks like no data available!");
+  //     }
+  //   }, error => {
+  //     this.isNotFound = false;
+  //     this.alertService.error("Error: " + error.statusText)
+  //   }); 
+  // }
 
   onSelect(data:any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));

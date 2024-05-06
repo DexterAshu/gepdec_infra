@@ -42,9 +42,8 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <!-- <th>Company ID</th> -->
                                 <th>Company Name</th>
-                                <th>Company Type</th>
+                                <!-- <th>Company Type</th> -->
                                 <th>Contact Person</th>
                                 <th>Contact No</th>
                                 <th>Email ID</th>
@@ -58,7 +57,7 @@
                             <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.bidder_name}}</td>
-                                <td>{{ a.companytype}}</td>
+                                <!-- <td>{{ a.companytype}}</td> -->
                                 <td>{{ a.contact[0].name}}</td>
                                 <td>{{ a.contact[0].contactno1 }}</td>
                                 <td>{{ a.contact[0].email }}</td>
