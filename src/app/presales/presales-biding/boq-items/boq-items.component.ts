@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService } from 'src/app/_services';
 
 @Component({
   selector: 'app-boq-items',
@@ -17,27 +17,12 @@ export class BoqItemsComponent {
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
-  result: any;
-  companyData: any;
   isNotFound: boolean = false;
-  countryData: any;
-  stateData: any;
-  districtData: any = [];
   isSubmitted: boolean = false;
-  val: any;
-  country: any;
   limits: any = [];
-  updateData: any;
-  createModal: boolean = false;
   update: boolean = false;
   button: string = 'Create';
-  custDetails: any;
-  loadermsg: any;
   loading: boolean = false;
-  compData: any;
-  contDetails: any;
-  isExcelDownload: boolean = false;
-  isExcelDownloadData: boolean = true;
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;
@@ -76,17 +61,6 @@ export class BoqItemsComponent {
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
 
   ngOnInit() {
-    this.apiService.getCompanyList().subscribe((res: any) => {
-      if(res.status === 200) {
-        this.comData = res.result;
-      } else {
-        this.alertService.warning("Looks like no data available in type!");
-      }
-    }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
-    }
     this.form = this.formBuilder.group({
       childItem: this.formBuilder.array([]),
     });
@@ -100,6 +74,22 @@ export class BoqItemsComponent {
     this.addAnotherRow();
     this.getDropdownList();
     this.getBoqListData();
+    this.getCompanyData();
+  }
+
+  getCompanyData(): void {
+    const apiLink = `/company/api/v1/getComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.comData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type!");
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(error.message);
+    }
   }
 
   getChildData(data: any): void {
@@ -232,15 +222,6 @@ export class BoqItemsComponent {
     this.filesToUpload = <Array<File>>fileInput.target.files;
   }
 
-  exportAsXLSX1() {
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-    var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
-    var wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
-    XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
-    XLSX.writeFile(wb, "Data_File.xlsx");
-
-  }
   downloadPdf() {
     const pdfUrl = './assets/tamplate/BOQ.xlsx';
     const pdfName = 'BOQ.xlsx';
