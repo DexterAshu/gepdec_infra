@@ -24,7 +24,6 @@ export class L1ScheduleComponent {
   tenderList: any = [];
   selectedTender: any;
   selectedRow: any;
-  isExcelDownloadData: boolean = true;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService: SharedService, private elementRef: ElementRef) { }
 
@@ -112,7 +111,7 @@ export class L1ScheduleComponent {
 
   isOpen: boolean = false;
 
- 
+
   get f() {
     return this.documentForm.controls;
   }

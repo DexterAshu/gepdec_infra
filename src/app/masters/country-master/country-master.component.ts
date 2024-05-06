@@ -67,7 +67,7 @@ export class CountryMasterComponent {
 
   getCountryList() {
     this.isNotFound = true;
-    this.masterService.getCountryData().subscribe((res:any) => {
+    this.apiService.getCountryDataList().subscribe((res:any) => {
       this.isNotFound = false;
       if (res.status == 200) {
       this.countCount = res;

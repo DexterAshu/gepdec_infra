@@ -47,10 +47,6 @@ export class MasterService {
     return this.http.get(`${environment.apiUrl}/master/company/getCompany`, httpOptions);
   }
 
-  getCountryData(): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.get<any>(`${environment.apiUrl}/state/api/v1/getCountry`, httpOptions);
-  }
   getStateData(): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.get<any>(`${environment.apiUrl}/state/api/v1/getState`, httpOptions);
