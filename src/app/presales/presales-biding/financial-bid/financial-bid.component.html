@@ -809,20 +809,10 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                 </thead>
                                
                                 <!-- annuval turnover -->
-                             
-
-                                    <tr *ngIf=" rowData?.annual_turnover > 0">
-                                        <th>Annuval Turnover</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
 
                                 <tbody class="text-nowrap" *ngIf=" rowData?.annual_turnover > 0">
                                     <tr>
-                                        <td></td>
+                                        <td>Annuval Turnover</td>
                                         <td>{{ rowData?.annual_turnover }}</td>
                                         <td>{{ rowData?.annual_turnover_year }}</td>
                                         <td>{{ rowData?.annual_turnover_check}}</td>
@@ -839,22 +829,10 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                 </tbody>
                              
                                 <!-- Net Worth -->
-                             
-
-                                    <tr *ngIf=" rowData?.net_worth > 0">
-                                        <th>Net Worth </th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                       
-                                    </tr>
-
                                 <tbody class="text-nowrap" *ngIf=" rowData?.net_worth > 0">
                                     <tr>
                                         <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                        <td></td>
+                                        <td>Net Worth</td>
                                         <td>{{ rowData?.net_worth }}</td>
                                         <td>{{ rowData?.net_worth_year }}</td>
                                         <td>{{ rowData?.net_worth_check}}</td>
@@ -871,22 +849,11 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                 </tbody>
                              
                                 <!-- Net Working Capital -->
-                               
-
-                                    <tr *ngIf=" rowData?.net_working_capital > 0">
-                                        <th>Net Working Capital</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                       
-                                    </tr>
 
                                 <tbody class="text-nowrap" *ngIf=" rowData?.net_working_capital > 0">
                                     <tr>
                                         <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                        <td></td>
+                                        <td>Net Working Capital</td>
                                         <td>{{ rowData?.net_working_capital }}</td>
                                         <td>{{ rowData?.net_working_capital_year }}</td>
                                         <td>{{ rowData?.net_working_capital_check}}</td>
@@ -903,20 +870,10 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                 </tbody>
                             
                                 <!-- Net Profit -->
-                                    <tr *ngIf=" rowData?.net_profit > 0">
-                                        <th>Net Profit</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                       
-                                    </tr>
-
                                 <tbody class="text-nowrap"  *ngIf=" rowData?.net_profit > 0">
                                     <tr>
                                         <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                        <td></td>
+                                        <td>Net Profit</td>
                                         <td>{{ rowData?.net_profit }}</td>
                                         <td>{{ rowData?.net_profit_year }}</td>
                                         <td>{{ rowData?.net_profit_check}}</td>
