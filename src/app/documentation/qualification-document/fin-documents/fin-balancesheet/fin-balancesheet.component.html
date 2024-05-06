@@ -67,14 +67,6 @@
                                 <th>S No</th>
                                 <th>Company</th>
                                 <th>Financial Year</th>
-                                <th>Total Liabilities</th>
-                                <th>Total Fixed Assets</th>
-                                <th>Net Profit</th>
-                                <th>Net Worth</th>
-                                <th>Net Capital</th>
-                                <th>Net Working Capital</th>
-                                <th>Reserve & Surplus</th>
-                                <th>Paid Up Capital</th>
                                 <th>Annuval Turnover</th>
                                 <th>Attachments</th>
                              
@@ -86,14 +78,6 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.bidder_name}}</td>
                                 <td>{{a.financialyear}}</td>
-                                <td>{{a.total_liabilities}}</td>
-                                <td>{{a.total_fixed_assets}}</td>
-                                <td>{{a.net_profit}}</td>
-                                <td>{{a.net_worth}}</td>
-                                <td>{{a.net_capital}}</td>
-                                <td>{{a.net_working_capital}}</td>
-                                <td>{{a.reserve_surplus}}</td>
-                                <td>{{a.paid_upcapital}}</td>
                                 <td>{{a.annual_turnover}}</td>
                                 <td>
                                     <div *ngIf="!!a.filename; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
