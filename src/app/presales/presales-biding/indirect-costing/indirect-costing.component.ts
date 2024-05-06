@@ -100,7 +100,7 @@ export class IndirectCostingComponent {
 
   overHeadDetails(data: any) {
     this.overHeadData = [];
-    let apiLink = "/costing/api/v1/getCostingByCostType/?" + data;
+    let apiLink = "/costing/api/v1/getCostingByCostType/" + data;
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.overHeadData = res;

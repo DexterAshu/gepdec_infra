@@ -133,7 +133,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Primary Contact No<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Primary No<span class="required-asterisk">*</span></label>
                                     <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
                                     maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">

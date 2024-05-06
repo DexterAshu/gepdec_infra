@@ -179,10 +179,10 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">Technical Rating (Demo)<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">Technical Rating<span class="required-asterisk">*</span></label>
                                                 <select formControlName="techRating" class="form-select form-select-sm">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Rating</option>
-                                                    <option *ngFor="let t of technicalRating">{{ t }}</option>
+                                                    <option *ngFor="let t of dataDropdownList?.technicalrating" [value]="t.technicalrating_id">{{ t.technicalrating }}</option>
                                                 </select>
                                                 <div *ngIf="f['techRating'].touched && f['techRating'].invalid">
                                                     <small class="text-danger" *ngIf="f['techRating'].errors?.['required']">*Required</small>

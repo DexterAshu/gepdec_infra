@@ -88,7 +88,7 @@
 <!-- create modal -->
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add In-direct Costing</h5>
@@ -98,7 +98,7 @@
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="client_id" class="form-select form-select-sm" (change)="getTenderData()">
@@ -111,7 +111,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
                                     <select formControlName="tender_id" #t_ID class="form-select form-select-sm" (change)="getDetailedData(t_ID.value)">
@@ -126,10 +126,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Ref No</label>
-                                    <span class="form-control form-control-sm" readonly>{{tenderDetailedData[0]?.tender_ref_no}}</span>
+                                    <input class="form-control form-control-sm" readonly value="{{tenderDetailedData[0]?.tender_ref_no}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -139,7 +139,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label">Overhead Expenses<span class="required-asterisk">*</span></label>
                                     <select formControlName="expenses" #overhead class="form-select form-select-sm" (change)="overHeadDetails(overhead.value)">

@@ -28,7 +28,6 @@ export class SupplierComponent {
   factoryDistrictData:any;
   factoryCityData:any;
   rowData:any;
-  technicalRating = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -335,6 +334,7 @@ export class SupplierComponent {
       formData.append('panno', this.form.value.panNo?.toUpperCase());
       formData.append('tanno', this.form.value.tanNo?.toUpperCase());
       formData.append('doi', this.form.value.doi);
+      formData.append('technicalrating_id', this.form.value.techRating);
 
       formData.append('address[0][addresstype_id]', '301');
       formData.append('address[0][country_id]', this.form.value.headCountry);
