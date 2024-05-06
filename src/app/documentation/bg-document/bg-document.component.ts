@@ -1,7 +1,9 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { ApiService, AlertService } from 'src/app/_services';
+import { MasterService } from 'src/app/_services/master.service';
+import { AlertService } from 'src/app/_services/alert.service';
+import { ApiService } from 'src/app/_services/api.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 @Component({
@@ -12,7 +14,7 @@ import * as FileSaver from 'file-saver';
 export class BgDocumentComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
@@ -28,70 +30,131 @@ export class BgDocumentComponent {
   isExcelDownloadData: boolean = true;
   companyData: any;
   tenderType: any;
+  bankData: any;
+  tenderData: any;
+  tenderDetails: any;
+  tenderDetailsData: any;
+  clientListData: any;
+  clientList: any;
+  tendDetails: any;
+  data1: any;
+  userData: any;
+  filterTenderDetailsData: any = [];
+  securityData: any;
   isOpen: boolean = false;
-  
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
+    private  masterService: MasterService,
     private alertService: AlertService
-  ) { }
+  ) {
+    const userDataString = localStorage.getItem('gdUserData');
+    if (userDataString) {
+      this.userData = JSON.parse(userDataString);
+    }
+  }
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
-      // documenttype_id: ['',Validators.required],
-      bank_name: ['null', Validators.required],
-      bgamount: ['', Validators.required],
-      bgnumber: ['', Validators.required],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required],
-      submission_date: ['', Validators.required],
-      extend_date: ['', Validators.required],
-      attachment: ['', Validators.required],
-      publish_date: ['', Validators.required],
-      tender_ref_no: ['', Validators.required],
-      tender_title: ['', Validators.required],
-      utility: ['null', Validators.required],
-      description: [''],
+      security_id: [null,Validators.required],
+      utility_id:[null, Validators.required],
+      tender_id:[null, Validators.required],
+      bank_id: [null],
+      bg_number: [null, Validators.required],
+      bg_amount: [null, Validators.required],
+      start_date: [null],
+      end_date: [null],
+      submission_date: [null],
+      extend_date: [null],
+      attachment: [null],
+      document_description: [null],
 
     });
 
     this.getData();
+    this.bankList();
+  }
+
+  updateDoc(){
+    this.documentForm.get('bank_id')!.setValidators([Validators.required]);
+    this.documentForm.controls['bank_id'].clearValidators();
+    this.documentForm.get('submission_date')!.setValidators([Validators.required]);
+    this.documentForm.controls['submission_date'].clearValidators();
+    this.documentForm.get('extend_date')!.setValidators([Validators.required]);
+    this.documentForm.controls['extend_date'].clearValidators();
+    this.documentForm.get('attachment')!.setValidators([Validators.required]);
+    this.documentForm.controls['attachment'].clearValidators();
+    this.documentForm.get('end_date')!.setValidators([Validators.required]);
+    this.documentForm.controls['end_date'].clearValidators();
+    this.documentForm.get('start_date')!.setValidators([Validators.required]);
+    this.documentForm.controls['start_date'].clearValidators();
   }
 
   getData() {
     this.apiService.getDocType().subscribe((res: any) => {
-      if (res.status == 200) {
+      if(res.status == 200) {
         this.docType = res.documenttype;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-      (error: any) => {
-        console.log(error);
-        this.alertService.warning(`Some technical issue: ${error.message}`);
-      }
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
     this.apiService.getCompanyList().subscribe((res: any) => {
-      if (res.status == 200) {
+      if(res.status == 200) {
         this.companyData = res.result;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-      (error: any) => {
-        console.log(error);
-        this.alertService.warning(`Some technical issue: ${error.message}`);
-      }
+    (error: any) => {
+      console.log(error);
+      this.alertService.warning(`Some technical issue: ${error.message}`);
+    }
     this.apiService.getTenderType().subscribe((res: any) => {
-      if (res.status == 200) {
-        this.tenderType = res.bidtype;
+      this.tenderType = res.bidtype;
+      this.securityData = res.security;
+    });
+    this.masterService.getBankData().subscribe((res:any)=>{
+      this.bankData = res.bank;
+    })
+    this.apiService.getTenderList().subscribe((res: any) => {
+      this.tenderData = res.result;
+    });
+
+  }
+
+  bankList(){
+    this.docListData = [];
+    this.isNotFound = false;
+    this.apiService.getBankDataList().subscribe((res:any) => {
+      if (res.status === 200) {
+        this.isNotFound = false;
+        this.docListData = res.result;
       } else {
+        this.docListData = undefined;
+        this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }),
-      (error: any) => {
-        console.log(error);
-        this.alertService.warning(`Some technical issue: ${error.message}`);
-      }
+    }, error => {
+      this.docListData = undefined;
+      this.isNotFound = true;
+      this.alertService.error("Error: " + error.statusText)
+    });
+  }
+
+  getDetails(event: any) {
+    const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    this.clientListData = company_id;
+    this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
+    this.tenderDetailsData = res.result;
+    });
+  }
+
+  getrefData(tender_id: any){
+    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
 
   onFileChanged(event: any) {
@@ -119,47 +182,50 @@ export class BgDocumentComponent {
   get f() {
     return this.documentForm.controls;
   }
-
-  download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
+ 
+   download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
   onSubmit() {
-    console.log(this.documentForm.value);
+    this.isSubmitted = true;
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-
-    // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
-    formData.append('bank_name', this.documentForm.value.bank_name);
-    formData.append('bgnumber', this.documentForm.value.bgnumber);
-    formData.append('bgamount', this.documentForm.value.bgamount);
+    formData.append('security_id', this.documentForm.value.security_id);
+    formData.append('bank_id', this.documentForm.value.bank_id);
+    formData.append('bg_number', this.documentForm.value.bg_number);
+    formData.append('bg_amount', this.documentForm.value.bg_amount);
     formData.append('start_date', this.documentForm.value.start_date);
     formData.append('end_date', this.documentForm.value.end_date);
     formData.append('submission_date', this.documentForm.value.submission_date);
-    formData.append('extend_date', this.documentForm.value.extend_date);
-    formData.append('publish_date', this.documentForm.value.publish_date);
-    formData.append('tender_ref_no', this.documentForm.value.tender_ref_no);
-    formData.append('tender_title', this.documentForm.value.tender_title);
-    formData.append('utility', this.documentForm.value.utility);
-    formData.append('description', this.documentForm.value.description);
+    if(this.documentForm.value.extend_date != '' || this.documentForm.value.extend_date != null){
+      formData.append('extend_date', this.documentForm.value.extend_date);
+    }
+    formData.append('tender_id', this.documentForm.value.tender_id);
+    formData.append('utility_id', this.documentForm.value.utility_id);
+    formData.append('document_description', this.documentForm.value.document_description);
     this.addDocument(formData);
   }
 
   addDocument(formData: FormData) {
-    this.apiService.createDocuments(formData).subscribe((res: any) => {
+    this.apiService.AddBank(formData).subscribe((res: any) => {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
+        this.bankList();
         this.documentForm.reset();
         this.alertService.success(response.message);
       } else {
         this.alertService.warning(response.message);
       }
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 }
-

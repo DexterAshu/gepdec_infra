@@ -42,9 +42,8 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <!-- <th>Company ID</th> -->
                                 <th>Company Name</th>
-                                <th>Company Type</th>
+                                <!-- <th>Company Type</th> -->
                                 <th>Contact Person</th>
                                 <th>Contact No</th>
                                 <th>Email ID</th>
@@ -58,7 +57,7 @@
                             <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.bidder_name}}</td>
-                                <td>{{ a.companytype}}</td>
+                                <!-- <td>{{ a.companytype}}</td> -->
                                 <td>{{ a.contact[0].name}}</td>
                                 <td>{{ a.contact[0].contactno1 }}</td>
                                 <td>{{ a.contact[0].email }}</td>
@@ -157,9 +156,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Secondary Number (optional)</label>
-                                    <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
-                                    maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <label class="form-label fl-10">Secondary No</label>
+                                    <input formControlName="contactno2" minlength="10" maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -333,7 +331,7 @@
                             <td>{{ rowData?.contact[0]?.contactno1 }}</td>
                             </tr>
                             <tr>
-                            <th>Secondary Number (optional)</th>
+                            <th>Secondary No</th>
                             <td>{{ rowData?.contact[0]?.contactno2 }}</td>
                             <th>Email ID</th>
                             <td>{{ rowData?.contact[0]?.email }}</td>
@@ -347,7 +345,7 @@
                         <tr>
                             <th>Cin No</th>
                             <td>{{ rowData?.cinno }}</td>
-                            <th>DOI (Date of Incorporation)</th>
+                            <th>DOI</th>
                             <td>{{ rowData?.doi }}</td>
                         </tr>
                         <tr>

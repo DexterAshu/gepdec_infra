@@ -45,8 +45,8 @@
                                 <th>Contact No 1</th>
                                 <th>Contact No 2</th>
                                 <th>Email ID</th>
-                                <th>Created By</th>
-                                <th>Action</th>
+                                <!-- <th>Created By</th> -->
+                                <!-- <th>Action</th> -->
                             </tr>
                         </thead>
                         <tbody class="text-nowrap" *ngIf="companyData.length">
@@ -59,10 +59,10 @@
                                 <td>{{ a.contactno1 }}</td>
                                 <td>{{ a.contactno2 }}</td>
                                 <td>{{ a.email }}</td>
-                                <td>{{ a.created }}</td>
-                                <td>
+                                <!-- <td>{{ a.created }}</td> -->
+                                <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
-                                </td>
+                                </td> -->
                               </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
@@ -176,7 +176,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Primary Contact No<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Primary No<span class="required-asterisk">*</span></label>
                                     <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
                                     maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">

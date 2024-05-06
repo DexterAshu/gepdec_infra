@@ -110,7 +110,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Client Name<span class="required-asterisk">*</span></label>
-                                    <input formControlName="company_name" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                    <input formControlName="company_name" type="text" class="form-control form-control-sm" appUpperCase>
                                     <div *ngIf="f['company_name'].touched && f['company_name'].invalid">
                                         <small class="text-danger" *ngIf="f['company_name'].errors?.['required']">*Required</small>
                                     </div>
@@ -119,7 +119,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Client Type<span class="required-asterisk">*</span></label>
-                                    <select formControlName="company_type" class="form-select form-select-sm" (change)="selfFun()">
+                                    <select formControlName="company_type" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Company Type</option>
                                         <option *ngFor="let s of compData" value="{{s.mstcompanytype_id}}">{{ s.mstcompanytype }}</option>
                                     </select>
@@ -308,7 +308,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Secondary Contact No</label>
+                                    <label class="form-label">Secondary No</label>
                                     <input formControlName="contactno2" minlength="10"
                                     maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
                                 </div>
@@ -370,7 +370,7 @@
                         </tr>
                         <tr>
                            
-                            <th>DOI (Date of Incorporation)</th>
+                            <th>DOI</th>
                             <td>{{ rowData?.doi }}</td>
                             <th>Country</th>
                             <td>{{ rowData?.name }}</td>
@@ -418,7 +418,7 @@
                             <th>Sr No</th>
                             <th>Contact Person</th>
                             <th>Mobile No</th>
-                            <th>Secondary Number</th>
+                            <th>Secondary No</th>
                             <th>Email ID</th>
                             <!-- <th>Department</th>
                             <th>Designation</th> -->
