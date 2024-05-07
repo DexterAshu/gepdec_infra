@@ -31,8 +31,7 @@ export class TechnicalBidComponent {
   tenderData: any;
   docListData: any;
   inserteddata: any;
-  discardeddata: any;
-  isExcelDownloadData: boolean = true;
+  discardeddata: any
   techData: any = [];
   filterTenderDetailsData: any = [];
   uploadFile: any;

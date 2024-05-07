@@ -24,7 +24,6 @@ export class MangagementTenderApprovalComponent {
   val: any;
   country:any;
   limits: any = [];
-  isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
   custDetails: any;
@@ -273,8 +272,6 @@ ngAfterViewInit() : void{
       //     var compName = this.companyData.filter((item: any) => {
       //       return item.company_name == this.form.value.company_name;
       //     });
-      //     console.log(compName);
-          
       //     this.form.value.company_name = compName[0]['company_id'];
       //   }
       // } else {

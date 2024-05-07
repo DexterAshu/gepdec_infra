@@ -34,8 +34,6 @@ export class OurCompanyFinanaceDataComponent {
   loading: boolean = false;
   compData: any;
   contDetails: any;
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   filesToUpload: Array<File> = [];
   inserteddata: any;
   financialData: any;

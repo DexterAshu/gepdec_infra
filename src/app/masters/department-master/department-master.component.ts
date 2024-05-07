@@ -17,8 +17,6 @@ export class DepartmentMasterComponent {
   isNotFound:boolean = false;
   countryData: any;
   isSubmitted: boolean = false;
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   deptData: any = [];
   deptCount: any;
   inserteddata: any;

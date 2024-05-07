@@ -34,8 +34,6 @@ export class CompanyComponent implements OnInit {
   departMent: any;
   inputValue: any;
   contactDetails: any;
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;

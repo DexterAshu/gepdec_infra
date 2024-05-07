@@ -28,8 +28,7 @@ export class TenderDocumentComponent {
   companyData: any;
   tenderType: any;
   inserteddata: any;
-  discardeddata: any;
-  isExcelDownloadData: boolean = true;
+  discardeddata: any
   filterTenderDetailsData: any = [];
   showTypeField: boolean = true;
   clientListData: any;

@@ -35,8 +35,6 @@ export class ProjReportsComponent {
   departMent: any;
   inputValue: any;
   contactDetails: any;
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;
@@ -216,7 +214,6 @@ export class ProjReportsComponent {
     this.apiService.getCompanyList().subscribe((res: any) => {
       this.companyData = res.result;
       this.limits.push({ key: 'ALL', value: this.companyData.length });
-      this.isExcelDownload = true;
     });
  
   }

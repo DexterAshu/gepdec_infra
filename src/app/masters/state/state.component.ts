@@ -19,8 +19,6 @@ export class StateComponent implements OnInit {
   countryData: any;
   isSubmitted: boolean = false;
   stateCount: any;
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;

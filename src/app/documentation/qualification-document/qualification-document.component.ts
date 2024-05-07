@@ -61,7 +61,6 @@ export class QualificationDocumentComponent {
   getData() {
     
     // let data = this.documentForm.value.document_id;
-    // console.log(data);
     this.apiService.getDocType().subscribe((res: any) => {
       if(res.status == 200) {
         this.docType = res.documenttype;

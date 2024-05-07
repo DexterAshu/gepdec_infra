@@ -11,8 +11,7 @@ import * as XLSX from 'xlsx';
 })
 export class TechnicalGTPsComponent {
   isOpen: boolean = false;
-  searchText: any;
-  isExcelDownloadData: boolean = true;
+  searchText: any
   docListData: any = [];
   p: number = 1;
   limit = environment.pageLimit;

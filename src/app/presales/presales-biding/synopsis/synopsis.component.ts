@@ -26,7 +26,6 @@ export class SynopsisComponent {
   val: any;
   country: any;
   limits: any = [];
-  isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
   update: boolean = false;
@@ -37,8 +36,7 @@ export class SynopsisComponent {
   companyList: any;
   tenderType: any;
   inserteddata: any;
-  discardeddata: any;
-  isExcelDownloadData: boolean = true;
+  discardeddata: any
   userData: any;
   statusData: any;
   rowData: any;
@@ -80,7 +78,6 @@ export class SynopsisComponent {
   }
 
   //  getDetails(data:any){
-  //   console.log(data);
   //   if (data) {
   //     if (this.userData && this.userData.rolename === "Administrator") {
   //       this.router.navigate(['presales/presales-biding/management-approval',data]);
@@ -169,7 +166,6 @@ console.log(this.statusList)
     // var newCases=this.casetabledata.filter((res:any)=>{
     //   return res.status==="New"
     // })
-    // console.log(newCases);
     //       this.dataSource = new MatTableDataSource(newCases);
     //       this.setDataSourceAttributes()
   }
@@ -178,7 +174,6 @@ console.log(this.statusList)
     // var openCases=this.casetabledata.filter((res:any)=>{
     //   return res.status==="Open"
     // })
-    // console.log(openCases);
     //       this.dataSource = new MatTableDataSource(openCases);
     //       this.setDataSourceAttributes()
   }
@@ -187,7 +182,6 @@ console.log(this.statusList)
     // var holdcase=this.casetabledata.filter((res:any)=>{
     //   return res.status==="On Hold"
     // })
-    // console.log(holdcase);
     // this.dataSource = new MatTableDataSource(holdcase);
     // this.setDataSourceAttributes()
   }
@@ -196,7 +190,6 @@ console.log(this.statusList)
     // var closed=this.casetabledata.filter((res:any)=>{
     //   return res.status==="Closed"
     // })
-    // console.log(closed);
     // this.dataSource = new MatTableDataSource(closed);
     // this.setDataSourceAttributes()
 
@@ -206,7 +199,6 @@ console.log(this.statusList)
     // var closed=this.casetabledata.filter((res:any)=>{
     //   return res.status==="Closed"
     // })
-    // console.log(closed);
     // this.dataSource = new MatTableDataSource(closed);
     // this.setDataSourceAttributes()
   }

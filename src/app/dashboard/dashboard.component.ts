@@ -1224,8 +1224,6 @@ export class DashboardComponent implements OnInit {
   //   this.masterService.getProjectList().subscribe((res:any) => {
   //     if (res.status == 200) {
   //     this.projData = res.result;
-  //     console.log(this.projData);
-      
   //     }else {
   //       this.alertService.warning("Looks like no data available!");
   //     }

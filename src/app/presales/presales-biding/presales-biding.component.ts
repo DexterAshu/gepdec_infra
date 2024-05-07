@@ -23,7 +23,6 @@ export class PresalesBidingComponent {
   val: any;
   country:any;
   limits: any = [];
-  isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
   update: boolean = false;
@@ -113,11 +112,8 @@ export class PresalesBidingComponent {
     this.expenseTypeData = this.costType.filter((x:any) => x.expense_type == costtype_id);
     // const costtype_id = event?.target ? (event.target as HTMLInputElement).value : event;
     // this.expenseTypeData = costtype_id;
-    // console.log(this.expenseTypeData);
-    
     // this.apiService.getTenderLisById(this.expenseTypeData).subscribe((res: any) => {
     //   this.tenderDetailsData = res.result;
-    //   console.log(this.tenderDetailsData);
     // });
   }
 

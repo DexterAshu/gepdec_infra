@@ -20,8 +20,6 @@ export class RoleMasterComponent {
   isSubmitted: boolean = false;
   rolCount: any;
   rolData: any = [];
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   inserteddata: any;
   discardeddata: any;
 

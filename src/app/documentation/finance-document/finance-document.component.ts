@@ -25,8 +25,7 @@ export class FinanceDocumentComponent {
   docType: any;
   docListData: any;
   inserteddata: any;
-  discardeddata: any;
-  isExcelDownloadData: boolean = true;
+  discardeddata: any
   companyData: any;
   tenderType: any;
   isOpen: boolean = false;

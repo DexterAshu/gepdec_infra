@@ -26,8 +26,7 @@ export class AmendmentsComponent {
   companyData: any;
   tenderType: any;
   inserteddata: any;
-  discardeddata: any;
-  isExcelDownloadData: boolean = true;
+  discardeddata: any
   clientListData: any;
   tenderDetailsData: any;
   filterTenderDetailsData: any = [];

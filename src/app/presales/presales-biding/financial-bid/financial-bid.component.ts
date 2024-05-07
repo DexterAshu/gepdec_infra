@@ -26,7 +26,6 @@ export class FinancialBidComponent {
   val: any;
   country:any;
   limits: any = [];
-  isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
   ourCompanyFinDataField: boolean = false;
@@ -48,8 +47,7 @@ export class FinancialBidComponent {
   bankData: any;
   docListData: any;
   inserteddata: any;
-  discardeddata: any;
-  isExcelDownloadData: boolean = true;
+  discardeddata: any
   filterTenderDetailsData: any = [];
   attachment: any = [];
   annualTurnover = new FormControl();
@@ -450,9 +448,7 @@ export class FinancialBidComponent {
   //     check:this.form.value[checkVal],
   //     column:name,
   //   }
-  //  console.log(data);
   //    this.apiService.finAnnuvalTournover(data).subscribe((res:any) =>{
-  //     console.log(res);
   //     this.data =res.result;
   //    })
 
@@ -460,8 +456,6 @@ export class FinancialBidComponent {
 
   //   // this.apiService.finCalculateData(year, check).subscribe((res:any) =>{
   //   // this.finCalData = res.result;
-  //   // console.log(this.finCalData);
-  //   // console.log(this.form.value.annual_turnover);
   // }
 
 

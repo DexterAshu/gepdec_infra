@@ -27,8 +27,7 @@ export class FinDocumentsComponent {
   companyData: any;
   tenderType: any;
   inserteddata: any;
-  discardeddata: any;
-  isExcelDownloadData: boolean = true;
+  discardeddata: any
   isOpen: boolean = false;
 
   constructor(
@@ -66,7 +65,6 @@ export class FinDocumentsComponent {
   getData() {
     
     // let data = this.documentForm.value.document_id;
-    // console.log(data);
     this.apiService.getDocType().subscribe((res: any) => {
       if(res.status == 200) {
         this.docType = res.documenttype;
