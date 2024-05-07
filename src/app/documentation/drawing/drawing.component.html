@@ -79,7 +79,7 @@
 </div>
 
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Drawing Document Creation</h5>
@@ -115,26 +115,72 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label fl-10">Tender Ref. No<span class="required-asterisk">*</span></label>
+                  <label class="form-label fl-10">Ref No</label>
                   <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_ref_no" readonly>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label fl-10">Tender Publish Date<span class="required-asterisk">*</span></label>
+                  <label class="form-label fl-10">Publish Date</label>
                   <input type="date" class="form-control form-control-sm" [value]="selectedTender?.publish_date" readonly>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
-                  <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                  <input id="cin" class="form-control form-control-sm" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" placeholder="Upload a file..." multiple="true" />
+                  <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
+                  <select formControlName="drawingFrom" class="form-select form-select-sm" (ngModelChange)="selectDrawingFrom()">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                    <option value="In House">In House</option>
+                    <option value="Third Party">Third Party</option>
+                  </select>
+                  <div *ngIf="f['drawingFrom'].touched && f['drawingFrom'].invalid">
+                    <small class="text-danger" *ngIf="f['drawingFrom'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label fl-10">Drawn By<span class="required-asterisk" *ngIf="isInHouse">*</span></label>
+                  <input type="text" formControlName="artist" [readOnly]="!isInHouse" class="form-control form-control-sm" appWordCapitalize>
+                  <div *ngIf="f['artist'].touched && f['artist'].invalid">
+                    <small class="text-danger" *ngIf="f['artist'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label fl-10">Approved By<span class="required-asterisk" *ngIf="isInHouse">*</span></label>
+                  <input type="text" formControlName="drawingApprovedBy" [readOnly]="!isInHouse" class="form-control form-control-sm" appWordCapitalize>
+                  <div *ngIf="f['drawingApprovedBy'].touched && f['drawingApprovedBy'].invalid">
+                    <small class="text-danger" *ngIf="f['drawingApprovedBy'].errors?.['required']">*Required</small>
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="">Document Description:</label>
+                  <label id="drawing"> Upload Drawing <span class="required-asterisk">*</span></label><br>
+                  <input class="form-control form-control-sm" name="drawing" type="file" formControlName="drawing" (change)="onImageUpload($event)" placeholder="Upload a file..." accept="image/*">
+                  <div *ngIf="f['drawing'].touched && f['drawing'].invalid">
+                    <small class="text-danger" *ngIf="f['drawing'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label id="file"> Upload PDF <span class="required-asterisk">*</span></label><br>
+                  <input class="form-control form-control-sm" name="file" type="file" formControlName="file" (change)="onFileUpload($event)" placeholder="Upload a file..." accept=".pdf">
+                  <div *ngIf="f['file'].touched && f['file'].invalid">
+                    <small class="text-danger" *ngIf="f['file'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="">Document Description: <span class="required-asterisk">*</span></label>
                   <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize></textarea>
+                  <div *ngIf="f['description'].touched && f['description'].invalid">
+                    <small class="text-danger" *ngIf="f['description'].errors?.['required']">*Required</small>
+                  </div>
                 </div>
               </div>
             </div>
