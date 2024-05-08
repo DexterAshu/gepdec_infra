@@ -13,7 +13,6 @@ import * as FileSaver from 'file-saver';
 })
 export class BankingDetailsComponent {
   documentForm!: FormGroup;
-  attachment: File[] = [];
   isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
@@ -59,15 +58,11 @@ export class BankingDetailsComponent {
       security_id: [null,Validators.required],
       utility_id:[null, Validators.required],
       tender_id:[null, Validators.required],
-      bank_id: [null],
-      bg_number: [null, Validators.required],
       bg_amount: [null, Validators.required],
       start_date: [null, Validators.required],
       end_date: [null, Validators.required],
       submission_date: [null, Validators.required],
-      extend_date: [null],
-      attachment: [null],
-      document_description: [null],
+      document_description: [null, Validators.required],
 
     });
 
@@ -75,20 +70,7 @@ export class BankingDetailsComponent {
     this.bankList();
   }
 
-  updateDoc(){
-    this.documentForm.get('bank_id')!.setValidators([Validators.required]);
-    this.documentForm.controls['bank_id'].clearValidators();
-    this.documentForm.get('submission_date')!.setValidators([Validators.required]);
-    this.documentForm.controls['submission_date'].clearValidators();
-    this.documentForm.get('extend_date')!.setValidators([Validators.required]);
-    this.documentForm.controls['extend_date'].clearValidators();
-    this.documentForm.get('attachment')!.setValidators([Validators.required]);
-    this.documentForm.controls['attachment'].clearValidators();
-    this.documentForm.get('end_date')!.setValidators([Validators.required]);
-    this.documentForm.controls['end_date'].clearValidators();
-    this.documentForm.get('start_date')!.setValidators([Validators.required]);
-    this.documentForm.controls['start_date'].clearValidators();
-  }
+
 
   getData() {
     this.apiService.getDocType().subscribe((res: any) => {
@@ -157,22 +139,6 @@ export class BankingDetailsComponent {
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
 
-  onFileChanged(event: any) {
-    try {
-      const files = event.target.files;
-      for (let i = 0; i < files.length; i++) {
-        this.listOfFiles.push(files[i].name);
-        this.attachment.push(files[i]);
-      }
-    } catch (error) {
-      console.error('Error selecting file:', error);
-    }
-  }
-
-  removeSelectedFile(index: number) {
-    this.listOfFiles.splice(index, 1);
-    this.attachment.splice(index, 1);
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {

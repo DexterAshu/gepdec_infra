@@ -64,7 +64,6 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Submission Date</th>
-                                <th>Extend Date</th>
                                 <th>Attachments</th>
                                 <th>Action</th>
                             </tr>
@@ -90,7 +89,6 @@
                                 <td>{{a.start_date}}</td>
                                 <td>{{a.end_date}}</td>
                                 <td>{{a.submission_date}}</td>
-                                <td>{{a.extend_date}}</td>
                                 <td>
                                     <div *ngIf="!!a.document; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.document }}">
                                         {{a.document | slice:0:30}} <span *ngIf="a.document.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -188,15 +186,37 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Ref No</label>
-                                    <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
-                                
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.tender_ref_no}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <span class="form-control form-control-sm" readonly >{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
-        
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Amount</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.Amount | date: 'dd/MM/yyyy'}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Start Date</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.start_date | date: 'dd/MM/yyyy'}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">End Date</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.end_date | date: 'dd/MM/yyyy'}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Submission Date</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.submission_date | date: 'dd/MM/yyyy'}}">
                                 </div>
                             </div>
 
@@ -218,35 +238,7 @@
                                 <small class="text-danger" *ngIf="f['bg_number'].errors?.['required']">*Required</small>
                             </div>    
                         </div>
-                            <div class="form-group col-3">
-                            <label for="">Amount <span class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="bg_amount" usd-only>
-                            <div *ngIf="f['bg_amount'].touched && f['bg_amount'].invalid">
-                                <small class="text-danger" *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
-                            </div>    
-                        </div>
-                            <div class="form-group col-3" >
-                            <label for="">Start Date <span class="required-asterisk">*</span></label>
-                            <input type="date" class="form-control form-control-sm" formControlName="start_date">
-                            <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
-                                <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
-                            </div> 
-                        </div>
-                            <div class="form-group col-3">
-                            <label for="">End Date <span class="required-asterisk">*</span></label>
-                            <input type="date" class="form-control form-control-sm" formControlName="end_date">
-                            <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
-                                <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
-                            </div>
-                        </div>
-
-                            <div class="form-group col-3" >
-                            <label for="">Submission Date <span class="required-asterisk">*</span></label>
-                            <input type="date" class="form-control form-control-sm" formControlName="submission_date">
-                            <div *ngIf="f['submission_date'].touched && f['submission_date'].invalid">
-                                <small class="text-danger" *ngIf="f['submission_date'].errors?.['required']">*Required</small>
-                            </div>
-                        </div>
+                       
                             <div class="form-group col-3">
                             <label for="">Extend Date </label>
                             <input type="date" class="form-control form-control-sm" formControlName="extend_date">
