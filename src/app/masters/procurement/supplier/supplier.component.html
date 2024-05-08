@@ -29,14 +29,14 @@
                 <th>S No</th>
                 <th>Vendor Code</th>
                 <th>Vendor Name</th>
-                <th>Category</th>
-                <th>Category No</th>
+                <th>Reg Type</th>
+                <!-- <th>Reg No</th> -->
                 <th>Contact No</th>
                 <th>Email ID</th>
-                <th>Pan No</th>
-                <th>GST No</th>
-                <th>GST Date</th>
-                <th>Date of Incorporation</th>
+                <!-- <th>Pan No</th> -->
+                <!-- <th>GST No</th> -->
+                <!-- <th>GST Date</th> -->
+                <!-- <th>DOI</th> -->
                 <th>Action</th>
               </tr>
             </thead>
@@ -46,13 +46,13 @@
                 <td>{{ a.suppliercode }}</td>
                 <td>{{ a.suppliername }}</td>
                 <td>{{ a?.category }}</td>
-                <td>{{ a?.category_no }}</td>
+                <!-- <td>{{ a?.category_no }}</td> -->
                 <td>{{ a?.contact[0]?.contactno }}</td>
                 <td>{{ a?.contact[0]?.emailid }}</td>
-                <td>{{ a?.panno }}</td>
+                <!-- <td>{{ a?.panno }}</td>
                 <td>{{ a?.gstno }}</td>
                 <td>{{ a?.gstdate }}</td>
-                <td>{{ a.doi }}</td>
+                <td>{{ a.doi }}</td> -->
                 <td>
                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="Supplier Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                 </td>
@@ -122,8 +122,8 @@
                                         </div> -->
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">Category<span class="required-asterisk">*</span></label>
-                                                <select formControlName="category" class="form-select form-select-sm">
+                                                <label class="form-label">Reg Type<span class="required-asterisk">*</span></label>
+                                                <select formControlName="category" class="form-select form-select-sm" (change)="regType()">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
                                                     <option *ngFor="let t of dataDropdownList?.category" [value]="t.category_id">{{ t.category }}</option>
                                                 </select>
@@ -132,9 +132,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" *ngIf="form.value.category != '6004'">
                                             <div class="form-group">
-                                                <label class="form-label">Category No<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">Reg No<span class="required-asterisk">*</span></label>
                                                 <input formControlName="categoryNo" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
                                                 <div *ngIf="f['categoryNo'].touched && f['categoryNo'].invalid">
                                                     <small class="text-danger" *ngIf="f['categoryNo'].errors?.['required']">*Required</small>

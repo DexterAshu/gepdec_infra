@@ -42,7 +42,7 @@
                                       
                                         <li> <button type="button" routerLink="/documentation/qualification-doc/fin/itr" class="btn btn-fw btn-sm"><span class="mdi mdi-file-send"></span>&nbsp;&nbsp; ITR </button>
                                         </li>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/tender-fees" class="btn btn-fw btn-sm"><span class="mdi mdi-cannabis"></span>&nbsp;&nbsp; Tender Fees </button>
+                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/tender-fees" class="btn btn-fw btn-sm"><span class="mdi mdi-cannabis"></span>&nbsp;&nbsp; Registration Feess </button>
                                         </li>
                                       </ul> -->
                               </div>
@@ -135,9 +135,9 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Utility/Tendering Company<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Utility/Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
                                         <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                                     </select>
                                     <div *ngIf="f['utility'].touched && f['utility'].invalid">
@@ -174,7 +174,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Publish Date<span
+                                    <label class="form-label fl-10">Publish Date<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly>
                                     <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">

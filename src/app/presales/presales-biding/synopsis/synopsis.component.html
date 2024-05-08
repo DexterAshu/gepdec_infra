@@ -281,7 +281,7 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                            <th>Tender Pre-bid Meeting Date</th>
+                                            <th>Pre-Bid Meeting Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.prebid_date; else elseBlock6">
                                                     {{ rowData?.prebid_date | date: 'dd/MM/yyyy'}}
@@ -292,9 +292,9 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Technical Bid Opening Date </th>
+                                            <th>Tech Bid Opening Date </th>
                                             <td>{{ rowData?.tech_bid_date | date:"dd/MM/yyyy"}}</td>
-                                            <th>Financial Bid Opening Date</th>
+                                            <th>Fin Bid Opening Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.fin_bid_opening_date; else elseBlock7">
                                                     {{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy'}}
@@ -307,9 +307,9 @@
                                             <td>{{ rowData?.ecv | currency:'INR':'':'1.2-2' }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Tender Fee</th>
+                                            <th>Registration Fees</th>
                                             <td>{{ rowData?.tender_fee | currency:'INR':'':'1.2-2' }}</td>
-                                            <th>Tender Document Cost</th>
+                                            <th>Document Cost</th>
                                             <td>{{ rowData?.tender_doc_cost  | currency:'INR':'':'1.2-2' }}</td>
                                             <th>Bid Validity (Days)</th>
                                             <td>{{ rowData?.bid_validity }}</td>
@@ -330,7 +330,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Security Submission Date</th>
+                                            <th>Security Sub Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.securitysubmission_date; else elseBlock9">
                                                     {{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy' }}
@@ -352,7 +352,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Tender EMD Exemption</th>
+                                            <th>EMD Exemption</th>
                                             <td>{{ rowData?.emdexemption }}</td>
                                             <th>EMD Amount</th>
                                             <td>
@@ -374,7 +374,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>EMD Submission Date</th>
+                                            <th>EMD Sub Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.emd_submission_date; else elseBlock13">
                                                     {{ rowData?.emd_submission_date | date: 'dd/MM/yyyy'}}
@@ -406,7 +406,7 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <th>Tender Payment Terms</th>
+                                            <th>Payment Terms</th>
                                             <td colspan="5">
                                                 {{rowData?.tenderpayment_terms }}
                                             </td>

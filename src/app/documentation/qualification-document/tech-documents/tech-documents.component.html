@@ -60,17 +60,17 @@
                             <tr>
                                 <th>S No</th>
                                 <th>Company</th>
+                                <th>Client</th>
+                                <!-- <th>Tender Title</th> -->
                                 <th>Category</th>
                                 <th>Sub-Category</th>
                                 <th>Capacity</th>
-                                <th>Experience (Year)</th>
+                                <!-- <th>Published Date</th> -->
+                                <!-- <th>Experience (Year)</th>
                                 <th>Completion Period (Month)</th>
                                 <th>Resource Used</th>
-                                <th>Completion Year</th>
-                                <th>Client</th>
-                                <th>Tender Title</th>
-                                <th>Ref No</th>
-                                <th>Published Date</th>
+                                <th>Completion Year</th> -->
+                                <!-- <th>Ref No</th> -->
                                 <!-- <th>Category</th>
                                 <th>Sub-Category</th>
                                 <th>Capacity</th>
@@ -83,24 +83,24 @@
                                 *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.bidder_name}}</td>
+                                <td>{{a.company_name}}</td>
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
-                                <td>{{a.total_experience}}</td>
+                                <!-- <td>{{a.total_experience}}</td>
                                 <td>{{a.completion_period}}</td>
                                 <td>{{a.resource_used}}</td>
-                                <td>{{a.completion_year}}</td>
-                                <td>{{a.company_name}}</td>
-                                <td>
+                                <td>{{a.completion_year}}</td> -->
+                                <!-- <td>
                                     <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
                                         {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock>
                                         {{a.tender_title}}
                                     </ng-template>
-                                </td>
-                                <td>{{a.tender_ref_no}}</td>
-                                <td>{{a.publish_date}}</td>
+                                </td> -->
+                                <!-- <td>{{a.tender_ref_no}}</td>
+                                <td>{{a.publish_date}}</td> -->
                                 <!-- <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>

@@ -63,7 +63,7 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Tendering Company</th>
+                                <th>Client</th>
                                 <th>Tender Title</th>
                                 <th>Tender Ref No</th>
                                 <th>Category</th>
@@ -129,9 +129,9 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Utility/Tendering Company<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Utility/Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
                                         <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                                     </select>
                                     <div *ngIf="f['utility'].touched && f['utility'].invalid">
@@ -175,8 +175,8 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Execution Location<span class="required-asterisk">*</span></label>
-                                    <input formControlName="tender_location" type="text" class="form-control form-control-sm" placeholder="Enter Tender Execution Location" appWordCapitalize>
+                                    <label class="form-label fl-10">Execution Location<span class="required-asterisk">*</span></label>
+                                    <input formControlName="tender_location" type="text" class="form-control form-control-sm" placeholder="Enter Execution Location" appWordCapitalize>
                                     <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
                                         <small class="text-danger" *ngIf="f['tender_location'].errors?.['required']">*Required</small>
                                     </div>
@@ -184,7 +184,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Completion Period (Months)<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Comp Period (Months)<span class="required-asterisk">*</span></label>
                                     <input formControlName="completion_period" type="text" class="form-control form-control-sm" placeholder="Enter Completion Period in months" minlength="1" maxlength="2" appNumberOnly>
                                     <div *ngIf="f['completion_period'].touched && f['completion_period'].invalid">
                                         <small class="text-danger" *ngIf="f['completion_period'].errors?.['required']">*Required</small>
@@ -212,7 +212,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Publish Date<span
+                                    <label class="form-label fl-10">Publish Date<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="publish_date" type="date" class="form-control form-control-sm">
                                     <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
