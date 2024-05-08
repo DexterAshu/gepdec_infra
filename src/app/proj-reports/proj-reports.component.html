@@ -145,7 +145,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">GST No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="gst" placeholder="Enter GST NO." minlength="15"
+                                    <input formControlName="gst" placeholder="Enter GST No" minlength="15"
                                     maxlength="15" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
                                     <div *ngIf="f['gst'].touched && f['gst'].invalid">
                                         <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
@@ -155,7 +155,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">PAN No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="pan" placeholder="Enter Pan No." minlength="10"
+                                    <input formControlName="pan" placeholder="Enter Pan No" minlength="10"
                                     maxlength="10" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
                                     <div *ngIf="f['pan'].touched && f['pan'].invalid">
                                         <small class="text-danger" *ngIf="f['pan'].errors?.['required']">*Required</small>
@@ -321,8 +321,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Secondary Contact No</label>
-                                    <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
+                                    <label class="form-label">Secondary No</label>
+                                    <input formControlName="contactno2" placeholder="Enter Secondary No" minlength="10"
                                     maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
                                 </div>
                             </div>

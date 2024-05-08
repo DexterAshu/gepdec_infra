@@ -4,7 +4,7 @@
           <div class="d-flex justify-content-between flex-wrap">
             <div class="d-flex align-items-end flex-wrap">
               <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Tender Company Contacts</h4>
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Client Contacts</h4>
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -42,8 +42,8 @@
                                 <th>Contact Person</th>
                                 <th>Department</th>
                                 <th>Designation</th>
-                                <th>Contact No 1</th>
-                                <th>Contact No 2</th>
+                                <th>Primary No</th>
+                                <th>Secondary No</th>
                                 <th>Email ID</th>
                                 <!-- <th>Created By</th> -->
                                 <!-- <th>Action</th> -->
@@ -91,7 +91,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tender Company Contacts Person Detail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Client Contacts Person Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -114,7 +114,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Tendering Company<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="company_id" class="form-select form-select-sm"  >
                                     
                                         <option [selected]="true" [disabled]="true">Select Company</option>
@@ -188,8 +188,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Secondary Contact No</label>
-                                    <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
+                                    <label class="form-label">Secondary No</label>
+                                    <input formControlName="contactno2" placeholder="Enter Secondary No" minlength="10"
                                     maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
                                 </div>
                             </div>

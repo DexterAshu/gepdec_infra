@@ -28,13 +28,13 @@
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
-                  <th>Tender Ref No.</th>
+                  <th>Tender Ref No</th>
                   <th>Tender Title</th>
                   <th>Tender Location</th>
-                  <th>PO No.</th>
-                  <th>GRN No.</th>
+                  <th>PO No</th>
+                  <th>GRN No</th>
                   <th>GRN Date</th>
-                  <th>Challan No.</th>
+                  <th>Challan No</th>
                   <th>Remarks</th>
                   <th>Action</th>
                 </tr>
@@ -122,7 +122,7 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label class="form-label">PO No.<span class="required-asterisk">*</span></label>
+                      <label class="form-label">PO No<span class="required-asterisk">*</span></label>
                       <select formControlName="po_id" class="form-select form-select-sm" (ngModelChange)="getPOData()">
                         <option [selected]="true" [disabled]="true" [value]="null">select</option>
                         <option *ngFor="let p of venderPOData" [value]="p.po_id">{{ p.pono }}</option>
@@ -139,13 +139,13 @@
                       <tr>
                         <th>Tender Title</th>
                         <td data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO.tender_title }}">{{selectedPO.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
-                        <th>Tender Ref. No.</th>
+                        <th>Tender Ref. No</th>
                         <td>{{ selectedPO?.tender_ref_no }}</td>
                         <th>BOQ</th>
                         <td>{{ selectedPO?.boq_id }}</td>
                       </tr>
                       <tr>
-                        <th>PO No.</th>
+                        <th>PO No</th>
                         <td>{{ selectedPO?.pono }}</td>
                         <th>PO Date</th>
                         <td>{{ selectedPO?.po_date }}</td>
@@ -269,8 +269,8 @@
                         <th>PO Qty</th>
                         <th>PO Balance Qty</th>
                         <th>UOM</th>
-                        <th>Received QTY</th>
-                        <th>Remain QTY</th>
+                        <th>Received Qty</th>
+                        <th>Remaining Qty</th>
                         <th>Item Location</th>
                         <th>Remark</th>
                         <th>Select Item</th>
@@ -283,7 +283,7 @@
                         <td>{{ item?.qty }}</td>
                         <td>{{ item?.pobalance_qty }}</td>
                         <td>{{ item?.uom }}</td>
-                        <td><input type="number" formControlName="received_qty" class="form-control form-control-sm" [(ngModel)]="item.received_qty" placeholder="Enter Received QTY"></td>
+                        <td><input type="number" formControlName="received_qty" class="form-control form-control-sm" [(ngModel)]="item.received_qty" placeholder="Enter Received Qty"></td>
                         <td>{{item?.qty - (item.received_qty ?? 0)}}</td>
                         <td><p contenteditable="true">{{ item?.itemcode }}</p></td>
                         <td><input type="text" formControlName="remarks" class="form-control form-control-sm" [(ngModel)]="item.remarks" placeholder="Enter remarks"></td>
@@ -324,13 +324,13 @@
                   <thead class="hidden-thead"></thead>
                   <tbody class="text-nowrap">
                     <tr>
-                      <th>Tender Ref No.</th>
+                      <th>Tender Ref No</th>
                       <td>{{ selectedPO?.tender_ref_no }}</td>
                       <th>Tender Title</th>
                       <td>{{ selectedPO?.tender_title }}</td>
                     </tr>
                     <tr>
-                      <th>PO No.</th>
+                      <th>PO No</th>
                       <td>{{ selectedPO?.pono }}</td>
                       <th>Date</th>
                       <td>{{ selectedPO?.po_date }}</td>
@@ -356,7 +356,7 @@
                       <th>Item ID</th>
                       <th>Name</th>
                       <th>QTY</th>
-                      <th>Remain QTY</th>
+                      <th>Remaining Qty</th>
                       <th>UOM</th>
                     </tr>
                   </thead>

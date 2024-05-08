@@ -110,7 +110,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Execution Location<span
+                            <label class="form-label fl-10">Execution Location<span
                                     class="required-asterisk">*</span></label>
                             <input formControlName="tender_location" type="text" class="form-control form-control-sm"
                                 appWordCapitalize>
@@ -123,7 +123,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Publish Date<span
+                            <label class="form-label fl-10">Publish Date<span
                                     class="required-asterisk">*</span></label>
                             <input formControlName="publish_date" type="date" class="form-control form-control-sm">
                             <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
@@ -148,7 +148,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Detail Available Link</label>
+                            <label class="form-label fl-10">Tender Link</label>
                             <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm" appNoSpace>
 
                         </div>
@@ -200,7 +200,7 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Completion Period (Months)<span
+                            <label class="form-label fl-10">Comp Period (Months)<span
                                     class="required-asterisk">*</span></label>
                             <input formControlName="completion_period" type="text" class="form-control form-control-sm"
                                 placeholder="Enter Completion Period in months" minlength="1" maxlength="2"
@@ -253,7 +253,7 @@
 
                     <div class="col-md-3" *ngIf="prebid_meeting.value == 'Yes'">
                         <div class="form-group">
-                            <label class="form-label fl-10"> Tender Pre-bid Meeting Mode<span
+                            <label class="form-label fl-10"> Pre-Bid Meeting Mode<span
                                     class="required-asterisk">*</span></label>
                             <select formControlName="prebidmeetingmode_id" class="form-select form-select-sm">
                                 <option [selected]="true" [disabled]="true" [value]="null">Select Mode</option>
@@ -270,7 +270,7 @@
 
                     <div class="col-md-3" *ngIf="prebid_meeting.value == 'Yes' && 'selectPrebidField'">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Pre-bid Meeting Date<span
+                            <label class="form-label fl-10">Pre-Bid Meeting Date<span
                                     class="required-asterisk">*</span></label>
                             <input formControlName="prebid_date" type="date" class="form-control form-control-sm">
                             <div *ngIf="f['prebid_date'].touched && f['prebid_date'].invalid">
@@ -318,9 +318,9 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Fee<span class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Registration Fees<span class="required-asterisk">*</span></label>
                             <input type="text" class="form-control form-control-sm" formControlName="tender_fee"
-                                placeholder="Enter Tender Fee '0' if not applicable " appNumberOnly>
+                                placeholder="Enter Registration Fees '0' if not applicable " appNumberOnly>
                             <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
                                 <small class="text-danger"
                                     *ngIf="f['tender_fee'].errors?.['required']">*Required</small>
@@ -330,7 +330,7 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Document Cost<span
+                            <label class="form-label fl-10">Document Cost<span
                                     class="required-asterisk">*</span></label>
                             <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost"
                                 placeholder="Enter Doc Cost '0' if not applicable" appNumberOnly>
@@ -393,7 +393,7 @@
                     <!-- Performance Guarantee -->
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Performance Guarantee<span
+                            <label class="form-label fl-10">Performance Guarantee<span
                                     class="required-asterisk">*</span></label>
                             <select formControlName="performanceguarantee_id" #pg class="form-select form-select-sm"
                                 (change)="togglePGField(pg.value)">
@@ -437,7 +437,7 @@
                     <!-- tender EMD -->
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender EMD Exemption<span
+                            <label class="form-label fl-10">EMD Exemption<span
                                     class="required-asterisk">*</span></label>
                             <select formControlName="exemption_id" #emd class="form-select form-select-sm"
                                 (change)="toggleEmdField(emd.value)">
@@ -511,7 +511,7 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender Payment Terms<span
+                            <label class="form-label fl-10">Payment Terms<span
                                     class="required-asterisk">*</span></label>
                             <textarea type="text" class="form-control form-control-sm"
                                 formControlName="tenderpayment_terms">
@@ -841,8 +841,8 @@
                             </div>
                             <!-- <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="form-label">Secondary Contact No</label>
-                                                <input formControlName="contactno2" placeholder="Enter secondary contact no" minlength="10"
+                                                <label class="form-label">Secondary No</label>
+                                                <input formControlName="contactno2" placeholder="Enter Secondary No" minlength="10"
                                                 maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
                                             </div>
                                         </div> -->

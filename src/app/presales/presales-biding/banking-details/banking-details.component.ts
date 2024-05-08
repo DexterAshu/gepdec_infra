@@ -41,6 +41,7 @@ export class BankingDetailsComponent {
   filterTenderDetailsData: any = [];
   securityData: any;
   isOpen: boolean = false;
+  loading: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -61,9 +62,9 @@ export class BankingDetailsComponent {
       bank_id: [null],
       bg_number: [null, Validators.required],
       bg_amount: [null, Validators.required],
-      start_date: [null],
-      end_date: [null],
-      submission_date: [null],
+      start_date: [null, Validators.required],
+      end_date: [null, Validators.required],
+      submission_date: [null, Validators.required],
       extend_date: [null],
       attachment: [null],
       document_description: [null],
@@ -189,28 +190,12 @@ export class BankingDetailsComponent {
 
   onSubmit() {
     this.isSubmitted = true;
-    const formData: FormData = new FormData();
-    for (let i = 0; i < this.attachment.length; i++) {
-      formData.append('attachment', this.attachment[i]);
-    }
-    formData.append('security_id', this.documentForm.value.security_id);
-    formData.append('bank_id', this.documentForm.value.bank_id);
-    formData.append('bg_number', this.documentForm.value.bg_number);
-    formData.append('bg_amount', this.documentForm.value.bg_amount);
-    formData.append('start_date', this.documentForm.value.start_date);
-    formData.append('end_date', this.documentForm.value.end_date);
-    formData.append('submission_date', this.documentForm.value.submission_date);
-    if(this.documentForm.value.extend_date != '' || this.documentForm.value.extend_date != null){
-      formData.append('extend_date', this.documentForm.value.extend_date);
-    }
-    formData.append('tender_id', this.documentForm.value.tender_id);
-    formData.append('utility_id', this.documentForm.value.utility_id);
-    formData.append('document_description', this.documentForm.value.document_description);
-    this.addDocument(formData);
+    this.loading = true;
+    this.addDocument();
   }
 
-  addDocument(formData: FormData) {
-    this.apiService.AddBank(formData).subscribe((res: any) => {
+  addDocument() {
+    this.apiService.AddBank(this.documentForm.value).subscribe((res: any) => {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;

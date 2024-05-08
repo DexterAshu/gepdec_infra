@@ -24,8 +24,8 @@ export class IndirectCostingComponent {
   clientData: any;
   overHeadData: any = [];
   indexData: any = [];
-  finalAuditData: any;
   mainArray: any = [];
+  rowData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,9 +52,6 @@ export class IndirectCostingComponent {
 
   getClientData() {
     this.clientData = [];
-    this.tenderData = [];
-    this.tenderDetailedData = [];
-    this.form.controls['tender_id'].reset();
     this.apiService.getCompanyList().subscribe((res: any) => {
       if(res.status == 200) {
         this.clientData = res.result;
@@ -69,6 +66,11 @@ export class IndirectCostingComponent {
   getTenderData() {
     this.tenderData = [];
     this.tenderDetailedData = [];
+    this.overHeadData = [];
+    this.mainArray = [];
+    this.indexData = [];
+    this.form.controls['expenses'].reset();
+    this.form.controls['tender_id'].reset();
     let client_Id = this.form.value.client_id;
     this.apiService.getTenderLisById(client_Id).subscribe((res: any) => {
       if(res.status == 200) {
@@ -83,6 +85,10 @@ export class IndirectCostingComponent {
 
   getDetailedData(tender_id: any) {
     this.tenderDetailedData = [];
+    this.overHeadData = [];
+    this.mainArray = [];
+    this.indexData = [];
+    this.form.controls['expenses'].reset();
     this.tenderDetailedData = this.tenderData.filter((x: any) => x.tender_id == tender_id);
   }
   
@@ -104,6 +110,8 @@ export class IndirectCostingComponent {
 
   overHeadDetails(data: any) {
     this.overHeadData = [];
+    this.mainArray = [];
+    this.indexData = [];
     let apiLink = "/costing/api/v1/getCostingByCostType/" + data;
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
@@ -119,31 +127,36 @@ export class IndirectCostingComponent {
   }
 
   selectRec(data:any, e:any, index:number) {
+    debugger
     if(e.target.checked == true) {
-      console.log('data =', data);
-      
-      // if(data.audit !== undefined && data.remarks !== null) {
-      //   // this.indexData.push(index);
-      //   // var diffVal = data.audit - data.qty;
-      //   // this.finalAuditData =  { 
-      //   //   itemcode: data.itemCode, 
-      //   //   qtySystem: data.qty, 
-      //   //   qtyAudit: data.audit, 
-      //   //   difference: diffVal, 
-      //   //   remarks: data.remarks 
-      //   // }
-      //   this.mainArray.push(this.finalAuditData);
-      // } else {
-      //   e.target.checked = false;
-      //   this.alertService.warning("Please fill audit and remarks fields properly then click on checkbox.");  
-      // }
+      if(!data.multiplier || data.multiplier == null || data.unitcost == null) {
+        e.target.checked = false;
+        this.alertService.warning("Please fill fields properly then click on checkbox.");  
+      } else {
+        this.indexData.push(index);
+        var totalVal = data.unitcost * data.multiplier;
+        let finalData =  { 
+          costdetail_id: data.costdetail_id, 
+          unit_id: data.unit_id, 
+          unitcost: data.unitcost, 
+          multiplier: data.multiplier, 
+          days: null, 
+          person: null, 
+          total: totalVal,
+        }
+        this.mainArray.push(finalData);
+      }
+    } else {
+      this.indexData = this.indexData.filter((el:any) => el != index);
+      this.mainArray = this.mainArray.filter((el:any) => el.costdetail_id != data.costdetail_id);
+      e.target.checked = false;
     }
   }
   
   getDataList() {
     this.dataList = [];
     this.isNotFound = false;
-    let apiLink = "";
+    let apiLink = "/costing/api/v1/getTenderIndirectCostList";
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.isNotFound = false;
@@ -160,44 +173,41 @@ export class IndirectCostingComponent {
     });
   }
 
+  rowListData(row:any) {
+    this.rowData = [];
+    this.rowData = row;
+    console.log(this.rowData)
+  }
+
   onSubmit() {
-    // if (this.form.valid) {
-    //   this.isSubmitted = true;
-
-    //   let data = {
-    //     unit_id: this.form.value.itemUOM,
-    //     description: this.form.value.description,
-    //     parameter: this.form.value.parameter,
-    //     itemcategory_id: this.form.value.itemCategory,
-    //     cost: this.form.value.cost,
-    //     gst: this.form.value.gst,
-    //     parentitem: this.form.value.parentItem,
-    //     parentitem_id: this.form.value.parentItem_id,
-    //     precurementuom_id: this.form.value.procurementUOM,
-    //     materialclass_id: this.form.value.class,
-    //     tolerance_id: this.form.value.itemTolerance,
-    //     subcategory_id: this.form.value.itemSubCategory,
-    //   } 
-
-    //   let apiLink = '/Item/api/v1/addItem';
-    //   this.apiService.postData(apiLink, data).subscribe(res => {
-    //     let response: any = res;
-    //     document.getElementById('cancel')?.click();
-    //     this.getDataList();
-    //     this.isSubmitted = false;
-    //     if (response.status == 200) {
-    //       this.form.reset();
-    //       this.alertService.success(response.message);
-    //     } else {
-    //       this.alertService.warning(response.message);
-    //     }
-    //   }, (error) => {
-    //       this.isSubmitted = false;
-    //       document.getElementById('cancel')?.click();
-    //       this.alertService.error(`Some technical issue: ${error.message}`);
-    //     })
-    // } else {
-    //   this.alertService.warning("Form is invalid, Please fill the form correctly.");
-    // }
+    if (this.form.valid) {
+      this.isSubmitted = true;
+      let data = {
+        tender_id: this.form.value.tender_id,
+        cost: this.mainArray,
+      }
+      
+      let apiLink = '/costing/api/v1/addTenderIndirectCost';
+      this.apiService.postData(apiLink, data).subscribe(res => {
+        let response: any = res;
+        document.getElementById('cancel')?.click();
+        this.getDataList();
+        this.isSubmitted = false;
+        if (response.status == 200) {
+          this.form.reset();
+          this.mainArray = [];
+          this.indexData = [];
+          this.alertService.success(response.message);
+        } else {
+          this.alertService.warning(response.message);
+        }
+      }, (error) => {
+          this.isSubmitted = false;
+          document.getElementById('cancel')?.click();
+          this.alertService.error(`Some technical issue: ${error.message}`);
+        })
+    } else {
+      this.alertService.warning("Form is invalid, Please fill the form correctly.");
+    }
   }
 }
