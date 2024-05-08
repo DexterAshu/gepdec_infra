@@ -88,7 +88,6 @@ import { MaterialIssuanceComponent } from './transactions/material-issuance/mate
 import { SignInComponent } from './account/sign-in/sign-in.component';
 import { MasterDrawingListComponent } from './documentation/master-drawing-list/master-drawing-list.component';
 import { DrawingComponent } from './documentation/drawing/drawing.component';
-import { TechnicalGTPsComponent } from './documentation/technical-gtps/technical-gtps.component';
 import { FinalBOQComponent } from './documentation/final-boq/final-boq.component';
 import { IndirectCostingComponent } from './presales/presales-biding/indirect-costing/indirect-costing.component';
 
@@ -127,7 +126,6 @@ const routes: Routes = [
   {path: 'documentation/comm-doc', component:CommunicationDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/master-drawing-list', component:MasterDrawingListComponent, canActivate:[AuthGuard]},
   {path: 'documentation/drawing-doc', component:DrawingComponent, canActivate:[AuthGuard]},
-  {path: 'documentation/technical-gtps', component:TechnicalGTPsComponent, canActivate:[AuthGuard]},
   {path: 'documentation/final-boq', component:FinalBOQComponent, canActivate:[AuthGuard]},
   {path: 'documentation/proc-doc', component:ProcurementDocumentComponent, canActivate:[AuthGuard]},
   {path: 'documentation/proj-doc', component:ProjectDocumentComponent, canActivate:[AuthGuard]},
