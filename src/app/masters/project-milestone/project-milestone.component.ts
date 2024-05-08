@@ -22,7 +22,6 @@ export class ProjectMilestoneComponent {
   val: any;
   country:any;
   limits: any = [];
-  isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
   update: boolean = false;
@@ -140,7 +139,6 @@ export class ProjectMilestoneComponent {
     this.apiService.getCompanyList().subscribe((res: any) => {
       this.companyData = res.result;
       this.limits.push({ key: 'ALL', value: this.companyData.length });
-      this.isExcelDownload = true;
     });
  
   }

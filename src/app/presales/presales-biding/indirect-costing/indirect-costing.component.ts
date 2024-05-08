@@ -23,6 +23,9 @@ export class IndirectCostingComponent {
   tenderDetailedData: any = [];
   clientData: any;
   overHeadData: any = [];
+  indexData: any = [];
+  finalAuditData: any;
+  mainArray: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +39,8 @@ export class IndirectCostingComponent {
       client_id: [null, Validators.required],
       tender_id: [null, Validators.required],
       expenses: [null, Validators.required],
-
+      unitCost: [null],
+      multiplier: [null],
     });
 
     this.getClientData();
@@ -103,7 +107,7 @@ export class IndirectCostingComponent {
     let apiLink = "/costing/api/v1/getCostingByCostType/" + data;
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
-        this.overHeadData = res;
+        this.overHeadData = res.result;
       } else {
         this.overHeadData = undefined;
         this.alertService.warning("Looks like no data available!");
@@ -112,6 +116,28 @@ export class IndirectCostingComponent {
       this.overHeadData = undefined;
       this.alertService.error(`Some technical issue: ${error.message}`)
     });
+  }
+
+  selectRec(data:any, e:any, index:number) {
+    if(e.target.checked == true) {
+      console.log('data =', data);
+      
+      // if(data.audit !== undefined && data.remarks !== null) {
+      //   // this.indexData.push(index);
+      //   // var diffVal = data.audit - data.qty;
+      //   // this.finalAuditData =  { 
+      //   //   itemcode: data.itemCode, 
+      //   //   qtySystem: data.qty, 
+      //   //   qtyAudit: data.audit, 
+      //   //   difference: diffVal, 
+      //   //   remarks: data.remarks 
+      //   // }
+      //   this.mainArray.push(this.finalAuditData);
+      // } else {
+      //   e.target.checked = false;
+      //   this.alertService.warning("Please fill audit and remarks fields properly then click on checkbox.");  
+      // }
+    }
   }
   
   getDataList() {

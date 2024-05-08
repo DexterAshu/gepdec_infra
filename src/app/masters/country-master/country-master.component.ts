@@ -21,8 +21,6 @@ export class CountryMasterComponent {
   stateCount: any;
   countCount: any;
   countData: any = [];
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;

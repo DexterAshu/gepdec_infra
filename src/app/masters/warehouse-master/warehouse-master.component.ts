@@ -16,7 +16,6 @@ export class WarehouseMasterComponent {
   wareHouseData: any;
   isNotFound:boolean = false;
   limits: any = [];
-  isExcelDownload: boolean = false;
   loading: boolean = false;
   selectedWH: any;
   form!: FormGroup;

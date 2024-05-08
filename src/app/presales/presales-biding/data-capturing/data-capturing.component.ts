@@ -24,7 +24,6 @@ export class DataCapturingComponent {
   val: any;
   country: any;
   limits: any = [];
-  isExcelDownload: boolean = false;
   updateData: any;
   createModal: boolean = false;
   custDetails: any;
@@ -344,28 +343,17 @@ export class DataCapturingComponent {
           audit_trail: this.custDetails.audit_trail,
         });
 
-
-        //   console.log(this.custDetails.remarks);
         //   const remarksData = this.custDetails.map((item: any) => {
-        //     console.log(item.remarks.split("."));
         //     return item.remarks.split(".");
-
         // });
-
-        // console.log(remarksData);
-
         // const dataArray = this.custDetails.remarks.split('\n');
         //  const newData = dataArray.join(',\n');
-        // console.log(newData);
-
         //   this.custDetails = this.custDetails.remarks.map((item: any) => ({
         //     data: `\n${item}`
         // }));
-        // console.log(this.custDetails);
         // for (const iterator of this.custDetails) {
         //     this.previousData.push(iterator.data);
         // }
-        // console.log(this.custDetails);
 
       })
     }

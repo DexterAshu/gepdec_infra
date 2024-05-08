@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
 import { AlertService, ApiService } from 'src/app/_services';
 
 @Component({
@@ -220,12 +219,6 @@ export class BoqItemsComponent {
   //bulk-load with bulk excel download
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
-  }
-
-  downloadPdf() {
-    const pdfUrl = './assets/tamplate/BOQ.xlsx';
-    const pdfName = 'BOQ.xlsx';
-    FileSaver.saveAs(pdfUrl, pdfName);
   }
 
   download(): void {

@@ -51,7 +51,7 @@
                         <div class="col-lg-4">
                             <div class="float-right">
                                 <button class="btn btn-primary btn-fw btn-sm me-2"
-                                    title="Download List of Data in Excel" *ngIf="isExcelDownloadData"
+                                    title="Download List of Data in Excel"
                                     (click)="download()">
                                     <span class="mdi mdi-upload"></span> Export
                                 </button>
@@ -275,11 +275,11 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Is Qualified<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Status<span class="required-asterisk">*</span></label>
                                     <select formControlName="qualified" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true">Select Capacity</option>
-                                        <option value="true">Yes</option>
-                                        <option value="false">No</option>
+                                        <option [selected]="true" [disabled]="true">Select Status</option>
+                                        <option value="true">Qualified</option>
+                                        <option value="false">Not-Qualified</option>
                                     </select>
                                     <div *ngIf="f['qualified'].touched && f['qualified'].invalid">
                                         <small class="text-danger"

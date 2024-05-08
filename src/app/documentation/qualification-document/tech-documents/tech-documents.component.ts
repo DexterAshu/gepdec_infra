@@ -201,7 +201,6 @@ export class TechDocumentsComponent {
   //   this.addTech.push(formData);
   //   this.form.controls['technical_points'].reset();
   //   // this.uploadFile = [];
-  //   // console.log(this.addTech); 
   // }
 
   // deletecsdp(val: any) {

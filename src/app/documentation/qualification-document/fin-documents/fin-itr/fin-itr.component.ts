@@ -26,8 +26,7 @@ export class FinItrComponent {
   companyData: any;
   tenderType: any;
   inserteddata: any;
-  discardeddata: any;
-  isExcelDownloadData: boolean = true;
+  discardeddata: any
   financialData: any;
   isOpen: boolean = false;
 

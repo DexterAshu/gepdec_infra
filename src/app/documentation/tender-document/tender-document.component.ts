@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ApiService, AlertService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-tender-document',
@@ -29,8 +28,7 @@ export class TenderDocumentComponent {
   companyData: any;
   tenderType: any;
   inserteddata: any;
-  discardeddata: any;
-  isExcelDownloadData: boolean = true;
+  discardeddata: any
   filterTenderDetailsData: any = [];
   showTypeField: boolean = true;
   clientListData: any;
@@ -55,24 +53,24 @@ export class TenderDocumentComponent {
     this.getData();
     this.listAPIData('Tender');
   }
-  
+
   getData() {
-    this.apiService.getCompanyList().subscribe((res: any) => {  
+    this.apiService.getCompanyList().subscribe((res: any) => {
       this.comData = res.result;
       console.log(this.comData);
     });
     this.apiService.getDocType().subscribe((res: any) => {
       this.docType = res.documenttype;
     });
-    this.apiService.getCompanyList().subscribe((res: any) => {  
+    this.apiService.getCompanyList().subscribe((res: any) => {
       this.companyData = res.result;
     });
-    this.apiService.getTenderType().subscribe((res: any) => {  
+    this.apiService.getTenderType().subscribe((res: any) => {
       this.tenderType = res.bidtype;
     });
-    
 
-  
+
+
   }
 
   listAPIData(data:any){
@@ -116,25 +114,10 @@ export class TenderDocumentComponent {
     this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
- 
+
   get f() {
     return this.documentForm.controls;
   }
-
-  exportAsXLSX1(){
-    var ws2 = XLSX.utils.json_to_sheet(this.inserteddata);
-     var ws1 = XLSX.utils.json_to_sheet(this.discardeddata);
-    var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws1, "Discarded Data");
-     XLSX.utils.book_append_sheet(wb, ws2, "Inserted Data");
-    XLSX.writeFile(wb, "Data_File.xlsx");
-
-        }
-downloadPdf() {
-  const pdfUrl = './assets/tamplate/country_bulkload_template_file.xlsx';
-  const pdfName = 'country_bulkload_template_file.xlsx';
-  FileSaver.saveAs(pdfUrl, pdfName);
-}
 
    download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
@@ -150,7 +133,7 @@ downloadPdf() {
   }
 
   getrefData(tender_id: any){
-    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id); 
+    this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
 
 
@@ -161,7 +144,7 @@ downloadPdf() {
     }
     console.log(this.documentForm.value);
     const formData: FormData = new FormData();
-   
+
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }

@@ -22,8 +22,6 @@ export class FinYearComponent {
   designData: any = [];
   financialData: any = [];
   finCount: any;
-  isExcelDownload: boolean = false;
-  isExcelDownloadData: boolean = true;
   inserteddata: any;
   discardeddata: any;
 

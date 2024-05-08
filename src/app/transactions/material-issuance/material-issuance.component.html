@@ -140,7 +140,7 @@
                       <option *ngFor="let w of wareHouseData" [value]="w.warehouse_id">{{w.warehouse_code}}</option>
                     </select>
                     <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid">
-                      <div *ngIf="f['warehouse_id'].errors?.['required']" class="text-danger">Warehouse is required.</div>
+                      <div *ngIf="f['warehouse_id'].errors?.['required']" class="text-danger">*Required</div>
                     </div>
                   </div>
                 </div>
@@ -152,7 +152,7 @@
                       <option *ngFor="let c of itemCategories" [value]="c.itemcategory_id">{{c.itemcategory}}</option>
                     </select>
                     <div *ngIf="f['itemcategory_id'].touched && f['itemcategory_id'].invalid">
-                      <div *ngIf="f['itemcategory_id'].errors?.['required']" class="text-danger">Item Category is required.</div>
+                      <div *ngIf="f['itemcategory_id'].errors?.['required']" class="text-danger">*Required</div>
                     </div>
                   </div>
                 </div>
@@ -185,7 +185,7 @@
                         <td>{{ item?.description.split(' ').slice(0, 5).join(' ') }}{{item?.description.split(' ').length > 5 ? '...' : ''}}</td>
                         <td>{{ item?.total_itemquantity }}</td>
                         <td>{{ item?.uom }}</td>
-                        <td><input type="number" style="width: 60%;" max="{{ item?.total_itemquantity }}" class="form-control form-control-sm" formControlName="issue_qty" [(ngModel)]="item.issue_qty" placeholder="Issue QTY"></td>
+                        <td><input type="number" style="width: 60%;" max="{{ item?.total_itemquantity }}" class="form-control form-control-sm" formControlName="issue_qty" [(ngModel)]="item.issue_qty"></td>
                         <td>{{item?.total_itemquantity - (item.issue_qty ? item.issue_qty : 0)}}</td>
                         <td><input type="checkbox" (click)="selectItem(item)"></td>
                       </tr>

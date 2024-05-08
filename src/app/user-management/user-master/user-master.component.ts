@@ -48,8 +48,6 @@ export class UserMasterComponent implements OnInit {
   tabledata: any;
   limits: any = [];
   userDetails: any;
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;
@@ -114,7 +112,6 @@ export class UserMasterComponent implements OnInit {
     this.masterService.getUserList().subscribe((res: any) => {
       this.tabledata = res.result;
       this.limits.push({ key: 'ALL', value: this.tabledata.length });
-      this.isExcelDownload = true;
     });
   }
   

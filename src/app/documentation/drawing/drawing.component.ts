@@ -11,8 +11,7 @@ import * as XLSX from 'xlsx';
 })
 export class DrawingComponent {
   isOpen: boolean = false;
-  searchText: any;
-  isExcelDownloadData: boolean = true;
+  searchText: any
   docListData: any = [];
   p: number = 1;
   limit = environment.pageLimit;
@@ -20,9 +19,10 @@ export class DrawingComponent {
   selectedTender: any;
   companyData: any = [];
   tenderList: any = [];
-  attachment: any = [];
-  listOfFiles: any = [];
+  imageUploadFile: any = [];
+  uploadFile: any = [];
   isSubmitted: boolean = false;
+  isInHouse: boolean = false;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService) {}
 
@@ -32,10 +32,14 @@ export class DrawingComponent {
 
   formInit(): void {
     this.form = this.fb.group({
-      client: ['null', Validators.required],
-      tender_id: ['', Validators.required],
-      attachment: ['', Validators.required],
-      description: ['']
+      client: [null, Validators.required],
+      tender_id: [null, Validators.required],
+      drawingFrom: [null, Validators.required],
+      artist: [null],
+      drawingApprovedBy: [null],
+      drawing: [null, Validators.required],
+      file: [null, Validators.required],
+      description: [null, Validators.required]
     });
   }
 
@@ -75,49 +79,56 @@ export class DrawingComponent {
     this.selectedTender = this.tenderList.filter((tender: any) => tender.tender_id == this.form.value.tender_id)[0];
   }
 
-  onFileChanged(event: any) {
-    try {
-      const files = event.target.files;
-      for (let i = 0; i < files.length; i++) {
-        this.listOfFiles.push(files[i].name);
-        this.attachment.push(files[i]);
-      }
-    } catch (error) {
-      console.error('Error selecting file:', error);
+  selectDrawingFrom(): void {
+    this.form.controls['artist'].clearValidators();
+    this.form.controls['drawingApprovedBy'].clearValidators();
+    this.isInHouse = this.form.value.drawingFrom === 'In House';
+    if (this.isInHouse) {
+        this.form.controls['artist'].setValidators([Validators.required]);
+        this.form.controls['drawingApprovedBy'].setValidators([Validators.required]);
+    } else {
+        this.form.controls['artist'].setValue(null);
+        this.form.controls['drawingApprovedBy'].setValue(null);
     }
+    this.form.controls['artist'].updateValueAndValidity();
+    this.form.controls['drawingApprovedBy'].updateValueAndValidity();
+  }
+
+  onImageUpload(event: Event) {
+    const files: any = (event.target as HTMLInputElement).files;
+    this.imageUploadFile = files[0];
+  }
+
+  onFileUpload(event: Event) {
+    const files: any = (event.target as HTMLInputElement).files;
+    this.uploadFile = files[0];
   }
 
   onSubmit() {
+    this.isSubmitted = true;
     console.log(this.form.value);
     const formData: FormData = new FormData();
-    for (let i = 0; i < this.attachment.length; i++) {
-      formData.append('attachment', this.attachment[i]);
-    }
-    formData.append('bank_name', this.form.value.bank_name);
-    formData.append('bgnumber', this.form.value.bgnumber);
-    formData.append('bgamount', this.form.value.bgamount);
-    formData.append('start_date', this.form.value.start_date);
-    formData.append('end_date', this.form.value.end_date);
-    formData.append('submission_date', this.form.value.submission_date);
-    formData.append('extend_date', this.form.value.extend_date);
-    formData.append('publish_date', this.form.value.publish_date);
-    formData.append('tender_ref_no', this.form.value.tender_ref_no);
-    formData.append('tender_title', this.form.value.tender_title);
-    formData.append('utility', this.form.value.utility);
+    formData.append('client', this.form.value.client);
+    formData.append('tender_id', this.form.value.tender_id);
+    formData.append('drawing', this.imageUploadFile);
+    formData.append('file', this.uploadFile);
     formData.append('description', this.form.value.description);
-    this.isSubmitted = true;
-    this.apiService.createDocuments(formData).subscribe((res: any) => {
-      if (res.status == 200) {
-        this.form.reset();
-        this.alertService.success(res.message);
-        document.getElementById('cancel')?.click();
-      } else {
-        this.alertService.warning(res.message);
-      }
-    }),
-    (error: any) => {
-      this.alertService.error(error);
+    if(this.isInHouse) {
+      formData.append('artist', this.form.value.artist);
+      formData.append('drawingApprovedBy', this.form.value.drawingApprovedBy);
     }
+    // this.apiService.createDocuments(formData).subscribe((res: any) => {
+    //   if (res.status == 200) {
+    //     this.form.reset();
+    //     this.alertService.success(res.message);
+    //     document.getElementById('cancel')?.click();
+    //   } else {
+    //     this.alertService.warning(res.message);
+    //   }
+    // }),
+    // (error: any) => {
+    //   this.alertService.error(error);
+    // }
     this.isSubmitted = false;
   }
 

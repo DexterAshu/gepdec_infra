@@ -20,8 +20,6 @@ export class DistrictComponent implements OnInit {
   isSubmitted:boolean = false
   searchText:any;
   distCount: any;
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;

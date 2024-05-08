@@ -20,8 +20,6 @@ export class DesignationMasterComponent implements OnInit {
 
   designCount: any;
   designData: any = [];
-  isExcelDownload: boolean = false;
-  isExcelDownloadData:boolean = true;
   inserteddata: any;
   discardeddata: any;
 
