@@ -212,7 +212,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">IFSC Code<span class="required-asterisk">*</span></label>
-                  <input formControlName="BankIFSC" placeholder="Enter IFSC Code" type="text" class="form-control form-control-sm">
+                  <input formControlName="BankIFSC" placeholder="Enter IFSC Code" type="text" class="form-control form-control-sm" minlength="11" maxlength="11">
                   <div *ngIf="f['BankIFSC'].touched && f['BankIFSC'].invalid">
                     <small class="text-danger" *ngIf="f['BankIFSC'].errors?.['required']">*Required</small>
                   </div>

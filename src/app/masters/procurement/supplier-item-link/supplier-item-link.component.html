@@ -101,7 +101,17 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Item List (Select Multiple)<span class="required-asterisk">*</span></label>
-                                        <ng-select formControlName="itemCode" [items]="itemDataList" [multiple]="true" bindLabel="itemcode" [closeOnSelect]="false" bindValue="item_id">
+                                        <!-- <ng-select formControlName="itemCode" [items]="itemDataList" [multiple]="true" bindLabel="itemcode" [closeOnSelect]="false" bindValue="item_id">
+                                        </ng-select> -->
+
+                                        <ng-select formControlName="itemCode" [items]="itemDataList" [multiple]="true" bindLabel="itemcode" bindValue="item_id" [closeOnSelect]="false">
+                                            <!-- Customize display format of each option -->
+                                            <ng-template ng-label-tmp let-item="item">
+                                                {{ item.itemcode }} ({{ item.description }})
+                                            </ng-template>
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{ item.itemcode }} ({{ item.description }})
+                                            </ng-template>
                                         </ng-select>
 
                                         <!-- <ng-select formControlName="itemCode"

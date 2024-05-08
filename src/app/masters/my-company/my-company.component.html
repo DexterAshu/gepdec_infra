@@ -173,7 +173,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">GST No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="gst" placeholder="Enter GST No" minlength="15"
+                                    <input formControlName="gst" minlength="15"
                                     maxlength="15" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
                                     <div *ngIf="f['gst'].touched && f['gst'].invalid">
                                         <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>

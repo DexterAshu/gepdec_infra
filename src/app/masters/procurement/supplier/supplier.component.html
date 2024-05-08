@@ -144,7 +144,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">GST No</label>
-                                                <input formControlName="gstNo" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
+                                                <input formControlName="gstNo" type="text" class="form-control form-control-sm" appNoSpace appUpperCase minlength="15" maxlength="15">
                                                 <div *ngIf="f['gstNo'].touched && f['gstNo'].invalid">
                                                     <small class="text-danger" *ngIf="f['gstNo'].errors?.['required']">*Required</small>
                                                 </div>
@@ -162,7 +162,8 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">PAN No<span class="required-asterisk">*</span></label>
-                                                <input formControlName="panNo" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                                                <input formControlName="panNo" type="text" class="form-control form-control-sm" appUpperCase appNoSpace minlength="10"
+                                                maxlength="10">
                                                 <div *ngIf="f['panNo'].touched && f['panNo'].invalid">
                                                     <small class="text-danger" *ngIf="f['panNo'].errors?.['required']">*Required</small>
                                                 </div>
@@ -171,7 +172,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">TAN No</label>
-                                                <input formControlName="tanNo" type="text" class="form-control form-control-sm" appUpperCase appNoSpace>
+                                                <input formControlName="tanNo" type="text" class="form-control form-control-sm" appUpperCase appNoSpace minlength="10" maxlength="10">
                                                 <div *ngIf="f['tanNo'].touched && f['tanNo'].invalid">
                                                     <small class="text-danger" *ngIf="f['tanNo'].errors?.['required']">*Required</small>
                                                 </div>
@@ -272,7 +273,7 @@
                                         <div class="col-md-1">
                                             <div class="form-group">
                                                 <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
-                                                <input formControlName="headPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                                <input formControlName="headPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly maxlength="6" minlength="6">
                                                 <div *ngIf="f['headPincode'].touched && f['headPincode'].invalid">
                                                     <small class="text-danger" *ngIf="f['headPincode'].errors?.['required']">*Required</small>
                                                     <small class="text-danger" *ngIf="f['headPincode'].errors?.['pattern']">*Please enter 6 digit code.</small>
@@ -344,7 +345,7 @@
                                         <div class="col-md-1">
                                             <div class="form-group">
                                                 <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
-                                                <input formControlName="factoryPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                                <input formControlName="factoryPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly maxlength="6" minlength="6">
                                                 <div *ngIf="f['factoryPincode'].touched && f['factoryPincode'].invalid">
                                                     <small class="text-danger" *ngIf="f['factoryPincode'].errors?.['required']">*Required</small>
                                                     <small class="text-danger" *ngIf="f['factoryPincode'].errors?.['pattern']">*Please enter 6 digit code.</small>
@@ -366,7 +367,6 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">Bank Name<span class="required-asterisk">*</span></label>
-                                                    <!-- <input formControlName="bank_id" type="text" class="form-control form-control-sm"> -->
                                                     <select formControlName="bank_id" class="form-select form-select-sm">
                                                         <option [selected]="true" [disabled]="true" [value]="null">Select Bank Name</option>
                                                         <option *ngFor="let t of dataDropdownList.bank" [value]="t.bank_id">{{ t.bankname }}</option>
@@ -406,7 +406,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">IFSC Code<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="bankifsc" type="text" class="form-control form-control-sm" appAlphaNumeric appNoSpace appUpperCase>
+                                                    <input formControlName="bankifsc" type="text" class="form-control form-control-sm" appAlphaNumeric appNoSpace appUpperCase minlength="11" maxlength="11">
                                                     <!-- <div *ngIf="f['bankifsc'].touched && f['bankifsc'].invalid">
                                                         <small class="text-danger" *ngIf="f['bankifsc'].errors?.['required']">*Required</small>
                                                     </div> -->
@@ -474,7 +474,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Contact No<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="contactno" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                                    <input formControlName="contactno" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly minlength="10"
+                                                    maxlength="10">
                                                     <!-- <div *ngIf="f['contactno'].touched && f['contactno'].invalid">
                                                         <small class="text-danger" *ngIf="f['contactno'].errors?.['required']">*Required</small>
                                                     </div> -->
@@ -502,7 +503,7 @@
                         <ng-container formArrayName="documentDetails">
                             <div class="card mt-2">
                                 <div class="card-header card-primary">
-                                    Vendor QS Certifications
+                                    Vendor Certifications
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">

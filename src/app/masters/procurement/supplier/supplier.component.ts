@@ -332,7 +332,6 @@ export class SupplierComponent {
   }
 
   onSubmit() {
-    debugger
     if (this.form.valid) {
       this.isSubmitted = true;
       const formData = new FormData();

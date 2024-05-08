@@ -182,7 +182,6 @@ export class TechDocumentsComponent {
   //button dropdown
  
   showPdf(a:any) {
-    debugger
     this.showAsPdf = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.apiUrl}${a?.document}`);
   }
 
@@ -195,7 +194,6 @@ export class TechDocumentsComponent {
   // }
 
   // addMultiTechPoints() {
-  //   debugger
   //   let formData = {... this.form.value };
   //   // let mergedData = { ...formData, 'attachment': this.uploadFile}
   //   this.addTech.push(formData);
@@ -208,7 +206,6 @@ export class TechDocumentsComponent {
   // }
 
   onFileChanged(event: any) {
-    debugger
     this.uploadFile = [];
     let file = event.target.files[0];
     let type = /(\.pdf)$/i;
@@ -221,7 +218,6 @@ export class TechDocumentsComponent {
   }
 
   onSubmit() {
-    debugger
     if (this.form.valid) {
       this.isSubmitted = true;
       this.loading = true;

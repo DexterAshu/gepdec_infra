@@ -242,7 +242,6 @@ export class DataCapturingComponent {
   }
   //
   toggleSecurityField(val: any): void {
-    debugger
     if (val == '1001') {
       this.form.get('security_amount')!.setValidators([Validators.required]);
       this.form.get('securitysubmission_date')!.setValidators([Validators.required]);

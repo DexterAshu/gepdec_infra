@@ -250,7 +250,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Pin Code<span class="required-asterisk">*</span></label>
-                  <input formControlName="pincode" type="text" class="form-control form-control-sm" [maxlength]="6" appNumberOnly appNoSpace>
+                  <input formControlName="pincode" type="text" class="form-control form-control-sm" maxlength="6" minlength="6" appNumberOnly appNoSpace>
                   <div *ngIf="f['pincode'].touched && f['pincode'].invalid"><small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
@@ -277,13 +277,14 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label>Primary No<span class="required-asterisk">*</span></label>
-                        <input formControlName="contactno1" type="text" class="form-control form-control-sm">
+                        <input formControlName="contactno1" type="text" class="form-control form-control-sm" minlength="10"
+                        maxlength="10">
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label>Secondary No</label>
-                        <input formControlName="contactno2" type="text" class="form-control form-control-sm" [maxlength]="10" appNumberOnly appNoSpace>
+                        <input formControlName="contactno2" type="text" class="form-control form-control-sm" [maxlength]="10" appNumberOnly appNoSpace minlength="10" maxlength="10">
                       </div>
                     </div>
                     <div class="col-md-4">

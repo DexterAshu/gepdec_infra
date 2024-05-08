@@ -1547,7 +1547,6 @@ scateredGraphPrject = new Chart({
 });
 
 onChartSelect(event: any) {
-  debugger
   // Check the "name" property of the selected item
   const selectedName = event.series;
 

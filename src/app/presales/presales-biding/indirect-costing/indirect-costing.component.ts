@@ -127,7 +127,6 @@ export class IndirectCostingComponent {
   }
 
   selectRec(data:any, e:any, index:number) {
-    debugger
     if(e.target.checked == true) {
       if(!data.multiplier || data.multiplier == null || data.unitcost == null) {
         e.target.checked = false;
