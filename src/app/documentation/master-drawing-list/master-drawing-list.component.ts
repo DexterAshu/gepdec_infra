@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-master-drawing-list',
@@ -24,7 +25,7 @@ export class MasterDrawingListComponent {
   listOfFiles: any = [];
   isSubmitted: boolean = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -68,6 +69,12 @@ export class MasterDrawingListComponent {
   addDrawingList(): void {
     this.drawingList = this.form.get('drawingList') as FormArray;
     this.drawingList.push(this.createDrawingList());
+  }
+
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
   }
 
   getClient(): void {

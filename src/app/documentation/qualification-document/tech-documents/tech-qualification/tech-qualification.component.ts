@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ApiService, AlertService } from 'src/app/_services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tech-qualification',
@@ -29,7 +30,8 @@ export class TechQualificationComponent {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -49,14 +51,16 @@ export class TechQualificationComponent {
       bid_validity: ['',Validators.required],
       attachment: ['', Validators.required],
       description: [''],
-     
     });
 
     this.getData();
-   
-
   }
 
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
+  }
   
   getData() {
     

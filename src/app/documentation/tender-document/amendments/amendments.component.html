@@ -25,24 +25,14 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
-                                <button class="btn filter-col btn-fw btn-sm float-right cursor-pointer">
-                                 
-                                    Amendments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                                      </svg>
-                                    </button>
-                                <ul>
-                                  <li><button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc"> <span class="mdi mdi-file-document" ></span>&nbsp;Tender</button>
-                                  </li>
-                                  <li> <button type="button" class="btn btn-fw btn-sm" routerLink="/documentation/tend-doc/amedments"><span class="mdi mdi-file-check"></span>&nbsp;Amendment</button>
-                                  </li>
-                                  <li> <button type="button" routerLink="/documentation/tend-doc/initial-boq" class="btn btn-fw btn-sm"><span class="mdi mdi-file-document"></span>&nbsp;Initial BOQ</button>
-                                  </li>
-                                  <li> <button type="button" routerLink="/documentation/tend-doc/l1-schedule" class="btn btn-fw btn-sm"><span class="mdi mdi-calendar-clock"></span>&nbsp;L1 Schedule</button>
-                                  </li>
-                                </ul>
-                              </div>
+                                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
+                                    <option [disabled]="true" [value]="null">Select</option>
+                                    <option [selected]="true" value="/documentation/tend-doc/amedments"> Amendments</option>
+                                    <option value="/documentation/tend-doc"> Tender</option>
+                                    <option value="/documentation/tend-doc/initial-boq"> Initial BOQ</option>
+                                    <option value="/documentation/tend-doc/l1-schedule"> L1 Schedule</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="float-right">

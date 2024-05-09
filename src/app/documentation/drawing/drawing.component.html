@@ -21,14 +21,21 @@
             </div>
             <div class="col-lg-3">
               <div class="dropdown" [class.active]="isOpen" (click)="isOpen = !isOpen">
-                <div class="d-grid gap-2">
+                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
+                  <option [disabled]="true" [value]="null">Select</option>
+                  <option [selected]="true" value="/documentation/drawing-doc"> Drawing</option>
+                  <option value="/documentation/master-drawing-list"> Master Drawing List (MDL)</option>
+                  <option value="/documentation/final-boq"> Final BOQ</option>
+                </select>
+
+                <!-- <div class="d-grid gap-2">
                   <button class="btn filter-col btn-fw btn-sm cursor-pointer">Drawing&nbsp;&nbsp;&nbsp;&nbsp;<span class="mdi mdi-chevron-down"></span></button>
                 </div>
                 <ul style="margin-top: -16px;" class="text-nowrap">
                   <li class="px-4 py-1 cursor-pointer" routerLink="/documentation/master-drawing-list"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp;Master Drawing List (MDL)</li>
                   <li class="px-4 py-1 cursor-pointer" routerLink="/documentation/drawing-doc"><span class="mdi mdi-flower"></span>&nbsp;&nbsp;Drawing </li>
                   <li class="px-4 py-1 cursor-pointer" routerLink="/documentation/final-boq"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp;Final BOQ </li>
-                </ul>
+                </ul> -->
               </div>
             </div>
             <div class="col-lg-4">

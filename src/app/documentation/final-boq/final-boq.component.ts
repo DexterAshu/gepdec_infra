@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-final-boq',
@@ -23,7 +24,12 @@ export class FinalBOQComponent {
   listOfFiles: any = [];
   isSubmitted: boolean = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService) {}
+  constructor(
+    private fb: FormBuilder, 
+    private apiService: ApiService, 
+    private alertService: AlertService,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -39,6 +45,12 @@ export class FinalBOQComponent {
   }
 
   get f() { return this.form.controls }
+
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
+  }
 
   getClient(): void {
     this.companyData = [];

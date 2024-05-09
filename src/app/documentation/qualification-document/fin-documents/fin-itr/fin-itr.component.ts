@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ApiService, AlertService, MasterService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-fin-itr',
   templateUrl: './fin-itr.component.html',
@@ -35,6 +36,7 @@ export class FinItrComponent {
     private apiService: ApiService,
     private alertService: AlertService,
     private masterService: MasterService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -46,15 +48,16 @@ export class FinItrComponent {
       itr_number:[''],
       attachment: ['', Validators.required],
       description: [''],
-     
     });
-
     this.getData();
-   
-
   }
 
-  
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
+  }
+
   getData() { 
     const apiLink = `/mycompany/api/v1/getMyComapanyList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {

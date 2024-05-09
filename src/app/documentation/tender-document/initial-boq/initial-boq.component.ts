@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment} from '../../../../environments/environment';
 import { ApiService, AlertService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-initial-boq',
@@ -33,10 +34,12 @@ export class InitialBoqComponent {
   showTypeField: boolean = true;
   comData: any;
  isOpen: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -50,6 +53,13 @@ export class InitialBoqComponent {
     this.listAPIData('initialboq');
     this.getData();
   }
+
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
+  }
+  
   getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;

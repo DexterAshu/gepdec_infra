@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-l1-schedule',
   templateUrl: './l1-schedule.component.html',
@@ -25,7 +25,7 @@ export class L1ScheduleComponent {
   selectedTender: any;
   selectedRow: any;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService: SharedService, private elementRef: ElementRef) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService: SharedService, private elementRef: ElementRef, private router: Router) { }
 
   ngOnInit() {
     this.getData();
@@ -42,6 +42,12 @@ export class L1ScheduleComponent {
 
   ngAfterViewInit() {
     this.sharedService.initializeTooltips(this.elementRef);
+  }
+
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
   }
 
   getData() {

@@ -5,6 +5,7 @@ import { ApiService, AlertService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tech-documents',
   templateUrl: './tech-documents.component.html',
@@ -47,6 +48,7 @@ export class TechDocumentsComponent {
     private apiService: ApiService,
     private alertService: AlertService,
     private sanitizer: DomSanitizer,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -72,6 +74,12 @@ export class TechDocumentsComponent {
   }
 
   get f() { return this.form.controls; }
+
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
+  }
 
   companyDataList() {
     const apiLink = `/mycompany/api/v1/getMyComapanyList`;

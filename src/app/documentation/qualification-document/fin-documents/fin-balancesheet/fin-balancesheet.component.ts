@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { ApiService, AlertService, MasterService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-fin-balancesheet',
   templateUrl: './fin-balancesheet.component.html',
@@ -40,7 +42,7 @@ export class FinBalancesheetComponent {
     private apiService: ApiService,
     private alertService: AlertService,
     private masterService: MasterService,
-    
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -65,6 +67,7 @@ export class FinBalancesheetComponent {
     });
     this.getData();
   }
+  
   get f() {return this.documentForm.controls;}
 
   getDetails(data:any){
@@ -95,6 +98,12 @@ export class FinBalancesheetComponent {
        
         }); 
   }
+
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
+  } 
  
   getData() { 
     const apiLink = `/mycompany/api/v1/getMyComapanyList`;

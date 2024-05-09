@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ApiService, AlertService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-other-documents',
   templateUrl: './other-documents.component.html',
@@ -32,7 +33,8 @@ export class OtherDocumentsComponent {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -52,14 +54,16 @@ export class OtherDocumentsComponent {
       bid_validity: ['',Validators.required],
       attachment: ['', Validators.required],
       description: [''],
-
     });
 
     this.getData();
-
-
   }
 
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
+  }
 
   getData() {
 

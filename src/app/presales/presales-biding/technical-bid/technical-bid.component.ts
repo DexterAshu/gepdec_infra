@@ -6,6 +6,7 @@ import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-technical-bid',
   templateUrl: './technical-bid.component.html',
@@ -14,7 +15,6 @@ import * as FileSaver from 'file-saver';
 export class TechnicalBidComponent {
   
   form!: FormGroup;
-
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -47,6 +47,7 @@ export class TechnicalBidComponent {
     private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -70,6 +71,12 @@ export class TechnicalBidComponent {
   }
 
   get f() { return this.form.controls; }
+
+  redirect(route: any) {
+    if (route) {
+      this.router.navigateByUrl(route.target.value);
+    }
+  }
 
   getData() {
     this.docListData = [];
