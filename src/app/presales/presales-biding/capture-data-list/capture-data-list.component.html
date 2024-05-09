@@ -417,7 +417,7 @@
                             </div>
 
                             <!-- qualification details -->
-                            <h6 class="mb-2 mt-4 text-primary cursor-pointer" (click)="finDataShow=!finDataShow">
+                            <h6 class="mb-2 mt-4 text-primary cursor-pointer" (click)="finDataShow =! finDataShow">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708z" />
@@ -429,7 +429,7 @@
                                     <tr>
                                         <th>Financial Year</th>
                                         <td>{{ a?.financialyear }}</td>
-                                        <th>Annuval Turnover</th>
+                                        <th>Annual Turnover</th>
                                         <td>{{ a?.annual_turnover }}</td>
                                         <th>Net Worth</th>
                                         <td>{{ a?.net_worth }}</td>
@@ -446,7 +446,7 @@
                             </table> -->
 
 
-                            <div class="table-responsive tableStyle mt-2" *ngIf="finDataShow">
+                            <div class="table-responsive tableStyle mt-2" *ngIf="finDataShow" style="min-height: auto !important;">
                                 <table class="table table-hover table-striped mb-3" *ngFor="let a of rowData?.tenderfinancials">
                                   
                                     <thead class="table-primary text-nowrap">
@@ -461,9 +461,9 @@
                                             </tr>
                                     </thead>
                                    
-                                    <tbody class="text-nowrap" *ngIf="a?.annual_turnover > 0">
-                                        <tr>
-                                            <td>Annuval Turnover</td>
+                                    <tbody class="text-nowrap">
+                                        <tr *ngIf="a?.annual_turnover > 0">
+                                            <td>Annual Turnover</td>
                                             <td>{{ a?.financialyear }}</td>
                                             <td>{{ a?.annual_turnover }}</td>
                                             <td>{{ a?.annual_turnover_year }}</td>
@@ -478,12 +478,7 @@
                                                 </ng-template>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                 
-                                    <!-- Net Worth -->
-    
-                                    <tbody class="text-nowrap" *ngIf=" a?.net_worth > 0">
-                                        <tr>
+                                        <tr *ngIf="a?.net_worth > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Net Worth</td>
                                             <td>{{ a?.financialyear }}</td>
@@ -500,12 +495,7 @@
                                                 </ng-template>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                 
-                                    <!-- Net Working Capital -->
-                                   
-                                    <tbody class="text-nowrap" *ngIf=" a?.net_working_capital > 0">
-                                        <tr>
+                                        <tr *ngIf=" a?.net_working_capital > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Net Working Capital</td>
                                             <td>{{ a?.financialyear }}</td>
@@ -522,11 +512,7 @@
                                                 </ng-template>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                
-                                    <!-- Net Profit -->
-                                    <tbody class="text-nowrap"  *ngIf=" a?.net_profit > 0">
-                                        <tr>
+                                        <tr *ngIf=" a?.net_profit > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Net Profit</td>
                                             <td>{{ a?.financialyear }}</td>
@@ -543,18 +529,152 @@
                                                 </ng-template>
                                             </td>
                                         </tr>
+
+                                        <!--  Total Liability -->
+                                        <tr *ngIf=" a?.total_liabilities > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Total Liability</td>
+                                            <td>{{ a?.total_liabilities }}</td>
+                                            <td>{{ a?.total_liabilities_year }}</td>
+                                            <td>{{ a?.total_liabilities_check}}</td>
+                                            <td>{{ a?.our_total_liabilities}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.total_liabilities_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                        <!--  Fixed Asset -->
+                                        <tr *ngIf=" a?.total_fixed_assets > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Total Fixed Asset</td>
+                                            <td>{{ a?.total_fixed_assets }}</td>
+                                            <td>{{ a?.total_fixed_assets_year }}</td>
+                                            <td>{{ a?.total_fixed_assets_check}}</td>
+                                            <td>{{ a?.our_total_fixed_assets}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.total_fixed_assets_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                        <!--  Net Capital -->
+                                        <tr *ngIf=" a?.net_capital > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Net Capital</td>
+                                            <td>{{ a?.net_capital }}</td>
+                                            <td>{{ a?.net_capital_year }}</td>
+                                            <td>{{ a?.net_capital_check}}</td>
+                                            <td>{{ a?.our_net_capital}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.net_capital_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                        <!--  reserve_surplus -->
+                                        <tr *ngIf=" a?.reserve_surplus > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Reserve & Surplus</td>
+                                            <td>{{ a?.reserve_surplus }}</td>
+                                            <td>{{ a?.reserve_surplus_year }}</td>
+                                            <td>{{ a?.reserve_surplus_check}}</td>
+                                            <td>{{ a?.our_reserve_surplus}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.reserve_surplus_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                        <!--  paid_upcapital -->
+                                        <tr *ngIf=" a?.paid_upcapital > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Paid Up Capital</td>
+                                            <td>{{ a?.paid_upcapital }}</td>
+                                            <td>{{ a?.paid_upcapital_year }}</td>
+                                            <td>{{ a?.paid_upcapital_check}}</td>
+                                            <td>{{ a?.our_paid_upcapital}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.paid_upcapital_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                        <!--  ebidta -->
+                                        <tr *ngIf=" a?.ebidta > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>EBIDTA</td>
+                                            <td>{{ a?.ebidta }}</td>
+                                            <td>{{ a?.ebidta_year }}</td>
+                                            <td>{{ a?.ebidta_check}}</td>
+                                            <td>{{ a?.our_ebidta}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.ebidta_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr *ngIf="rowData?.tenderfinancials.length == 0">
+                                            <td colspan="15" class="text-center">
+                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                            </td>
+                                        </tr>
                                     </tbody>
+                                </table>
                                  
-                                    <tr *ngIf="a?.length == 0">
-                                        <td colspan="15" class="text-center">
-                                            <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                        </td>
-                                    </tr>
+                                <table class="table table-hover table-striped mb-3" *ngIf="rowData?.tenderfinancials.length == 0">
+                                    <thead class="table-primary text-nowrap">
+                                            <tr>
+                                                <th>Points</th>
+                                                <th>Fin Year</th>
+                                                <th>Amounts (Cr)</th>
+                                                <th>Years</th>
+                                                <th>Condition</th>
+                                                <th>Our Values</th>
+                                                <th>Result</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <td colspan="15" class="text-center">
+                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
-
-
-
 
                             <h6 class="mb-2 mt-4 text-primary cursor-pointer" (click)="techDataShow=!techDataShow">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -567,7 +687,7 @@
                             <div class="container-fluid mt-1" *ngIf="techDataShow">
                                 <div class="row">
                                     <div class="col-md-12 p-0">
-                                        <div class="table-responsive tableStyle">
+                                        <div class="table-responsive tableStyle" style="min-height: auto !important;">
                                             <table class="table table-hover table-striped mb-3">
                                                 <thead class="table-primary text-nowrap">
                                                     <tr>
@@ -604,7 +724,7 @@
                                                         </td>
                                                     </tr>
                                                  
-                                                    <tr *ngIf="rowData?.qualification?.length == 0">
+                                                    <tr *ngIf="rowData?.prequalification?.length == 0">
                                                         <td colspan="15" class="text-center">
                                                             <div class="text-warning fw-semibold">Looks like no data available!</div>
                                                         </td>
@@ -654,12 +774,9 @@
                             </div> -->
 
                             <!-- tender status modal start-->
-                            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                                <div class="row mt-3" >
-                                    <!-- <p>{{rowData?.tender_status === '300' == true}}</p> -->
-                                   
-
-                                        <div class="col-md-3" >
+                            <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
+                                <div class="row mt-3">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="form-label fl-10">Tender Status<span
                                                         class="required-asterisk">*</span></label>
@@ -675,7 +792,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-9" >
+                                        <div class="col-md-9">
                                             <div class="form-group">
                                                 <label class="form-label fl-10">Remarks<span
                                                         class="required-asterisk">*</span></label>

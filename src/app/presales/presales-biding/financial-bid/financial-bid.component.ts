@@ -201,12 +201,12 @@ export class FinancialBidComponent {
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: " + error.statusText);
     });
 
   }
 
-  //Annuval data
+  //Annual data
   annuvalTurnVal(year:any, check:any, annual:any){
     if(check) {
       this.apiService.finAnnuvalTournover(year, check).subscribe((res:any) =>{

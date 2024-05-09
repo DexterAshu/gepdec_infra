@@ -66,7 +66,7 @@
                                 <th>S No</th>
                                 <th>Company</th>
                                 <th>Financial Year</th>
-                                <th>Annuval Turnover</th>
+                                <th>Annual Turnover</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -208,7 +208,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Annuval Turnover (Cr)<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Annual Turnover (Cr)<span class="required-asterisk">*</span></label>
                                     <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
                                         <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
@@ -304,7 +304,7 @@
                          
                             <th>Paid up Capital</th>
                             <td>{{ rowData?.paid_upcapital }}</td>
-                            <th>Annuval TUrnover</th>
+                            <th>Annual TUrnover</th>
                             <td>{{ rowData?.annual_turnover }}</td>
                         </tr>
                         <tr>

@@ -41,6 +41,10 @@ export class BankingDetailsComponent {
   securityData: any;
   isOpen: boolean = false;
   loading: boolean = false;
+  update: boolean = false;
+  button: string = 'Create';
+  rowData: any;
+  bankDetails: any;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -70,6 +74,33 @@ export class BankingDetailsComponent {
     this.bankList();
   }
 
+  getBankDetails(data:any){
+    this.rowData = [];
+    this.rowData = data;
+  }
+
+  getPatchDetails(data:any){
+    this.documentForm.reset();
+    this.button = 'Update';
+    this.update = true;
+    this.bankDetails = [];
+    this.bankDetails = data;
+      this.documentForm.patchValue({
+        bidder_id: this.bankDetails.bidder_id,
+          total_liabilities: this.bankDetails.total_liabilities,
+          total_fixed_assets: this.bankDetails.total_fixed_assets,
+          net_profit: this.bankDetails.net_profit,
+          net_worth:this.bankDetails.net_worth,
+          net_capital:this.bankDetails.net_capital,
+          reserve_surplus:this.bankDetails.reserve_surplus,
+          paid_upcapital:this.bankDetails.paid_upcapital,
+          annual_turnover:this.bankDetails.annual_turnover,
+          net_working_capital:this.bankDetails.net_working_capital,
+          ebidta:this.bankDetails.ebidta,
+          description:this.bankDetails.description
+       
+        }); 
+  }
 
 
   getData() {

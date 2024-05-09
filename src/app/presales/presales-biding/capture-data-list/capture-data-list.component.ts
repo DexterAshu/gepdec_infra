@@ -102,15 +102,12 @@ export class CaptureDataListComponent {
   }
 
   rowListData(row: any) {
+    debugger
     this.rowData = row;
-var roleD = this.roleStatusData.filter((res:any)=>{
+  var roleD = this.roleStatusData.filter((res:any)=>{
   return res.tender_id == this.rowData.tender_id;
 })
-console.log(roleD)
-console.log(roleD[0].roleStatus)
 this.statusList=roleD[0].roleStatus
-console.log(this.statusList)
-// this.roleStatusData = this.statusList;
   }
 
  

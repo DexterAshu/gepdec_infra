@@ -85,19 +85,10 @@
                                 <td>{{a.start_date}}</td>
                                 <td>{{a.end_date}}</td>
                                 <td>{{a.submission_date}}</td>
-                            
-                                <!-- <td>
-                                    <div *ngIf="!!a.document; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.document }}">
-                                        {{a.document | slice:0:30}} <span *ngIf="a.document.length > 30">...<i class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock14>
-                                        {{a.document}}
-                                    </ng-template>
-                                </td> -->
                           
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal"data-bs-target="#detailModal" title="View Details" (click)="getBankDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                                     <!-- &nbsp; -->
                                      <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 
@@ -195,7 +186,7 @@
                             </div>
                             <div class="form-group col-4">
                             <label for="">Amount <span class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="bg_amount" usd-only>
+                            <input type="text" class="form-control form-control-sm" formControlName="bg_amount" appNumberOnly>
                             <div *ngIf="f['bg_amount'].touched && f['bg_amount'].invalid">
                                 <small class="text-danger" *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
                             </div>    
@@ -222,10 +213,7 @@
                                 <small class="text-danger" *ngIf="f['submission_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
-                            <!-- <div class="form-group col-4" *ngIf="this.userData.rolename === 'Documentation' && 'update'">
-                            <label for="">Extend Date </label>
-                            <input type="date" class="form-control form-control-sm" formControlName="extend_date">
-                        </div> -->
+                         
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12">
@@ -241,7 +229,7 @@
                       
 
                         <div class="float-right">
-                            <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="!documentForm.valid">Submit</button>
+                            <button type="submit" *ngIf="!isSubmitted" [disabled]="documentForm.invalid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
                             <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...</button>
                             <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -254,3 +242,88 @@
 </div>
 
  <!-- Banking modal end-->
+
+ <!-- details modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <table class="table table-hover table-striped custom-table">
+                <thead class="hidden-thead"></thead>
+                <tbody class="text-nowrap">
+                    <tr>
+                        <th>Company</th>
+                        <td>{{ rowData?.bidder_name }}</td>
+                        <th>Financial Year</th>
+                        <td>{{ rowData?.financialyear }}</td>
+                       
+                    </tr>
+                    <tr>
+                        <th>Total Liability</th>
+                        <td>{{ rowData?.total_liabilities }}</td>
+                        <th>Total Fixed Asset</th>
+                        <td>{{ rowData?.total_fixed_assets }}</td>
+                    </tr>
+                    <tr>
+                       
+                        <th>Net Profit</th>
+                        <td>{{ rowData?.net_profit }}</td>
+                        <th>Net Worth</th>
+                        <td>{{ rowData?.net_worth }}</td>
+                    </tr>
+                    <tr>
+                      
+                        <th>Net Capital</th>
+                        <td>{{ rowData?.net_capital }}</td>
+                        <th>Reserve & Surplus</th>
+                        <td>{{ rowData?.reserve_surplus }}</td>
+                    </tr>
+                    <tr>
+                     
+                        <th>Paid up Capital</th>
+                        <td>{{ rowData?.paid_upcapital }}</td>
+                        <th>Annual TUrnover</th>
+                        <td>{{ rowData?.annual_turnover }}</td>
+                    </tr>
+                    <tr>
+                       
+                        <th>Networking Capital</th>
+                        <td>{{ rowData?.net_working_capital }}</td>
+                        <th>Ebidta</th>
+                        <td>{{ rowData?.ebidta }}</td>
+                        </tr>
+                       
+                        <tr>
+                        <th>Description</th>
+                        <td>
+                            <span *ngIf="!!rowData?.description; else elseBlock4">
+                                {{ rowData?.description}}
+                            </span>
+                            <ng-template #elseBlock4>
+                                --
+                            </ng-template>
+                        </td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Created By</th>
+                        <td>{{rowData?.createdby_name}}</td>
+                        <th>Created At</th>
+                        <td>{{rowData?.created}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        </div>
+    </div>
+</div>
+</div>
+<!-- details modal end-->
