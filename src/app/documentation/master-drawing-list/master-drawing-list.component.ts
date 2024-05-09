@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
@@ -16,6 +16,7 @@ export class MasterDrawingListComponent {
   p: number = 1;
   limit = environment.pageLimit;
   form!: FormGroup;
+  drawingList: any;
   selectedTender: any;
   companyData: any = [];
   tenderList: any = [];
@@ -31,14 +32,43 @@ export class MasterDrawingListComponent {
 
   formInit(): void {
     this.form = this.fb.group({
-      client: ['null', Validators.required],
-      tender_id: ['', Validators.required],
-      attachment: ['', Validators.required],
-      description: ['']
+      client: [null, Validators.required],
+      tender_id: [null, Validators.required],
+      drawingList: new FormArray([this.createDrawingList()])
+    });
+    this.drawingList = this.fb.group({
+      document_title: [null, Validators.required],
+      document_number: [null, Validators.required],
+      description: [null, Validators.required],
+      discipline: [null, Validators.required],
+      sub_discipline: [null, Validators.required],
+      stage: [null, Validators.required],
+      category: [null, Validators.required],
+      planned_submission: [null, Validators.required],
+      remarks: [null, Validators.required]
     });
   }
 
-  get f() { return this.form.controls }
+  get f() { return this.form.controls; }
+
+  createDrawingList(): FormGroup {
+    return this.fb.group({
+      document_title: [null, Validators.required],
+      document_number: [null, Validators.required],
+      description: [null, Validators.required],
+      discipline: [null, Validators.required],
+      sub_discipline: [null, Validators.required],
+      stage: [null, Validators.required],
+      category: [null, Validators.required],
+      planned_submission: [null, Validators.required],
+      remarks: [null, Validators.required]
+    });
+  }
+
+  addDrawingList(): void {
+    this.drawingList = this.form.get('drawingList') as FormArray;
+    this.drawingList.push(this.createDrawingList());
+  }
 
   getClient(): void {
     this.companyData = [];
@@ -88,36 +118,36 @@ export class MasterDrawingListComponent {
 
   onSubmit() {
     console.log(this.form.value);
-    const formData: FormData = new FormData();
-    for (let i = 0; i < this.attachment.length; i++) {
-      formData.append('attachment', this.attachment[i]);
-    }
-    formData.append('bank_name', this.form.value.bank_name);
-    formData.append('bgnumber', this.form.value.bgnumber);
-    formData.append('bgamount', this.form.value.bgamount);
-    formData.append('start_date', this.form.value.start_date);
-    formData.append('end_date', this.form.value.end_date);
-    formData.append('submission_date', this.form.value.submission_date);
-    formData.append('extend_date', this.form.value.extend_date);
-    formData.append('publish_date', this.form.value.publish_date);
-    formData.append('tender_ref_no', this.form.value.tender_ref_no);
-    formData.append('tender_title', this.form.value.tender_title);
-    formData.append('utility', this.form.value.utility);
-    formData.append('description', this.form.value.description);
-    this.isSubmitted = true;
-    this.apiService.createDocuments(formData).subscribe((res: any) => {
-      if (res.status == 200) {
-        this.form.reset();
-        this.alertService.success(res.message);
-        document.getElementById('cancel')?.click();
-      } else {
-        this.alertService.warning(res.message);
-      }
-    }),
-    (error: any) => {
-      this.alertService.error(error);
-    }
-    this.isSubmitted = false;
+    // const formData: FormData = new FormData();
+    // for (let i = 0; i < this.attachment.length; i++) {
+    //   formData.append('attachment', this.attachment[i]);
+    // }
+    // formData.append('bank_name', this.form.value.bank_name);
+    // formData.append('bgnumber', this.form.value.bgnumber);
+    // formData.append('bgamount', this.form.value.bgamount);
+    // formData.append('start_date', this.form.value.start_date);
+    // formData.append('end_date', this.form.value.end_date);
+    // formData.append('submission_date', this.form.value.submission_date);
+    // formData.append('extend_date', this.form.value.extend_date);
+    // formData.append('publish_date', this.form.value.publish_date);
+    // formData.append('tender_ref_no', this.form.value.tender_ref_no);
+    // formData.append('tender_title', this.form.value.tender_title);
+    // formData.append('utility', this.form.value.utility);
+    // formData.append('description', this.form.value.description);
+    // this.isSubmitted = true;
+    // this.apiService.createDocuments(formData).subscribe((res: any) => {
+    //   if (res.status == 200) {
+    //     this.form.reset();
+    //     this.alertService.success(res.message);
+    //     document.getElementById('cancel')?.click();
+    //   } else {
+    //     this.alertService.warning(res.message);
+    //   }
+    // }),
+    // (error: any) => {
+    //   this.alertService.error(error);
+    // }
+    // this.isSubmitted = false;
   }
 
   download(): void {
