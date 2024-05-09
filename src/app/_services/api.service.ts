@@ -216,6 +216,11 @@ export class ApiService {
   //   return this.http.get<any>( `${environment.apiUrl}/mycompany/api/v1/checkMyComapanyFinancials?${params}`, httpOptions );
   // }
 
+  ourFinUpdation(data: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put<any[]>( `${environment.apiUrl}/mycompany/api/v1/updateMyComapanyFinancials`, data, httpOptions );
+  }
+
 //fin-all fields-api
 finAnnuvalTournover(year:any, check:any): Observable<any> {
   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };

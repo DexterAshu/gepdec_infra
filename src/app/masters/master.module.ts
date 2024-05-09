@@ -39,6 +39,7 @@ import { ShippingAddressComponent } from './procurement/shipping-address/shippin
 import { ItemLabelComponent } from './item-label/item-label.component';
 import { OurCompanyFinanaceDataComponent } from './our-company-finanace-data/our-company-finanace-data.component';
 import { BomComponent } from './procurement/bom/bom.component';
+import { CompFinanceComponent } from './comp-finance/comp-finance.component';
 // import { FilterPipe } from '../_pipes/filter.pipe';
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'vendor', component: VendorMasterComponent },
   { path: 'tender', component: TenderMasterComponent },
   { path: 'finData', component: OurCompanyFinanaceDataComponent },
+  { path: 'company-finance', component: CompFinanceComponent },
 
   { path: 'procurement/bom', component: BomComponent },
   { path: 'procurement/item', component: ItemMasterComponent },
@@ -101,6 +103,8 @@ const routes: Routes = [
     // FilterPipe
     // CountryMasterComponent
     // OurCompanyFinanaceDataComponent
+  
+    //CompFinanceComponent
   ]
 })
 export class MasterModule { }

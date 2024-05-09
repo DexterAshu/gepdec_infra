@@ -1,0 +1,345 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+              <div class="mr-md-3 mr-xl-5">
+                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Finance</h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
+                        </div>
+                        <div class="col-lg-4">
+                            <!-- <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
+                                <button class="btn filter-col btn-fw btn-sm float-right cursor-pointer">
+                                 
+                                    Balance Sheet &nbsp;&nbsp;&nbsp;&nbsp;
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                                      </svg>
+                                    </button>
+                                    <ul>
+                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/balance-sheet" class="btn btn-fw btn-sm"> <span class="mdi mdi-file-document" ></span>&nbsp;&nbsp; Balance Sheet </button>
+                                        </li>
+                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/maat" class="btn btn-fw btn-sm"><span class="mdi mdi-flower"></span>&nbsp;&nbsp; MAAT </button>
+                                        </li>
+                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/liq-asset" class="btn btn-fw btn-sm"><span class="mdi mdi-chart-donut-variant"></span>&nbsp;&nbsp; Liquid Assets </button>
+                                        </li>
+                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/bank-certificate" class="btn btn-fw btn-sm"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp; Bank certificate </button>
+                                        </li>
+                                      
+                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/itr" class="btn btn-fw btn-sm"><span class="mdi mdi-file-send"></span>&nbsp;&nbsp; ITR </button>
+                                        </li>
+                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/tender-fees" class="btn btn-fw btn-sm"><span class="mdi mdi-cannabis"></span>&nbsp;&nbsp; Tender Fees </button>
+                                        </li>
+                                      </ul>
+                              </div> -->
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="float-right">
+                               
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()">
+                                          <span class="mdi mdi-upload"></span> Export
+                                    </button>
+                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                          <span class="mdi mdi-download"></span> Import 
+                                    </button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
+                                </div>
+                            </div>
+                    </div>
+                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Company</th>
+                                <th>Financial Year</th>
+                                <th>Annuval Turnover</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{limit*(p-1)+i+1}}</td>
+                                <td>{{a.bidder_name}}</td>
+                                <td>{{a.financialyear}}</td>
+                                <td>{{a.annual_turnover}}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a class="" data-bs-toggle="modal"data-bs-target="#detailModal" title="View Details" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <!-- &nbsp; -->
+                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+
+                                </td>
+                               
+                            </tr>
+                           
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Finance Form</h5>           
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
+                        <!-- Document Details -->
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Company<span class="required-asterisk">*</span></label>
+                                    <select formControlName="bidder_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select </option>
+                                        <option *ngFor="let f of companyData" value="{{f.bidder_id}}">{{ f.bidder_name }}</option>
+                                    </select>
+                                    <div *ngIf="f['bidder_id'].touched && f['bidder_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['bidder_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Financial Year<span class="required-asterisk">*</span></label>
+                                    <select formControlName="financialyear_id" class="form-select form-select-sm">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Category</option>
+                                        <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+                                    </select>
+                                    <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Total Liabilities<span class="required-asterisk">*</span></label>
+                                    <input formControlName="total_liabilities" type="text" class="form-control form-control-sm" appNumberOnly >
+                                    <div *ngIf="f['total_liabilities'].touched && f['total_liabilities'].invalid">
+                                        <small class="text-danger" *ngIf="f['total_liabilities'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Total Fixed Assets<span class="required-asterisk">*</span></label>
+                                    <input formControlName="total_fixed_assets" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['total_fixed_assets'].touched && f['total_fixed_assets'].invalid">
+                                        <small class="text-danger" *ngIf="f['total_fixed_assets'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Net Profit (Cr)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="net_profit" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['net_profit'].touched && f['net_profit'].invalid">
+                                        <small class="text-danger" *ngIf="f['net_profit'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Net Worth (Cr)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="net_worth" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['net_worth'].touched && f['net_worth'].invalid">
+                                        <small class="text-danger" *ngIf="f['net_worth'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Net Capital (Cr)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="net_capital" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['net_capital'].touched && f['net_capital'].invalid">
+                                        <small class="text-danger" *ngIf="f['net_capital'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Reserve & Surplus<span
+                                            class="required-asterisk">*</span></label>
+                                    <input formControlName="reserve_surplus" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['reserve_surplus'].touched && f['reserve_surplus'].invalid">
+                                        <small class="text-danger" *ngIf="f['reserve_surplus'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                         
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Paid Up Capital<span
+                                            class="required-asterisk">*</span></label>
+                                    <input formControlName="paid_upcapital" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['paid_upcapital'].touched && f['paid_upcapital'].invalid">
+                                        <small class="text-danger" *ngIf="f['paid_upcapital'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Annuval Turnover (Cr)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="annual_turnover" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['annual_turnover'].touched && f['annual_turnover'].invalid">
+                                        <small class="text-danger" *ngIf="f['annual_turnover'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Net Working Capital (Cr)<span class="required-asterisk">*</span></label>
+                                    <input formControlName="net_working_capital" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['net_working_capital'].touched && f['net_working_capital'].invalid">
+                                        <small class="text-danger" *ngIf="f['net_working_capital'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">EBIDTA</label>
+                                    <input formControlName="ebidta" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <div *ngIf="f['ebidta'].touched && f['ebidta'].invalid">
+                                        <small class="text-danger" *ngIf="f['ebidta'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="">Document Description:</label>
+                                <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize>
+                               </textarea>
+                                </div>
+                        </div>
+
+                        <div class="modal-btns">
+                            <button type="submit" *ngIf="!isSubmitted" [disabled]="documentForm.invalid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...</button>
+                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                        </div>
+                   
+                      </form>
+                      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create modal end-->
+
+
+<!-- details modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-hover table-striped custom-table">
+                    <thead class="hidden-thead"></thead>
+                    <tbody class="text-nowrap">
+                        <tr>
+                            <th>Company</th>
+                            <td>{{ rowData?.bidder_name }}</td>
+                            <th>Financial Year</th>
+                            <td>{{ rowData?.financialyear }}</td>
+                           
+                        </tr>
+                        <tr>
+                            <th>Total Liability</th>
+                            <td>{{ rowData?.total_liabilities }}</td>
+                            <th>Total Fixed Asset</th>
+                            <td>{{ rowData?.total_fixed_assets }}</td>
+                        </tr>
+                        <tr>
+                           
+                            <th>Net Profit</th>
+                            <td>{{ rowData?.net_profit }}</td>
+                            <th>Net Worth</th>
+                            <td>{{ rowData?.net_worth }}</td>
+                        </tr>
+                        <tr>
+                          
+                            <th>Net Capital</th>
+                            <td>{{ rowData?.net_capital }}</td>
+                            <th>Reserve & Surplus</th>
+                            <td>{{ rowData?.reserve_surplus }}</td>
+                        </tr>
+                        <tr>
+                         
+                            <th>Paid up Capital</th>
+                            <td>{{ rowData?.paid_upcapital }}</td>
+                            <th>Annuval TUrnover</th>
+                            <td>{{ rowData?.annual_turnover }}</td>
+                        </tr>
+                        <tr>
+                           
+                            <th>Networking Capital</th>
+                            <td>{{ rowData?.net_working_capital }}</td>
+                            <th>Ebidta</th>
+                            <td>{{ rowData?.ebidta }}</td>
+                            </tr>
+                           
+                            <tr>
+                            <th>Description</th>
+                            <td>
+                                <span *ngIf="!!rowData?.description; else elseBlock4">
+                                    {{ rowData?.description}}
+                                </span>
+                                <ng-template #elseBlock4>
+                                    --
+                                </ng-template>
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Created By</th>
+                            <td>{{rowData?.createdby_name}}</td>
+                            <th>Created At</th>
+                            <td>{{rowData?.created}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+            </div>
+        </div>
+    </div>
+</div>
+<!-- details modal end-->

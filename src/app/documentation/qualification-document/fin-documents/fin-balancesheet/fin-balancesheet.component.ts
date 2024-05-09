@@ -70,6 +70,8 @@ export class FinBalancesheetComponent {
     })
     this.masterService.getFinData().subscribe((res:any) => {
       this.financialData = res.result;
+      console.log(this.financialData);
+      
     });
     this.apiService.getOurFinList().subscribe((res:any) => {
       if (res.status === 200) {
