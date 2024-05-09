@@ -232,7 +232,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
-                                    <input formControlName="pincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly>
+                                    <input formControlName="pincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly maxlength="6" minlength="6">
                                     <div *ngIf="f['pincode'].touched && f['pincode'].invalid">
                                         <small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small>
                                         <small class="text-danger" *ngIf="f['pincode'].errors?.['pattern']">*Please enter 6 digit code.</small>

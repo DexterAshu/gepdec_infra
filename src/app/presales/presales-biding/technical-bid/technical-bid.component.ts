@@ -103,7 +103,6 @@ export class TechnicalBidComponent {
   }
 
   getCategoryData() {
-    // debugger
     this.categoryData = [];
     this.subCategoryData = [];
     this.capacityData = [];
@@ -179,7 +178,6 @@ export class TechnicalBidComponent {
   //button dropdown
  
   // getDetails(event:any) {
-  //   debugger
   //   this.data1 = this.clientList; // Assuming this assignment is necessary
   //   this.apiService.tenderDetails(this.data1).subscribe((res: any) => {
   //     this.tenderDetailsData = res.result;
@@ -219,7 +217,6 @@ export class TechnicalBidComponent {
   }
 
   addMultiTechPoints() {
-    debugger
     let formData = {... this.form.value };
     this.addTech.push(formData);
     this.form.controls['qacatagory_id'].reset();
@@ -238,7 +235,6 @@ export class TechnicalBidComponent {
   }
 
   // onFileChanged(event: any) {
-  //   debugger
   //   this.uploadFile = [];
   //   let file = event.target.files[0];
   //   let type = /(\.pdf)$/i;
@@ -251,7 +247,6 @@ export class TechnicalBidComponent {
   // }
 
   onSubmit() {
-    debugger
     if (this.addTech.length > 0) {
       this.isSubmitted = true;
       this.loading = true;

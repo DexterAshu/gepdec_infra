@@ -28,15 +28,14 @@ export class ItemMasterComponent {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      // itemCode: [null, Validators.required],
       description: [null, Validators.required],
       parameter: [null],
-      // itemType: [null, Validators.required],
       itemCategory: [null, Validators.required],
       itemSubCategory: [null, Validators.required],
       itemUOM: [null, Validators.required],
-      procurementUOM: [null, Validators.required],
+      // procurementUOM: [null, Validators.required],
       cost: [null],
+      hsnCode: [null],
       gst: [null],
       parentItem: [null, Validators.required],
       parentItem_id: [null],
@@ -72,7 +71,6 @@ export class ItemMasterComponent {
   }
   
   getDataList() {
-    debugger
     this.dataList = [];
     this.isNotFound = false;
     let apiLink = "/item/api/v1/getItemList";
@@ -93,7 +91,6 @@ export class ItemMasterComponent {
   }
 
   isParent(val:any) {
-    debugger
     if (val == 'Yes') {
       this.form.get('parentItem_id')!.setValidators([Validators.required]);
       this.form.controls['parentItem_id'].reset();
@@ -119,33 +116,17 @@ export class ItemMasterComponent {
     if (this.form.valid) {
       this.isSubmitted = true;
 
-      // const formData = new FormData();
-      // formData.append('unit_id', this.form.value.itemUOM);
-      // formData.append('description', this.form.value.description);
-      // formData.append('parameter', this.form.value.parameter);
-      // formData.append('itemcategory_id', this.form.value.itemCategory);
-      // formData.append('subcategory_id', this.form.value.itemSubCategory);
-      // formData.append('cost', this.form.value.cost);
-      // formData.append('gst', this.form.value.gst);
-      // formData.append('parentitem', this.form.value.parentItem);
-      // formData.append('parentitem_id', this.form.value.parentItem_id);
-      // formData.append('precurementuom_id', this.form.value.procurementUOM);
-      // formData.append('materialclass_id', this.form.value.class);
-      // formData.append('tolerance_id', this.form.value.itemTolerance);
-
       let data = {
         unit_id: this.form.value.itemUOM,
         description: this.form.value.description,
-        // itemcode: this.form.value.itemCode.toUpperCase(),
-        // specification: this.form.value.specification,
         parameter: this.form.value.parameter,
         itemcategory_id: this.form.value.itemCategory,
-        // itemtype_id: this.form.value.itemType,
         cost: this.form.value.cost,
+        hsn_code: this.form.value.hsnCode,
         gst: this.form.value.gst,
         parentitem: this.form.value.parentItem,
         parentitem_id: this.form.value.parentItem_id,
-        precurementuom_id: this.form.value.procurementUOM,
+        // precurementuom_id: this.form.value.procurementUOM,
         materialclass_id: this.form.value.class,
         tolerance_id: this.form.value.itemTolerance,
         subcategory_id: this.form.value.itemSubCategory,

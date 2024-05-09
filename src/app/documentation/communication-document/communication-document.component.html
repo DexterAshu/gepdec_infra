@@ -23,29 +23,13 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
-                                <button class="btn filter-col btn-fw btn-sm float-right cursor-pointer">
-                                 
-                                    Communication Documents 
-                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <select class="form-select form-select-sm border-secondary pt-04">
+                                    <option [disabled]="true" [value]="null">Select</option>
+                                    <option value="Critical" [selected]="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                                      </svg>
-                                    </button>
-                                    <!-- <ul>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/balance-sheet" class="btn btn-fw btn-sm"> <span class="mdi mdi-file-document" ></span>&nbsp;&nbsp; Balance Sheet </button>
-                                        </li>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/maat" class="btn btn-fw btn-sm"><span class="mdi mdi-flower"></span>&nbsp;&nbsp; MAAT </button>
-                                        </li>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/liq-asset" class="btn btn-fw btn-sm"><span class="mdi mdi-chart-donut-variant"></span>&nbsp;&nbsp; Liquid Assets </button>
-                                        </li>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/bank-certificate" class="btn btn-fw btn-sm"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp; Bank certificate </button>
-                                        </li>
-                                     
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/itr" class="btn btn-fw btn-sm"><span class="mdi mdi-file-send"></span>&nbsp;&nbsp; ITR </button>
-                                        </li>
-                                        <li> <button type="button" routerLink="/documentation/qualification-doc/fin/tender-fees" class="btn btn-fw btn-sm"><span class="mdi mdi-cannabis"></span>&nbsp;&nbsp; Tender Fees </button>
-                                        </li>
-                                      </ul> -->
-                              </div>
+                                      </svg> Communication Documents</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="float-right">
@@ -135,9 +119,9 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Utility/Tendering Company<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Utility/Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
                                         <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                                     </select>
                                     <div *ngIf="f['utility'].touched && f['utility'].invalid">
@@ -174,7 +158,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Publish Date<span
+                                    <label class="form-label fl-10">Publish Date<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly>
                                     <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">

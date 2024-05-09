@@ -60,7 +60,7 @@
                 <th>Publish Date</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Completion Period (Months)</th>
+                <th>Comp Period (Months)</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -128,7 +128,7 @@
                   <td>{{ selectedRow?.schedule_start_date | date:'dd-MM-yyyy' }}</td>
                   <th>L1 End Date</th>
                   <td>{{ selectedRow?.schedule_end_date | date:'dd-MM-yyyy' }}</td>
-                  <th>L1 Completion Period (Months)</th>
+                  <th>L1 Comp Period (Months)</th>
                   <td>{{ selectedRow?.tender_completion_period }}</td>
                 </tr>
                 <tr>
@@ -192,7 +192,7 @@
                 <div class="form-group">
                   <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
                   <select formControlName="company_id" class="form-select form-select-sm" (ngModelChange)="getTenderListByCompany()">
-                    <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
                     <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                   </select>
                   <div *ngIf="f['company_id'].touched && f['company_id'].invalid">
@@ -220,7 +220,7 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label fl-10">Tender Publish Date<span class="required-asterisk">*</span></label>
+                  <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
                   <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy'" readonly>
                 </div>
               </div>
@@ -244,7 +244,7 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="form-label fl-10">Completion Period (Months)<span class="required-asterisk">*</span></label>
+                  <label class="form-label fl-10">Comp Period (Months)<span class="required-asterisk">*</span></label>
                   <input formControlName="total_tenure" type="text" class="form-control form-control-sm" placeholder="Enter Total Tenure" appNumberOnly>
                   <div *ngIf="f['total_tenure'].touched && f['total_tenure'].invalid">
                     <small class="text-danger" *ngIf="f['total_tenure'].errors?.['required']">*Required</small>

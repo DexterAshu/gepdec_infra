@@ -1,16 +1,17 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>In-direct Costing</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>In-direct
+                            Costing</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
@@ -21,48 +22,51 @@
                     <hr> -->
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                                class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
                         </div>
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>Code</th>
-                                <th>Description</th>
-                                <!-- <th>Type</th> -->
-                                <th>Category</th>
-                                <th>Sub-Category</th>
-                                <th>Procurement UOM</th>
-                                <th>UOM</th>
-                                <th>Cost</th>
-                                <th>GST</th>
-                                <th>Last Procured Date</th>
-                                <!-- <th>Created By</th> -->
-                                <!-- <th>Created On</th> -->
-                                <!-- <th>Action</th> -->
+                                <th>Client</th>
+                                <th>Tender Title</th>
+                                <th>Ref No</th>
+                                <th>Published Date</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                                <!-- <td>{{ limit*(p-1)+i+1 }}</td>
-                                <td>{{ a?.itemcode }}</td>
-                                <td>{{ a?.description }}</td>
-                                <td>{{ a?.itemcategory }}</td>
-                                <td>{{ a?.subcategory }}</td>
-                                <td>{{ a?.precurementuom }}</td>
-                                <td>{{ a?.uom }}</td>
-                                <td>{{ a?.cost }}</td>
-                                <td>{{ a?.gst }}</td> -->
-                                <td>--</td>
-                                <!-- <td>{{ a.createdby_name }}</td> -->
-                                <!-- <td>{{ a.created }}</td> -->
-                                <!-- <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
-                                </td> -->
+                            <tr
+                                *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{limit*(p-1)+i+1}}</td>
+                                <td>{{a.company_name}}</td>
+                                <td>
+                                    <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        {{a.tender_title}}
+                                    </ng-template>
+                                </td>
+
+                                <td>{{a.tender_ref_no}}</td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        title="View Details" (click)="rowListData(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                    <!-- &nbsp; -->
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+                                </td>
                             </tr>
                             <tr *ngIf="dataList?.length == 0">
                                 <td colspan="15" class="text-center">
@@ -96,25 +100,32 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="form">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
-                                    <select formControlName="client_id" class="form-select form-select-sm" (change)="getTenderData()">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
-                                        <option *ngFor="let c of clientData" value="{{c?.company_id}}">{{ c?.company_name }}</option>
+                                    <label class="form-label fl-10">Client<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="client_id" class="form-select form-select-sm"
+                                        (change)="getTenderData()">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client
+                                        </option>
+                                        <option *ngFor="let c of clientData" value="{{c?.company_id}}">{{
+                                            c?.company_name }}</option>
                                     </select>
                                     <div *ngIf="f['client_id'].touched && f['client_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['client_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['client_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                                    <select formControlName="tender_id" #t_ID class="form-select form-select-sm" (change)="getDetailedData(t_ID.value)">
+                                    <label class="form-label fl-10">Tender Title<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="tender_id" #t_ID class="form-select form-select-sm"
+                                        (change)="getDetailedData(t_ID.value)">
                                         <option [selected]="true" [disabled]="true">Select Title</option>
                                         <option *ngFor="let c of tenderData" value="{{c?.tender_id}}">
                                             {{c?.tender_title}}</option>
@@ -129,77 +140,139 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Ref No</label>
-                                    <input class="form-control form-control-sm" readonly value="{{tenderDetailedData[0]?.tender_ref_no}}">
+                                    <input class="form-control form-control-sm" readonly
+                                        value="{{tenderDetailedData[0]?.tender_ref_no}}">
                                 </div>
                             </div>
 
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <span class="form-control form-control-sm" readonly>{{tenderDetailedData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
+                                    <span class="form-control form-control-sm"
+                                        readonly>{{tenderDetailedData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
                                 </div>
                             </div>
 
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label">Overhead Expenses<span class="required-asterisk">*</span></label>
-                                    <select formControlName="expenses" #overhead class="form-select form-select-sm" (change)="overHeadDetails(overhead.value)">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Overhead Expenses</option>
-                                        <option *ngFor="let t of dataDropdownList?.costtype" [value]="t?.costtype_id">{{ t?.costtype }}</option>
+                                    <label class="form-label">Overhead Expenses<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="expenses" #overhead class="form-select form-select-sm"
+                                        (change)="overHeadDetails(overhead.value)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Overhead
+                                            Expenses</option>
+                                        <option *ngFor="let t of dataDropdownList?.costtype" [value]="t?.costtype_id">{{
+                                            t?.costtype }}</option>
                                     </select>
                                     <div *ngIf="f['expenses'].touched && f['expenses'].invalid">
-                                        <small class="text-danger" *ngIf="f['expenses'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['expenses'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="table-responsive">
-                                <table class="table table-hover table-striped custom-table table-bordered">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th>S No</th>
-                                            <th>Expense Type</th>
-                                            <th>UOM</th>
-                                            <th>Unit Cost</th>
-                                            <th>Multiplier</th>
-                                            <th>Total Cost</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                
-                                    <tbody class="text-nowrap">
-                                        <tr *ngFor="let a of overHeadData; index as j">
-                                            <td>{{ limit*(p-1)+j+1 }}</td>
-                                            <td>{{ a?.expensetype }}</td>
-                                            <td>{{ a?.uom }}</td>
-                                            <td>
-                                                <input type="text" formControlName="unitCost" [(ngModel)]="a.unitcost" class="form-control form-control-sm">
-                                            </td>
-                                            <td>
-                                                <input type="text" formControlName="multiplier" class="form-control form-control-sm" [(ngModel)]="a.multiplier">
-                                            </td>
-                                            <td>
-                                                <span class="form-control form-control-sm">{{ (a.unitcost) * (a.multiplier) }}</span>
-                                            </td>
-                                            <td>
-                                                <input class="form-check-input" type="checkbox" [disabled]="indexData.includes(j)" (click)="selectRec(a, $event, j)">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
-                                data-bs-dismiss="modal">Close</button>
-                            </div>
                         </div>
                     </form>
+                    <div class="table-responsive" *ngIf="form.value.expenses != null">
+                        <table class="table table-hover table-striped custom-table table-bordered">
+                            <thead class="table-primary text-nowrap">
+                                <tr>
+                                    <th>S No</th>
+                                    <th>Expense Type</th>
+                                    <th>UOM</th>
+                                    <th>Unit Cost</th>
+                                    <th>Multiplier</th>
+                                    <th>Total Cost</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="text-nowrap">
+                                <tr *ngFor="let a of overHeadData; index as j">
+                                    <td>{{ limit*(p-1)+j+1 }}</td>
+                                    <td>{{ a?.expensetype }}</td>
+                                    <td>{{ a?.uom }}</td>
+                                    <td>
+                                        <input [disabled]="indexData.includes(j)" type="number" [(ngModel)]="a.unitcost"
+                                            class="form-control form-control-sm">
+                                    </td>
+                                    <td>
+                                        <input [disabled]="indexData.includes(j)" type="number"
+                                            class="form-control form-control-sm" [(ngModel)]="a.multiplier">
+                                    </td>
+                                    <td>
+                                        <span class="form-control form-control-sm">{{ !a.multiplier ? 0 : (a.unitcost) *
+                                            (a.multiplier) }}</span>
+                                    </td>
+                                    <td>
+                                        <input [disabled]="!a.multiplier || a.multiplier == null || a.unitcost == null"
+                                            type="checkbox" (click)="selectRec(a, $event, j)">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="modal-btns mt-2">
+                        <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid || indexData.length == 0"
+                            (click)="onSubmit()" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
+                        <button type="button" *ngIf="isSubmitted" disabled
+                            class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm"
+                                aria-hidden="true"></span> Submitting...</button>
+                        <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- create modal end-->
+
+<!-- detail modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">In-direct Cost Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive pt-2" style="min-height: auto;">
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th>S No</th>
+                                            <th>Overhead Type</th>
+                                            <th>Expanse Type</th>
+                                            <th>UOM</th>
+                                            <th>Unit Cost</th>
+                                            <th>Multiplier</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr *ngFor="let a of rowData?.indirectCost; index as k">
+                                            <td>{{ limit*(p-1)+k+1 }}</td>
+                                            <td>{{ a.costtype }}</td>
+                                            <td>{{ a.expensetype }}</td>
+                                            <td>{{ a.uom }}</td>
+                                            <td>{{ a.unitcost }}</td>
+                                            <td>{{ a.multiplier }}</td>
+                                            <td>{{ a.total }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail modal end-->

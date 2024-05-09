@@ -16,16 +16,18 @@
       <div class="card">
         <div class="card-body">
           <div class="d-flex my-10">
-            <div class="col-lg-4">
+            <div class="col-lg-5">
               <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
             </div>
-            <div class="col-lg-4">
-              <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
-                <button class="btn filter-col btn-fw btn-sm cursor-pointer">Master Drawing List (MDL) &nbsp;&nbsp;&nbsp;&nbsp;<span class="mdi mdi-chevron-down"></span></button>
-                <ul style="margin-top: -20px;" class="text-nowrap">
-                  <li routerLink="/documentation/drawing-doc"> <a class="btn btn-fw btn-sm"><span class="mdi mdi-flower"></span>&nbsp;&nbsp;Drawing </a></li>
-                  <li routerLink="/documentation/technical-gtps"> <a class="btn btn-fw btn-sm"><span class="mdi mdi-chart-donut-variant"></span>&nbsp;&nbsp;Technical GTPs </a></li>
-                  <li routerLink="/documentation/final-boq"> <a class="btn btn-fw btn-sm"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp;Final BOQ </a></li>
+            <div class="col-lg-3">
+              <div class="dropdown" [class.active]="isOpen" (click)="isOpen = !isOpen">
+                <div class="d-grid gap-2">
+                  <button class="btn filter-col btn-fw btn-sm cursor-pointer">Master Drawing List (MDL) &nbsp;&nbsp;&nbsp;&nbsp;<span class="mdi mdi-chevron-down"></span></button>
+                </div>
+                <ul style="margin-top: -16px;" class="text-nowrap">
+                  <li class="px-4 py-1 cursor-pointer" routerLink="/documentation/master-drawing-list"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp;Master Drawing List (MDL)</li>
+                  <li class="px-4 py-1 cursor-pointer" routerLink="/documentation/drawing-doc"><span class="mdi mdi-flower"></span>&nbsp;&nbsp;Drawing </li>
+                  <li class="px-4 py-1 cursor-pointer" routerLink="/documentation/final-boq"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp;Final BOQ </li>
                 </ul>
               </div>
             </div>
@@ -121,20 +123,16 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label fl-10">Tender Publish Date<span class="required-asterisk">*</span></label>
+                  <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
                   <input type="date" class="form-control form-control-sm" [value]="selectedTender?.publish_date" readonly>
                 </div>
               </div>
-              <div class="col-md-6">
+            </div>
+            <div class="row">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                  <input id="cin" class="form-control form-control-sm" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" placeholder="Upload a file..." multiple="true" />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="">Document Description:</label>
-                  <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize></textarea>
+                  <label class="form-label fl-10">Document/Drawing Title<span class="required-asterisk">*</span></label>
+                  <input type="text" class="form-control form-control-sm" formControlName="document_title" appWordCapitalize>
                 </div>
               </div>
             </div>

@@ -40,7 +40,7 @@ export class SupplierComponent {
       // supplierCode: [null, Validators.required],
       supplierName: [null, Validators.required],
       category: [null, Validators.required],
-      categoryNo: [null, Validators.required],
+      categoryNo: [null],
       // companyName: [null, Validators.required],
       gstNo: [null],
       gstDate: [null],
@@ -320,8 +320,18 @@ export class SupplierComponent {
     }
   }
 
+  regType() {
+    let regData = this.form.value.category;
+    if(regData == '6004') {
+      this.form.controls['categoryNo'].clearValidators();
+      this.form.controls['categoryNo'].reset();
+    } else {
+      this.form.get('categoryNo')!.setValidators([Validators.required]);
+      this.form.controls['categoryNo'].reset();
+    }
+  }
+
   onSubmit() {
-    debugger
     if (this.form.valid) {
       this.isSubmitted = true;
       const formData = new FormData();
@@ -329,10 +339,10 @@ export class SupplierComponent {
       formData.append('suppliername', this.form.value.supplierName);
       formData.append('category_id', this.form.value.category);
       formData.append('category_no', this.form.value.categoryNo);
-      formData.append('gstno', this.form.value.gstNo?.toUpperCase());
+      formData.append('gstno', this.form.value.gstNo == null ? null : this.form.value.gstNotoUpperCase());
       formData.append('gstdate', this.form.value.gstDate);
-      formData.append('panno', this.form.value.panNo?.toUpperCase());
-      formData.append('tanno', this.form.value.tanNo?.toUpperCase());
+      formData.append('panno', this.form.value.panNo == null ? null : this.form.value.panNotoUpperCase());
+      formData.append('tanno', this.form.value.tanNo == null ? null : this.form.value.tanNotoUpperCase());
       formData.append('doi', this.form.value.doi);
       formData.append('technicalrating_id', this.form.value.techRating);
 
@@ -340,7 +350,7 @@ export class SupplierComponent {
       formData.append('address[0][country_id]', this.form.value.headCountry);
       formData.append('address[0][state_id]', this.form.value.headState);
       formData.append('address[0][district_id]', this.form.value.headDistrict);
-      formData.append('address[0][city_id]', this.form.value.headCity);
+      formData.append('address[0][city]', this.form.value.headCity);
       formData.append('address[0][pincode]', this.form.value.headPincode);
       formData.append('address[0][address]', this.form.value.headAddress);
 
@@ -348,7 +358,7 @@ export class SupplierComponent {
       formData.append('address[1][country_id]', this.form.value.factoryCountry);
       formData.append('address[1][state_id]', this.form.value.factoryState);
       formData.append('address[1][district_id]', this.form.value.factoryDistrict);
-      formData.append('address[1][city_id]', this.form.value.factoryCity);
+      formData.append('address[1][city]', this.form.value.factoryCity);
       formData.append('address[1][pincode]', this.form.value.factoryPincode);
       formData.append('address[1][address]', this.form.value.factoryAddress);
       
@@ -409,7 +419,7 @@ export class SupplierComponent {
         this.getDataList();
         this.isSubmitted = false;
         if (response.status == 200) {
-          // this.form.reset();
+          this.form.reset();
           this.alertService.success(response.message);
         } else {
           this.alertService.warning(response.message);

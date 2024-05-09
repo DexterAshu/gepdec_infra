@@ -111,6 +111,7 @@ export class DrawingComponent {
     formData.append('client', this.form.value.client);
     formData.append('tender_id', this.form.value.tender_id);
     formData.append('drawing', this.imageUploadFile);
+    formData.append('drawingFrom', this.form.value.drawingFrom);
     formData.append('file', this.uploadFile);
     formData.append('description', this.form.value.description);
     if(this.isInHouse) {

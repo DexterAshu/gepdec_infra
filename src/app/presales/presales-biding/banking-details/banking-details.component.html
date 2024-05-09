@@ -158,7 +158,7 @@
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender Company</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
                                         <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                                     </select>
                                     <div *ngIf="f['utility_id'].touched && f['utility_id'].invalid">

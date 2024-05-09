@@ -1188,8 +1188,6 @@ export class DashboardComponent implements OnInit {
   }
   
   StateData() {
-    console.log(this.form.value.country_id);
-    
     let countrydata = this.form.value.country_id;
     let statedata = null;
     this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
@@ -1566,7 +1564,6 @@ scateredGraphPrject = new Chart({
 
 
 onChartSelect(event: any) {
-  debugger
   // Check the "name" property of the selected item
   const selectedName = event.series;
 
