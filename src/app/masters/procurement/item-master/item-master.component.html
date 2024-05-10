@@ -51,10 +51,10 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a?.itemcode }}</td>
                                 <td>
-                                    <div *ngIf="!!a?.description; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                                    <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
                                         {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
                                     </div>
-                                    <ng-template #elseBlock14>
+                                    <ng-template #elseBlock1>
                                         {{a?.description}}
                                     </ng-template>
                                 </td>

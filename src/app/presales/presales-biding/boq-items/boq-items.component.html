@@ -57,10 +57,17 @@
                 <td>{{ a.boq_code }}</td>
                 <td>{{ a.company_name}}</td>
                 <td>
-                  <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                  <ng-template #elseBlock>{{a.tender_title}}</ng-template>
+                  <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <ng-template #elseBlock1>{{a.tender_title}}</ng-template>
                 </td>
-                <td>{{ a.tender_ref_no}}</td>
+                <td>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                      {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock2>
+                      {{a?.tender_ref_no}}
+                  </ng-template>
+                </td>
                 <td>{{ a.publish_date | date:'dd/MM/yyyy' }}</td>
                 <td>{{ a.itemCategory }}</td>
                 <td>{{ a.itemSubCategory }}</td>
@@ -272,15 +279,29 @@
                       <th>Client</th>
                       <td>{{ itemList?.company_name }}</td>
                       <th>Tender Ref. No</th>
-                      <td>{{ itemList?.tender_ref_no }}</td>
+                      <td>
+                        <div *ngIf="!!itemList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ itemList?.tender_ref_no }}">
+                            {{itemList?.tender_ref_no | slice:0:30}} <span *ngIf="itemList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                        </div>
+                        <ng-template #elseBlock3>
+                            {{itemList?.tender_ref_no}}
+                        </ng-template>
+                      </td>
                       <th>Tender Title</th>
-                      <td data-toggle="tooltip" data-placement="bottom" title="{{ itemList.tender_title }}">{{itemList.tender_title| slice:0:30}} <span>...<i class="mdi mdi-information"></i></span></td>
+                      <td>
+                        <div *ngIf="!!itemList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ itemList?.tender_title }}">
+                            {{itemList?.tender_title | slice:0:30}} <span *ngIf="itemList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                        </div>
+                        <ng-template #elseBlock4>
+                            {{itemList?.tender_title}}
+                        </ng-template>
+                      </td>
                     </tr>
                     <tr>
-                      <th>Execution Location</th>
-                      <td>{{ itemList?.tender_location }}</td>
                       <th>Published Date</th>
                       <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' }}</td>
+                      <th>Execution Location</th>
+                      <td>{{ itemList?.tender_location }}</td>
                       <th>BOQ Code</th>
                       <td>{{ itemList?.boq_code }}</td>
                     </tr>

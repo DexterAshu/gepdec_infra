@@ -128,13 +128,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                  <input id="cin" class="form-control form-control-sm" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" placeholder="Upload a file..." multiple="true" />
+                  <input id="cin" class="form-control form-control-sm" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" multiple="true" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="">Document Description:</label>
-                  <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize></textarea>
+                  <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize></textarea>
                 </div>
               </div>
             </div>

@@ -55,7 +55,6 @@
                                 <th>Ref No</th>
                                 <th>Published Date</th>
                                 <th>Attachments</th>
-                             
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -63,11 +62,23 @@
                             <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                    {{a.tender_title| slice:0:10}} <span>...<i class="mdi mdi-information"></i></span>
+                                <td>
+                                    <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">
+                                        {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock1>
+                                        {{a?.tender_title}}
+                                    </ng-template>
                                 </td>
-                                <td>{{a.tender_ref_no}}</td>
-                                <td>{{a.publish_date}}</td>
+                                <td>
+                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                                        {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock2>
+                                        {{a?.tender_ref_no}}
+                                    </ng-template>
+                                </td>
+                                {{a.publish_date | date: 'dd/MM/yyyy'}}
                                 <td >{{a.filename.slice(13)}}</td>
                              
                                 <td>
@@ -156,7 +167,7 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="">Document Description:</label>
-                                <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize>
+                                <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize>
                                </textarea>
                                 </div>
                         </div>
@@ -164,13 +175,10 @@
                       
                         <!-- Attachment Documents -->
                         <div class="row">
-                                <div class="col-lg-12 col-sm-6">
-                                    <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
-                                      placeholder="Upload a file..." multiple="true" />
-                                   
-                              </div>
-                          
+                            <div class="col-lg-12 col-sm-6">
+                                <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
+                                <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" multiple="true" />
+                            </div>
                         </div>
                         <div class="float-right">
                             <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>

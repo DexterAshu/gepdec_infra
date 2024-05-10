@@ -94,7 +94,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Department Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="deptname" placeholder="Enter New Department" class="form-control form-control-sm">
+                                    <input type="text" formControlName="deptname" class="form-control form-control-sm">
                                     <div *ngIf="f['deptname'].touched && f['deptname'].invalid">
                                         <small class="text-danger" *ngIf="f['deptname'].errors?.['required']">*Required</small>
                                     </div>

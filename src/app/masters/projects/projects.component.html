@@ -104,7 +104,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Project Name<span class="required-asterisk">*</span></label>
-                                    <input formControlName="project_name" type="text" class="form-control form-control-sm" placeholder="Enter project name" appWordCapitalize>
+                                    <input formControlName="project_name" type="text" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['project_name'].touched && f['project_name'].invalid">
                                         <small class="text-danger" *ngIf="f['project_name'].errors?.['required']">*Required</small>
                                     </div>
@@ -149,7 +149,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Budget</label>
-                                    <input formControlName="budget" type="text" class="form-control form-control-sm" placeholder="Enter Project Budget" appWordCapitalize>
+                                    <input formControlName="budget" type="text" class="form-control form-control-sm" appWordCapitalize>
                                     <!-- <div *ngIf="f['budget'].touched && f['budget'].invalid">
                                         <small class="text-danger" *ngIf="f['budget'].errors?.['required']">*Required</small>
                                     </div> -->
@@ -158,7 +158,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Total hours</label>
-                                    <input formControlName="hours" type="text" class="form-control form-control-sm" placeholder="Enter Total Hours" appWordCapitalize>
+                                    <input formControlName="hours" type="text" class="form-control form-control-sm" appWordCapitalize>
                                     <!-- <div *ngIf="f['hours'].touched && f['hours'].invalid">
                                         <small class="text-danger" *ngIf="f['hours'].errors?.['required']">*Required</small>
                                     </div> -->

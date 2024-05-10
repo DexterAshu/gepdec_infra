@@ -28,8 +28,8 @@
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
-                  <th>Tender Ref No</th>
                   <th>Tender Title</th>
+                  <th>Tender Ref No</th>
                   <th>Tender Location</th>
                   <th>PO No</th>
                   <th>GRN No</th>
@@ -42,8 +42,22 @@
               <tbody class="text-nowrap">
                 <tr *ngFor="let purchase of poData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
-                  <td>{{ purchase.tender_ref_no }}</td>
-                  <td data-toggle="tooltip" data-placement="bottom" title="{{ purchase.tender_title }}">{{purchase.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                  <td>
+                    <div *ngIf="!!purchase?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ purchase?.tender_title }}">
+                        {{purchase?.tender_title | slice:0:30}} <span *ngIf="purchase?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock1>
+                        {{purchase?.tender_title}}
+                    </ng-template>
+                  </td>
+                  <td>
+                    <div *ngIf="!!purchase?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ purchase?.tender_ref_no }}">
+                        {{purchase?.tender_ref_no | slice:0:30}} <span *ngIf="purchase?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock2>
+                        {{purchase?.tender_ref_no}}
+                    </ng-template>
+                  </td>
                   <td>{{ purchase.tender_location }}</td>
                   <td> {{ purchase.pono }}</td>
                   <td>{{ purchase?.grn_number }}</td>
@@ -138,9 +152,23 @@
                     <tbody class="text-nowrap">
                       <tr>
                         <th>Tender Title</th>
-                        <td data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO.tender_title }}">{{selectedPO.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                        <td>
+                          <div *ngIf="!!selectedPO?.tender_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO?.tender_title }}">
+                              {{selectedPO?.tender_title | slice:0:30}} <span *ngIf="selectedPO?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock3>
+                              {{selectedPO?.tender_title}}
+                          </ng-template>
+                        </td>
                         <th>Tender Ref. No</th>
-                        <td>{{ selectedPO?.tender_ref_no }}</td>
+                        <td>
+                          <div *ngIf="!!selectedPO?.tender_ref_no; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO?.tender_ref_no }}">
+                              {{selectedPO?.tender_ref_no | slice:0:30}} <span *ngIf="selectedPO?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock4>
+                              {{selectedPO?.tender_ref_no}}
+                          </ng-template>
+                        </td>
                         <th>BOQ</th>
                         <td>{{ selectedPO?.boq_id }}</td>
                       </tr>
@@ -168,7 +196,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label class="form-label">GRN Number<span class="required-asterisk">*</span></label>
-                      <input formControlName="grn_number" type="text" class="form-control form-control-sm" placeholder="Enter GRN Number">
+                      <input formControlName="grn_number" type="text" class="form-control form-control-sm">
                       <div *ngIf="grn['grn_number'].touched && grn['grn_number'].invalid">
                         <small class="text-danger" *ngIf="grn['grn_number'].errors?.['required']">*Required</small>
                       </div>
@@ -186,7 +214,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label class="form-label">Shipment/Challan Number<span class="required-asterisk">*</span></label>
-                      <input formControlName="challan_number" type="text" class="form-control form-control-sm" placeholder="Enter Shipment/Challan Number">
+                      <input formControlName="challan_number" type="text" class="form-control form-control-sm">
                       <div *ngIf="grn['challan_number'].touched && grn['challan_number'].invalid">
                         <small class="text-danger" *ngIf="grn['challan_number'].errors?.['required']">*Required</small>
                       </div>
@@ -195,7 +223,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label class="form-label">Remark<span class="required-asterisk">*</span></label>
-                      <input formControlName="remark" type="text" class="form-control form-control-sm" placeholder="Enter Remarks">
+                      <input formControlName="remark" type="text" class="form-control form-control-sm">
                       <div *ngIf="grn['remark'].touched && grn['remark'].invalid">
                         <small class="text-danger" *ngIf="grn['remark'].errors?.['required']">*Required</small>
                       </div>
@@ -325,9 +353,23 @@
                   <tbody class="text-nowrap">
                     <tr>
                       <th>Tender Ref No</th>
-                      <td>{{ selectedPO?.tender_ref_no }}</td>
+                      <td>
+                        <div *ngIf="!!selectedPO?.tender_ref_no; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO?.tender_ref_no }}">
+                            {{selectedPO?.tender_ref_no | slice:0:30}} <span *ngIf="selectedPO?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                        </div>
+                        <ng-template #elseBlock5>
+                            {{selectedPO?.tender_ref_no}}
+                        </ng-template>
+                      </td>
                       <th>Tender Title</th>
-                      <td>{{ selectedPO?.tender_title }}</td>
+                      <td>
+                        <div *ngIf="!!selectedPO?.tender_title; else elseBlock6" data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO?.tender_title }}">
+                            {{selectedPO?.tender_title | slice:0:30}} <span *ngIf="selectedPO?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                        </div>
+                        <ng-template #elseBlock6>
+                            {{selectedPO?.tender_title}}
+                        </ng-template>
+                    </td>
                     </tr>
                     <tr>
                       <th>PO No</th>

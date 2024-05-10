@@ -55,10 +55,10 @@
                                 <td>{{a.type}}</td>
                                 <td>{{a.IMEINo}}</td>
                                 <td>
-                                    <div *ngIf="!!a.IPAddress; else elseBlock">
+                                    <div *ngIf="!!a.IPAddress; else elseBlock1">
                                         {{a.IPAddress | slice:0:20}} <span *ngIf="a.IPAddress.length > 20">...<i class="mdi mdi-information" title="{{a.IPAddress}}"></i></span>
                                     </div>
-                                    <ng-template #elseBlock>
+                                    <ng-template #elseBlock1>
                                         {{a.IPAddress}}
                                     </ng-template>
                                 </td>

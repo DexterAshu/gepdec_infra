@@ -131,7 +131,7 @@
                             <!-- <div class="col-lg-12">
                                 <div class="form-label-group" style="text-align: left; font-family: sans-serif;">
                                   <label for="inputEmail">Login Name <span class="required-asterisk">*</span></label>
-                                    <ng-select [(ngModel)]="username1" class="" placeholder="Please Select User Name"
+                                    <ng-select [(ngModel)]="username1" class=""
                                     formControlName="user_id">
                                     <ng-option *ngFor="let s of compData" value="{{s.mstcompanytype_id}}">{{ s.mstcompanytype }}</ng-option>
                                   </ng-select>
@@ -141,7 +141,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Name<span class="required-asterisk">*</span></label>
-                                    <input formControlName="name" type="text" class="form-control form-control-sm" placeholder="Enter contact person name" appWordCapitalize>
+                                    <input formControlName="name" type="text" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['name'].touched && f['name'].invalid">
                                         <small class="text-danger" *ngIf="f['name'].errors?.['required']">*Required</small>
                                     </div>
@@ -177,7 +177,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Primary No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="contactno1" placeholder="Enter Primary number" minlength="10"
+                                    <input formControlName="contactno1" minlength="10"
                                     maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">
                                         <small class="text-danger" *ngIf="f['contactno1'].errors?.['required']">*Required</small>
@@ -189,14 +189,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Secondary No</label>
-                                    <input formControlName="contactno2" placeholder="Enter Secondary No" minlength="10"
+                                    <input formControlName="contactno2" minlength="10"
                                     maxlength="10" (keypress)="OnlyNumbersAllowed($event)" type="text" class="form-control form-control-sm" appNumberOnly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
-                                    <input formControlName="emailid" placeholder="Enter email ID" type="text" class="form-control form-control-sm" appNoSpace>
+                                    <input formControlName="emailid" type="text" class="form-control form-control-sm" appNoSpace>
                                     <div *ngIf="f['emailid'].touched && f['emailid'].invalid">
                                         <small class="text-danger" *ngIf="f['emailid'].errors?.['required']">*Required</small>
                                         <small class="text-danger" *ngIf="f['emailid'].errors?.['pattern']">*Email must be a valid Email ID</small>

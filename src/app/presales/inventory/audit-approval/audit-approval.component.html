@@ -36,8 +36,8 @@
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
-                  <th>Tender Ref No</th>
                   <th>Tender Title</th>
+                  <th>Tender Ref No</th>
                   <th>Warehouse Code</th>
                   <th>Item Category</th>
                   <th>Auditor Name</th>
@@ -51,8 +51,22 @@
               <tbody class="text-nowrap">
                 <tr *ngFor="let data of auditApprovalData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i" [ngStyle]="{'background-color': (data?.status == 'Approved') ? 'red' : (data?.status == 'Rejected' ? 'blue' : null) }">
                   <td>{{ limit * (p - 1) + i + 1 }}</td>
-                  <td>{{ data.tender_ref_no }}</td>
-                  <td>{{ data.tender_title }}</td>
+                  <td>
+                    <div *ngIf="!!data?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ data?.tender_title }}">
+                        {{data?.tender_title | slice:0:30}} <span *ngIf="data?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock1>
+                        {{data?.tender_title}}
+                    </ng-template>
+                  </td>
+                  <td>
+                    <div *ngIf="!!data?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ data?.tender_ref_no }}">
+                        {{data?.tender_ref_no | slice:0:30}} <span *ngIf="data?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock2>
+                        {{data?.tender_ref_no}}
+                    </ng-template>
+                  </td>
                   <td>{{ data.warehouse_code }}</td>
                   <td>{{ data.itemcategory }}</td>
                   <td>{{ data.auditor_name }}</td>

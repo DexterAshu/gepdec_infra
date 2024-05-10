@@ -144,7 +144,7 @@
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
                                         <option *ngFor="let c of tenderType" value="{{c.bidtype_id}}">{{ c.bidtype }}</option>
                                     </select>
-                                    <!-- <input formControlName="tender_title" type="text" class="form-control form-control-sm" placeholder="Enter Tender Title" appWordCapitalize> -->
+                                    <!-- <input formControlName="tender_title" type="text" class="form-control form-control-sm" appWordCapitalize> -->
                                         <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
                                         <small class="text-danger" *ngIf="f['tender_title'].errors?.['required']">*Required</small>
                                     </div>
@@ -191,7 +191,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location<span class="required-asterisk">*</span></label>
-                                    <input formControlName="tender_location" type="text" class="form-control form-control-sm" placeholder="Enter Execution Location" appWordCapitalize>
+                                    <input formControlName="tender_location" type="text" class="form-control form-control-sm"  appWordCapitalize>
                                     <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
                                         <small class="text-danger" *ngIf="f['tender_location'].errors?.['required']">*Required</small>
                                     </div>
@@ -200,7 +200,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Comp Period (Months)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="completion_period" type="text" class="form-control form-control-sm" placeholder="Enter Completion Period in months" minlength="1" maxlength="2" appNumberOnly>
+                                    <input formControlName="completion_period" type="text" class="form-control form-control-sm" minlength="1" maxlength="2" appNumberOnly>
                                     <div *ngIf="f['completion_period'].touched && f['completion_period'].invalid">
                                         <small class="text-danger" *ngIf="f['completion_period'].errors?.['required']">*Required</small>
                                     </div>
@@ -209,7 +209,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Bid Validity (Days)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="bid_validity" type="text" class="form-control form-control-sm" placeholder="Enter Bid Validity in Days" minlength="1" maxlength="3" appNumberOnly>
+                                    <input formControlName="bid_validity" type="text" class="form-control form-control-sm"  minlength="1" maxlength="3" appNumberOnly>
                                     <div *ngIf="f['bid_validity'].touched && f['bid_validity'].invalid">
                                         <small class="text-danger" *ngIf="f['bid_validity'].errors?.['required']">*Required</small>
                                     </div>
@@ -218,7 +218,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">ECV (Cr)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="ecv" type="text" class="form-control form-control-sm" placeholder="Enter ECV" appNumberOnly>
+                                    <input formControlName="ecv" type="text" class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
                                         <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
                                     </div>
@@ -276,7 +276,7 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="">Document Description:</label>
-                                <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize>
+                                <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize>
                                </textarea>
                                 </div>
                         </div>
@@ -286,8 +286,7 @@
                         <div class="row">
                                 <div class="col-lg-12 col-sm-6">
                                     <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
-                                      placeholder="Upload a file..." multiple="true" />
+                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" multiple="true" />
                                    
                               </div>
                           

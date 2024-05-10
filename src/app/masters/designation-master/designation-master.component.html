@@ -98,7 +98,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Designation Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="designationname" placeholder="Enter your new designation" class="form-control form-control-sm">
+                                    <input type="text" formControlName="designationname" class="form-control form-control-sm">
                                     <div *ngIf="f['designationname'].touched && f['designationname'].invalid">
                                         <small class="text-danger" *ngIf="f['designationname'].errors?.['required']">*Required</small>
                                     </div>

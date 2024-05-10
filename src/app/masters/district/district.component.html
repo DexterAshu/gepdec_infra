@@ -117,7 +117,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">District Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" placeholder="Enter new District name" class="form-control form-control-sm" formControlName="district_name" appWordCapitalize>
+                                    <input type="text" class="form-control form-control-sm" formControlName="district_name" appWordCapitalize>
                                     <div *ngIf="f['district_name'].touched && f['district_name'].invalid">
                                         <small class="text-danger" *ngIf="f['district_name'].errors?.['required']">*Required</small>
                                     </div>
@@ -212,7 +212,7 @@
                         </div> -->
 
                         <div class="col-md-12 mt-1">
-                    <input id="cin" name="cin" type="file" placeholder="Upload a file..." multiple/>
+                    <input id="cin" name="cin" type="file" multiple/>
                     <br>
                     <button type="button" [disabled]="!form.valid" class="btn btn-success btn-s mt-3">
                         <i class="mdi mdi-folder-upload menu-icon"></i>&nbsp;Upload
