@@ -168,7 +168,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label id="drawing"> Upload Drawing <span class="required-asterisk">*</span></label><br>
-                  <input class="form-control form-control-sm" name="drawing" type="file" formControlName="drawing" (change)="onImageUpload($event)" placeholder="Upload a file..." accept="image/*">
+                  <input class="form-control form-control-sm" name="drawing" type="file" formControlName="drawing" (change)="onImageUpload($event)" accept="image/*">
                   <div *ngIf="f['drawing'].touched && f['drawing'].invalid">
                     <small class="text-danger" *ngIf="f['drawing'].errors?.['required']">*Required</small>
                   </div>
@@ -177,7 +177,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label id="file"> Upload PDF <span class="required-asterisk">*</span></label><br>
-                  <input class="form-control form-control-sm" name="file" type="file" formControlName="file" (change)="onFileUpload($event)" placeholder="Upload a file..." accept=".pdf">
+                  <input class="form-control form-control-sm" name="file" type="file" formControlName="file" (change)="onFileUpload($event)" accept=".pdf">
                   <div *ngIf="f['file'].touched && f['file'].invalid">
                     <small class="text-danger" *ngIf="f['file'].errors?.['required']">*Required</small>
                   </div>
@@ -186,7 +186,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="">Document Description: <span class="required-asterisk">*</span></label>
-                  <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize></textarea>
+                  <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize></textarea>
                   <div *ngIf="f['description'].touched && f['description'].invalid">
                     <small class="text-danger" *ngIf="f['description'].errors?.['required']">*Required</small>
                   </div>

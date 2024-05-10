@@ -83,7 +83,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Title Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="title" placeholder="Enter your new title" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="title" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['title'].touched && f['title'].invalid">
                                         <small class="text-danger" *ngIf="f['title'].errors?.['required']">*Required</small>
                                     </div>

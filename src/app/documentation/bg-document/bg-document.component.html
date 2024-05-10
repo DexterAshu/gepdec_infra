@@ -73,16 +73,23 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">
+                                        {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
                                     </div>
-                                    <ng-template #elseBlock>
-                                        {{a.tender_title}}
+                                    <ng-template #elseBlock1>
+                                        {{a?.tender_title}}
                                     </ng-template>
                                 </td>
                                
-                                <td>{{a.tender_ref_no}}</td>
-                                <td>{{a.publish_date}}</td>
+                                <td>
+                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                                        {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock2>
+                                        {{a?.tender_ref_no}}
+                                    </ng-template>
+                                </td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{a.bankname}}</td>
                                 <td>{{a.bg_number}}</td>
                                 <td>{{a.bg_amount}}</td>
@@ -90,10 +97,10 @@
                                 <td>{{a.end_date}}</td>
                                 <td>{{a.submission_date}}</td>
                                 <td>
-                                    <div *ngIf="!!a.document; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.document }}">
+                                    <div *ngIf="!!a.document; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ a.document }}">
                                         {{a.document | slice:0:30}} <span *ngIf="a.document.length > 30">...<i class="mdi mdi-information"></i></span>
                                     </div>
-                                    <ng-template #elseBlock14>
+                                    <ng-template #elseBlock3>
                                         {{a.document}}
                                     </ng-template>
                                 </td>
@@ -247,7 +254,7 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="">Document Description</label>
-                                <textarea type="text" class="form-control form-control-sm" formControlName="document_description" placeholder="Describe your attached documents...">
+                                <textarea type="text" class="form-control form-control-sm" formControlName="document_description">
                                </textarea>
                             </div>
                         </div>
@@ -257,8 +264,7 @@
                         <div class="row" >
                                 <div class="col-lg-12 col-sm-6" >
                                     <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
-                                      placeholder="Upload a file..." multiple="true" />
+                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" multiple="true" />
                                    
                               </div>
                           

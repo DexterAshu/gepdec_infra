@@ -55,7 +55,6 @@
                                 <th>Financial Year</th>
                                 <th>Annual Turnover</th>
                                 <th>Attachments</th>
-                             
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -66,10 +65,10 @@
                                 <td>{{a.financialyear}}</td>
                                 <td>{{a.annual_turnover}}</td>
                                 <td>
-                                    <div *ngIf="!!a.filename; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
+                                    <div *ngIf="!!a.filename; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
                                         {{a.filename | slice:0:30}} <span *ngIf="a.filename.length > 30">...<i class="mdi mdi-information"></i></span>
                                     </div>
-                                    <ng-template #elseBlock14>
+                                    <ng-template #elseBlock1>
                                         {{a.filename}}
                                     </ng-template>
                                 </td>
@@ -236,7 +235,7 @@
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="">Document Description:</label>
-                                <textarea type="text" class="form-control form-control-sm" formControlName="description" placeholder="Detail Description..." appWordCapitalize>
+                                <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize>
                                </textarea>
                                 </div>
                         </div>
@@ -244,8 +243,7 @@
                         <div class="row">
                                 <div class="col-lg-12 col-sm-6">
                                     <label id="label1"> Upload Documents </label><br>
-                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)"
-                                      placeholder="Upload a file..." multiple="true" />
+                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" multiple="true" />
                               </div>
                         </div>
                         <div class="float-right">
@@ -321,10 +319,10 @@
                             <tr>
                             <th>Description</th>
                             <td>
-                                <span *ngIf="!!rowData?.description; else elseBlock4">
+                                <span *ngIf="!!rowData?.description; else elseBlock2">
                                     {{ rowData?.description}}
                                 </span>
-                                <ng-template #elseBlock4>
+                                <ng-template #elseBlock2>
                                     --
                                 </ng-template>
                             </td>

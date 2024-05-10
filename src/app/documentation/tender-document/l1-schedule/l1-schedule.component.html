@@ -51,10 +51,10 @@
               <tr>
                 <th>S No</th>
                 <th>Client</th>
-                <th>Ref No</th>
                 <th>Tender Title</th>
-                <th>Execution Location</th>
+                <th>Ref No</th>
                 <th>Publish Date</th>
+                <th>Execution Location</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Comp Period (Months)</th>
@@ -65,12 +65,26 @@
               <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{limit*(p-1)+i+1}}</td>
                 <td>{{a.company_name}}</td>
-                <td>{{a.tender_ref_no}}</td>
-                <td data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title| slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                <td>
+                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">
+                      {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock1>
+                      {{a?.tender_title}}
+                  </ng-template>
+              </td>
+              <td>
+                <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                    {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                </div>
+                <ng-template #elseBlock2>
+                    {{a?.tender_ref_no}}
+                </ng-template>
+            </td>
+                <td>{{a.publish_date | date:'dd/MM/yyyy'}}</td>
                 <td>{{a.tender_location}}</td>
-                <td>{{a.publish_date | date:'dd-MM-yyyy'}}</td>
-                <td>{{a.schedule_start_date | date:'dd-MM-yyyy'}}</td>
-                <td>{{a.schedule_start_date | date:'dd-MM-yyyy'}}</td>
+                <td>{{a.schedule_start_date | date:'dd/MM/yyyy'}}</td>
+                <td>{{a.schedule_start_date | date:'dd/MM/yyyy'}}</td>
                 <td>{{a.tender_completion_period}}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#viewModel" title="View Details" (click)="selectRow(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -116,15 +130,22 @@
                   <th>Client</th>
                   <td>{{ selectedRow?.company_name }}</td>
                   <th>Ref No</th>
-                  <td>{{ selectedRow?.tender_ref_no }}</td>
+                  <td>
+                    <div *ngIf="!!selectedRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectedRow?.tender_ref_no }}">
+                        {{selectedRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectedRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock3>
+                        {{selectedRow?.tender_ref_no}}
+                    </ng-template>
+                </td>
                   <th>Execution Location</th>
                   <td>{{ selectedRow?.tender_location }}</td>
                 </tr>
                 <tr>
                   <th>L1 Start Date</th>
-                  <td>{{ selectedRow?.schedule_start_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ selectedRow?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
                   <th>L1 End Date</th>
-                  <td>{{ selectedRow?.schedule_end_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ selectedRow?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
                   <th>L1 Comp Period (Months)</th>
                   <td>{{ selectedRow?.tender_completion_period }}</td>
                 </tr>
@@ -150,16 +171,16 @@
                 <tr *ngFor="let row of selectedRow?.tasks; index as i">
                   <td>{{ i+1 }}</td>
                   <td>{{ row.task }}</td>
-                  <td>{{ row.task_start_date | date:'dd-MM-yyyy' }}</td>
-                  <td>{{ row.task_end_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{ row.task_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ row.task_end_date | date:'dd/MM/yyyy' }}</td>
                   <td>{{ row.days_difference }}</td>
                   <td>
                     <table class="table">
                       <tr *ngFor="let ct of row?.childtasks; index as ci">
                         <td>{{i+1}}.{{ ci+1 }}</td>
                         <td>{{ ct.task }}</td>
-                        <td>{{ ct.task_start_date | date:'dd-MM-yyyy' }}</td>
-                        <td>{{ ct.task_end_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ ct.task_start_date | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ ct.task_end_date | date:'dd/MM/yyyy' }}</td>
                         <td>{{ ct.days_difference }}</td>
                       </tr>
                     </table>
@@ -242,7 +263,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">Comp Period (Months)<span class="required-asterisk">*</span></label>
-                  <input formControlName="total_tenure" type="text" class="form-control form-control-sm" placeholder="Enter Total Tenure" appNumberOnly>
+                  <input formControlName="total_tenure" type="text" class="form-control form-control-sm" appNumberOnly>
                   <div *ngIf="f['total_tenure'].touched && f['total_tenure'].invalid">
                     <small class="text-danger" *ngIf="f['total_tenure'].errors?.['required']">*Required</small>
                   </div>
@@ -251,14 +272,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label id="cin" class="form-label fl-10"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                  <input id="cin" name="cin" type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" placeholder="Upload a file...">
+                  <input id="cin" name="cin" type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-row">
                   <div class="form-group col-12">
                     <label for="description" class="form-label fl-10">Document Description:</label>
-                    <textarea type="text" name="description" class="form-control form-control-sm" formControlName="description" placeholder="Describe your attached documents..." appWordCapitalize></textarea>
+                    <textarea type="text" name="description" class="form-control form-control-sm" formControlName="description" appWordCapitalize></textarea>
                   </div>
                 </div>
               </div>

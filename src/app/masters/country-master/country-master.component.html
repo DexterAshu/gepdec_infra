@@ -101,7 +101,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Country Code<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="country_code" placeholder="Enter Country Code" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="country_code" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['country_code'].touched && f['country_code'].invalid">
                                         <small class="text-danger" *ngIf="f['country_code'].errors?.['required']">*Required</small>
                                     </div>
@@ -110,7 +110,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Country Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="name" placeholder="Enter Country Name" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="name" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['name'].touched && f['name'].invalid">
                                         <small class="text-danger" *ngIf="f['name'].errors?.['required']">*Required</small>
                                     </div>
@@ -201,7 +201,7 @@
                         </div> -->
 
                         <div class="col-md-12 mt-1">
-                    <input id="cin" name="cin" type="file" placeholder="Upload a file..." multiple/>
+                    <input id="cin" name="cin" type="file" multiple/>
                     <br>
                     <button type="button" [disabled]="!form.valid" class="btn btn-success btn-s mt-3">
                         <i class="mdi mdi-folder-upload menu-icon"></i>&nbsp;Upload

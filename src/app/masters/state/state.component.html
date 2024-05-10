@@ -108,7 +108,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">State Code<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="state_code" placeholder="Enter State Code" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="state_code" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['state_code'].touched && f['state_code'].invalid">
                                         <small class="text-danger" *ngIf="f['state_code'].errors?.['required']">*Required</small>
                                     </div>
@@ -117,7 +117,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">State Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="state_name" placeholder="Enter your new state name" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="state_name" class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['state_name'].touched && f['state_name'].invalid">
                                         <small class="text-danger" *ngIf="f['state_name'].errors?.['required']">*Required</small>
                                     </div>
@@ -216,7 +216,7 @@
                         </div> -->
 
                         <div class="col-md-12 mt-1">
-                    <input id="cin" name="cin" type="file" placeholder="Upload a file..." multiple/>
+                    <input id="cin" name="cin" type="file" multiple/>
                     <br>
                     <button type="button" [disabled]="!form.valid" class="btn btn-success btn-s mt-3">
                         <i class="mdi mdi-folder-upload menu-icon"></i>&nbsp;Upload

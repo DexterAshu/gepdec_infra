@@ -318,10 +318,10 @@
                             <tr>
                             <th>Description</th>
                             <td>
-                                <span *ngIf="!!rowData?.description; else elseBlock4">
+                                <span *ngIf="!!rowData?.description; else elseBlock1">
                                     {{ rowData?.description}}
                                 </span>
-                                <ng-template #elseBlock4>
+                                <ng-template #elseBlock1>
                                     --
                                 </ng-template>
                             </td>

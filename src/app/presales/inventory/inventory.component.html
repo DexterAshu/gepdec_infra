@@ -27,8 +27,8 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>Tender Ref No</th>
                 <th>Tender Title</th>
+                <th>Tender Ref No</th>
                 <th>Tender Location</th>
                 <th>Warehouse Code</th>
                 <th>Location Code</th>
@@ -44,13 +44,20 @@
             <tbody class="text-nowrap">
               <tr *ngFor="let a of itemData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
-                <td>{{ a.tender_ref_no }}</td>
                 <td>
-                  <div *ngIf="!!a.tender_title; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                  <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
                     {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
                   </div>
-                  <ng-template #elseBlock14>
+                  <ng-template #elseBlock1>
                       {{a.tender_title}}
+                  </ng-template>
+                </td>
+                <td>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                      {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock2>
+                      {{a?.tender_ref_no}}
                   </ng-template>
                 </td>
                 <td>{{ a.tender_location }}</td>
@@ -58,10 +65,10 @@
                 <td>{{ a.location_code }}</td>
                 <td>{{ a.itemcode }}</td>
                 <td>
-                  <div *ngIf="!!a.description; else elseBlock14" data-toggle="tooltip" data-placement="bottom" title="{{ a.description }}">
+                  <div *ngIf="!!a.description; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ a.description }}">
                     {{a.description | slice:0:30}} <span *ngIf="a.description.length > 30">...<i class="mdi mdi-information"></i></span>
                   </div>
-                  <ng-template #elseBlock14>
+                  <ng-template #elseBlock3>
                       {{a.description}}
                   </ng-template>
                 </td>

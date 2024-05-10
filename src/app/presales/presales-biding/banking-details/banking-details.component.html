@@ -62,7 +62,6 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Submission Date</th>
-                          
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -71,15 +70,21 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
+                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
                                         {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
                                     </div>
-                                    <ng-template #elseBlock>
+                                    <ng-template #elseBlock1>
                                         {{a.tender_title}}
                                     </ng-template>
                                 </td>
-                               
-                                <td>{{a.tender_ref_no}}</td>
+                                <td>
+                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                                        {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock2>
+                                        {{a?.tender_ref_no}}
+                                    </ng-template>
+                                </td>
                                 <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{a.bg_amount}}</td>
                                 <td>{{a.start_date}}</td>
@@ -302,10 +307,10 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                         <tr>
                         <th>Description</th>
                         <td>
-                            <span *ngIf="!!rowData?.description; else elseBlock4">
+                            <span *ngIf="!!rowData?.description; else elseBlock3">
                                 {{ rowData?.description}}
                             </span>
-                            <ng-template #elseBlock4>
+                            <ng-template #elseBlock3>
                                 --
                             </ng-template>
                         </td>
