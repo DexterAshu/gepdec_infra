@@ -244,7 +244,7 @@
                                                 </ng-template>
                                             </td>
                                             <th>Financial Year</th>
-                                            <td>{{rowData?.financialyear_id}}</td>
+                                            <td>{{rowData?.financialyear}}</td>
                                             <th></th>
                                             <td></td>
                                         </tr>
@@ -419,8 +419,13 @@
                                         <tr>
                                             <th>Payment Terms</th>
                                             <td colspan="5">
-                                                {{rowData?.tenderpayment_terms }}
+                                                <span *ngFor="let ph of (rowData?.tenderpayment_terms != null ? (rowData?.tenderpayment_terms.slice(0, -1)).split('\n') : rowData?.tenderpayment_terms.slice(0, -1)), index as i">
+                                                    {{ ph }} <br>
+                                                 </span>
                                             </td>
+                                            <!-- <td colspan="5">
+                                                {{rowData?.tenderpayment_terms }}
+                                            </td> -->
                                         </tr>
                                         <tr>
                                     </tbody>
