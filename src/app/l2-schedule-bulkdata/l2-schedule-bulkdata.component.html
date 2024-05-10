@@ -29,7 +29,7 @@
                 <th>S No</th>
                 <th>Client</th>
                 <th>Tender Title</th>
-                <th>Ref No</th>
+                <th>NIT No</th>
                 <th>Publish Date</th>
                 <th>Location</th>
                 <th>Start Date</th>
@@ -60,8 +60,8 @@
                 </td>
                 <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
                 <td>{{ a.tender_location }}</td>
-                <td>{{ a.schedule_start_date | date:'dd/MM/yyyy' }}</td>
-                <td>{{ a.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ a.schedule_start_date }}</td>
+                <td>{{ a.schedule_end_date }}</td>
                 <td>{{ a.tender_completion_period }}</td>
                 <td>
                   <a class="" (click)="selectedRow(a)" data-bs-toggle="modal" data-bs-target="#viewModel" title="Detail Data"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -108,7 +108,7 @@
                 <tr>
                   <th>Client</th>
                   <td>{{ l1ScheduleData?.company_name }}</td>
-                  <th>Ref No</th>
+                  <th>NIT No</th>
                   <td>
                     <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">
                         {{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -237,7 +237,7 @@
                 <tr>
                   <th>Client</th>
                   <td>{{ l1ScheduleData?.company_name }}</td>
-                  <th>Ref No</th>
+                  <th>NIT No</th>
                   <td>
                     <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">
                         {{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -612,7 +612,7 @@
                 <tr>
                   <th>Client</th>
                   <td>{{ selectedRowData?.company_name }}</td>
-                  <th>Ref No</th>
+                  <th>NIT No</th>
                   <td>
                     <div *ngIf="!!selectedRowData?.tender_ref_no; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ selectedRowData?.tender_ref_no }}">
                         {{selectedRowData?.tender_ref_no | slice:0:30}} <span *ngIf="selectedRowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>

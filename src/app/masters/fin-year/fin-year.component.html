@@ -44,8 +44,8 @@
               <tr *ngFor="let a of financialData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{limit*(p-1)+i+1}}</td>
                 <td>{{a.financialyear}}</td>
-                <td>{{a.start_date | date: 'dd/MM/yyyy'}}</td>
-                <td>{{a.end_date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{a.start_date}}</td>
+                <td>{{a.end_date}}</td>
                 <!-- <td>{{a.createdby_name}}</td>
                 <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td> -->
                 <!-- <td>

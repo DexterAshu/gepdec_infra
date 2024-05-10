@@ -55,7 +55,7 @@
                                 <th>S No</th>
                                 <th>Client</th>
                                 <th>Tender Title</th>
-                                <th>Ref No</th>
+                                <th>NIT No</th>
                                 <th>Published Date</th>
                                 <th>Financial Year</th>
                                 <th>Status</th>
@@ -169,7 +169,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Ref No</label>
+                                    <label class="form-label fl-10">NIT No</label>
                                     <input class="form-control form-control-sm"
                                         readonly value="{{filterTenderDetailsData[0]?.tender_ref_no}}">
                                 </div>
@@ -899,7 +899,7 @@
                                         <tr>
                                             <th>Tender ID</th>
                                             <td>{{rowData?.tender_id}}</td>
-                                            <th>Ref No</th>
+                                            <th>NIT No</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_ref_no }}">
                                                     {{rowData?.tender_ref_no | slice:0:30}} <span *ngIf="rowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
