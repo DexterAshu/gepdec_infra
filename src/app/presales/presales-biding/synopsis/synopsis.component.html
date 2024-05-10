@@ -85,7 +85,7 @@
                                 <th>S No</th>
                                 <th>Client</th>
                                 <th>Tender Title</th>
-                                <th>Ref No</th>
+                                <th>NIT No</th>
                                 <th>Published Date</th>
                                 <th>Execution Location</th>
                                 <th>ECV</th>
@@ -177,7 +177,7 @@
                                         <tr>
                                             <th>Tender ID</th>
                                             <td>{{rowData?.tender_id}}</td>
-                                            <th>Ref No</th>
+                                            <th>NIT No</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.tender_ref_no; else elseBlock17" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_ref_no }}">
                                                     {{rowData?.tender_ref_no | slice:0:30}} <span *ngIf="rowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>

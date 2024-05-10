@@ -37,7 +37,7 @@
                 <tr>
                   <th>S No</th>
                   <th>Tender Title</th>
-                  <th>Tender Ref No</th>
+                  <th>Tender NIT No</th>
                   <th>Warehouse Code</th>
                   <th>Item Category</th>
                   <th>Auditor Name</th>
@@ -73,7 +73,7 @@
                   <td>{{ data.audit_purpose }}</td>
                   <td>{{ data.auditor_remarks }}</td>
                   <td>{{ data.createdby_name }}</td>
-                  <td>{{ data.created | date:"dd-MM-yyyy hh:mm a" }}</td>
+                  <td>{{ data.created | date:"dd/MM/yyyy hh:mm a" }}</td>
                   <td *ngIf="data?.status == 'Approved' || data?.status == 'Rejected'"> <span class="badge badge-{{ (data?.status == 'Approved') ? 'success' : (data?.status == 'Rejected' ? 'danger' : 'warning') }}">{{ data?.status }}</span> </td>
                   <td *ngIf="!data?.status">
                     <a data-bs-toggle="modal" data-bs-target="#authorizeModal" (click)="selectRequest(data)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>&nbsp;
@@ -118,7 +118,7 @@
                 <thead class="hidden-thead"></thead>
                 <tbody class="text-nowrap">
                   <tr>
-                    <th>Tender Ref No</th>
+                    <th>Tender NIT No</th>
                     <td>{{ selectedRow?.tender_ref_no }}</td>
                     <th>Warehouse Code</th>
                     <td>{{ selectedRow?.warehouse_code }}</td>
@@ -202,7 +202,7 @@
                 <thead class="hidden-thead"></thead>
                 <tbody class="text-nowrap">
                   <tr>
-                    <th>Tender Ref No</th>
+                    <th>Tender NIT No</th>
                     <td>{{ selectedRow?.tender_ref_no }}</td>
                     <th>Warehouse Code</th>
                     <td>{{ selectedRow?.warehouse_code }}</td>

@@ -52,7 +52,7 @@
                 <th>S No</th>
                 <th>Client</th>
                 <th>Tender Title</th>
-                <th>Ref No</th>
+                <th>NIT No</th>
                 <th>Publish Date</th>
                 <th>Execution Location</th>
                 <th>Start Date</th>
@@ -83,8 +83,8 @@
             </td>
                 <td>{{a.publish_date | date:'dd/MM/yyyy'}}</td>
                 <td>{{a.tender_location}}</td>
-                <td>{{a.schedule_start_date | date:'dd/MM/yyyy'}}</td>
-                <td>{{a.schedule_start_date | date:'dd/MM/yyyy'}}</td>
+                <td>{{a.schedule_start_date}}</td>
+                <td>{{a.schedule_start_date}}</td>
                 <td>{{a.tender_completion_period}}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#viewModel" title="View Details" (click)="selectRow(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -129,7 +129,7 @@
                 <tr>
                   <th>Client</th>
                   <td>{{ selectedRow?.company_name }}</td>
-                  <th>Ref No</th>
+                  <th>NIT No</th>
                   <td>
                     <div *ngIf="!!selectedRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectedRow?.tender_ref_no }}">
                         {{selectedRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectedRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -232,7 +232,7 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label fl-10">Tender Ref No<span class="required-asterisk">*</span></label>
+                  <label class="form-label fl-10">Tender NIT No<span class="required-asterisk">*</span></label>
                   <input type="text" class="form-control form-control-sm" readonly [value]="selectedTender?.tender_ref_no">
                 </div>
               </div>
