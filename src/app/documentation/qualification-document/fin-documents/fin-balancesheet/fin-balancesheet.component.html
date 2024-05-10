@@ -319,11 +319,11 @@
                             <tr>
                             <th>Description</th>
                             <td>
-                                <span *ngIf="!!rowData?.description; else elseBlock2">
-                                    {{ rowData?.description}}
-                                </span>
+                                <div *ngIf="!!rowData?.description; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.description }}">
+                                    {{rowData?.description | slice:0:30}} <span *ngIf="rowData?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                                </div>
                                 <ng-template #elseBlock2>
-                                    --
+                                    {{rowData?.description}}
                                 </ng-template>
                             </td>
                             <th></th>

@@ -48,7 +48,6 @@ import { PaymentComponent } from './presales/payment/payment.component';
 import { FinanceComponent } from './presales/finance/finance.component';
 import { ProjClosureComponent } from './presales/proj-closure/proj-closure.component';
 import { PerformanceComponent } from './presales/performance/performance.component';
-import { AlertAlarmComponent } from './presales/alert-alarm/alert-alarm.component';
 //dashboard-import section
 import { CompanyDashboardComponent } from './dashboard/company-dashboard/company-dashboard.component';
 import { FinanceDashboardComponent } from './dashboard/finance-dashboard/finance-dashboard.component';
@@ -202,7 +201,6 @@ import { CompFinanceComponent } from './masters/comp-finance/comp-finance.compon
     FinanceComponent,
     ProjClosureComponent,
     PerformanceComponent,
-    AlertAlarmComponent,
     CompanyDashboardComponent,
     FinanceDashboardComponent,
     PerformanceDashboardComponent,

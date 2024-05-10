@@ -124,7 +124,7 @@
                   <div class="form-group">
                     <label class="form-label">Tender Title<span class="required-asterisk">*</span></label>
                     <select class="form-select form-control-sm" formControlName="tender_id" (ngModelChange)="getWarehouseData()">
-                      <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">Select Tender</option>
                       <option *ngFor="let t of tenderList" [value]="t.tender_id">{{t.tender_title}}</option>
                     </select>
                     <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
@@ -136,7 +136,7 @@
                   <div class="form-group">
                     <label class="form-label">Warehouse<span class="required-asterisk">*</span></label>
                     <select class="form-select form-control-sm" formControlName="warehouse_id">
-                      <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">Select Warehouse</option>
                       <option *ngFor="let w of wareHouseData" [value]="w.warehouse_id">{{w.warehouse_code}}</option>
                     </select>
                     <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid">
@@ -148,7 +148,7 @@
                   <div class="form-group">
                     <label class="form-label">Item Category<span class="required-asterisk">*</span></label>
                     <select class="form-select form-control-sm" formControlName="itemcategory_id">
-                      <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
                       <option *ngFor="let c of itemCategories" [value]="c.itemcategory_id">{{c.itemcategory}}</option>
                     </select>
                     <div *ngIf="f['itemcategory_id'].touched && f['itemcategory_id'].invalid">
@@ -182,7 +182,14 @@
                         <td>{{ item.warehouse_code }}</td>
                         <td>{{ item.location_code }}</td>
                         <td>{{ item?.itemcode }}</td>
-                        <td>{{ item?.description.split(' ').slice(0, 5).join(' ') }}{{item?.description.split(' ').length > 5 ? '...' : ''}}</td>
+                        <td>
+                          <div *ngIf="!!item?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}">
+                              {{item?.description | slice:0:30}} <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock1>
+                              {{item?.description}}
+                          </ng-template>
+                        </td>
                         <td>{{ item?.total_itemquantity }}</td>
                         <td>{{ item?.uom }}</td>
                         <td><input type="number" style="width: 60%;" max="{{ item?.total_itemquantity }}" class="form-control form-control-sm" formControlName="issue_qty" [(ngModel)]="item.issue_qty"></td>

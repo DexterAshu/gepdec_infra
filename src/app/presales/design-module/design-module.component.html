@@ -124,9 +124,9 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="form-label">warehouse_id<span class="required-asterisk">*</span></label>
+                  <label class="form-label">Warehouse<span class="required-asterisk">*</span></label>
                   <select formControlName="warehouse_id" class="form-select form-select-sm">
-                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Warehouse</option>
                     <!-- <option *ngFor="let t of wareHouseData" [value]="t.warehouse_id">{{ t.warehouse_name | titlecase }}</option>-->
                   </select>
                   <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid"><small class="text-danger" *ngIf="f['warehouse_id'].errors?.['required']">*Required</small></div>

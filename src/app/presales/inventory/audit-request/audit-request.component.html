@@ -166,7 +166,14 @@
                       <tr *ngFor="let a of selectedRow?.items; index as i">
                         <td>{{ i+1 }}</td>
                         <td>{{ a?.itemcode }}</td>
-                        <td>{{ a?.description }}</td>
+                        <td>
+                          <div *ngIf="!!a?.description; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                              {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock3>
+                              {{a?.description}}
+                          </ng-template>
+                        </td>
                         <td>{{ a?.system_qty }}</td>
                         <td>{{ a?.audit_qty }}</td>
                         <td>{{ a?.difference }}</td>
@@ -202,7 +209,7 @@
                 <div class="form-group">
                   <label class="form-label">Tender Title<span class="required-asterisk">*</span></label>
                   <select formControlName="tender_id" class="form-select form-select-sm">
-                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Tender</option>
                     <option *ngFor="let t of projectData" [value]="t.tender_id">{{ t.tender_title}}</option>
                   </select>
                   <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid"><small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small></div>
@@ -212,7 +219,7 @@
                 <div class="form-group">
                   <label class="form-label">Warehouse<span class="required-asterisk">*</span></label>
                   <select formControlName="warehouse_id" class="form-select form-select-sm">
-                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Warehouse</option>
                     <option *ngFor="let t of wareHouseData" [value]="t.warehouse_id">{{ t.warehouse_name | titlecase }}</option>
                   </select>
                   <div *ngIf="f['warehouse_id'].touched && f['warehouse_id'].invalid"><small class="text-danger" *ngIf="f['warehouse_id'].errors?.['required']">*Required</small></div>
@@ -222,7 +229,7 @@
                 <div class="form-group">
                   <label class="form-label">Item Category<span class="required-asterisk">*</span></label>
                   <select formControlName="itemcategory_id" class="form-select form-select-sm">
-                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
                     <option *ngFor="let c of itemCategory" [value]="c.itemcategory_id">{{ c.itemcategory | titlecase }}</option>
                   </select>
                   <div *ngIf="f['itemcategory_id'].touched && f['itemcategory_id'].invalid"><small class="text-danger" *ngIf="f['itemcategory_id'].errors?.['required']">*Required</small></div>

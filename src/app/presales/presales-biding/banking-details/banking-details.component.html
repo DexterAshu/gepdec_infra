@@ -307,9 +307,9 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                         <tr>
                         <th>Description</th>
                         <td>
-                            <span *ngIf="!!rowData?.description; else elseBlock3">
-                                {{ rowData?.description}}
-                            </span>
+                            <div *ngIf="!!rowData?.description; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.description }}">
+                                {{rowData?.description | slice:0:30}} <span *ngIf="rowData?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                            </div>
                             <ng-template #elseBlock3>
                                 --
                             </ng-template>
