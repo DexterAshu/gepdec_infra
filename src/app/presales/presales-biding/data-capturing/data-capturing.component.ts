@@ -339,10 +339,7 @@ export class DataCapturingComponent {
           remarks: this.custDetails.remarks,
           audit_trail: this.custDetails.audit_trail,
         });
-debugger
-        // this.form.controls['country_id'].setValue(this.custDetails.country_id);
-        // this.form.controls['state_id'].setValue(this.custDetails.state_id);
-        // this.form.controls['district_id'].setValue(this.custDetails.district_id);
+
         setTimeout(() => {
           this.getStateData();
           this.getDistrictData();
