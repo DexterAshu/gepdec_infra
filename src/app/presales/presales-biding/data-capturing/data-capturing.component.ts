@@ -114,6 +114,11 @@ export class DataCapturingComponent {
       paymentmethod_id: [null],
       emd_submission_date: [null],
       forfeiture_condition: [null],
+      country_id: [null, Validators.required],
+      state_id: [null, Validators.required],
+      district_id: [null, Validators.required],
+      city:[null],
+      financialyear_id: [null, Validators.required],
 
       //securitydeposit
       securitydeposit_id: [null, Validators.required],
@@ -141,10 +146,6 @@ export class DataCapturingComponent {
       emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
 
-
-    // this.form.get('termscheckbox')!.setValidators([Validators.required]);
-    // this.form.get('termscheckbox')!.clearValidators();
-
     this.getCompanyData();
     this.getCountryData();
     this.getDesignDeptData();
@@ -156,18 +157,7 @@ export class DataCapturingComponent {
       company_id: this.custDetails[0]?.company_name
     })
   }
-  // termsCheckbox = new FormControl(true);
-  // textColor = 'red'; 
-  // toggleTextColor(checked: boolean) {
-  //   this.textColor = checked ? 'green' : 'red';
-  // }
-
-  // onCheckboxChange(event: Event) {
-  //   if (event.target instanceof HTMLInputElement) { // Check if the event target is an input element
-  //     const isChecked = event.target.checked; // Access the checked property safely
-  //     this.toggleTextColor(isChecked);
-  //   }
-  // }
+ 
 
   getCountryData() {
     this.apiService.getCountryDataList().subscribe((res: any) => {
@@ -214,7 +204,11 @@ export class DataCapturingComponent {
   finYearData() {
     this.isNotFound = true;
     this.masterService.getFinData().subscribe((res: any) => {
+      console.log(res);
+      
       this.financialData = res.result;
+      console.log( this.financialData);
+      
     })
   }
 
@@ -337,10 +331,20 @@ export class DataCapturingComponent {
           emd_ammount: this.custDetails.emd_ammount,
           emd_submission_date: this.custDetails.emd_submission_date,
           forfeiture_condition: this.custDetails.forfeiture_condition,
-
+          city:this.custDetails.city,
+          financialyear_id: this.custDetails.financialyear_id,
           remarks: this.custDetails.remarks,
           audit_trail: this.custDetails.audit_trail,
         });
+
+        this.form.controls['country_id'].setValue(this.custDetails.country_id);
+        this.form.controls['state_id'].setValue(this.custDetails.state_id);
+        this.form.controls['district_id'].setValue(this.custDetails.district_id);
+       
+        setTimeout(() => {
+          this.getStateData();
+          this.getDistrictData();
+        }, 500);
 
         //   const remarksData = this.custDetails.map((item: any) => {
         //     return item.remarks.split(".");

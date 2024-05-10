@@ -110,6 +110,51 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label class="form-label">Country<span class="required-asterisk">*</span></label>
+                            <select formControlName="country_id" class="form-select form-select-sm" (ngModelChange)="getStateData()">
+                                <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
+                                <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                            </select>
+                            <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
+                                <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">State<span class="required-asterisk">*</span></label>
+                            <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData()">
+                                <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
+                                <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
+                            </select>
+                            <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
+                                <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">District<span class="required-asterisk">*</span></label>
+                            <select formControlName="district_id" class="form-select form-select-sm">
+                                <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
+                                <option *ngFor="let d of districtData" value="{{d.district_id}}">{{ d.district_name }}</option>
+                            </select>
+                            <div *ngIf="f['district_id'].touched && f['district_id'].invalid">
+                                <small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <input type="text" formControlName="city" class="form-control form-control-sm" placeholder="Enter Your City">
+                          
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label class="form-label fl-10">Execution Location<span
                                     class="required-asterisk">*</span></label>
                             <input formControlName="tender_location" type="text" class="form-control form-control-sm"
@@ -118,6 +163,24 @@
                                 <small class="text-danger"
                                     *ngIf="f['tender_location'].errors?.['required']">*Required</small>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Financial Year<span
+                                    class="required-asterisk">*</span></label>
+                            <select formControlName="financialyear_id" class="form-select form-select-sm">
+                                <option [selected]="true" [disabled]="true" [value]="null">Select Fin Year
+                                </option>
+                                <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{
+                                    f.financialyear }}</option>
+                            </select>
+                            <div *ngIf="f['financialyear_id'].touched && f['financialyear_id'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
+                            </div>
+                          
                         </div>
                     </div>
 
