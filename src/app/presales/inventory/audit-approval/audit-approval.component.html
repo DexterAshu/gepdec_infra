@@ -165,7 +165,14 @@
                       <tr *ngFor="let a of selectedRow?.items; index as i">
                         <td>{{ i+1 }}</td>
                         <td>{{ a?.itemcode }}</td>
-                        <td>{{ a?.description }}</td>
+                        <td>
+                          <div *ngIf="!!a?.description; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                              {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock3>
+                              {{a?.description}}
+                          </ng-template>
+                        </td>
                         <td>{{ a?.system_qty }}</td>
                         <td>{{ a?.audit_qty }}</td>
                         <td>{{ a?.difference }}</td>
@@ -250,6 +257,14 @@
                         <td>{{ i+1 }}</td>
                         <td>{{ a?.itemcode }}</td>
                         <td>{{ a?.description }}</td>
+                        <td>
+                          <div *ngIf="!!a?.description; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                              {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock4>
+                              {{a?.description}}
+                          </ng-template>
+                        </td>
                         <td>{{ a?.system_qty }}</td>
                         <td>{{ a?.audit_qty }}</td>
                         <td>{{ a?.difference }}</td>

@@ -243,7 +243,14 @@
                         <td>{{i+1}}</td>
                         <td>{{a.document_title}}</td>
                         <td>{{a.document_number}}</td>
-                        <td>{{a.description}}</td>
+                        <td>
+                          <div *ngIf="!!a?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                              {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock>
+                              {{a?.description}}
+                          </ng-template>
+                       </td>
                         <td>{{a.discipline}}</td>
                         <td>{{a.sub_discipline}}</td>
                         <td>{{a.stage}}</td>
@@ -264,6 +271,51 @@
                 <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
               </div>
             </form>
+          </div>
+
+          <div class="row">
+            <app-responsive-table>
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>Document/Drawing Title</th>
+                  <th>Document/Drawing Number</th>
+                  <th>Description</th>
+                  <th>Discipline</th>
+                  <th>Sub Discipline</th>
+                  <th>Stage</th>
+                  <th>Category</th>
+                  <th>Planned Submission</th>
+                  <th>Remarks</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr *ngFor="let a of form?.value?.drawingList; index as i">
+                  <td>{{i+1}}</td>
+                  <td>{{a.document_title}}</td>
+                  <td>{{a.document_number}}</td>
+                  <td>
+                      <div *ngIf="!!a?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                          {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                      </div>
+                      <ng-template #elseBlock>
+                          {{a?.description}}
+                      </ng-template>
+                  </td>
+                  <td>{{a.discipline}}</td>
+                  <td>{{a.sub_discipline}}</td>
+                  <td>{{a.stage}}</td>
+                  <td>{{a.category}}</td>
+                  <td>{{a.planned_submission}}</td>
+                  <td>{{a.remarks}}</td>
+                  <td>
+                    <a><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                    <a><span class="mdi mdi-trash-can-outline text-danger cursor-pointer mdi-18px"></span></a>
+                  </td>
+                </tr>
+              </tbody>
+            </app-responsive-table>
           </div>
         </div>
       </div>

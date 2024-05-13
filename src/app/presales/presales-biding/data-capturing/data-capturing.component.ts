@@ -332,32 +332,18 @@ export class DataCapturingComponent {
           emd_submission_date: this.custDetails.emd_submission_date,
           forfeiture_condition: this.custDetails.forfeiture_condition,
           city:this.custDetails.city,
+          country_id: this.custDetails.country_id,
+          state_id: this.custDetails.state_id,
+          district_id: this.custDetails.district_id,
           financialyear_id: this.custDetails.financialyear_id,
           remarks: this.custDetails.remarks,
           audit_trail: this.custDetails.audit_trail,
         });
 
-        this.form.controls['country_id'].setValue(this.custDetails.country_id);
-        this.form.controls['state_id'].setValue(this.custDetails.state_id);
-        this.form.controls['district_id'].setValue(this.custDetails.district_id);
-       
         setTimeout(() => {
           this.getStateData();
           this.getDistrictData();
         }, 500);
-
-        //   const remarksData = this.custDetails.map((item: any) => {
-        //     return item.remarks.split(".");
-        // });
-        // const dataArray = this.custDetails.remarks.split('\n');
-        //  const newData = dataArray.join(',\n');
-        //   this.custDetails = this.custDetails.remarks.map((item: any) => ({
-        //     data: `\n${item}`
-        // }));
-        // for (const iterator of this.custDetails) {
-        //     this.previousData.push(iterator.data);
-        // }
-
       })
     }
   }

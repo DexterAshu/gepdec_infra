@@ -192,7 +192,7 @@
                 <div class="form-group">
                   <label class="form-label">Tender Title<span class="required-asterisk">*</span></label>
                   <select formControlName="tender_id" class="form-select form-select-sm">
-                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Tender</option>
                     <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>
                   </select>
                   <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid"><small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small></div>
@@ -222,7 +222,7 @@
                 <div class="form-group">
                   <label class="form-label">Country<span class="required-asterisk">*</span></label>
                   <select formControlName="country_id" class="form-select form-select-sm" (ngModelChange)="getStateData()">
-                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
                     <option *ngFor="let t of countryData" [value]="t.country_id">{{ t.name }}</option>
                   </select>
                   <div *ngIf="f['country_id'].touched && f['country_id'].invalid"><small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small></div>
@@ -232,7 +232,7 @@
                 <div class="form-group">
                   <label class="form-label">State<span class="required-asterisk">*</span></label>
                   <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData()">
-                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
                     <option *ngFor="let t of stateData" [value]="t.state_id">{{ t.state_name }}</option>
                   </select>
                   <div *ngIf="f['state_id'].touched && f['state_id'].invalid"><small class="text-danger" *ngIf="f['state_id'].errors?.['required']">*Required</small></div>
@@ -242,7 +242,7 @@
                 <div class="form-group">
                   <label class="form-label">District<span class="required-asterisk">*</span></label>
                   <select formControlName="district_id" class="form-select form-select-sm">
-                    <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                    <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
                     <option *ngFor="let t of districtData" [value]="t.district_id">{{ t.district_name }}</option>
                   </select>
                   <div *ngIf="f['district_id'].touched && f['district_id'].invalid"><small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small></div>

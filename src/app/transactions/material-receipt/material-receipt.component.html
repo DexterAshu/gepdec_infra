@@ -108,7 +108,7 @@
                     <div class="form-group">
                       <label class="form-label">Tender Title<span class="required-asterisk">*</span></label>
                       <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getVenderData()">
-                        <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                        <option [selected]="true" [disabled]="true" [value]="null">Select Tender</option>
                         <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>
                       </select>
                       <div *ngIf="grn['tender_id'].touched && grn['tender_id'].invalid"><small class="text-danger" *ngIf="grn['tender_id'].errors?.['required']">*Required</small></div>
@@ -118,7 +118,7 @@
                     <div class="form-group">
                       <label class="form-label">BOQ<span class="required-asterisk">*</span></label>
                       <select formControlName="boq_id" class="form-select form-select-sm">
-                        <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                        <option [selected]="true" [disabled]="true" [value]="null">Select BOQ</option>
                         <option *ngFor="let b of boqList" [value]="b.supplier_id">{{ b.suppliername }}</option>
                       </select>
                       <div *ngIf="grn['boq_id'].touched && grn['boq_id'].invalid"><small class="text-danger" *ngIf="grn['boq_id'].errors?.['required']">*Required</small></div>
@@ -128,7 +128,7 @@
                     <div class="form-group">
                       <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
                       <select formControlName="supplier_id" class="form-select form-select-sm" (ngModelChange)="getVenderPOData()">
-                        <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                        <option [selected]="true" [disabled]="true" [value]="null">Select Vendor Name</option>
                         <option *ngFor="let vender of vendorDataList" [value]="vender.supplier_id">{{ vender.suppliername }}</option>
                       </select>
                       <div *ngIf="grn['supplier_id'].touched && grn['supplier_id'].invalid"><small class="text-danger" *ngIf="grn['supplier_id'].errors?.['required']">*Required</small></div>
@@ -138,7 +138,7 @@
                     <div class="form-group">
                       <label class="form-label">PO No<span class="required-asterisk">*</span></label>
                       <select formControlName="po_id" class="form-select form-select-sm" (ngModelChange)="getPOData()">
-                        <option [selected]="true" [disabled]="true" [value]="null">select</option>
+                        <option [selected]="true" [disabled]="true" [value]="null">Select PO No</option>
                         <option *ngFor="let p of venderPOData" [value]="p.po_id">{{ p.pono }}</option>
                       </select>
                       <div *ngIf="grn['po_id'].touched && grn['po_id'].invalid"><small class="text-danger" *ngIf="grn['po_id'].errors?.['required']">*Required</small></div>
@@ -307,7 +307,14 @@
                     <tbody class="text-nowrap">
                       <tr *ngFor="let item of selectedPO?.items">
                         <td>{{ item?.itemcode }}</td>
-                        <td data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}">{{item?.description | slice:0:25}} <span>...<i class="mdi mdi-information"></i></span></td>
+                        <td>
+                          <div *ngIf="!!item?.description; else elseBlock7" data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}">
+                              {{item?.description | slice:0:30}} <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock7>
+                              {{item?.description}}
+                          </ng-template>
+                        </td>
                         <td>{{ item?.qty }}</td>
                         <td>{{ item?.pobalance_qty }}</td>
                         <td>{{ item?.uom }}</td>

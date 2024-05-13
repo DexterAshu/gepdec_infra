@@ -195,8 +195,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Tender Link</label>
+                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm" appNoSpace>
 
-                    <div class="col-md-8">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Description<span
                                     class="required-asterisk">*</span></label>
@@ -209,13 +215,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Tender Link</label>
-                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm" appNoSpace>
-
-                        </div>
-                    </div>
+         
 
                     <!-- <div class="col-md-3">
                         <div class="form-group">
@@ -404,7 +404,7 @@
 
 
                     <!-- Security Deposit -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Security Deposit<span
                                     class="required-asterisk">*</span></label>
@@ -421,7 +421,7 @@
                     </div>
 
                     <ng-container *ngIf="sel.value == '1001'">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">Security Amount<span
                                         class="required-asterisk">*</span></label>
@@ -434,7 +434,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10"> Security Submission Date<span
                                         class="required-asterisk">*</span></label>
@@ -451,7 +451,7 @@
                     <!-- Security Deposit end -->
 
                     <!-- Performance Guarantee -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Performance Guarantee<span
                                     class="required-asterisk">*</span></label>
@@ -468,7 +468,7 @@
                     </div>
 
                     <ng-container *ngIf="pg.value == '1001'">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">PG Amount (%)<span
                                         class="required-asterisk">*</span></label>
@@ -495,7 +495,7 @@
                     <!-- Performance Guarantee End -->
 
                     <!-- tender EMD -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">EMD Exemption<span
                                     class="required-asterisk">*</span></label>
@@ -512,7 +512,7 @@
                     </div>
 
                     <ng-container *ngIf="emd.value == '401'">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">EMD Amount<span
                                         class="required-asterisk">*</span></label>
@@ -527,7 +527,7 @@
 
 
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">EMD Payment Mode<span
                                         class="required-asterisk">*</span></label>
@@ -546,7 +546,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">EMD Submission Date<span
                                         class="required-asterisk">*</span></label>
@@ -559,7 +559,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">EMD Forfeiture Condition </label>
                                 <textarea formControlName="forfeiture_condition" type="date"
