@@ -131,4 +131,40 @@ export class MasterService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/warehouse/api/v1/addLocaton`, data, httpOptions);
   }
+
+// *******************Dashboard******************************************
+//Dashboard Main- API's
+getCategoryData(): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+  return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getQualificationDropdown`, httpOptions);
+}
+getCompData(): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+  return this.http.get<any>(`${environment.apiUrl}/mycompany/api/v1/getMyComapanyList`, httpOptions);
+}
+
+getProjectData(financialyearId: number, categoryId: number, companyId: number): Observable<any> {
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })
+  };
+  const url = `${environment.apiUrl}/biding/api/v1/getTenderListByQaCatagory?financialyear_id=${financialyearId}&qacatagory_id=${categoryId}&bidder_id=${companyId}`;
+  return this.http.get<any>(url, httpOptions);
+}
+
+getStatusData(): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+  return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getTenderDropdown`, httpOptions);
+}
+getProjectData2(tenderstatusId: number): Observable<any> {
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })
+  };
+  const url = `${environment.apiUrl}/biding/api/v1/getTenderlist?tenderstatus_id=${tenderstatusId}`;
+  return this.http.get<any>(url, httpOptions);
+}
+getDashboard(): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+  return this.http.get<any>(`${environment.apiUrl}/dashboard/api/v1/getLandingDashboard`, httpOptions);
+}
+
 }

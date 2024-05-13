@@ -7,13 +7,17 @@ import * as Highcharts from 'highcharts';
 import xrange from 'highcharts/modules/xrange';
 import { MasterService } from '../_services/master.service';
 xrange(Highcharts);
-
+// import {FilterPipe} from '../_pipes/filter.pipe';
+import { environment } from 'src/environments/environment';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  p: number = 1;
+  limit = environment.pageLimit;
   shoDataLabel: boolean = true;
   animations: boolean = true;
   fitContainer: boolean = false;
@@ -21,12 +25,12 @@ export class DashboardComponent implements OnInit {
   showXAxis1 = true;
   showYAxis1 = true;
   gradient = true;
-  showLegend = true;
+  showLegend = false;
   showXAxisLabel1 = true;
   xAxisLabel = '';
   xAxisLabelProc = 'Number';
   showYAxisLabel1 = true;
-  yAxisLabel = 'Number';
+  
   yAxisLabelProc = '';
   timeline = true;
   showLabels = true;
@@ -81,7 +85,11 @@ export class DashboardComponent implements OnInit {
   isNotFound: boolean = false;
   finCount: any;
   financialData: any;
-  
+  categoryData: any;
+  companyData: any;
+  projectData:any;
+  statusData:any;
+  projectData2:any;
   single = [
     {
       "name": "Total",
@@ -374,8 +382,8 @@ export class DashboardComponent implements OnInit {
           "name": "Completed",
           "value": 12
         },
-       
       ]
+      
     },
     
     {
@@ -830,9 +838,7 @@ export class DashboardComponent implements OnInit {
     "value": 500
   },
   ];
-  pieColorsCust:any = {
-  domain: ['#660066', '#990099', '#6600FF']
-  };
+  
   lineColorScheme:any ={
   domain: ['#387df3' , '#FFBF00', '#FF7F50']
   }
@@ -1138,6 +1144,63 @@ export class DashboardComponent implements OnInit {
   },
   ];
 
+  // pie chart start
+  // piecolorScheme = {
+  //   domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  // };
+  // pieColorsCust:Color = {
+  //   domain: ['#4676C6', '#FFA333', '#cf97ef'],
+  //   name: '',
+  //   selectable: false,
+  //   // group: ScaleType.Ordinal,
+  // };
+  pieColorsCust:any = {
+    // domain: ['#660066', '#990099', '#6600FF']
+  domain: [
+    '#bb9ff5',  '#b5d0ff',  
+    '#ffc3ae',  '#7dabf9', '#aeddc5', '#f397ca'
+    ]
+  };
+  // gradient: boolean = true;
+  // showLegend: boolean = true;
+  // showLabels: boolean = true;
+  isDoughnut: boolean = false;
+  legendPosition: any = 'below';
+  pieChartData = [
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "France",
+      "value": 7200000
+    },
+      {
+      "name": "UK",
+      "value": 6200000
+    }
+  ];
+  legendTitle: string = 'Location Wise Percentage'
+  // pie chart end
+
+  progressBarData =[
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "France",
+      "value": 7200000
+    }
+  ];
   changeData: any;
   form!: FormGroup;  
   countryData: any;
@@ -1146,7 +1209,17 @@ export class DashboardComponent implements OnInit {
   segmentData: any;
   projData: any;
   performanceTotal: number = 0;
- 
+  selectedDuration: number | null = null;
+  selectedCategory: number | null = null;
+  selectedCompany: number | null = null;
+  dashboardData: any;
+  performaceBar: any = [];
+  progressBar: any = [];
+  yAxisLabel = 'Tender Title';
+  topFiveOrder: any[] = [];
+  pieChartData2: any = [];
+  loading: boolean = false;
+
   constructor(
     private sharedService: SharedService,
     private apiService: ApiService,
@@ -1162,11 +1235,23 @@ export class DashboardComponent implements OnInit {
     this.getCountryData();
     this.getSegmentData();
     this.finYearData();
-    // this.projectlist();
+    // this.getFinancialData();
+    this.getCompanyData();
+    // this.getCategoryData();
+    this.getCatgData();
+    this.getStatusData();
+    this.getDashboardData();
+
+    // this.getCompanyData();
+
 
     this.form = this.formBuilder.group({
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
+      duration: [null, Validators.required],
+      category: [null, Validators.required],
+      company: [null, Validators.required],
+      project: [null, Validators.required],
     })
   }
 
@@ -1188,6 +1273,8 @@ export class DashboardComponent implements OnInit {
   }
   
   StateData() {
+    console.log(this.form.value.country_id);
+    
     let countrydata = this.form.value.country_id;
     let statedata = null;
     this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
@@ -1202,13 +1289,169 @@ export class DashboardComponent implements OnInit {
   finYearData() {
     this.isNotFound = true;
     this.masterService.getFinData().subscribe((res:any) => {
-      
-      
       this.isNotFound = false;
       if (res.status == 200) {
-      this.finCount = res;
-      this.financialData = res.result;
-          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
+        this.financialData = res.result;
+      } else {
+        this.alertService.warning("Looks like no financial year data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText);
+    }); 
+  }
+
+  getCatgData() {
+    this.isNotFound = true;
+    this.masterService.getCategoryData().subscribe((res:any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+        this.categoryData = res.catagory;
+      } else {
+        this.alertService.warning("Looks like no category data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText);
+    }); 
+  }
+
+  getCompanyData() {
+    this.isNotFound = true;
+    this.masterService.getCompData().subscribe((res:any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+        this.companyData = res.result;
+      } else {
+        this.alertService.warning("Looks like no company data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText);
+    }); 
+  }
+
+  onDurationChange(event: any) {
+    this.selectedDuration = event.target.value;
+    this.callProjectApiIfReady();
+  }
+
+  onCategoryChange(event: any) {
+    this.selectedCategory = event.target.value;
+    this.callProjectApiIfReady();
+  }
+
+  onCompanyChange(event: any) {
+    this.selectedCompany = event.target.value;
+    this.callProjectApiIfReady();
+  }
+
+  callProjectApiIfReady() {
+    if (this.selectedDuration !== null && this.selectedCategory !== null && this.selectedCompany !== null) {
+      this.getProjData(this.selectedDuration, this.selectedCategory, this.selectedCompany);
+    }
+  }
+
+  getProjData(financialyearId: number, categoryId: number, companyId: number) {
+    this.isNotFound = true;
+    this.masterService.getProjectData(financialyearId, categoryId, companyId).subscribe((res:any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+        this.projectData = res.result;
+      } else {
+        this.alertService.warning("Looks like no project data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText);
+    }); 
+  }
+  ShortNumber(value: number): string {
+    if (value >= 10000000) {
+      return (value / 10000000).toFixed(2) + ' Cr';
+    } else if (value >= 100000) {
+      return (value / 100000).toFixed(2) + ' Lakh';
+    } else {
+      return value.toString();
+    }
+  }
+    getDashboardData() {
+      this.isNotFound = true;
+      this.loading = true;
+      this.masterService.getDashboard().subscribe((res:any) => {
+        this.isNotFound = false;
+        this.dashboardData = [];
+        if (res.status == 200) {
+          this.loading = false;
+          this.dashboardData = res;
+          this.topFiveOrder = res.topFiveTender;
+          console.log('this.dashboardData-->', this.dashboardData);
+          // Performance bar start
+          this.performaceBar = this.dashboardData.presalesData.map((item: any) => {
+            return {
+              name: item.name,
+              series: [
+                { name: 'Total', value: item.series[0].value },
+                { name: 'Completed', value: item.series[1].value }
+              ]
+            };
+          });
+
+          // this.pieChartData2 = [
+          //   {
+          //     name: this.dashboardData.topFiveLocationWise[0].state_name,
+          //     value: this.dashboardData.topFiveLocationWise[0].state_count
+          //   },
+          //   {
+          //     name: this.dashboardData.topFiveLocationWise[1].state_name,
+          //     value: this.dashboardData.topFiveLocationWise[1].state_count
+          //   },
+          //   // {
+          //   //   name: 'Low',
+          //   //   value: this.dataList.totalCustomerSalesDayWise[0].lowPriorityCount
+          //   // }
+            
+          // ];
+          this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
+            return {
+              name: item.state_name,
+              value: item.state_count,
+            };
+          });
+        // progressbar code start
+        // this.progressBar = this.dashboardData.statusProgress;
+            this.progressBar = this.dashboardData.statusProgress.map((item: any) => {
+              // Parse the progress string to a float value
+              // const progressValue = parseFloat(item.progress.replace('%', ''));
+              return {
+                  name: item.tender_title,
+                  value: item.progress,
+              };
+          });
+        } else {
+          this.alertService.warning("Looks like no category data available!");
+        }
+      }, error => {
+        this.dashboardData = [];
+        this.isNotFound = false;
+        this.loading = false;
+        this.alertService.error("Error: " + error.statusText);
+      }); 
+    }
+
+  onPieChartSelect(event: any): void {
+    // const segment = event.name; // Get the name of the clicked segment
+    // Navigate to the desired page with the segment parameter
+    // this.router.navigate(['/master/customer'], { queryParams: { segment: segment } });
+  }
+  getStatusData() {
+    this.isNotFound = true;
+    this.masterService.getStatusData().subscribe((res:any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+      // this.finCount = res;
+      this.statusData = res.tenderstatus;
+      console.log('this.categoryData-->', this.statusData);
       }else {
         this.alertService.warning("Looks like no data available!");
       }
@@ -1217,11 +1460,35 @@ export class DashboardComponent implements OnInit {
       this.alertService.error("Error: " + error.statusText)
     }); 
   }
-
+  onStatusChange(event: any) {
+    const tenderStatusId = event.target.value; // Assuming you're using event binding for the select change
+    if (tenderStatusId) {
+      this.getProjData2(tenderStatusId);
+    } else {
+      // Handle if no company is selected
+    }
+  }
+  getProjData2(tenderStatusId: number) {
+    this.isNotFound = true;
+    this.masterService.getProjectData2(tenderStatusId).subscribe((res:any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+      this.projectData2 = res.result;
+        console.log('this.projectData2-->', this.projectData2);
+      }else {
+        this.alertService.warning("Looks like no data available!");
+      }
+    }, error => {
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText)
+    }); 
+  }
   // projectlist(){
   //   this.masterService.getProjectList().subscribe((res:any) => {
   //     if (res.status == 200) {
   //     this.projData = res.result;
+  //     console.log(this.projData);
+      
   //     }else {
   //       this.alertService.warning("Looks like no data available!");
   //     }

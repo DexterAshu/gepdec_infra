@@ -66,6 +66,12 @@ textarea.ng-invalid.ng-touched {
   border-radius: 50%;
   background: #356dc7 !important;
 }
+.ngx-pagination a:hover, .ngx-pagination button:hover{
+  border-radius: 50%;
+}
+.ngx-pagination .pagination-next a:hover, .ngx-pagination .pagination-previous a:hover{
+  border-radius: 10px;
+}
 
 .pagination-sec {
   margin-top: auto;

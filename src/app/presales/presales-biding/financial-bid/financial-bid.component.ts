@@ -216,7 +216,7 @@ export class FinancialBidComponent {
 
   //Annuval data
   annuvalTurnVal(year: any, check: any, annual: any) {
-    if (check) {
+    if (year) {
       this.apiService.finAnnuvalTournover(year, check).subscribe((res: any) => {
         this.data = res.result;
         this.comparisonData(annual);
@@ -239,7 +239,7 @@ export class FinancialBidComponent {
 
   //networth data
   netWorthVal(year1: any, check1: any, networth: any) {
-    if (check1) {
+    if (year1) {
       this.apiService.finNetWorth(year1, check1).subscribe((res: any) => {
         this.data1 = res.result;
         this.comparisonNetWorthData(networth);
@@ -272,7 +272,7 @@ export class FinancialBidComponent {
 
   //networking capital data
   netWorkingCapitalVal(year2: any, check2: any, networkCap: any) {
-    if (check2) {
+    if (year2) {
       this.apiService.finNetWorkingCap(year2, check2).subscribe((res: any) => {
         this.data2 = res.result;
         this.comparisonNetWorkData(networkCap);
@@ -293,7 +293,7 @@ export class FinancialBidComponent {
 
   //Liability data
   totalLiabilityVal(year3: any, check3: any, libi: any) {
-    if (check3) {
+    if (year3) {
       this.apiService.finLiability(year3, check3).subscribe((res: any) => {
         this.liabilityData = res.result;
         this.comparisonLibData(libi);
@@ -315,7 +315,7 @@ export class FinancialBidComponent {
 
   //fixed asset data
   fixAsset(year4: any, check4: any, fixedasset: any) {
-    if (check4) {
+    if (year4) {
       this.apiService.finFixedAsset(year4, check4).subscribe((res: any) => {
         this.assetVal = res.result;
         this.comparisonAssetData(fixedasset);
@@ -337,7 +337,8 @@ export class FinancialBidComponent {
 
   //net profit data
   netProfitData(year5: any, check5: any, netprofit: any) {
-    if (check5) {
+    debugger
+    if (year5) {
       this.apiService.finNetProfit(year5, check5).subscribe((res: any) => {
         this.netProf = res.result;
         this.comparisonNetProfitData(netprofit);
@@ -359,7 +360,7 @@ export class FinancialBidComponent {
 
   //netcapital data
   natCapitalData(year6: any, check6: any, netcapital: any) {
-    if (check6) {
+    if (year6) {
       this.apiService.finNetCapital(year6, check6).subscribe((res: any) => {
         this.netCapitalVal = res.result;
         this.comparisonNetCapitalData(netcapital);
@@ -382,7 +383,7 @@ export class FinancialBidComponent {
 
   //RS Data
   resAndsurplus(year7: any, check7: any, rsVal: any) {
-    if (check7) {
+    if (year7) {
       this.apiService.finRS(year7, check7).subscribe((res: any) => {
         this.rAnds = res.result;
         this.comparisonRSData(rsVal);
@@ -407,7 +408,7 @@ export class FinancialBidComponent {
 
   //paidupcapital data
   paidUpCapital(year8: any, check8: any, paiupcapi: any) {
-    if (check8) {
+    if (year8) {
       this.apiService.finPaidupCapital(year8, check8).subscribe((res: any) => {
         this.paiCapitalVal = res.result;
         this.comparisonPaidupData(paiupcapi);
@@ -429,7 +430,7 @@ export class FinancialBidComponent {
 
   //ebidta data
   ebidtaData(year9: any, check9: any, ebdt: any) {
-    if (check9) {
+    if (year9) {
       this.apiService.finAbidta(year9, check9).subscribe((res: any) => {
         this.ebidtaVal = res.result;
         this.comparisonEbidtaData(ebdt);
