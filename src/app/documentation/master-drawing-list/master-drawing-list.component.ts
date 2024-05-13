@@ -17,7 +17,6 @@ export class MasterDrawingListComponent {
   p: number = 1;
   limit = environment.pageLimit;
   form!: FormGroup;
-  drawingList: any;
   selectedTender: any;
   companyData: any = [];
   tenderList: any = [];
@@ -35,9 +34,7 @@ export class MasterDrawingListComponent {
     this.form = this.fb.group({
       client: [null, Validators.required],
       tender_id: [null, Validators.required],
-      drawingList: new FormArray([this.createDrawingList()])
-    });
-    this.drawingList = this.fb.group({
+      drawingList: new FormArray([]),
       document_title: [null, Validators.required],
       document_number: [null, Validators.required],
       description: [null, Validators.required],
@@ -45,30 +42,37 @@ export class MasterDrawingListComponent {
       sub_discipline: [null, Validators.required],
       stage: [null, Validators.required],
       category: [null, Validators.required],
-      planned_submission: [null, Validators.required],
-      remarks: [null, Validators.required]
+      planned_submission: [null],
+      remarks: [null]
     });
   }
 
   get f() { return this.form.controls; }
 
-  createDrawingList(): FormGroup {
-    return this.fb.group({
-      document_title: [null, Validators.required],
-      document_number: [null, Validators.required],
-      description: [null, Validators.required],
-      discipline: [null, Validators.required],
-      sub_discipline: [null, Validators.required],
-      stage: [null, Validators.required],
-      category: [null, Validators.required],
-      planned_submission: [null, Validators.required],
-      remarks: [null, Validators.required]
-    });
-  }
-
   addDrawingList(): void {
-    this.drawingList = this.form.get('drawingList') as FormArray;
-    this.drawingList.push(this.createDrawingList());
+    let match: any = {
+      document_title: this.form.value.document_title,
+      document_number: this.form.value.document_number,
+      description: this.form.value.description,
+      discipline: this.form.value.discipline,
+      sub_discipline: this.form.value.sub_discipline,
+      stage: this.form.value.stage,
+      category: this.form.value.category,
+      planned_submission: this.form.value.planned_submission,
+      remarks: this.form.value.remarks
+    };
+    this.form.value.drawingList.push(match);
+    this.form.patchValue({
+      document_title: null,
+      document_number: null,
+      description: null,
+      discipline: null,
+      sub_discipline: null,
+      stage: null,
+      category: null,
+      planned_submission: null,
+      remarks: null
+    });
   }
 
   redirect(route: any) {
@@ -124,7 +128,16 @@ export class MasterDrawingListComponent {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    delete this.form.value.document_title;
+    delete this.form.value.document_number;
+    delete this.form.value.description;
+    delete this.form.value.discipline;
+    delete this.form.value.sub_discipline;
+    delete this.form.value.stage;
+    delete this.form.value.category;
+    delete this.form.value.planned_submission;
+    delete this.form.value.remarks;
+    console.log(JSON.stringify(this.form.value));
     // const formData: FormData = new FormData();
     // for (let i = 0; i < this.attachment.length; i++) {
     //   formData.append('attachment', this.attachment[i]);
