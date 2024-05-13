@@ -99,9 +99,8 @@ export class PresalesBidingComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getCostType().subscribe((res: any) => {  
       this.costType = res.costtype;

@@ -60,7 +60,7 @@ export class L1ScheduleComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -77,7 +77,7 @@ export class L1ScheduleComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -100,7 +100,7 @@ export class L1ScheduleComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -152,7 +152,7 @@ export class L1ScheduleComponent {
     }),
     (error: any) => {
       this.isSubmitted = false;
-      this.alertService.error(`Error: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 }

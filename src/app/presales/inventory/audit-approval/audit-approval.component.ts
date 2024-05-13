@@ -65,7 +65,7 @@ export class AuditApprovalComponent {
     },
     (error: any) => {
       this.auditApprovalData = [];
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -101,7 +101,7 @@ export class AuditApprovalComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     }
   }
 
@@ -137,7 +137,7 @@ export class AuditApprovalComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     }
   }
 

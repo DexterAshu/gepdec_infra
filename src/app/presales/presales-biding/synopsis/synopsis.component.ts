@@ -139,7 +139,7 @@ console.log(this.statusList)
     }, error => {
       this.isNotFound = true;
       this.tenderData = undefined;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!");
     });
 
     this.apiService.getTenderType().subscribe((res: any) => {
@@ -152,7 +152,7 @@ console.log(this.statusList)
       }
     }, error => {
       this.tenderType = undefined;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -245,7 +245,7 @@ console.log(this.statusList)
       }
     }, error => {
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     })
   }
 
@@ -264,7 +264,7 @@ console.log(this.statusList)
       }
     }, error => {
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     })
   }
 }

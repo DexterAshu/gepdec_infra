@@ -135,7 +135,7 @@ export class CompFinanceComponent {
   //   }, (error) => {
   //     this.isSubmitted = false;
   //     document.getElementById('cancel')?.click();
-  //     this.alertService.error("Error: " + error.statusText);
+  //     this.alertService.error("Error: Unknown Error!");
   //   });
   // }
 
@@ -171,7 +171,7 @@ export class CompFinanceComponent {
     }, (error) => {
       this.isSubmitted = false;
       document.getElementById('cancel')?.click();
-      this.alertService.error("Error: " + error.statusText);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
   finUpdate(): void {
@@ -190,7 +190,7 @@ export class CompFinanceComponent {
   }, (error) => {
     this.isSubmitted = false;
     document.getElementById('cancel')?.click();
-    this.alertService.error("Error: " + error.statusText);
+    this.alertService.error("Error: Unknown Error!");
   });
   }
 

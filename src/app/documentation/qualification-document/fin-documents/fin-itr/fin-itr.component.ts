@@ -145,7 +145,7 @@ export class FinItrComponent {
     }, (error) => {
       this.isSubmitted = false;
       document.getElementById('cancel')?.click();
-      this.alertService.error("Error: " + error.statusText);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 }

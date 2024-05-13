@@ -136,7 +136,14 @@
                         <td>{{ i+1 }}</td>
                         <td>{{ a?.location_code }}</td>
                         <td>{{ a.itemcode }}</td>
-                        <td>{{ a.description }}</td>
+                        <td>
+                          <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                              {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock1>
+                              {{a?.description}}
+                          </ng-template>
+                      </td>
                       </tr>
                     </tbody>
                   </table>
@@ -173,7 +180,14 @@
                 <td>{{ i+1 }}</td>
                 <td>{{ a?.location_code }}</td>
                 <td>{{ a.itemcode }}</td>
-                <td>{{ a.description }}</td>
+                <td>
+                  <div *ngIf="!!a?.description; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                      {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock2>
+                      {{a?.description}}
+                  </ng-template>
+                </td>
               </tr>
             </tbody>
           </app-responsive-table>

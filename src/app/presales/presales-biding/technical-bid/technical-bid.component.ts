@@ -88,9 +88,8 @@ export class TechnicalBidComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
 
     this.apiService.getTechDataList().subscribe((res: any) => {
@@ -105,7 +104,7 @@ export class TechnicalBidComponent {
     }, error => {
         this.isNotFound = true;
         this.docListData = undefined;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -121,7 +120,7 @@ export class TechnicalBidComponent {
       this.categoryData = res.catagory;
     }, error => {
       this.categoryData = undefined;
-      this.alertService.error("Error: " + error.statusText);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -136,7 +135,7 @@ export class TechnicalBidComponent {
         this.subCategoryData = res.subcatagory;
       }, error => {
         this.subCategoryData = undefined;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       });
     } else if(data == '1001') {
         this.getCapacityData(data);
@@ -151,7 +150,7 @@ export class TechnicalBidComponent {
         this.capacityData = res.capacity;
       }, error => {
         this.capacityData = undefined;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       });
     } else if (data == '1001') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
@@ -159,7 +158,7 @@ export class TechnicalBidComponent {
         this.capacityData = res.capacity;
       }, error => {
         this.capacityData = undefined;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       });
 
     }
@@ -205,9 +204,8 @@ export class TechnicalBidComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {
       if(res.status == 200) {
@@ -216,9 +214,8 @@ export class TechnicalBidComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
 
   }
@@ -284,7 +281,7 @@ export class TechnicalBidComponent {
       }, (error) => {
           this.isSubmitted = false;
           document.getElementById('cancel')?.click();
-          this.alertService.error("Error: " + error.statusText);
+          this.alertService.error("Error: Unknown Error!");
         })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");

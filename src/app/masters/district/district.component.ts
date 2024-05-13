@@ -92,7 +92,7 @@ export class DistrictComponent implements OnInit {
     }, error => {
       this.districtData = [];
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     }); 
   }
   
@@ -151,7 +151,7 @@ export class DistrictComponent implements OnInit {
     }, (error) => {
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       })
   } 
   
@@ -172,7 +172,7 @@ export class DistrictComponent implements OnInit {
   }, (error) => {
     this.isSubmitted = false;
     document.getElementById('cancel')?.click();
-    this.alertService.error("Error: " + error.statusText);
+    this.alertService.error("Error: Unknown Error!");
   });
   }
 }

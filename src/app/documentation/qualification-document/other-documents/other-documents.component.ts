@@ -75,9 +75,8 @@ export class OtherDocumentsComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getCompanyList().subscribe((res: any) => {
       if(res.status == 200) {
@@ -86,9 +85,8 @@ export class OtherDocumentsComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {
       if(res.status == 200) {
@@ -97,9 +95,8 @@ export class OtherDocumentsComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 

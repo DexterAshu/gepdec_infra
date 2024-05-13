@@ -187,7 +187,7 @@ export class CompanyComponent implements OnInit {
       }
     }, error => {
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -237,7 +237,7 @@ export class CompanyComponent implements OnInit {
       }, (error) => {
         this.isSubmitted = false;
         document.getElementById('cancel')?.click();
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       })
   }
   companyUpdate(): void {
@@ -258,7 +258,7 @@ export class CompanyComponent implements OnInit {
   }, (error) => {
     this.isSubmitted = false;
     document.getElementById('cancel')?.click();
-    this.alertService.error("Error: " + error.statusText);
+    this.alertService.error("Error: Unknown Error!");
   });
   }
 

@@ -108,7 +108,7 @@ export class AmendmentsComponent {
     }, error => {
       this.docListData = undefined;
       this.isNotFound = true;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -172,7 +172,7 @@ export class AmendmentsComponent {
     }, (error) => {
       this.isSubmitted = false;
       document.getElementById('cancel')?.click();
-      this.alertService.error("Error: " + error.statusText);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 }

@@ -59,7 +59,7 @@ export class IndirectCostingComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }, error => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -79,7 +79,7 @@ export class IndirectCostingComponent {
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -104,7 +104,7 @@ export class IndirectCostingComponent {
       }
     }, error => {
       this.dataDropdownList = undefined;
-      this.alertService.error(`Some technical issue: ${error.message}`)
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -122,7 +122,7 @@ export class IndirectCostingComponent {
       }
     }, error => {
       this.overHeadData = undefined;
-      this.alertService.error(`Some technical issue: ${error.message}`)
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -168,7 +168,7 @@ export class IndirectCostingComponent {
     }, error => {
       this.isNotFound = true;
       this.dataList = undefined;
-      this.alertService.error(`Some technical issue: ${error.message}`)
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -203,7 +203,7 @@ export class IndirectCostingComponent {
       }, (error) => {
           this.isSubmitted = false;
           document.getElementById('cancel')?.click();
-          this.alertService.error(`Some technical issue: ${error.message}`);
+          this.alertService.error("Error: Unknown Error!");;
         })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");

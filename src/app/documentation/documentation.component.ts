@@ -38,17 +38,7 @@ export class DocumentationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.getDocType().subscribe((res: any) => {
-      if(res.status == 200) {
-        this.docType = res.documenttype;
-      } else {
-        this.alertService.warning("Looks like no data available in type.");
-      }
-    }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
-    }
+   this.getDocType(); 
   }
 
   onFileChanged(event: any) {
@@ -60,6 +50,19 @@ export class DocumentationComponent implements OnInit {
       }
     } catch (error) {
       console.error('Error selecting file:', error);
+    }
+  }
+
+  getDocType() {
+    this.apiService.getDocType().subscribe((res: any) => {
+      if(res.status == 200) {
+        this.docType = res.documenttype;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      this.alertService.warning("Error: Unknown Error!");
     }
   }
 

@@ -52,20 +52,23 @@ Gantt: any;
   get f() { return this.form.controls; }
 
   getStateData() {
-    this.isNotFound = true;
-    this.masterService.getStateData().subscribe((res:any) => {
-      this.isNotFound = false;
+    this.stateData = [];
+    this.isNotFound = false;
+    this.masterService.getStateData().subscribe((res: any) => {
       if (res.status == 200) {
-      this.stateCount = res;
-      this.stateData = res.result;
-          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
-      }else {
+        this.isNotFound = false;
+        this.stateCount = res;
+        this.stateData = res.result;
+        //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
+      } else {
+        this.isNotFound = true;
+        this.stateData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.stateData = [];
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.stateData = undefined;
+      this.isNotFound = true;
+      this.alertService.error("Error: Unknown Error!")
     });
 
     this.getData(1001);
@@ -118,7 +121,7 @@ Gantt: any;
   //       }
   //     }, (error:any) => {
   //         document.getElementById('cancel')?.click();
-  //         this.alertService.error("Error: " + error.statusText);
+  //         this.alertService.error("Error: Unknown Error!");
   //       })
   //   } else {
   //     this.alertService.warning("Form is invalid, Please fill the form correctly.");

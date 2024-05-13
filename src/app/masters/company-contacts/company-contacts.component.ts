@@ -117,7 +117,7 @@ export class CompanyContactsComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(`Error: ${error.statusText}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
   tendComp(event:any){

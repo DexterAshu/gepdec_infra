@@ -177,9 +177,8 @@ export class MyCompanyComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.error(`Error: ${error.statusText}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -191,7 +190,7 @@ export class MyCompanyComponent {
     }),
     (err: any) => {
       console.log(err);
-      this.alertService.error(err.error.message);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -233,7 +232,7 @@ export class MyCompanyComponent {
         }
       }, (error) => {
         document.getElementById('cancel')?.click();
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       })
   }
   companyUpdate(): void {
@@ -251,7 +250,7 @@ export class MyCompanyComponent {
     }
   }, (error) => {
     document.getElementById('cancel')?.click();
-    this.alertService.error("Error: " + error.statusText);
+    this.alertService.error("Error: Unknown Error!");
   });
   }
 }

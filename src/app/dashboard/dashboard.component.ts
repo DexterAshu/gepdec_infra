@@ -1480,7 +1480,7 @@ export class DashboardComponent implements OnInit {
       }
     }, error => {
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!");
     }); 
   }
   // projectlist(){
@@ -1494,7 +1494,7 @@ export class DashboardComponent implements OnInit {
   //     }
   //   }, error => {
   //     this.isNotFound = false;
-  //     this.alertService.error("Error: " + error.statusText)
+  //     this.alertService.error("Error: Unknown Error!")
   //   }); 
   // }
 

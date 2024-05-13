@@ -129,7 +129,7 @@ export class MasterService {
 
   warehouseLocation(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.post(`${environment.apiUrl}/warehouse/api/v1/addLocaton`, data, httpOptions);
+    return this.http.post(`${environment.apiUrl}/warehouse/api/v1/addLocation`, data, httpOptions);
   }
 
 // *******************Dashboard******************************************

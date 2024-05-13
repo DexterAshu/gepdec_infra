@@ -25,7 +25,7 @@ export class AlertDashboardComponent {
   timeline = true;
   showLabels = true;
   doughnut = true;
-  
+
   //Financial graph data
   view2: any = [500, 250];
   showXAxis2 = true;
@@ -37,71 +37,71 @@ export class AlertDashboardComponent {
   showYAxisLabel2 = true;
   yAxisLabel2 = 'Data Value';
 
-   // options
-   legendf: boolean = true;
-   showLabelsf: boolean = true;
-   animationsf: boolean = true;
-   xAxisf: boolean = true;
-   yAxisf: boolean = true;
-   showYAxisLabelf: boolean = true;
-   showXAxisLabelf: boolean = true;
-   xAxisLabelf: string = '';
-   yAxisLabelf: string = 'Value';
+  // options
+  legendf: boolean = true;
+  showLabelsf: boolean = true;
+  animationsf: boolean = true;
+  xAxisf: boolean = true;
+  yAxisf: boolean = true;
+  showYAxisLabelf: boolean = true;
+  showXAxisLabelf: boolean = true;
+  xAxisLabelf: string = '';
+  yAxisLabelf: string = 'Value';
   //  timelinef: boolean = true;
-  
+
   financial = [
-  {
-  "name": "India",
-  "value": 9200000
-  },
-  {
-  "name": "Germany",
-  "value": 8940000
-  },
-  {
-  "name": "USA",
-  "value": 5000000
-  },
-  {
-  "name": "France",
-  "value": 7200000
-  } 
-  
-  
+    {
+      "name": "India",
+      "value": 9200000
+    },
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "France",
+      "value": 7200000
+    }
+
+
   ];
-  onSelect(event:any) {
-  
+  onSelect(event: any) {
+
   }
-  
+
   single = [
-  {
-    "name": "China",
-    "value": 2243772
-  },
-  {
-    "name": "USA",
-    "value": 1126000
-  },
-  {
-    "name": "Norway",
-    "value": 296215
-  },
-  {
-    "name": "Japan",
-    "value": 257363
-  },
-  {
-    "name": "Germany",
-    "value": 196750
-  },
-  {
-    "name": "France",
-    "value": 204617
-  }
+    {
+      "name": "China",
+      "value": 2243772
+    },
+    {
+      "name": "USA",
+      "value": 1126000
+    },
+    {
+      "name": "Norway",
+      "value": 296215
+    },
+    {
+      "name": "Japan",
+      "value": 257363
+    },
+    {
+      "name": "Germany",
+      "value": 196750
+    },
+    {
+      "name": "France",
+      "value": 204617
+    }
   ];
 
-  execution=[
-  
+  execution = [
+
     {
       "name": "Pending",
       "value": 8
@@ -110,306 +110,306 @@ export class AlertDashboardComponent {
       "name": "Completed",
       "value": 12
     },
-   
-    ];
-  
-  presales = [
-  {
-    "name": "Total",
-    "series": [
-      {
-        "name": "Rev",
-        "value": 700
-      },
-      {
-        "name": "Exp",
-        "value": 200
-      },
-      {
-        "name": "Profit",
-        "value": 500
-      },
-    
-     
-    ]
-  },
-  
-  {
-    "name": "Q1",
-    "series": [
-      {
-        "name": "Rev",
-        "value": 900
-      },
-      {
-        "name": "Exp",
-        "value": 200
-      },
-      {
-        "name": "Profit",
-        "value": 700
-      },
-     
-   
-    ]
-  },
-  
-  {
-    "name": "Q2",
-    "series": [
-      {
-        "name": "Rev",
-        "value": 300
-      },
-      {
-        "name": "Exp",
-        "value": 100
-      },
-      {
-        "name": "Profit",
-        "value": 200
-      },
-     
-    
-    ]
-  },
-  {
-    "name": "Q3",
-    "series": [
-      {
-        "name": "Rev",
-        "value": 600
-      },
-      {
-        "name": "Exp",
-        "value": 400
-      },
-      {
-        "name": "Profit",
-        "value": 200
-      },
-     
-   
-    ]
-  },
-  {
-    "name": "Q4",
-    "series": [
-      {
-        "name": "Rev",
-        "value": 600
-      },
-      {
-        "name": "Exp",
-        "value": 310
-      },
-      {
-        "name": "Profit",
-        "value": 290
-      },
-    
-    ]
-  },
- 
-  
-  ];
-  Design = [
-  {
-    "name": "Total",
-    "series": [
-     
-      {
-        "name": "In-House",
-        "value": 12
-      },
-      {
-        "name": "3rd Party",
-        "value": 8
-      },
-      {
-        "name": "Total",
-        "value": 20
-      },
-    ]
-  },
-  
-  {
-    "name": "Q1",
-    "series": [
-     
-      {
-        "name": "In-House",
-        "value": 6
-      },
-      {
-        "name": "3rd Party",
-        "value": 14
-      },
-      {
-        "name": "Total",
-        "value": 20
-      },
-    ]
-  },
-  
-  {
-    "name": "Q2",
-    "series": [
-    
-      {
-        "name": "In-House",
-        "value": 4
-      },
-      {
-        "name": "3rd Party",
-        "value": 7
-      },
-      {
-        "name": "Total",
-        "value": 11
-      },
-    
-    ]
-  },
-  {
-    "name": "Q3",
-    "series": [
-     
-      {
-        "name": "In-House",
-        "value": 9
-      },
-      {
-        "name": "3rd Party",
-        "value": 13
-      },
-      {
-        "name": "Total",
-        "value": 22
-      },
-   
-    ]
-  },
-  {
-    "name": "Q4",
-    "series": [
-     
-      {
-        "name": "In-House",
-        "value": 10
-      },
-      {
-        "name": "3rd Party",
-        "value": 15
-      },
-      {
-        "name": "Total",
-        "value": 25
-      },
-    
-    ]
-  },
- 
-  
-  ];
-  ProcurementGraph = [
-  {
-    "name": "Total",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 8
-      },
-      {
-        "name": "Pending",
-        "value": 4
-      },
-      {
-        "name": "Total",
-        "value": 12
-      },
-    ]
-  },
-  
-  {
-    "name": "Q1",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 8
-      },
-      {
-        "name": "Pending",
-        "value": 4
-      },
-      {
-        "name": "Total",
-        "value": 12
-      },
-    ]
-  },
-  
-  {
-    "name": "Q2",
-    "series": [
-    
-      {
-        "name": "PO",
-        "value": 7
-      },
-      {
-        "name": "Pending",
-        "value": 7
-      },
-      {
-        "name": "Total",
-        "value": 14
-      },
-    
-    ]
-  },
-  {
-    "name": "Q3",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 12
-      },
-      {
-        "name": "Pending",
-        "value": 4
-      },
-      {
-        "name": "Total",
-        "value": 16
-      },
-   
-    ]
-  },
-  {
-    "name": "Q4",
-    "series": [
-     
-      {
-        "name": "PO",
-        "value": 6
-      },
-      {
-        "name": "Pending",
-        "value": 6
-      },
-      {
-        "name": "Total",
-        "value": 12
-      },   
-    ]
-  }, 
+
   ];
 
- 
+  presales = [
+    {
+      "name": "Total",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 700
+        },
+        {
+          "name": "Exp",
+          "value": 200
+        },
+        {
+          "name": "Profit",
+          "value": 500
+        },
+
+
+      ]
+    },
+
+    {
+      "name": "Q1",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 900
+        },
+        {
+          "name": "Exp",
+          "value": 200
+        },
+        {
+          "name": "Profit",
+          "value": 700
+        },
+
+
+      ]
+    },
+
+    {
+      "name": "Q2",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 300
+        },
+        {
+          "name": "Exp",
+          "value": 100
+        },
+        {
+          "name": "Profit",
+          "value": 200
+        },
+
+
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 600
+        },
+        {
+          "name": "Exp",
+          "value": 400
+        },
+        {
+          "name": "Profit",
+          "value": 200
+        },
+
+
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 600
+        },
+        {
+          "name": "Exp",
+          "value": 310
+        },
+        {
+          "name": "Profit",
+          "value": 290
+        },
+
+      ]
+    },
+
+
+  ];
+  Design = [
+    {
+      "name": "Total",
+      "series": [
+
+        {
+          "name": "In-House",
+          "value": 12
+        },
+        {
+          "name": "3rd Party",
+          "value": 8
+        },
+        {
+          "name": "Total",
+          "value": 20
+        },
+      ]
+    },
+
+    {
+      "name": "Q1",
+      "series": [
+
+        {
+          "name": "In-House",
+          "value": 6
+        },
+        {
+          "name": "3rd Party",
+          "value": 14
+        },
+        {
+          "name": "Total",
+          "value": 20
+        },
+      ]
+    },
+
+    {
+      "name": "Q2",
+      "series": [
+
+        {
+          "name": "In-House",
+          "value": 4
+        },
+        {
+          "name": "3rd Party",
+          "value": 7
+        },
+        {
+          "name": "Total",
+          "value": 11
+        },
+
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+
+        {
+          "name": "In-House",
+          "value": 9
+        },
+        {
+          "name": "3rd Party",
+          "value": 13
+        },
+        {
+          "name": "Total",
+          "value": 22
+        },
+
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+
+        {
+          "name": "In-House",
+          "value": 10
+        },
+        {
+          "name": "3rd Party",
+          "value": 15
+        },
+        {
+          "name": "Total",
+          "value": 25
+        },
+
+      ]
+    },
+
+
+  ];
+  ProcurementGraph = [
+    {
+      "name": "Total",
+      "series": [
+
+        {
+          "name": "PO",
+          "value": 8
+        },
+        {
+          "name": "Pending",
+          "value": 4
+        },
+        {
+          "name": "Total",
+          "value": 12
+        },
+      ]
+    },
+
+    {
+      "name": "Q1",
+      "series": [
+
+        {
+          "name": "PO",
+          "value": 8
+        },
+        {
+          "name": "Pending",
+          "value": 4
+        },
+        {
+          "name": "Total",
+          "value": 12
+        },
+      ]
+    },
+
+    {
+      "name": "Q2",
+      "series": [
+
+        {
+          "name": "PO",
+          "value": 7
+        },
+        {
+          "name": "Pending",
+          "value": 7
+        },
+        {
+          "name": "Total",
+          "value": 14
+        },
+
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+
+        {
+          "name": "PO",
+          "value": 12
+        },
+        {
+          "name": "Pending",
+          "value": 4
+        },
+        {
+          "name": "Total",
+          "value": 16
+        },
+
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+
+        {
+          "name": "PO",
+          "value": 6
+        },
+        {
+          "name": "Pending",
+          "value": 6
+        },
+        {
+          "name": "Total",
+          "value": 12
+        },
+      ]
+    },
+  ];
+
+
   Store = [
     {
       "name": "Total",
@@ -428,7 +428,7 @@ export class AlertDashboardComponent {
         },
       ]
     },
-    
+
     {
       "name": "Q1",
       "series": [
@@ -446,7 +446,7 @@ export class AlertDashboardComponent {
         },
       ]
     },
-    
+
     {
       "name": "Q2",
       "series": [
@@ -462,8 +462,8 @@ export class AlertDashboardComponent {
           "name": "Issued",
           "value": 12
         },
-       
-      
+
+
       ]
     },
     {
@@ -498,13 +498,13 @@ export class AlertDashboardComponent {
           "name": "Issued",
           "value": 12
         },
-      
+
       ]
     },
-   
-    
-    ];
-    QualitySafety = [
+
+
+  ];
+  QualitySafety = [
     {
       "name": "Total",
       "series": [
@@ -518,7 +518,7 @@ export class AlertDashboardComponent {
         },
       ]
     },
-    
+
     {
       "name": "Q1",
       "series": [
@@ -532,7 +532,7 @@ export class AlertDashboardComponent {
         },
       ]
     },
-    
+
     {
       "name": "Q2",
       "series": [
@@ -570,13 +570,13 @@ export class AlertDashboardComponent {
           "name": "Failure",
           "value": 7
         },
-      
+
       ]
     },
-   
-    
-    ];
-    PerformanceData = [
+
+
+  ];
+  PerformanceData = [
     {
       "name": "Total",
       "series": [
@@ -590,7 +590,7 @@ export class AlertDashboardComponent {
         },
       ]
     },
-    
+
     {
       "name": "Q1",
       "series": [
@@ -604,7 +604,7 @@ export class AlertDashboardComponent {
         },
       ]
     },
-    
+
     {
       "name": "Q2",
       "series": [
@@ -642,12 +642,12 @@ export class AlertDashboardComponent {
           "name": "Exp",
           "value": 7
         },
-      
+
       ]
     },
-   
-    
-    ];
+
+
+  ];
   performancePDPEQ = [
     {
       "name": "Presales",
@@ -660,10 +660,10 @@ export class AlertDashboardComponent {
           "name": "Completed",
           "value": 10
         },
-       
+
       ]
     },
-    
+
     {
       "name": "Design",
       "series": [
@@ -675,10 +675,10 @@ export class AlertDashboardComponent {
           "name": "Completed",
           "value": 10
         },
-     
+
       ]
     },
-    
+
     {
       "name": "Proc",
       "series": [
@@ -690,7 +690,7 @@ export class AlertDashboardComponent {
           "name": "Completed",
           "value": 10
         },
-      
+
       ]
     },
     {
@@ -717,7 +717,7 @@ export class AlertDashboardComponent {
           "name": "Completed",
           "value": 10
         },
-      
+
       ]
     },
     {
@@ -731,12 +731,12 @@ export class AlertDashboardComponent {
           "name": "Completed",
           "value": 10
         },
-      
+
       ]
     },
-   
-    
-    ];
+
+
+  ];
   multi = [
     {
       "name": "Total",
@@ -753,11 +753,11 @@ export class AlertDashboardComponent {
           "name": "Profit",
           "value": 500
         },
-      
-       
+
+
       ]
     },
-    
+
     {
       "name": "Q1",
       "series": [
@@ -773,11 +773,11 @@ export class AlertDashboardComponent {
           "name": "Profit",
           "value": 700
         },
-       
-     
+
+
       ]
     },
-    
+
     {
       "name": "Q2",
       "series": [
@@ -793,8 +793,8 @@ export class AlertDashboardComponent {
           "name": "Profit",
           "value": 200
         },
-       
-      
+
+
       ]
     },
     {
@@ -812,8 +812,8 @@ export class AlertDashboardComponent {
           "name": "Profit",
           "value": 200
         },
-       
-     
+
+
       ]
     },
     {
@@ -831,367 +831,367 @@ export class AlertDashboardComponent {
           "name": "Profit",
           "value": 290
         },
-      
+
       ]
     },
-   
-    
-    ];
-  multi1 = [
-  {
-    "name": "Customer 1",
-    "series": [
-      {
-        "name": "2022",
-        "value": 7300
-      },
-      {
-        "name": "2023",
-        "value": 8940
-      },
-    
-      {
-        "name": "2025",
-        "value": 10000
-      },
-    ]
-  },
-  
-  {
-    "name": "Customer 2",
-    "series": [
-      {
-        "name": "2022",
-        "value": 7870
-      },
-      {
-        "name": "2023",
-        "value": 8270
-      },
-    
-      {
-        "name": "2025",
-        "value": 9070
-      },
-    ]
-  },
-  
-  {
-    "name": "Customer 3",
-    "series": [
-      {
-        "name": "2022",
-        "value": 5000
-      },
-      {
-        "name": "2023",
-        "value": 5800
-      },
-    
-      {
-        "name": "2025",
-        "value": 7000
-      },
-    ]
-  },
-  
-  
-  ];
-  
-  lineChartFinance = [
-  {
-    "name": "Rev",
-    "series": [
-      {
-        "name": "Total",
-        "value": 1000
-      },
-      {
-        "name": "Q1",
-        "value": 490
-      },
-      {
-        "name": "Q2",
-        "value": 380
-      },
-      {
-        "name": "Q3",
-        "value": 550
-      },
-      {
-        "name": "Q4",
-        "value": 810
-      },
-     
-    ]
-  },
 
- 
- 
-  {
-    "name": "Exp",
-    "series": [
-      {
-        "name": "Total",
-        "value": 600
-      },
-     
-      {
-        "name": "Q1",
-        "value": 390
-      },
-      {
-        "name": "Q2",
-        "value": 280
-      },
-      {
-        "name": "Q3",
-        "value": 400
-      },
-      {
-        "name": "Q4",
-        "value": 510
-      },
-     
-    ]
-  },
-  {
-    "name": "Profit",
-    "series": [
-      {
-        "name": "Total",
-        "value": 300
-      },
-     
-      {
-        "name": "Q1",
-        "value": 190
-      },
-      {
-        "name": "Q2",
-        "value": 180
-      },
-      {
-        "name": "Q3",
-        "value": 200
-      },
-      {
-        "name": "Q4",
-        "value": 310
-      },
-     
-    ]
-  },
- 
- 
- 
+
+  ];
+  multi1 = [
+    {
+      "name": "Customer 1",
+      "series": [
+        {
+          "name": "2022",
+          "value": 7300
+        },
+        {
+          "name": "2023",
+          "value": 8940
+        },
+
+        {
+          "name": "2025",
+          "value": 10000
+        },
+      ]
+    },
+
+    {
+      "name": "Customer 2",
+      "series": [
+        {
+          "name": "2022",
+          "value": 7870
+        },
+        {
+          "name": "2023",
+          "value": 8270
+        },
+
+        {
+          "name": "2025",
+          "value": 9070
+        },
+      ]
+    },
+
+    {
+      "name": "Customer 3",
+      "series": [
+        {
+          "name": "2022",
+          "value": 5000
+        },
+        {
+          "name": "2023",
+          "value": 5800
+        },
+
+        {
+          "name": "2025",
+          "value": 7000
+        },
+      ]
+    },
+
+
+  ];
+
+  lineChartFinance = [
+    {
+      "name": "Rev",
+      "series": [
+        {
+          "name": "Total",
+          "value": 1000
+        },
+        {
+          "name": "Q1",
+          "value": 490
+        },
+        {
+          "name": "Q2",
+          "value": 380
+        },
+        {
+          "name": "Q3",
+          "value": 550
+        },
+        {
+          "name": "Q4",
+          "value": 810
+        },
+
+      ]
+    },
+
+
+
+    {
+      "name": "Exp",
+      "series": [
+        {
+          "name": "Total",
+          "value": 600
+        },
+
+        {
+          "name": "Q1",
+          "value": 390
+        },
+        {
+          "name": "Q2",
+          "value": 280
+        },
+        {
+          "name": "Q3",
+          "value": 400
+        },
+        {
+          "name": "Q4",
+          "value": 510
+        },
+
+      ]
+    },
+    {
+      "name": "Profit",
+      "series": [
+        {
+          "name": "Total",
+          "value": 300
+        },
+
+        {
+          "name": "Q1",
+          "value": 190
+        },
+        {
+          "name": "Q2",
+          "value": 180
+        },
+        {
+          "name": "Q3",
+          "value": 200
+        },
+        {
+          "name": "Q4",
+          "value": 310
+        },
+
+      ]
+    },
+
+
+
   ];
   lineChart = [
-  {
-    "name": "Bid",
-    "series": [
-      {
-        "name": "Total",
-        "value": 400,
-      },
-      {
-        "name": "Q1",
-        "value": 380
-      },
-      {
-        "name": "Q2",
-        "value": 350
-      },
-      {
-        "name": "Q3",
-        "value": 410
-      },
-      {
-        "name": "Q4",
-        "value": 530
-      },
-     
-    ]
-  },
-  {
-    "name": "Win",
-    "series": [
-      {
-        "name": "Total",
-        "value": 300
-      },
-      {
-        "name": "Q1",
-        "value": 440
-      },
-      {
-        "name": "Q2",
-        "value": 320
-      },
-      {
-        "name": "Q3",
-        "value": 510
-      },
-      {
-        "name": "Q4",
-        "value": 430
-      },
-    
-    ]
-  },
-  {
-    "name": "Loss",
-    "series": [
-      {
-        "name": "Total",
-        "value": 200
-      },
-      {
-        "name": "Q1",
-        "value": 340
-      },
-      {
-        "name": "Q2",
-        "value": 220
-      },
-      {
-        "name": "Q3",
-        "value": 510
-      },
-      {
-        "name": "Q4",
-        "value": 430
-      },
-    
-    ]
-  },
+    {
+      "name": "Bid",
+      "series": [
+        {
+          "name": "Total",
+          "value": 400,
+        },
+        {
+          "name": "Q1",
+          "value": 380
+        },
+        {
+          "name": "Q2",
+          "value": 350
+        },
+        {
+          "name": "Q3",
+          "value": 410
+        },
+        {
+          "name": "Q4",
+          "value": 530
+        },
+
+      ]
+    },
+    {
+      "name": "Win",
+      "series": [
+        {
+          "name": "Total",
+          "value": 300
+        },
+        {
+          "name": "Q1",
+          "value": 440
+        },
+        {
+          "name": "Q2",
+          "value": 320
+        },
+        {
+          "name": "Q3",
+          "value": 510
+        },
+        {
+          "name": "Q4",
+          "value": 430
+        },
+
+      ]
+    },
+    {
+      "name": "Loss",
+      "series": [
+        {
+          "name": "Total",
+          "value": 200
+        },
+        {
+          "name": "Q1",
+          "value": 340
+        },
+        {
+          "name": "Q2",
+          "value": 220
+        },
+        {
+          "name": "Q3",
+          "value": 510
+        },
+        {
+          "name": "Q4",
+          "value": 430
+        },
+
+      ]
+    },
   ];
-  
-  pieData=[
-  {
-    "name": "0-30",
-    "value": 4940
-  },
-  {
-    "name": "31-60",
-    "value": 5000
-  },
-  {
-    "name": "61-90",
-    "value": 7200
-  },
-  {
-    "name": ">=91",
-    "value": 2200
-  },
+
+  pieData = [
+    {
+      "name": "0-30",
+      "value": 4940
+    },
+    {
+      "name": "31-60",
+      "value": 5000
+    },
+    {
+      "name": "61-90",
+      "value": 7200
+    },
+    {
+      "name": ">=91",
+      "value": 2200
+    },
   ];
-  pieDataDesign=[
-  
-  {
-    "name": "In-House",
-    "value": 400
-  },
-  {
-    "name": "3rd Party",
-    "value": 300
-  },
-  {
-    "name": "Pending",
-    "value": 400
-  },
- 
+  pieDataDesign = [
+
+    {
+      "name": "In-House",
+      "value": 400
+    },
+    {
+      "name": "3rd Party",
+      "value": 300
+    },
+    {
+      "name": "Pending",
+      "value": 400
+    },
+
   ];
-  pieDataProc=[
- 
-  {
-    "name": "PO",
-    "value": 12
-  },
-  {
-    "name": "Pending",
-    "value": 8
-  },
-  {
-    "name": "Total",
-    "value": 20
-  },
- 
+  pieDataProc = [
+
+    {
+      "name": "PO",
+      "value": 12
+    },
+    {
+      "name": "Pending",
+      "value": 8
+    },
+    {
+      "name": "Total",
+      "value": 20
+    },
+
   ];
-  pieDataStore=[
-  {
-    "name": "Total",
-    "value": 20
-  },
-  {
-    "name": "Pending",
-    "value": 8
-  },
-  {
-    "name": "Issued",
-    "value": 12
-  },
- 
+  pieDataStore = [
+    {
+      "name": "Total",
+      "value": 20
+    },
+    {
+      "name": "Pending",
+      "value": 8
+    },
+    {
+      "name": "Issued",
+      "value": 12
+    },
+
   ];
-  pieDataExe=[
-  {
-    "name": "AT Pending",
-    "value": 4
-  },
-  {
-    "name": "AT Success",
-    "value": 8
-  },
- 
+  pieDataExe = [
+    {
+      "name": "AT Pending",
+      "value": 4
+    },
+    {
+      "name": "AT Success",
+      "value": 8
+    },
+
   ];
-  pieDataQS=[
-  {
-    "name": "Success",
-    "value": 20
-  },
-  {
-    "name": "Failure",
-    "value": 5
-  },
- 
+  pieDataQS = [
+    {
+      "name": "Success",
+      "value": 20
+    },
+    {
+      "name": "Failure",
+      "value": 5
+    },
+
   ];
-  pieDataPerformance=[
-  {
-    "name": "Revenue",
-    "value": 20
-  },
-  {
-    "name": "Expenditure",
-    "value": 12
-  },
- 
+  pieDataPerformance = [
+    {
+      "name": "Revenue",
+      "value": 20
+    },
+    {
+      "name": "Expenditure",
+      "value": 12
+    },
+
   ];
-  pieDataCust=[
-  {
-    "name": "Loss",
-    "value": 400
-  },
-  {
-    "name": "Bid",
-    "value": 900
-  },
-  {
-    "name": "Win",
-    "value": 500
-  },
+  pieDataCust = [
+    {
+      "name": "Loss",
+      "value": 400
+    },
+    {
+      "name": "Bid",
+      "value": 900
+    },
+    {
+      "name": "Win",
+      "value": 500
+    },
   ];
-  pieColorsCust:any = {
-  domain: ['#660066', '#990099', '#6600FF']
+  pieColorsCust: any = {
+    domain: ['#660066', '#990099', '#6600FF']
   };
-  lineColorScheme:any ={
-  domain: ['#fd4747' , '#251ef7', '#069108']
+  lineColorScheme: any = {
+    domain: ['#fd4747', '#251ef7', '#069108']
   }
-  lineColorSchemeFinance:any ={
-  domain: ['#251ef7', '#f7f01e', '#069108']
+  lineColorSchemeFinance: any = {
+    domain: ['#251ef7', '#f7f01e', '#069108']
   }
-  mainColorScheme:any ={
-  domain: ['#309d15' ,'#f7f01e','#251ef7']
+  mainColorScheme: any = {
+    domain: ['#309d15', '#f7f01e', '#251ef7']
   }
-  total = this.performancePDPEQ.reduce((acc:any, item:any) => acc + item.value, 0);
+  total = this.performancePDPEQ.reduce((acc: any, item: any) => acc + item.value, 0);
   showXAxis = true;
   showYAxis = true;
   showXAxisLabel = true;
@@ -1203,98 +1203,98 @@ export class AlertDashboardComponent {
   showYAxisLabelLine: boolean = true;
   xAxisLabelLine: string = '';
   yAxisLabelLine: string = 'Number';
-  colorSchemeOS:any ={
-  domain: ['#cee27d', '#63830c']
+  colorSchemeOS: any = {
+    domain: ['#cee27d', '#63830c']
   }
   yAxisLabelBarOS: string = 'Amount';
   xAxisLabelBarOS = '';
-  
+
   yAxisLabelBarLoad: string = 'Number';
   xAxisLabelBarLoad = '';
-  colorSchemeStore:any ={
-  domain: ['#a284e0', '#ff8d64', '#81f181']
+  colorSchemeStore: any = {
+    domain: ['#a284e0', '#ff8d64', '#81f181']
   }
-  colorSchemeQS:any ={
-  domain: [ '#447f00','#fd4747']
+  colorSchemeQS: any = {
+    domain: ['#447f00', '#fd4747']
   }
-  colorSchemeProcure:any ={
-  domain: ['#309d15' ,'#fad73c','#9e3cfa']
+  colorSchemeProcure: any = {
+    domain: ['#309d15', '#fad73c', '#9e3cfa']
   }
-  colorSchemeLoadQuarter:any ={
-  domain: ['#135df0' , '#069108', '#f71616']
+  colorSchemeLoadQuarter: any = {
+    domain: ['#135df0', '#069108', '#f71616']
   }
-  
-  colorSchemeFin:any = {
-  domain: ['#400030','#6b275a', '#ba3d5d', '#e16b5f', '#fe9085'],
+
+  colorSchemeFin: any = {
+    domain: ['#400030', '#6b275a', '#ba3d5d', '#e16b5f', '#fe9085'],
   };
-  
-  colorSchemeExecution:any = {
-  domain: ['#fad946', '#54ae3e']
+
+  colorSchemeExecution: any = {
+    domain: ['#fad946', '#54ae3e']
   };
-  colorScheme:any = {
-  domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
+  colorScheme: any = {
+    domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
   };
-  colorSchemePerformance:any = {
-  domain: ['#fd4747' , '#3f4fa9']
+  colorSchemePerformance: any = {
+    domain: ['#fd4747', '#3f4fa9']
   };
-  
-  pieColorsOL:any = {
-  domain: ['#6093E8', '#cf97ef', '#FFB761', '#A2D9FF']
+
+  pieColorsOL: any = {
+    domain: ['#6093E8', '#cf97ef', '#FFB761', '#A2D9FF']
   };
-  
-  pieColorsSegment:any = {
-  domain: ['#008000', '#9933CC', '#FF3300']
+
+  pieColorsSegment: any = {
+    domain: ['#008000', '#9933CC', '#FF3300']
   };
-  pieColorsType:any = {
-  domain: ['#9400D3', '#FF00FF', '#000080']
+  pieColorsType: any = {
+    domain: ['#9400D3', '#FF00FF', '#000080']
   };
-  pieColorsAlarmType:any = {
-  domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0', '#F5F559']
+  pieColorsAlarmType: any = {
+    domain: ['#fd4747', '#ffc100', '#71c016', '#476fb0', '#F5F559']
   };
-  pieColorsProjRate:any = {
-  domain: ['#57bb87', '#ed1c16']
+  pieColorsProjRate: any = {
+    domain: ['#57bb87', '#ed1c16']
   };
 
 
   data = [
-    { 'name' : "UP", 'value' : 15 },
-    {'name' : "MP", 'value' : 10},
-    {'name' : "Delhi", 'value' : 10},
-    {'name' : "Bihar", 'value' : 16},
-    {'name': 'Gujarat', 'value': 12},
-    {'name': 'Goa', 'value': 18},
-    {'name': 'Haryana', 'value': 12},
-    {'name': 'Karnataka', 'value': 10},
-    {'name': 'Maharashtra', 'value': 13},
-    {'name': 'Punjab', 'value': 10},
+    { 'name': "UP", 'value': 15 },
+    { 'name': "MP", 'value': 10 },
+    { 'name': "Delhi", 'value': 10 },
+    { 'name': "Bihar", 'value': 16 },
+    { 'name': 'Gujarat', 'value': 12 },
+    { 'name': 'Goa', 'value': 18 },
+    { 'name': 'Haryana', 'value': 12 },
+    { 'name': 'Karnataka', 'value': 10 },
+    { 'name': 'Maharashtra', 'value': 13 },
+    { 'name': 'Punjab', 'value': 10 },
 
   ]
 
-  colorSchemeState:any = {
-    domain: [ '#05d4eb','#009423', '#f7f705', '#f205c3', '#f5810c','#2216fa', '#70f205', '#9616f7', '#f74a53', '#6d7a14' ]
+  colorSchemeState: any = {
+    domain: ['#05d4eb', '#009423', '#f7f705', '#f205c3', '#f5810c', '#2216fa', '#70f205', '#9616f7', '#f74a53', '#6d7a14']
   };
- 
 
-  bpColorScheme:any ={
-    domain: ['#069108', '#e5e500','#fd4747']
+
+  bpColorScheme: any = {
+    domain: ['#069108', '#e5e500', '#fd4747']
   }
-  
-
-   //bpDepartment wise
-   bpshowXAxis = true;
-   bpshowYAxis = true;
-   bpshowXAxisLabel = true;
-   bpshowYAxisLabel = true;
-   bpshowLabelsPie: boolean = true;
-   bpyAxisLabelBar: string = 'Value';
-   bpxAxisLabelBar = '';
-   bpshowXAxisLabelLine: boolean = true;
-   bpshowYAxisLabelLine: boolean = true;
-   bpxAxisLabelLine: string = 'Months';
-   bpyAxisLabelLine: string = 'Amount';
 
 
-   bpDepartment = [
+  //bpDepartment wise
+  bpshowXAxis = true;
+  bpshowYAxis = true;
+  bpshowXAxisLabel = true;
+  bpshowYAxisLabel = true;
+  bpshowLabelsPie: boolean = true;
+  bpyAxisLabelBar: string = 'Value';
+  bpxAxisLabelBar = '';
+  bpshowXAxisLabelLine: boolean = true;
+  bpshowYAxisLabelLine: boolean = true;
+  bpxAxisLabelLine: string = 'Months';
+  bpyAxisLabelLine: string = 'Amount';
+
+
+  bpDepartment = [
     {
       "name": "Total",
       "series": [
@@ -1432,77 +1432,77 @@ export class AlertDashboardComponent {
       ]
     },
 
-  
+
   ];
-  
-  pieDataSegment=[
-  {
-    "name": "Wins",
-    "value": 89400
-  },
-  {
-    "name": "Losses",
-    "value": 59000
-  },
-  {
-    "name": "Abandoned",
-    "value": 98000
-  },
+
+  pieDataSegment = [
+    {
+      "name": "Wins",
+      "value": 89400
+    },
+    {
+      "name": "Losses",
+      "value": 59000
+    },
+    {
+      "name": "Abandoned",
+      "value": 98000
+    },
   ];
-  pieDataType=[
-  {
-    "name": "Open",
-    "value": 9400
-  },
-  {
-    "name": "Close",
-    "value": 5000
-  },
-  {
-    "name": "Pending",
-    "value": 6000
-  },
+  pieDataType = [
+    {
+      "name": "Open",
+      "value": 9400
+    },
+    {
+      "name": "Close",
+      "value": 5000
+    },
+    {
+      "name": "Pending",
+      "value": 6000
+    },
   ];
-  pieDataAlarmType=[
-  {
-    "name": 'New Leads',
-    "value": 9400
-  },
-  {
-    "name": 'Needs Analysis',
-    "value": 9400
-  },
-  {
-    "name": 'Deals Closed',
-    "value": 5000
-  },
-  {
-    "name": 'Qualification',
-    "value": 6000
-  },
-  {
-    "name": 'Offer Sent',
-    "value": 6000
-  },
+  pieDataAlarmType = [
+    {
+      "name": 'New Leads',
+      "value": 9400
+    },
+    {
+      "name": 'Needs Analysis',
+      "value": 9400
+    },
+    {
+      "name": 'Deals Closed',
+      "value": 5000
+    },
+    {
+      "name": 'Qualification',
+      "value": 6000
+    },
+    {
+      "name": 'Offer Sent',
+      "value": 6000
+    },
   ];
-  pieDataProjType=[
-  {
-    "name": "Completed",
-    "value": 94
-  },
-  {
-    "name": "Pending",
-    "value": 6
-  },
+  pieDataProjType = [
+    {
+      "name": "Completed",
+      "value": 94
+    },
+    {
+      "name": "Pending",
+      "value": 6
+    },
   ];
 
   changeData: any;
-  form!: FormGroup;  
+  form!: FormGroup;
   countryData: any;
-  stateData: any; 
+  stateData: any;
   fiveYear: any;
   segmentData: any;
- 
+
   constructor(
     private sharedService: SharedService,
     private apiService: ApiService,
@@ -1511,7 +1511,7 @@ export class AlertDashboardComponent {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
   ) { }
-  
+
   ngOnInit(): void {
     this.fiveYear = this.sharedService.lastFiveYears();
     this.getCountryData();
@@ -1522,9 +1522,9 @@ export class AlertDashboardComponent {
       state_id: [null, Validators.required],
     })
   }
-  
+
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
+    this.apiService.getCountryDataList().subscribe((res: any) => {
       if (res.status === 200) {
         this.countryData = res.result;
       } else {
@@ -1532,10 +1532,8 @@ export class AlertDashboardComponent {
       }
     });
   }
-  
+
   StateData() {
-    console.log(this.form.value.country_id);
-    
     let countrydata = this.form.value.country_id;
     let statedata = null;
     this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
@@ -1546,9 +1544,9 @@ export class AlertDashboardComponent {
       }
     });
   }
-  
-  
-  getSegmentData() {
-  this.segmentData = [];
 
-  }}
+
+  getSegmentData() {
+    this.segmentData = [];
+  }
+}

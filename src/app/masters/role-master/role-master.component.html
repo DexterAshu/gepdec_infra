@@ -51,7 +51,14 @@
                             <tr *ngFor="let a of rolData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.name}}</td>
-                                <td>{{a.description}}</td>
+                                <td>
+                                    <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                                        {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock1>
+                                        {{a?.description}}
+                                    </ng-template>
+                                </td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created}}</td>
                                 <td>

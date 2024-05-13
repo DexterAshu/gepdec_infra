@@ -55,7 +55,7 @@ export class TitleMasterComponent {
     }, error => {
       this.designData = [];
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     }); 
   }
 
@@ -90,7 +90,7 @@ export class TitleMasterComponent {
         }
       }, (error:any) => {
           document.getElementById('cancel')?.click();
-          this.alertService.error("Error: " + error.statusText);
+          this.alertService.error("Error: Unknown Error!");
         })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");

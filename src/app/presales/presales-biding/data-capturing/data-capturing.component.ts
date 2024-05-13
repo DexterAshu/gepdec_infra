@@ -387,7 +387,7 @@ export class DataCapturingComponent {
         this.custDetails = undefined;
         this.contactDetails = undefined;
         this.addressDetails = undefined;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -400,9 +400,8 @@ export class DataCapturingComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {
       this.tenderType = res.bidtype;
@@ -480,7 +479,7 @@ export class DataCapturingComponent {
         this.alertService.warning(response.message);
       }
     }, error => {
-      this.alertService.error("Error: " + error.statusText);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -530,7 +529,7 @@ export class DataCapturingComponent {
         this.alertService.warning(response.message);
       }
     }, error => {
-      this.alertService.error("Error: " + error.statusText);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 

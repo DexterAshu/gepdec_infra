@@ -66,7 +66,7 @@ export class ItemMasterComponent {
     }, error => {
       // this.isNotFound = true;
       this.dataDropdownList = undefined;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
   
@@ -86,7 +86,7 @@ export class ItemMasterComponent {
     }, error => {
       this.isNotFound = true;
       this.dataList = undefined;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -147,7 +147,7 @@ export class ItemMasterComponent {
       }, (error) => {
           this.isSubmitted = false;
           document.getElementById('cancel')?.click();
-          this.alertService.error("Error: " + error.statusText);
+          this.alertService.error("Error: Unknown Error!");
         })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");

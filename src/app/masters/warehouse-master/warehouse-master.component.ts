@@ -84,7 +84,7 @@ export class WarehouseMasterComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     };
   }
 
@@ -105,7 +105,7 @@ export class WarehouseMasterComponent {
       }
     }, error => {
       this.dataDropdownList = [];
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -120,7 +120,7 @@ export class WarehouseMasterComponent {
       this.getDropdownList();
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -135,7 +135,7 @@ export class WarehouseMasterComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -151,7 +151,7 @@ export class WarehouseMasterComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -166,7 +166,7 @@ export class WarehouseMasterComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -179,7 +179,7 @@ export class WarehouseMasterComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -195,7 +195,7 @@ export class WarehouseMasterComponent {
     }),
     (error: any) => {
       this.isSubmitted = false;
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -212,7 +212,7 @@ export class WarehouseMasterComponent {
     }),
     (error: any) => {
       this.isSubmitted = false;
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
