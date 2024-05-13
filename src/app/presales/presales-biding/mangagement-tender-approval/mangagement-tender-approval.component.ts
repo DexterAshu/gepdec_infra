@@ -248,9 +248,8 @@ ngAfterViewInit() : void{
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {  
       this.tenderType = res.bidtype;

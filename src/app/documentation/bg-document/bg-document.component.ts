@@ -98,8 +98,7 @@ export class BgDocumentComponent {
       }
     }),
     (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getCompanyList().subscribe((res: any) => {
       if(res.status == 200) {
@@ -109,8 +108,7 @@ export class BgDocumentComponent {
       }
     }),
     (error: any) => {
-      console.log(error);
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {
       this.tenderType = res.bidtype;
@@ -140,7 +138,7 @@ export class BgDocumentComponent {
     }, error => {
       this.docListData = undefined;
       this.isNotFound = true;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -224,7 +222,7 @@ export class BgDocumentComponent {
     }, (error) => {
       this.isSubmitted = false;
       document.getElementById('cancel')?.click();
-      this.alertService.error("Error: " + error.statusText);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 }

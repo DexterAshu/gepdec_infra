@@ -73,7 +73,7 @@ export class PaymentComponent {
     }, error => {
       this.meterData = [];
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -98,7 +98,7 @@ export class PaymentComponent {
   //   }, error => {
   //     this.meterDetailData = [];
   //     this.isData = false;
-  //     this.alertService.error("Error: " + error.statusText)
+  //     this.alertService.error("Error: Unknown Error!")
   //   });
   // }
 
@@ -124,7 +124,7 @@ export class PaymentComponent {
   //   }, error => {
   //     this.isDataList = false;
   //     this.meterDataList = [];
-  //     this.alertService.error("Error: " + error.statusText)
+  //     this.alertService.error("Error: Unknown Error!")
   //   });
   // }
 
@@ -149,7 +149,7 @@ export class PaymentComponent {
   //   }, error => {
   //     this.filterData = [];
   //     this.isDataList = false;
-  //     this.alertService.error("Error: " + error.statusText)
+  //     this.alertService.error("Error: Unknown Error!")
   //   });
   // }
 

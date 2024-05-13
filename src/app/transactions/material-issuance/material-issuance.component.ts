@@ -72,7 +72,7 @@ export class MaterialIssuanceComponent {
       }
     },
     (error: any) => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -86,7 +86,7 @@ export class MaterialIssuanceComponent {
       }
     },
     (error: any) => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -101,7 +101,7 @@ export class MaterialIssuanceComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -115,7 +115,7 @@ export class MaterialIssuanceComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -132,7 +132,7 @@ export class MaterialIssuanceComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -161,7 +161,7 @@ export class MaterialIssuanceComponent {
       document.getElementById('cancel')?.click();
     }),
     (error: any) => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     }
     this.isSubmitted = false;
   }

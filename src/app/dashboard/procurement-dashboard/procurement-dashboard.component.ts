@@ -901,7 +901,7 @@ this.segmentData = [];
 //   }
 // }, error => {
 //   this.segmentData = [];
-//   this.alertService.error("Error: " + error.statusText)
+//   this.alertService.error("Error: Unknown Error!")
 // });
 }
 

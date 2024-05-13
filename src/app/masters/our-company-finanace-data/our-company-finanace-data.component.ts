@@ -75,9 +75,8 @@ export class OurCompanyFinanaceDataComponent {
       const apiLink = `/mycompany/api/v1/getMyComapanyList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       this.companyData = res.result;
-    },(error: any) => {
-      console.log(error);
-      this.alertService.error(`Error: ${error.statusText}`);
+    },(error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     })
   }
 
@@ -89,9 +88,8 @@ export class OurCompanyFinanaceDataComponent {
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
-    },(error: any) => {
-      console.log(error);
-      this.alertService.error(`Error: ${error.statusText}`);
+    },(error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     })
   }
 
@@ -140,7 +138,7 @@ export class OurCompanyFinanaceDataComponent {
         }
     }, (error) => {
       document.getElementById('cancel')?.click();
-      this.alertService.error("Error: " + error.statusText);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 }

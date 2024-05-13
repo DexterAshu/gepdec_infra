@@ -65,7 +65,7 @@ Gantt: any;
     }, error => {
       this.stateData = [];
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
 
     this.getData(1001);
@@ -118,7 +118,7 @@ Gantt: any;
   //       }
   //     }, (error:any) => {
   //         document.getElementById('cancel')?.click();
-  //         this.alertService.error("Error: " + error.statusText);
+  //         this.alertService.error("Error: Unknown Error!");
   //       })
   //   } else {
   //     this.alertService.warning("Form is invalid, Please fill the form correctly.");

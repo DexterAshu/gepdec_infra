@@ -202,9 +202,8 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.error(res.message);
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.error(`Error: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -218,7 +217,7 @@ export class L2ScheduleBulkdataComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -233,7 +232,7 @@ export class L2ScheduleBulkdataComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -247,9 +246,8 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.error(res.message);
       }
     }),
-    (error: any) => {
-      console.log(error);
-      this.alertService.error(`Error: ${error.message}`);
+    (error: any) => { 
+      this.alertService.error("Error: Unknown Error!");
     }
     this.isNotFound = false;
   }
@@ -332,7 +330,7 @@ export class L2ScheduleBulkdataComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(`Error: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
     this.isSubmitted = false;
   }
@@ -361,7 +359,7 @@ export class L2ScheduleBulkdataComponent {
       }
     }),
       (error: any) => {
-        this.alertService.error(`Error: ${error.message}`);
+        this.alertService.error("Error: Unknown Error!");
       }
     this.isSubmitted = false;
     this.update = false;

@@ -1202,8 +1202,6 @@ export class DashboardComponent implements OnInit {
   finYearData() {
     this.isNotFound = true;
     this.masterService.getFinData().subscribe((res:any) => {
-      
-      
       this.isNotFound = false;
       if (res.status == 200) {
       this.finCount = res;
@@ -1214,7 +1212,7 @@ export class DashboardComponent implements OnInit {
       }
     }, error => {
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!");
     }); 
   }
 
@@ -1227,7 +1225,7 @@ export class DashboardComponent implements OnInit {
   //     }
   //   }, error => {
   //     this.isNotFound = false;
-  //     this.alertService.error("Error: " + error.statusText)
+  //     this.alertService.error("Error: Unknown Error!")
   //   }); 
   // }
 

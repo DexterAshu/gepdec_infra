@@ -78,7 +78,7 @@ export class StateComponent implements OnInit {
     }, error => {
       this.stateData = [];
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -135,7 +135,7 @@ export class StateComponent implements OnInit {
       }
     }, (error:any) => {
         document.getElementById('cancel')?.click();
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       })
   }
   stateUpdate(): void {
@@ -155,7 +155,7 @@ export class StateComponent implements OnInit {
   }, (error) => {
     this.isSubmitted = false;
     document.getElementById('cancel')?.click();
-    this.alertService.error("Error: " + error.statusText);
+    this.alertService.error("Error: Unknown Error!");
   });
   }
 

@@ -104,7 +104,7 @@ export class TechDocumentsComponent {
     }, error => {
         this.isNotFound = true;
         this.docListData = undefined;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -126,7 +126,7 @@ export class TechDocumentsComponent {
       this.categoryData = res.catagory;
     }, error => {
       this.categoryData = undefined;
-      this.alertService.error("Error: " + error.statusText);
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -141,7 +141,7 @@ export class TechDocumentsComponent {
         this.subCategoryData = res.subcatagory;
       }, error => {
         this.subCategoryData = undefined;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       });
     } else if(data == '1001') {
         this.getCapacityData(data);
@@ -156,7 +156,7 @@ export class TechDocumentsComponent {
         this.capacityData = res.capacity;
       }, error => {
         this.capacityData = undefined;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       });
     } else if (data == '1001') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
@@ -164,7 +164,7 @@ export class TechDocumentsComponent {
         this.capacityData = res.capacity;
       }, error => {
         this.capacityData = undefined;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       });
 
     }
@@ -260,7 +260,7 @@ export class TechDocumentsComponent {
       }, (error) => {
           this.isSubmitted = false;
           document.getElementById('cancel')?.click();
-          this.alertService.error("Error: " + error.statusText);
+          this.alertService.error("Error: Unknown Error!");
         })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");

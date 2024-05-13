@@ -122,7 +122,7 @@ export class MaterialReceiptComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!");
     }
     this.isSubmitted = false;
   }
@@ -136,7 +136,7 @@ export class MaterialReceiptComponent {
       }
     },
     (error: any) => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -153,7 +153,7 @@ export class MaterialReceiptComponent {
     },
     (error: any) => {
       this.vendorDataList = [];
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -171,7 +171,7 @@ export class MaterialReceiptComponent {
     },
     (error: any) => {
       this.venderPOData = [];
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -188,7 +188,7 @@ export class MaterialReceiptComponent {
     },
     (error: any) => {
       this.selectedPO = [];
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -204,7 +204,7 @@ export class MaterialReceiptComponent {
     },
     (error: any) => {
       this.selectedPO = [];
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -218,7 +218,7 @@ export class MaterialReceiptComponent {
       }
     },
     (error: any) => {
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 }

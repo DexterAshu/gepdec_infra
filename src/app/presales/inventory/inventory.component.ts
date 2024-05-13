@@ -51,7 +51,7 @@ export class InventoryComponent {
       },
       error: (error) => {
         this.isNotFound = false;
-        this.alertService.error("Error: " + error.statusText);
+        this.alertService.error("Error: Unknown Error!");
       }
     });
   }
@@ -72,7 +72,7 @@ export class InventoryComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 

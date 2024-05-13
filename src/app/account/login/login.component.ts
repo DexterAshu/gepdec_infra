@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
         }
       }, error => {
         this.loading = false;
-        this.alertService.error(error.status == 401 ? 'Username or password is incorrect.' : `${error.statusText}`);
+        this.alertService.error(error.status == 401 ? 'Username or password is incorrect.' : "Error: Unknown Error!");
       });
     } else {
       this.loading = false;

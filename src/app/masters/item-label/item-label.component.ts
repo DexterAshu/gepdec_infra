@@ -68,7 +68,7 @@ export class ItemLabelComponent {
     }),
     (error: any) => {
       this.isSubmitted = false;
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -82,7 +82,7 @@ export class ItemLabelComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -114,7 +114,7 @@ export class ItemLabelComponent {
     }, error => {
       this.isNotFound = true;
       this.itemData = [];
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -127,7 +127,7 @@ export class ItemLabelComponent {
       }
     }),
     (error: any) => {
-      this.alertService.warning(`Some technical issue: ${error.message}`);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 }

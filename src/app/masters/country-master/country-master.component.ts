@@ -76,7 +76,7 @@ export class CountryMasterComponent {
     }, error => {
       this.countData = [];
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     });
   }
 
@@ -124,7 +124,7 @@ export class CountryMasterComponent {
     }, error => {
       this.countData = [];
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText)
+      this.alertService.error("Error: Unknown Error!")
     })
   }
   countryUpdate(): void {
@@ -143,7 +143,7 @@ export class CountryMasterComponent {
   }, (error) => {
     this.isSubmitted = false;
     document.getElementById('cancel')?.click();
-    this.alertService.error("Error: " + error.statusText);
+    this.alertService.error("Error: Unknown Error!");
   });
   }
 
