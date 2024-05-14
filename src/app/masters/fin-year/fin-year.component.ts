@@ -38,18 +38,21 @@ export class FinYearComponent {
   get f() { return this.form.controls; }
 
   finYearData() {
-    this.isNotFound = true;
+    this.financialData = [];
+    this.isNotFound = false;
     this.masterService.getFinData().subscribe((res: any) => {
-      this.isNotFound = false;
       if (res.status == 200) {
         this.finCount = res;
         this.financialData = res.result;
+        this.isNotFound = false;
       } else {
+        this.isNotFound = true;
+        this.financialData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.designData = [];
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.designData = undefined;
       this.alertService.error("Error: Unknown Error!");
     });
   }

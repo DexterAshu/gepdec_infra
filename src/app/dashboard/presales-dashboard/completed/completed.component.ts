@@ -46,7 +46,6 @@ export class CompletedComponent {
     });
     this.getStateData();
     this.getCountryData();
-
   }
 
   get f() { return this.form.controls; }

@@ -44,7 +44,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="meterData.length">
+                        <tbody class="text-nowrap">
                             <tr *ngFor="let a of meterData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.companyID}}</td>

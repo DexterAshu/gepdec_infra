@@ -50,7 +50,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="tabledata.length">
+                        <tbody class="text-nowrap">
                             <tr *ngFor="let a of tabledata | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.empid}}</td>
@@ -68,12 +68,12 @@
                                 
                                 </td>
                             </tr>
-                            <tr *ngIf="isNotFound == true">
+                            <tr *ngIf="tabledata?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="tabledata?.length == 0">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>

@@ -84,20 +84,22 @@ export class MasterDrawingListComponent {
 
   getMDLList(): void {
     this.mdlData = [];
-    this.isNotFound = true;
+    this.isNotFound = false;
     const apiLink = `/drawing/api/v1/getMDLList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if(res.status === 200) {
         this.mdlData = res.result;
         this.isNotFound = false;
       } else {
-        this.isNotFound = false;
+        this.isNotFound = true;
+        this.mdlData = undefined;
         this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
-      this.isNotFound = false;
-      this.alertService.error(error);
+      this.isNotFound = true;
+      this.mdlData = undefined;
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -112,7 +114,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(error);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -127,7 +129,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(error);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -183,7 +185,7 @@ export class MasterDrawingListComponent {
     //   }
     // }),
     // (error: any) => {
-    //   this.alertService.error(error);
+    //   this.alertService.error("Error: Unknown Error!");
     // }
     // this.isSubmitted = false;
   }

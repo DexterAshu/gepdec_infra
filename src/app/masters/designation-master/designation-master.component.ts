@@ -12,14 +12,14 @@ import * as FileSaver from 'file-saver';
 export class DesignationMasterComponent implements OnInit {
   form!: FormGroup;
   p: number = 1;
-  searchText:any;
+  searchText: any;
   limit = environment.pageLimit;
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   countryData: any;
   isSubmitted: boolean = false;
 
   designCount: any;
-  designData: any = [];
+  designData: any;
   inserteddata: any;
   discardeddata: any;
 
@@ -43,25 +43,28 @@ export class DesignationMasterComponent implements OnInit {
   get f() { return this.form.controls; }
 
   designationData() {
-    this.isNotFound = true;
-    this.masterService.getUserMaster().subscribe((res:any) => {
-      this.isNotFound = false;
+    debugger
+    this.designData = [];
+    this.isNotFound = false;
+    this.masterService.getUserMaster().subscribe((res: any) => {
       if (res.status == 200) {
-      this.designCount = res;
-      this.designData = res.designation;
-          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
-      }else {
+        this.isNotFound = false;
+        this.designCount = res;
+        this.designData = res.designation;
+      } else {
+        this.isNotFound = true;
+        this.designData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.designData = [];
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.designData = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }
 
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
+    this.apiService.getCountryDataList().subscribe((res: any) => {
       if (res.status === 200) {
         this.countryData = res.result;
       } else {
@@ -70,8 +73,8 @@ export class DesignationMasterComponent implements OnInit {
     });
   }
 
-   download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
@@ -92,7 +95,7 @@ export class DesignationMasterComponent implements OnInit {
       let params = {
         designationname: this.form.value.designationname,
       };
-      this.apiService.createMasterDesignation( params).subscribe((res:any) => {
+      this.apiService.createMasterDesignation(params).subscribe((res: any) => {
 
         let response: any = res;
         document.getElementById('cancel')?.click();
@@ -104,12 +107,12 @@ export class DesignationMasterComponent implements OnInit {
         } else {
           this.alertService.warning(response.message);
         }
-      }, (error:any) => {
-          document.getElementById('cancel')?.click();
-          this.alertService.error("Error: Unknown Error!");
-        })
+      }, (error: any) => {
+        document.getElementById('cancel')?.click();
+        this.alertService.error("Error: Unknown Error!");
+      })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
-     }
+    }
   }
 }

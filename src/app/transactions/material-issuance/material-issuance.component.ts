@@ -63,15 +63,22 @@ export class MaterialIssuanceComponent {
   }
 
   getMaterialIssuanceData(): void {
+    this.materialIssuanceData = [];
+    this.isNotFound = false;
     const apiLink = `/inventory/api/v1/getIssuanceList`;
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.materialIssuanceData = res.result;
       } else {
+        this.isNotFound = true;
+        this.materialIssuanceData = undefined;
         this.alertService.warning("Looks like no data available in type.");
       }
     },
     (error: any) => {
+      this.isNotFound = true;
+      this.materialIssuanceData = undefined;
       this.alertService.error("Error: Unknown Error!");
     });
   }
@@ -140,7 +147,6 @@ export class MaterialIssuanceComponent {
     this.selectedRow = data;
     console.log(this.selectedRow);
     this.update = true;
-    this.isNotFound = false;
     this.form.patchValue(this.selectedRow);
   }
 
