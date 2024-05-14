@@ -38,14 +38,12 @@ export class MasterDrawingListComponent {
       client: [null, Validators.required],
       tender_id: [null, Validators.required],
       drawingList: new FormArray([]),
-      document_title: [null, Validators.required],
-      document_number: [null, Validators.required],
-      description: [null, Validators.required],
+      drawing_title: [null, Validators.required],
+      drawing_no: [null, Validators.required],
       discipline: [null, Validators.required],
-      sub_discipline: [null, Validators.required],
       stage: [null, Validators.required],
       category: [null, Validators.required],
-      planned_submission: [null],
+      planned_submission_date: [null],
       remarks: [null]
     });
   }
@@ -54,26 +52,22 @@ export class MasterDrawingListComponent {
 
   addDrawingList(): void {
     let match: any = {
-      document_title: this.form.value.document_title,
-      document_number: this.form.value.document_number,
-      description: this.form.value.description,
+      drawing_title: this.form.value.drawing_title,
+      drawing_no: this.form.value.drawing_no,
       discipline: this.form.value.discipline,
-      sub_discipline: this.form.value.sub_discipline,
       stage: this.form.value.stage,
       category: this.form.value.category,
-      planned_submission: this.form.value.planned_submission,
+      planned_submission_date: this.form.value.planned_submission_date,
       remarks: this.form.value.remarks
     };
     this.form.value.drawingList.push(match);
     this.form.patchValue({
-      document_title: null,
-      document_number: null,
-      description: null,
+      drawing_title: null,
+      drawing_no: null,
       discipline: null,
-      sub_discipline: null,
       stage: null,
       category: null,
-      planned_submission: null,
+      planned_submission_date: null,
       remarks: null
     });
   }
@@ -90,20 +84,22 @@ export class MasterDrawingListComponent {
 
   getMDLList(): void {
     this.mdlData = [];
-    this.isNotFound = true;
+    this.isNotFound = false;
     const apiLink = `/drawing/api/v1/getMDLList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if(res.status === 200) {
         this.mdlData = res.result;
         this.isNotFound = false;
       } else {
-        this.isNotFound = false;
+        this.isNotFound = true;
+        this.mdlData = undefined;
         this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
-      this.isNotFound = false;
-      this.alertService.error(error);
+      this.isNotFound = true;
+      this.mdlData = undefined;
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -118,7 +114,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(error);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -133,7 +129,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(error);
+      this.alertService.error("Error: Unknown Error!");
     }
   }
 
@@ -154,14 +150,12 @@ export class MasterDrawingListComponent {
   }
 
   onSubmit() {
-    delete this.form.value.document_title;
-    delete this.form.value.document_number;
-    delete this.form.value.description;
+    delete this.form.value.drawing_title;
+    delete this.form.value.drawing_no;
     delete this.form.value.discipline;
-    delete this.form.value.sub_discipline;
     delete this.form.value.stage;
     delete this.form.value.category;
-    delete this.form.value.planned_submission;
+    delete this.form.value.planned_submission_date;
     delete this.form.value.remarks;
     console.log(JSON.stringify(this.form.value));
     // const formData: FormData = new FormData();
@@ -191,7 +185,7 @@ export class MasterDrawingListComponent {
     //   }
     // }),
     // (error: any) => {
-    //   this.alertService.error(error);
+    //   this.alertService.error("Error: Unknown Error!");
     // }
     // this.isSubmitted = false;
   }

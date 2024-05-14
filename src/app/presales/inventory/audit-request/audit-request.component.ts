@@ -124,17 +124,22 @@ export class AuditRequestComponent {
   }
 
   getData(): void {
+    this.isNotFound = false;
+    this.auditRequestData = [];
     const apiLink = `/inventory/api/v1/getAuditRequestList`;
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.auditRequestData = res.result;
       } else {
-        this.auditRequestData = [];
+        this.isNotFound = true;
+        this.auditRequestData = undefined;
         this.alertService.warning("Looks like no data available in type.");
       }
     },
     (error: any) => {
-      this.auditRequestData = [];
+      this.isNotFound = true;
+      this.auditRequestData = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }

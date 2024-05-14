@@ -51,17 +51,24 @@ export class L1ScheduleComponent {
   }
 
   getData() {
+    this.docListData = [];
+    this.isNotFound = false;
     const apiLink = `/document/api/v1/getL1ScheduleList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.docListData = res.result;
       } else {
+        this.isNotFound = true;
+        this.docListData = undefined;
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        this.isNotFound = true;
+        this.docListData = undefined;
+        this.alertService.error("Error: Unknown Error!");
+      }
   }
 
   createModel(): void {
@@ -76,9 +83,9 @@ export class L1ScheduleComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        this.alertService.error("Error: Unknown Error!");
+      }
   }
 
   selectRow(data: any): void {
@@ -99,9 +106,9 @@ export class L1ScheduleComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        this.alertService.error("Error: Unknown Error!");
+      }
   }
 
   onFileChanged(event: any) {
@@ -150,9 +157,9 @@ export class L1ScheduleComponent {
       }
       this.isSubmitted = false;
     }),
-    (error: any) => {
-      this.isSubmitted = false;
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        this.isSubmitted = false;
+        this.alertService.error("Error: Unknown Error!");
+      }
   }
 }

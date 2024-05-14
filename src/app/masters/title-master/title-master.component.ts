@@ -11,9 +11,9 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 export class TitleMasterComponent {
   form!: FormGroup;
   p: number = 1;
-  searchText:any;
+  searchText: any;
   limit = environment.pageLimit;
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   countryData: any;
   isSubmitted: boolean = false;
 
@@ -21,7 +21,7 @@ export class TitleMasterComponent {
   designData: any = [];
   titleCount: any;
   titlData: any;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -32,31 +32,33 @@ export class TitleMasterComponent {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       title: [null, Validators.required],
-    
+
     });
-    
+
     this.titleData();
- 
+
   }
 
   get f() { return this.form.controls; }
 
   titleData() {
-    this.isNotFound = true;
-    this.masterService.getUserMaster().subscribe((res:any) => {
-      this.isNotFound = false;
+    this.titlData = [];
+    this.isNotFound = false;
+    this.masterService.getUserMaster().subscribe((res: any) => {
       if (res.status == 200) {
-      this.titleCount = res;
-      this.titlData = res.title;
-          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
-      }else {
+        this.titleCount = res;
+        this.titlData = res.title;
+        this.isNotFound = false;
+      } else {
+        this.isNotFound = true;
+        this.titlData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.designData = [];
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.designData = undefined;
       this.alertService.error("Error: Unknown Error!")
-    }); 
+    });
   }
 
   onSubmit() {
@@ -76,8 +78,8 @@ export class TitleMasterComponent {
       let params = {
         title: this.form.value.title,
       };
-      this.apiService.createMasterTitle( params).subscribe((res:any) => {
-        
+      this.apiService.createMasterTitle(params).subscribe((res: any) => {
+
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
@@ -88,12 +90,12 @@ export class TitleMasterComponent {
         } else {
           this.alertService.warning(response.message);
         }
-      }, (error:any) => {
-          document.getElementById('cancel')?.click();
-          this.alertService.error("Error: Unknown Error!");
-        })
+      }, (error: any) => {
+        document.getElementById('cancel')?.click();
+        this.alertService.error("Error: Unknown Error!");
+      })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
-     }
+    }
   }
 }

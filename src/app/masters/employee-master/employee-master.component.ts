@@ -158,9 +158,22 @@ export class EmployeeMasterComponent {
   }
   
   getCompanyData() {
+    this.companyData = [];
+    this.isNotFound = false
     this.apiService.getCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
-      this.limits.push({ key: 'ALL', value: this.companyData.length });
+      if(res.status === 200) {
+        this.companyData = res.result;
+        this.isNotFound = false;
+        this.limits.push({ key: 'ALL', value: this.companyData.length });
+      } else {
+        this.isNotFound = true;
+        this.companyData = undefined;
+        this.alertService.warning("Looks like no data available.");
+      }
+    }, error => {
+      this.isNotFound = true;
+      this.companyData = undefined;
+      this.alertService.error("Error: Unknown Error!");
     });
  
   }

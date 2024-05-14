@@ -5,7 +5,8 @@
       <div class="d-flex justify-content-between flex-wrap">
         <div class="d-flex align-items-end flex-wrap">
           <div class="mr-md-3 mr-xl-5">
-            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Material Receipt Note</h4>
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Material Receipt Note
+            </h4>
           </div>
         </div>
         <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
@@ -18,68 +19,78 @@
         <div class="card-body">
           <div class="d-flex my-10">
             <div class="col-lg-4">
-              <input type="search" class="form-control form-control-sm" (click)="p = 1" [(ngModel)]="searchText" placeholder="Search">
+              <input type="search" class="form-control form-control-sm" (click)="p = 1" [(ngModel)]="searchText"
+                placeholder="Search">
             </div>
             <div class="col-lg-8">
-              <button type="button" (click)="getGRNData()" data-bs-toggle="modal" data-bs-target="#createGRNModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+              <button type="button" (click)="getGRNData()" data-bs-toggle="modal" data-bs-target="#createGRNModal"
+                class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
             </div>
           </div>
           <app-responsive-table id="export">
-              <thead class="table-primary text-nowrap">
-                <tr>
-                  <th>S No</th>
-                  <th>Tender Title</th>
-                  <th>Tender NIT No</th>
-                  <th>Tender Location</th>
-                  <th>PO No</th>
-                  <th>GRN No</th>
-                  <th>GRN Date</th>
-                  <th>Challan No</th>
-                  <th>Remarks</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody class="text-nowrap">
-                <tr *ngFor="let purchase of poData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
-                  <td>{{ limit * (p - 1) + i + 1 }}</td>
-                  <td>
-                    <div *ngIf="!!purchase?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ purchase?.tender_title }}">
-                        {{purchase?.tender_title | slice:0:30}} <span *ngIf="purchase?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
-                    </div>
-                    <ng-template #elseBlock1>
-                        {{purchase?.tender_title}}
-                    </ng-template>
-                  </td>
-                  <td>
-                    <div *ngIf="!!purchase?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ purchase?.tender_ref_no }}">
-                        {{purchase?.tender_ref_no | slice:0:30}} <span *ngIf="purchase?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
-                    </div>
-                    <ng-template #elseBlock2>
-                        {{purchase?.tender_ref_no}}
-                    </ng-template>
-                  </td>
-                  <td>{{ purchase.tender_location }}</td>
-                  <td> {{ purchase.pono }}</td>
-                  <td>{{ purchase?.grn_number }}</td>
-                  <td>{{ purchase?.grn_date | date: 'dd/MM/yyyy' }}</td>
-                  <td>{{ purchase?.challan_number }}</td>
-                  <td>{{ purchase?.remark }}</td>
-                  <td>
-                    <a data-bs-toggle="modal" (click)="selectPO(purchase)" data-bs-target="#createModal" title="Edit Purchase Order"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>&nbsp;
-                    <a class="" data-bs-toggle="modal" data-bs-target="#viewModel" title="Warehouse Profile" (click)="getPODetails(purchase.po_id)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
-                  </td>
-                </tr>
-                <tr *ngIf="isNotFound == true">
-                  <td colspan="8" class="text-center">
-                    <div class="spinner-border"></div>
-                  </td>
-                </tr>
-                <tr *ngIf="poData?.length == 0">
-                  <td colspan="8" class="text-center">
-                    <div class="text-warning fw-semibold">No purchase orders available.</div>
-                  </td>
-                </tr>
-              </tbody>
+            <thead class="table-primary text-nowrap">
+              <tr>
+                <th>S No</th>
+                <th>Tender Title</th>
+                <th>Tender NIT No</th>
+                <th>Tender Location</th>
+                <th>PO No</th>
+                <th>GRN No</th>
+                <th>GRN Date</th>
+                <th>Challan No</th>
+                <th>Remarks</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap">
+              <tr
+                *ngFor="let purchase of poData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
+                <td>{{ limit * (p - 1) + i + 1 }}</td>
+                <td>
+                  <div *ngIf="!!purchase?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ purchase?.tender_title }}">
+                    {{purchase?.tender_title | slice:0:30}} <span *ngIf="purchase?.tender_title.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock1>
+                    {{purchase?.tender_title}}
+                  </ng-template>
+                </td>
+                <td>
+                  <div *ngIf="!!purchase?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ purchase?.tender_ref_no }}">
+                    {{purchase?.tender_ref_no | slice:0:30}} <span *ngIf="purchase?.tender_ref_no.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock2>
+                    {{purchase?.tender_ref_no}}
+                  </ng-template>
+                </td>
+                <td>{{ purchase.tender_location }}</td>
+                <td> {{ purchase.pono }}</td>
+                <td>{{ purchase?.grn_number }}</td>
+                <td>{{ purchase?.grn_date | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ purchase?.challan_number }}</td>
+                <td>{{ purchase?.remark }}</td>
+                <td>
+                  <a data-bs-toggle="modal" (click)="selectPO(purchase)" data-bs-target="#createModal"
+                    title="Edit Purchase Order"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>&nbsp;
+                  <a class="" data-bs-toggle="modal" data-bs-target="#viewModel" title="Warehouse Profile"
+                    (click)="getPODetails(purchase.po_id)"><span
+                      class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                </td>
+              </tr>
+              <tr *ngIf="isNotFound == true">
+                <td colspan="8" class="text-center">
+                  <div class="spinner-border"></div>
+                </td>
+              </tr>
+              <tr *ngIf="poData?.length == 0">
+                <td colspan="8" class="text-center">
+                  <div class="text-warning fw-semibold">No purchase orders available.</div>
+                </td>
+              </tr>
+            </tbody>
           </app-responsive-table>
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
@@ -90,7 +101,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="createGRNModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createGRNModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -107,11 +119,13 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label class="form-label">Tender Title<span class="required-asterisk">*</span></label>
-                      <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getVenderData()">
+                      <select formControlName="tender_id" class="form-select form-select-sm"
+                        (ngModelChange)="getVenderData()">
                         <option [selected]="true" [disabled]="true" [value]="null">Select Tender</option>
                         <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>
                       </select>
-                      <div *ngIf="grn['tender_id'].touched && grn['tender_id'].invalid"><small class="text-danger" *ngIf="grn['tender_id'].errors?.['required']">*Required</small></div>
+                      <div *ngIf="grn['tender_id'].touched && grn['tender_id'].invalid"><small class="text-danger"
+                          *ngIf="grn['tender_id'].errors?.['required']">*Required</small></div>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -121,17 +135,21 @@
                         <option [selected]="true" [disabled]="true" [value]="null">Select BOQ</option>
                         <option *ngFor="let b of boqList" [value]="b.supplier_id">{{ b.suppliername }}</option>
                       </select>
-                      <div *ngIf="grn['boq_id'].touched && grn['boq_id'].invalid"><small class="text-danger" *ngIf="grn['boq_id'].errors?.['required']">*Required</small></div>
+                      <div *ngIf="grn['boq_id'].touched && grn['boq_id'].invalid"><small class="text-danger"
+                          *ngIf="grn['boq_id'].errors?.['required']">*Required</small></div>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
                       <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
-                      <select formControlName="supplier_id" class="form-select form-select-sm" (ngModelChange)="getVenderPOData()">
+                      <select formControlName="supplier_id" class="form-select form-select-sm"
+                        (ngModelChange)="getVenderPOData()">
                         <option [selected]="true" [disabled]="true" [value]="null">Select Vendor Name</option>
-                        <option *ngFor="let vender of vendorDataList" [value]="vender.supplier_id">{{ vender.suppliername }}</option>
+                        <option *ngFor="let vender of vendorDataList" [value]="vender.supplier_id">{{
+                          vender.suppliername }}</option>
                       </select>
-                      <div *ngIf="grn['supplier_id'].touched && grn['supplier_id'].invalid"><small class="text-danger" *ngIf="grn['supplier_id'].errors?.['required']">*Required</small></div>
+                      <div *ngIf="grn['supplier_id'].touched && grn['supplier_id'].invalid"><small class="text-danger"
+                          *ngIf="grn['supplier_id'].errors?.['required']">*Required</small></div>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -141,7 +159,8 @@
                         <option [selected]="true" [disabled]="true" [value]="null">Select PO No</option>
                         <option *ngFor="let p of venderPOData" [value]="p.po_id">{{ p.pono }}</option>
                       </select>
-                      <div *ngIf="grn['po_id'].touched && grn['po_id'].invalid"><small class="text-danger" *ngIf="grn['po_id'].errors?.['required']">*Required</small></div>
+                      <div *ngIf="grn['po_id'].touched && grn['po_id'].invalid"><small class="text-danger"
+                          *ngIf="grn['po_id'].errors?.['required']">*Required</small></div>
                     </div>
                   </div>
                 </div>
@@ -153,20 +172,25 @@
                       <tr>
                         <th>Tender Title</th>
                         <td>
-                          <div *ngIf="!!selectedPO?.tender_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO?.tender_title }}">
-                              {{selectedPO?.tender_title | slice:0:30}} <span *ngIf="selectedPO?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                          <div *ngIf="!!selectedPO?.tender_title; else elseBlock3" data-toggle="tooltip"
+                            data-placement="bottom" title="{{ selectedPO?.tender_title }}">
+                            {{selectedPO?.tender_title | slice:0:30}} <span
+                              *ngIf="selectedPO?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
                           </div>
                           <ng-template #elseBlock3>
-                              {{selectedPO?.tender_title}}
+                            {{selectedPO?.tender_title}}
                           </ng-template>
                         </td>
                         <th>Tender Ref. No</th>
                         <td>
-                          <div *ngIf="!!selectedPO?.tender_ref_no; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO?.tender_ref_no }}">
-                              {{selectedPO?.tender_ref_no | slice:0:30}} <span *ngIf="selectedPO?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                          <div *ngIf="!!selectedPO?.tender_ref_no; else elseBlock4" data-toggle="tooltip"
+                            data-placement="bottom" title="{{ selectedPO?.tender_ref_no }}">
+                            {{selectedPO?.tender_ref_no | slice:0:30}} <span
+                              *ngIf="selectedPO?.tender_ref_no.length > 30">...<i
+                                class="mdi mdi-information"></i></span>
                           </div>
                           <ng-template #elseBlock4>
-                              {{selectedPO?.tender_ref_no}}
+                            {{selectedPO?.tender_ref_no}}
                           </ng-template>
                         </td>
                         <th>BOQ</th>
@@ -205,7 +229,8 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label class="form-label">GRN Date<span class="required-asterisk">*</span></label>
-                      <input formControlName="grn_date" type="date" id="toDate" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}" min="{{grnDateLimit}}" class="form-control form-control-sm">
+                      <input formControlName="grn_date" type="date" id="toDate" [ngModel]="toDate | date:'yyyy-MM-dd'"
+                        max="{{currentDate}}" min="{{grnDateLimit}}" class="form-control form-control-sm">
                       <div *ngIf="grn['grn_date'].touched && grn['grn_date'].invalid">
                         <small class="text-danger" *ngIf="grn['grn_date'].errors?.['required']">*Required</small>
                       </div>
@@ -234,55 +259,64 @@
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" formControlName="tax_invoice" type="checkbox" id="tax_invoice" value="option1">
+                      <input class="form-check-input" formControlName="tax_invoice" type="checkbox" id="tax_invoice"
+                        value="option1">
                       <label class="form-check-label" for="tax_invoice">Tax Invoice</label>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" formControlName="delivery_challan" type="checkbox" id="delivery_challan" value="option2">
+                      <input class="form-check-input" formControlName="delivery_challan" type="checkbox"
+                        id="delivery_challan" value="option2">
                       <label class="form-check-label" for="delivery_challan">Delivery Challan</label>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" formControlName="lr_copy" type="checkbox" id="lr_copy" value="option3">
+                      <input class="form-check-input" formControlName="lr_copy" type="checkbox" id="lr_copy"
+                        value="option3">
                       <label class="form-check-label" for="lr_copy">LR Copy </label>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" formControlName="packing_list" type="checkbox" id="packing_list" value="option3">
+                      <input class="form-check-input" formControlName="packing_list" type="checkbox" id="packing_list"
+                        value="option3">
                       <label class="form-check-label" for="packing_list">Packing List</label>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input"  formControlName="eway_bill" type="checkbox" id="eway_bill" value="option4">
+                      <input class="form-check-input" formControlName="eway_bill" type="checkbox" id="eway_bill"
+                        value="option4">
                       <label class="form-check-label" for="eway_bill">E-Way Bill</label>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" formControlName="warranty_certificate" id="warranty_certificate" value="option5">
+                      <input class="form-check-input" type="checkbox" formControlName="warranty_certificate"
+                        id="warranty_certificate" value="option5">
                       <label class="form-check-label" for="warranty_certificate">Warranty Certificate</label>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" formControlName="qualityinspection_report" id="qualityinspection_report" value="option6">
+                      <input class="form-check-input" type="checkbox" formControlName="qualityinspection_report"
+                        id="qualityinspection_report" value="option6">
                       <label class="form-check-label" for="qualityinspection_report">Quality Inspection Report</label>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" formControlName="operator_manual" id="operator_manual" value="option7">
+                      <input class="form-check-input" type="checkbox" formControlName="operator_manual"
+                        id="operator_manual" value="option7">
                       <label class="form-check-label" for="operator_manual">Operator Manual</label>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" formControlName="technicalsupport_manual" id="technicalsupport_manual" value="option8">
+                      <input class="form-check-input" type="checkbox" formControlName="technicalsupport_manual"
+                        id="technicalsupport_manual" value="option8">
                       <label class="form-check-label" for="technicalsupport_manual">Technical & Support Manual</label>
                     </div>
                   </div>
@@ -308,20 +342,26 @@
                       <tr *ngFor="let item of selectedPO?.items">
                         <td>{{ item?.itemcode }}</td>
                         <td>
-                          <div *ngIf="!!item?.description; else elseBlock7" data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}">
-                              {{item?.description | slice:0:30}} <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                          <div *ngIf="!!item?.description; else elseBlock7" data-toggle="tooltip"
+                            data-placement="bottom" title="{{ item?.description }}">
+                            {{item?.description | slice:0:30}} <span *ngIf="item?.description.length > 30">...<i
+                                class="mdi mdi-information"></i></span>
                           </div>
                           <ng-template #elseBlock7>
-                              {{item?.description}}
+                            {{item?.description}}
                           </ng-template>
                         </td>
                         <td>{{ item?.qty }}</td>
                         <td>{{ item?.pobalance_qty }}</td>
                         <td>{{ item?.uom }}</td>
-                        <td><input type="number" formControlName="received_qty" class="form-control form-control-sm" [(ngModel)]="item.received_qty" placeholder="Enter Received Qty"></td>
+                        <td><input type="number" formControlName="received_qty" class="form-control form-control-sm"
+                            [(ngModel)]="item.received_qty" placeholder="Enter Received Qty"></td>
                         <td>{{item?.qty - (item.received_qty ?? 0)}}</td>
-                        <td><p contenteditable="true">{{ item?.itemcode }}</p></td>
-                        <td><input type="text" formControlName="remarks" class="form-control form-control-sm" [(ngModel)]="item.remarks" placeholder="Enter remarks"></td>
+                        <td>
+                          <p contenteditable="true">{{ item?.itemcode }}</p>
+                        </td>
+                        <td><input type="text" formControlName="remarks" class="form-control form-control-sm"
+                            [(ngModel)]="item.remarks" placeholder="Enter remarks"></td>
                         <td><input type="checkbox" (click)="selectItem(item)"></td>
                       </tr>
                     </tbody>
@@ -329,9 +369,12 @@
                 </div>
                 <div class="modal-btns mt-3">
                   <!-- <button type="submit" *ngIf="!isSubmitted" [disabled]="!grnForm.valid" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button> -->
-                  <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>
-                  <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                  <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ?
+                    "Add" : "Update"}}</button>
+                  <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span
+                      class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                  <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                    data-bs-dismiss="modal">Close</button>
                 </div>
               </div>
             </form>
@@ -342,7 +385,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content" *ngIf="selectedPO?.pono">
       <div class="modal-header">
@@ -361,22 +405,26 @@
                     <tr>
                       <th>Tender NIT No</th>
                       <td>
-                        <div *ngIf="!!selectedPO?.tender_ref_no; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO?.tender_ref_no }}">
-                            {{selectedPO?.tender_ref_no | slice:0:30}} <span *ngIf="selectedPO?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                        <div *ngIf="!!selectedPO?.tender_ref_no; else elseBlock5" data-toggle="tooltip"
+                          data-placement="bottom" title="{{ selectedPO?.tender_ref_no }}">
+                          {{selectedPO?.tender_ref_no | slice:0:30}} <span
+                            *ngIf="selectedPO?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
                         </div>
                         <ng-template #elseBlock5>
-                            {{selectedPO?.tender_ref_no}}
+                          {{selectedPO?.tender_ref_no}}
                         </ng-template>
                       </td>
                       <th>Tender Title</th>
                       <td>
-                        <div *ngIf="!!selectedPO?.tender_title; else elseBlock6" data-toggle="tooltip" data-placement="bottom" title="{{ selectedPO?.tender_title }}">
-                            {{selectedPO?.tender_title | slice:0:30}} <span *ngIf="selectedPO?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                        <div *ngIf="!!selectedPO?.tender_title; else elseBlock6" data-toggle="tooltip"
+                          data-placement="bottom" title="{{ selectedPO?.tender_title }}">
+                          {{selectedPO?.tender_title | slice:0:30}} <span
+                            *ngIf="selectedPO?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
                         </div>
                         <ng-template #elseBlock6>
-                            {{selectedPO?.tender_title}}
+                          {{selectedPO?.tender_title}}
                         </ng-template>
-                    </td>
+                      </td>
                     </tr>
                     <tr>
                       <th>PO No</th>

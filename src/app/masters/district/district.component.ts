@@ -78,22 +78,23 @@ export class DistrictComponent implements OnInit {
  
 
   getDistrictData() {
-    this.isNotFound = true;
+    this.districtData = [];
+    this.isNotFound = false;
     this.masterService.getDistrictData().subscribe((res:any) => {
-      this.isNotFound = false;
       if (res.status == 200) {
         this.distCount = res;
         this.districtData = res.result;
+        this.isNotFound = false;
       } else {
         this.isNotFound = true;
         this.districtData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.districtData = [];
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.districtData = undefined;
       this.alertService.error("Error: Unknown Error!")
-    }); 
+    });
   }
   
    download(): void {

@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
     <div class="row">
 
@@ -6,90 +5,97 @@
             <div class="card1">
                 <div class="row">
                     <div class="col-lg-6">
-                    <img src="../../../../assets/../assets/images/presss.png" style="width: 60px; height: 40px;">
-                  &nbsp;&nbsp;
-                    Bid | Tender: Data Approval
+                        <img src="../../../../assets/../assets/images/presss.png" style="width: 60px; height: 40px;">
+                        &nbsp;&nbsp;
+                        Bid | Tender: Data Approval
                     </div>
                     <div class="col-lg-6 ">
-                     <div class="float-right">
-                         <button type="button" class="btn btn-secondary btn-fw btn-sm me-2">
-                            <span class="mdi mdi-backburger"></span>&nbsp;
-                             Send Back</button>
-                         <button type="button" class="btn btn-info btn-fw btn-sm me-2">
-                            <span class="mdi mdi-check-circle-outline"></span>&nbsp;
-                             Approved</button>
-                         <button type="button" class="btn btn-danger btn-fw btn-sm me-2">
-                            <span class="mdi mdi-close-outline"></span>&nbsp;
-                             Rejected</button>
-
-                     </div>
-                      
+                        <div class="float-right">
+                            <button type="button" class="btn btn-secondary btn-fw btn-sm me-2">
+                                <span class="mdi mdi-backburger"></span>&nbsp;
+                                Send Back</button>
+                            <button type="button" class="btn btn-info btn-fw btn-sm me-2">
+                                <span class="mdi mdi-check-circle-outline"></span>&nbsp;
+                                Approved</button>
+                            <button type="button" class="btn btn-danger btn-fw btn-sm me-2">
+                                <span class="mdi mdi-close-outline"></span>&nbsp;
+                                Rejected</button>
+                        </div>
                     </div>
-
                 </div>
             </div>
+        </div>
 
-               
-            </div>
-       
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="cardd p-3">
-
-                <div class="row" (click)="showTenderDetails=!showTenderDetails"  style="cursor:pointer;"> 
+                <div class="row" (click)="showTenderDetails=!showTenderDetails" style="cursor:pointer;">
                     <div class="col-6">
                         <h5>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 1 16 16">
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                              </svg> &nbsp;
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-pencil-square" viewBox="0 1 16 16">
+                                <path
+                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd"
+                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                            </svg> &nbsp;
                             Tender Information
                         </h5>
                     </div>
                     <div class="col-6">
                         <div class="float-right" title="Show/Hide Details">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                            </svg>
 
                         </div>
                     </div>
 
                 </div>
-             
-                          
-                       
+
+
+
 
                 <div class="row" *ngIf="showTenderDetails">
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Client Company<span class="required-asterisk">*</span></label>
-                            <select formControlName="company_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
+                            <label class="form-label fl-10">Client Company<span
+                                    class="required-asterisk">*</span></label>
+                            <select formControlName="company_id" class="form-select form-select-sm"
+                                (ngModelChange)="getDetails($event)">
                                 <option [selected]="true" [disabled]="true">Select Company</option>
-                                <option *ngFor="let c of companyData" value="{{c.company_id}}">{{c.company_name}}</option>
+                                <option *ngFor="let c of companyData" value="{{c.company_id}}">{{c.company_name}}
+                                </option>
                             </select>
                             <div *ngIf="f['company_id'].touched && f['company_id'].invalid">
-                                <small class="text-danger" *ngIf="f['company_id'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['company_id'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender/Project Title<span class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Tender/Project Title<span
+                                    class="required-asterisk">*</span></label>
                             <input formControlName="tender_title" type="text" class="form-control form-control-sm">
-                                <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
-                                <small class="text-danger" *ngIf="f['tender_title'].errors?.['required']">*Required</small>
+                            <div *ngIf="f['tender_title'].touched && f['tender_title'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['tender_title'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Tender (NIT/RFB) No <span class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Tender (NIT/RFB) No <span
+                                    class="required-asterisk">*</span></label>
                             <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm">
                             <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
-                                <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
@@ -102,28 +108,32 @@
                                 <option *ngFor="let c of tenderType" value="{{c.bidtype_id}}">{{ c.bidtype }}</option>
                             </select>
                             <div *ngIf="f['bidtype_id'].touched && f['bidtype_id'].invalid">
-                                <small class="text-danger" *ngIf="f['bidtype_id'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['bidtype_id'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Execution Location<span class="required-asterisk">*</span></label>
-                            <input formControlName="tender_location" type="text" class="form-control form-control-sm" appWordCapitalize>
-                            <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
-                                <small class="text-danger" *ngIf="f['tender_location'].errors?.['required']">*Required</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Publish Date<span
+                            <label class="form-label fl-10">Execution Location<span
                                     class="required-asterisk">*</span></label>
+                            <input formControlName="tender_location" type="text" class="form-control form-control-sm"
+                                appWordCapitalize>
+                            <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['tender_location'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
                             <input formControlName="publish_date" type="date" class="form-control form-control-sm">
                             <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
-                                <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['publish_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
@@ -143,20 +153,24 @@
                                     class="required-asterisk">*</span></label>
                             <input formControlName="prebid_date" type="date" class="form-control form-control-sm">
                             <div *ngIf="f['prebid_date'].touched && f['prebid_date'].invalid">
-                                <small class="text-danger" *ngIf="f['prebid_date'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['prebid_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Pre-bid Meeting Mode<span class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Pre-bid Meeting Mode<span
+                                    class="required-asterisk">*</span></label>
                             <select formControlName="prebidmeetingmode_id" class="form-select form-select-sm">
                                 <option [selected]="true" [disabled]="true" [value]="null">Select Mode</option>
-                                <option *ngFor="let c of meetingMode" value="{{c.prebidmeetingmode_id}}">{{ c.prebidmeetingmode }}</option>
+                                <option *ngFor="let c of meetingMode" value="{{c.prebidmeetingmode_id}}">{{
+                                    c.prebidmeetingmode }}</option>
                             </select>
                             <div *ngIf="f['prebidmeetingmode_id'].touched && f['prebidmeetingmode_id'].invalid">
-                                <small class="text-danger" *ngIf="f['prebidmeetingmode_id'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['prebidmeetingmode_id'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
@@ -165,9 +179,11 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Submission Date & Time<span
                                     class="required-asterisk">*</span></label>
-                            <input formControlName="tender_submission_date" type="datetime-local" class="form-control form-control-sm">
+                            <input formControlName="tender_submission_date" type="datetime-local"
+                                class="form-control form-control-sm">
                             <div *ngIf="f['tender_submission_date'].touched && f['tender_submission_date'].invalid">
-                                <small class="text-danger" *ngIf="f['tender_submission_date'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['tender_submission_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
@@ -178,17 +194,21 @@
                                     class="required-asterisk">*</span></label>
                             <input formControlName="opening_date" type="date" class="form-control form-control-sm">
                             <div *ngIf="f['opening_date'].touched && f['opening_date'].invalid">
-                                <small class="text-danger" *ngIf="f['opening_date'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['opening_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Technical Bid Opening Date & Time<span class="required-asterisk">*</span></label>
-                            <input formControlName="tech_bid_date" type="datetime-local" class="form-control form-control-sm">
+                            <label class="form-label fl-10">Technical Bid Opening Date & Time<span
+                                    class="required-asterisk">*</span></label>
+                            <input formControlName="tech_bid_date" type="datetime-local"
+                                class="form-control form-control-sm">
                             <div *ngIf="f['tech_bid_date'].touched && f['tech_bid_date'].invalid">
-                                <small class="text-danger" *ngIf="f['tech_bid_date'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['tech_bid_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
@@ -197,9 +217,11 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Financial Bid Opening Date<span
                                     class="required-asterisk">*</span></label>
-                            <input formControlName="fin_bid_opening_date" type="date" class="form-control form-control-sm">
+                            <input formControlName="fin_bid_opening_date" type="date"
+                                class="form-control form-control-sm">
                             <div *ngIf="f['fin_bid_opening_date'].touched && f['fin_bid_opening_date'].invalid">
-                                <small class="text-danger" *ngIf="f['fin_bid_opening_date'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['fin_bid_opening_date'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
@@ -208,47 +230,57 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Document Cost<span
                                     class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost" placeholder="Enter '0' if not applicable " appNumberOnly >
-                                    <div *ngIf="f['tender_doc_cost'].touched && f['tender_doc_cost'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_doc_cost'].errors?.['required']">*Required</small>
-                                    </div> 
+                            <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost"
+                                placeholder="Enter '0' if not applicable " appNumberOnly>
+                            <div *ngIf="f['tender_doc_cost'].touched && f['tender_doc_cost'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['tender_doc_cost'].errors?.['required']">*Required</small>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Registration Fees<span class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee" placeholder="Enter '0' if not applicable " appNumberOnly >
+                            <label class="form-label fl-10">Registration Fees<span
+                                    class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee"
+                                placeholder="Enter '0' if not applicable " appNumberOnly>
                             <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
-                                <small class="text-danger" *ngIf="f['tender_fee'].errors?.['required']">*Required</small>
-                            </div> 
+                                <small class="text-danger"
+                                    *ngIf="f['tender_fee'].errors?.['required']">*Required</small>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">EMD Exemption<span class="required-asterisk">*</span></label>
-                            <select formControlName="exemption_id" class="form-select form-select-sm" (change)="toggleEmdField($event)">
+                            <label class="form-label fl-10">EMD Exemption<span
+                                    class="required-asterisk">*</span></label>
+                            <select formControlName="exemption_id" class="form-select form-select-sm"
+                                (change)="toggleEmdField($event)">
                                 <option [value]="null" disabled selected>Select Mode</option>
                                 <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
                             </select>
                             <div *ngIf="f['exemption_id'].touched && f['exemption_id'].invalid">
-                                <small class="text-danger" *ngIf="f['exemption_id'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['exemption_id'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-4" *ngIf="selectedEmdexemption">
                         <div class="form-group">
                             <label class="form-label fl-10">EMD Amount<span class="required-asterisk">*</span></label>
-                            <input formControlName="emd_amount" type="text" class="form-control form-control-sm" appNumberOnly>
+                            <input formControlName="emd_amount" type="text" class="form-control form-control-sm"
+                                appNumberOnly>
                             <div *ngIf="f['emd_amount'].touched && f['emd_amount'].invalid">
-                                <small class="text-danger" *ngIf="f['emd_amount'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['emd_amount'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
 
                     <div class="col-md-4" *ngIf="selectedEmdexemption">
                         <div class="form-group">
@@ -256,27 +288,32 @@
 
                             <select formControlName="emd_payment" class="form-select form-select-sm">
                                 <option [selected]="true" [disabled]="true" [value]="null">Select Payment Mode</option>
-                                <option *ngFor="let p of payment" value="{{p.paymentmethod_id}}">{{ p.paymentmethod }}</option>
+                                <option *ngFor="let p of payment" value="{{p.paymentmethod_id}}">{{ p.paymentmethod }}
+                                </option>
                             </select>
                             <div *ngIf="f['emd_payment'].touched && f['emd_payment'].invalid">
-                                <small class="text-danger" *ngIf="f['emd_payment'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['emd_payment'].errors?.['required']">*Required</small>
                             </div>
 
                         </div>
                     </div>
 
-                  
+
 
                     <div class="col-md-4" *ngIf="selectedEmdexemption">
-                      
-                            <div class="form-group">
-                                <label class="form-label fl-10">EMD Submission Date<span class="required-asterisk">*</span></label>
-                                <input formControlName="emd_submission_date" type="date" class="form-control form-control-sm">
-                                <div *ngIf="f['emd_submission_date'].touched && f['emd_submission_date'].invalid">
-                                    <small class="text-danger" *ngIf="f['emd_submission_date'].errors?.['required']">*Required</small>
-                                </div>
+
+                        <div class="form-group">
+                            <label class="form-label fl-10">EMD Submission Date<span
+                                    class="required-asterisk">*</span></label>
+                            <input formControlName="emd_submission_date" type="date"
+                                class="form-control form-control-sm">
+                            <div *ngIf="f['emd_submission_date'].touched && f['emd_submission_date'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['emd_submission_date'].errors?.['required']">*Required</small>
                             </div>
-                      
+                        </div>
+
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -291,158 +328,170 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Description</label>
-                            <input formControlName="tender_description" type="text" class="form-control form-control-sm">
-                          
+                            <input formControlName="tender_description" type="text"
+                                class="form-control form-control-sm">
+
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Link</label>
-                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm">
-                        
+                            <input formControlName="tender_detail_link" type="text"
+                                class="form-control form-control-sm">
+
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <input class="mt-1" type="checkbox" id="termsCheckbox" formControlName="termsCheckbox" required> &nbsp;
-                            <label for="termsCheckbox"> I accept that the selected fields and input data given by me are correct.</label>
+                            <input class="mt-1" type="checkbox" id="termsCheckbox" formControlName="termsCheckbox"
+                                required> &nbsp;
+                            <label for="termsCheckbox"> I accept that the selected fields and input data given by me are
+                                correct.</label>
                         </div>
                     </div>
 
                     <div class="modal-btns mt-3">
-                        <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                        <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                            class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
                         <!-- <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Save & Continue</button> -->
-                        <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                        <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" routerLink="/presales/presales-biding/data-capture-list">Close</button>
+                        <button type="button" *ngIf="isSubmitted" disabled
+                            class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm"
+                                aria-hidden="true"></span> Adding...</button>
+                        <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                            routerLink="/presales/presales-biding/data-capture-list">Close</button>
                     </div>
-                   
-                   
+
+
 
                 </div>
 
             </div>
 
             <div class="cardd p-3 mt-2">
-                <div class="row" (click)="showClientDetails=!showClientDetails" style="cursor: pointer;"> 
+                <div class="row" (click)="showClientDetails=!showClientDetails" style="cursor: pointer;">
                     <div class="col-6">
-                      
+
                         <h5>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 1 16 16">
-                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-                              </svg> &nbsp;
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-people-fill" viewBox="0 1 16 16">
+                                <path
+                                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                            </svg> &nbsp;
                             Client Company Information
                         </h5>
                     </div>
                     <div class="col-6">
                         <div class="float-right" title="Show/Hide Details">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                            </svg>
 
                         </div>
                     </div>
 
                 </div>
                 <div class="row" *ngIf="showClientDetails">
-                 
-                 <div class="row" *ngFor="let a of custDetails">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Category</label> :
-                            <span type="text" class=" form-control-sm">{{a.company_type}}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">GST No</label> :
-                            <span type="text" class=" form-control-sm">{{a.gst}}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">PAN No</label> :
-                            <span type="text" class=" form-control-sm">{{a.pan}}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">DOI (Date of Incorporation)</label> :
-                            <span type="text" class=" form-control-sm">{{a.doi}}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Web Url</label> :
-                            <span type="text" class=" form-control-sm">{{a.websiteurl}}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Cin No</label> :
-                            <span type="text" class=" form-control-sm">{{a.cinno}}</span>
-                        </div>
-                    </div>
-                   
 
-                 </div>
-                 <h6 class="mt-2">Address Information</h6>
-                 <div class="row" *ngFor="let a of addressDetails">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Country</label> :
-                            <span type="text" class=" form-control-sm">{{a.name}}</span>
+                    <div class="row" *ngFor="let a of custDetails">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Category</label> :
+                                <span type="text" class=" form-control-sm">{{a.company_type}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">State</label> :
-                            <span type="text" class=" form-control-sm">{{a.state_name}}</span>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">GST No</label> :
+                                <span type="text" class=" form-control-sm">{{a.gst}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">District</label> :
-                            <span type="text" class=" form-control-sm">{{a.district_name}}</span>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">PAN No</label> :
+                                <span type="text" class=" form-control-sm">{{a.pan}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">City</label> :
-                            <span type="text" class=" form-control-sm">{{a.city}}</span>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">DOI (Date of Incorporation)</label> :
+                                <span type="text" class=" form-control-sm">{{a.doi}}</span>
+                            </div>
                         </div>
-                    </div>
-                   
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Pin Code</label> :
-                            <span type="text" class=" form-control-sm">{{a.pincode}}</span>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Web Url</label> :
+                                <span type="text" class=" form-control-sm">{{a.websiteurl}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Area</label> :
-                            <span type="text" class=" form-control-sm">{{a.area}}</span>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Cin No</label> :
+                                <span type="text" class=" form-control-sm">{{a.cinno}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Address line 1</label> :
-                            <span type="text" class=" form-control-sm">{{a.address_line1}}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Address line 2</label> :
-                            <span type="text" class=" form-control-sm">{{a.address_line2}}</span>
-                        </div>
-                    </div>
 
 
+                    </div>
+                    <h6 class="mt-2">Address Information</h6>
+                    <div class="row" *ngFor="let a of addressDetails">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Country</label> :
+                                <span type="text" class=" form-control-sm">{{a.name}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">State</label> :
+                                <span type="text" class=" form-control-sm">{{a.state_name}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">District</label> :
+                                <span type="text" class=" form-control-sm">{{a.district_name}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">City</label> :
+                                <span type="text" class=" form-control-sm">{{a.city}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Pin Code</label> :
+                                <span type="text" class=" form-control-sm">{{a.pincode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Area</label> :
+                                <span type="text" class=" form-control-sm">{{a.area}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Address line 1</label> :
+                                <span type="text" class=" form-control-sm">{{a.address_line1}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Address line 2</label> :
+                                <span type="text" class=" form-control-sm">{{a.address_line2}}</span>
+                            </div>
+                        </div>
 
 
-                 </div>
+
+
+                    </div>
 
                     <!-- <div class="col-md-4">
                         <div class="form-group">
@@ -548,20 +597,21 @@
 
                     <h6 class="mt-2">Contacts Information</h6>
 
-                    <app-responsive-table style=" max-height: 200px;"> 
+                    <app-responsive-table style=" max-height: 200px;">
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
                                 <th>Contact Person</th>
                                 <th>Designation</th>
-                                 <th>Department</th>
+                                <th>Department</th>
                                 <th>Contact No</th>
                                 <th>Secondary No</th>
                                 <th>Email ID</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <tr *ngFor="let a of contactDetails | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                            <tr
+                                *ngFor="let a of contactDetails | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.name}}</td>
                                 <td>{{a.designationname}}</td>
@@ -569,34 +619,38 @@
                                 <td>{{a.contactno1}}</td>
                                 <td>{{a.contactno2}}</td>
                                 <td>{{a.email}}</td>
-                              
+
                             </tr>
-                        
+
                         </tbody>
                     </app-responsive-table>
 
-                  
-                
+
+
                 </div>
-             </div>
+            </div>
 
-             <div class="cardd p-3 mt-2">
+            <div class="cardd p-3 mt-2">
 
-                <div class="row" (click)="showEligibility=!showEligibility" style="cursor: pointer;"> 
+                <div class="row" (click)="showEligibility=!showEligibility" style="cursor: pointer;">
                     <div class="col-6">
                         <h5>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders" viewBox="0 1 16 16">
-                                <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
-                              </svg> &nbsp;
-                            Qualifying Requirements | Eligibility 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-sliders" viewBox="0 1 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z" />
+                            </svg> &nbsp;
+                            Qualifying Requirements | Eligibility
                         </h5>
 
                     </div>
                     <div class="col-6">
                         <div class="float-right" title="Show/Hide Details">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                            </svg>
 
                         </div>
                     </div>
@@ -604,49 +658,53 @@
                 </div>
 
                 <div class="row" *ngIf="showEligibility">
-                    
-                        <button type="button" class="col-md-4 btn btn-primary fl-10" data-bs-toggle="modal" data-bs-target="#techModal"
-                         style="border-radius: 15px;"> 1. Technical Qualification</button>
-                         <button type="button" class="col-md-4 btn btn-info fl-10" data-bs-toggle="modal" data-bs-target="#finModal"
-                         style="border-radius: 15px;"> 2. Financial Qualification</button>
-                         <button type="button" class="col-md-4 btn btn-success fl-10" data-bs-toggle="modal" data-bs-target="#bankModal"
-                         style="border-radius: 15px;"> 3. Bank Guarantee & Security Deposit</button>
-                         
+
+                    <button type="button" class="col-md-4 btn btn-primary fl-10" data-bs-toggle="modal"
+                        data-bs-target="#techModal" style="border-radius: 15px;"> 1. Technical Qualification</button>
+                    <button type="button" class="col-md-4 btn btn-info fl-10" data-bs-toggle="modal"
+                        data-bs-target="#finModal" style="border-radius: 15px;"> 2. Financial Qualification</button>
+                    <button type="button" class="col-md-4 btn btn-success fl-10" data-bs-toggle="modal"
+                        data-bs-target="#bankModal" style="border-radius: 15px;"> 3. Bank Guarantee & Security
+                        Deposit</button>
+
                 </div>
 
-              
-            </div>
-             <div class="cardd p-3 mt-2">
 
-                <div class="row" (click)="showL1Schedule=!showL1Schedule" style="cursor: pointer;"> 
+            </div>
+            <div class="cardd p-3 mt-2">
+
+                <div class="row" (click)="showL1Schedule=!showL1Schedule" style="cursor: pointer;">
                     <div class="col-6">
                         <h5>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-bottom" viewBox="0 1 16 16">
-                                <rect width="4" height="12" x="6" y="1" rx="1"/>
-                                <path d="M1.5 14a.5.5 0 0 0 0 1zm13 1a.5.5 0 0 0 0-1zm-13 0h13v-1h-13z"/>
-                              </svg> &nbsp;
-                            L1 Schedule 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-align-bottom" viewBox="0 1 16 16">
+                                <rect width="4" height="12" x="6" y="1" rx="1" />
+                                <path d="M1.5 14a.5.5 0 0 0 0 1zm13 1a.5.5 0 0 0 0-1zm-13 0h13v-1h-13z" />
+                            </svg> &nbsp;
+                            L1 Schedule
                         </h5>
 
                     </div>
                     <div class="col-6">
                         <div class="float-right" title="Show/Hide Details">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                            </svg>
 
                         </div>
                     </div>
 
                 </div>
 
-             
 
-              
+
+
             </div>
 
             <!-- <div class="card p-2 mt-1" style="background-color: #f8faff;"> </div> -->
-<br>
+            <br>
         </form>
 
     </div>
@@ -658,6 +716,3 @@
 <app-banking-details></app-banking-details>
 
 <!-- Qualifying modal end-->
-
-
-

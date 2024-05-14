@@ -66,13 +66,24 @@ export class FinItrComponent {
     this.masterService.getFinData().subscribe((res:any) => {
       this.financialData = res.result;
     });
+
+    this.docListData = [];
+    this.isNotFound = false;
     this.apiService.getOurFinList().subscribe((res:any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.docListData = res.result;
       } else {
+        this.isNotFound = true;
+        this.docListData = undefined;
         this.alertService.warning("Looks like no data available in type.");
       }
+    }, error => {
+      this.isNotFound = true;
+      this.docListData = undefined;
+      this.alertService.error("Error: Unknown Error!");
     });
+
   }
 
   onFileChanged(event: any) {

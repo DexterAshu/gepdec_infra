@@ -18,7 +18,7 @@ export class InventoryComponent {
   form!: FormGroup;
   wareHouseData: any = [];
 
-  constructor(private formBuilder: FormBuilder, private sharedService: SharedService, private elementRef: ElementRef, private alertService: AlertService, private apiService: ApiService) {}
+  constructor(private formBuilder: FormBuilder, private sharedService: SharedService, private elementRef: ElementRef, private alertService: AlertService, private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -38,19 +38,23 @@ export class InventoryComponent {
   }
 
   getData(): void {
+    this.itemData = [];
     this.isNotFound = false;
     let apiLink = "/inventory/api/v1/getInventoryList";
     this.apiService.getData(apiLink).subscribe({
       next: (res: any) => {
         if (res.status === 200) {
           this.itemData = res.result;
+          this.isNotFound = false;
         } else {
           this.isNotFound = true;
+          this.itemData = undefined;
           this.alertService.warning("Looks like no data available!");
         }
       },
       error: (error) => {
-        this.isNotFound = false;
+        this.isNotFound = true;
+        this.itemData = undefined;
         this.alertService.error("Error: Unknown Error!");
       }
     });
@@ -64,16 +68,16 @@ export class InventoryComponent {
 
   getWarehouseData() {
     const apiLink = `/warehouse/api/v1/getWareHouseList`;
-    this.apiService.getData(apiLink).subscribe((res:any) => {
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.wareHouseData = res.result;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        this.alertService.error("Error: Unknown Error!");
+      }
   }
 
   onSubmit(): void {

@@ -38,19 +38,20 @@ export class SegmentComponent implements OnInit {
   get f() { return this.form.controls; }
 
   getSegmentData() {
-    this.isNotFound = true;
+    this.segmentData = [];
+    this.isNotFound = false;
     this.masterService.getSegmentData().subscribe((res:any) => {
-      this.isNotFound = false;
-      this.segmentData = [];
       if (res.status === true) {
-        // this.segmentData = res.data.filter((data:any) => data.active == 'Y');
+        this.isNotFound = false;
         this.segmentData = res.data;
       } else {
+        this.isNotFound = true;
+        this.segmentData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.segmentData = [];
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.segmentData = undefined;
       this.alertService.error("Error: Unknown Error!")
     }); 
   }

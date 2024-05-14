@@ -1,15 +1,16 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Indirect Costing</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Indirect
+                            Costing</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
@@ -18,10 +19,13 @@
                 <div class="card-body">
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                                (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+
+                                Create</button>
                         </div>
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
@@ -31,13 +35,14 @@
                                 <th>Type</th>
                                 <th>Expense Type</th>
                                 <th>UOM</th>
-                                <th>Multiplier</th>  
+                                <th>Multiplier</th>
                                 <th>Unit Cost</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="companyData.length">
-                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                        <tbody class="text-nowrap">
+                            <tr
+                                *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.type_id }}</td>
                                 <td>{{ a.expensetype_id }}</td>
@@ -45,19 +50,23 @@
                                 <td>{{ a.multiplier }}</td>
                                 <td>{{ a.unitcost }}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
+                                        (click)="getDetails(a)"><span
+                                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                    &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        title="View Details"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
-                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
-                               
-                              </tr>
-                            <tr *ngIf="isNotFound == true">
+                            </tr>
+                            <tr *ngIf="companyData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="companyData?.length == 0">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
@@ -88,25 +97,34 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Costing Type<span class="required-asterisk">*</span></label>
-                                    <select formControlName="type_id" class="form-select form-select-sm"  (ngModelChange)="getExpenseDetails($event)">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Expense Type</option>
-                                        <option *ngFor="let c of costType" value="{{c.costtype_id}}">{{ c.cost_type }}</option>
+                                    <label class="form-label">Costing Type<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="type_id" class="form-select form-select-sm"
+                                        (ngModelChange)="getExpenseDetails($event)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Expense Type
+                                        </option>
+                                        <option *ngFor="let c of costType" value="{{c.costtype_id}}">{{ c.cost_type }}
+                                        </option>
                                     </select>
                                     <div *ngIf="f['type_id'].touched && f['type_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['type_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['type_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Expense Type<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Expense Type<span
+                                            class="required-asterisk">*</span></label>
                                     <select formControlName="expensetype_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Expense Type</option>
-                                        <option *ngFor="let c of expenseTypeData" value="{{c.expensetype_id}}">{{ c.expense_type }}</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Expense Type
+                                        </option>
+                                        <option *ngFor="let c of expenseTypeData" value="{{c.expensetype_id}}">{{
+                                            c.expense_type }}</option>
                                     </select>
                                     <div *ngIf="f['expensetype_id'].touched && f['expensetype_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['expensetype_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['expensetype_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -115,44 +133,57 @@
                                     <label class="form-label">UOM<span class="required-asterisk">*</span></label>
                                     <select formControlName="uom" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select UOM</option>
-                                        <option *ngFor="let t of dataDropdownList.uom" [value]="t.unit_id">{{ t.uom }}</option>
+                                        <option *ngFor="let t of dataDropdownList.uom" [value]="t.unit_id">{{ t.uom }}
+                                        </option>
                                     </select>
                                     <div *ngIf="f['uom'].touched && f['uom'].invalid">
-                                        <small class="text-danger" *ngIf="f['uom'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['uom'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Multiplier<span class="required-asterisk">*</span></label>
-                                    <input formControlName="multiplier" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="multiplier" type="text" class="form-control form-control-sm"
+                                        appNumberOnly>
                                     <div *ngIf="f['multiplier'].touched && f['multiplier'].invalid">
-                                        <small class="text-danger" *ngIf="f['multiplier'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['multiplier'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Unit Cost<span class="required-asterisk">*</span></label>
-                                    <input formControlName="unitcost" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="unitcost" type="text" class="form-control form-control-sm"
+                                        appNumberOnly>
                                     <div *ngIf="f['unitcost'].touched && f['unitcost'].invalid">
-                                        <small class="text-danger" *ngIf="f['unitcost'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['unitcost'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Total Cost<span class="required-asterisk">*</span></label>
-                                    <input formControlName="total_cost" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="total_cost" type="text" class="form-control form-control-sm"
+                                        appNumberOnly>
                                     <div *ngIf="f['total_cost'].touched && f['total_cost'].invalid">
-                                        <small class="text-danger" *ngIf="f['total_cost'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['total_cost'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                                    class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                                <button type="button" *ngIf="isSubmitted" disabled
+                                    class="btn btn-primary btn-fw btn-sm mr-2"><span
+                                        class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                    Loading...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                    data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </form>

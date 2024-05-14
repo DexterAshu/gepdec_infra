@@ -12,10 +12,10 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 export class StateComponent implements OnInit {
   form!: FormGroup;
   p: number = 1;
-  searchText:any;
+  searchText: any;
   limit = environment.pageLimit;
   stateData: any = [];
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   countryData: any;
   isSubmitted: boolean = false;
   stateCount: any;
@@ -44,46 +44,49 @@ export class StateComponent implements OnInit {
     });
 
     this.getStateData();
-     this.getCountryData();
+    this.getCountryData();
   }
 
   get f() { return this.form.controls; }
 
-  getDetails(data:any){
+  getDetails(data: any) {
     this.rowData = [];
     this.rowData = data;
   }
 
-  getdatapatch(data:any){
+  getdatapatch(data: any) {
     this.button = 'Update';
     this.update = true;
-      this.stateDetails = data;
-        this.form.patchValue({
-          country_id: this.stateDetails.country_id,
-          state_code: this.stateDetails.state_code,
-          state_name: this.stateDetails.state_name,
-        });
+    this.stateDetails = data;
+    this.form.patchValue({
+      country_id: this.stateDetails.country_id,
+      state_code: this.stateDetails.state_code,
+      state_name: this.stateDetails.state_name,
+    });
   }
 
   getStateData() {
-    this.isNotFound = true;
-    this.masterService.getStateData().subscribe((res:any) => {
-      this.isNotFound = false;
+    this.stateData = [];
+    this.isNotFound = false;
+    this.masterService.getStateData().subscribe((res: any) => {
       if (res.status == 200) {
-      this.stateCount = res;
-      this.stateData = res.result;
-      }else {
+        this.stateCount = res;
+        this.stateData = res.result;
+        this.isNotFound = false;
+      } else {
+        this.isNotFound = true;
+        this.stateData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.stateData = [];
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.stateData = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }
 
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
+    this.apiService.getCountryDataList().subscribe((res: any) => {
       if (res.status === 200) {
         this.countryData = res.result;
       } else {
@@ -92,12 +95,12 @@ export class StateComponent implements OnInit {
     });
   }
 
-   download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
-  createForm(){
+  createForm() {
     this.button = 'Create';
     this.update = false;
     this.form.reset();
@@ -106,13 +109,13 @@ export class StateComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-        this.isSubmitted = true;
-        this.loading = true;
-    if (this.update) {
-      this.stateUpdate();
-    } else {
-      this.createState();
-    }
+      this.isSubmitted = true;
+      this.loading = true;
+      if (this.update) {
+        this.stateUpdate();
+      } else {
+        this.createState();
+      }
     }
   }
 
@@ -122,7 +125,7 @@ export class StateComponent implements OnInit {
       state_name: this.form.value.state_name,
       state_code: this.form.value.state_code.toUpperCase(),
     };
-    this.apiService.createMasterState( params).subscribe((res:any) => {
+    this.apiService.createMasterState(params).subscribe((res: any) => {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
@@ -133,30 +136,30 @@ export class StateComponent implements OnInit {
       } else {
         this.alertService.warning(response.message);
       }
-    }, (error:any) => {
-        document.getElementById('cancel')?.click();
-        this.alertService.error("Error: Unknown Error!");
-      })
+    }, (error: any) => {
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: Unknown Error!");
+    })
   }
   stateUpdate(): void {
-    this.form.value.country_id =  this.stateDetails.country_id;
-    this.form.value.state_id =  this.stateDetails.state_id;
+    this.form.value.country_id = this.stateDetails.country_id;
+    this.form.value.state_id = this.stateDetails.state_id;
     this.apiService.stateMasterUpdation(this.form.value).subscribe((res: any) => {
       document.getElementById('cancel')?.click();
       this.getStateData();
-       this.isSubmitted = false;
-       if (res.status == 200) {
+      this.isSubmitted = false;
+      if (res.status == 200) {
         this.alertService.success(res.message);
-      } else if(res.status == 201) {
+      } else if (res.status == 201) {
         this.alertService.error(res.message);
-      }else{
+      } else {
         this.alertService.error('Error, Something went wrong please check');
       }
-  }, (error) => {
-    this.isSubmitted = false;
-    document.getElementById('cancel')?.click();
-    this.alertService.error("Error: Unknown Error!");
-  });
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: Unknown Error!");
+    });
   }
 
 }

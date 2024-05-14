@@ -11,17 +11,17 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 export class CompanyContactsComponent {
   form!: FormGroup;
   p: number = 1;
-  username1:any;
+  username1: any;
   limit = environment.pageLimit;
   searchText: any;
   companyData: any = [];
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   countryData: any;
   stateData: any;
   districtData: any = [];
   isSubmitted: boolean = false;
   val: any;
-  country:any;
+  country: any;
   limits: any = [];
   updateData: any;
   createModal: boolean = false;
@@ -45,55 +45,55 @@ export class CompanyContactsComponent {
     private apiService: ApiService,
   ) { }
 
- ngOnInit(){
-   this.form = this.formBuilder.group({
+  ngOnInit() {
+    this.form = this.formBuilder.group({
       module_id: [null, Validators.required],
       company_id: [null, Validators.required],
       name: [null, Validators.required],
-      usdg_id:[null],
-      usdt_id:[null],
+      usdg_id: [null],
+      usdt_id: [null],
       contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      contactno2: [null, [ Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      emailid: [null, [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
+      contactno2: [null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
     this.getCustomerData();
     this.getCompanyData(408);
 
 
 
-      this.masterService.getUserMaster().subscribe((res:any)=>{
+    this.masterService.getUserMaster().subscribe((res: any) => {
       this.design = res.designation;
       this.departMent = res.department;
-      })
+    })
 
   }
 
-  createForm(){
+  createForm() {
     console.clear();
     this.button = 'Create';
     this.update = false;
     this.form.reset();
   }
 
-   getDetails(data:any){
+  getDetails(data: any) {
     this.form.reset();
     this.button = 'Update';
     this.update = true;
     this.apiService.companyDetails(data.company_id).subscribe((res: any) => {
       this.custDetails = res.result[0];
-        this.form.patchValue({
-          name: this.custDetails.name,
-          company_id: this.custDetails.company_id,
-          module_id: this.custDetails.module_id,
-          contactno1: this.custDetails.contactno1,
-          contactno2: this.custDetails.contactno2,
-          emailid: this.custDetails.emailid,
-          usdt_id: this.custDetails.usdt_id,
-          usdg_id: this.custDetails.usdg_id,
+      this.form.patchValue({
+        name: this.custDetails.name,
+        company_id: this.custDetails.company_id,
+        module_id: this.custDetails.module_id,
+        contactno1: this.custDetails.contactno1,
+        contactno2: this.custDetails.contactno2,
+        emailid: this.custDetails.emailid,
+        usdt_id: this.custDetails.usdt_id,
+        usdg_id: this.custDetails.usdg_id,
 
-        });
+      });
 
-  })
+    })
   }
   OnlyNumbersAllowed(event: any): boolean {
     const charCode = event.which ? event.which : event.keyCode;
@@ -116,39 +116,49 @@ export class CompanyContactsComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => {
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        this.alertService.error("Error: Unknown Error!");
+      }
   }
-  tendComp(event:any){
-  const module_id = event?.target ? (event.target as HTMLInputElement).value : event;
-  this.modListData = module_id;
-  console.log(this.modListData);
-  const apiLink = `/contact/api/v1/getCompanyDropdownByModule/${module_id}`;
-  this.apiService.getData(apiLink).subscribe((res: any) => {
+  tendComp(event: any) {
+    const module_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    this.modListData = module_id;
+    console.log(this.modListData);
+    const apiLink = `/contact/api/v1/getCompanyDropdownByModule/${module_id}`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
 
-        this.modList = res.result;
+      this.modList = res.result;
       //   if (res.status === 200) {
       //  } else{
       //   this.alertService.warning("Looks like no data available in type.");
       //  }
-  })
-}
-  getCompanyData(data:any) {
-    this.apiService.getContactList(data).subscribe((res: any) => {
-      this.companyData = res.result;
-      this.limits.push({ key: 'ALL', value: this.companyData.length });
-    });
+    })
+  }
 
+  getCompanyData(data: any) {
+    this.isNotFound = false;
+    this.companyData = [];
+    this.apiService.getContactList(data).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.isNotFound = false;
+        this.companyData = res.result;
+        this.limits.push({ key: 'ALL', value: this.companyData.length });
+      } else {
+        this.isNotFound = true;
+        this.companyData = undefined;
+        this.alertService.warning("Looks like no data available.");
+      }
+    }, error => {
+      this.isNotFound = true;
+      this.companyData = undefined;
+      this.alertService.error("Error: Unknown Error!");
+    });
   }
 
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitted = true;
-
       //4-passing Company_id
-
-
       // if (this.form.value.module_id !== null) {
       //   var modListId = this.compData.filter((item: any) => {
       //     return item.contactmodule == this.form.value.module_id;
@@ -171,12 +181,12 @@ export class CompanyContactsComponent {
 
 
 
-        this.loading = true;
-    if (this.update) {
-      this.companyCont();
-    } else {
-      this.createCont();
-    }
+      this.loading = true;
+      if (this.update) {
+        this.companyCont();
+      } else {
+        this.createCont();
+      }
     }
   }
 
@@ -184,34 +194,34 @@ export class CompanyContactsComponent {
     let match = this.form.value;
     match.Action = "add";
     this.apiService.createContacts(match).subscribe((res: any) => {
-     let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (response.status == 200) {
-          this.getCompanyData(408);
-          this.form.reset();
-          this.alertService.success(response.message);
-        } else {
-          this.alertService.warning(response.message);
-        }
-      })
+      let response: any = res;
+      document.getElementById('cancel')?.click();
+      this.isSubmitted = false;
+      if (response.status == 200) {
+        this.getCompanyData(408);
+        this.form.reset();
+        this.alertService.success(response.message);
+      } else {
+        this.alertService.warning(response.message);
+      }
+    })
   }
   companyCont(): void {
-     this.form.value.company_id =  this.custDetails.company_id;
+    this.form.value.company_id = this.custDetails.company_id;
     //  this.form.value.action = "add";
     this.apiService.companyUpdation(this.form.value).subscribe((res: any) => {
-       this.isSubmitted = false;
+      this.isSubmitted = false;
 
-    if (res.status == 200) {
-      this.ngOnInit();
-      document.getElementById('closed')?.click();
-      this.alertService.success(res.message);
-    } else if(res.status == 201) {
-      this.alertService.error(res.message);
-    }else{
-      this.alertService.error('Error, Something went wrong please check');
-    }
+      if (res.status == 200) {
+        this.ngOnInit();
+        document.getElementById('closed')?.click();
+        this.alertService.success(res.message);
+      } else if (res.status == 201) {
+        this.alertService.error(res.message);
+      } else {
+        this.alertService.error('Error, Something went wrong please check');
+      }
 
-  });
+    });
   }
 }

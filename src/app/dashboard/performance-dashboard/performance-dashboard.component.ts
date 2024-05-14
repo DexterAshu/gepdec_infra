@@ -1547,7 +1547,6 @@ export class PerformanceDashboardComponent {
     });
   }
   
-  
   getSegmentData() {
   this.segmentData = [];
 

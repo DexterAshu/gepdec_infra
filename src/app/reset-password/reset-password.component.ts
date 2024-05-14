@@ -10,22 +10,22 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 })
 export class ResetPasswordComponent {
   username: any;
-  username1:any;
-  form!:FormGroup;
-  name:any='';
-  user_role:any='';
-  designation:any='';
-  emoplyee_id:any='';
-  department:any='';
-  contact_no:any='';
-  email_id:any='';
+  username1: any;
+  form!: FormGroup;
+  name: any = '';
+  user_role: any = '';
+  designation: any = '';
+  emoplyee_id: any = '';
+  department: any = '';
+  contact_no: any = '';
+  email_id: any = '';
   submitted: boolean = false;
   loading: boolean = false;
   result: any;
 
   isNewAdd = false;
   // matchpwd: string;
-  first_name:any;
+  first_name: any;
   // hidemodal: boolean;
   roleName: any;
   orgName: any;
@@ -49,7 +49,7 @@ export class ResetPasswordComponent {
     private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -104,33 +104,26 @@ export class ResetPasswordComponent {
     return true;
   }
 
-  keyup(val:any)
-  {
-    if(val.value=='')
-    {
-      this.matchpwd=''
+  keyup(val: any) {
+    if (val.value == '') {
+      this.matchpwd = ''
     }
-    else
-    {
-      if(this.form.value.password=='')
-      {
-        this.matchpwd="Please fill password first"
+    else {
+      if (this.form.value.password == '') {
+        this.matchpwd = "Please fill password first"
         setTimeout(() => {
-          this.matchpwd=''
+          this.matchpwd = ''
         }, 2000);
       }
-      else
-      {
-        if(this.form.value.password!=this.form.value.conpassword)
-        {
-          this.matchpwd="Password is not matching"
+      else {
+        if (this.form.value.password != this.form.value.conpassword) {
+          this.matchpwd = "Password is not matching"
           // setTimeout(() => {
           //   this.matchpwd=''
           // }, 3000);
         }
-        else
-        {
-          this.matchpwd=''
+        else {
+          this.matchpwd = ''
         }
       }
     }
@@ -140,20 +133,20 @@ export class ResetPasswordComponent {
   listData(): void {
     this.masterService.getUserList().subscribe((res: any) => {
       this.userList = res.result;
-      console.log( this.userList);
-      
+      console.log(this.userList);
+
     });
   }
 
   onSubmit() {
     this.submitted = true;
-  this.loading = true;
-  this.createUser();
+    this.loading = true;
+    this.createUser();
   }
 
   createUser() {
     this.masterService.reset(this.form.value).subscribe((res: any) => {
-      
+
 
       if (res.status == 200) {
         this.ngOnInit();
@@ -161,8 +154,8 @@ export class ResetPasswordComponent {
         this.alertService.success('Password Reset Successfully');
       } else {
         this.alertService.error('Error, Something went wrong please check');
-      } 
+      }
     })
-   
+
   }
 }

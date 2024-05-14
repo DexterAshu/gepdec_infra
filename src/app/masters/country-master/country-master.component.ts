@@ -12,10 +12,10 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 export class CountryMasterComponent {
   form!: FormGroup;
   p: number = 1;
-  searchText:any;
+  searchText: any;
   limit = environment.pageLimit;
   stateData: any = [];
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   countryData: any;
   isSubmitted: boolean = false;
   stateCount: any;
@@ -48,43 +48,46 @@ export class CountryMasterComponent {
   }
 
   get f() { return this.form.controls; }
-  getDetails(data:any){
+  getDetails(data: any) {
     this.rowData = [];
     this.rowData = data;
   }
 
-  getdatapatch(data:any){
+  getdatapatch(data: any) {
     this.button = 'Update';
     this.update = true;
-      this.countryDetails = data;
-        this.form.patchValue({
-          country_code: this.countryDetails.country_code,
-          name: this.countryDetails.name,
-        });
+    this.countryDetails = data;
+    this.form.patchValue({
+      country_code: this.countryDetails.country_code,
+      name: this.countryDetails.name,
+    });
   }
 
   getCountryList() {
-    this.isNotFound = true;
-    this.apiService.getCountryDataList().subscribe((res:any) => {
-      this.isNotFound = false;
+    this.countData = [];
+    this.isNotFound = false;
+    this.apiService.getCountryDataList().subscribe((res: any) => {
       if (res.status == 200) {
-      this.countCount = res;
-      this.countData = res.result;
-      }else {
+        this.isNotFound = false;
+        this.countCount = res;
+        this.countData = res.result;
+      } else {
+        this.isNotFound = true;
+        this.countCount = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.countData = [];
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.countData = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }
 
-   download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
-  createForm(){
+  createForm() {
     this.button = 'Create';
     this.update = false;
     this.form.reset();
@@ -93,13 +96,13 @@ export class CountryMasterComponent {
 
   onSubmit() {
     if (this.form.valid) {
-        this.isSubmitted = true;
-        this.loading = true;
-    if (this.update) {
-      this.countryUpdate();
-    } else {
-      this.createCountry();
-    }
+      this.isSubmitted = true;
+      this.loading = true;
+      if (this.update) {
+        this.countryUpdate();
+      } else {
+        this.createCountry();
+      }
     }
   }
 
@@ -108,7 +111,7 @@ export class CountryMasterComponent {
       name: this.form.value.name,
       country_code: this.form.value.country_code.toUpperCase(),
     };
-    this.apiService.createMasterCountry( params).subscribe((res:any) => {
+    this.apiService.createMasterCountry(params).subscribe((res: any) => {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
@@ -116,9 +119,9 @@ export class CountryMasterComponent {
         this.ngOnInit();
         document.getElementById('closed')?.click();
         this.alertService.success(res.message);
-      } else if(res.status == 201) {
+      } else if (res.status == 201) {
         this.alertService.error(res.message);
-      }else{
+      } else {
         this.alertService.error('Error, Something went wrong please check');
       }
     }, error => {
@@ -128,23 +131,23 @@ export class CountryMasterComponent {
     })
   }
   countryUpdate(): void {
-    this.form.value.country_id =  this.countryDetails.country_id;
+    this.form.value.country_id = this.countryDetails.country_id;
     this.apiService.countryMasterUpdation(this.form.value).subscribe((res: any) => {
       document.getElementById('cancel')?.click();
       this.getCountryList();
-       this.isSubmitted = false;
-       if (res.status == 200) {
+      this.isSubmitted = false;
+      if (res.status == 200) {
         this.alertService.success(res.message);
-      } else if(res.status == 201) {
+      } else if (res.status == 201) {
         this.alertService.error(res.message);
-      }else{
+      } else {
         this.alertService.error('Error, Something went wrong please check');
       }
-  }, (error) => {
-    this.isSubmitted = false;
-    document.getElementById('cancel')?.click();
-    this.alertService.error("Error: Unknown Error!");
-  });
+    }, (error) => {
+      this.isSubmitted = false;
+      document.getElementById('cancel')?.click();
+      this.alertService.error("Error: Unknown Error!");
+    });
   }
 
 }

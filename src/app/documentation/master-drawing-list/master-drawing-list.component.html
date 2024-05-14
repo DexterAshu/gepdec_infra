@@ -70,12 +70,12 @@
                   <a class="ms-2" (click)="getMDLRow(a)" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
-              <tr *ngIf="mdlData.length == 0 && isNotFound">
+              <tr *ngIf="mdlData.length == 0">
                 <td colspan="15" class="text-center">
                     <div class="spinner-border"></div>
                 </td>
               </tr>
-              <tr *ngIf="mdlData.length == 0 && !isNotFound">
+              <tr *ngIf="isNotFound == true">
                 <td colspan="9" class="text-center"><div class="text-warning fw-semibold">Looks like no data available!</div></td>
               </tr>
             </tbody>
@@ -135,7 +135,6 @@
                   <th>S No</th>
                   <th>Document/Drawing Title</th>
                   <th>Document/Drawing Number</th>
-                  <th>Description</th>
                   <th>Discipline</th>
                   <th>Sub Discipline</th>
                   <th>Stage</th>
@@ -147,21 +146,13 @@
               <tbody class="text-nowrap">
                 <tr *ngFor="let a of selectMDLRow?.drawing; index as i">
                   <td>{{i+1}}</td>
-                  <td>{{a.document_title}}</td>
-                  <td>{{a.document_number}}</td>
-                  <td>
-                    <div *ngIf="!!a?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
-                        {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
-                    </div>
-                    <ng-template #elseBlock>
-                        {{a?.description}}
-                    </ng-template>
-                 </td>
+                  <td>{{a.drawing_title}}</td>
+                  <td>{{a.drawing_no}}</td>
                   <td>{{a.discipline}}</td>
                   <td>{{a.sub_discipline}}</td>
                   <td>{{a.stage}}</td>
                   <td>{{a.category}}</td>
-                  <td>{{a.planned_submission | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{a.planned_submission_date | date: 'dd/MM/yyyy'}}</td>
                   <td>{{a.remarks}}</td>
                 </tr>
               </tbody>
@@ -228,27 +219,18 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label fl-10">Document/Drawing Title<span class="required-asterisk">*</span></label>
-                    <input type="text" class="form-control form-control-sm" formControlName="document_title" appWordCapitalize>
-                    <div *ngIf="f['document_title'].touched && f['document_title'].invalid">
-                      <small class="text-danger" *ngIf="f['document_title'].errors?.['required']">*Required</small>
+                    <input type="text" class="form-control form-control-sm" formControlName="drawing_title" appWordCapitalize>
+                    <div *ngIf="f['drawing_title'].touched && f['drawing_title'].invalid">
+                      <small class="text-danger" *ngIf="f['drawing_title'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label fl-10">Document/Drawing Number<span class="required-asterisk">*</span></label>
-                    <input type="text" class="form-control form-control-sm" formControlName="document_number">
-                    <div *ngIf="f['document_number'].touched && f['document_number'].invalid">
-                      <small class="text-danger" *ngIf="f['document_number'].errors?.['required']">*Required</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label class="form-label fl-10">Description<span class="required-asterisk">*</span></label>
-                    <input type="text" class="form-control form-control-sm" formControlName="description">
-                    <div *ngIf="f['description'].touched && f['description'].invalid">
-                      <small class="text-danger" *ngIf="f['description'].errors?.['required']">*Required</small>
+                    <input type="text" class="form-control form-control-sm" formControlName="drawing_no">
+                    <div *ngIf="f['drawing_no'].touched && f['drawing_no'].invalid">
+                      <small class="text-danger" *ngIf="f['drawing_no'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
@@ -301,7 +283,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label fl-10">Planned Submission</label>
-                    <input type="date" class="form-control form-control-sm" formControlName="planned_submission">
+                    <input type="date" class="form-control form-control-sm" formControlName="planned_submission_date">
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -310,8 +292,8 @@
                     <input type="text" class="form-control form-control-sm" formControlName="remarks">
                   </div>
                 </div>
-                <div class="col-md-12 px-3">
-                  <div class="row float-right">
+                <div class="col-md-3">
+                  <div class="row float-right mt-4 pe-2">
                     <button type="button" class="btn btn-primary btn-fw btn-sm" (click)="addDrawingList()"><span class="mdi mdi-format-list-checks mdi-18px"></span></button>
                   </div>
                 </div>
@@ -322,7 +304,6 @@
                         <th>S No</th>
                         <th>Document/Drawing Title</th>
                         <th>Document/Drawing Number</th>
-                        <th>Description</th>
                         <th>Discipline</th>
                         <th>Sub Discipline</th>
                         <th>Stage</th>
@@ -335,21 +316,13 @@
                     <tbody class="text-nowrap">
                       <tr *ngFor="let a of form?.value?.drawingList; index as i">
                         <td>{{i+1}}</td>
-                        <td>{{a.document_title}}</td>
-                        <td>{{a.document_number}}</td>
-                        <td>
-                          <div *ngIf="!!a?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
-                              {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
-                          </div>
-                          <ng-template #elseBlock>
-                              {{a?.description}}
-                          </ng-template>
-                       </td>
+                        <td>{{a.drawing_title}}</td>
+                        <td>{{a.drawing_no}}</td>
                         <td>{{a.discipline}}</td>
                         <td>{{a.sub_discipline}}</td>
                         <td>{{a.stage}}</td>
                         <td>{{a.category}}</td>
-                        <td>{{a.planned_submission | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{a.planned_submission_date | date: 'dd/MM/yyyy'}}</td>
                         <td>{{a.remarks}}</td>
                         <td>
                           <a><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>

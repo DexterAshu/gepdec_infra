@@ -12,12 +12,12 @@ import * as FileSaver from 'file-saver';
 export class DepartmentMasterComponent {
   form!: FormGroup;
   p: number = 1;
-  searchText:any;
+  searchText: any;
   limit = environment.pageLimit;
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   countryData: any;
   isSubmitted: boolean = false;
-  deptData: any = [];
+  deptData: any;
   deptCount: any;
   inserteddata: any;
   discardeddata: any;
@@ -38,35 +38,38 @@ export class DepartmentMasterComponent {
     });
     this.departmentData();
 
-    this.masterService.getUserList().subscribe((res:any) =>{
-        console.log("userlist", res);
-       this.userList = res.result;
-  })
+    this.masterService.getUserList().subscribe((res: any) => {
+      console.log("userlist", res);
+      this.userList = res.result;
+    })
 
   }
 
   get f() { return this.form.controls; }
 
   departmentData() {
-    this.isNotFound = true;
-    this.masterService.getUserMaster().subscribe((res:any) => {
-      this.isNotFound = false;
+    this.deptData = [];
+    this.isNotFound = false;
+    this.masterService.getUserMaster().subscribe((res: any) => {
       if (res.status == 200) {
-      this.deptCount = res;
-      this.deptData = res.department;
-          //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
-      }else {
+        this.deptCount = res;
+        this.deptData = res.department;
+        this.isNotFound = false;
+        //   this.stateData = res.result.filter((data:any) => data.active == 'Y');
+      } else {
+        this.isNotFound = true;
+        this.deptData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.deptData = [];
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.deptData = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }
 
-   download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
@@ -79,7 +82,7 @@ export class DepartmentMasterComponent {
         deptname: this.form.value.deptname,
         // deptheadid: this.form.value.deptheadid,
       };
-      this.apiService.createMasterDepartment( params).subscribe((res:any) => {
+      this.apiService.createMasterDepartment(params).subscribe((res: any) => {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
@@ -90,12 +93,12 @@ export class DepartmentMasterComponent {
         } else {
           this.alertService.warning(response.message);
         }
-      }, (error:any) => {
-          document.getElementById('cancel')?.click();
-          this.alertService.error("Error: Unknown Error!");
-        })
+      }, (error: any) => {
+        document.getElementById('cancel')?.click();
+        this.alertService.error("Error: Unknown Error!");
+      })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
-     }
+    }
   }
 }

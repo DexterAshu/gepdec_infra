@@ -177,16 +177,20 @@ export class CompanyComponent implements OnInit {
   }
 
   getCompanyData() {
-    this.isNotFound = true;
+    this.isNotFound = false;
+    this.companyData = [];
     this.apiService.getCompanyList().subscribe((res: any) => {
-      this.isNotFound = false;
       if (res.status == 200) {
+        this.isNotFound = false;
         this.companyData = res.result;
       }else {
+        this.isNotFound = true;
+        this.companyData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.companyData = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }

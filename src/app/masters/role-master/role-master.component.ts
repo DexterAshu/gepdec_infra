@@ -44,18 +44,21 @@ export class RoleMasterComponent {
   get f() { return this.form.controls; }
 
   roleData() {
-    this.isNotFound = true;
+    this.rolData = [];
+    this.isNotFound = false;
     this.masterService.getUserMaster().subscribe((res:any) => {
-      this.isNotFound = false;
       if (res.status == 200) {
-      this.rolCount = res;
-      this.rolData = res.role;
+        this.rolCount = res;
+        this.rolData = res.role;
+        this.isNotFound = false;
       }else {
+        this.isNotFound = true;
+        this.rolData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.rolData = [];
-      this.isNotFound = false;
+      this.isNotFound = true;
+      this.rolData = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }
