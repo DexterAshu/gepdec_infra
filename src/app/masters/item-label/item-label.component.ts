@@ -100,33 +100,36 @@ export class ItemLabelComponent {
 
   getItemData(): void {
     this.itemData = [];
-    this.isNotFound = false;
     let apiLink = "/item/api/v1/getItemList";
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
-        this.isNotFound = false;
         this.itemData = res.result;
       } else {
-        this.isNotFound = true;
         this.itemData = [];
         this.alertService.warning("Looks like no data available!");
       }
     }, error => {
-      this.isNotFound = true;
       this.itemData = [];
       this.alertService.error("Error: Unknown Error!")
     });
   }
 
   getData() {
+    this.itemLocationLabelData = [];
+    this.isNotFound = false;
     this.masterService.getWHLocationData().subscribe((res:any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.itemLocationLabelData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.isNotFound = true;
+        this.itemLocationLabelData = undefined;
+        this.alertService.warning("Looks like no data available.");
       }
     }),
     (error: any) => {
+      this.isNotFound = true;
+      this.itemLocationLabelData = undefined;
       this.alertService.error("Error: Unknown Error!");
     }
   }

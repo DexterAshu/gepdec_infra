@@ -122,10 +122,7 @@ this.statusList=roleD[0].roleStatus
     this.apiService.getTenderList().subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderData = res.result;
-        this.roleStatusData = this.tenderData.filter((data:any)=> data.roleStatus)
-       
-        console.log( this.roleStatusData);
-        
+        this.roleStatusData = this.tenderData.filter((data:any)=> data.roleStatus);
         this.statusData = res.counts;
         this.isNotFound = false;
       } else {

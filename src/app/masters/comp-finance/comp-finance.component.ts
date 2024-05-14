@@ -102,13 +102,25 @@ export class CompFinanceComponent {
     this.masterService.getFinData().subscribe((res:any) => {
       this.financialData = res.result;
     });
+
+
+    this.docListData = [];
+    this.isNotFound = false;
     this.apiService.getOurFinList().subscribe((res:any) => {
       if (res.status === 200) {
         this.docListData = res.result;
+        this.isNotFound = false;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.isNotFound = true;
+        this.docListData = undefined;
+        this.alertService.warning("Looks like no data available.");
       }
+    }, error => {
+      this.isNotFound = true;
+      this.docListData = undefined;
+      this.alertService.error("Error: Unknown Error!");
     });
+
   }
 
   @HostListener('window:resize', ['$event'])

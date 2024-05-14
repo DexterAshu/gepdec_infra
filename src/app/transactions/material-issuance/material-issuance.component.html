@@ -47,12 +47,12 @@
                     <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectRow(a)" title="Edit a Order"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
                   </td>
                 </tr>
-                <tr *ngIf="isNotFound == true">
+                <tr *ngIf="materialIssuanceData?.length == 0">
                   <td colspan="8" class="text-center">
                     <div class="spinner-border"></div>
                   </td>
                 </tr>
-                <tr *ngIf="materialIssuanceData?.length == 0">
+                <tr *ngIf="isNotFound == true">
                   <td colspan="8" class="text-center">
                     <div class="text-warning fw-semibold">No a orders available.</div>
                   </td>

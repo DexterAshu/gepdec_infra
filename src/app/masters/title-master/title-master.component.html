@@ -38,19 +38,19 @@
                                 <th>Created On</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="titlData.length">
+                        <tbody class="text-nowrap">
                             <tr *ngFor="let a of titlData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.title}}</td>
                                 <td>{{a.createdby_name}}</td>
                                 <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
                             </tr>
-                            <tr *ngIf="isNotFound == true">
+                            <tr *ngIf="designData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="designData?.length == 0">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>

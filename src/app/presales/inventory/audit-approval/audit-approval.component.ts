@@ -54,17 +54,22 @@ export class AuditApprovalComponent {
   }
 
   getData(): void {
+    this.auditApprovalData = [];
+    this.isNotFound = false;
     const apiLink = `/inventory/api/v1/getAuditRequestList`;
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.auditApprovalData = res.result;
+        this.isNotFound = false;
       } else {
-        this.auditApprovalData = [];
+        this.isNotFound = true;
+        this.auditApprovalData = undefined;
         this.alertService.warning("Looks like no data available in type.");
       }
     },
     (error: any) => {
-      this.auditApprovalData = [];
+      this.isNotFound = true;
+      this.auditApprovalData = undefined;
       this.alertService.error("Error: Unknown Error!");
     });
   }

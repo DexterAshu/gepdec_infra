@@ -122,12 +122,10 @@ export class CommunicationDocumentComponent {
   }
 
   onSubmit() {
-    console.log(this.documentForm.value);
     const formData: FormData = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append('attachment', this.attachment[i]);
     }
-
     // formData.append('documenttype_id', this.documentForm.value.documenttype_id);
     formData.append('bank_name', this.documentForm.value.bank_name);
     formData.append('bgnumber', this.documentForm.value.bgnumber);

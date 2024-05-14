@@ -237,19 +237,23 @@ export class L2ScheduleBulkdataComponent {
   }
 
   getL2ScheduleData(): void {
-    this.isNotFound = true;
+    this.isNotFound = false;
+    this.l2ScheduleData = [];
     const apiLink = `/document/api/v1/getL2ScheduleList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
+        this.isNotFound = false;
         this.l2ScheduleData = res.result;
       } else {
+        this.isNotFound = true;
+        this.l2ScheduleData = undefined;
         this.alertService.error(res.message);
       }
-    }),
-    (error: any) => { 
+    }, error => {
+      this.isNotFound = true;
+      this.l2ScheduleData = undefined;
       this.alertService.error("Error: Unknown Error!");
-    }
-    this.isNotFound = false;
+    });
   }
 
   selectedRow(data: any) {

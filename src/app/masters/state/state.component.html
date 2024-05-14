@@ -1,16 +1,16 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>State</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>State</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
@@ -19,21 +19,27 @@
                 <div class="card-body">
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" [(ngModel)]="searchText" class="form-control form-control-sm" placeholder="Search...">
+                            <input type="search" [(ngModel)]="searchText" class="form-control form-control-sm"
+                                placeholder="Search...">
                         </div>
                         <div class="col-lg-4"></div>
                         <div class="col-lg-4">
                             <div class="float-right">
-                            <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()">
-                                <span class="mdi mdi-upload"></span> Export
-                          </button>
-                          <button class="btn btn-primary btn-fw btn-sm me-2" title="Upload bulk Data">
-                                <span class="mdi mdi-download"></span> Import 
-                          </button>
-                                    <button type="button" (click)="createForm()" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span> Create</button>
-                       
-                       </div>   </div>
-                    
+                                <button class="btn btn-primary btn-fw btn-sm me-2"
+                                    title="Download List of Data in Excel" (click)="download()">
+                                    <span class="mdi mdi-upload"></span> Export
+                                </button>
+                                <button class="btn btn-primary btn-fw btn-sm me-2" title="Upload bulk Data">
+                                    <span class="mdi mdi-download"></span> Import
+                                </button>
+                                <button type="button" (click)="createForm()" data-bs-toggle="modal"
+                                    data-bs-target="#createModal"
+                                    class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span>
+                                    Create</button>
+
+                            </div>
+                        </div>
+
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
@@ -45,26 +51,32 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-nowrap" *ngIf="stateData.length">
-                            <tr *ngFor="let a of stateData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                        <tbody class="text-nowrap">
+                            <tr
+                                *ngFor="let a of stateData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.state_code}}</td>
                                 <td>{{a.state_name}}</td>
                                 <td>{{a.name}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="getdatapatch(a)" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" (click)="getDetails(a)" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="getdatapatch(a)"
+                                        title="Edit Details"><span
+                                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                    &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        (click)="getDetails(a)" title="View Details"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
-                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 
                                 </td>
                             </tr>
-                            <tr *ngIf="isNotFound == true">
+                            <tr *ngIf="stateData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="stateData?.length == 0">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
@@ -97,29 +109,36 @@
                                 <div class="form-group">
                                     <label class="form-label">Country<span class="required-asterisk">*</span></label>
                                     <select formControlName="country_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
-                                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Country
+                                        </option>
+                                        <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}
+                                        </option>
                                     </select>
                                     <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['country_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">State Code<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="state_code" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="state_code" class="form-control form-control-sm"
+                                        appWordCapitalize>
                                     <div *ngIf="f['state_code'].touched && f['state_code'].invalid">
-                                        <small class="text-danger" *ngIf="f['state_code'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['state_code'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">State Name<span class="required-asterisk">*</span></label>
-                                    <input type="text" formControlName="state_name" class="form-control form-control-sm" appWordCapitalize>
+                                    <input type="text" formControlName="state_name" class="form-control form-control-sm"
+                                        appWordCapitalize>
                                     <div *ngIf="f['state_name'].touched && f['state_name'].invalid">
-                                        <small class="text-danger" *ngIf="f['state_name'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['state_name'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -130,8 +149,12 @@
                                 </div>
                             </div> -->
                             <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                                    class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                                <button type="button" *ngIf="isSubmitted" disabled
+                                    class="btn btn-primary btn-fw btn-sm mr-2"><span
+                                        class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span> Loading...</button>
                                 <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
                                     data-bs-dismiss="modal">Close</button>
                             </div>
@@ -166,7 +189,7 @@
                             <td>{{ rowData?.state_name }}</td>
                             <th>Country Name</th>
                             <td>{{ rowData?.name }}</td>
-                          
+
                         </tr>
                         <tr>
                             <th>Created By</th>
@@ -175,8 +198,8 @@
                             <td>{{rowData?.created | date: 'dd/MM/yyyy'}}</td>
                             <th></th>
                             <td></td>
-                           
-                            
+
+
                         </tr>
                     </tbody>
                 </table>
@@ -216,12 +239,12 @@
                         </div> -->
 
                         <div class="col-md-12 mt-1">
-                    <input id="cin" name="cin" type="file" multiple/>
-                    <br>
-                    <button type="button" [disabled]="!form.valid" class="btn btn-success btn-s mt-3">
-                        <i class="mdi mdi-folder-upload menu-icon"></i>&nbsp;Upload
-                    </button>
-                    
+                            <input id="cin" name="cin" type="file" multiple />
+                            <br>
+                            <button type="button" [disabled]="!form.valid" class="btn btn-success btn-s mt-3">
+                                <i class="mdi mdi-folder-upload menu-icon"></i>&nbsp;Upload
+                            </button>
+
                         </div>
                     </div>
 

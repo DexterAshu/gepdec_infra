@@ -182,16 +182,25 @@ export class MyCompanyComponent {
     }
   }
 
-  getCompanyData(): void {
+  getCompanyData() {
+    this.isNotFound = false;
+    this.companyData = [];
     const apiLink = `/mycompany/api/v1/getMyComapanyList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
-      this.companyData = res.result;
-      this.limits.push({ key: 'ALL', value: this.companyData.length });
-    }),
-    (err: any) => {
-      console.log(err);
-      this.alertService.error("Error: Unknown Error!");
-    }
+      if (res.status === 200) {
+        this.companyData = res.result;
+        this.isNotFound = false;
+        this.limits.push({ key: 'ALL', value: this.companyData.length });
+      } else {
+        this.isNotFound = true;
+        this.companyData = undefined;
+        this.alertService.warning("Looks like no data available.");
+      }
+    }, error => {
+      this.isNotFound = true;
+      this.companyData = undefined;
+      this.alertService.warning("Error: Unknown Error!");
+    });
   }
 
 

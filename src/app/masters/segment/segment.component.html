@@ -45,12 +45,12 @@
                                 <td>{{a.createdBy}}</td>
                                 <td>{{a.createdAt | date:'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
                             </tr>
-                            <tr *ngIf="isNotFound == true">
+                            <tr *ngIf="segmentData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="segmentData?.length == 0">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>

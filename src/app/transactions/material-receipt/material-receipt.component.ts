@@ -19,24 +19,24 @@ export class MaterialReceiptComponent {
   venderPOData: any = [];
   limit = environment.pageLimit;
   p: number = 1;
-  isNotFound:boolean = false;
-  update:boolean = false;
-  isSubmitted:boolean = false;
+  isNotFound: boolean = false;
+  update: boolean = false;
+  isSubmitted: boolean = false;
   selectedPO: any = {};
   grnForm!: FormGroup;
   vendorDataList: any = [];
   tenderList: any = [];
   boqList: any = [];
 
-  constructor( private fb: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef) {
+  constructor(private fb: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef) {
     var date = this.date.getDate();
-    var month = 1+this.date.getMonth();
+    var month = 1 + this.date.getMonth();
     var year = this.date.getFullYear();
-    this.fromDate =  year+"-"+(month<=9?'0':'')+month+"-"+'01';
-    this.toDate = year+"-"+(month<=9?'0':'')+month+"-"+(date<=9?'0':'')+date;
-    this.currentDate =  year+"-"+(month<=9?'0':'')+month+"-"+(date<=9?'0':'')+date;
+    this.fromDate = year + "-" + (month <= 9 ? '0' : '') + month + "-" + '01';
+    this.toDate = year + "-" + (month <= 9 ? '0' : '') + month + "-" + (date <= 9 ? '0' : '') + date;
+    this.currentDate = year + "-" + (month <= 9 ? '0' : '') + month + "-" + (date <= 9 ? '0' : '') + date;
     this.grnDateLimit.setDate(this.grnDateLimit.getDate() - 5);
-    this.grnDateLimit =  year+"-"+(month<=9?'0':'')+month+"-"+(this.grnDateLimit.getDate()<=9?'0':'')+this.grnDateLimit.getDate();
+    this.grnDateLimit = year + "-" + (month <= 9 ? '0' : '') + month + "-" + (this.grnDateLimit.getDate() <= 9 ? '0' : '') + this.grnDateLimit.getDate();
     console.log(this.fromDate, this.toDate, this.grnDateLimit);
   }
 
@@ -85,9 +85,9 @@ export class MaterialReceiptComponent {
   }
 
   selectItem(data: any): void {
-    let dataLength = this.grnForm.value.items.filter((x:any) => x.item_id === data.item_id);
-    if(dataLength.length === 1) {
-      this.grnForm.value.items = this.grnForm.value.items.filter((x:any) => x.item_id !== data.item_id);
+    let dataLength = this.grnForm.value.items.filter((x: any) => x.item_id === data.item_id);
+    if (dataLength.length === 1) {
+      this.grnForm.value.items = this.grnForm.value.items.filter((x: any) => x.item_id !== data.item_id);
     } else {
       let match = {
         "item_id": data.item_id,
@@ -112,7 +112,7 @@ export class MaterialReceiptComponent {
       this.isSubmitted = false;
       return;
     }
-    this.apiService.createGRN(this.grnForm.value).subscribe((res:any) => {
+    this.apiService.createGRN(this.grnForm.value).subscribe((res: any) => {
       if (res.status === 200) {
         this.getGRNData();
         this.alertService.success(res.message);
@@ -121,104 +121,111 @@ export class MaterialReceiptComponent {
         this.alertService.warning(res.message);
       }
     }),
-    (error: any) => {
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        this.alertService.error("Error: Unknown Error!");
+      }
     this.isSubmitted = false;
   }
 
   getTenderList(): void {
-    this.apiService.getTenderList().subscribe((res:any) => {
+    this.apiService.getTenderList().subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderList = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning("Looks like no data available.");
       }
     },
-    (error: any) => {
-      this.alertService.error("Error: Unknown Error!")
-    });
+      (error: any) => {
+        this.alertService.error("Error: Unknown Error!")
+      });
   }
 
   getVenderData(): void {
     let tender_id = this.grnForm.value.tender_id;
     const apiLink = `/precurement/api/v1/getVendorListByTender/${tender_id}`;
-    this.apiService.getData(apiLink).subscribe((res:any) => {
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.vendorDataList = res.result;
       } else {
         this.vendorDataList = [];
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning("Looks like no data available.");
       }
     },
-    (error: any) => {
-      this.vendorDataList = [];
-      this.alertService.error("Error: Unknown Error!")
-    });
+      (error: any) => {
+        this.vendorDataList = [];
+        this.alertService.error("Error: Unknown Error!")
+      });
   }
 
   getVenderPOData(): void {
     let tender_id = this.grnForm.value.tender_id;
     let supplier_id = this.grnForm.value.supplier_id;
     const apiLink = `/precurement/api/v1/getPoListBySupplier/${tender_id}/${supplier_id}`
-    this.apiService.getData(apiLink).subscribe((res:any) => {
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.venderPOData = res.result;
       } else {
         this.venderPOData = [];
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning("Looks like no data available.");
       }
     },
-    (error: any) => {
-      this.venderPOData = [];
-      this.alertService.error("Error: Unknown Error!")
-    });
+      (error: any) => {
+        this.venderPOData = [];
+        this.alertService.error("Error: Unknown Error!")
+      });
   }
 
   getPOData(): void {
     const apiLink = `/precurement/api/v1/getPoList?po_id=${this.grnForm.value.po_id}`;
-    this.apiService.getData(apiLink).subscribe((res:any) => {
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.selectedPO = res.result[0];
         this.ngAfterViewInit();
       } else {
         this.selectedPO = [];
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning("Looks like no data available.");
       }
     },
-    (error: any) => {
-      this.selectedPO = [];
-      this.alertService.error("Error: Unknown Error!")
-    });
+      (error: any) => {
+        this.selectedPO = [];
+        this.alertService.error("Error: Unknown Error!")
+      });
   }
 
   getPODetails(po_id: any): void {
     const apiLink = `/precurement/api/v1/getPoList?po_id=${po_id}`;
-    this.apiService.getData(apiLink).subscribe((res:any) => {
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.selectedPO = res.result[0];
       } else {
         this.selectedPO = [];
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning("Looks like no data available.");
       }
     },
-    (error: any) => {
-      this.selectedPO = [];
-      this.alertService.error("Error: Unknown Error!")
-    });
+      (error: any) => {
+        this.selectedPO = [];
+        this.alertService.error("Error: Unknown Error!")
+      });
   }
 
   getData(): void {
+    this.poData = [];
+    this.isNotFound = false;
     const apiLink = `/inventory/api/v1/getGRNList`;
-    this.apiService.getData(apiLink).subscribe((res:any) => {
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.poData = res.result;
+        this.isNotFound = false;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.isNotFound = true;
+        this.poData = undefined;
+        this.alertService.warning("Looks like no data available.");
       }
     },
-    (error: any) => {
-      this.alertService.error("Error: Unknown Error!")
-    });
+      (error: any) => {
+        this.isNotFound = true;
+        this.poData = undefined;
+        this.alertService.error("Error: Unknown Error!")
+      });
   }
 }

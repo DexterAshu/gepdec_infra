@@ -52,6 +52,7 @@ export class AbandonedComponent {
   get f() { return this.form.controls; }
 
   getStateData() {
+    debugger
     this.stateData = [];
     this.isNotFound = false;
     this.masterService.getStateData().subscribe((res: any) => {
@@ -72,9 +73,6 @@ export class AbandonedComponent {
     });
 
     this.getData(1001);
-    //   window.onload = () => {
-    //   this.getData(1001);
-    // };
   }
 
   getCountryData() {

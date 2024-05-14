@@ -114,6 +114,7 @@ export class BankingDetailsComponent {
     (error: any) => { 
       this.alertService.error("Error: Unknown Error!");
     }
+    
     this.apiService.getCompanyList().subscribe((res: any) => {
       if(res.status == 200) {
         this.companyData = res.result;
