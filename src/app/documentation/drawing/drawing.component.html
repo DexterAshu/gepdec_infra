@@ -27,22 +27,12 @@
                   <option value="/documentation/master-drawing-list"> Master Drawing List (MDL)</option>
                   <option value="/documentation/final-boq"> Final BOQ</option>
                 </select>
-
-                <!-- <div class="d-grid gap-2">
-                  <button class="btn filter-col btn-fw btn-sm cursor-pointer">Drawing&nbsp;&nbsp;&nbsp;&nbsp;<span class="mdi mdi-chevron-down"></span></button>
-                </div>
-                <ul style="margin-top: -16px;" class="text-nowrap">
-                  <li class="px-4 py-1 cursor-pointer" routerLink="/documentation/master-drawing-list"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp;Master Drawing List (MDL)</li>
-                  <li class="px-4 py-1 cursor-pointer" routerLink="/documentation/drawing-doc"><span class="mdi mdi-flower"></span>&nbsp;&nbsp;Drawing </li>
-                  <li class="px-4 py-1 cursor-pointer" routerLink="/documentation/final-boq"><span class="mdi mdi-locker-multiple"></span>&nbsp;&nbsp;Final BOQ </li>
-                </ul> -->
               </div>
             </div>
             <div class="col-lg-4">
               <div class="float-right">
                 <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()"><span class="mdi mdi-upload"></span>Export</button>
                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s" (click)="getClient()">+ Create</button>
               </div>
             </div>
           </div>
@@ -50,36 +40,131 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>Project Name</th>
-                <th>BG Number</th>
-                <th>BG Amount</th>
-                <th>BG Start Date</th>
-                <th>BG End Date</th>
-                <th>BG Submission Date</th>
-                <th>BG Extend Date</th>
+                <th>NIT No</th>
+                <th>Tender Title</th>
+                <th>Publish Date</th>
+                <th>Execution Location</th>
+                <th>Version</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
               <tr
-                *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                *ngFor="let a of mdlData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{limit*(p-1)+i+1}}</td>
-                <td>{{a.documentname}}</td>
-                <td>{{a.documentname}}</td>
-                <td>{{a.documentname}}</td>
-                <td>{{a.documentdate}}</td>
-                <td>{{a.documentdate}}</td>
-                <td>{{a.documentdate}}</td>
-                <td>{{a.documentdate}}</td>
+                <td>{{a.tender_ref_no}}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                  <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <div *ngIf="!!a?.tender_title elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">
+                      {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock>
+                      {{a?.tender_title}}
+                  </ng-template>
+               </td>
+                <td>{{a.publish_date | date:'dd/MM/yyyy'}}</td>
+                <td>{{a.tender_location}}</td>
+                <td>{{a.version}}</td>
+                <td>
+                  <a data-bs-toggle="modal" (click)="getDrawingList(a)" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                  <a class="ms-2" (click)="getDrawingList(a)" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
+              </tr>
+              <tr *ngIf="mdlData.length == 0 && isNotFound">
+                <td colspan="15" class="text-center">
+                    <div class="spinner-border"></div>
+                </td>
+              </tr>
+              <tr *ngIf="mdlData.length == 0 && !isNotFound">
+                <td colspan="9" class="text-center"><div class="text-warning fw-semibold">Looks like no data available!</div></td>
               </tr>
             </tbody>
           </app-responsive-table>
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Drawing Document List</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="table-responsive" style="min-height: 300px">
+            <h6 class="mb-2 text-secondary">Tender Details</h6>
+            <table class="table table-hover table-striped custom-table">
+              <thead class="hidden-thead"></thead>
+              <tbody>
+                <tr>
+                  <th>Tender Title</th>
+                  <td colspan="5">{{ selectRow?.tender_title }}</td>
+                </tr>
+                <tr>
+                  <th>Client</th>
+                  <td>{{ selectRow?.company_name }}</td>
+                  <th>NIT No</th>
+                  <td>
+                    <div *ngIf="!!selectRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectRow?.tender_ref_no }}">
+                        {{selectRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock3>
+                        {{selectRow?.tender_ref_no}}
+                    </ng-template>
+                </td>
+                  <th>Execution Location</th>
+                  <td>{{ selectRow?.tender_location }}</td>
+                </tr>
+                <tr>
+                  <th>Document Description</th>
+                  <td colspan="5">{{ selectRow?.description }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h6 class="mt-3 mb-2 text-secondary">Document/Drawing List</h6>
+            <table class="table table-hover table-striped custom-table">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>Document/Drawing Title</th>
+                  <th>Document/Drawing Number</th>
+                  <th>Description</th>
+                  <th>Discipline</th>
+                  <th>Sub Discipline</th>
+                  <th>Stage</th>
+                  <th>Category</th>
+                  <th>Planned Submission</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr *ngFor="let a of selectRow?.drawing; index as i">
+                  <td>{{i+1}}</td>
+                  <td>{{a.document_title}}</td>
+                  <td>{{a.document_number}}</td>
+                  <td>
+                    <div *ngIf="!!a?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
+                        {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock>
+                        {{a?.description}}
+                    </ng-template>
+                 </td>
+                  <td>{{a.discipline}}</td>
+                  <td>{{a.sub_discipline}}</td>
+                  <td>{{a.stage}}</td>
+                  <td>{{a.category}}</td>
+                  <td>{{a.planned_submission | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{a.remarks}}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -100,41 +185,17 @@
             <div class="form-row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
-                  <select formControlName="client" class="form-select form-select-sm" (ngModelChange)="getTenderList()">
-                    <option [selected]="true" [disabled]="true" [value]="null">Select </option>
-                    <option *ngFor="let c of companyData" [value]=c.company_id>{{ c.company_name }}</option>
+                  <label class="form-label fl-10">Document/Drawing Title<span class="required-asterisk">*</span></label>
+                  <select formControlName="doc_id" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Drawing</option>
+                    <option *ngFor="let c of selectRow?.drawing" [value]=c.doc_id>{{ c.drawing_title }}</option>
                   </select>
-                  <div *ngIf="f['client'].touched && f['client'].invalid">
-                    <small class="text-danger" *ngIf="f['client'].errors?.['required']">*Required</small>
+                  <div *ngIf="f['doc_id'].touched && f['doc_id'].invalid">
+                    <small class="text-danger" *ngIf="f['doc_id'].errors?.['required']">*Required</small>
                   </div>
                 </div>
               </div>
               <div class="col-md-3">
-                <div class="form-group">
-                  <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                  <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="selectTender()">
-                    <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
-                    <option *ngFor="let c of tenderList" value="{{c.tender_id}}">{{ c.tender_title }}</option>
-                  </select>
-                  <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
-                    <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label class="form-label fl-10">NIT No</label>
-                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_ref_no" readonly>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label class="form-label fl-10">Publish Date</label>
-                  <input type="date" class="form-control form-control-sm" [value]="selectedTender?.publish_date" readonly>
-                </div>
-              </div>
-              <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
                   <select formControlName="drawingFrom" class="form-select form-select-sm" (ngModelChange)="selectDrawingFrom()">
@@ -147,7 +208,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Drawn By<span class="required-asterisk" *ngIf="isInHouse">*</span></label>
                   <input type="text" formControlName="artist" [readOnly]="!isInHouse" class="form-control form-control-sm" appWordCapitalize>
@@ -156,7 +217,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Approved By<span class="required-asterisk" *ngIf="isInHouse">*</span></label>
                   <input type="text" formControlName="drawingApprovedBy" [readOnly]="!isInHouse" class="form-control form-control-sm" appWordCapitalize>

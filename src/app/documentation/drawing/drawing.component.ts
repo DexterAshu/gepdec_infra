@@ -22,24 +22,22 @@ export class DrawingComponent {
   tenderList: any = [];
   imageUploadFile: any = [];
   uploadFile: any = [];
+  mdlData: any = [];
   isSubmitted: boolean = false;
   isInHouse: boolean = false;
+  isNotFound: boolean = false;
+  selectRow: any;
 
-  constructor(
-    private fb: FormBuilder, 
-    private apiService: ApiService, 
-    private alertService: AlertService,
-    private router: Router
-    ) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router) {}
 
   ngOnInit(): void {
+    this.getMDLList();
     this.formInit();
   }
 
   formInit(): void {
     this.form = this.fb.group({
-      client: [null, Validators.required],
-      tender_id: [null, Validators.required],
+      doc_id: [null, Validators.required],
       drawingFrom: [null, Validators.required],
       artist: [null],
       drawingApprovedBy: [null],
@@ -57,38 +55,27 @@ export class DrawingComponent {
     }
   }
 
-  getClient(): void {
-    this.companyData = [];
-    const apiLink = `/company/api/v1/getComapanyList`;
+  getMDLList(): void {
+    this.mdlData = [];
+    this.isNotFound = true;
+    const apiLink = `/drawing/api/v1/getMDLList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if(res.status === 200) {
-        this.companyData = res.result;
+        this.mdlData = res.result;
+        this.isNotFound = false;
       } else {
+        this.isNotFound = false;
         this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
+      this.isNotFound = false;
       this.alertService.error(error);
     }
   }
 
-  getTenderList(): void {
-    this.tenderList = [];
-    const apiLink = `/biding/api/v1/getTenderlist?comapany_id=${this.form.value.client}`;
-    this.apiService.getData(apiLink).subscribe((res: any) => {
-      if(res.status === 200) {
-        this.tenderList = res.result;
-      } else {
-        this.alertService.warning(res.message);
-      }
-    }),
-    (error: any) => {
-      this.alertService.error(error);
-    }
-  }
-
-  selectTender(): void {
-    this.selectedTender = this.tenderList.filter((tender: any) => tender.tender_id == this.form.value.tender_id)[0];
+  getDrawingList(data: any): void {
+    this.selectRow = data;
   }
 
   selectDrawingFrom(): void {
@@ -120,8 +107,7 @@ export class DrawingComponent {
     this.isSubmitted = true;
     console.log(this.form.value);
     const formData: FormData = new FormData();
-    formData.append('client', this.form.value.client);
-    formData.append('tender_id', this.form.value.tender_id);
+    formData.append('doc_id', this.form.value.doc_id);
     formData.append('drawing', this.imageUploadFile);
     formData.append('drawingFrom', this.form.value.drawingFrom);
     formData.append('file', this.uploadFile);
@@ -130,18 +116,18 @@ export class DrawingComponent {
       formData.append('artist', this.form.value.artist);
       formData.append('drawingApprovedBy', this.form.value.drawingApprovedBy);
     }
-    // this.apiService.createDocuments(formData).subscribe((res: any) => {
-    //   if (res.status == 200) {
-    //     this.form.reset();
-    //     this.alertService.success(res.message);
-    //     document.getElementById('cancel')?.click();
-    //   } else {
-    //     this.alertService.warning(res.message);
-    //   }
-    // }),
-    // (error: any) => {
-    //   this.alertService.error(error);
-    // }
+    this.apiService.addDrawingDocument(formData).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.form.reset();
+        this.alertService.success(res.message);
+        document.getElementById('cancel')?.click();
+      } else {
+        this.alertService.warning(res.message);
+      }
+    }),
+    (error: any) => {
+      this.alertService.error(error);
+    }
     this.isSubmitted = false;
   }
 

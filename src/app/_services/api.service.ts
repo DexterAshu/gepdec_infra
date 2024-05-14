@@ -428,4 +428,9 @@ finAbidta(year:any, check:any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.put(`${environment.apiUrl}/document/api/v1/l2ScheduleUpdate`, data, httpOptions);
   }
+
+  addDrawingDocument(data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.post(`${environment.apiUrl}/drawing/api/v1/addDrawingDocument`, data, httpOptions);
+  }
 }
