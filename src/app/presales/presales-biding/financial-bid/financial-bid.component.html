@@ -225,7 +225,7 @@
                                                 (keyup)="comparisonData(annual.value)" appNumberOnly>
                                         </div>
 
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" *ngIf="form.value.annual_turnover != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
                                                 <select formControlName="annual_turnover_check" #condition class="form-select form-select-sm"
@@ -239,11 +239,11 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="col-md-2" *ngIf="condition.value">
+                                        <div class="col-md-2" *ngIf="form.value.annual_turnover_check">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
                                                 <select formControlName="annual_turnover_year" #year class="form-select form-select-sm"
-                                                    (change)="annuvalTurnVal(year.value, condition.value, annual.value)">
+                                                    (change)="annuvalTurnVal(year.value, form.value.annual_turnover_check, annual.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Previous Year</option>
@@ -288,7 +288,7 @@
 
                                         </div>
 
-                                        <div class="col-md-2" >
+                                        <div class="col-md-2" *ngIf="form.value.net_profit != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
                                                 <select formControlName="net_profit_check" #condition5
@@ -304,21 +304,21 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-2" *ngIf="condition5.value">
+                                        <div class="col-md-2" *ngIf="form.value.net_profit_check">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
                                                 <select formControlName="net_profit_year" #year5
                                                     class="form-select form-select-sm"
-                                                    (change)="netProfitData(year5.value, condition5.value, netprofit.value)">
+                                                    (change)="netProfitData(year5.value, form.value.net_profit_check, netprofit.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select
                                                         Year</option>
-                                                    <option value="0">Current Year</option>
+                                                    <!-- <option value="0">Current Year</option> -->
                                                     <option value="1">Previous Year</option>
-                                                    <option value="2">Last 2 Year</option>
+                                                    <!-- <option value="2">Last 2 Year</option>
                                                     <option value="3">Last 3 Years</option>
                                                     <option value="4">Last 4 Years</option>
                                                     <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
+                                                    <option value="7">Last 7 Years</option> -->
                                                 </select>
 
                                             </div>
@@ -355,31 +355,12 @@
                                                 (keyup)="comparisonEbidtaData(ebdt.value)" appNumberOnly>
 
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="ebidta_year" #year9
-                                                    class="form-select form-select-sm"
-                                                    (change)="ebidtaData(year9.value, form.value.ebidta_check, ebdt.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                        Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Previous Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year9.value">
+                                        <div class="col-md-2" *ngIf="form.value.ebidta != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="ebidta_check"
+                                                <select formControlName="ebidta_check" #ebt
                                                     class="form-select form-select-sm"
-                                                    (change)="ebidtaData(year9.value, form.value.ebidta_check, ebdt.value)">
+                                                    (change)="ebidtaData(form.value.ebidta_year, ebt.value, ebdt.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select
                                                     </option>
                                                     <option value="MIN">Minimum</option>
@@ -389,12 +370,32 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-2" *ngIf="year9.value">
+                                        <div class="col-md-2" *ngIf="form.value.ebidta_check">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="ebidta_year" #year9
+                                                    class="form-select form-select-sm"
+                                                    (change)="ebidtaData(year9.value, form.value.ebidta_check, ebdt.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                        Year</option>
+                                                    <option value="0">Current Year</option>
+                                                    <option value="1">Previous Year</option>
+                                                    <!-- <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option> -->
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                   
+                                        <div class="col-md-2" *ngIf="form.value.ebidta_year">
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm" formControlName="our_ebidta"
                                                 readonly [value]="ebidtaVal">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.ebidta_check != ''">
+                                        <div class="col-md-2" *ngIf="ebidtaVal != null">
                                             <br>
                                             <div class="status-icon mt-2">
                                                 <ng-container *ngIf="isEbidta == true; else ebd">
@@ -418,31 +419,12 @@
                                                 (keyup)="comparisonNetWorthData(networth.value)" appNumberOnly>
 
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="net_worth_year" #year1
-                                                    class="form-select form-select-sm"
-                                                    (change)="netWorthVal(year1.value, form.value.net_worth_check, networth.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                        Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Previous Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year1.value">
+                                        <div class="col-md-2" *ngIf="form.value.net_worth != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="net_worth_check"
+                                                <select formControlName="net_worth_check" #netW
                                                     class="form-select form-select-sm"
-                                                    (change)="netWorthVal(year1.value, form.value.net_worth_check, networth.value)">
+                                                    (change)="netWorthVal(form.value.net_worth_year, netW.value, networth.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select
                                                     </option>
                                                     <option value="MIN">Minimum</option>
@@ -452,12 +434,32 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-2" *ngIf="year1.value">
+                                        <div class="col-md-2"  *ngIf="form.value.net_worth_check">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="net_worth_year" #year1
+                                                    class="form-select form-select-sm"
+                                                    (change)="netWorthVal(year1.value, form.value.net_worth_check, networth.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                        Year</option>
+                                                    <option value="0">Current Year</option>
+                                                    <option value="1">Previous Year</option>
+                                                    <!-- <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option> -->
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                      
+                                        <div class="col-md-2" *ngIf="form.value.net_worth_year">
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm" formControlName="our_net_worth"
                                                 readonly [value]="data1">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.net_worth_check != ''">
+                                        <div class="col-md-2" *ngIf="data1 != null">
                                             <br>
                                             <div class="status-icon mt-2">
                                                 <ng-container *ngIf="isNetWorth == true; else netWorthData">
@@ -482,7 +484,21 @@
                                                 (keyup)="comparisonNetWorkData(networkCap.value)" appNumberOnly>
 
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" *ngIf="form.value.net_working_capital != ''">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Condition</label>
+                                                <select formControlName="net_working_capital_check" #netWorkCap
+                                                    class="form-select form-select-sm"
+                                                    (change)="netWorkingCapitalVal(form.value.net_working_capital_year, netWorkCap.value, networkCap.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                    </option>
+                                                    <option value="MIN">Minimum</option>
+                                                    <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="form.value.net_working_capital_check">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Years</label>
                                                 <select formControlName="net_working_capital_year" #year2
@@ -492,34 +508,21 @@
                                                         Year</option>
                                                     <option value="0">Current Year</option>
                                                     <option value="1">Previous Year</option>
-                                                    <option value="2">Last 2 Year</option>
+                                                    <!-- <option value="2">Last 2 Year</option>
                                                     <option value="3">Last 3 Years</option>
                                                     <option value="4">Last 4 Years</option>
                                                     <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
+                                                    <option value="7">Last 7 Years</option> -->
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-2" *ngIf="year2.value">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="net_working_capital_check"
-                                                    class="form-select form-select-sm"
-                                                    (change)="netWorkingCapitalVal(year2.value, form.value.net_working_capital_check, networkCap.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                    </option>
-                                                    <option value="MIN">Minimum</option>
-                                                    <option value="AVG">Average</option>
-                                                    <option value="MAX">Any</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year2.value">
+                                      
+                                        <div class="col-md-2" *ngIf="form.value.net_working_capital_year">
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm"
                                                 formControlName="our_net_working_capital" readonly [value]="data2">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.net_working_capital_check != ''">
+                                        <div class="col-md-2" *ngIf="data2 != null">
                                             <br>
                                             <div class="status-icon mt-2">
                                                 <ng-container *ngIf="isNetWorkingCap == true; else netWorkCapData">
@@ -544,30 +547,13 @@
                                                 class="form-control form-control-sm" #libi
                                                 (keyup)="comparisonLibData(libi.value)" appNumberOnly>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="total_liabilities_year" #year3
-                                                    class="form-select form-select-sm"
-                                                    (change)="totalLiabilityVal(year3.value, form.value.total_liabilities_check, libi.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                        Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Previous Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year3.value">
+
+                                        <div class="col-md-2" *ngIf="form.value.total_liabilities != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="total_liabilities_check"
+                                                <select formControlName="total_liabilities_check" #totLib
                                                     class="form-select form-select-sm"
-                                                    (change)="totalLiabilityVal(year3.value, form.value.total_liabilities_check, libi.value)">
+                                                    (change)="totalLiabilityVal(form.value.total_liabilities_year, totLib.value, libi.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select
                                                     </option>
                                                     <option value="MIN">Minimum</option>
@@ -576,13 +562,32 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-2" *ngIf="year3.value">
+                                        <div class="col-md-2" *ngIf="form.value.total_liabilities_check">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="total_liabilities_year" #year3
+                                                    class="form-select form-select-sm"
+                                                    (change)="totalLiabilityVal(year3.value, form.value.total_liabilities_check, libi.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                        Year</option>
+                                                    <!-- <option value="0">Current Year</option> -->
+                                                    <option value="1">Previous Year</option>
+                                                    <!-- <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-md-2" *ngIf="form.value.total_liabilities_year">
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm"
                                                 formControlName="our_total_liabilities" readonly
                                                 [value]="liabilityData">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.total_liabilities_check != ''">
+                                        <div class="col-md-2" *ngIf="liabilityData != null">
                                             <br>
                                             <div class="status-icon mt-2">
                                                 <ng-container *ngIf="isLiability == true; else libData">
@@ -605,31 +610,13 @@
                                                 (keyup)="comparisonAssetData(fixedasset.value)" appNumberOnly>
 
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="total_fixed_assets_year" #year4
-                                                    class="form-select form-select-sm"
-                                                    (change)="fixAsset(year4.value, form.value.total_fixed_assets_check, fixedasset.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                        Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Previous Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year4.value">
+                                        <div class="col-md-2" *ngIf="form.value.total_fixed_assets != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
                                                 <select formControlName="total_fixed_assets_check"
-                                                    class="form-select form-select-sm"
-                                                    (change)="fixAsset(year4.value, form.value.total_fixed_assets_check, fixedasset.value)">
+                                                    class="form-select form-select-sm" #fixedAssetData
+                                                    (change)="fixAsset(form.value.total_fixed_assets_year, fixedAssetData.value, fixedasset.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select
                                                     </option>
                                                     <option value="MIN">Minimum</option>
@@ -639,12 +626,32 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-2" *ngIf="year4.value">
+                                        <div class="col-md-2" *ngIf="form.value.total_fixed_assets_check">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="total_fixed_assets_year" #year4
+                                                    class="form-select form-select-sm"
+                                                    (change)="fixAsset(year4.value, form.value.total_fixed_assets_check, fixedasset.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                        Year</option>
+                                                    <!-- <option value="0">Current Year</option> -->
+                                                    <option value="1">Previous Year</option>
+                                                    <!-- <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option> -->
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-md-2" *ngIf="form.value.total_fixed_assets_year">
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm"
                                                 formControlName="our_total_fixed_assets" readonly [value]="assetVal">
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.total_fixed_assets_check != ''">
+                                        <div class="col-md-2" *ngIf="assetVal != null">
                                             <br>
                                             <div class="status-icon mt-2">
                                                 <ng-container *ngIf="isTotaAsset == true; else assetData">
@@ -730,31 +737,12 @@
                                                 (keyup)="comparisonRSData(rsVal.value)" appNumberOnly>
 
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="reserve_surplus_year" #year7
-                                                    class="form-select form-select-sm"
-                                                    (change)="resAndsurplus(year7.value, form.value.reserve_surplus_check, rsVal.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                        Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Previous Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year7.value">
+                                        <div class="col-md-2" *ngIf="form.value.reserve_surplus != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
                                                 <select formControlName="reserve_surplus_check"
-                                                    class="form-select form-select-sm"
-                                                    (change)="resAndsurplus(year7.value, form.value.reserve_surplus_check, rsVal.value)">
+                                                    class="form-select form-select-sm" #resurp
+                                                    (change)="resAndsurplus(form.value.reserve_surplus_year, resurp.value, rsVal.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select
                                                     </option>
                                                     <option value="MIN">Minimum</option>
@@ -764,13 +752,33 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-2" *ngIf="year7.value">
+                                        <div class="col-md-2"  *ngIf="form.value.reserve_surplus_check">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="reserve_surplus_year" #year7
+                                                    class="form-select form-select-sm"
+                                                    (change)="resAndsurplus(year7.value, form.value.reserve_surplus_check, rsVal.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                        Year</option>
+                                                    <!-- <option value="0">Current Year</option> -->
+                                                    <option value="1">Previous Year</option>
+                                                    <!-- <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option> 
+                                                    <option value="7">Last 7 Years</option> -->
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                      
+                                        <div class="col-md-2" *ngIf="form.value.reserve_surplus_year">
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm"
                                                 formControlName="our_reserve_surplus" readonly [value]="rAnds">
 
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.reserve_surplus_check != ''">
+                                        <div class="col-md-2" *ngIf="rAnds != null">
                                             <br>
                                             <div class="status-icon mt-2">
                                                 <ng-container *ngIf="isRS == true; else rs">
@@ -793,31 +801,12 @@
                                                 (keyup)="comparisonPaidupData(paiupcapi.value)" appNumberOnly>
 
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="paid_upcapital_year" #year8
-                                                    class="form-select form-select-sm"
-                                                    (change)="paidUpCapital(year8.value, form.value.paid_upcapital_check, paiupcapi.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                        Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Previous Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year8.value">
+                                        <div class="col-md-2" *ngIf="form.value.paid_upcapital != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="paid_upcapital_check"
+                                                <select formControlName="paid_upcapital_check" #paidCap
                                                     class="form-select form-select-sm"
-                                                    (change)="paidUpCapital(year8.value, form.value.paid_upcapital_check, paiupcapi.value)">
+                                                    (change)="paidUpCapital(form.value.paid_upcapital_year, paidCap.value, paiupcapi.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select
                                                     </option>
                                                     <option value="MIN">Minimum</option>
@@ -827,13 +816,33 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-2" *ngIf="year8.value">
+                                        <div class="col-md-2"  *ngIf="form.value.paid_upcapital_check">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Years</label>
+                                                <select formControlName="paid_upcapital_year" #year8
+                                                    class="form-select form-select-sm"
+                                                    (change)="paidUpCapital(year8.value, form.value.paid_upcapital_check, paiupcapi.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                        Year</option>
+                                                    <option value="0">Current Year</option>
+                                                    <option value="1">Previous Year</option>
+                                                    <!-- <option value="2">Last 2 Year</option>
+                                                    <option value="3">Last 3 Years</option>
+                                                    <option value="4">Last 4 Years</option>
+                                                    <option value="5">Last 5 Years</option>
+                                                    <option value="7">Last 7 Years</option> -->
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="col-md-2" *ngIf="form.value.paid_upcapital_year">
                                             <label class="form-label fl-10 text-small">Our Values</label>
                                             <input class="form-control form-control-sm"
                                                 formControlName="our_paid_upcapital" readonly [value]="paiCapitalVal">
 
                                         </div>
-                                        <div class="col-md-2" *ngIf="form.value.paid_upcapital_check != ''">
+                                        <div class="col-md-2" *ngIf="paiCapitalVal != null">
                                             <br>
                                             <div class="status-icon mt-2">
                                                 <ng-container *ngIf="isPaidupCapital == true; else paidupCa">
