@@ -13,21 +13,24 @@ import { Router } from '@angular/router';
 export class MasterDrawingListComponent {
   isOpen: boolean = false;
   searchText: any
-  docListData: any = [];
   p: number = 1;
   limit = environment.pageLimit;
   form!: FormGroup;
   selectedTender: any;
+  selectMDLRow: any;
   companyData: any = [];
   tenderList: any = [];
   attachment: any = [];
   listOfFiles: any = [];
+  mdlData: any = [];
   isSubmitted: boolean = false;
+  isNotFound: boolean = false;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router) {}
 
   ngOnInit(): void {
     this.formInit();
+    this.getMDLList();
   }
 
   formInit(): void {
@@ -78,6 +81,29 @@ export class MasterDrawingListComponent {
   redirect(route: any) {
     if (route) {
       this.router.navigateByUrl(route.target.value);
+    }
+  }
+
+  getMDLRow(data: any): void {
+    this.selectMDLRow = data;
+  }
+
+  getMDLList(): void {
+    this.mdlData = [];
+    this.isNotFound = true;
+    const apiLink = `/drawing/api/v1/getMDLList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if(res.status === 200) {
+        this.mdlData = res.result;
+        this.isNotFound = false;
+      } else {
+        this.isNotFound = false;
+        this.alertService.warning(res.message);
+      }
+    }),
+    (error: any) => {
+      this.isNotFound = false;
+      this.alertService.error(error);
     }
   }
 
