@@ -35,6 +35,7 @@
                 <th>Cost</th>
                 <th>HSN Code</th>
                 <th>GST (%)</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
@@ -52,6 +53,9 @@
                 <td>{{ a?.cost }}</td>
                 <td>{{ a?.hsn_code}}</td>
                 <td>{{ a?.gst }}</td>
+                <td>
+                  <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#detailModel" (click)="selectRow(a)" title="Item Detail Model"><span class="mdi mdi-eye text-success mdi-18px"></span></a>
+                </td>
               </tr>
               <tr *ngIf="dataList?.length == 0">
                 <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>
@@ -65,6 +69,60 @@
           </app-responsive-table>
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="detailModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ selectedRow?.itemcode }} - Item details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-3">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="table-responsive" style="min-height: auto">
+              <table class="table table-hover table-striped custom-table">
+                <thead class="hidden-thead"></thead>
+                <tbody class="text-nowrap">
+                  <tr>
+                    <th>Item Code</th>
+                    <td>{{ selectedRow?.itemcode }}</td>
+                    <th>Description</th>
+                    <td>{{ selectedRow?.description }}</td>
+                  </tr>
+                  <tr>
+                    <th>UOM</th>
+                    <td>{{ selectedRow?.uom }}</td>
+                    <th>Cost</th>
+                    <td>{{ selectedRow?.cost }}</td>
+                  </tr>
+                  <tr>
+                    <th>Category</th>
+                    <td>{{ selectedRow?.itemcategory }}</td>
+                    <th>Sub-Category</th>
+                    <td>{{ selectedRow?.subcategory }}</td>
+                  </tr>
+                  <tr>
+                    <th>HSN Code</th>
+                    <td>{{ selectedRow?.hsn_code }}</td>
+                    <th>GST</th>
+                    <td>{{ selectedRow?.gst ? selectedRow?.gst : 0 }}</td>
+                  </tr>
+                  <tr>
+                    <th>Created Date</th>
+                    <td>{{ selectedRow?.created | date: 'dd/MM/yyyy hh:mm a' }}</td>
+                    <th>Created By</th>
+                    <td>{{ selectedRow?.createdby_name }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -140,7 +198,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">HSN Code</label>
-                  <input formControlName="hsnCode" type="text" class="form-control form-control-sm" appUpperCase appAlphaNumeric appNoSpace>
+                  <input formControlName="hsnCode" type="text" class="form-control form-control-sm" appNoSpace>
                   <div *ngIf="f['hsnCode'].touched && f['hsnCode'].invalid">
                     <small class="text-danger" *ngIf="f['hsnCode'].errors?.['required']">*Required</small>
                   </div>

@@ -18,6 +18,7 @@ export class ItemMasterComponent {
   dataList: any;
   file: any;
   dataDropdownList: any;
+  selectedRow: any;
 
   constructor( private formBuilder: FormBuilder, private alertService: AlertService,private apiService: ApiService ) { }
 
@@ -44,6 +45,10 @@ export class ItemMasterComponent {
   }
 
   get f() { return this.form.controls; }
+
+  selectRow(data: any): void {
+    this.selectedRow = data;
+  }
 
   getDropdownList() {
     this.dataDropdownList = [];
