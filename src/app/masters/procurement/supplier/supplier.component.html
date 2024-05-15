@@ -583,7 +583,7 @@
                       <th>GST No</th>
                       <td>{{ rowData?.gstno }}</td>
                       <th>GST Date</th>
-                      <td>{{ rowData?.gstdate }}</td>
+                      <td>{{ rowData?.gstdate | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     </tr>
                     <tr>
                       <th>PAN No</th>
@@ -591,7 +591,7 @@
                       <th>TAN No</th>
                       <td>{{ rowData?.tanno }}</td>
                       <th>DOI</th>
-                      <td>{{ rowData?.doi }}</td>
+                      <td>{{ rowData?.doi | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     </tr>
                   </tbody>
                 </table>
