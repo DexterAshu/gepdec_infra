@@ -1583,7 +1583,7 @@ export class DashboardComponent implements OnInit {
                       // const progressValue = item.progress ? parseFloat(item.progress.replace('%', '')) : 0;
                       return {
                           name: item.tender_title,
-                          value: item.progress,
+                          value: item.duration,
                       };
                   });
                   this.progressBar2 = this.dashboardData.statusProgress; // Keeping original data for logging
