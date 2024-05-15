@@ -40,7 +40,7 @@ export class SupplierComponent {
       // supplierCode: [null, Validators.required],
       supplierName: [null, Validators.required],
       category: [null, Validators.required],
-      categoryNo: [null],
+      categoryNo: [null, Validators.required],
       // companyName: [null, Validators.required],
       gstNo: [null],
       gstDate: [null],
