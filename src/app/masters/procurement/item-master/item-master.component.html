@@ -1,301 +1,226 @@
 <div class="content-wrapper">
-    <div class="row">
-        <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Item</h4>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
+  <div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="d-flex align-items-end flex-wrap">
+          <div class="mr-md-3 mr-xl-5">
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Item</h4>
           </div>
         </div>
+        <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <!-- <h3 class="card-title">Company</h3>
-                    <hr> -->
-                    <div class="d-flex my-10">
-                        <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
-                        </div>
-                        <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
-                        </div>
-                    </div>
-                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
-                        <thead class="table-primary text-nowrap">
-                            <tr>
-                                <th>S No</th>
-                                <th>Code</th>
-                                <th>Description</th>
-                                <!-- <th>Type</th> -->
-                                <th>Category</th>
-                                <th>Sub-Category</th>
-                                <!-- <th>Procurement UOM</th> -->
-                                <th>UOM</th>
-                                <th>Cost</th>
-                                <th>GST</th>
-                                <!-- <th>Last Procured Date</th> -->
-                                <!-- <th>Created By</th> -->
-                                <!-- <th>Created On</th> -->
-                                <!-- <th>Action</th> -->
-                            </tr>
-                        </thead>
-                        <tbody class="text-nowrap">
-                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                                <td>{{ limit*(p-1)+i+1 }}</td>
-                                <td>{{ a?.itemcode }}</td>
-                                <td>
-                                    <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
-                                        {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock1>
-                                        {{a?.description}}
-                                    </ng-template>
-                                </td>
-                                <!-- <td>{{ a.itemtype }}</td> -->
-                                <td>{{ a?.itemcategory }}</td>
-                                <td>{{ a?.subcategory }}</td>
-                                <!-- <td>{{ a?.precurementuom }}</td> -->
-                                <td>{{ a?.uom }}</td>
-                                <td>{{ a?.cost }}</td>
-                                <td>{{ a?.gst }}</td>
-                                <!-- <td>--</td> -->
-                                <!-- <td>{{ a.createdby_name }}</td> -->
-                                <!-- <td>{{ a.created }}</td> -->
-                                <!-- <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
-                                </td> -->
-                            </tr>
-                            <tr *ngIf="dataList?.length == 0">
-                                <td colspan="15" class="text-center">
-                                    <div class="spinner-border"> </div>
-                                </td>
-                            </tr>
-                            <tr *ngIf="isNotFound == true">
-                                <td colspan="15" class="text-center">
-                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </app-responsive-table>
-                    <div class="pagination-sec text-center">
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                    </div>
-                </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex my-10">
+            <div class="col-lg-4">
+              <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
+            <div class="col-lg-8">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+            </div>
+          </div>
+          <app-responsive-table id="export">
+            <thead class="table-primary text-nowrap">
+              <tr>
+                <th>S No</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Sub-Category</th>
+                <th>UOM</th>
+                <th>Cost</th>
+                <th>HSN Code</th>
+                <th>GST (%)</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap">
+              <tr
+                *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                <td>{{ limit*(p-1)+i+1 }}</td>
+                <td>{{ a?.itemcode }}</td>
+                <td>
+                  <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">{{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <ng-template #elseBlock1>{{a?.description}}</ng-template>
+                </td>
+                <td>{{ a?.itemcategory }}</td>
+                <td>{{ a?.subcategory }}</td>
+                <td>{{ a?.uom }}</td>
+                <td>{{ a?.cost }}</td>
+                <td>{{ a?.hsn_code}}</td>
+                <td>{{ a?.gst }}</td>
+              </tr>
+              <tr *ngIf="dataList?.length == 0">
+                <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>
+              </tr>
+              <tr *ngIf="isNotFound == true">
+                <td colspan="15" class="text-center">
+                  <div class="text-warning fw-semibold">Looks like no data available!</div>
+                </td>
+              </tr>
+            </tbody>
+          </app-responsive-table>
+          <div class="pagination-sec text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<!-- create modal -->
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                        <div class="row">
-                            <!-- <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Code<span class="required-asterisk">*</span></label>
-                                    <input formControlName="itemCode" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
-                                    <div *ngIf="f['itemCode'].touched && f['itemCode'].invalid">
-                                        <small class="text-danger" *ngIf="f['itemCode'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="form-label">Description<span class="required-asterisk">*</span></label>
-                                    <input formControlName="description" type="text" class="form-control form-control-sm">
-                                    <div *ngIf="f['description'].touched && f['description'].invalid">
-                                        <small class="text-danger" *ngIf="f['description'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Item Parameter 1</label>
-                                    <input formControlName="parameter" type="text" class="form-control form-control-sm">
-                                </div>
-                            </div> -->
-                            <!-- <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Type<span class="required-asterisk">*</span></label>
-                                    <select formControlName="itemType" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Item</option>
-                                        <option *ngFor="let t of dataDropdownList?.itemtype" [value]="t.itemtype_id">{{ t.itemtype }}</option>
-                                    </select>
-                                    <div *ngIf="f['itemType'].touched && f['itemType'].invalid">
-                                        <small class="text-danger" *ngIf="f['itemType'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Category<span class="required-asterisk">*</span></label>
-                                    <!-- <input formControlName="itemCategory" type="text" class="form-control form-control-sm"> -->
-                                    <select formControlName="itemCategory" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
-                                        <option *ngFor="let t of dataDropdownList?.itemcategory" [value]="t?.itemcategory_id">{{ t?.itemcategory }}</option>
-                                        <!-- <option>Supply</option>
-                                        <option>Service</option> -->
-                                    </select>
-                                    <div *ngIf="f['itemCategory'].touched && f['itemCategory'].invalid">
-                                        <small class="text-danger" *ngIf="f['itemCategory'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Sub-Category<span class="required-asterisk">*</span></label>
-                                    <!-- <input formControlName="itemProperty" type="text" class="form-control form-control-sm"> -->
-                                    <select formControlName="itemSubCategory" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Sub-category</option>
-                                        <option *ngFor="let t of dataDropdownList?.subcategory" [value]="t?.subcategory_id">{{ t?.subcategory }}</option>
-                                        <!-- <option>Electrical</option>
-                                        <option>Mechanical</option>
-                                        <option>Civil</option>
-                                        <option>Other</option> -->
-                                    </select>
-                                    <div *ngIf="f['itemSubCategory'].touched && f['itemSubCategory'].invalid">
-                                        <small class="text-danger" *ngIf="f['itemSubCategory'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Procurement UOM<span class="required-asterisk">*</span></label>
-                                    <select formControlName="procurementUOM" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Procurement UOM</option>
-                                        <option *ngFor="let t of dataDropdownList?.precurementuom" [value]="t.precurementuom_id">{{ t.precurementuom }}</option>
-                                    </select>
-                                    <div *ngIf="f['procurementUOM'].touched && f['procurementUOM'].invalid">
-                                        <small class="text-danger" *ngIf="f['procurementUOM'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">UOM<span class="required-asterisk">*</span></label>
-                                    <!-- <input formControlName="itemUOM" type="text" class="form-control form-control-sm"> -->
-                                    <select formControlName="itemUOM" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select UOM</option>
-                                        <option *ngFor="let t of dataDropdownList?.uom" [value]="t.unit_id">{{ t.uom }}</option>
-                                    </select>
-                                    <div *ngIf="f['itemUOM'].touched && f['itemUOM'].invalid">
-                                        <small class="text-danger" *ngIf="f['itemUOM'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Last Procured Cost</label>
-                                    <input formControlName="cost" type="text" class="form-control form-control-sm" appNoSpace appNumWithDot>
-                                    <div *ngIf="f['cost'].touched && f['cost'].invalid">
-                                        <small class="text-danger" *ngIf="f['cost'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">HSN Code</label>
-                                    <input formControlName="hsnCode" type="text" class="form-control form-control-sm" appUpperCase appAlphaNumeric appNoSpace>
-                                    <div *ngIf="f['hsnCode'].touched && f['hsnCode'].invalid">
-                                        <small class="text-danger" *ngIf="f['hsnCode'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">GST (%)</label>
-                                    <select formControlName="gst" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select GST (%)</option>
-                                        <option>0</option>
-                                        <option>5</option>
-                                        <option>12</option>
-                                        <option>18</option>
-                                        <option>28</option>
-                                    </select>
-                                    <div *ngIf="f['gst'].touched && f['gst'].invalid">
-                                        <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Segment<span class="required-asterisk">*</span></label>
-                                    <select formControlName="parentItem" #parentItem class="form-select form-select-sm" (change)="isParent(parentItem.value)">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                                        <option value="Yes">Child Item</option>
-                                        <option value="No">Parent Item</option>
-                                    </select>
-                                    <div *ngIf="f['parentItem'].touched && f['parentItem'].invalid">
-                                        <small class="text-danger" *ngIf="f['parentItem'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-4" *ngIf="parentItem.value == 'Yes'">
-                                <div class="form-group">
-                                    <label class="form-label">Select Parent Item<span class="required-asterisk">*</span></label>
-                                    <select formControlName="parentItem_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Parent</option>
-                                        <option *ngFor="let t of dataList" [value]="t.item_id">{{ t.itemcode }} [{{ t.description }}]</option>
-                                    </select>
-                                    <div *ngIf="f['parentItem_id'].touched && f['parentItem_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['parentItem_id'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Class<span class="required-asterisk">*</span></label>
-                                    <select formControlName="itemClass" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Class</option>
-                                        <option *ngFor="let t of dataDropdownList?.materialclass" [value]="t.materialclass_id">{{ t.materialclass }}</option>
-                                    </select>
-                                    <div *ngIf="f['itemClass'].touched && f['itemClass'].invalid">
-                                        <small class="text-danger" *ngIf="f['itemClass'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Tolerance<span class="required-asterisk">*</span></label>
-                                    <select formControlName="itemTolerance" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Tolerance</option>
-                                        <option *ngFor="let t of dataDropdownList?.tolerance" [value]="t.tolerance_id">{{ t.tolerance }}</option>
-                                    </select>
-                                    <div *ngIf="f['itemTolerance'].touched && f['itemTolerance'].invalid">
-                                        <small class="text-danger" *ngIf="f['itemTolerance'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
-                                data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </form>
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label class="form-label">Description<span class="required-asterisk">*</span></label>
+                  <input formControlName="description" type="text" class="form-control form-control-sm">
+                  <div *ngIf="f['description'].touched && f['description'].invalid">
+                    <small class="text-danger" *ngIf="f['description'].errors?.['required']">*Required</small>
+                  </div>
                 </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Category<span class="required-asterisk">*</span></label>
+                  <select formControlName="itemCategory" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
+                    <option *ngFor="let t of dataDropdownList?.itemcategory" [value]="t?.itemcategory_id">{{t?.itemcategory }}</option>
+                  </select>
+                  <div *ngIf="f['itemCategory'].touched && f['itemCategory'].invalid">
+                    <small class="text-danger" *ngIf="f['itemCategory'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Sub-Category<span class="required-asterisk">*</span></label>
+                  <select formControlName="itemSubCategory" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Sub-category</option>
+                    <option *ngFor="let t of dataDropdownList?.subcategory" [value]="t?.subcategory_id">{{t?.subcategory }}</option>
+                  </select>
+                  <div *ngIf="f['itemSubCategory'].touched && f['itemSubCategory'].invalid">
+                    <small class="text-danger" *ngIf="f['itemSubCategory'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">UOM<span class="required-asterisk">*</span></label>
+                  <select formControlName="itemUOM" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select UOM</option>
+                    <option *ngFor="let t of dataDropdownList?.uom" [value]="t.unit_id">{{ t.uom }}</option>
+                  </select>
+                  <div *ngIf="f['itemUOM'].touched && f['itemUOM'].invalid">
+                    <small class="text-danger" *ngIf="f['itemUOM'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Last Procured Cost</label>
+                  <input formControlName="cost" type="text" class="form-control form-control-sm" appNoSpace appNumWithDot>
+                  <div *ngIf="f['cost'].touched && f['cost'].invalid">
+                    <small class="text-danger" *ngIf="f['cost'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">HSN Code</label>
+                  <input formControlName="hsnCode" type="text" class="form-control form-control-sm" appUpperCase appAlphaNumeric appNoSpace>
+                  <div *ngIf="f['hsnCode'].touched && f['hsnCode'].invalid">
+                    <small class="text-danger" *ngIf="f['hsnCode'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">GST (%)</label>
+                  <select formControlName="gst" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select GST (%)</option>
+                    <option>0</option>
+                    <option>3</option>
+                    <option>5</option>
+                    <option>12</option>
+                    <option>18</option>
+                    <option>28</option>
+                  </select>
+                  <div *ngIf="f['gst'].touched && f['gst'].invalid">
+                    <small class="text-danger" *ngIf="f['gst'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Segment<span class="required-asterisk">*</span></label>
+                  <select formControlName="parentItem" #parentItem class="form-select form-select-sm" (change)="isParent(parentItem.value)">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                    <option value="Yes">Child Item</option>
+                    <option value="No">Parent Item</option>
+                  </select>
+                  <div *ngIf="f['parentItem'].touched && f['parentItem'].invalid">
+                    <small class="text-danger" *ngIf="f['parentItem'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4" *ngIf="parentItem.value == 'Yes'">
+                <div class="form-group">
+                  <label class="form-label">Select Parent Item<span class="required-asterisk">*</span></label>
+                  <select formControlName="parentItem_id" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Parent</option>
+                    <option *ngFor="let t of dataList" [value]="t.item_id">{{ t.itemcode }} [{{ t.description }}]</option>
+                  </select>
+                  <div *ngIf="f['parentItem_id'].touched && f['parentItem_id'].invalid">
+                    <small class="text-danger" *ngIf="f['parentItem_id'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Class<span class="required-asterisk">*</span></label>
+                  <select formControlName="itemClass" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Class</option>
+                    <option *ngFor="let t of dataDropdownList?.materialclass" [value]="t.materialclass_id">{{t.materialclass }}</option>
+                  </select>
+                  <div *ngIf="f['itemClass'].touched && f['itemClass'].invalid">
+                    <small class="text-danger" *ngIf="f['itemClass'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label">Tolerance<span class="required-asterisk">*</span></label>
+                  <select formControlName="itemTolerance" class="form-select form-select-sm">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Tolerance</option>
+                    <option *ngFor="let t of dataDropdownList?.tolerance" [value]="t.tolerance_id">{{ t.tolerance }}</option>
+                  </select>
+                  <div *ngIf="f['itemTolerance'].touched && f['itemTolerance'].invalid">
+                    <small class="text-danger" *ngIf="f['itemTolerance'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-btns">
+                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
+                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-<!-- create modal end-->

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,13 +18,8 @@ export class ItemMasterComponent {
   dataList: any;
   file: any;
   dataDropdownList: any;
- 
-  constructor(
-    private formBuilder: FormBuilder,
-    private masterService: MasterService,
-    private alertService: AlertService,
-    private apiService: ApiService,
-  ) { }
+
+  constructor( private formBuilder: FormBuilder, private alertService: AlertService,private apiService: ApiService ) { }
 
  ngOnInit(){
     this.form = this.formBuilder.group({
@@ -46,7 +41,7 @@ export class ItemMasterComponent {
 
     this.getDataList();
     this.getDropdownList()
-  } 
+  }
 
   get f() { return this.form.controls; }
 
@@ -69,7 +64,7 @@ export class ItemMasterComponent {
       this.alertService.error("Error: Unknown Error!")
     });
   }
-  
+
   getDataList() {
     this.dataList = [];
     this.isNotFound = false;
@@ -130,7 +125,7 @@ export class ItemMasterComponent {
         materialclass_id: this.form.value.class,
         tolerance_id: this.form.value.itemTolerance,
         subcategory_id: this.form.value.itemSubCategory,
-      } 
+      }
 
       let apiLink = '/Item/api/v1/addItem';
       this.apiService.postData(apiLink, data).subscribe(res => {
