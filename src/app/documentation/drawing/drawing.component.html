@@ -97,74 +97,82 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="table-responsive" style="min-height: 300px">
-            <h6 class="mb-2 text-secondary">Tender Details</h6>
-            <table class="table table-hover table-striped custom-table">
-              <thead class="hidden-thead"></thead>
-              <tbody>
-                <tr>
-                  <th>Tender Title</th>
-                  <td colspan="5">{{ selectRow?.tender_title }}</td>
-                </tr>
-                <tr>
-                  <th>Client</th>
-                  <td>{{ selectRow?.company_name }}</td>
-                  <th>NIT No</th>
-                  <td>
-                    <div *ngIf="!!selectRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectRow?.tender_ref_no }}">
-                        {{selectRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
-                    </div>
-                    <ng-template #elseBlock3>
-                        {{selectRow?.tender_ref_no}}
-                    </ng-template>
-                </td>
-                  <th>Execution Location</th>
-                  <td>{{ selectRow?.tender_location }}</td>
-                </tr>
-                <tr>
-                  <th>Document Description</th>
-                  <td colspan="5">{{ selectRow?.description }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <h6 class="mt-3 mb-2 text-secondary">Document/Drawing List</h6>
-            <table class="table table-hover table-striped custom-table">
-              <thead class="table-primary text-nowrap">
-                <tr>
-                  <th>S No</th>
-                  <th>Document/Drawing Title</th>
-                  <th>Document/Drawing Number</th>
-                  <th>Description</th>
-                  <th>Discipline</th>
-                  <th>Sub Discipline</th>
-                  <th>Stage</th>
-                  <th>Category</th>
-                  <th>Planned Submission</th>
-                  <th>Remarks</th>
-                </tr>
-              </thead>
-              <tbody class="text-nowrap">
-                <tr *ngFor="let a of selectRow?.drawing; index as i">
-                  <td>{{i+1}}</td>
-                  <td>{{a.document_title}}</td>
-                  <td>{{a.document_number}}</td>
-                  <td>
-                    <div *ngIf="!!a?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
-                        {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
-                    </div>
-                    <ng-template #elseBlock>
-                        {{a?.description}}
-                    </ng-template>
-                 </td>
-                  <td>{{a.discipline}}</td>
-                  <td>{{a.sub_discipline}}</td>
-                  <td>{{a.stage}}</td>
-                  <td>{{a.category}}</td>
-                  <td>{{a.planned_submission | date: 'dd/MM/yyyy'}}</td>
-                  <td>{{a.remarks}}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="row">
+            <div class="table-responsive" style="min-height: 300px">
+              <h6 class="mb-2 text-secondary">Tender Details</h6>
+              <table class="table table-hover table-striped custom-table">
+                <thead class="hidden-thead"></thead>
+                <tbody>
+                  <tr>
+                    <th>Tender Title</th>
+                    <td colspan="5">{{ selectRow?.tender_title }}</td>
+                  </tr>
+                  <tr>
+                    <th>Client</th>
+                    <td>{{ selectRow?.company_name }}</td>
+                    <th>NIT No</th>
+                    <td>
+                      <div *ngIf="!!selectRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectRow?.tender_ref_no }}">
+                          {{selectRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                      </div>
+                      <ng-template #elseBlock3>
+                          {{selectRow?.tender_ref_no}}
+                      </ng-template>
+                  </td>
+                    <th>Execution Location</th>
+                    <td>{{ selectRow?.tender_location }}</td>
+                  </tr>
+                  <tr>
+                    <th>Document Description</th>
+                    <td colspan="5">{{ selectRow?.description }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h6 class="mt-3 mb-2 text-secondary">Document/Drawing List</h6>
+              <div class="row">
+                <app-responsive-table>
+                  <thead class="table-primary text-nowrap">
+                    <tr>
+                      <th>S No</th>
+                      <th>Document/Drawing Title</th>
+                      <th>Document/Drawing Number</th>
+                      <th>Discipline</th>
+                      <th>Sub Discipline</th>
+                      <th>Stage</th>
+                      <th>Category</th>
+                      <th>Drawing From</th>
+                      <th>Planned Submission</th>
+                      <th>Remarks</th>
+                      <th>Description</th>
+                      <th>Status</th>
+                      <th>Drawing Image</th>
+                      <th>File</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-nowrap">
+                    <tr *ngFor="let a of selectRow?.drawing; index as i">
+                      <td>{{i+1}}</td>
+                      <td>{{a.drawing_title}}</td>
+                      <td>{{a.drawing_no}}</td>
+                      <td>{{a.discipline}}</td>
+                      <td>{{a.sub_discipline}}</td>
+                      <td>{{a.stage}}</td>
+                      <td>{{a.category}}</td>
+                      <td>{{a.drawing_from}}</td>
+                      <td>{{a.planned_submission | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{a.remarks}}</td>
+                      <td>
+                        <div *ngIf="!!a?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">{{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                        <ng-template #elseBlock>{{a?.description}}</ng-template>
+                     </td>
+                      <td>{{a.status}}</td>
+                      <td><a *ngIf="a?.drawing_image" href="{{apiURL}}/{{a.drawing_image.split('\\').join('/')}}" target="_blank"><img src="{{apiURL}}/{{a.drawing_image.split('\\').join('/')}}" alt="{{a.document_title}}"></a></td>
+                      <td><a *ngIf="a?.file_name" href="{{apiURL}}/{{a.file_name}}" target="_blank"><span class="mdi mdi-file-document-box-outline text-success cursor-pointer mdi-18px"></span></a></td>
+                    </tr>
+                  </tbody>
+                </app-responsive-table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

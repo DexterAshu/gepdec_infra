@@ -433,4 +433,14 @@ finAbidta(year:any, check:any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/drawing/api/v1/addDrawingDocument`, data, httpOptions);
   }
+
+  addMDLList(data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.post(`${environment.apiUrl}/drawing/api/v1/addMDLList`, data, httpOptions);
+  }
+
+  uploadAndApprovedMDL(data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.post(`${environment.apiUrl}/drawing/api/v1/uploadAndApprovedMDL`, data, httpOptions);
+  }
 }

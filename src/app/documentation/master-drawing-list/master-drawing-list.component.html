@@ -45,8 +45,10 @@
                 <th>Tender Title</th>
                 <th>Publish Date</th>
                 <th>Execution Location</th>
+                <th>Status</th>
                 <th>Version</th>
                 <th>Action</th>
+                <th>Approval</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
@@ -64,10 +66,16 @@
                </td>
                 <td>{{a.publish_date | date:'dd/MM/yyyy'}}</td>
                 <td>{{a.tender_location}}</td>
+                <td>{{a.status}}</td>
                 <td>{{a.version}}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                   <a class="ms-2" (click)="getMDLRow(a)" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a class="ms-2" *ngIf="a?.approved_file" href="{{apiURL}}/{{a?.approved_file}}" download target="_blank"><span class="mdi mdi-download text-success cursor-pointer mdi-18px"></span></a>
+                </td>
+                <td>
+                  <a *ngIf="a.status !== 'Approved'" data-bs-toggle="modal" (click)="getMDLRow(a)" data-bs-target="#approvalModel" title="Edit Details"><span class="mdi mdi-security-home text-info cursor-pointer mdi-18px"></span></a>
+                  <a *ngIf="a.status === 'Approved'"><span class="mdi mdi-security-home text-secondary mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="mdlData.length == 0">
@@ -83,6 +91,110 @@
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="approvalModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload Approval Document of MDL (Master Drawing List)</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="approvalForm" (ngSubmit)="onApprovalSubmit()">
+            <div class="row">
+              <div class="table-responsive" style="min-height: 300px">
+                <h6 class="mb-2 text-secondary">Tender Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody>
+                    <tr>
+                      <th>Tender Title</th>
+                      <td colspan="5">{{ selectMDLRow?.tender_title }}</td>
+                    </tr>
+                    <tr>
+                      <th>Client</th>
+                      <td>{{ selectMDLRow?.company_name }}</td>
+                      <th>NIT No</th>
+                      <td>
+                        <div *ngIf="!!selectMDLRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectMDLRow?.tender_ref_no }}">
+                            {{selectMDLRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectMDLRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                        </div>
+                        <ng-template #elseBlock3>
+                            {{selectMDLRow?.tender_ref_no}}
+                        </ng-template>
+                    </td>
+                      <th>Execution Location</th>
+                      <td>{{ selectMDLRow?.tender_location }}</td>
+                    </tr>
+                    <tr>
+                      <th>Document Description</th>
+                      <td colspan="5">{{ selectMDLRow?.description }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h6 class="mt-3 mb-2 text-secondary">Document/Drawing List</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="table-primary text-nowrap">
+                    <tr>
+                      <th>S No</th>
+                      <th>Document/Drawing Title</th>
+                      <th>Document/Drawing Number</th>
+                      <th>Discipline</th>
+                      <th>Sub Discipline</th>
+                      <th>Stage</th>
+                      <th>Category</th>
+                      <th>Planned Submission</th>
+                      <th>Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-nowrap">
+                    <tr *ngFor="let a of selectMDLRow?.drawing; index as i">
+                      <td>{{i+1}}</td>
+                      <td>{{a.drawing_title}}</td>
+                      <td>{{a.drawing_no}}</td>
+                      <td>{{a.discipline}}</td>
+                      <td>{{a.sub_discipline}}</td>
+                      <td>{{a.stage}}</td>
+                      <td>{{a.category}}</td>
+                      <td>{{a.planned_submission_date | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{a.remarks}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <h6 class="mt-3 mb-2 text-secondary">Upload Approval Document</h6>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="control-label">Upload Document<span class="required-asterisk">*</span></label>
+                  <input type="file" class="form-control form-control-sm" formControlName="approval_file" accept="application/pdf" (change)="onFileChanged($event)">
+                  <div *ngIf="a['approval_file'].touched && a['approval_file'].invalid">
+                    <small class="text-danger" *ngIf="a['approval_file'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="control-label">Remarks <span class="required-asterisk">*</span></label>
+                  <textarea type="text" class="form-control" formControlName="remarks"></textarea>
+                  <div *ngIf="a['remarks'].touched && a['remarks'].invalid">
+                    <small class="text-danger" *ngIf="a['remarks'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="float-right pt-3">
+              <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" data-bs-dismiss="modal">Submit</button>
+              <button type="button" id="cancelApprovalModel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
