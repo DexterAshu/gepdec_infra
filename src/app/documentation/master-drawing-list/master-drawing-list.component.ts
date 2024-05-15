@@ -39,6 +39,7 @@ export class MasterDrawingListComponent {
     this.form = this.fb.group({
       client: [null, Validators.required],
       tender_id: [null, Validators.required],
+      mdl_no: [null, Validators.required],
       drawingList: new FormArray([]),
       drawing_title: [null, Validators.required],
       drawing_no: [null, Validators.required],
@@ -69,15 +70,13 @@ export class MasterDrawingListComponent {
       remarks: this.form.value.remarks
     };
     this.form.value.drawingList.push(match);
-    this.form.patchValue({
-      drawing_title: null,
-      drawing_no: null,
-      discipline: null,
-      stage: null,
-      category: null,
-      planned_submission_date: null,
-      remarks: null
-    });
+    this.form.controls['drawing_title'].reset();
+    this.form.controls['drawing_no'].reset();
+    this.form.controls['discipline'].reset();
+    this.form.controls['stage'].reset();
+    this.form.controls['category'].reset();
+    this.form.controls['planned_submission_date'].reset();
+    this.form.controls['remarks'].reset();
   }
 
   redirect(route: any) {

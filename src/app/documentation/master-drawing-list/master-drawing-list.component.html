@@ -143,10 +143,9 @@
                   <thead class="table-primary text-nowrap">
                     <tr>
                       <th>S No</th>
-                      <th>Document/Drawing Title</th>
-                      <th>Document/Drawing Number</th>
+                      <th>Drawing/Document Title</th>
+                      <th>Project Drawing No</th>
                       <th>Discipline</th>
-                      <th>Sub Discipline</th>
                       <th>Stage</th>
                       <th>Category</th>
                       <th>Planned Submission</th>
@@ -159,7 +158,6 @@
                       <td>{{a.drawing_title}}</td>
                       <td>{{a.drawing_no}}</td>
                       <td>{{a.discipline}}</td>
-                      <td>{{a.sub_discipline}}</td>
                       <td>{{a.stage}}</td>
                       <td>{{a.category}}</td>
                       <td>{{a.planned_submission_date | date: 'dd/MM/yyyy'}}</td>
@@ -245,10 +243,9 @@
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
-                  <th>Document/Drawing Title</th>
-                  <th>Document/Drawing Number</th>
+                  <th>Drawing/Document Title</th>
+                  <th>Project Drawing No</th>
                   <th>Discipline</th>
-                  <th>Sub Discipline</th>
                   <th>Stage</th>
                   <th>Category</th>
                   <th>Planned Submission</th>
@@ -261,7 +258,6 @@
                   <td>{{a.drawing_title}}</td>
                   <td>{{a.drawing_no}}</td>
                   <td>{{a.discipline}}</td>
-                  <td>{{a.sub_discipline}}</td>
                   <td>{{a.stage}}</td>
                   <td>{{a.category}}</td>
                   <td>{{a.planned_submission_date | date: 'dd/MM/yyyy'}}</td>
@@ -315,7 +311,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label class="form-label fl-10">Tender Ref. No<span class="required-asterisk">*</span></label>
+                    <label class="form-label fl-10">NIT No<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_ref_no" readonly>
                   </div>
                 </div>
@@ -326,11 +322,23 @@
                   </div>
                 </div>
               </div>
-              <h6 class="mb-2 text-secondary mt-3">Document & Drawing Form</h6>
+              <h6 class="mb-2 text-secondary mt-3">Drawing/Document Form</h6>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label fl-10">MDL No<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control form-control-sm" formControlName="mdl_no">
+                    <div *ngIf="f['mdl_no'].touched && f['mdl_no'].invalid">
+                      <small class="text-danger" *ngIf="f['mdl_no'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h6 class="mb-2 text-secondary mt-3">Drawing/Document Form</h6>
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label class="form-label fl-10">Document/Drawing Title<span class="required-asterisk">*</span></label>
+                    <label class="form-label fl-10">Drawing/Document Title<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control form-control-sm" formControlName="drawing_title" appWordCapitalize>
                     <div *ngIf="f['drawing_title'].touched && f['drawing_title'].invalid">
                       <small class="text-danger" *ngIf="f['drawing_title'].errors?.['required']">*Required</small>
@@ -339,7 +347,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label class="form-label fl-10">Document/Drawing Number<span class="required-asterisk">*</span></label>
+                    <label class="form-label fl-10">Project Drawing No<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control form-control-sm" formControlName="drawing_no">
                     <div *ngIf="f['drawing_no'].touched && f['drawing_no'].invalid">
                       <small class="text-danger" *ngIf="f['drawing_no'].errors?.['required']">*Required</small>
@@ -414,10 +422,9 @@
                     <thead class="table-primary text-nowrap">
                       <tr>
                         <th>S No</th>
-                        <th>Document/Drawing Title</th>
-                        <th>Document/Drawing Number</th>
+                        <th>Drawing/Document Title</th>
+                        <th>Project Drawing No</th>
                         <th>Discipline</th>
-                        <th>Sub Discipline</th>
                         <th>Stage</th>
                         <th>Category</th>
                         <th>Planned Submission</th>
@@ -431,7 +438,6 @@
                         <td>{{a.drawing_title}}</td>
                         <td>{{a.drawing_no}}</td>
                         <td>{{a.discipline}}</td>
-                        <td>{{a.sub_discipline}}</td>
                         <td>{{a.stage}}</td>
                         <td>{{a.category}}</td>
                         <td>{{a.planned_submission_date | date: 'dd/MM/yyyy'}}</td>
