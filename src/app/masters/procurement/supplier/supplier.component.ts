@@ -339,10 +339,10 @@ export class SupplierComponent {
       formData.append('suppliername', this.form.value.supplierName);
       formData.append('category_id', this.form.value.category);
       formData.append('category_no', this.form.value.categoryNo);
-      formData.append('gstno', this.form.value.gstNo == null ? null : this.form.value.gstNotoUpperCase());
+      formData.append('gstno', this.form.value.gstNo == null ? null : this.form.value.gstNo.toUpperCase());
       formData.append('gstdate', this.form.value.gstDate);
-      formData.append('panno', this.form.value.panNo == null ? null : this.form.value.panNotoUpperCase());
-      formData.append('tanno', this.form.value.tanNo == null ? null : this.form.value.tanNotoUpperCase());
+      formData.append('panno', this.form.value.panNo == null ? null : this.form.value.panNo.toUpperCase());
+      formData.append('tanno', this.form.value.tanNo == null ? null : this.form.value.tanNo.toUpperCase());
       formData.append('doi', this.form.value.doi);
       formData.append('technicalrating_id', this.form.value.techRating);
 
