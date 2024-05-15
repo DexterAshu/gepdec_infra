@@ -78,9 +78,8 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                {{a.publish_date | date: 'dd/MM/yyyy'}}
+                                <td> {{a.publish_date | date: 'dd/MM/yyyy'}} </td>
                                 <td >{{a.filename.slice(13)}}</td>
-                             
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
@@ -88,9 +87,17 @@
                                      <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 
                                 </td>
-                               
                             </tr>
-                           
+                            <tr *ngIf="docListData?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </app-responsive-table>
                     <div class="pagination-sec text-center">

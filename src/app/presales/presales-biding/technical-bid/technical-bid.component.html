@@ -26,9 +26,11 @@
 
                         <div class="col-lg-4">
                             <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
-                                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
+                                <select class="form-select form-select-sm border-secondary pt-04 w-auto"
+                                    (change)="redirect($event)">
                                     <option [disabled]="true" [value]="null">Select</option>
-                                    <option [selected]="true" value="/presales/presales-biding/technical"> Technical</option>
+                                    <option [selected]="true" value="/presales/presales-biding/technical"> Technical
+                                    </option>
                                     <option value="/presales/presales-biding/financial"> Financial</option>
                                 </select>
                             </div>
@@ -36,8 +38,7 @@
                         <div class="col-lg-4">
                             <div class="float-right">
                                 <button class="btn btn-primary btn-fw btn-sm me-2"
-                                    title="Download List of Data in Excel"
-                                    (click)="download()">
+                                    title="Download List of Data in Excel" (click)="download()">
                                     <span class="mdi mdi-upload"></span> Export
                                 </button>
                                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
@@ -73,16 +74,21 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock1>
                                         {{a.tender_title}}
                                     </ng-template>
                                 </td>
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                                        {{a?.tender_ref_no | slice:0:30}} <span
+                                            *ngIf="a?.tender_ref_no.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock2>
                                         {{a?.tender_ref_no}}
@@ -94,7 +100,9 @@
                                 <td>{{a.capacity}}</td>
                                 <td>{{a.technical_points}}</td> -->
                                 <td>
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        title="View Details" (click)="rowListData(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                 </td>
                             </tr>
                             <tr *ngIf="docListData?.length == 0">
@@ -107,7 +115,6 @@
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
                             </tr>
-
                         </tbody>
                     </app-responsive-table>
                     <div class="pagination-sec text-center">
@@ -126,7 +133,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Technical: Pre-Qualification</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#createModal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    data-bs-toggle="modal" data-bs-target="#createModal"></button>
             </div>
             <div class="modal-body cardd">
                 <div class="container-fluid">
@@ -134,22 +142,29 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
-                                    <select formControlName="client_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
-                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
+                                    <label class="form-label fl-10">Client<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="client_id" class="form-select form-select-sm"
+                                        (ngModelChange)="getDetails($event)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client
+                                        </option>
+                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name
+                                            }}</option>
                                     </select>
                                     <!-- <span *ngIf="addTech.length > 0" class="form-control form-control-sm" readonly>{{form.value.}}</span> -->
                                     <div *ngIf="f['client_id'].touched && f['client_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['client_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['client_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                                    <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)" [disabled] = "addTech.length != 0">
+                                    <label class="form-label fl-10">Tender Title<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="tender_id" class="form-select form-select-sm"
+                                        (ngModelChange)="getrefData($event)" [disabled]="addTech.length != 0">
                                         <option [selected]="true" [disabled]="true">Select Title</option>
                                         <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">
                                             {{c.tender_title}}</option>
@@ -164,19 +179,24 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">NIT No</label>
-                                    <span class="form-control form-control-sm" readonly>{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
+                                    <span class="form-control form-control-sm"
+                                        readonly>{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <span class="form-control form-control-sm" readonly>{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}</span>
+                                    <span class="form-control form-control-sm"
+                                        readonly>{{filterTenderDetailsData[0]?.publish_date | date:
+                                        'dd/MM/yyyy'}}</span>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
-                                    <select formControlName="qacatagory_id" class="form-select form-select-sm" #cat (change)="getSubData(cat.value)">
+                                    <label class="form-label fl-10">Category<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="qacatagory_id" class="form-select form-select-sm" #cat
+                                        (change)="getSubData(cat.value)">
                                         <option [selected]="true" [disabled]="true">Select Category</option>
                                         <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">
                                             {{c.qacatagory}}</option>
@@ -189,8 +209,10 @@
                             </div>
                             <div class="col-md-2" *ngIf="cat.value == '1002' || cat.value == '1003'">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Sub-Category<span class="required-asterisk">*</span></label>
-                                    <select formControlName="subqacatagory_id" class="form-select form-select-sm" #sub (change)="getCapacityData(sub.value)">
+                                    <label class="form-label fl-10">Sub-Category<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="subqacatagory_id" class="form-select form-select-sm" #sub
+                                        (change)="getCapacityData(sub.value)">
                                         <option [selected]="true" [disabled]="true">Select Sub-Category</option>
                                         <option *ngFor="let c of subCategoryData" value="{{c.subqacatagory_id}}">
                                             {{c.subqacatagory}}</option>
@@ -221,9 +243,11 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Total Experience (In years)</label>
-                                    <input formControlName="total_experience" type="text" class="form-control form-control-sm" appNumWithDot>
+                                    <input formControlName="total_experience" type="text"
+                                        class="form-control form-control-sm" appNumWithDot>
                                     <div *ngIf="f['total_experience'].touched && f['total_experience'].invalid">
-                                        <small class="text-danger" *ngIf="f['total_experience'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['total_experience'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -231,43 +255,54 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Completion Period (In Months)</label>
-                                    <input formControlName="completion_period" type="text" class="form-control form-control-sm" appNumWithDot>
+                                    <input formControlName="completion_period" type="text"
+                                        class="form-control form-control-sm" appNumWithDot>
                                     <div *ngIf="f['completion_period'].touched && f['completion_period'].invalid">
-                                        <small class="text-danger" *ngIf="f['completion_period'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['completion_period'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Resource Used</label>
-                                    <input formControlName="resource_used" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="resource_used" type="text"
+                                        class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['resource_used'].touched && f['resource_used'].invalid">
-                                        <small class="text-danger" *ngIf="f['resource_used'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['resource_used'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Completion Year</label>
-                                    <input formControlName="completion_year" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="completion_year" type="text"
+                                        class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['completion_year'].touched && f['completion_year'].invalid">
-                                        <small class="text-danger" *ngIf="f['completion_year'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['completion_year'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Technical Points<span class="required-asterisk">*</span></label>
-                                    <input formControlName="technical_points" type="text" class="form-control form-control-sm" placeholder="eg: Put your bid points one by one">
+                                    <label class="form-label fl-10">Technical Points<span
+                                            class="required-asterisk">*</span></label>
+                                    <input formControlName="technical_points" type="text"
+                                        class="form-control form-control-sm"
+                                        placeholder="eg: Put your bid points one by one">
                                     <div *ngIf="f['technical_points'].touched && f['technical_points'].invalid">
-                                        <small class="text-danger" *ngIf="f['technical_points'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['technical_points'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Status<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Status<span
+                                            class="required-asterisk">*</span></label>
                                     <select formControlName="qualified" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true">Select Status</option>
                                         <option value="true">Qualified</option>
@@ -281,7 +316,9 @@
                             </div>
                             <div class="col-md-1">
                                 <div class="modal-btns">
-                                    <button type="button" class="btn btn-primary btn-fw btn-sm mt-4" (click)="addMultiTechPoints()" title="Add technical points" [disabled]="!form.valid">+ ADD</button>
+                                    <button type="button" class="btn btn-primary btn-fw btn-sm mt-4"
+                                        (click)="addMultiTechPoints()" title="Add technical points"
+                                        [disabled]="!form.valid">+ ADD</button>
                                 </div>
                             </div>
                         </div>
@@ -306,8 +343,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-nowrap">
-                                    <tr
-                                        *ngFor="let a of addTech; index as i">
+                                    <tr *ngFor="let a of addTech; index as i">
                                         <td>{{limit*(p-1)+i+1}}</td>
                                         <td>{{a?.client_id}}</td>
                                         <td>{{a.tender_id}}</td>
@@ -321,14 +357,17 @@
                                         <td>{{a.technical_points}}</td>
                                         <td>
                                             <div *ngIf="a.qualified == 'true'; else ifNot">
-                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                    title="Qualified"></i>
                                             </div>
                                             <ng-template #ifNot>
-                                                <i class="mdi mdi-close-circle mdi-18px text-danger" title="Not-Qualified"></i>
+                                                <i class="mdi mdi-close-circle mdi-18px text-danger"
+                                                    title="Not-Qualified"></i>
                                             </ng-template>
                                         </td>
                                         <td>
-                                            <a (click)="deletecsdp(i)" title="Delete"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
+                                            <a (click)="deletecsdp(i)" title="Delete"><span
+                                                    class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a>
                                         </td>
                                     </tr>
                                     <tr *ngIf="addTech.length <= 0">
@@ -342,8 +381,11 @@
 
                         <div class="row mt-2">
                             <div class="modal-btns">
-                                <button type="submit" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm mr-2" [disabled]="addTech.length <= 0">Submit</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" data-bs-toggle="modal" data-bs-target="#createModal"
+                                    class="btn btn-primary btn-fw btn-sm mr-2"
+                                    [disabled]="addTech.length <= 0">Submit</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                    data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
 
@@ -397,10 +439,12 @@
                                             <td>{{ a?.technical_points}}</td>
                                             <td>
                                                 <div *ngIf=" a?.qualified == true; else ifNot2">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
                                                 </div>
                                                 <ng-template #ifNot2>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
                                                 </ng-template>
                                             </td>
                                         </tr>
@@ -411,7 +455,8 @@
                                         </tr> -->
                                         <tr *ngIf="rowData?.qualification?.length == 0">
                                             <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                                <div class="text-warning fw-semibold">Looks like no data available!
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>

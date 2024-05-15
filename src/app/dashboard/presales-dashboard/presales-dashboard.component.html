@@ -110,7 +110,7 @@
 
 
           <div class="col-md-9">
-            <h3> {{ preSalesDashData?.cardData?.[3]?.count ?? '0' }} </h3>
+            <h3> {{ preSalesDashData?.cardData?.[0]?.count ?? '0' }} </h3>
             <hr>
             <h6> Tender Published </h6>
           </div>
@@ -125,7 +125,7 @@
             <i class="mdi mdi-checkbox-marked-circle-outline text-center" style=" font-size: 44px;"></i>
           </div>
           <div class="col-md-9">
-            <h3> {{ preSalesDashData?.cardData?.[0]?.count ?? '0' }} </h3>
+            <h3> {{ preSalesDashData?.cardData?.[1]?.count ?? '0' }} </h3>
             <hr>
             <h6>Qualified </h6>
           </div>
@@ -157,12 +157,12 @@
             <i class="mdi mdi-thumb-up-outline text-center" style=" font-size: 38px;"></i>
           </div>
           <div class="col-md-5">
-            <h3> {{ preSalesDashData?.cardData?.[1]?.count ?? '0' }} </h3>
+            <h3> {{ preSalesDashData?.cardData?.[3]?.count ?? '0' }} </h3>
             <hr>
             <h6>Won</h6>
           </div>
           <div class="col-md-4">
-            <h3> {{ preSalesDashData?.cardData?.[1]?.percentage ?? '0' }} </h3>
+            <h3> {{ preSalesDashData?.cardData?.[3]?.percentage ?? '0' }} </h3>
             <hr>
             <h6>(%)</h6>
           </div>
@@ -417,65 +417,52 @@
       </div>
     </div>
 
-    <div class="col-md-6 col-sm-7 grid-margin stretch-card pe-0">
+    <div class="col-md-6 col-sm-12 grid-margin stretch-card pe-0">
       <div class="card" data-bs-toggle="modal" data-bs-target="#createModal" role="button">
         <div class="card-body">
           <div class="row">
-            <p class="card-title mb-2 col-md-9">Top 5 Orders</p>
+            <p class="card-title mb-2 col-md-9">Top 5 Tenders</p>
             <div class="float-right col-md-3">
                  <!-- <a class="" href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a> -->
             </div>
           </div>
-
-          <!--<div class="cardHead" style="cursor: pointer;">
+          <div class="cardHead" style="cursor: pointer;">
             <div class="row">
-              <div class="col-md-2 col-2" >S No</div>
+              <div class="col-md-2 col-2">S No</div>
               <div class="col-md-4 col-4"  style="text-align: left;">Project Name</div>
               <div class="col-md-3 col-3"  style="text-align: left;">Category</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">Amount (Cr)</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">ECV (INR)</div>
             </div>
           </div>
-          <div class="card1 mt-1">
-            <div class="row">
-              <div class="col-md-2 col-2" >1</div>
-              <div class="col-md-4 col-4"  style="text-align: left;">Taldihi</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">330 Kv</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">300</div>
+          <div class="table-wrap">
+            <div *ngIf="loading" class="text-center mt-3">
+              <div class="spinner-border"> </div>
             </div>
-          </div>
-          <div class="card2 mt-1">
-            <div class="row">
-              <div class="col-md-2 col-2" >2</div>
-              <div class="col-md-4 col-4"  style="text-align: left;">Jaunpur</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">220 Kv</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">400</div>
-            </div>
-          </div>
-          <div class="card3 mt-1">
-            <div class="row">
-              <div class="col-md-2 col-2" >3</div>
-              <div class="col-md-4 col-4"  style="text-align: left;">Noida Sec-45</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">220 Kv</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">300</div>
-            </div>
-          </div>
-          <div class="card4 mt-1">
-            <div class="row">
-              <div class="col-md-2 col-2" >4</div>
-              <div class="col-md-4 col-4"  style="text-align: left;">Delhi</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">320 Kv</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">100</div>
-            </div>
-          </div>
-          <div class="card5 mt-1">
-            <div class="row">
-              <div class="col-md-2 col-2" >5</div>
-              <div class="col-md-4 col-4"  style="text-align: left;">Noida</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">240 Kv</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">200</div>
-            </div>
-          </div> -->
+            <div class="card1 mt-1" *ngFor="let tender of topFiveOrder; let i = index">
+              <div class="row d-flex">
+                <div class="col-md-2 col-2" >{{i + 1}}</div>
+                <div class="col-md-4 col-4"  style="text-align: left;">
+                  <div *ngIf="!!tender?.tender_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ tender?.tender_title }}">
+                    {{tender?.tender_title | slice:0:15}} <span *ngIf="tender?.tender_title.length > 15">...<i class="mdi mdi-information"></i></span>
+                </div>
+                <ng-template #elseBlock3>
+                    {{tender?.tender_title}}
+                </ng-template>
+                </div>
+                <div class="col-md-3 col-3"  style="text-align: left;">
 
+                  <div *ngIf="!!tender?.bidtype; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ tender?.bidtype }}">
+                    {{tender?.bidtype | slice:0:10}} <span *ngIf="tender?.bidtype.length > 10">...<i class="mdi mdi-information"></i></span>
+                </div>
+                <ng-template #elseBlock3>
+                    {{tender?.bidtype}}
+                </ng-template>
+                  </div>
+                <div class="col-md-3 col-3"  style="text-align: left;">{{tender.ecv}}</div>
+              </div>
+            </div>
+          </div>
+<!-- 
           <div class="table-responsive ht-auto" style="border-top-right-radius: 10px;
           border-top-left-radius: 10px;">
             <table class="table custTable table-striped table-hover">
@@ -484,7 +471,7 @@
                   <th scope="col" class="text-white py-3">S No</th>
                   <th scope="col" class="text-white py-3">Project Name</th>
                   <th scope="col" class="text-white py-3">Category</th>
-                  <th scope="col" class="text-white py-3">Amount (INR)</th>
+                  <th scope="col" class="text-white py-3">ECV (INR)</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
@@ -497,7 +484,9 @@
                 
               </tbody>
             </table>
-          </div>
+          </div> -->
+
+        
         </div>
       </div>
     </div>

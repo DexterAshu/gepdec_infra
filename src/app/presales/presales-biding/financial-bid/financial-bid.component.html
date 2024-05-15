@@ -288,28 +288,14 @@
 
                                         </div>
 
+                                       
+
                                         <div class="col-md-2" *ngIf="form.value.net_profit != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="net_profit_check" #condition5
-                                                    class="form-select form-select-sm"
-                                                    (change)="netProfitData(form.value.net_profit_year, condition5.value, netprofit.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                    </option>
-                                                    <option value="MIN">Minimum</option>
-                                                    <option value="AVG">Average</option>
-                                                    <option value="MAX">Any</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2" *ngIf="form.value.net_profit_check">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
                                                 <select formControlName="net_profit_year" #year5
                                                     class="form-select form-select-sm"
-                                                    (change)="netProfitData(year5.value, form.value.net_profit_check, netprofit.value)">
+                                                    (change)="netProfitData(year5.value, null, netprofit.value)">
                                                     <option [selected]="true" [disabled]="true" [value]="null">Select
                                                         Year</option>
                                                     <!-- <option value="0">Current Year</option> -->
@@ -322,6 +308,25 @@
                                                 </select>
 
                                             </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <input class="form-control form-control-sm"
+                                                readonly [value]="netProf">
+                                            <!-- <div class="form-group">
+                                                <label class="form-label fl-10 text-small">Condition</label>
+                                                <select formControlName="net_profit_check" #condition5
+                                                    class="form-select form-select-sm"
+                                                    (change)="netProfitData(form.value.net_profit_year, condition5.value, netprofit.value)">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                    </option>
+                                                    <option value="MIN">Minimum</option>
+                                                    <option value="AVG">Average</option>
+                                                    <option value="MAX">Any</option>
+                                                </select>
+
+                                            </div> -->
                                         </div>
                                      
                                         <div class="col-md-2" *ngIf="form.value.net_profit_year">
