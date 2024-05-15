@@ -15,7 +15,9 @@ export class MasterDrawingListComponent {
   searchText: any
   p: number = 1;
   limit = environment.pageLimit;
+  apiURL = environment.apiUrl;
   form!: FormGroup;
+  approvalForm!: FormGroup;
   selectedTender: any;
   selectMDLRow: any;
   companyData: any = [];
@@ -37,6 +39,7 @@ export class MasterDrawingListComponent {
     this.form = this.fb.group({
       client: [null, Validators.required],
       tender_id: [null, Validators.required],
+      mdl_no: [null, Validators.required],
       drawingList: new FormArray([]),
       drawing_title: [null, Validators.required],
       drawing_no: [null, Validators.required],
@@ -46,9 +49,15 @@ export class MasterDrawingListComponent {
       planned_submission_date: [null],
       remarks: [null]
     });
+    this.approvalForm = this.fb.group({
+      approval_file: [null, Validators.required],
+      remarks: [null]
+    });
   }
 
   get f() { return this.form.controls; }
+
+  get a() { return this.approvalForm.controls; }
 
   addDrawingList(): void {
     let match: any = {
@@ -61,15 +70,13 @@ export class MasterDrawingListComponent {
       remarks: this.form.value.remarks
     };
     this.form.value.drawingList.push(match);
-    this.form.patchValue({
-      drawing_title: null,
-      drawing_no: null,
-      discipline: null,
-      stage: null,
-      category: null,
-      planned_submission_date: null,
-      remarks: null
-    });
+    this.form.controls['drawing_title'].reset();
+    this.form.controls['drawing_no'].reset();
+    this.form.controls['discipline'].reset();
+    this.form.controls['stage'].reset();
+    this.form.controls['category'].reset();
+    this.form.controls['planned_submission_date'].reset();
+    this.form.controls['remarks'].reset();
   }
 
   redirect(route: any) {
@@ -99,6 +106,7 @@ export class MasterDrawingListComponent {
     (error: any) => {
       this.isNotFound = true;
       this.mdlData = undefined;
+      console.log(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
@@ -114,6 +122,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
+      console.log(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
@@ -129,6 +138,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
+      console.log(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
@@ -138,15 +148,8 @@ export class MasterDrawingListComponent {
   }
 
   onFileChanged(event: any) {
-    try {
-      const files = event.target.files;
-      for (let i = 0; i < files.length; i++) {
-        this.listOfFiles.push(files[i].name);
-        this.attachment.push(files[i]);
-      }
-    } catch (error) {
-      console.error('Error selecting file:', error);
-    }
+    const files: any = (event.target as HTMLInputElement).files;
+    this.attachment = files[0];
   }
 
   onSubmit() {
@@ -158,36 +161,45 @@ export class MasterDrawingListComponent {
     delete this.form.value.planned_submission_date;
     delete this.form.value.remarks;
     console.log(JSON.stringify(this.form.value));
-    // const formData: FormData = new FormData();
-    // for (let i = 0; i < this.attachment.length; i++) {
-    //   formData.append('attachment', this.attachment[i]);
-    // }
-    // formData.append('bank_name', this.form.value.bank_name);
-    // formData.append('bgnumber', this.form.value.bgnumber);
-    // formData.append('bgamount', this.form.value.bgamount);
-    // formData.append('start_date', this.form.value.start_date);
-    // formData.append('end_date', this.form.value.end_date);
-    // formData.append('submission_date', this.form.value.submission_date);
-    // formData.append('extend_date', this.form.value.extend_date);
-    // formData.append('publish_date', this.form.value.publish_date);
-    // formData.append('tender_ref_no', this.form.value.tender_ref_no);
-    // formData.append('tender_title', this.form.value.tender_title);
-    // formData.append('utility', this.form.value.utility);
-    // formData.append('description', this.form.value.description);
-    // this.isSubmitted = true;
-    // this.apiService.createDocuments(formData).subscribe((res: any) => {
-    //   if (res.status == 200) {
-    //     this.form.reset();
-    //     this.alertService.success(res.message);
-    //     document.getElementById('cancel')?.click();
-    //   } else {
-    //     this.alertService.warning(res.message);
-    //   }
-    // }),
-    // (error: any) => {
-    //   this.alertService.error("Error: Unknown Error!");
-    // }
-    // this.isSubmitted = false;
+    this.isSubmitted = true;
+    this.apiService.addMDLList(this.form.value).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.getMDLList();
+        this.form.reset();
+        this.alertService.success(res.message);
+        document.getElementById('cancelApprovalModel')?.click();
+      } else {
+        this.alertService.warning(res.message);
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
+    this.isSubmitted = false;
+  }
+
+  onApprovalSubmit() {
+    console.log(JSON.stringify(this.selectMDLRow));
+    const formData = new FormData();
+    formData.append('drawing_id', this.selectMDLRow.drawing_id);
+    formData.append('remarks', this.approvalForm.value.remarks);
+    formData.append('approval_file', this.attachment);
+    this.isSubmitted = true;
+    this.apiService.uploadAndApprovedMDL(formData).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.getMDLList();
+        this.form.reset();
+        this.alertService.success(res.message);
+        document.getElementById('cancel')?.click();
+      } else {
+        this.alertService.warning(res.message);
+      }
+    }),
+    (error: any) => {
+      console.log(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
 
   download(): void {

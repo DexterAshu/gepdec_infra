@@ -16,6 +16,7 @@ export class DrawingComponent {
   docListData: any = [];
   p: number = 1;
   limit = environment.pageLimit;
+  apiURL = environment.apiUrl;
   form!: FormGroup;
   selectedTender: any;
   companyData: any = [];
@@ -119,6 +120,7 @@ export class DrawingComponent {
     this.apiService.addDrawingDocument(formData).subscribe((res: any) => {
       if (res.status == 200) {
         this.form.reset();
+        this.getMDLList();
         this.alertService.success(res.message);
         document.getElementById('cancel')?.click();
       } else {

@@ -210,13 +210,13 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">NIT No</label>
-                  <span class="form-control form-control-sm" readonly>{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
+                  <input class="form-control form-control-sm" readonly value="{{ filterTenderDetailsData[0]?.tender_ref_no }}">
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date</label>
-                  <span class="form-control form-control-sm" readonly>{{filterTenderDetailsData[0]?.publish_date | date:'dd/MM/yyyy'}}</span>
+                  <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date:'dd/MM/yyyy'}}">
                 </div>
               </div>
               <div class="col-md-6">
