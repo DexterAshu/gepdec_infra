@@ -18,6 +18,8 @@ import { Color, ScaleType } from '@swimlane/ngx-charts';
 export class DashboardComponent implements OnInit {
   p: number = 1;
   limit = environment.pageLimit;
+  p2: number = 1;
+  limit2 = environment.pageLimit;
   shoDataLabel: boolean = true;
   animations: boolean = true;
   fitContainer: boolean = false;
@@ -1219,6 +1221,116 @@ export class DashboardComponent implements OnInit {
   topFiveOrder: any[] = [];
   pieChartData2: any = [];
   loading: boolean = false;
+  // lineBar chart start
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  // showYAxisLabel: boolean = true;
+  // showXAxisLabel: boolean = true;
+  // xAxisLabel: string = 'Year';
+  // yAxisLabel: string = 'Population';
+  // timeline: boolean = true;
+  budgetData = [
+    {
+      "name": "Budget",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 700
+        },
+        {
+          "name": "Exp",
+          "value": 200
+        },
+        {
+          "name": "Profit",
+          "value": 500
+        },
+      
+       
+      ]
+    },
+    
+    {
+      "name": "Expense",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 900
+        },
+        {
+          "name": "Exp",
+          "value": 200
+        },
+        {
+          "name": "Profit",
+          "value": 700
+        },
+       
+     
+      ]
+    },
+    
+    {
+      "name": "Q2",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 300
+        },
+        {
+          "name": "Exp",
+          "value": 100
+        },
+        {
+          "name": "Profit",
+          "value": 200
+        },
+       
+      
+      ]
+    },
+    {
+      "name": "Q3",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 600
+        },
+        {
+          "name": "Exp",
+          "value": 400
+        },
+        {
+          "name": "Profit",
+          "value": 200
+        },
+       
+     
+      ]
+    },
+    {
+      "name": "Q4",
+      "series": [
+        {
+          "name": "Rev",
+          "value": 600
+        },
+        {
+          "name": "Exp",
+          "value": 310
+        },
+        {
+          "name": "Profit",
+          "value": 290
+        },
+      
+      ]
+    },
+   
+    
+    ];
+  progressBar2: any;
+  // lineBar chart end
 
   constructor(
     private sharedService: SharedService,
@@ -1375,69 +1487,119 @@ export class DashboardComponent implements OnInit {
       return value.toString();
     }
   }
+    // getDashboardData() {
+    //   this.isNotFound = true;
+    //   this.loading = true;
+    //   this.masterService.getDashboard().subscribe((res:any) => {
+    //     this.isNotFound = false;
+    //     this.dashboardData = [];
+    //     if (res.status == 200) {
+    //       this.loading = false;
+    //       this.dashboardData = res;
+    //       this.topFiveOrder = res.topFiveTender;
+    //       console.log('this.dashboardData-->', this.dashboardData);
+    //       // Performance bar start
+    //       this.performaceBar = this.dashboardData.presalesData.map((item: any) => {
+    //         return {
+    //           name: item.name,
+    //           series: [
+    //             { name: 'Total', value: item.series[0].value },
+    //             { name: 'Completed', value: item.series[1].value }
+    //           ]
+    //         };
+    //       });
+    //       this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
+    //         return {
+    //           name: item.state_name,
+    //           value: item.state_count,
+    //         };
+    //       });
+    //     // progressbar code start
+    //     // this.progressBar = this.dashboardData.statusProgress;
+    //         this.progressBar = this.dashboardData.statusProgress.map((item: any) => {
+    //           // Parse the progress string to a float value
+    //           // const progressValue = parseFloat(item.progress.replace('%', ''));
+    //           return {
+    //               name: item.tender_title,
+    //               value: item.progress,
+    //           };
+    //       });
+    //       this.progressBar2 = this.dashboardData.statusProgress;
+    //       console.log('progressBar2-->', this.progressBar2);
+          
+    //     } else {
+    //       this.alertService.warning("Looks like no category data available!");
+    //     }
+    //   }, error => {
+    //     this.dashboardData = [];
+    //     this.isNotFound = false;
+    //     this.loading = false;
+    //     this.alertService.error("Error: " + error.statusText);
+    //   }); 
+    // }
+
     getDashboardData() {
       this.isNotFound = true;
       this.loading = true;
-      this.masterService.getDashboard().subscribe((res:any) => {
-        this.isNotFound = false;
-        this.dashboardData = [];
-        if (res.status == 200) {
-          this.loading = false;
-          this.dashboardData = res;
-          this.topFiveOrder = res.topFiveTender;
-          console.log('this.dashboardData-->', this.dashboardData);
-          // Performance bar start
-          this.performaceBar = this.dashboardData.presalesData.map((item: any) => {
-            return {
-              name: item.name,
-              series: [
-                { name: 'Total', value: item.series[0].value },
-                { name: 'Completed', value: item.series[1].value }
-              ]
-            };
-          });
-
-          // this.pieChartData2 = [
-          //   {
-          //     name: this.dashboardData.topFiveLocationWise[0].state_name,
-          //     value: this.dashboardData.topFiveLocationWise[0].state_count
-          //   },
-          //   {
-          //     name: this.dashboardData.topFiveLocationWise[1].state_name,
-          //     value: this.dashboardData.topFiveLocationWise[1].state_count
-          //   },
-          //   // {
-          //   //   name: 'Low',
-          //   //   value: this.dataList.totalCustomerSalesDayWise[0].lowPriorityCount
-          //   // }
-            
-          // ];
-          this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
-            return {
-              name: item.state_name,
-              value: item.state_count,
-            };
-          });
-        // progressbar code start
-        // this.progressBar = this.dashboardData.statusProgress;
-            this.progressBar = this.dashboardData.statusProgress.map((item: any) => {
-              // Parse the progress string to a float value
-              // const progressValue = parseFloat(item.progress.replace('%', ''));
-              return {
-                  name: item.tender_title,
-                  value: item.progress,
-              };
-          });
-        } else {
-          this.alertService.warning("Looks like no category data available!");
-        }
+      this.masterService.getDashboard().subscribe((res: any) => {
+          this.isNotFound = false;
+          this.dashboardData = [];
+          if (res.status === 200) {
+              this.loading = false;
+              this.dashboardData = res;
+  
+              // Ensure topFiveTender is not null before using it
+              if (res.topFiveTender) {
+                  this.topFiveOrder = res.topFiveTender;
+              }
+  
+              // Performance bar data mapping with null checks
+              if (this.dashboardData.presalesData) {
+                  this.performaceBar = this.dashboardData.presalesData.map((item: any) => {
+                      return {
+                          name: item.name,
+                          series: item.series ? [
+                              { name: 'Total', value: item.series[0]?.value ?? 0 },
+                              { name: 'Completed', value: item.series[1]?.value ?? 0 }
+                          ] : []
+                      };
+                  });
+              }
+  
+              // Pie chart data mapping with null checks
+              if (this.dashboardData.topFiveLocationWise) {
+                  this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
+                      return {
+                          name: item.state_name,
+                          value: item.state_count,
+                      };
+                  });
+              }
+  
+              // Progress bar data mapping with null checks
+              if (this.dashboardData.statusProgress) {
+                  this.progressBar = this.dashboardData.statusProgress.map((item: any) => {
+                      // Parse the progress string to a float value and handle null cases
+                      // const progressValue = item.progress ? parseFloat(item.progress.replace('%', '')) : 0;
+                      return {
+                          name: item.tender_title,
+                          value: item.progress,
+                      };
+                  });
+                  this.progressBar2 = this.dashboardData.statusProgress; // Keeping original data for logging
+                  console.log('progressBar2-->', this.progressBar2);
+              }
+          } else {
+              this.alertService.warning("Looks like no data available!");
+          }
       }, error => {
-        this.dashboardData = [];
-        this.isNotFound = false;
-        this.loading = false;
-        this.alertService.error("Error: " + error.statusText);
-      }); 
-    }
+          this.dashboardData = [];
+          this.isNotFound = false;
+          this.loading = false;
+          this.alertService.error("Error: " + error.statusText);
+      });
+  }
+  
 
   onPieChartSelect(event: any): void {
     // const segment = event.name; // Get the name of the clicked segment
@@ -1480,7 +1642,7 @@ export class DashboardComponent implements OnInit {
       }
     }, error => {
       this.isNotFound = false;
-      this.alertService.error("Error: Unknown Error!");
+      this.alertService.error("Error: " + error.statusText)
     }); 
   }
   // projectlist(){
@@ -1494,7 +1656,7 @@ export class DashboardComponent implements OnInit {
   //     }
   //   }, error => {
   //     this.isNotFound = false;
-  //     this.alertService.error("Error: Unknown Error!")
+  //     this.alertService.error("Error: " + error.statusText)
   //   }); 
   // }
 

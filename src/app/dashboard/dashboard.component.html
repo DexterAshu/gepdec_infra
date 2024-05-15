@@ -509,10 +509,29 @@
         </div>
        
         </div> -->
+
         <div class="" #containerPerformance>
           <div class="Highcharts " [chart]="LineChartGraph"></div>
          
         </div>
+
+        <!-- <div #lineBarChart>
+          <ngx-charts-line-chart
+            [view]="[lineBarChart.offsetWidth - 50, 330]"
+            [scheme]="colorScheme"
+            
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxis]="xAxis"
+            [yAxis]="yAxis"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [timeline]="timeline"
+            [results]="budgetData"
+            >
+          </ngx-charts-line-chart>  
+        </div>-->
+        <!-- [legend]="legend" -->
       </div>
     </div>
   </div>
@@ -593,6 +612,9 @@
               [yAxisLabel]="yAxisLabel">
             </ngx-charts-bar-horizontal>
           </div>
+          <div class="btnMain text-center">
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#progressBarModal">More Detail</button>
+          </div>
         </div>
       </div>
     </div>
@@ -602,8 +624,8 @@
  
   <!-- Top Deals project data -->
   <div class="row mt-1">
-    <div class="col-md-6 col-sm-7 grid-margin stretch-card pe-0">
-      <div class="card" data-bs-toggle="modal" data-bs-target="#createModal">
+    <div class="col-md-6 col-sm-12 grid-margin stretch-card pe-0">
+      <div class="card" data-bs-toggle="modal" data-bs-target="#createModal" role="button">
         <div class="card-body">
           <div class="row">
             <p class="card-title mb-2 col-md-9">Top 5 Tenders</p>
@@ -611,12 +633,12 @@
                  <!-- <a class="" href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a> -->
             </div>
           </div>
-          <div class="cardHead" style="cursor: pointer;">
+          <!-- <div class="cardHead" style="cursor: pointer;">
             <div class="row">
               <div class="col-md-1 col-1">S No</div>
               <div class="col-md-4 col-4"  style="text-align: left;">Project Name</div>
               <div class="col-md-4 col-4"  style="text-align: left;">Category</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">ECV (Cr)</div>
+              <div class="col-md-3 col-3"  style="text-align: left;">ECV (INR)</div>
             </div>
           </div>
           <div class="table-wrap">
@@ -626,13 +648,40 @@
             <div class="card1 mt-1" *ngFor="let tender of topFiveOrder; let i = index">
               <div class="row d-flex">
                 <div class="col-md-1 col-1" >{{i + 1}}</div>
-                <div class="col-md-4 col-4"  style="text-align: left;">{{tender.tender_title}}</div>
+                <div class="col-md-4 col-4"  style="text-align: left;">
+                  <div data-toggle="tooltip" data-placement="bottom" title="{{ tender?.tender_title }}">
+                    {{tender?.tender_title | slice:0:30}} <span>...<i class="mdi mdi-information"></i></span>
+                  </div>
+                </div>
                 <div class="col-md-4 col-4"  style="text-align: left;">{{tender.bidtype}}</div>
                 <div class="col-md-3 col-3"  style="text-align: left;">{{tender.ecv}}</div>
               </div>
             </div>
+          </div> -->
+
+          <div class="table-responsive ht-auto" style="border-top-right-radius: 10px;
+          border-top-left-radius: 10px;">
+            <table class="table custTable table-striped table-hover">
+              <thead class="tender-thead text-white">
+                <tr>
+                  <th scope="col" class="text-white py-3">S No</th>
+                  <th scope="col" class="text-white py-3">Project Name</th>
+                  <th scope="col" class="text-white py-3">Category</th>
+                  <th scope="col" class="text-white py-3">ECV (INR)</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let tender of topFiveOrder; let i = index">
+                  <td>{{i + 1}}</td>
+                  <td>{{tender.tender_title}}</td>
+                  <td>{{tender.bidtype}}</td>
+                  <td>{{tender.ecv}}</td>
+                </tr>
+                
+              </tbody>
+            </table>
           </div>
-          
+
           <!-- <div class="card2 mt-1">
             <div class="row">
               <div class="col-md-2 col-2" >2</div>
@@ -683,7 +732,7 @@
                 <div class="spinner-border"> </div>
               </div>
               <ngx-charts-pie-chart
-                [view]="[pieChartRef.offsetWidth - 30, 300]"
+                [view]="[pieChartRef.offsetWidth - 30, 290]"
                 [scheme]="pieColorsCust"
                 [labels]="showLabels"
                 [gradient]="true"
@@ -735,8 +784,8 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                   <tr>
                     <th>S No</th>
                     <th>Project Name</th>
-                    <th>Tender Type</th>
-                    <th>ECV (Cr)</th>
+                    <th>Category</th>
+                    <th>ECV (INR)</th>
                     <th>Amount with GST</th>
                     <th>Amount without GST</th>
                     <th>Profitability</th>
@@ -752,42 +801,7 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                     <td>200</td>
                     <td>195</td>
                   </tr>
-                  <!-- <tr>
-                    <td>2</td>
-                    <td>Jaunpur</td>
-                    <td>220 Kv</td>
-                    <td>400</td>
-                    <td>300</td>
-                    <td>250</td>
-                    <td>200</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Noida Sec-45</td>
-                    <td>220 Kv</td>
-                    <td>400</td>
-                    <td>300</td>
-                    <td>250</td>
-                    <td>200</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Delhi</td>
-                    <td>320 Kv</td>
-                    <td>200</td>
-                    <td>150</td>
-                    <td>100</td>
-                    <td>80</td>
-                  </tr>
-                  <tr >
-                    <td>5</td>
-                    <td>Noida</td>
-                    <td>240 Kv</td>
-                    <td>200</td>
-                    <td>150</td>
-                    <td>100</td>
-                    <td>80</td>
-                  </tr> -->
+                 
                  
                 </tbody>
               </table>
@@ -803,6 +817,48 @@ data-bs-backdrop="static" data-bs-keyboard="true">
 </div>
 <!-- create modal end L1-->
 
+  <!-- Project status modal -->
+<div class="modal fade" id="progressBarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Project Wise Status</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+            <div class="m-2">
+              <div class="table-responsive ht-auto">
+                <table class="table table-hover table-striped">
+                  <thead class="table-primary text-nowrap" style="cursor: pointer;">
+                    <tr>
+                      <th>S No</th>
+                      <th>Project Name</th>
+                      <th>Tender ID</th>
+                      <th>Duration</th>
+                      <th>Progress</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-nowrap" style="cursor: pointer;">
+                    <tr *ngFor="let p of progressBar2 | paginate: { itemsPerPage: limit2, currentPage: p2 }; let i = index">
+                      <td>{{limit2*(p2-1)+i+1}}</td>
+                      <td>{{p.tender_title}}</td>
+                      <td>{{p.tender_id}}</td>
+                      <td>{{p.duration}}</td>
+                      <td>{{p.progress}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="pagination-sec text-center">
+                  <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
+                </div>
+              </div>
+            </div>
+           
+      
+      </div>
+  </div>
+  </div>
+  <!-- Project status modal end-->
 
 
 

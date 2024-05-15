@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService, ApiService, SharedService } from 'src/app/_services';
+import { AlertService, ApiService, MasterService, SharedService } from 'src/app/_services';
 import { Chart } from 'angular-highcharts';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-presales-dashboard',
@@ -10,6 +11,8 @@ import { Chart } from 'angular-highcharts';
   styleUrls: ['./presales-dashboard.component.css']
 })
 export class PresalesDashboardComponent {
+  p: number = 1;
+  limit = environment.pageLimit;
   form!: FormGroup; 
   fitContainer: boolean = false;
   view: any = [500, 250];
@@ -511,6 +514,12 @@ export class PresalesDashboardComponent {
   
   fiveYear: any;
   segmentData: any;
+  isNotFound: boolean = false;
+  loading: boolean = false;
+  preSalesDashData: any;
+  pieChartData: any = [];
+  topFiveOrder: any[] = [];
+  barChartData: any = [];
   constructor(
     private sharedService: SharedService,
     private apiService: ApiService,
@@ -518,6 +527,7 @@ export class PresalesDashboardComponent {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private masterService: MasterService,
   ) { }
 
 
@@ -526,6 +536,7 @@ export class PresalesDashboardComponent {
   this.fiveYear = this.sharedService.lastFiveYears();
   this.getCountryData();
   this.getSegmentData();
+  this.getPresalesDashData();
 
   this.form = this.formBuilder.group({
     country_id: [null, Validators.required],
@@ -568,7 +579,7 @@ export class PresalesDashboardComponent {
   //   }
   // }, error => {
   //   this.segmentData = [];
-  //   this.alertService.error("Error: Unknown Error!")
+  //   this.alertService.error("Error: " + error.statusText)
   // });
   }
 
@@ -609,5 +620,57 @@ export class PresalesDashboardComponent {
     ],
   
     
-  }); 
+  });
+  
+  getPresalesDashData() {
+    this.isNotFound = true;
+    this.loading = true;
+    this.masterService.getPreSaleDashboard().subscribe((res: any) => {
+        this.isNotFound = false;
+        this.preSalesDashData = [];
+        if (res.status === 200) {
+            this.loading = false;
+            this.preSalesDashData = res;
+
+            // topFiveTender is not null before using it
+            if (this.preSalesDashData.topFiveProject) {
+                this.topFiveOrder = this.preSalesDashData.topFiveProject;
+            }
+
+            // Pie chart 
+            if (this.preSalesDashData.cardData) {
+              this.pieChartData = this.preSalesDashData.cardData
+                .filter((item: any) => item.status !== 'Published') // Exclude 'Published' status
+                .map((item: any) => {
+                  return {
+                    name: item.status,
+                    value: item.count,
+                  };
+                });
+            }
+
+            //  vertical bar chart
+            if (this.preSalesDashData.performanceData) {
+              this.barChartData = this.preSalesDashData.performanceData.map((item: any) => {
+                  return {
+                      name: item.year,
+                      series: [
+                          { name: 'Total', value: +item.published_count },
+                          { name: 'Qualified', value: +item.qualified_count },
+                          { name: 'Participated', value: +item.participated_count },
+                          { name: 'Won', value: +item.won_count }
+                      ]
+                  };
+              });
+          }
+        } else {
+            this.alertService.warning("Looks like no data available!");
+        }
+    }, error => {
+        this.preSalesDashData = [];
+        this.isNotFound = false;
+        this.loading = false;
+        this.alertService.error("Error: " + error.statusText);
+    });
+  }
 }

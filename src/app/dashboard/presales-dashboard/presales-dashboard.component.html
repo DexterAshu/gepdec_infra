@@ -100,7 +100,8 @@
   </div>
 
   <div class="row m-0">
-    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/published-tender">
+    <div class="col-md-3 cust-padding">
+      <!-- routerLink="/dashboard/presales-dashboard/published-tender" -->
       <div class="business-card p-3">
         <div class="row">
           <div class="col-md-3">
@@ -109,35 +110,37 @@
 
 
           <div class="col-md-9">
-            <h3> 50 </h3>
+            <h3> {{ preSalesDashData?.cardData?.[3]?.count ?? '0' }} </h3>
             <hr>
             <h6> Tender Published </h6>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/under-evaluation">
+    <div class="col-md-3 cust-padding">
+      <!-- routerLink="/dashboard/presales-dashboard/under-evaluation" -->
       <div class="cust-card p-3">
         <div class="row">
           <div class="col-md-3">
             <i class="mdi mdi-checkbox-marked-circle-outline text-center" style=" font-size: 44px;"></i>
           </div>
           <div class="col-md-9">
-            <h3> 30 </h3>
+            <h3> {{ preSalesDashData?.cardData?.[0]?.count ?? '0' }} </h3>
             <hr>
             <h6>Qualified </h6>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/participation">
+    <div class="col-md-3 cust-padding">
+      <!-- routerLink="/dashboard/presales-dashboard/participation" -->
       <div class="Profit-card p-3">
         <div class="row">
           <div class="col-md-3">
             <i class="mdi mdi-chart-scatterplot-hexbin text-center" style="font-size: 36px;"></i>
           </div>
           <div class="col-md-9">
-            <h3>20 </h3>
+            <h3> {{ preSalesDashData?.cardData?.[2]?.count ?? '0' }} </h3>
             <hr>
             <h6>Participated</h6>
           </div>
@@ -146,19 +149,20 @@
 
       </div>
     </div>
-    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard/win">
+    <div class="col-md-3 cust-padding">
+      <!-- routerLink="/dashboard/presales-dashboard/win" -->
       <div class="loss-card p-3">
         <div class="row">
           <div class="col-md-3">
             <i class="mdi mdi-thumb-up-outline text-center" style=" font-size: 38px;"></i>
           </div>
           <div class="col-md-5">
-            <h3> 12 </h3>
+            <h3> {{ preSalesDashData?.cardData?.[1]?.count ?? '0' }} </h3>
             <hr>
             <h6>Won</h6>
           </div>
           <div class="col-md-4">
-            <h3> 60 </h3>
+            <h3> {{ preSalesDashData?.cardData?.[1]?.percentage ?? '0' }} </h3>
             <hr>
             <h6>(%)</h6>
           </div>
@@ -348,7 +352,7 @@
 
           <div class="chartBar" #containerRef4>
             <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth,190]" [scheme]="colorSchemeLoadQuarter1"
-              [results]="multi" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
+              [results]="barChartData" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
               [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
               [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="5" [groupPadding]="7">
             </ngx-charts-bar-vertical-2d>
@@ -357,7 +361,7 @@
             <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total</li>
             <li><i class="mdi mdi-checkbox-blank load_box2"></i> Qualified</li>
             <li><i class="mdi mdi-checkbox-blank load_box3"></i> Participated</li>
-            <li><i class="mdi mdi-checkbox-blank load_box4"></i> Win</li>
+            <li><i class="mdi mdi-checkbox-blank load_box4"></i> Won</li>
           </ul>
         </div>
       </div>
@@ -380,7 +384,7 @@
 
           <div class="chartBar" #containerRef6>
             <ngx-charts-pie-chart [view]="[containerRef6.offsetWidth - 35, 220]" [scheme]="lineColorScheme"
-              [labels]="showLabelsPie" [gradient]="false" [doughnut]="true" [legend]="true" [results]="pieDataCust">
+              [labels]="showLabelsPie" [gradient]="false" [doughnut]="true" [legend]="true" [results]="pieChartData">
             </ngx-charts-pie-chart>
           </div>
 
@@ -414,7 +418,7 @@
     </div>
 
     <div class="col-md-6 col-sm-7 grid-margin stretch-card pe-0">
-      <div class="card" data-bs-toggle="modal" data-bs-target="#createModal">
+      <div class="card" data-bs-toggle="modal" data-bs-target="#createModal" role="button">
         <div class="card-body">
           <div class="row">
             <p class="card-title mb-2 col-md-9">Top 5 Orders</p>
@@ -423,7 +427,7 @@
             </div>
           </div>
 
-          <div class="cardHead" style="cursor: pointer;">
+          <!--<div class="cardHead" style="cursor: pointer;">
             <div class="row">
               <div class="col-md-2 col-2" >S No</div>
               <div class="col-md-4 col-4"  style="text-align: left;">Project Name</div>
@@ -470,6 +474,29 @@
               <div class="col-md-3 col-3"  style="text-align: left;">240 Kv</div>
               <div class="col-md-3 col-3"  style="text-align: left;">200</div>
             </div>
+          </div> -->
+
+          <div class="table-responsive ht-auto" style="border-top-right-radius: 10px;
+          border-top-left-radius: 10px;">
+            <table class="table custTable table-striped table-hover">
+              <thead class="tender-thead text-white">
+                <tr>
+                  <th scope="col" class="text-white py-3">S No</th>
+                  <th scope="col" class="text-white py-3">Project Name</th>
+                  <th scope="col" class="text-white py-3">Category</th>
+                  <th scope="col" class="text-white py-3">Amount (INR)</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let tender of topFiveOrder; let i = index">
+                  <td>{{i + 1}}</td>
+                  <td>{{tender.tender_title}}</td>
+                  <td>{{tender.bidtype}}</td>
+                  <td>{{tender.ecv}}</td>
+                </tr>
+                
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -508,7 +535,7 @@
 <!-- create modal L1 -->
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
@@ -522,61 +549,27 @@
                 <th>S No</th>
                 <th>Project Name</th>
                 <th>Category</th>
-                <th>Amount (Cr)</th>
+                <th>Amount (INR)</th>
                 <th>Amount with GST</th>
                 <th>Amount without GST</th>
                 <th>Profitability</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr>
-                <td>1</td>
-                <td>Taldihi</td>
-                <td>330 Kv</td>
-                <td>300</td>
+              <tr *ngFor="let t of topFiveOrder | paginate: { itemsPerPage: limit, currentPage: p }; let i = index">
+                <td>{{limit*(p-1)+i+1}}</td>
+                <td>{{t.tender_title}}</td>
+                <td>{{t.bidtype}}</td>
+                <td>{{t.ecv}}</td>
                 <td>250</td>
                 <td>200</td>
                 <td>195</td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Jaunpur</td>
-                <td>220 Kv</td>
-                <td>400</td>
-                <td>300</td>
-                <td>250</td>
-                <td>200</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Noida Sec-45</td>
-                <td>220 Kv</td>
-                <td>400</td>
-                <td>300</td>
-                <td>250</td>
-                <td>200</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Delhi</td>
-                <td>320 Kv</td>
-                <td>200</td>
-                <td>150</td>
-                <td>100</td>
-                <td>80</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Noida</td>
-                <td>240 Kv</td>
-                <td>200</td>
-                <td>150</td>
-                <td>100</td>
-                <td>80</td>
-              </tr>
-  
             </tbody>
           </table>
+          <div class="pagination-sec text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
         </div>
 
       </div>
@@ -590,7 +583,7 @@
 <!-- create modal L2 -->
 <div class="modal fade" id="createModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">List Data</h5>
