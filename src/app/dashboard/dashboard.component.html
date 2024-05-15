@@ -650,7 +650,7 @@
                 <div class="col-md-2 col-2" >{{i + 1}}</div>
                 <div class="col-md-4 col-4"  style="text-align: left;">
                   <div *ngIf="!!tender?.tender_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ tender?.tender_title }}">
-                    {{tender?.tender_title | slice:0:20}} <span *ngIf="tender?.tender_title.length > 20">...<i class="mdi mdi-information"></i></span>
+                    {{tender?.tender_title | slice:0:15}} <span *ngIf="tender?.tender_title.length > 15">...<i class="mdi mdi-information"></i></span>
                 </div>
                 <ng-template #elseBlock3>
                     {{tender?.tender_title}}
