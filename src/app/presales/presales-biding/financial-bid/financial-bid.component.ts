@@ -102,37 +102,43 @@ export class FinancialBidComponent {
     this.form = this.formBuilder.group({
       tender_id: [null, Validators.required],
       utility_id: [null, Validators.required],
-      financialyear_id: [null],
+      financialyear_id: [''],
       annual_turnover: [''],
       annual_turnover_year: [''],
       annual_turnover_check: [''],
       annual_turnover_status: [''],
       our_annual_turnover: [''],
+      annual_turnover_fin: [''],
       net_worth: [''],
       net_worth_year: [''],
       net_worth_check: [''],
       net_worth_status: [''],
       our_net_worth: [''],
+      net_worth_fin: [''],
       net_working_capital: [''],
       net_working_capital_year: [''],
       net_working_capital_check: [''],
       net_working_status: [''],
       our_net_working_capital: [''],
+      net_working_capital_fin: [''],
       total_liabilities: [''],
       total_liabilities_year: [''],
       total_liabilities_check: [''],
       our_total_liabilities: [''],
       total_liabilities_status: [''],
+      total_liabilities_fin: [''],
       total_fixed_assets: [''],
       total_fixed_assets_year: [''],
       total_fixed_assets_check: [''],
       our_total_fixed_assets: [''],
       total_fixed_assets_status: [''],
+      total_fixed_assets_fin: [''],
       net_profit: [''],
       net_profit_year: [''],
       net_profit_check: [''],
       our_net_profit: [''],
       net_profit_status: [''],
+      net_profit_fin: [''],
       // net_capital: [''],
       // net_capital_year: [''],
       // net_capital_check: [''],
@@ -143,16 +149,19 @@ export class FinancialBidComponent {
       reserve_surplus_check: [''],
       our_reserve_surplus: [''],
       reserve_surplus_status: [''],
+      reserve_surplus_fin:[''],
       paid_upcapital: [''],
       paid_upcapital_year: [''],
       paid_upcapital_check: [''],
       our_paid_upcapital: [''],
       paid_upcapital_status: [''],
+      paid_upcapital_fin:[''],
       ebidta: [''],
       ebidta_year: [''],
       ebidta_check: [''],
       our_ebidta: [''],
       ebidta_status: [''],
+      ebidta_fin: [''],
       remark: [null, Validators.required],
 
     });
@@ -224,7 +233,6 @@ export class FinancialBidComponent {
 
   //Annuval data
   annuvalTurnVal(year: any, check: any, annual: any) {
-    debugger
     this.data = null;
     this.annuvalTDate = null;
     if (check) {
@@ -423,9 +431,6 @@ export class FinancialBidComponent {
         this.isRS = false;
       }
     }
-
-
-
     this.form.controls['our_reserve_surplus'].setValue(this.rAnds);
     this.form.controls['reserve_surplus_status'].setValue(this.isRS);
 
@@ -487,9 +492,6 @@ export class FinancialBidComponent {
   //    this.apiService.finAnnuvalTournover(data).subscribe((res:any) =>{
   //     this.data =res.result;
   //    })
-
-
-
   //   // this.apiService.finCalculateData(year, check).subscribe((res:any) =>{
   //   // this.finCalData = res.result;
   // }
@@ -532,10 +534,12 @@ export class FinancialBidComponent {
   }
 
   onSubmit() {
+    this.form.value.financialyear_id = this.form.value.financialyear_id;
     if (this.form.value) {
       this.isSubmitted = true;
       this.loading = true;
       console.log(this.form.value)
+      this.form.value.financialyear_id = this.netDate;
       this.addFinancial(this.form.value);
     }
   }
@@ -555,31 +559,37 @@ export class FinancialBidComponent {
       annual_turnover_check: formValues.annual_turnover_check || null,
       annual_turnover_status: formValues.annual_turnover_status || null,
       our_annual_turnover: formValues.our_annual_turnover || null,
+      annual_turnover_fin: formValues.annual_turnover_fin || null,
       net_worth: formValues.net_worth || null,
       net_worth_year: formValues.net_worth_year || null,
       net_worth_check: formValues.net_worth_check || null,
       net_worth_status: formValues.net_worth_status || null,
       our_net_worth: formValues.our_net_worth || null,
+      net_worth_fin: formValues.net_worth_fin || null,
       net_working_capital: formValues.net_working_capital || null,
       net_working_capital_year: formValues.net_working_capital_year || null,
       net_working_capital_check: formValues.net_working_capital_check || null,
       net_working_status: formValues.net_working_status || null,
       our_net_working_capital: formValues.our_net_working_capital || null,
+      net_working_capital_fin: formValues.net_working_capital_fin || null,
       total_liabilities: formValues.total_liabilities || null,
       total_liabilities_year: formValues.total_liabilities_year || null,
       total_liabilities_check: formValues.total_liabilities_check || null,
       our_total_liabilities: formValues.our_total_liabilities || null,
       total_liabilities_status: formValues.total_liabilities_status || null,
+      total_liabilities_fin: formValues.total_liabilities_fin || null,
       total_fixed_assets: formValues.total_fixed_assets || null,
       total_fixed_assets_year: formValues.total_fixed_assets_year || null,
       total_fixed_assets_check: formValues.total_fixed_assets_check || null,
       our_total_fixed_assets: formValues.our_total_fixed_assets || null,
       total_fixed_assets_status: formValues.total_fixed_assets_status || null,
+      total_fixed_assets_fin: formValues.total_fixed_assets_fin || null,
       net_profit: formValues.net_profit || null,
       net_profit_year: formValues.net_profit_year || null,
       net_profit_check: formValues.net_profit_check || null,
       our_net_profit: formValues.our_net_profit || null,
       net_profit_status: formValues.net_profit_status || null,
+      net_profit_fin: formValues.net_profit_fin || null,
       // net_capital: formValues.net_capital || null,
       net_capital_year: formValues.net_capital_year || null,
       net_capital_check: formValues.net_capital_check || null,
@@ -590,16 +600,19 @@ export class FinancialBidComponent {
       reserve_surplus_check: formValues.reserve_surplus_check || null,
       our_reserve_surplus: formValues.our_reserve_surplus || null,
       reserve_surplus_status: formValues.reserve_surplus_status || null,
+      reserve_surplus_fin: formValues.reserve_surplus_fin || null,
       paid_upcapital: formValues.paid_upcapital || null,
       paid_upcapital_year: formValues.paid_upcapital_year || null,
       paid_upcapital_check: formValues.paid_upcapital_check || null,
       our_paid_upcapital: formValues.our_paid_upcapital || null,
       paid_upcapital_status: formValues.paid_upcapital_status || null,
+      paid_upcapital_fin: formValues.paid_upcapital_fin || null,
       ebidta: formValues.ebidta || null,
       ebidta_year: formValues.ebidta_year || null,
       ebidta_check: formValues.ebidta_check || null,
       our_ebidta: formValues.our_ebidta || null,
       ebidta_status: formValues.ebidta_status || null,
+      ebidta_fin: formValues.ebidta_fin || null,
       remark: formValues.remark || null,
     };
 

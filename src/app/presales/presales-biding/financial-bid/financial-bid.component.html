@@ -237,7 +237,7 @@
 
                                         <div class="col-md-2" *ngIf="form.value.annual_turnover_check == '1'">
                                             <label class="form-label fl-10 text-small">Fin Year</label>
-                                            <input class="form-control form-control-sm" readonly value="{{data?.date }}">
+                                            <input class="form-control form-control-sm" formControlName="annual_turnover_fin" readonly value="{{data?.date }}">
                                         </div>
                                         
                                         <div class="col-md-2" *ngIf="form.value.annual_turnover_check != '1' && form.value.annual_turnover_check != ''">
@@ -331,7 +331,7 @@
 
                                         <div class="col-md-2" *ngIf="form.value.net_profit_year">
                                             <label class="form-label fl-10 text-small">Fin Year</label>
-                                            <input class="form-control form-control-sm" readonly value="{{netDate}}">
+                                            <input class="form-control form-control-sm" formControlName="net_profit_fin" readonly value="{{netDate}}">
                                         </div>
                                      
                                         <div class="col-md-2" *ngIf="form.value.net_profit_year">
@@ -403,11 +403,11 @@
                                         <div class="col-md-2" *ngIf="form.value.ebidta_year == '0'">
                                             <label class="form-label fl-10 text-small">As On</label>
 
-                                            <input class="form-control form-control-sm" readonly value="{{ebitdaDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="ebidta_fin" readonly value="{{ebitdaDate | date: 'dd/MM/yyyy'}}">
                                         </div>
                                         <div class="col-md-2" *ngIf="form.value.ebidta_year == '1'">
                                             <label class="form-label fl-10 text-small">Fin Year</label>
-                                            <input class="form-control form-control-sm" readonly value="{{ebitdaDate}}">
+                                            <input class="form-control form-control-sm" formControlName="ebidta_fin" readonly value="{{ebitdaDate}}">
                                         </div>
                                    
                                         <div class="col-md-2" *ngIf="form.value.ebidta_year">
@@ -476,12 +476,12 @@
 
                                         <div class="col-md-2" *ngIf="form.value.net_worth_year == '0'">
                                             <label class="form-label fl-10 text-small" >As On</label>
-                                            <input class="form-control form-control-sm" readonly value="{{netWorthDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="net_worth_fin" readonly value="{{netWorthDate | date: 'dd/MM/yyyy'}}">
                                         </div>
 
                                         <div class="col-md-2" *ngIf="form.value.net_worth_year == '1'">
                                             <label class="form-label fl-10 text-small">Fin Year</label>
-                                            <input class="form-control form-control-sm" readonly value="{{netWorthDate}}">
+                                            <input class="form-control form-control-sm" formControlName="net_worth_fin" readonly value="{{netWorthDate}}">
                                         </div>
                                       
                                         <div class="col-md-2" *ngIf="form.value.net_worth_year">
@@ -536,7 +536,7 @@
 
                                         <div class="col-md-2" *ngIf="form.value.net_working_capital_year">
                                             <label class="form-label fl-10 text-small">As On</label>
-                                            <input class="form-control form-control-sm" readonly value="{{date | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="net_working_capital_fin" readonly value="{{date | date: 'dd/MM/yyyy'}}">
                                             <!-- <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
                                                 <select formControlName="net_working_capital_check" #netWorkCap
@@ -617,12 +617,12 @@
 
                                         <div class="col-md-2" *ngIf="form.value.total_liabilities_year == '0'">
                                             <label class="form-label fl-10 text-small">As On</label>
-                                            <input class="form-control form-control-sm" readonly value="{{libDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="total_liabilities_fin" readonly value="{{libDate | date: 'dd/MM/yyyy'}}">
                                         </div>
 
                                         <div class="col-md-2" *ngIf="form.value.total_liabilities_year == '1'">
                                             <label class="form-label fl-10 text-small">Fin Year</label>
-                                            <input class="form-control form-control-sm" readonly value="{{libDate}}">
+                                            <input class="form-control form-control-sm" formControlName="total_liabilities_fin" readonly value="{{libDate}}">
                                         </div>
                                        
                                         <div class="col-md-2" *ngIf="form.value.total_liabilities_year">
@@ -692,11 +692,11 @@
 
                                         <div class="col-md-2" *ngIf="form.value.total_fixed_assets_year == '0'">
                                             <label class="form-label fl-10 text-small">As On</label>
-                                            <input class="form-control form-control-sm" readonly value="{{assetDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="total_fixed_assets_fin" readonly value="{{assetDate | date: 'dd/MM/yyyy'}}">
                                         </div>
                                         <div class="col-md-2" *ngIf="form.value.total_fixed_assets_year == '1'">
                                             <label class="form-label fl-10 text-small">Fin Year</label>
-                                            <input class="form-control form-control-sm" readonly value="{{assetDate}}">
+                                            <input class="form-control form-control-sm" formControlName="total_fixed_assets_fin" readonly value="{{assetDate}}">
                                         </div>
                                        
                                         <div class="col-md-2" *ngIf="form.value.total_fixed_assets_year">
@@ -828,7 +828,7 @@
                                         <div class="col-md-2" *ngIf="form.value.reserve_surplus_year">
                                             <!-- <label class="form-label fl-10 text-small" *ngIf="form.value.reserve_surplus_year == '0'">As On</label> -->
                                             <label class="form-label fl-10 text-small" *ngIf="form.value.reserve_surplus_year == '1'">Fin Year</label>
-                                            <input class="form-control form-control-sm" readonly value="{{rsDate}}">
+                                            <input class="form-control form-control-sm" formControlName="reserve_surplus_fin" readonly value="{{rsDate}}">
                                         </div>
                                       
                                         <div class="col-md-2" *ngIf="form.value.reserve_surplus_year">
@@ -896,12 +896,12 @@
 
                                         <div class="col-md-2" *ngIf="form.value.paid_upcapital_year == '0'">
                                             <label class="form-label fl-10 text-small" >As On</label>
-                                            <input class="form-control form-control-sm" readonly value="{{paidDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="paid_upcapital_fin" readonly value="{{paidDate | date: 'dd/MM/yyyy'}}">
                                         </div>
 
                                         <div class="col-md-2" *ngIf="form.value.paid_upcapital_year == '1'">
                                             <label class="form-label fl-10 text-small">Fin Year</label>
-                                            <input class="form-control form-control-sm" readonly value="{{paidDate}}">
+                                            <input class="form-control form-control-sm" formControlName="paid_upcapital_fin" readonly value="{{paidDate}}">
                                         </div>
                                      
                                         <div class="col-md-2" *ngIf="form.value.paid_upcapital_year">
@@ -1024,7 +1024,7 @@
                                 <table class="table table-hover table-striped mb-3">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th>Points</th>
+                                            <th>Financial Parameters</th>
                                             <th>Amounts (Cr)</th>
                                             <th>Years</th>
                                             <th>Condition</th>

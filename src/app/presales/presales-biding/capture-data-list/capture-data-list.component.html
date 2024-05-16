@@ -88,6 +88,9 @@
                                 <th>Client</th>
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
+                                <th>Category</th>
+                                <th>Sub-Category</th>
+                                <th>Capacity</th>
                                 <th>Published Date</th>
                                 <th>Execution Location</th>
                                 <th>ECV (INR)</th>
@@ -117,6 +120,9 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
+                                <td>{{a.qacatagory}}</td>
+                                <td>{{a.subqacatagory}}</td>
+                                <td>{{a.capacity}}</td>
                                 <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.ecv }}</td>
@@ -186,6 +192,14 @@
                                             </td>
                                             <th>Published Date</th>
                                             <td>{{rowData?.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Category</th>
+                                            <td>{{rowData?.qacatagory}}</td>
+                                            <th>Sub-Category</th>
+                                            <td>{{rowData?.subqacatagory}}</td>
+                                            <th>Capacity</th>
+                                            <td>{{rowData?.capacity}}</td>
                                         </tr>
                                         <tr>
                                             <th>Execution Location</th>

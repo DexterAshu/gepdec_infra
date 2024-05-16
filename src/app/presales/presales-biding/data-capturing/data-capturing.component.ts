@@ -61,7 +61,10 @@ export class DataCapturingComponent {
   removeContact: any[] = [];
   today: any = new Date();
   isContactFound: boolean = true;
-
+  categoryData: any;
+  subCategoryData: any;
+  capacityData: any;
+  apiLink: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -87,6 +90,9 @@ export class DataCapturingComponent {
       company_id: [null, Validators.required],
       tender_title: [null, Validators.required],
       tender_ref_no: [null, Validators.required],
+      capacity_id: [null],
+      qacatagory_id: [null],
+      subqacatagory_id: [null],
       bidtype_id: [null, Validators.required],
       tender_location: [null, Validators.required],
       publish_date: [null, Validators.required],
@@ -150,6 +156,7 @@ export class DataCapturingComponent {
     this.getCountryData();
     this.getDesignDeptData();
     this.finYearData();
+    this.getCategoryData();
   }
   patchClient() {
     console.log(this.custDetails)
@@ -313,6 +320,9 @@ export class DataCapturingComponent {
           tenderpayment_terms: this.custDetails.tenderpayment_terms,
           tender_location: this.custDetails.tender_location,
           tender_ref_no: this.custDetails.tender_ref_no,
+          qacatagory_id: this.custDetails.qacatagory_id,
+          subqacatagory_id: this.custDetails.subqacatagory_id,
+          capacity_id: this.custDetails.capacity_id,
           tender_status: this.custDetails.tender_status,
           tender_submission_date: this.custDetails.tender_submission_date,
           tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date,
@@ -391,6 +401,63 @@ export class DataCapturingComponent {
     });
   }
 
+
+  getCategoryData() {
+    this.categoryData = [];
+    this.subCategoryData = [];
+    this.capacityData = [];
+    this.form.controls['qacatagory_id'].setValue(null);
+    this.form.controls['subqacatagory_id'].setValue(null);
+    this.form.controls['capacity_id'].setValue(null);
+    let apiLink = "/biding/api/v1/getQualificationDropdown";
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      this.categoryData = res.catagory;
+    }, error => {
+      this.categoryData = undefined;
+      this.alertService.error("Error: Unknown Error!");
+    });
+  }
+
+  getSubData(data:any) {
+    this.subCategoryData = [];
+    this.capacityData = [];
+    this.form.controls['subqacatagory_id'].setValue(null);
+    this.form.controls['capacity_id'].setValue(null);
+    if(data == '1002' || data == '1003') {
+      this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
+      this.apiService.getData(this.apiLink).subscribe((res: any) => {
+        this.subCategoryData = res.subcatagory;
+      }, error => {
+        this.subCategoryData = undefined;
+        this.alertService.error("Error: Unknown Error!");
+      });
+    } else if(data == '1001') {
+        this.getCapacityData(data);
+    }
+  }
+  
+  getCapacityData(data:any) {
+    this.capacityData = [];
+    if(data == '2001' || data == '2002') {
+      this.apiLink = `/biding/api/v1/getQualificationDropdown?subqacatagory_id=${data}`;
+      this.apiService.getData(this.apiLink).subscribe((res: any) => {
+        this.capacityData = res.capacity;
+      }, error => {
+        this.capacityData = undefined;
+        this.alertService.error("Error: Unknown Error!");
+      });
+    } else if (data == '1001') {
+      this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
+      this.apiService.getData(this.apiLink).subscribe((res: any) => {
+        this.capacityData = res.capacity;
+      }, error => {
+        this.capacityData = undefined;
+        this.alertService.error("Error: Unknown Error!");
+      });
+
+    }
+  }
+  
 
   getCompanyData() {
     this.apiService.getCompanyList().subscribe((res: any) => {

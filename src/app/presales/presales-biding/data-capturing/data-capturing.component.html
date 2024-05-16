@@ -94,6 +94,56 @@
                         </div>
                     </div>
 
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Category<span
+                                    class="required-asterisk">*</span></label>
+                            <select formControlName="qacatagory_id" class="form-select form-select-sm" #cat
+                                (change)="getSubData(cat.value)">
+                                <option [selected]="true" [disabled]="true">Select Category</option>
+                                <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">
+                                    {{c.qacatagory}}</option>
+                            </select>
+                            <div *ngIf="f['qacatagory_id'].touched && f['qacatagory_id'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['qacatagory_id'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngIf="cat.value == '1002' || cat.value == '1003'">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Sub-Category<span
+                                    class="required-asterisk">*</span></label>
+                            <select formControlName="subqacatagory_id" class="form-select form-select-sm" #sub
+                                (change)="getCapacityData(sub.value)">
+                                <option [selected]="true" [disabled]="true">Select Sub-Category</option>
+                                <option *ngFor="let c of subCategoryData" value="{{c.subqacatagory_id}}">
+                                    {{c.subqacatagory}}</option>
+                            </select>
+                            <div *ngIf="f['subqacatagory_id'].touched && f['subqacatagory_id'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['subqacatagory_id'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="cat.value == '1001' || cat.value == '1002'">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Capacity<span
+                                    class="required-asterisk">*</span></label>
+                            <select formControlName="capacity_id" class="form-select form-select-sm">
+                                <option [selected]="true" [disabled]="true">Select Capacity</option>
+                                <option *ngFor="let c of capacityData" value="{{c.capacity_id}}">
+                                    {{c.capacity}}</option>
+                            </select>
+                            <div *ngIf="f['capacity_id'].touched && f['capacity_id'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['capacity_id'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Type<span class="required-asterisk">*</span></label>
