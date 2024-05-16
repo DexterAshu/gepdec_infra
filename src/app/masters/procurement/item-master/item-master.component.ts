@@ -14,15 +14,15 @@ export class ItemMasterComponent {
   searchText: any;
   form!: FormGroup;
   isSubmitted: boolean = false;
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   dataList: any;
   file: any;
   dataDropdownList: any;
   selectedRow: any;
 
-  constructor( private formBuilder: FormBuilder, private alertService: AlertService,private apiService: ApiService ) { }
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
 
- ngOnInit(){
+  ngOnInit() {
     this.form = this.formBuilder.group({
       description: [null, Validators.required],
       parameter: [null],
@@ -54,7 +54,7 @@ export class ItemMasterComponent {
     this.dataDropdownList = [];
     // this.isNotFound = false;
     let apiLink = "/item/api/v1/getItemDropdown";
-    this.apiService.getData(apiLink).subscribe((res:any) => {
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         // this.isNotFound = false;
         this.dataDropdownList = res;
@@ -74,7 +74,7 @@ export class ItemMasterComponent {
     this.dataList = [];
     this.isNotFound = false;
     let apiLink = "/item/api/v1/getItemList";
-    this.apiService.getData(apiLink).subscribe((res:any) => {
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.isNotFound = false;
         this.dataList = res.result;
@@ -90,7 +90,7 @@ export class ItemMasterComponent {
     });
   }
 
-  isParent(val:any) {
+  isParent(val: any) {
     if (val == 'Yes') {
       this.form.get('parentItem_id')!.setValidators([Validators.required]);
       this.form.controls['parentItem_id'].reset();
@@ -100,7 +100,7 @@ export class ItemMasterComponent {
     }
   }
 
-  fileUpload(event:any) {
+  fileUpload(event: any) {
     this.file = [];
     let file = event.target.files;
     let type = /(\.pdf)$/i;
@@ -145,10 +145,10 @@ export class ItemMasterComponent {
           this.alertService.warning(response.message);
         }
       }, (error) => {
-          this.isSubmitted = false;
-          document.getElementById('cancel')?.click();
-          this.alertService.error("Error: Unknown Error!");
-        })
+        this.isSubmitted = false;
+        document.getElementById('cancel')?.click();
+        this.alertService.error("Error: Unknown Error!");
+      })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }
