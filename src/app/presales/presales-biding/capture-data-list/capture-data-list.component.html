@@ -441,9 +441,49 @@
                                                 {{rowData?.tenderpayment_terms }}
                                             </td> -->
                                         </tr>
-                                        <tr>
                                     </tbody>
                                 </table>
+
+
+                                <div class="container-fluid mt-1">
+                                    <h6>Contacts Information</h6>
+                                    <div class="row">
+                                        <div class="col-md-12 p-0">
+                                            <div class="table-responsive tableStyle" style="min-height: auto !important;">
+                                                <table class="table table-hover table-striped mb-3">
+                                                    <thead class="table-primary text-nowrap">
+                                                        <tr>
+                                                            <th>S No</th>
+                                                            <th>Contact Person</th>
+                                                            <th>Designation</th>
+                                                            <th>Department</th>
+                                                            <th>Contact No</th>
+                                                            <th>Email ID</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-nowrap">
+                                                        <tr *ngFor="let a of rowData?.contact; index as i">
+                                                            <td>{{ limit*(p-1)+i+1 }}</td>
+                                                            <td>{{ a?.name }}</td>
+                                                            <td>{{ a?.designationname }}</td>
+                                                            <td>{{ a?.deptname }}</td>
+                                                            <td>{{ a?.contactno1}}</td>
+                                                            <td>{{ a?.email}}</td>
+                                                          
+                                                        </tr>
+                                                     
+                                                        <tr *ngIf="rowData?.contact?.length == 0">
+                                                            <td colspan="15" class="text-center">
+                                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <!-- qualification details -->
@@ -453,29 +493,6 @@
                                 <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708z" />
                             </svg> &nbsp;
                                 Qualification Details (Financial)</h6>
-                            <!-- <table class="table table-hover table-striped custom-table">
-                                <thead class="hidden-thead"></thead>
-                                <tbody class="text-nowrap" *ngFor="let a of rowData?.tenderfinancials">
-                                    <tr>
-                                        <th>Financial Year</th>
-                                        <td>{{ a?.financialyear }}</td>
-                                        <th>Annual Turnover</th>
-                                        <td>{{ a?.annual_turnover }}</td>
-                                        <th>Net Worth</th>
-                                        <td>{{ a?.net_worth }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Remarks</th>
-                                        <td>{{a?.remark}}</td>
-                                        <th></th>
-                                        <td></td>
-                                        <th></th>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
-
-
                             <div class="table-responsive tableStyle mt-2" *ngIf="finDataShow" style="min-height: auto !important;">
                                 <table class="table table-hover table-striped mb-3" *ngFor="let a of rowData?.tenderfinancials">
                                   

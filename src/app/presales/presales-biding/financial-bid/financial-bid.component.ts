@@ -534,12 +534,19 @@ export class FinancialBidComponent {
   }
 
   onSubmit() {
-    this.form.value.financialyear_id = this.form.value.financialyear_id;
+   
     if (this.form.value) {
       this.isSubmitted = true;
       this.loading = true;
-      console.log(this.form.value)
-      this.form.value.financialyear_id = this.netDate;
+      this.form.value.annual_turnover_fin = this.data?.date;
+      this.form.value.ebidta_fin = this.ebitdaDate;
+      this.form.value.net_worth_fin = this.netWorthDate;
+      this.form.value.net_working_capital_fin = this.date;
+      this.form.value.total_liabilities_fin = this.libDate;
+      this.form.value.total_fixed_assets_fin = this.assetDate;
+      this.form.value.net_profit_fin = this.netDate;
+      this.form.value.paid_upcapital_fin = this.paidDate;
+      this.form.value.reserve_surplus_fin = this.rsDate;
       this.addFinancial(this.form.value);
     }
   }
@@ -621,12 +628,10 @@ export class FinancialBidComponent {
       let response: any = res;
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
-      this.finListData();
       if (response.status == 200) {
         this.form.reset();
-        this.ngOnInit();
+        this.finListData();
         this.alertService.success(response.message);
-
       } else {
         this.alertService.warning(response.message);
       }
