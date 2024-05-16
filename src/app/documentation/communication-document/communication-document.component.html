@@ -143,15 +143,13 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Ref. No<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10"> NIT No<span class="required-asterisk">*</span></label>
                                     <input formControlName="tender_ref_no" type="text" class="form-control form-control-sm" readonly >
                                     <div *ngIf="f['tender_ref_no'].touched && f['tender_ref_no'].invalid">
                                         <small class="text-danger" *ngIf="f['tender_ref_no'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-
-                         
 
                             <div class="col-md-3">
                                 <div class="form-group">

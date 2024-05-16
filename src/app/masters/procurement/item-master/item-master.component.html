@@ -29,12 +29,10 @@
                 <th>S No</th>
                 <th>Code</th>
                 <th>Description</th>
-                <th>Category</th>
-                <th>Sub-Category</th>
+                <th>Item Category</th>
+                <th>Item Sub-Category</th>
                 <th>UOM</th>
                 <th>Cost</th>
-                <th>HSN Code</th>
-                <th>GST (%)</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -50,8 +48,6 @@
                 <td>{{ a?.itemcategory }}</td>
                 <td>{{ a?.subcategory }}</td>
                 <td>{{ a?.uom }}</td>
-                <td>{{ a?.cost }}</td>
-                <td>{{ a?.hsn_code}}</td>
                 <td>{{ a?.gst }}</td>
                 <td>
                   <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#detailModel" (click)="selectRow(a)" title="Item Detail Model"><span class="mdi mdi-eye text-success mdi-18px"></span></a>
@@ -103,20 +99,20 @@
                     <td>{{ selectedRow?.cost }}</td>
                   </tr>
                   <tr>
-                    <th>Category</th>
+                    <th>Item Category</th>
                     <td>{{ selectedRow?.itemcategory }}</td>
-                    <th>Sub-Category</th>
+                    <th>Item Sub-Category</th>
                     <td>{{ selectedRow?.subcategory }}</td>
                   </tr>
                   <tr>
                     <th>HSN Code</th>
                     <td>{{ selectedRow?.hsn_code }}</td>
-                    <th>GST</th>
+                    <th>GST (%)</th>
                     <td>{{ selectedRow?.gst ? selectedRow?.gst : 0 }}</td>
                   </tr>
                   <tr>
                     <th>Created Date</th>
-                    <td>{{ selectedRow?.created | date: 'dd/MM/yyyy hh:mm a' }}</td>
+                    <td>{{ selectedRow?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     <th>Created By</th>
                     <td>{{ selectedRow?.createdby_name }}</td>
                   </tr>
@@ -152,7 +148,7 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="form-label">Category<span class="required-asterisk">*</span></label>
+                  <label class="form-label">Item Category<span class="required-asterisk">*</span></label>
                   <select formControlName="itemCategory" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
                     <option *ngFor="let t of dataDropdownList?.itemcategory" [value]="t?.itemcategory_id">{{t?.itemcategory }}</option>
@@ -164,7 +160,7 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="form-label">Sub-Category<span class="required-asterisk">*</span></label>
+                  <label class="form-label">Item Sub-Category<span class="required-asterisk">*</span></label>
                   <select formControlName="itemSubCategory" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Sub-category</option>
                     <option *ngFor="let t of dataDropdownList?.subcategory" [value]="t?.subcategory_id">{{t?.subcategory }}</option>
