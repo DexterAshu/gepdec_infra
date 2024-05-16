@@ -26,6 +26,7 @@ export class IndirectCostingComponent {
   indexData: any = [];
   mainArray: any = [];
   rowData: any;
+  indirectCostTotal: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -175,7 +176,7 @@ export class IndirectCostingComponent {
   rowListData(row:any) {
     this.rowData = [];
     this.rowData = row;
-    console.log(this.rowData)
+    this.rowData?.indirectCost.filter((el:any) => { this.indirectCostTotal += +el?.total; } )
   }
 
   onSubmit() {

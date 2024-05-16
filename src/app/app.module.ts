@@ -14,8 +14,6 @@ import { StateComponent } from './masters/state/state.component';
 import { DistrictComponent } from './masters/district/district.component';
 import { CustomerComponent } from './masters/customer/customer.component';
 import { FinYearComponent } from './masters/fin-year/fin-year.component';
-
-
 import { LoginComponent } from './account/login/login.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -163,6 +161,13 @@ import { IndirectCostingComponent } from './presales/presales-biding/indirect-co
 import { SynopsisComponent } from './presales/presales-biding/synopsis/synopsis.component';
 import { CompFinanceComponent } from './masters/comp-finance/comp-finance.component';
 import { DirectCostingComponent } from './presales/presales-biding/direct-costing/direct-costing.component';
+import localeIn from '@angular/common/locales/en-IN';
+import { CommonModule, registerLocaleData } from '@angular/common';
+
+// Register the locale data for 'en-IN'
+registerLocaleData(localeIn, 'en-IN');
+import { LOCALE_ID } from '@angular/core';
+
 @NgModule({
   declarations: [
     UsdOnlyDirective,
@@ -242,9 +247,10 @@ import { DirectCostingComponent } from './presales/presales-biding/direct-costin
 
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'en-IN' } ,// Set the default locale to 'en-IN'
     CurrencyPipe,
     DecimalPipe,
-    DatePipe
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

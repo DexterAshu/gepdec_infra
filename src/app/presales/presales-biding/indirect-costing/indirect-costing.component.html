@@ -270,6 +270,10 @@
                                             <td>{{ a.multiplier }}</td>
                                             <td>{{ a.total }}</td>
                                         </tr>
+                                        <tr class="table-footer fw-bold">
+                                            <td colspan="6">Total In-direct Cost</td>
+                                            <td>{{ indirectCostTotal | currency:'INR':'':'3.2-2' }}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
