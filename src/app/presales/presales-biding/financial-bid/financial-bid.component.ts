@@ -80,6 +80,14 @@ export class FinancialBidComponent {
   isPaidupCapital: boolean = false;
   rowData: any;
   date: any;
+  netDate: any;
+  ebitdaDate: any;
+  netWorthDate: any;
+  libDate: any;
+  assetDate: any;
+  rsDate: any;
+  paidDate: any;
+  annuvalTDate: any;
 
 
   constructor(
@@ -94,7 +102,7 @@ export class FinancialBidComponent {
     this.form = this.formBuilder.group({
       tender_id: [null, Validators.required],
       utility_id: [null, Validators.required],
-      financialyear_id: [null, Validators.required],
+      financialyear_id: [null],
       annual_turnover: [''],
       annual_turnover_year: [''],
       annual_turnover_check: [''],
@@ -125,11 +133,11 @@ export class FinancialBidComponent {
       net_profit_check: [''],
       our_net_profit: [''],
       net_profit_status: [''],
-      net_capital: [''],
-      net_capital_year: [''],
-      net_capital_check: [''],
-      our_net_capital: [''],
-      net_capital_status: [''],
+      // net_capital: [''],
+      // net_capital_year: [''],
+      // net_capital_check: [''],
+      // our_net_capital: [''],
+      // net_capital_status: [''],
       reserve_surplus: [''],
       reserve_surplus_year: [''],
       reserve_surplus_check: [''],
@@ -216,24 +224,35 @@ export class FinancialBidComponent {
 
   //Annuval data
   annuvalTurnVal(year: any, check: any, annual: any) {
-    if (year) {
-      this.apiService.finAnnuvalTournover(year, check).subscribe((res: any) => {
-        this.data = res.result;
+    debugger
+    this.data = null;
+    this.annuvalTDate = null;
+    if (check) {
+      if(check == '1') {
+        var yearVal = check;
+        var checkVal = null;
+        this.form.controls["annual_turnover_year"].setValue('');
+      } else {
+        var yearVal = year;
+        var checkVal = check;
+      }
+      this.apiService.finAnnuvalTournover(yearVal, checkVal).subscribe((res: any) => {
+        this.data = res;
         this.comparisonData(annual);
       })
     }
   }
 
   comparisonData(annual: any) {
-    if (this.data != null) {
-      if (parseInt(annual) < parseInt(this.data)) {
+    if (this.data.result != null) {
+      if (parseInt(annual) < parseInt(this.data.result)) {
         this.isSuccess = true;
       } else {
         this.isSuccess = false;
       }
     }
 
-    this.form.controls['our_annual_turnover'].setValue(this.data);
+    this.form.controls['our_annual_turnover'].setValue(this.data.result);
     this.form.controls['annual_turnover_status'].setValue(this.isSuccess);
   }
 
@@ -241,6 +260,7 @@ export class FinancialBidComponent {
   netWorthVal(year1: any, check1: any, networth: any) {
     if (year1) {
       this.apiService.finNetWorth(year1, check1).subscribe((res: any) => {
+        this.netWorthDate = res.date;
         this.data1 = res.result;
         this.comparisonNetWorthData(networth);
       })
@@ -296,7 +316,7 @@ export class FinancialBidComponent {
   totalLiabilityVal(year3: any, check3: any, libi: any) {
     if (year3) {
       this.apiService.finLiability(year3, check3).subscribe((res: any) => {
-        this.date = res.date;
+        this.libDate = res.date;
         this.liabilityData = res.result;
         this.comparisonLibData(libi);
       })
@@ -319,7 +339,7 @@ export class FinancialBidComponent {
   fixAsset(year4: any, check4: any, fixedasset: any) {
     if (year4) {
       this.apiService.finFixedAsset(year4, check4).subscribe((res: any) => {
-        this.date = res.date;
+        this.assetDate = res.date;
         this.assetVal = res.result;
         this.comparisonAssetData(fixedasset);
       })
@@ -342,7 +362,7 @@ export class FinancialBidComponent {
   netProfitData(year5: any, check5: any, netprofit: any) {
     if (year5) {
       this.apiService.finNetProfit(year5, check5).subscribe((res: any) => {
-        this.date = res.date;
+        this.netDate = res.date;
         this.netProf = res.result;
         this.comparisonNetProfitData(netprofit);
       })
@@ -362,34 +382,34 @@ export class FinancialBidComponent {
   }
 
   //netcapital data
-  natCapitalData(year6: any, check6: any, netcapital: any) {
-    if (year6) {
-      this.apiService.finNetCapital(year6, check6).subscribe((res: any) => {
-        this.date = res.date;
-        this.netCapitalVal = res.result;
-        this.comparisonNetCapitalData(netcapital);
-      })
-    }
-  }
-  comparisonNetCapitalData(netcapital: any) {
-    if (this.netCapitalVal != null) {
-      if (parseInt(netcapital) < parseInt(this.netCapitalVal)) {
-        this.isNetCapital = true;
-      } else {
-        this.isNetCapital = false;
-      }
-    }
+  // natCapitalData(year6: any, check6: any, netcapital: any) {
+  //   if (year6) {
+  //     this.apiService.finNetCapital(year6, check6).subscribe((res: any) => {
+  //       this.date = res.date;
+  //       this.netCapitalVal = res.result;
+  //       this.comparisonNetCapitalData(netcapital);
+  //     })
+  //   }
+  // }
+  // comparisonNetCapitalData(netcapital: any) {
+  //   if (this.netCapitalVal != null) {
+  //     if (parseInt(netcapital) < parseInt(this.netCapitalVal)) {
+  //       this.isNetCapital = true;
+  //     } else {
+  //       this.isNetCapital = false;
+  //     }
+  //   }
 
-    this.form.controls['our_net_capital'].setValue(this.netCapitalVal);
-    this.form.controls['net_capital_status'].setValue(this.isNetCapital);
+  //   this.form.controls['our_net_capital'].setValue(this.netCapitalVal);
+  //   this.form.controls['net_capital_status'].setValue(this.isNetCapital);
 
-  }
+  // }
 
   //RS Data
   resAndsurplus(year7: any, check7: any, rsVal: any) {
     if (year7) {
       this.apiService.finRS(year7, check7).subscribe((res: any) => {
-        this.date = res.date;
+        this.rsDate = res.date;
         this.rAnds = res.result;
         this.comparisonRSData(rsVal);
       })
@@ -415,7 +435,7 @@ export class FinancialBidComponent {
   paidUpCapital(year8: any, check8: any, paiupcapi: any) {
     if (year8) {
       this.apiService.finPaidupCapital(year8, check8).subscribe((res: any) => {
-        this.date = res.date;
+        this.paidDate = res.date;
         this.paiCapitalVal = res.result;
         this.comparisonPaidupData(paiupcapi);
       })
@@ -438,7 +458,7 @@ export class FinancialBidComponent {
   ebidtaData(year9: any, check9: any, ebdt: any) {
     if (year9) {
       this.apiService.finAbidta(year9, check9).subscribe((res: any) => {
-        this.date = res.date;
+        this.ebitdaDate = res.date;
         this.ebidtaVal = res.result;
         this.comparisonEbidtaData(ebdt);
       })
@@ -511,8 +531,6 @@ export class FinancialBidComponent {
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
-
-
   onSubmit() {
     if (this.form.value) {
       this.isSubmitted = true;
@@ -562,7 +580,7 @@ export class FinancialBidComponent {
       net_profit_check: formValues.net_profit_check || null,
       our_net_profit: formValues.our_net_profit || null,
       net_profit_status: formValues.net_profit_status || null,
-      net_capital: formValues.net_capital || null,
+      // net_capital: formValues.net_capital || null,
       net_capital_year: formValues.net_capital_year || null,
       net_capital_check: formValues.net_capital_check || null,
       our_net_capital: formValues.our_net_capital || null,
