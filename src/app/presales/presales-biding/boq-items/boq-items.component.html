@@ -43,8 +43,8 @@
                 <th>BOQ Code</th>
                 <th>Client</th>
                 <th>Tender Title</th>
-                <th>Ref. No</th>
-                <th>published Date</th>
+                <th> NIT No</th>
+                <th>Publish Date</th>
                 <th>Category</th>
                 <th>Sub Category</th>
                 <th>Status</th>
@@ -278,7 +278,7 @@
                     <tr>
                       <th>Client</th>
                       <td>{{ itemList?.company_name }}</td>
-                      <th>Tender Ref. No</th>
+                      <th> NIT No</th>
                       <td>
                         <div *ngIf="!!itemList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ itemList?.tender_ref_no }}">
                             {{itemList?.tender_ref_no | slice:0:30}} <span *ngIf="itemList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -298,7 +298,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <th>Published Date</th>
+                      <th>Publish Date</th>
                       <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' }}</td>
                       <th>Execution Location</th>
                       <td>{{ itemList?.tender_location }}</td>
