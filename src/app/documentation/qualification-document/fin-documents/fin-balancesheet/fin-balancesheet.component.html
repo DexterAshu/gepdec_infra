@@ -177,7 +177,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <!-- <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Net Capital (Cr)<span class="required-asterisk">*</span></label>
                                     <input formControlName="net_capital" type="text" class="form-control form-control-sm" appNumberOnly>
@@ -185,7 +185,7 @@
                                         <small class="text-danger" *ngIf="f['net_capital'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -303,10 +303,12 @@
                         </tr>
                         <tr>
                           
-                            <th>Net Capital</th>
-                            <td>{{ rowData?.net_capital }}</td>
+                            <!-- <th>Net Capital</th>
+                            <td>{{ rowData?.net_capital }}</td> -->
                             <th>Reserve & Surplus</th>
                             <td>{{ rowData?.reserve_surplus }}</td>
+                            <th></th>
+                            <td></td>
                         </tr>
                         <tr>
                          

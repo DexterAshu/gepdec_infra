@@ -58,7 +58,7 @@
                                 <th>NIT No</th>
                                 <th>Publish Date</th>
                                 <th>Financial Year</th>
-                                <th>Status</th>
+                                <!-- <th>Status</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -88,7 +88,7 @@
                                 </td>
                                 <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{a.financialyear}}</td>
-                                <td>{{a.status}}</td>
+                                <!-- <td>{{a.status}}</td> -->
                                 <td>
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
@@ -403,7 +403,7 @@
                                         <div class="col-md-2" *ngIf="form.value.ebidta_year == '0'">
                                             <label class="form-label fl-10 text-small">As On</label>
 
-                                            <input class="form-control form-control-sm" formControlName="ebidta_fin" readonly value="{{ebitdaDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="ebidta_fin" readonly value="{{ebitdaDate}}">
                                         </div>
                                         <div class="col-md-2" *ngIf="form.value.ebidta_year == '1'">
                                             <label class="form-label fl-10 text-small">Fin Year</label>
@@ -476,7 +476,7 @@
 
                                         <div class="col-md-2" *ngIf="form.value.net_worth_year == '0'">
                                             <label class="form-label fl-10 text-small" >As On</label>
-                                            <input class="form-control form-control-sm" formControlName="net_worth_fin" readonly value="{{netWorthDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="net_worth_fin" readonly value="{{netWorthDate}}">
                                         </div>
 
                                         <div class="col-md-2" *ngIf="form.value.net_worth_year == '1'">
@@ -536,7 +536,7 @@
 
                                         <div class="col-md-2" *ngIf="form.value.net_working_capital_year">
                                             <label class="form-label fl-10 text-small">As On</label>
-                                            <input class="form-control form-control-sm" formControlName="net_working_capital_fin" readonly value="{{date | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="net_working_capital_fin" readonly value="{{date}}">
                                             <!-- <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
                                                 <select formControlName="net_working_capital_check" #netWorkCap
@@ -617,7 +617,7 @@
 
                                         <div class="col-md-2" *ngIf="form.value.total_liabilities_year == '0'">
                                             <label class="form-label fl-10 text-small">As On</label>
-                                            <input class="form-control form-control-sm" formControlName="total_liabilities_fin" readonly value="{{libDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="total_liabilities_fin" readonly value="{{libDate}}">
                                         </div>
 
                                         <div class="col-md-2" *ngIf="form.value.total_liabilities_year == '1'">
@@ -692,7 +692,7 @@
 
                                         <div class="col-md-2" *ngIf="form.value.total_fixed_assets_year == '0'">
                                             <label class="form-label fl-10 text-small">As On</label>
-                                            <input class="form-control form-control-sm" formControlName="total_fixed_assets_fin" readonly value="{{assetDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="total_fixed_assets_fin" readonly value="{{assetDate}}">
                                         </div>
                                         <div class="col-md-2" *ngIf="form.value.total_fixed_assets_year == '1'">
                                             <label class="form-label fl-10 text-small">Fin Year</label>
@@ -896,7 +896,7 @@
 
                                         <div class="col-md-2" *ngIf="form.value.paid_upcapital_year == '0'">
                                             <label class="form-label fl-10 text-small" >As On</label>
-                                            <input class="form-control form-control-sm" formControlName="paid_upcapital_fin" readonly value="{{paidDate | date: 'dd/MM/yyyy'}}">
+                                            <input class="form-control form-control-sm" formControlName="paid_upcapital_fin" readonly value="{{paidDate}}">
                                         </div>
 
                                         <div class="col-md-2" *ngIf="form.value.paid_upcapital_year == '1'">
@@ -984,8 +984,8 @@
                                     </thead>
                                     <tbody class="text-nowrap">
                                         <tr>
-                                            <th>Tender ID</th>
-                                            <td>{{rowData?.tender_id}}</td>
+                                            <th>Client</th>
+                                            <td>{{ rowData?.company_name }}</td>
                                             <th>NIT No</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_ref_no }}">
@@ -999,18 +999,30 @@
                                             <td>{{rowData?.publish_date | date: 'dd/MM/yyyy'}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Client</th>
-                                            <td>{{ rowData?.company_name }}</td>
-                                            <th>Tender Title</th>
+                                            <th>Category</th>
+                                            <td>{{rowData?.qacatagory}}</td>
+                                            <th>Sub-Category</th>
+                                            <td>{{rowData?.subqacatagory}}</td>
+                                            <th>Capacity</th>
+                                            <td>{{rowData?.capacity}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Execution Location</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_title; else elseBlock4"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="{{ rowData?.tender_title }}">
-                                                    {{rowData?.tender_title | slice:0:30}} <span
-                                                        *ngIf="rowData?.tender_title.length > 30">...<i
-                                                            class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">
+                                                    {{rowData?.tender_location | slice:0:30}} <span *ngIf="rowData?.tender_location.length > 30">...<i class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock4>
+                                                    {{rowData?.tender_location}}
+                                                </ng-template>
+                                            </td>
+                                          
+                                            <th>Tender Title</th>
+                                            <td>
+                                                <div *ngIf="!!rowData?.tender_title; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">
+                                                    {{rowData?.tender_title | slice:0:30}} <span *ngIf="rowData?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock5>
                                                     {{rowData?.tender_title}}
                                                 </ng-template>
                                             </td>
@@ -1021,6 +1033,11 @@
                                 </table>
                             </div>
                             <div class="table-responsive tableStyle mt-2">
+                                <div class="row p-2" style="background-color: #eceff7; border-radius: 5px;">
+                                    <div class="col-md-8 bg-darkblue">Data Required (As Per Tender)</div>
+                                    <div class="col-md-1"> | </div>
+                                    <div class="col-md-3 bg-darkblue text-center">Our Company Data</div>
+                                </div>
                                 <table class="table table-hover table-striped mb-3">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
@@ -1040,7 +1057,15 @@
                                         <tr *ngIf=" rowData?.annual_turnover > 0">
                                             <td>Annual Turnover</td>
                                             <td>{{ rowData?.annual_turnover }}</td>
-                                            <td>{{ rowData?.annual_turnover_check}}</td>
+                                            <td>
+                                                <span *ngIf="!!rowData?.annual_turnover_check; else elseBlock11">
+                                                    {{ rowData?.annual_turnover_check }}
+                                                </span>
+                                                <ng-template #elseBlock11>
+                                                    --
+                                                </ng-template>
+                                            </td>
+                                            <!-- <td>{{ rowData?.annual_turnover_check}}</td> -->
                                             <td>{{ rowData?.annual_turnover_year }}</td>
                                             <td>{{ rowData?.financialyear }}</td>
                                             <td>{{ rowData?.our_annual_turnover}}</td>
@@ -1249,15 +1274,15 @@
 
                                 <table class="table table-hover table-striped mb-3" *ngIf="rowData?.length == 0">
                                     <thead class="table-primary text-nowrap">
-                                            <tr>
-                                                <th>Financial Parameters</th>
-                                                <th>Fin Year</th>
-                                                <th>Amounts (Cr)</th>
-                                                <th>Years</th>
-                                                <th>Condition</th>
-                                                <th>Our Values</th>
-                                                <th>Result</th>
-                                            </tr>
+                                        <tr>
+                                            <th>Financial Parameters</th>
+                                            <th>Amounts (Cr)</th>
+                                            <th>Condition</th>
+                                            <th>Years</th>
+                                            <th>Fin Year</th>
+                                            <th>Our Values</th>
+                                            <th>Result</th>
+                                        </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
                                         <tr>
