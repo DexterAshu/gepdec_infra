@@ -444,8 +444,7 @@
                                     </tbody>
                                 </table>
 
-
-                                <div class="container-fluid mt-1">
+                                <div class="container-fluid mt-2">
                                     <h6>Contacts Information</h6>
                                     <div class="row">
                                         <div class="col-md-12 p-0">
@@ -497,96 +496,48 @@
                                 <table class="table table-hover table-striped mb-3" *ngFor="let a of rowData?.tenderfinancials">
                                   
                                     <thead class="table-primary text-nowrap">
-                                            <tr>
-                                                <th>Points</th>
-                                                <th>Fin Year</th>
-                                                <th>Amounts (Cr)</th>
-                                                <th>Years</th>
-                                                <th>Condition</th>
-                                                <th>Our Values</th>
-                                                <th>Result</th>
-                                            </tr>
+                                        <tr>
+                                            <th>Financial Parameters</th>
+                                            <th>Amounts (Cr)</th>
+                                            <th>Condition</th>
+                                            <th>Years</th>
+                                            <th>Fin Year</th>
+                                            <th>Our Values</th>
+                                            <th>Result</th>
+                                        </tr>
                                     </thead>
                                    
                                     <tbody class="text-nowrap">
-                                        <tr *ngIf="a?.annual_turnover > 0">
+                                        <tr *ngIf=" a?.annual_turnover > 0">
                                             <td>Annual Turnover</td>
-                                            <td>{{ a?.financialyear }}</td>
                                             <td>{{ a?.annual_turnover }}</td>
-                                            <td>{{ a?.annual_turnover_year }}</td>
                                             <td>{{ a?.annual_turnover_check}}</td>
+                                            <td>{{ a?.annual_turnover_year }}</td>
+                                            <td>{{ a?.financialyear }}</td>
                                             <td>{{ a?.our_annual_turnover}}</td>
                                             <td>
                                                 <div *ngIf=" a?.annual_turnover_status == true; else ifNot2">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
                                                 </div>
                                                 <ng-template #ifNot2>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="a?.net_worth > 0">
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>Net Worth</td>
-                                            <td>{{ a?.financialyear }}</td>
-                                            <td>{{ a?.net_worth }}</td>
-                                            <td>{{ a?.net_worth_year }}</td>
-                                            <td>{{ a?.net_worth_check}}</td>
-                                            <td>{{ a?.our_net_worth}}</td>
-                                            <td>
-                                                <div *ngIf=" a?.net_worth_status == true; else ifNot3">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
-                                                </div>
-                                                <ng-template #ifNot3>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf=" a?.net_working_capital > 0">
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>Net Working Capital</td>
-                                            <td>{{ a?.financialyear }}</td>
-                                            <td>{{ a?.net_working_capital }}</td>
-                                            <td>{{ a?.net_working_capital_year }}</td>
-                                            <td>{{ a?.net_working_capital_check}}</td>
-                                            <td>{{ a?.our_net_working_capital}}</td>
-                                            <td>
-                                                <div *ngIf=" a?.net_working_status == true; else ifNot4">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
-                                                </div>
-                                                <ng-template #ifNot4>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf=" a?.net_profit > 0">
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>Net Profit</td>
-                                            <td>{{ a?.financialyear }}</td>
-                                            <td>{{ a?.net_profit }}</td>
-                                            <td>{{ a?.net_profit_year }}</td>
-                                            <td>{{ a?.net_profit_check}}</td>
-                                            <td>{{ a?.our_net_profit}}</td>
-                                            <td>
-                                                <div *ngIf=" a?.net_profit_status == true; else ifNot5">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
-                                                </div>
-                                                <ng-template #ifNot5>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
                                                 </ng-template>
                                             </td>
                                         </tr>
 
-                                        <!--  Total Liability -->
-                                        <tr *ngIf=" a?.total_liabilities > 0">
+                                           <!-- Net Profit -->
+                                           <tr *ngIf=" a?.net_profit > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>Total Liability</td>
-                                            <td>{{ a?.total_liabilities }}</td>
-                                            <td>{{ a?.total_liabilities_year }}</td>
-                                            <td>{{ a?.total_liabilities_check}}</td>
-                                            <td>{{ a?.our_total_liabilities}}</td>
+                                            <td>Net Profit</td>
+                                            <td>{{ a?.net_profit }}</td>
+                                            <td> -- </td>
+                                            <td>{{ a?.net_profit_year }}</td>
+                                            <td>{{ a?.net_profit_fin }}</td>
+                                            <td>{{ a?.our_net_profit}}</td>
                                             <td>
-                                                <div *ngIf=" a?.total_liabilities_status == true; else ifNot5">
+                                                <div *ngIf=" a?.net_profit_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
                                                         title="Qualified"></i>
                                                 </div>
@@ -596,89 +547,14 @@
                                                 </ng-template>
                                             </td>
                                         </tr>
-                                        <!--  Fixed Asset -->
-                                        <tr *ngIf=" a?.total_fixed_assets > 0">
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>Total Fixed Asset</td>
-                                            <td>{{ a?.total_fixed_assets }}</td>
-                                            <td>{{ a?.total_fixed_assets_year }}</td>
-                                            <td>{{ a?.total_fixed_assets_check}}</td>
-                                            <td>{{ a?.our_total_fixed_assets}}</td>
-                                            <td>
-                                                <div *ngIf=" a?.total_fixed_assets_status == true; else ifNot5">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                        title="Qualified"></i>
-                                                </div>
-                                                <ng-template #ifNot5>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                        title="Not-Qualified"></i>
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <!--  Net Capital -->
-                                        <tr *ngIf=" a?.net_capital > 0">
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>Net Capital</td>
-                                            <td>{{ a?.net_capital }}</td>
-                                            <td>{{ a?.net_capital_year }}</td>
-                                            <td>{{ a?.net_capital_check}}</td>
-                                            <td>{{ a?.our_net_capital}}</td>
-                                            <td>
-                                                <div *ngIf=" a?.net_capital_status == true; else ifNot5">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                        title="Qualified"></i>
-                                                </div>
-                                                <ng-template #ifNot5>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                        title="Not-Qualified"></i>
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <!--  reserve_surplus -->
-                                        <tr *ngIf=" a?.reserve_surplus > 0">
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>Reserve & Surplus</td>
-                                            <td>{{ a?.reserve_surplus }}</td>
-                                            <td>{{ a?.reserve_surplus_year }}</td>
-                                            <td>{{ a?.reserve_surplus_check}}</td>
-                                            <td>{{ a?.our_reserve_surplus}}</td>
-                                            <td>
-                                                <div *ngIf=" a?.reserve_surplus_status == true; else ifNot5">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                        title="Qualified"></i>
-                                                </div>
-                                                <ng-template #ifNot5>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                        title="Not-Qualified"></i>
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <!--  paid_upcapital -->
-                                        <tr *ngIf=" a?.paid_upcapital > 0">
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>Paid Up Capital</td>
-                                            <td>{{ a?.paid_upcapital }}</td>
-                                            <td>{{ a?.paid_upcapital_year }}</td>
-                                            <td>{{ a?.paid_upcapital_check}}</td>
-                                            <td>{{ a?.our_paid_upcapital}}</td>
-                                            <td>
-                                                <div *ngIf=" a?.paid_upcapital_status == true; else ifNot5">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                        title="Qualified"></i>
-                                                </div>
-                                                <ng-template #ifNot5>
-                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                        title="Not-Qualified"></i>
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <!--  ebidta -->
-                                        <tr *ngIf=" a?.ebidta > 0">
+                                          <!--  ebidta -->
+                                          <tr *ngIf=" a?.ebidta > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>EBIDTA</td>
                                             <td>{{ a?.ebidta }}</td>
+                                            <td> -- </td>
                                             <td>{{ a?.ebidta_year }}</td>
-                                            <td>{{ a?.ebidta_check}}</td>
+                                            <td>{{ a?.ebidta_fin }}</td>
                                             <td>{{ a?.our_ebidta}}</td>
                                             <td>
                                                 <div *ngIf=" a?.ebidta_status == true; else ifNot5">
@@ -692,6 +568,148 @@
                                             </td>
                                         </tr>
 
+                                        <!-- Net Worth -->
+                                  
+                                        <tr *ngIf=" a?.net_worth > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Net Worth</td>
+                                            <td>{{ a?.net_worth }}</td>
+                                            <td> -- </td>
+                                            <td>{{ a?.net_worth_year }}</td>
+                                            <td>{{ a?.net_worth_fin }}</td>
+                                            <td>{{ a?.our_net_worth}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.net_worth_status == true; else ifNot3">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot3>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                    <!-- Net Working Capital -->
+                                        <tr *ngIf=" a?.net_working_capital > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Net Working Capital</td>
+                                            <td>{{ a?.net_working_capital }}</td>
+                                            <td> -- </td>
+                                            <td>{{ a?.net_working_capital_year }}</td>
+                                            <td>{{ a?.net_working_capital_fin }}</td>
+                                            <td>{{ a?.our_net_working_capital}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.net_working_status == true; else ifNot4">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot4>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                 
+                                    <!--  Total Liability -->
+                                        <tr *ngIf=" a?.total_liabilities > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Total Liability</td>
+                                            <td>{{ a?.total_liabilities }}</td>
+                                            <td> -- </td>
+                                            <td>{{ a?.total_liabilities_year }}</td>
+                                            <td>{{ a?.total_liabilities_fin }}</td>
+                                            <td>{{ a?.our_total_liabilities}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.total_liabilities_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                    <!--  Fixed Asset -->
+                                        <tr *ngIf="a?.total_fixed_assets > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Total Fixed Asset</td>
+                                            <td>{{a?.total_fixed_assets }}</td>
+                                            <td> -- </td>
+                                            <td>{{a?.total_fixed_assets_year }}</td>
+                                            <td>{{a?.total_fixed_assets_fin }}</td>
+                                            <td>{{a?.our_total_fixed_assets}}</td>
+                                            <td>
+                                                <div *ngIf="a?.total_fixed_assets_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                    <!--  Net Capital -->
+                                        <!-- <tr *ngIf=" a?.net_capital > 0">
+                                            <td>Net Capital</td>
+                                            <td>{{ a?.net_capital }}</td>
+                                            <td>{{ a?.net_capital_check}}</td>
+                                            <td>{{ a?.net_capital_year }}</td>
+                                            <td>{{ a?.net_capital_fin }}</td>
+                                            <td>{{ a?.our_net_capital}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.net_capital_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr> -->
+                                    <!--  reserve_surplus -->
+                                        <tr *ngIf=" a?.reserve_surplus > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Reserve & Surplus</td>
+                                            <td>{{ a?.reserve_surplus }}</td>
+                                            <td> -- </td>
+                                            <td>{{ a?.reserve_surplus_year }}</td>
+                                            <td>{{ a?.reserve_surplus_fin }}</td>
+                                            <td>{{ a?.our_reserve_surplus}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.reserve_surplus_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                    <!--  paid_upcapital -->
+                                        <tr *ngIf=" a?.paid_upcapital > 0">
+                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                            <td>Paid Up Capital</td>
+                                            <td>{{ a?.paid_upcapital }}</td>
+                                            <td> -- </td>
+                                            <td>{{ a?.paid_upcapital_year }}</td>
+                                            <td>{{ a?.paid_upcapital_fin }}</td>
+                                            <td>{{ a?.our_paid_upcapital}}</td>
+                                            <td>
+                                                <div *ngIf=" a?.paid_upcapital_status == true; else ifNot5">
+                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                        title="Qualified"></i>
+                                                </div>
+                                                <ng-template #ifNot5>
+                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                        title="Not-Qualified"></i>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                  
 
                                         <tr *ngIf="rowData?.tenderfinancials.length == 0">
                                             <td colspan="15" class="text-center">
