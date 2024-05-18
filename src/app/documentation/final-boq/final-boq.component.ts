@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./final-boq.component.css']
 })
 export class FinalBOQComponent {
-  isOpen: boolean = false;
-  searchText: any
+    searchText: any
   docListData: any = [];
   p: number = 1;
   limit = environment.pageLimit;
@@ -25,8 +24,8 @@ export class FinalBOQComponent {
   isSubmitted: boolean = false;
 
   constructor(
-    private fb: FormBuilder, 
-    private apiService: ApiService, 
+    private fb: FormBuilder,
+    private apiService: ApiService,
     private alertService: AlertService,
     private router: Router
     ) {}
@@ -69,7 +68,7 @@ export class FinalBOQComponent {
 
   getTenderList(): void {
     this.tenderList = [];
-    const apiLink = `/biding/api/v1/getTenderlist?comapany_id=${this.form.value.client}`;
+    const apiLink = `/biding/api/v1/getTenderlist?company_id=${this.form.value.client}`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if(res.status === 200) {
         this.tenderList = res.result;

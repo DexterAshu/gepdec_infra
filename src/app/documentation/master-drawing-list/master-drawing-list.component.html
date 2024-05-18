@@ -20,7 +20,7 @@
               <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
             </div>
             <div class="col-lg-3">
-              <div class="dropdown" [class.active]="isOpen" (click)="isOpen = !isOpen">
+              <div class="float-right">
                 <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
                   <option [disabled]="true" [value]="null">Select</option>
                   <option [selected]="true" value="/documentation/master-drawing-list"> Master Drawing List (MDL)</option>
@@ -80,7 +80,7 @@
                   <a *ngIf="a.status === 'Approved'"><span class="mdi mdi-security-home text-secondary mdi-18px"></span></a>
                 </td>
               </tr>
-              <tr *ngIf="mdlData.length == 0">
+              <tr *ngIf="mdlData?.length == 0">
                 <td colspan="15" class="text-center">
                     <div class="spinner-border"></div>
                 </td>

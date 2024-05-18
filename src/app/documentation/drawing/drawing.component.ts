@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./drawing.component.css']
 })
 export class DrawingComponent {
-  isOpen: boolean = false;
-  searchText: any
+    searchText: any
   docListData: any = [];
   p: number = 1;
   limit = environment.pageLimit;

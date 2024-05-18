@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class InitialBoqComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
@@ -33,8 +33,7 @@ export class InitialBoqComponent {
   filterTenderDetailsData: any = [];
   showTypeField: boolean = true;
   comData: any;
- isOpen: boolean = false;
-
+ 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,

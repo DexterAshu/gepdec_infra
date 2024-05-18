@@ -11,7 +11,7 @@ import { ApiService, AlertService } from 'src/app/_services';
 export class DocumentationComponent implements OnInit {
   documentForm: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;

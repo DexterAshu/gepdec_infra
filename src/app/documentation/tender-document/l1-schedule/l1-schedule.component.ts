@@ -13,8 +13,9 @@ import { Router } from '@angular/router';
 export class L1ScheduleComponent {
   today: any = new Date();
   documentForm!: FormGroup;
-  attachment: File[] = [];
-  isSubmitted = false;
+  attachment: any = [];
+  attachmentName: any = [];
+  isSubmitted: boolean = false;
   searchText: string = '';
   isNotFound: boolean = false;
   p: number = 1;
@@ -112,22 +113,23 @@ export class L1ScheduleComponent {
   }
 
   onFileChanged(event: any) {
-    try {
-      const files = event.target.files;
-      for (let i = 0; i < files.length; i++) {
-        this.attachment.push(files[i]);
-      }
-    } catch (error) {
-      console.error('Error selecting file:', error);
+    this.attachment = [];
+    this.attachmentName = [];
+    const files = event.target.files;
+    for( let file of files) {
+      this.attachment.push(file);
+      this.attachmentName.push({name: file.name, size: file.size, date: new Date(file.lastModified).toISOString()});
     }
+    event.target.value = ''; 
   }
 
-  isOpen: boolean = false;
-
-
-  get f() {
-    return this.documentForm.controls;
+  deleteFile(index: number): void {
+    debugger;
+    this.attachment.splice(index, 1);
+    this.attachmentName.splice(index, 1);
   }
+
+  get f() { return this.documentForm.controls; }
 
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });

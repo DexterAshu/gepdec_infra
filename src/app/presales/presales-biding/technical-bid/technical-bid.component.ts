@@ -35,8 +35,7 @@ export class TechnicalBidComponent {
   techData: any = [];
   filterTenderDetailsData: any = [];
   uploadFile: any;
-  isOpen: boolean = false;
-  categoryData: any;
+    categoryData: any;
   subCategoryData: any;
   capacityData: any;
   apiLink: any;

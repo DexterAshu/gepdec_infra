@@ -40,8 +40,7 @@ export class BgDocumentComponent {
   userData: any;
   filterTenderDetailsData: any = [];
   securityData: any;
-  isOpen: boolean = false;
-  constructor(
+    constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private  masterService: MasterService,

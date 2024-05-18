@@ -85,7 +85,7 @@ export class BoqItemsComponent {
         this.alertService.warning("Looks like no data available in type!");
       }
     }),
-    (error: any) => { 
+    (error: any) => {
       this.alertService.error("Error: Unknown Error!");
     }
   }
@@ -114,9 +114,20 @@ export class BoqItemsComponent {
   getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
-    this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
-      this.tenderDetailsData = res.result;
-    });
+    const apiLink = `/biding/api/v1/getTenderlist?company_id=${company_id}`
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if(res.status == 200){
+        this.tenderDetailsData = res.result;
+      } else {
+        this.tenderDetailsData = undefined;
+        this.alertService.warning("Looks like no data available in type!");
+      }
+    }),
+    (error: any) => {
+      this.tenderDetailsData = undefined;
+      console.log(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
 
   getrefData(tender_id: any) {
@@ -203,21 +214,13 @@ export class BoqItemsComponent {
   get fb() { return this.form1.controls; }
 
   onFileChanged(event: any) {
-    for (var i = 0; i <= event.target.files.length - 1; i++) {
-      var selectedFile = event.target.files[i];
-      this.listOfFiles.push(selectedFile.name);
-      this.attachment.push(selectedFile);
+    this.listOfFiles = [];
+    this.attachment = [];
+    const fileList = event.target.files;
+    for (let file of fileList) {
+      this.listOfFiles.push(file.name);
+      this.attachment.push(file);
     }
-  }
-
-  removeSelectedFile(index: any) {
-    this.listOfFiles.splice(index, 1);
-    this.attachment.splice(index, 1);
-  }
-
-  //bulk-load with bulk excel download
-  fileChangeEvent(fileInput: any) {
-    this.filesToUpload = <Array<File>>fileInput.target.files;
   }
 
   download(): void {
@@ -237,33 +240,27 @@ export class BoqItemsComponent {
   onBOQSubmit() {
     this.isSubmitted = true;
     const formData: any = new FormData();
-    const files: Array<File> = this.filesToUpload;
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append("attachment", this.attachment[i]);
     }
     formData.append('utility_id', this.form1.value.utility_id);
     formData.append('tender_id', this.form1.value.tender_id);
-    formData.append('itemCategory', this.form1.value.itemCategory);
-    formData.append('itemSubCategory', this.form1.value.itemSubCategory);
-    // formData.append('itemcode', this.form1.value.itemcode);
-    this.addBOQ(formData);
-  }
-
-  addBOQ(formData: FormData) {
-    this.isSubmitted = true;
+    formData.append('itemcategory_id', this.form1.value.itemCategory);
+    formData.append('subcategory_id', this.form1.value.itemSubCategory);
     this.apiService.BOQbulkData(formData).subscribe((res: any) => {
       if (res.status == 200) {
-        this.ngOnInit();
+        this.form1.reset();
+        this.isSubmitted = false;
         this.alertService.success(res.message);
         document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        this.form1.reset();
+        this.ngOnInit();
       } else {
+        this.isSubmitted = false;
         this.alertService.warning(res.message);
       }
     }, (error: any) => {
+      console.log(error);
       this.isSubmitted = false;
-      document.getElementById('cancel')?.click();
       this.alertService.error("Error: Unknown Error!");
     });
   }

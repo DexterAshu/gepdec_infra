@@ -4,8 +4,7 @@
       <div class="d-flex justify-content-between flex-wrap">
         <div class="d-flex align-items-end flex-wrap">
           <div class="mr-md-3 mr-xl-5">
-            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>L1 Schedule Documents
-            </h4>
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>L1 Schedule Documents</h4>
           </div>
         </div>
         <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
@@ -18,12 +17,10 @@
         <div class="card-body">
           <div class="d-flex my-10">
             <div class="col-lg-4">
-              <input type="search" class="form-control form-control-sm" placeholder="Search..."
-                [(ngModel)]="searchText">
+              <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
             </div>
             <div class="col-lg-4">
-              <div class="dropdown float-right" [class.active]="isOpen" (click)="isOpen = !isOpen">
-
+              <div class="float-right">
                 <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
                   <option [disabled]="true" [value]="null">Select</option>
                   <option [selected]="true" value="/documentation/tend-doc/l1-schedule"> L1 Schedule</option>
@@ -35,26 +32,13 @@
             </div>
             <div class="col-lg-4">
               <div class="float-right">
-                <button class="btn btn-primary btn-fw btn-sm me-2" type="button" id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown" aria-expanded="false"><span
-                    class="mdi mdi-upload"></span>&nbsp;Export</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><span class="mdi mdi-upload"></span>&nbsp;Export</button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li (click)="download()">
-                    <a class="dropdown-item text-small cursor-pointer"><span
-                        class="mdi mdi-arrow-down-bold-box-outline"></span>Export Data</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-small cursor-pointer"
-                      href="../../../../assets/tamplate/l1schedule_upload_template.xlsx"
-                      download="l1schedule_upload_template.xlsx"><span
-                        class="mdi mdi-download"></span>Download&nbsp;Template</a>
-                  </li>
+                  <li (click)="download()"> <a class="dropdown-item text-small cursor-pointer"><span class="mdi mdi-arrow-down-bold-box-outline"></span>Export Data</a></li>
+                  <li><a class="dropdown-item text-small cursor-pointer" href="../../../../assets/tamplate/l1schedule_upload_template.xlsx" download="l1schedule_upload_template.xlsx"><span class="mdi mdi-download"></span>Download&nbsp;Template</a> </li>
                 </ul>
-                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
-                  data-bs-target="#createBulkModal" title="Upload bulk Data"> <span class="mdi mdi-download"></span>
-                  Import </button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createModel()"
-                  class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import </button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createModel()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
               </div>
             </div>
           </div>
@@ -74,29 +58,16 @@
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr
-                *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+              <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{limit*(p-1)+i+1}}</td>
                 <td>{{a.company_name}}</td>
                 <td>
-                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ a?.tender_title }}">
-                    {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i
-                        class="mdi mdi-information"></i></span>
-                  </div>
-                  <ng-template #elseBlock1>
-                    {{a?.tender_title}}
-                  </ng-template>
+                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}"> {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <ng-template #elseBlock1>{{a?.tender_title}}</ng-template>
                 </td>
                 <td>
-                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ a?.tender_ref_no }}">
-                    {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i
-                        class="mdi mdi-information"></i></span>
-                  </div>
-                  <ng-template #elseBlock2>
-                    {{a?.tender_ref_no}}
-                  </ng-template>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
                 <td>{{a.publish_date | date:'dd/MM/yyyy'}}</td>
                 <td>{{a.tender_location}}</td>
@@ -130,8 +101,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
-  data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -154,14 +124,8 @@
                   <td>{{ selectedRow?.company_name }}</td>
                   <th>NIT No</th>
                   <td>
-                    <div *ngIf="!!selectedRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip"
-                      data-placement="bottom" title="{{ selectedRow?.tender_ref_no }}">
-                      {{selectedRow?.tender_ref_no | slice:0:30}} <span
-                        *ngIf="selectedRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
-                    </div>
-                    <ng-template #elseBlock3>
-                      {{selectedRow?.tender_ref_no}}
-                    </ng-template>
+                    <div *ngIf="!!selectedRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectedRow?.tender_ref_no }}">{{selectedRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectedRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock3>{{selectedRow?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Execution Location</th>
                   <td>{{ selectedRow?.tender_location }}</td>
@@ -220,8 +184,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-  data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -235,8 +198,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
-                  <select formControlName="company_id" class="form-select form-select-sm"
-                    (ngModelChange)="getTenderListByCompany()">
+                  <select formControlName="company_id" class="form-select form-select-sm" (ngModelChange)="getTenderListByCompany()">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
                     <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
                   </select>
@@ -248,8 +210,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                  <select formControlName="tender_id" class="form-select form-select-sm"
-                    (ngModelChange)="selectTender()">
+                  <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="selectTender()">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
                     <option *ngFor="let t of tenderList" value="{{t.tender_id}}">{{t.tender_title}}</option>
                   </select>
@@ -267,15 +228,13 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control form-control-sm"
-                    [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy'" readonly>
+                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy'" readonly>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">L1 Start Date<span class="required-asterisk">*</span></label>
-                  <input formControlName="start_date" type="date" class="form-control form-control-sm"
-                    min="{{today | date: 'yyyy-MM-dd'}}">
+                  <input formControlName="start_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                   <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
                     <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
                   </div>
@@ -284,8 +243,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">L1 End Date<span class="required-asterisk">*</span></label>
-                  <input formControlName="end_date" type="date" class="form-control form-control-sm"
-                    min="{{today | date: 'yyyy-MM-dd'}}">
+                  <input formControlName="end_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                   <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
                     <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
                   </div>
@@ -302,27 +260,38 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label id="cin" class="form-label fl-10"> Upload Documents <span
-                      class="required-asterisk">*</span></label><br>
-                  <input id="cin" name="cin" type="file" class="form-control form-control-sm"
-                    formControlName="attachment" (change)="onFileChanged($event)">
+                  <label id="cin" class="form-label fl-10"> Upload Documents <span class="required-asterisk">*</span></label><br>
+                  <input id="cin" name="cin" type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" multiple>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-row">
                   <div class="form-group col-12">
                     <label for="description" class="form-label fl-10">Document Description:</label>
-                    <textarea type="text" name="description" class="form-control form-control-sm"
-                      formControlName="description" appWordCapitalize></textarea>
+                    <textarea type="text" name="description" class="form-control form-control-sm" formControlName="description" appWordCapitalize></textarea>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="float-right">
-              <button type="submit" class="btn btn-primary btn-fw btn-sm me-2"
-                [disabled]="documentForm.invalid">Submit</button>
-              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
-                data-bs-dismiss="modal">Close</button>
+            <div class="row" *ngIf="attachmentName?.length > 0">
+              <div class="table-responsive" style="min-height: auto">
+                <h6 class="mb-2 text-secondary">Upload File List</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody>
+                    <tr *ngFor="let files of attachmentName; let i = index">
+                      <td><p class="h5">{{files.name}}</p></td>
+                      <td>{{files.date | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{files.size/1024 | number: '1.2-2'}} KB</td>
+                      <td class="text-right"><a title="Remove file" (click)="deleteFile(i)"><span class="mdi mdi-folder-remove text-danger cursor-pointer mdi-18px"></span></a>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="float-right mt-2">
+              <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
+              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
           </form>
         </div>

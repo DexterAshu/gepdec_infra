@@ -127,7 +127,7 @@ export class ApiService {
 
   getTenderLisById(data:any){
     const httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json','auth-token': JSON.parse(localStorage.getItem('user') || '').token})};
-    const url = data ? `/biding/api/v1/getTenderlist?comapany_id=${data}` : `/biding/api/v1/getTenderlist`;
+    const url = data ? `/biding/api/v1/getTenderlist?company_id=${data}` : `/biding/api/v1/getTenderlist`;
     return this.http.get<any>(`${environment.apiUrl}${url}`,httpOptions);
   }
 

@@ -13,7 +13,7 @@ import * as FileSaver from 'file-saver';
 export class CompFinanceComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
@@ -33,8 +33,7 @@ export class CompFinanceComponent {
   discardeddata: any
   financialData: any;
   ourComp: any;
-  isOpen: boolean = false;
-  rowData: any;
+    rowData: any;
   finDetails: any;
  
   constructor(

@@ -43,8 +43,7 @@ export class SynopsisComponent {
   tendStatus: any = [];
   showWorkingDetails: boolean = false;
   showPreNotes: boolean = false;
-  isOpen: boolean = false;
-  techDataShow: boolean = false;
+    techDataShow: boolean = false;
   finDataShow: boolean = false;
   tendStatusData: any;
   data: any;

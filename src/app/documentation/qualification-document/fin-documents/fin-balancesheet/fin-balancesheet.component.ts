@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class FinBalancesheetComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
@@ -31,8 +31,7 @@ export class FinBalancesheetComponent {
   discardeddata: any
   financialData: any;
   ourComp: any;
-  isOpen: boolean = false;
-  rowData: any;
+    rowData: any;
   finDetails: any;
   update: boolean = false;
   button: string = 'Create';

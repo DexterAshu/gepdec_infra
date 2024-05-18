@@ -39,8 +39,7 @@ export class BankingDetailsComponent {
   userData: any;
   filterTenderDetailsData: any = [];
   securityData: any;
-  isOpen: boolean = false;
-  loading: boolean = false;
+    loading: boolean = false;
   update: boolean = false;
   button: string = 'Create';
   rowData: any;

@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class FinItrComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
@@ -29,8 +29,7 @@ export class FinItrComponent {
   inserteddata: any;
   discardeddata: any
   financialData: any;
-  isOpen: boolean = false;
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,

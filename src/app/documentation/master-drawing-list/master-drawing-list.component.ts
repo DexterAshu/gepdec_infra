@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./master-drawing-list.component.css']
 })
 export class MasterDrawingListComponent {
-  isOpen: boolean = false;
-  searchText: any
+    searchText: any
   p: number = 1;
   limit = environment.pageLimit;
   apiURL = environment.apiUrl;
@@ -129,7 +128,7 @@ export class MasterDrawingListComponent {
 
   getTenderList(): void {
     this.tenderList = [];
-    const apiLink = `/biding/api/v1/getTenderlist?comapany_id=${this.form.value.client}`;
+    const apiLink = `/biding/api/v1/getTenderlist?company_id=${this.form.value.client}`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if(res.status === 200) {
         this.tenderList = res.result;

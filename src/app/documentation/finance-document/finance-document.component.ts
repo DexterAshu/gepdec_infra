@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class FinanceDocumentComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
@@ -28,8 +28,7 @@ export class FinanceDocumentComponent {
   discardeddata: any
   companyData: any;
   tenderType: any;
-  isOpen: boolean = false;
-  
+    
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,

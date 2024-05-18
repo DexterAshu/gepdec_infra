@@ -13,14 +13,13 @@ import * as FileSaver from 'file-saver';
 export class CommunicationDocumentComponent {
   documentForm!: FormGroup;
   attachment: File[] = [];
-  isSubmitted = false;
+  isSubmitted: boolean = false;
   listOfFiles: string[] = [];
   fileList: any[] = [];
   tableHeight: any;
   searchText: string = '';
   isNotFound: boolean = false;
-  isOpen: boolean = false;
-  meterData: any;
+    meterData: any;
   p: number = 1;
   limit = environment.pageLimit;
   docType: any;

@@ -34,8 +34,7 @@ export class TenderDocumentComponent {
   showTypeField: boolean = true;
   clientListData: any;
   tenderDetailsData: any;
-  isOpen: boolean = false;
-  comData: any;
+    comData: any;
 
   constructor(
     private formBuilder: FormBuilder,

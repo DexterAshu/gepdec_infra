@@ -55,8 +55,7 @@ export class FinancialBidComponent {
   annualTurnover = new FormControl();
   finData: any;
   finCalData: any;
-  isOpen: boolean = false;
-  fileList: File[] = [];
+    fileList: File[] = [];
   listOfFiles: any[] = [];
   data: any = null;
   data1: any;
@@ -520,11 +519,6 @@ export class FinancialBidComponent {
   getrefData(tender_id: any) {
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x: any) => x.tender_id == tender_id);
   }
-
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
 
   get f() { return this.form.controls; }
 
