@@ -53,7 +53,7 @@ export class FinBalancesheetComponent {
       total_fixed_assets: ['', Validators.required],
       net_profit: ['', Validators.required],
       net_worth: ['', Validators.required],
-      net_capital: ['', Validators.required],
+      // net_capital: ['', Validators.required],
       reserve_surplus: ['', Validators.required],
       paid_upcapital: ['', Validators.required],
       annual_turnover: ['', Validators.required],
@@ -89,7 +89,7 @@ export class FinBalancesheetComponent {
       total_fixed_assets: this.finDetails.total_fixed_assets,
       net_profit: this.finDetails.net_profit,
       net_worth: this.finDetails.net_worth,
-      net_capital: this.finDetails.net_capital,
+      // net_capital: this.finDetails.net_capital,
       reserve_surplus: this.finDetails.reserve_surplus,
       paid_upcapital: this.finDetails.paid_upcapital,
       annual_turnover: this.finDetails.annual_turnover,
@@ -180,7 +180,7 @@ export class FinBalancesheetComponent {
     formData.append('total_fixed_assets', this.documentForm.value.total_fixed_assets);
     formData.append('net_profit', this.documentForm.value.net_profit);
     formData.append('net_worth', this.documentForm.value.net_worth);
-    formData.append('net_capital', this.documentForm.value.net_capital);
+    // formData.append('net_capital', this.documentForm.value.net_capital);
     formData.append('reserve_surplus', this.documentForm.value.reserve_surplus);
     formData.append('paid_upcapital', this.documentForm.value.paid_upcapital);
     formData.append('annual_turnover', this.documentForm.value.annual_turnover);

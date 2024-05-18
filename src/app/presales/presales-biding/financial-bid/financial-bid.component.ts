@@ -232,6 +232,7 @@ export class FinancialBidComponent {
 
   //Annuval data
   annuvalTurnVal(year: any, check: any, annual: any) {
+    debugger
     this.data = null;
     this.annuvalTDate = null;
     if (check) {
@@ -556,8 +557,8 @@ export class FinancialBidComponent {
       utility_id: formValues.utility_id || null,
       financialyear_id: formValues.financialyear_id || null,
       annual_turnover: formValues.annual_turnover || null,
-      annual_turnover_year: formValues.annual_turnover_year || null,
-      annual_turnover_check: formValues.annual_turnover_check || null,
+      annual_turnover_year: (formValues.annual_turnover_check == '1' ? '1' : formValues.annual_turnover_year) || null,
+      annual_turnover_check: (formValues.annual_turnover_check == '1' ? null : formValues.annual_turnover_check) || null,
       annual_turnover_status: formValues.annual_turnover_status || null,
       our_annual_turnover: formValues.our_annual_turnover || null,
       annual_turnover_fin: formValues.annual_turnover_fin || null,
