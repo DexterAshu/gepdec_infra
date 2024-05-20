@@ -275,6 +275,23 @@ export class L2ScheduleBulkdataComponent {
 
   selectTender(): void {
     this.selectedTender = this.tenderList.filter((x: any) => x.tender_id == this.documentForm.value.tender_id)[0];
+    this.getL1ScheduleData(this.selectedTender.tender_id);
+  }
+
+  getL1ScheduleData(tender_id: number): void {
+    this.l1ScheduleData = [];
+    const apiLink = `/document/api/v1/getL1ScheduleList?tender_id=${tender_id}`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.l1ScheduleData = res.result;
+      } else {
+        this.alertService.error(res.message);
+      }
+    }),
+    (error: any) => {
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
 
   getL2ScheduleData(): void {
@@ -422,6 +439,7 @@ export class L2ScheduleBulkdataComponent {
     formData.append('company_id', this.documentForm.value.company_id);
     formData.append('l1_start_date', this.documentForm.value.start_date);
     formData.append('l1_end_date', this.documentForm.value.end_date);
+    formData.append('schedule_id', this.l1ScheduleData[0].schedule_id);
     formData.append('tender_completion_period', this.documentForm.value.total_tenure);
     formData.append('description', this.documentForm.value.description);
     this.apiService.l1ScheduleUpload(formData).subscribe((res: any) => {

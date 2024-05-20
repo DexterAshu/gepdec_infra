@@ -236,7 +236,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">L1 Schedule Form</h5>
+        <h5 class="modal-title" id="exampleModalLabel">L2 Schedule Upload Form</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -281,7 +281,7 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="form-label fl-10">L1 Start Date<span class="required-asterisk">*</span></label>
+                  <label class="form-label fl-10">L2 Start Date<span class="required-asterisk">*</span></label>
                   <input formControlName="start_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                   <div *ngIf="lu['start_date'].touched && lu['start_date'].invalid">
                     <small class="text-danger" *ngIf="lu['start_date'].errors?.['required']">*Required</small>
@@ -290,7 +290,7 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="form-label fl-10">L1 End Date<span class="required-asterisk">*</span></label>
+                  <label class="form-label fl-10">L2 End Date<span class="required-asterisk">*</span></label>
                   <input formControlName="end_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
                   <div *ngIf="lu['end_date'].touched && lu['end_date'].invalid">
                     <small class="text-danger" *ngIf="lu['end_date'].errors?.['required']">*Required</small>

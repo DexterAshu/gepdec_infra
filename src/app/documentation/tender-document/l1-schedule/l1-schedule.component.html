@@ -51,8 +51,6 @@
                 <th>NIT No</th>
                 <th>Publish Date</th>
                 <th>Execution Location</th>
-                <th>Start Date</th>
-                <th>End Date</th>
                 <th>Comp Period (Months)</th>
                 <th>Action</th>
               </tr>
@@ -71,13 +69,10 @@
                 </td>
                 <td>{{a.publish_date | date:'dd/MM/yyyy'}}</td>
                 <td>{{a.tender_location}}</td>
-                <td>{{a.schedule_start_date | date:'dd/MM/yyyy'}}</td>
-                <td>{{a.schedule_start_date | date:'dd/MM/yyyy'}}</td>
                 <td>{{a.tender_completion_period}}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#viewModel" title="View Details" (click)="selectRow(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>&nbsp;
-                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                  <a *ngIf="a?.filepath1" download="{{a.filepath1}}" href="{{a.filepath1}}"><span class="mdi mdi-cloud-download cursor-pointer mdi-18px"></span></a>
+                  <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp; -->
+                  <a data-bs-toggle="modal" data-bs-target="#viewModel" title="View Details" (click)="selectRow(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="docListData?.length == 0">
@@ -102,7 +97,7 @@
 </div>
 
 <div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">L1 Schedule Details</h5>
@@ -110,73 +105,55 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="table-responsive" style="min-height: 300px">
+          <div class="table-responsive" style="min-height: auto">
             <h6 class="mb-2 text-secondary">Tender Details</h6>
             <table class="table table-hover table-striped custom-table">
               <thead class="hidden-thead"></thead>
               <tbody>
                 <tr>
-                  <th>Tender Title</th>
-                  <td colspan="5">{{ selectedRow?.tender_title }}</td>
+                  <th>Tender&nbsp;Title</th>
+                  <td colspan="3">{{ selectedRow?.tender_title }}</td>
                 </tr>
                 <tr>
                   <th>Client</th>
                   <td>{{ selectedRow?.company_name }}</td>
-                  <th>NIT No</th>
+                  <th>NIT&nbsp;No</th>
                   <td>
                     <div *ngIf="!!selectedRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectedRow?.tender_ref_no }}">{{selectedRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectedRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock3>{{selectedRow?.tender_ref_no}}</ng-template>
                   </td>
-                  <th>Execution Location</th>
-                  <td>{{ selectedRow?.tender_location }}</td>
                 </tr>
                 <tr>
-                  <th>L1 Start Date</th>
-                  <td>{{ selectedRow?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
-                  <th>L1 End Date</th>
-                  <td>{{ selectedRow?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <th>Execution&nbsp;Location</th>
+                  <td>{{ selectedRow?.tender_location }}</td>
                   <th>L1 Comp Period (Months)</th>
                   <td>{{ selectedRow?.tender_completion_period }}</td>
                 </tr>
                 <tr>
-                  <th>Document Description</th>
+                  <th>Document&nbsp;Description</th>
                   <td colspan="5">{{ selectedRow?.description }}</td>
                 </tr>
               </tbody>
             </table>
-            <h6 class="mb-2 mt-4 text-secondary">Task Details for L1 Schedule</h6>
-            <app-responsive-table>
+            <h6 class="mb-2 mt-4 text-secondary">L1 Schedule Files</h6>
+            <table class="table table-hover table-striped custom-table">
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
-                  <th>Task</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Days Difference</th>
-                  <th>Sub Task</th>
+                  <th>File Name</th>
+                  <th>Download File</th>
                 </tr>
               </thead>
               <tbody class="text-nowrap">
-                <tr *ngFor="let row of selectedRow?.tasks; index as i">
+                <tr *ngFor="let row of selectedRow?.l1_file_list; index as i">
                   <td>{{ i+1 }}</td>
-                  <td>{{ row.task }}</td>
-                  <td>{{ row.task_start_date | date:'dd/MM/yyyy' }}</td>
-                  <td>{{ row.task_end_date | date:'dd/MM/yyyy' }}</td>
-                  <td>{{ row.days_difference }}</td>
+                  <td>{{ row.split('/')[1] }}</td>
                   <td>
-                    <table class="table">
-                      <tr *ngFor="let ct of row?.childtasks; index as ci">
-                        <td>{{i+1}}.{{ ci+1 }}</td>
-                        <td>{{ ct.task }}</td>
-                        <td>{{ ct.task_start_date | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ ct.task_end_date | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ ct.days_difference }}</td>
-                      </tr>
-                    </table>
+                    <a href="{{apiURL}}/{{row}}" target="_blank"> <span class="mdi mdi-file-document-box-outline text-success cursor-pointer mdi-18px"></span> </a>
                   </td>
                 </tr>
               </tbody>
-            </app-responsive-table>
+            </table>
           </div>
         </div>
       </div>
@@ -231,25 +208,7 @@
                   <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy'" readonly>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="form-label fl-10">L1 Start Date<span class="required-asterisk">*</span></label>
-                  <input formControlName="start_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
-                  <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
-                    <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="form-label fl-10">L1 End Date<span class="required-asterisk">*</span></label>
-                  <input formControlName="end_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
-                  <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
-                    <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label class="form-label fl-10">Comp Period (Months)<span class="required-asterisk">*</span></label>
                   <input formControlName="total_tenure" type="text" class="form-control form-control-sm" appNumberOnly>
@@ -264,7 +223,7 @@
                   <input id="cin" name="cin" type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" multiple>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-row">
                   <div class="form-group col-12">
                     <label for="description" class="form-label fl-10">Document Description:</label>

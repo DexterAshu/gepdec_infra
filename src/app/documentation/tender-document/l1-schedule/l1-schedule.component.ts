@@ -21,6 +21,7 @@ export class L1ScheduleComponent {
   isNotFound: boolean = false;
   p: number = 1;
   limit = environment.pageLimit;
+  apiURL = environment.apiUrl;
   docListData: any;
   companyData: any;
   tenderList: any = [];
@@ -34,8 +35,6 @@ export class L1ScheduleComponent {
     this.documentForm = this.fb.group({
       company_id: [null, Validators.required],
       tender_id: [null, Validators.required],
-      start_date: [null, Validators.required],
-      end_date: [null, Validators.required],
       total_tenure: [null, Validators.required],
       attachment: [null],
       description: [null]
@@ -147,11 +146,9 @@ export class L1ScheduleComponent {
     }
     formData.append('tender_id', this.documentForm.value.tender_id);
     formData.append('company_id', this.documentForm.value.company_id);
-    formData.append('l1_start_date', this.documentForm.value.start_date);
-    formData.append('l1_end_date', this.documentForm.value.end_date);
     formData.append('tender_completion_period', this.documentForm.value.total_tenure);
     formData.append('description', this.documentForm.value.description);
-    this.apiService.l1ScheduleUpload(formData).subscribe((res: any) => {
+    this.apiService.l1DocumentUpload(formData).subscribe((res: any) => {
       if (res.status == 200) {
         this.documentForm.reset();
         this.alertService.success(res.message);
@@ -162,9 +159,10 @@ export class L1ScheduleComponent {
       }
       this.isSubmitted = false;
     }),
-      (error: any) => {
-        this.isSubmitted = false;
-        this.alertService.error("Error: Unknown Error!");
-      }
+    (error: any) => {
+      console.error(error);
+      this.isSubmitted = false;
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
 }
