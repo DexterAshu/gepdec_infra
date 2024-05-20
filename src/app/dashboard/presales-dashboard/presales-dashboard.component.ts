@@ -12,6 +12,10 @@ import { environment } from 'src/environments/environment';
 })
 export class PresalesDashboardComponent {
   p: number = 1;
+  p1: number = 1;
+  p2: number = 1;
+  p3: number = 1;
+  p4: number = 1;
   limit = environment.pageLimit;
   form!: FormGroup; 
   fitContainer: boolean = false;
@@ -520,6 +524,10 @@ export class PresalesDashboardComponent {
   pieChartData: any = [];
   topFiveOrder: any[] = [];
   barChartData: any = [];
+  tPublishedData: any;
+  qualifiedData: any;
+  participatedData: any;
+  wonData: any;
   constructor(
     private sharedService: SharedService,
     private apiService: ApiService,
@@ -636,7 +644,10 @@ export class PresalesDashboardComponent {
             if (this.preSalesDashData.topFiveProject) {
                 this.topFiveOrder = this.preSalesDashData.topFiveProject;
             }
-
+            this.tPublishedData = this.preSalesDashData.cardData[0].data;
+            this.qualifiedData = this.preSalesDashData.cardData[1].data;
+            this.participatedData = this.preSalesDashData.cardData[2].data;
+            this.wonData = this.preSalesDashData.cardData[3].data;
             // Pie chart 
             if (this.preSalesDashData.cardData) {
               this.pieChartData = this.preSalesDashData.cardData

@@ -166,10 +166,15 @@ getDashboard(): Observable<any> {
   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
   return this.http.get<any>(`${environment.apiUrl}/dashboard/api/v1/getLandingDashboard`, httpOptions);
 }
+getTenderDetail(tenderId: any): Observable<any> {
+  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+  return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getTenderDetail/${tenderId}`, httpOptions);
+}
 //Presales Dashboard
 getPreSaleDashboard(): Observable<any> {
   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
   return this.http.get<any>(`${environment.apiUrl}/dashboard/api/v1/getPreSalesDashboard`, httpOptions);
 }
+
 
 }

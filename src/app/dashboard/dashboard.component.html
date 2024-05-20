@@ -510,28 +510,33 @@
        
         </div> -->
 
-        <div class="" #containerPerformance>
+        <!-- <div class="" #containerPerformance>
           <div class="Highcharts " [chart]="LineChartGraph"></div>
          
-        </div>
+        </div> -->
 
-        <!-- <div #lineBarChart>
+        <div #lineBarChart>
           <ngx-charts-line-chart
-            [view]="[lineBarChart.offsetWidth - 50, 330]"
-            [scheme]="colorScheme"
+            [view]="[lineBarChart.offsetWidth - 30, 370]"
+            [scheme]="lineBarColorScheme"
             
             [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel"
             [xAxis]="xAxis"
             [yAxis]="yAxis"
-            [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel"
+            [xAxisLabel]="xAxisLabel3"
+            [yAxisLabel]="yAxisLabel3"
             [timeline]="timeline"
             [results]="budgetData"
             >
           </ngx-charts-line-chart>  
-        </div>-->
+        </div>
         <!-- [legend]="legend" -->
+        <ul class="cust-legend">
+          <li><i class="mdi mdi-circle load_box1" style="font-size: 16px;padding-right: 0.5rem;color: #d6a974;"></i> Budget</li>
+          <li><i class="mdi mdi-circle load_box4" style="font-size: 16px;padding-right: 0.5rem;color: #97daa7;"></i> Expense</li>
+      
+        </ul>
       </div>
     </div>
   </div>
@@ -797,10 +802,45 @@ data-bs-backdrop="static" data-bs-keyboard="true">
 </div>
 <!-- create modal end L1-->
 
-  <!-- Project status modal -->
+ <!-- Project status modal -->
 <div class="modal fade" id="progressBarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Project Wise Status</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="m-2">
+        <div #modalProgressBarchart>
+          <div *ngIf="loading" class="text-center">
+            <div class="spinner-border"> </div>
+          </div>
+          <ngx-charts-bar-horizontal
+            [view]="[modalProgressBarchart.offsetWidth, 370]"
+            [scheme]="colorScheme"
+            [results]="allProgressBar"
+            [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel3"
+            [yAxisLabel]="yAxisLabel3"
+            (select)="onBarClick($event)">
+          </ngx-charts-bar-horizontal>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Project status modal end -->
+
+  <!-- Project status modal -->
+  <div class="modal fade" id="progressBarModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title">Project Wise Status</h5>
@@ -819,8 +859,8 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                     </tr>
                   </thead>
                   <tbody class="text-nowrap" style="cursor: pointer;">
-                    <tr *ngFor="let p of progressBar2 | paginate: { itemsPerPage: limit2, currentPage: p2 }; let i = index">
-                      <td>{{limit2*(p2-1)+i+1}}</td>
+                    <tr *ngFor="let p of tenderDetails | paginate: { itemsPerPage: limit, currentPage: p2 }; let i = index">
+                      <td>{{limit*(p2-1)+i+1}}</td>
                       <td>{{p.tender_title}}</td>
                       <td>{{p.tender_id}}</td>
                       <td>{{p.duration}}</td>
