@@ -63,7 +63,7 @@ export class ItemMasterComponent {
         this.dataDropdownList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       // this.isNotFound = true;
       this.dataDropdownList = undefined;
       this.alertService.error("Error: Unknown Error!")
@@ -83,7 +83,7 @@ export class ItemMasterComponent {
         this.dataList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.dataList = undefined;
       this.alertService.error("Error: Unknown Error!")

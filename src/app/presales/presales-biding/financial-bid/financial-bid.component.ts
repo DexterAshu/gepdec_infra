@@ -184,8 +184,9 @@ export class FinancialBidComponent {
       }
     }),
       (error: any) => {
-        this.alertService.error("Error: Unknown Error!");
-      }
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
 
     this.apiService.getTenderList().subscribe((res: any) => {
       this.tenderData = res.result;
@@ -210,7 +211,7 @@ export class FinancialBidComponent {
         this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, error => {
+    }, (error: any) => {
       this.docListData = undefined;
       this.isNotFound = true;
       this.alertService.error("Error: Unknown Error!");
@@ -224,7 +225,7 @@ export class FinancialBidComponent {
       } else {
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.alertService.error("Error: Unknown Error!");
     });
 
@@ -630,7 +631,7 @@ export class FinancialBidComponent {
       } else {
         this.alertService.warning(response.message);
       }
-    }, error => {
+    }, (error: any) => {
       document.getElementById('cancel')?.click();
       this.alertService.error("Error: Unknown Error!");
     });

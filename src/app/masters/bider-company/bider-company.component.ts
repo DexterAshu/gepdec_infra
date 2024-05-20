@@ -168,7 +168,7 @@ export class BiderCompanyComponent {
         this.companyData = undefined;
         this.alertService.warning("Looks like no data available.");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.companyData = undefined;
       this.alertService.error("Looks like no data available.");

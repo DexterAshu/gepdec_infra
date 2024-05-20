@@ -1,7 +1,8 @@
 import { Component, ElementRef } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AlertService, ApiService, SharedService } from 'src/app/_services';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-l2-schedule-bulkdata',
@@ -11,10 +12,12 @@ import { AlertService, ApiService, SharedService } from 'src/app/_services';
 
 export class L2ScheduleBulkdataComponent {
   form!: FormGroup;
+  today: any = new Date();
   editTaskForm!: FormGroup;
   addTaskForm!: FormGroup;
   editSubTaskForm!: FormGroup;
   addSubTaskForm!: FormGroup;
+  documentForm!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -27,10 +30,13 @@ export class L2ScheduleBulkdataComponent {
   l1ScheduleData: any;
   l2ScheduleData: any = [];
   companyList: any = [];
+  selectedTender: any;
   tenderList: any = [];
   selectedTaskForEdit: any;
   selectedSubTaskForEdit: any;
   addNewSubTaskInSelectedTask: any;
+  attachment: any = [];
+  attachmentName: any = [];
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService: SharedService, private elementRef: ElementRef) { }
 
@@ -44,6 +50,15 @@ export class L2ScheduleBulkdataComponent {
   }
 
   formInit(): void {
+    this.documentForm = this.fb.group({
+      company_id: [null, Validators.required],
+      tender_id: [null, Validators.required],
+      start_date: [null, Validators.required],
+      end_date: [null, Validators.required],
+      total_tenure: [null, Validators.required],
+      attachment: [null],
+      description: [null]
+    });
     this.form = this.fb.group({
       company_id: [null, Validators.required],
       tender_id: [null, Validators.required]
@@ -75,6 +90,24 @@ export class L2ScheduleBulkdataComponent {
       task_start_date: [null, Validators.required],
       task_end_date: [null],
     });
+  }
+
+  get lu() { return this.documentForm.controls; }
+
+  onFileChanged(event: any) {
+    this.attachment = [];
+    this.attachmentName = [];
+    const files = event.target.files;
+    for( let file of files) {
+      this.attachment.push(file);
+      this.attachmentName.push({name: file.name, size: file.size, date: new Date(file.lastModified).toISOString()});
+    }
+    event.target.value = '';
+  }
+
+  deleteFile(index: number): void {
+    this.attachment.splice(index, 1);
+    this.attachmentName.splice(index, 1);
   }
 
   updateTask(): void {
@@ -202,14 +235,16 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.error(res.message);
       }
     }),
-    (error: any) => { 
+    (error: any) => {
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
 
   getTenderListByCompany(): void {
     this.tenderList = [];
-    this.apiService.getTenderLisById(this.form.value.company_id).subscribe((res: any) => {
+    const apiLink = `/biding/api/v1/getTenderlist?company_id=${this.documentForm.value.company_id}`
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderList = res.result;
       } else {
@@ -217,6 +252,7 @@ export class L2ScheduleBulkdataComponent {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
@@ -232,8 +268,13 @@ export class L2ScheduleBulkdataComponent {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
+  }
+
+  selectTender(): void {
+    this.selectedTender = this.tenderList.filter((x: any) => x.tender_id == this.documentForm.value.tender_id)[0];
   }
 
   getL2ScheduleData(): void {
@@ -249,7 +290,7 @@ export class L2ScheduleBulkdataComponent {
         this.l2ScheduleData = undefined;
         this.alertService.error(res.message);
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.l2ScheduleData = undefined;
       this.alertService.error("Error: Unknown Error!");
@@ -334,6 +375,7 @@ export class L2ScheduleBulkdataComponent {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.isSubmitted = false;
@@ -363,9 +405,45 @@ export class L2ScheduleBulkdataComponent {
       }
     }),
       (error: any) => {
+        console.error(error);
         this.alertService.error("Error: Unknown Error!");
       }
     this.isSubmitted = false;
     this.update = false;
+  }
+
+  onL2UploadSubmit() {
+    console.log(this.documentForm.value);
+    const formData: FormData = new FormData();
+    for (let i = 0; i < this.attachment.length; i++) {
+      formData.append('attachment', this.attachment[i]);
+    }
+    formData.append('tender_id', this.documentForm.value.tender_id);
+    formData.append('company_id', this.documentForm.value.company_id);
+    formData.append('l1_start_date', this.documentForm.value.start_date);
+    formData.append('l1_end_date', this.documentForm.value.end_date);
+    formData.append('tender_completion_period', this.documentForm.value.total_tenure);
+    formData.append('description', this.documentForm.value.description);
+    this.apiService.l1ScheduleUpload(formData).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.documentForm.reset();
+        this.alertService.success(res.message);
+        document.getElementById('cancel')?.click();
+        this.getL2ScheduleData();
+      } else {
+        this.alertService.warning(res.message);
+      }
+      this.isSubmitted = false;
+    }),
+    (error: any) => {
+      console.error(error);
+      this.isSubmitted = false;
+      this.alertService.error("Error: Unknown Error!");
+    }
+  }
+
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
+    XLSX.writeFile(wb, 'Data_File.xlsx');
   }
 }

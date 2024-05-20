@@ -392,7 +392,7 @@ export class DataCapturingComponent {
         this.addressDetails = undefined;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, error => {
+    }, (error: any) => {
         this.isContactFound = true;
         this.custDetails = undefined;
         this.contactDetails = undefined;
@@ -412,7 +412,7 @@ export class DataCapturingComponent {
     let apiLink = "/biding/api/v1/getQualificationDropdown";
     this.apiService.getData(apiLink).subscribe((res: any) => {
       this.categoryData = res.catagory;
-    }, error => {
+    }, (error: any) => {
       this.categoryData = undefined;
       this.alertService.error("Error: Unknown Error!");
     });
@@ -427,7 +427,7 @@ export class DataCapturingComponent {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.subCategoryData = res.subcatagory;
-      }, error => {
+      }, (error: any) => {
         this.subCategoryData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
@@ -442,7 +442,7 @@ export class DataCapturingComponent {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?subqacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.capacityData = res.capacity;
-      }, error => {
+      }, (error: any) => {
         this.capacityData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
@@ -450,7 +450,7 @@ export class DataCapturingComponent {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.capacityData = res.capacity;
-      }, error => {
+      }, (error: any) => {
         this.capacityData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
@@ -468,6 +468,7 @@ export class DataCapturingComponent {
       }
     }),
     (error: any) => { 
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {
@@ -545,7 +546,7 @@ export class DataCapturingComponent {
       } else {
         this.alertService.warning(response.message);
       }
-    }, error => {
+    }, (error: any) => {
       this.alertService.error("Error: Unknown Error!");
     });
   }
@@ -595,7 +596,7 @@ export class DataCapturingComponent {
       } else {
         this.alertService.warning(response.message);
       }
-    }, error => {
+    }, (error: any) => {
       this.alertService.error("Error: Unknown Error!");
     });
   }

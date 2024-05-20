@@ -76,7 +76,7 @@ export class CountryMasterComponent {
         this.countCount = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.countData = undefined;
       this.alertService.error("Error: Unknown Error!")
@@ -124,7 +124,7 @@ export class CountryMasterComponent {
       } else {
         this.alertService.error('Error, Something went wrong please check');
       }
-    }, error => {
+    }, (error: any) => {
       this.countData = [];
       this.isNotFound = false;
       this.alertService.error("Error: Unknown Error!")

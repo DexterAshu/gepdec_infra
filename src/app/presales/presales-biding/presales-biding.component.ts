@@ -103,7 +103,7 @@ export class PresalesBidingComponent {
         this.companyData = undefined;
         this.alertService.warning("Looks like no data available.");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.companyData = undefined;
       this.alertService.error("Error: Unknown Error!");

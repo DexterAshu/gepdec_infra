@@ -100,7 +100,7 @@ export class TechDocumentsComponent {
         this.docListData = undefined;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, error => {
+    }, (error: any) => {
         this.isNotFound = true;
         this.docListData = undefined;
         this.alertService.error("Error: Unknown Error!");
@@ -123,7 +123,7 @@ export class TechDocumentsComponent {
     let apiLink = "/biding/api/v1/getQualificationDropdown";
     this.apiService.getData(apiLink).subscribe((res: any) => {
       this.categoryData = res.catagory;
-    }, error => {
+    }, (error: any) => {
       this.categoryData = undefined;
       this.alertService.error("Error: Unknown Error!");
     });
@@ -138,7 +138,7 @@ export class TechDocumentsComponent {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.subCategoryData = res.subcatagory;
-      }, error => {
+      }, (error: any) => {
         this.subCategoryData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
@@ -153,7 +153,7 @@ export class TechDocumentsComponent {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?subqacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.capacityData = res.capacity;
-      }, error => {
+      }, (error: any) => {
         this.capacityData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
@@ -161,7 +161,7 @@ export class TechDocumentsComponent {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.capacityData = res.capacity;
-      }, error => {
+      }, (error: any) => {
         this.capacityData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });

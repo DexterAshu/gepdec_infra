@@ -1431,7 +1431,8 @@ export class DashboardComponent implements OnInit {
       } else {
         this.alertService.warning("Looks like no financial year data available!");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText);
     }); 
@@ -1446,7 +1447,8 @@ export class DashboardComponent implements OnInit {
       } else {
         this.alertService.warning("Looks like no category data available!");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText);
     }); 
@@ -1461,7 +1463,8 @@ export class DashboardComponent implements OnInit {
       } else {
         this.alertService.warning("Looks like no company data available!");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText);
     }); 
@@ -1497,7 +1500,8 @@ export class DashboardComponent implements OnInit {
       } else {
         this.alertService.warning("Looks like no project data available!");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText);
     }); 
@@ -1566,7 +1570,8 @@ export class DashboardComponent implements OnInit {
   //         } else {
   //             this.alertService.warning("Looks like no data available!");
   //         }
-  //     }, error => {
+  //     }, (error: any) => {
+  //         console.error(error);
   //         this.dashboardData = [];
   //         this.isNotFound = false;
   //         this.loading = false;
@@ -1632,7 +1637,8 @@ export class DashboardComponent implements OnInit {
         } else {
             this.alertService.warning("Looks like no data available!");
         }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
         this.dashboardData = [];
         this.isNotFound = false;
         this.loading = false;
@@ -1656,7 +1662,8 @@ fetchTenderDetail(tenderId: any) {
         } else {
             this.alertService.warning("No details available for this tender.");
         }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
         this.alertService.error("Error fetching tender details: " + error.statusText);
     });
 }
@@ -1677,7 +1684,8 @@ fetchTenderDetail(tenderId: any) {
       }else {
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
     }); 
@@ -1700,7 +1708,8 @@ fetchTenderDetail(tenderId: any) {
       }else {
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.isNotFound = false;
       this.alertService.error("Error: " + error.statusText)
     }); 
@@ -1714,7 +1723,8 @@ fetchTenderDetail(tenderId: any) {
   //     }else {
   //       this.alertService.warning("Looks like no data available!");
   //     }
-  //   }, error => {
+  //   }, (error: any) => {
+  //     console.error(error);
   //     this.isNotFound = false;
   //     this.alertService.error("Error: " + error.statusText)
   //   }); 

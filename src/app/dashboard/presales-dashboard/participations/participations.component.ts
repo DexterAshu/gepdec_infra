@@ -65,7 +65,8 @@ export class ParticipationsComponent {
         this.stateData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.stateData = undefined;
       this.isNotFound = true;
       this.alertService.error("Error: Unknown Error!")

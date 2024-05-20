@@ -20,8 +20,15 @@
               <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
             <div class="col-lg-8 col-8">
-              <button type="button" data-bs-toggle="modal" (click)="getCompanyList()" data-bs-target="#createL2Modal"
-                class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+              <div class="float-right">
+                <button class="btn btn-primary btn-fw btn-sm me-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><span class="mdi mdi-upload"></span>&nbsp;Export</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li (click)="download()"> <a class="dropdown-item text-small cursor-pointer"><span class="mdi mdi-arrow-down-bold-box-outline"></span>Export Data</a></li>
+                  <li><a class="dropdown-item text-small cursor-pointer" href="../../../../assets/tamplate/l1schedule_upload_template.xlsx" download="l1schedule_upload_template.xlsx"><span class="mdi mdi-download"></span>Download&nbsp;Template</a> </li>
+                </ul>
+                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import </button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="getCompanyList()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
+              </div>
             </div>
           </div>
           <app-responsive-table>
@@ -217,6 +224,122 @@
                 <button type="button" id="closed" class="btn btn-secondary btn-fw btn-sm"
                   data-bs-dismiss="modal">Close</button>
               </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">L1 Schedule Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="documentForm" (ngSubmit)="onL2UploadSubmit()">
+            <div class="form-row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
+                  <select formControlName="company_id" class="form-select form-select-sm" (ngModelChange)="getTenderListByCompany()">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
+                    <option *ngFor="let c of companyList" value="{{c.company_id}}">{{ c.company_name }}</option>
+                  </select>
+                  <div *ngIf="lu['company_id'].touched && lu['company_id'].invalid">
+                    <small class="text-danger" *ngIf="lu['company_id'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
+                  <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="selectTender()">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
+                    <option *ngFor="let t of tenderList" value="{{t.tender_id}}">{{t.tender_title}}</option>
+                  </select>
+                  <div *ngIf="lu['tender_id'].touched && lu['tender_id'].invalid">
+                    <small class="text-danger" *ngIf="lu['tender_id'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label fl-10">Tender NIT No<span class="required-asterisk">*</span></label>
+                  <input type="text" class="form-control form-control-sm" readonly [value]="selectedTender?.tender_ref_no">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
+                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy'" readonly>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label fl-10">L1 Start Date<span class="required-asterisk">*</span></label>
+                  <input formControlName="start_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+                  <div *ngIf="lu['start_date'].touched && lu['start_date'].invalid">
+                    <small class="text-danger" *ngIf="lu['start_date'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label fl-10">L1 End Date<span class="required-asterisk">*</span></label>
+                  <input formControlName="end_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+                  <div *ngIf="lu['end_date'].touched && lu['end_date'].invalid">
+                    <small class="text-danger" *ngIf="lu['end_date'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label fl-10">Comp Period (Months)<span class="required-asterisk">*</span></label>
+                  <input formControlName="total_tenure" type="text" class="form-control form-control-sm" appNumberOnly>
+                  <div *ngIf="lu['total_tenure'].touched && lu['total_tenure'].invalid">
+                    <small class="text-danger" *ngIf="lu['total_tenure'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label id="cin" class="form-label fl-10"> Upload Documents <span class="required-asterisk">*</span></label><br>
+                  <input id="cin" name="cin" type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <label for="description" class="form-label fl-10">Document Description:</label>
+                    <textarea type="text" name="description" class="form-control form-control-sm" formControlName="description" appWordCapitalize></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="attachmentName?.length > 0">
+              <div class="table-responsive" style="min-height: auto">
+                <h6 class="mb-2 text-secondary">Upload File List</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="hidden-thead"></thead>
+                  <tbody>
+                    <tr *ngFor="let files of attachmentName; let i = index">
+                      <td><p class="h5">{{files.name}}</p></td>
+                      <td>{{files.date | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{files.size/1024 | number: '1.2-2'}} KB</td>
+                      <td class="text-right"><a title="Remove file" (click)="deleteFile(i)"><span class="mdi mdi-folder-remove text-danger cursor-pointer mdi-18px"></span></a>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="float-right mt-2">
+              <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
+              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
           </form>
         </div>

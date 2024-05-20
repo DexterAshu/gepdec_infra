@@ -585,7 +585,8 @@ export class PresalesDashboardComponent {
   //   } else {
   //     this.alertService.warning("No data available in Segment dropdown.");
   //   }
-  // }, error => {
+  // }, (error: any) => {
+    // console.error(error);
   //   this.segmentData = [];
   //   this.alertService.error("Error: " + error.statusText)
   // });
@@ -677,7 +678,8 @@ export class PresalesDashboardComponent {
         } else {
             this.alertService.warning("Looks like no data available!");
         }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
         this.preSalesDashData = [];
         this.isNotFound = false;
         this.loading = false;

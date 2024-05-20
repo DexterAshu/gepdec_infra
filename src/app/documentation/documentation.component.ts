@@ -62,6 +62,7 @@ export class DocumentationComponent implements OnInit {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.warning("Error: Unknown Error!");
     }
   }

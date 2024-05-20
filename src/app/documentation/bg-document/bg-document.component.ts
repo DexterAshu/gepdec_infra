@@ -97,6 +97,7 @@ export class BgDocumentComponent {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getCompanyList().subscribe((res: any) => {
@@ -107,19 +108,43 @@ export class BgDocumentComponent {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {
-      this.tenderType = res.bidtype;
-      this.securityData = res.security;
-    });
+      if(res.status == 200) {
+        this.tenderType = res.bidtype;
+        this.securityData = res.security;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
     this.masterService.getBankData().subscribe((res:any)=>{
-      this.bankData = res.bank;
-    })
+      if(res.status === 200){
+        this.bankData = res.bank;
+      } else {
+        this.alertService.warning("Looks like no data available in type.")
+      }
+    }),
+    (error: any) => {
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
     this.apiService.getTenderList().subscribe((res: any) => {
-      this.tenderData = res.result;
-    });
-
+      if(res.status == 200) {
+        this.tenderData = res.result;
+      } else {
+        this.alertService.warning("Looks like no data available in type.");
+      }
+    }),
+    (error: any) => {
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
 
   bankList(){
@@ -134,7 +159,8 @@ export class BgDocumentComponent {
         this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.docListData = undefined;
       this.isNotFound = true;
       this.alertService.error("Error: Unknown Error!")

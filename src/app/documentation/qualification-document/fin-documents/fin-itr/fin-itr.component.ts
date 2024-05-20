@@ -77,7 +77,8 @@ export class FinItrComponent {
         this.docListData = undefined;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.isNotFound = true;
       this.docListData = undefined;
       this.alertService.error("Error: Unknown Error!");

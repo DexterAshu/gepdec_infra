@@ -117,8 +117,9 @@ export class CompanyContactsComponent {
       }
     }),
       (error: any) => {
-        this.alertService.error("Error: Unknown Error!");
-      }
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
   tendComp(event: any) {
     const module_id = event?.target ? (event.target as HTMLInputElement).value : event;
@@ -148,7 +149,7 @@ export class CompanyContactsComponent {
         this.companyData = undefined;
         this.alertService.warning("Looks like no data available.");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.companyData = undefined;
       this.alertService.error("Error: Unknown Error!");

@@ -122,8 +122,9 @@ export class MaterialReceiptComponent {
       }
     }),
       (error: any) => {
-        this.alertService.error("Error: Unknown Error!");
-      }
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
     this.isSubmitted = false;
   }
 

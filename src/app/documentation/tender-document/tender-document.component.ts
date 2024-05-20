@@ -92,7 +92,7 @@ export class TenderDocumentComponent {
         this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, error => {
+    }, (error: any) => {
       this.docListData = undefined;
       this.isNotFound = true;
       this.alertService.error("Error: Unknown Error!")

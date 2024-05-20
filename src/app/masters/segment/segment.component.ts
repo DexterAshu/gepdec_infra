@@ -49,7 +49,7 @@ export class SegmentComponent implements OnInit {
         this.segmentData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.segmentData = undefined;
       this.alertService.error("Error: Unknown Error!")

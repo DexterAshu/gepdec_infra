@@ -105,7 +105,7 @@ export class BoqItemsComponent {
         this.dataDropdownList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.dataDropdownList = undefined;
       this.alertService.error("Error: Unknown Error!");
     });
@@ -125,7 +125,7 @@ export class BoqItemsComponent {
     }),
     (error: any) => {
       this.tenderDetailsData = undefined;
-      console.log(error);
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
@@ -199,7 +199,7 @@ export class BoqItemsComponent {
         this.isNotFound = true;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, error => {
+    }, (error: any) => {
       this.docListData = undefined;
       this.isNotFound = true;
       this.alertService.error("Error: Unknown Error!")
@@ -259,7 +259,7 @@ export class BoqItemsComponent {
         this.alertService.warning(res.message);
       }
     }, (error: any) => {
-      console.log(error);
+      console.error(error);
       this.isSubmitted = false;
       this.alertService.error("Error: Unknown Error!");
     });

@@ -59,7 +59,7 @@ export class IndirectCostingComponent {
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, error => {
+    }, (error: any) => {
       this.alertService.error("Error: Unknown Error!");
     });
   }
@@ -79,7 +79,7 @@ export class IndirectCostingComponent {
       } else {
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.alertService.error("Error: Unknown Error!");
     });
   }
@@ -103,7 +103,7 @@ export class IndirectCostingComponent {
         this.dataDropdownList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.dataDropdownList = undefined;
       this.alertService.error("Error: Unknown Error!");
     });
@@ -121,7 +121,7 @@ export class IndirectCostingComponent {
         this.overHeadData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.overHeadData = undefined;
       this.alertService.error("Error: Unknown Error!");
     });
@@ -166,7 +166,7 @@ export class IndirectCostingComponent {
         this.dataList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.dataList = undefined;
       this.alertService.error("Error: Unknown Error!");

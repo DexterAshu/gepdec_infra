@@ -88,6 +88,7 @@ export class TechnicalBidComponent {
       }
     }),
     (error: any) => { 
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
 
@@ -100,7 +101,7 @@ export class TechnicalBidComponent {
         this.docListData = undefined;
         this.alertService.warning("Looks like no data available in type.");
       }
-    }, error => {
+    }, (error: any) => {
         this.isNotFound = true;
         this.docListData = undefined;
         this.alertService.error("Error: Unknown Error!");
@@ -117,7 +118,7 @@ export class TechnicalBidComponent {
     let apiLink = "/biding/api/v1/getQualificationDropdown";
     this.apiService.getData(apiLink).subscribe((res: any) => {
       this.categoryData = res.catagory;
-    }, error => {
+    }, (error: any) => {
       this.categoryData = undefined;
       this.alertService.error("Error: Unknown Error!");
     });
@@ -132,7 +133,7 @@ export class TechnicalBidComponent {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.subCategoryData = res.subcatagory;
-      }, error => {
+      }, (error: any) => {
         this.subCategoryData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
@@ -147,7 +148,7 @@ export class TechnicalBidComponent {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?subqacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.capacityData = res.capacity;
-      }, error => {
+      }, (error: any) => {
         this.capacityData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
@@ -155,7 +156,7 @@ export class TechnicalBidComponent {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.capacityData = res.capacity;
-      }, error => {
+      }, (error: any) => {
         this.capacityData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
@@ -204,6 +205,7 @@ export class TechnicalBidComponent {
       }
     }),
     (error: any) => { 
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {
@@ -214,6 +216,7 @@ export class TechnicalBidComponent {
       }
     }),
     (error: any) => { 
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
 

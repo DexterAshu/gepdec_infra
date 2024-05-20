@@ -65,7 +65,8 @@ export class TenderWinsComponent {
         this.stateData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.isNotFound = true;
       this.stateData = undefined;
       this.alertService.error("Error: Unknown Error!")

@@ -753,7 +753,8 @@ onSelect(event:any) {
     //   } else {
     //     this.alertService.warning("No data available in Segment dropdown.");
     //   }
-    // }, error => {
+    // }, (error: any) => {
+      // console.error(error);
     //   this.segmentData = [];
     //   this.alertService.error("Error: Unknown Error!")
     // });

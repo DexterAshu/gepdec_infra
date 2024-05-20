@@ -62,7 +62,8 @@ export class SignInComponent {
             this.route.navigate(['login']);
             this.alertService.error("Username or password is incorrect.");
         }
-      }, error => {
+      }, (error: any) => {
+        console.error(error);
         this.loading = false;
         this.alertService.error(error.status == 401 ? 'Username or password is incorrect.' : "Error: Unknown Error!");
       });

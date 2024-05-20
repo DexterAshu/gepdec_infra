@@ -62,7 +62,8 @@ export class FinalBOQComponent {
       }
     }),
     (error: any) => {
-      this.alertService.error(error);
+      console.error(error);
+      this.alertService.error(error.statusText);
     }
   }
 
@@ -77,6 +78,7 @@ export class FinalBOQComponent {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.error(error);
     }
   }
@@ -126,6 +128,7 @@ export class FinalBOQComponent {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.error(error);
     }
     this.isSubmitted = false;

@@ -78,7 +78,7 @@ export class StateComponent implements OnInit {
         this.stateData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.stateData = undefined;
       this.alertService.error("Error: Unknown Error!")
