@@ -236,7 +236,7 @@
               <div class="col-md-12 mt-1">
                 <label class="form-label fl-10">Please ensure your file is named 'BOQ_sample_template' <span class="required-asterisk">*</span>
                 </label><br>
-                <input class="mt-2" type="file" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
+                <input class="mt-2" type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
                 <br>
                 <div class="float-right mt-2">
                   <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="form1.invalid"> Upload</button>
