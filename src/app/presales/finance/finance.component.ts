@@ -70,7 +70,7 @@ export class FinanceComponent {
       } else {
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.meterData = [];
       this.isNotFound = false;
       this.alertService.error("Error: Unknown Error!")
@@ -94,7 +94,7 @@ export class FinanceComponent {
   //     } else {
   //       this.alertService.warning("Looks like no data available!");
   //     }
-  //   }, error => {
+  //   }, (error: any) => {
   //     this.meterDetailData = [];
   //     this.isData = false;
   //     this.alertService.error("Error: Unknown Error!")
@@ -119,7 +119,7 @@ export class FinanceComponent {
   //     } else {
   //       this.alertService.warning("Looks like no data available!");
   //     }
-  //   }, error => {
+  //   }, (error: any) => {
   //     this.isDataList = false;
   //     this.meterDataList = [];
   //     this.alertService.error("Error: Unknown Error!")
@@ -144,7 +144,7 @@ export class FinanceComponent {
   //     } else {
   //       this.alertService.warning("Looks like no data available!");
   //     }
-  //   }, error => {
+  //   }, (error: any) => {
   //     this.filterData = [];
   //     this.isDataList = false;
   //     this.alertService.error("Error: Unknown Error!")

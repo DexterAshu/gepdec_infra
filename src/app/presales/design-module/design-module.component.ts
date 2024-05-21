@@ -1,7 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService, SharedService } from 'src/app/_services';
 
 @Component({
   selector: 'app-design-module',
@@ -43,12 +43,17 @@ export class DesignModuleComponent {
     }
   ];
 
-  constructor(private formBuilder: FormBuilder, private apiService: ApiService, private alertService: AlertService) { }
+  constructor(private formBuilder: FormBuilder, private apiService: ApiService, private alertService: AlertService,  private sharedService: SharedService, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.getTenderList();
     this.formInit();
   }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
+  }
+
 
   formInit(): void {
     this.form = this.formBuilder.group({

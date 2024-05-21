@@ -114,7 +114,7 @@ export class CompFinanceComponent {
         this.docListData = undefined;
         this.alertService.warning("Looks like no data available.");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.docListData = undefined;
       this.alertService.error("Error: Unknown Error!");

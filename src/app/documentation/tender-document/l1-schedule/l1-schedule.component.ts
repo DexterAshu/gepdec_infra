@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-l1-schedule',
   templateUrl: './l1-schedule.component.html',
@@ -20,6 +21,7 @@ export class L1ScheduleComponent {
   isNotFound: boolean = false;
   p: number = 1;
   limit = environment.pageLimit;
+  apiURL = environment.apiUrl;
   docListData: any;
   companyData: any;
   tenderList: any = [];
@@ -33,8 +35,6 @@ export class L1ScheduleComponent {
     this.documentForm = this.fb.group({
       company_id: [null, Validators.required],
       tender_id: [null, Validators.required],
-      start_date: [null, Validators.required],
-      end_date: [null, Validators.required],
       total_tenure: [null, Validators.required],
       attachment: [null],
       description: [null]
@@ -84,9 +84,10 @@ export class L1ScheduleComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-      (error: any) => {
-        this.alertService.error("Error: Unknown Error!");
-      }
+    (error: any) => {
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
 
   selectRow(data: any): void {
@@ -100,16 +101,18 @@ export class L1ScheduleComponent {
   getTenderListByCompany(): void {
     this.tenderList = [];
     this.selectTender();
-    this.apiService.getTenderLisById(this.documentForm.value.company_id).subscribe((res: any) => {
+    const apiLink = `/biding/api/v1/getTenderlist?company_id=${this.documentForm.value.company_id}`
+    this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderList = res.result;
       } else {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-      (error: any) => {
-        this.alertService.error("Error: Unknown Error!");
-      }
+    (error: any) => {
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
 
   onFileChanged(event: any) {
@@ -120,11 +123,10 @@ export class L1ScheduleComponent {
       this.attachment.push(file);
       this.attachmentName.push({name: file.name, size: file.size, date: new Date(file.lastModified).toISOString()});
     }
-    event.target.value = ''; 
+    event.target.value = '';
   }
 
   deleteFile(index: number): void {
-    debugger;
     this.attachment.splice(index, 1);
     this.attachmentName.splice(index, 1);
   }
@@ -144,11 +146,9 @@ export class L1ScheduleComponent {
     }
     formData.append('tender_id', this.documentForm.value.tender_id);
     formData.append('company_id', this.documentForm.value.company_id);
-    formData.append('l1_start_date', this.documentForm.value.start_date);
-    formData.append('l1_end_date', this.documentForm.value.end_date);
     formData.append('tender_completion_period', this.documentForm.value.total_tenure);
     formData.append('description', this.documentForm.value.description);
-    this.apiService.l1ScheduleUpload(formData).subscribe((res: any) => {
+    this.apiService.l1DocumentUpload(formData).subscribe((res: any) => {
       if (res.status == 200) {
         this.documentForm.reset();
         this.alertService.success(res.message);
@@ -159,9 +159,10 @@ export class L1ScheduleComponent {
       }
       this.isSubmitted = false;
     }),
-      (error: any) => {
-        this.isSubmitted = false;
-        this.alertService.error("Error: Unknown Error!");
-      }
+    (error: any) => {
+      console.error(error);
+      this.isSubmitted = false;
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
 }

@@ -69,6 +69,7 @@ export class DrawingComponent {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.isNotFound = false;
       this.alertService.error(error);
     }
@@ -127,6 +128,7 @@ export class DrawingComponent {
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.error(error);
     }
     this.isSubmitted = false;

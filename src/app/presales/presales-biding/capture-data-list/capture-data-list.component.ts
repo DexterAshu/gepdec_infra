@@ -129,7 +129,7 @@ this.statusList=roleD[0].roleStatus
         this.tenderData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.tenderData = undefined;
       this.alertService.error("Error: Unknown Error!");
@@ -143,7 +143,7 @@ this.statusList=roleD[0].roleStatus
         this.tenderType = undefined;
         // this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.tenderType = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
@@ -235,7 +235,7 @@ this.statusList=roleD[0].roleStatus
       } else {
         this.alertService.warning(response.message);
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = false;
       this.alertService.error("Error: Unknown Error!")
     })
@@ -254,7 +254,7 @@ this.statusList=roleD[0].roleStatus
       } else {
         this.alertService.warning(response.message);
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = false;
       this.alertService.error("Error: Unknown Error!")
     })

@@ -75,6 +75,7 @@ export class OtherDocumentsComponent {
       }
     }),
     (error: any) => { 
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getCompanyList().subscribe((res: any) => {
@@ -85,6 +86,7 @@ export class OtherDocumentsComponent {
       }
     }),
     (error: any) => { 
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {
@@ -95,6 +97,7 @@ export class OtherDocumentsComponent {
       }
     }),
     (error: any) => { 
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }

@@ -90,7 +90,7 @@ export class AuditRequestComponent {
       } else {
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.alertService.error("Error: Unknown Error!");
     });
   }

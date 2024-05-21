@@ -34,12 +34,8 @@ export class UserMasterComponent implements OnInit {
   singleMeterData: any;
   dateForFilter: any;
   searchText: any;
-  title: any;
-  department: any;
-  role: any;
   update: boolean = false;
   button: string = 'Create';
-  reportingto: any;
   formData: any;
   submitted: boolean = false;
   loadermsg: any;
@@ -51,6 +47,7 @@ export class UserMasterComponent implements OnInit {
   filesToUpload: Array<File> = [];
   inserteddata: any;
   discardeddata: any;
+  dropdownData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,24 +58,22 @@ export class UserMasterComponent implements OnInit {
     private modalService: NgbModal
   ) { }
 
-
-
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       usctit_id: [null, Validators.required],
       first_name: [null, Validators.required],
       middle_name: [null],
       last_name: [null, Validators.required],
-      // loginname: [null,Validators.required],
-      // password: [null,Validators.required],
       empid: [null, Validators.required],
       mobile: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       res_phone: [null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       emailid: [null, [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$')]],
       usdt_id: [null, Validators.required],
+      usdg_id: [null, Validators.required],
       reporting_to: [null, Validators.required],
-      usrl_id: [null, Validators.required]
-
+      usrl_id: [null, Validators.required],
+      isemployee: [null, Validators.required],
+      sallary: [null, Validators.required],
     });
 
     this.tableHeight = `${window.innerHeight * 0.65}px`;
@@ -98,15 +93,6 @@ export class UserMasterComponent implements OnInit {
   }
 
   get f() { return this.form.controls; }
-  //All dropdown API'S
-  getUserData() {
-    this.masterService.getUserMaster().subscribe((data: any) => {
-      this.title = data.title;
-      this.department = data.department;
-      this.role = data.role;
-      this.reportingto = data.reportingto;
-    });
-  }
 
   listData(): void {
     this.tabledata = [];
@@ -121,10 +107,18 @@ export class UserMasterComponent implements OnInit {
         this.tabledata = undefined;
         this.alertService.warning('Looks like no data available.');
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.tabledata = undefined;
       this.alertService.error('Error: Unknown Error!');
+    });
+  }
+
+  //All dropdown API'S
+  getUserData() {
+    this.masterService.getUserMaster().subscribe((res: any) => {
+      // if(res.result ==)
+      this.dropdownData = res;
     });
   }
 
@@ -151,18 +145,7 @@ export class UserMasterComponent implements OnInit {
         reporting_to: this.userDetails.reporting_to,
         usrl_id: this.userDetails.usrl_id,
       });
-
-
     });
-  }
-
-  OnlyNumbersAllowed(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      console.log('charCode restricted is ' + charCode);
-      return false;
-    }
-    return true;
   }
 
   download(): void {
@@ -171,84 +154,46 @@ export class UserMasterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.button = 'Create';
-    this.submitted = true;
-    // stop here if form is invalid
-    if (this.form.invalid) {
-      this.alertService.error('Error: Invalid Form Data');
-      return;
-    }
+    if (this.form.valid) {
+      this.button = 'Create';
+      this.submitted = true;
 
-    this.formData = this.form.value;
-    //1-passing title-id
-    if (!parseInt(this.formData.usctit_id)) {
-      var titlist = this.title.filter((item: any) => {
-        return item.title == this.formData.usctit_id;
-      });
-      this.formData.usctit_id = titlist[0]['usctit_id'];
-    }
-    //2-passing department-id
-    if (this.formData.usdt_id !== null) {
-      var deprt = this.department.filter((item: any) => {
-        return item.deptname == this.formData.usdt_id;
-      });
-      this.formData.usdt_id = deprt[0]['usdt_id'];
-    }
-    else {
-      this.formData.usdt_id = null;
-    }
+      this.formData = this.form.value;
 
-    //3-passing role-id
-    if (this.formData.usrl_id) {
-      this.role = this.role.filter((item: any) => {
-        return item.name == this.formData.usrl_id;
-      });
-      this.formData.usrl_id = this.role[0]['usrl_id'];
-    }
+      //passing all values
+      if (this.formData.empid != '') {
+        this.formData.empid == '';
+      } else {
+        this.formData.empid = null;
+      }
+      if (this.formData.middle_name == "") {
+        this.formData.middle_name = null;
+      }
+      if (this.formData.loginname == "") {
+        this.formData.loginname = null;
+      }
+      if (this.formData.password == "") {
+        this.formData.password = null;
+      }
+      if (this.formData.mobile == "") {
+        this.formData.mobile = null;
+      }
+      if (this.formData.emailid == "") {
+        this.formData.emailid = null;
+      }
+      if (this.formData.res_phone == "") {
+        this.formData.res_phone = null;
+      }
 
-    //4-passing reportingto id
-    if (this.formData.reporting_to != '') {
-      if (this.formData.reporting_to) {
-        var report = this.reportingto.filter((item: any) => {
-          return item.fullname == this.formData.reporting_to;
-        });
-        this.formData.reporting_to = report[0]['reportingto'];
+      this.loading = true;
+      if (this.update) {
+
+        this.userUpdate();
+      } else {
+        this.createUser();
       }
     } else {
-      this.formData.reportingto = null;
-    }
-
-    //passing all values
-    if (this.formData.empid != '') {
-      this.formData.empid == '';
-    } else {
-      this.formData.empid = null;
-    }
-    if (this.formData.middle_name == "") {
-      this.formData.middle_name = null;
-    }
-    if (this.formData.loginname == "") {
-      this.formData.loginname = null;
-    }
-    if (this.formData.password == "") {
-      this.formData.password = null;
-    }
-    if (this.formData.mobile == "") {
-      this.formData.mobile = null;
-    }
-    if (this.formData.emailid == "") {
-      this.formData.emailid = null;
-    }
-    if (this.formData.res_phone == "") {
-      this.formData.res_phone = null;
-    }
-
-    this.loading = true;
-    if (this.update) {
-
-      this.userUpdate();
-    } else {
-      this.createUser();
+      this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }
   }
 

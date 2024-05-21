@@ -105,7 +105,7 @@ export class MasterDrawingListComponent {
     (error: any) => {
       this.isNotFound = true;
       this.mdlData = undefined;
-      console.log(error);
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
@@ -121,7 +121,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
-      console.log(error);
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
@@ -137,7 +137,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
-      console.log(error);
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
@@ -172,7 +172,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
-      console.log(error);
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.isSubmitted = false;
@@ -196,7 +196,7 @@ export class MasterDrawingListComponent {
       }
     }),
     (error: any) => {
-      console.log(error);
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }

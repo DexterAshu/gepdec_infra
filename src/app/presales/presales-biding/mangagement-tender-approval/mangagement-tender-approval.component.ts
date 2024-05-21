@@ -240,8 +240,9 @@ export class MangagementTenderApprovalComponent {
       }
     }),
       (error: any) => {
-        this.alertService.error("Error: Unknown Error!");
-      }
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
     this.apiService.getTenderType().subscribe((res: any) => {
       this.tenderType = res.bidtype;
       this.meetingMode = res.mettingmode;

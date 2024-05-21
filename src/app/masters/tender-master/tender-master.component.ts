@@ -179,7 +179,7 @@ export class TenderMasterComponent {
         this.companyData = undefined;
         this.alertService.warning("Looks like no data available.");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.companyData = undefined;
       this.alertService.warning("Error: Unknown Error!");

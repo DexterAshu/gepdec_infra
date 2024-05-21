@@ -90,7 +90,7 @@ export class DistrictComponent implements OnInit {
         this.districtData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.districtData = undefined;
       this.alertService.error("Error: Unknown Error!")

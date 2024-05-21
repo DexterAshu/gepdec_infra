@@ -1208,7 +1208,8 @@ export class ReportDashboardComponent {
       }else {
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
+      console.error(error);
       this.isNotFound = false;
       this.alertService.error("Error: Unknown Error!")
     }); 

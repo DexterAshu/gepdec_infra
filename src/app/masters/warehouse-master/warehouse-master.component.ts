@@ -103,7 +103,7 @@ export class WarehouseMasterComponent {
         this.dataDropdownList = [];
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.dataDropdownList = [];
       this.alertService.error("Error: Unknown Error!")
     });

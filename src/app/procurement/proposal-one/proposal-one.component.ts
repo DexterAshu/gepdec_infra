@@ -61,7 +61,7 @@ export class ProposalOneComponent {
         this.dataList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.dataList = undefined;
       // this.alertService.error("Error: Unknown Error!");

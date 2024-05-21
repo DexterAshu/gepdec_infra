@@ -108,7 +108,7 @@ export class ItemLabelComponent {
         this.itemData = [];
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.itemData = [];
       this.alertService.error("Error: Unknown Error!")
     });

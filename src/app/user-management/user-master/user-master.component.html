@@ -1,16 +1,17 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>User Information</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>User
+                            Information</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
@@ -21,21 +22,26 @@
                     <hr> -->
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search...">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search...">
                         </div>
                         <div class="col-lg-4"></div>
                         <div class="col-lg-4">
                             <div class="float-right">
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()">
-                                          <span class="mdi mdi-upload"></span> Export
-                                    </button>
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span> Import 
-                                    </button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
-                                  </div>
-                             </div>
-                          </div>
+                                <button class="btn btn-primary btn-fw btn-sm me-2"
+                                    title="Download List of Data in Excel" (click)="download()">
+                                    <span class="mdi mdi-upload"></span> Export
+                                </button>
+                                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                                    data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                    <span class="mdi mdi-download"></span> Import
+                                </button>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                                    (click)="createForm()" class="btn btn-primary btn-fw btn-sm s"><span
+                                        class="mdi mdi-plus"></span> Create</button>
+                            </div>
+                        </div>
+                    </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
                             <tr>
@@ -51,21 +57,27 @@
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <tr *ngFor="let a of tabledata | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                            <tr
+                                *ngFor="let a of tabledata | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.empid}}</td>
-                                <td>{{a.fullname}}</td>
+                                <td>{{a.first_name}} {{a.last_name}}</td>
                                 <td>{{a.mobile}}</td>
                                 <td>{{a.emailid}}</td>
                                 <td>{{a.rolename}}</td>
                                 <td>{{a.deptname}}</td>
                                 <td>{{a.status}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="userDetail(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                   <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="userDetail(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
-                                   <!-- &nbsp; -->
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
+                                        (click)="userDetail(a)"><span
+                                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                    &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        title="View Details" (click)="userDetail(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                    <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
-                                
+
                                 </td>
                             </tr>
                             <tr *ngIf="tabledata?.length == 0">
@@ -90,7 +102,7 @@
 </div>
 
 <!-- create modal -->
-<div class="modal fade" id="createModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
@@ -106,47 +118,53 @@
                                 <div class="form-group">
                                     <label class="form-label">Title<span class="required-asterisk">*</span></label>
                                     <select class=" form-select form-control-sm" formControlName="usctit_id">
-                                        <option value="" hidden>Select Title</option>
-                                        <option *ngFor="let user of title">{{user.title}} </option>
-                                      </select>
-                                      <div *ngIf="f['usctit_id'].touched && f['usctit_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['usctit_id'].errors?.['required']">User Title Required</small>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select TItle</option>
+                                        <option *ngFor="let user of dropdownData?.title" [value]="user?.usctit_id">
+                                            {{user?.title}} </option>
+                                    </select>
+                                    <div *ngIf="f['usctit_id'].touched && f['usctit_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['usctit_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">First Name<span
-                                            class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="first_name" appWordCapitalize>
+                                    <label class="form-label">First Name<span class="required-asterisk">*</span></label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="first_name"
+                                        appWordCapitalize appAlphabetOnly>
                                     <div *ngIf="f['first_name'].touched && f['first_name'].invalid">
-                                        <small class="text-danger" *ngIf="f['first_name'].errors?.['required']">First name Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['first_name'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Middle Name</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="middle_name" appWordCapitalize>
+                                    <input type="text" class="form-control form-control-sm"
+                                        formControlName="middle_name" appWordCapitalize appAlphabetOnly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Last Name<span
-                                        class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="last_name" appWordCapitalize>
+                                    <label class="form-label">Last Name<span class="required-asterisk">*</span></label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="last_name"
+                                        appWordCapitalize appAlphabetOnly>
                                     <div *ngIf="f['last_name'].touched && f['last_name'].invalid">
-                                        <small class="text-danger" *ngIf="f['last_name'].errors?.['required']">Last name Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['last_name'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Employee ID<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="empid">
+                                    <label class="form-label">Employee ID<span
+                                            class="required-asterisk">*</span></label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="empid"
+                                        appNoSpace>
                                     <div *ngIf="f['empid'].touched && f['empid'].invalid">
-                                        <small class="text-danger" *ngIf="f['empid'].errors?.['required']">Last name Required</small>
+                                        <small class="text-danger" *ngIf="f['empid'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -155,11 +173,13 @@
                                 <div class="form-group">
                                     <label class="form-label">User Role<span class="required-asterisk">*</span></label>
                                     <select class=" form-select form-control-sm" formControlName="usrl_id">
-                                        <option value="" hidden>Select Role </option>
-                                        <option *ngFor="let user of role">{{user.name}} </option>
-                                      </select>
-                                      <div *ngIf="f['usrl_id'].touched && f['usrl_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['usrl_id'].errors?.['required']">Role is Required</small>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Role</option>
+                                        <option *ngFor="let user of dropdownData?.role" [value]="user?.usrl_id">
+                                            {{user?.name}} </option>
+                                    </select>
+                                    <div *ngIf="f['usrl_id'].touched && f['usrl_id'].invalid">
+                                        <small class="text-danger"
+                                            *ngIf="f['usrl_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -168,81 +188,104 @@
                                 <div class="form-group">
                                     <label class="form-label">Department<span class="required-asterisk">*</span></label>
                                     <select class=" form-select form-control-sm" formControlName="usdt_id">
-                                        <option value="" hidden>Select Department </option>
-                                        <option *ngFor="let user of department">{{user.deptname}} </option>
-                                      </select>
-                                      <div *ngIf="f['usdt_id'].touched && f['usdt_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['usdt_id'].errors?.['required']">Department is Required</small>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Department
+                                        </option>
+                                        <option *ngFor="let user of dropdownData?.department" [value]="user?.usdt_id">
+                                            {{user?.deptname}} </option>
+                                    </select>
+                                    <div *ngIf="f['usdt_id'].touched && f['usdt_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['usdt_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Reporting To<span class="required-asterisk">*</span></label>
-                                    <select class=" form-select form-control-sm" formControlName="reporting_to">
-                                        <option value="" hidden>Select Reporting to </option>
-                                        <option *ngFor="let user of reportingto">{{user.fullname}} </option>
-                                      </select>
-                                      <div *ngIf="f['reporting_to'].touched && f['reporting_to'].invalid">
-                                        <small class="text-danger" *ngIf="f['reporting_to'].errors?.['required']">Reporting to is Required</small>
+                                    <label class="form-label">Designation<span
+                                            class="required-asterisk">*</span></label>
+                                    <select class=" form-select form-control-sm" formControlName="usdg_id">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
+                                        <option *ngFor="let user of dropdownData?.designation" [value]="user?.usdg_id">
+                                            {{user?.designationname}} </option>
+                                    </select>
+                                    <div *ngIf="f['usdg_id'].touched && f['usdg_id'].invalid">
+                                        <small class="text-danger" *ngIf="f['usdg_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
-                           
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Reporting To<span
+                                            class="required-asterisk">*</span></label>
+                                    <select class=" form-select form-control-sm" formControlName="reporting_to">
+                                        <option value="" hidden>Select Reporting To </option>
+                                        <option *ngFor="let user of dropdownData?.reportingto" [value]="user?.reportingto">{{user?.fullname}} </option>
+                                    </select>
+                                    <div *ngIf="f['reporting_to'].touched && f['reporting_to'].invalid">
+                                        <small class="text-danger"
+                                            *ngIf="f['reporting_to'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Primary Number<span class="required-asterisk">*</span></label>
-                                    <input type="text" (keypress)="OnlyNumbersAllowed($event)" class="form-control form-control-sm" formControlName="mobile" minlength="10" maxlength="10">
+                                    <label class="form-label">Primary Number<span
+                                            class="required-asterisk">*</span></label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="mobile"
+                                        minlength="10" maxlength="10" appNoSpace appNumberOnly>
                                     <div *ngIf="f['mobile'].touched && f['mobile'].invalid">
-                                        <small class="text-danger" *ngIf="f['mobile'].errors?.['required']">Mobile No Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['mobile'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Secondary Number</label>
-                                    <input type="text" (keypress)="OnlyNumbersAllowed($event)" class="form-control form-control-sm" formControlName="res_phone" minlength="10" maxlength="10">       
+                                    <input type="text" class="form-control form-control-sm" formControlName="res_phone"
+                                        minlength="10" maxlength="10" appNoSpace appNumberOnly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm"
-                                    formControlName="emailid" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" id="emailid">
+                                    <input type="text" class="form-control form-control-sm" formControlName="emailid"
+                                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" id="emailid">
                                     <div *ngIf="f['emailid'].touched && f['emailid'].invalid">
-                                        <small class="text-danger" *ngIf="f['emailid'].errors?.['required']">Email is Required</small>
+                                        <small class="text-danger" *ngIf="f['emailid'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                          
-                            <!-- <div class="col-md-6" >
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Login Name<span
-                                        class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="loginname" appWordCapitalize>
-                                    <div *ngIf="f['loginname'].touched && f['loginname'].invalid">
-                                        <small class="text-danger" *ngIf="f['loginname'].errors?.['required']">Login name Required</small>
+                                    <label class="form-label">Is Employee<span class="required-asterisk">*</span></label>
+                                    <select class=" form-select form-control-sm" formControlName="isemployee">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                    <div *ngIf="f['isemployee'].touched && f['isemployee'].invalid">
+                                        <small class="text-danger" *ngIf="f['isemployee'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6" *ngIf="!update">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Password<span
-                                        class="required-asterisk">*</span></label>
-                                    <input type="password" class="form-control form-control-sm" formControlName="password">
-                                    <div *ngIf="f['password'].touched && f['password'].invalid">
-                                        <small class="text-danger" *ngIf="f['password'].errors?.['required']">Password is Required</small>
+                                    <label class="form-label">Salary<span class="required-asterisk">*</span></label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="sallary"
+                                        appNumWithDot appNoSpace>
+                                    <div *ngIf="f['sallary'].touched && f['sallary'].invalid">
+                                        <small class="text-danger" *ngIf="f['sallary'].errors?.['required']">Email is
+                                            Required</small>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
 
                             <div class="modal-btns">
-                                <button type="submit" [disabled]="!form.valid"
-                                    class="btn btn-primary btn-fw btn-sm me-2">{{button}}</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
-                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm me-2">{{button}}</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </form>
@@ -269,49 +312,56 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Title</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="usctit_id" appWordCapitalize readonly>
+                                    <input type="text" class="form-control form-control-sm" formControlName="usctit_id"
+                                        appWordCapitalize readonly>
                                 </div>
                             </div>
-                           
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">First Name</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="first_name" appWordCapitalize readonly>
-                                   
+                                    <input type="text" class="form-control form-control-sm" formControlName="first_name"
+                                        appWordCapitalize readonly>
+
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Middle Name</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="middle_name" readonly appWordCapitalize>
+                                    <input type="text" class="form-control form-control-sm"
+                                        formControlName="middle_name" readonly appWordCapitalize>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Last Name</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="last_name" readonly appWordCapitalize>
-                                    
+                                    <input type="text" class="form-control form-control-sm" formControlName="last_name"
+                                        readonly appWordCapitalize>
+
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Employee ID</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="empid" readonly>
-                                   
+                                    <input type="text" class="form-control form-control-sm" formControlName="empid"
+                                        readonly>
+
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">User Role</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="usrl_id" readonly>
+                                    <input type="text" class="form-control form-control-sm" formControlName="usrl_id"
+                                        readonly>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Department</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="usdt_id" readonly>
+                                    <input type="text" class="form-control form-control-sm" formControlName="usdt_id"
+                                        readonly>
                                 </div>
                             </div>
 
@@ -322,38 +372,41 @@
                                 </div>
                             </div>
 
-                           
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Primary Number</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="mobile" readonly>
-                                            
+                                    <input type="text" class="form-control form-control-sm" formControlName="mobile"
+                                        readonly>
+
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Secondary Number</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="res_phone" readonly>
-                                             
+                                    <input type="text" class="form-control form-control-sm" formControlName="res_phone"
+                                        readonly>
+
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Email ID</label>
-                                    <input type="text" class="form-control form-control-sm"
-                                    formControlName="emailid" readonly>
-                                   
+                                    <input type="text" class="form-control form-control-sm" formControlName="emailid"
+                                        readonly>
+
                                 </div>
                             </div>
-                          
-                            <div class="col-md-6" >
+
+                            <!-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Login Name</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="loginname" readonly appWordCapitalize>
-                                  
+                                    <input type="text" class="form-control form-control-sm" formControlName="loginname"
+                                        readonly appWordCapitalize>
+
                                 </div>
-                            </div>
-                          
+                            </div> -->
+
 
                         </div>
                     </form>

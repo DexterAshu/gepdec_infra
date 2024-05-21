@@ -135,7 +135,7 @@ console.log(this.statusList)
         this.tenderData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.tenderData = undefined;
       this.alertService.error("Error: Unknown Error!");
@@ -149,7 +149,7 @@ console.log(this.statusList)
         this.tenderType = undefined;
         // this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.tenderType = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
@@ -242,7 +242,7 @@ console.log(this.statusList)
       } else {
         this.alertService.warning(response.message);
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = false;
       this.alertService.error("Error: Unknown Error!")
     })
@@ -261,7 +261,7 @@ console.log(this.statusList)
       } else {
         this.alertService.warning(response.message);
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = false;
       this.alertService.error("Error: Unknown Error!")
     })

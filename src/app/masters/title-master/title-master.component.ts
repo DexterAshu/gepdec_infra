@@ -54,7 +54,7 @@ export class TitleMasterComponent {
         this.titlData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.designData = undefined;
       this.alertService.error("Error: Unknown Error!")

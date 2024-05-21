@@ -56,7 +56,7 @@ export class RoleMasterComponent {
         this.rolData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.rolData = undefined;
       this.alertService.error("Error: Unknown Error!")

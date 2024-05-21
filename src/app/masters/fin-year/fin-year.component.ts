@@ -50,7 +50,7 @@ export class FinYearComponent {
         this.financialData = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.designData = undefined;
       this.alertService.error("Error: Unknown Error!");

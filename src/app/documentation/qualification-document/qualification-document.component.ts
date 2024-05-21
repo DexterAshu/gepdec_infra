@@ -73,6 +73,7 @@ export class QualificationDocumentComponent {
       }
     }),
     (error: any) => { 
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getCompanyList().subscribe((res: any) => {  
@@ -83,6 +84,7 @@ export class QualificationDocumentComponent {
       }
     }),
     (error: any) => { 
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
     this.apiService.getTenderType().subscribe((res: any) => {  
@@ -92,7 +94,8 @@ export class QualificationDocumentComponent {
         this.alertService.warning("Looks like no data available in type.");
       }
     }),
-    (error: any) => { 
+    (error: any) => {
+      console.error(error); 
       this.alertService.error("Error: Unknown Error!");
     }
   }

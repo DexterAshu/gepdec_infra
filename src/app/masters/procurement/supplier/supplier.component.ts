@@ -267,7 +267,7 @@ export class SupplierComponent {
         this.dataDropdownList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.dataDropdownList = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
@@ -286,7 +286,7 @@ export class SupplierComponent {
         this.dataList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
-    }, error => {
+    }, (error: any) => {
       this.isNotFound = true;
       this.dataList = undefined;
       this.alertService.error("Error: Unknown Error!")
