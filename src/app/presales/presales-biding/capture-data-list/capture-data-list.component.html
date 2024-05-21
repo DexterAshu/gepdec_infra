@@ -202,6 +202,8 @@
                                             <td>{{rowData?.capacity}}</td>
                                         </tr>
                                         <tr>
+                                            <th>Financial Year</th>
+                                            <td> {{rowData?.financialyear}}</td>
                                             <th>Execution Location</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">
@@ -221,8 +223,7 @@
                                                     {{rowData?.tender_title}}
                                                 </ng-template>
                                             </td>
-                                            <th></th>
-                                            <td></td>
+                                          
                                         </tr>
                                     </tbody>
                                 </table>
@@ -231,13 +232,13 @@
                                 <table class="table table-hover table-striped custom-table mt-2">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th colspan="6" class="text-center">Bid Information</th>
+                                            <th colspan="8" class="text-center">Bid Information</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <th>Tender Description</th>
-                                            <td colspan="5">{{rowData?.tender_description}}</td>
+                                            <td colspan="7">{{rowData?.tender_description}}</td>
                                         </tr>
                                         <tr>
                                             <th>Country</th>
@@ -246,8 +247,6 @@
                                             <td>{{ rowData?.state_name }}</td>
                                             <th>District</th>
                                             <td>{{ rowData?.district_name}}</td>
-                                        </tr>
-                                        <tr>
                                             <th>City</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.city; else elseCity" data-toggle="tooltip" data-placement="bottom" title="{{rowData?.city}}">
@@ -258,11 +257,8 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                            <th>Financial Year</th>
-                                            <td>{{rowData?.financialyear}}</td>
-                                            <th></th>
-                                            <td></td>
                                         </tr>
+                                   
                                         <tr>
                                             <th>Bidder Company</th>
                                             <td>{{ rowData?.bidder_name }}</td>
@@ -270,8 +266,6 @@
                                             <td>{{ rowData?.bidtype }}</td>
                                             <th>Tender Closing Date</th>
                                             <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy'}}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Tender Available Link</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.tender_detail_link; else elseBlock6" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_detail_link }}">
@@ -282,6 +276,9 @@
                                                     --
                                                 </ng-template>
                                             </td>
+                                        </tr>
+                                        <tr>
+                                           
                                             <th>Soft Copy Submission Date </th>
                                             <td>{{ rowData?.tender_submission_date }}</td>
                                             <th>Hard Copy Submission Date </th>
@@ -293,8 +290,6 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                        </tr>
-                                        <tr>
                                             <th>Pre-bid Meeting</th>
                                             <td>
                                                 {{ rowData?.pre_meeting }}
@@ -308,6 +303,9 @@
                                                     --
                                                 </ng-template>
                                             </td>
+                                        </tr>
+                                       
+                                        <tr>
                                             <th>Pre-Bid Meeting Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.prebid_date; else elseBlock9">
@@ -317,8 +315,6 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                        </tr>
-                                        <tr>
                                             <th>Tech Bid Opening Date </th>
                                             <td>{{ rowData?.tech_bid_date | date:"dd/MM/yyyy"}}</td>
                                             <th>Fin Bid Opening Date</th>
@@ -340,10 +336,10 @@
                                             <td>{{ rowData?.tender_doc_cost  | currency:'INR':'':'1.2-2' }}</td>
                                             <th>Bid Validity (Days)</th>
                                             <td>{{ rowData?.bid_validity }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Complition period (Months)</th>
                                             <td>{{ rowData?.completion_period }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Security Deposit</th>
                                             <td>{{ rowData?.securitydeposit }}</td>
                                             <th>Security Amount</th>
@@ -355,8 +351,6 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                        </tr>
-                                        <tr>
                                             <th>Security Sub Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.securitysubmission_date; else elseBlock12">
@@ -368,6 +362,8 @@
                                             </td>
                                             <th>Performance Guarantee</th>
                                             <td>{{ rowData?.performanceguarantee }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Performance Amount (%)</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.pg_amount; else elseBlock13">
@@ -377,8 +373,6 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                        </tr>
-                                        <tr>
                                             <th>EMD Exemption</th>
                                             <td>{{ rowData?.emdexemption }}</td>
                                             <th>EMD Amount</th>
@@ -399,7 +393,9 @@
                                                     --
                                                 </ng-template>    
                                             </td>
+
                                         </tr>
+                                       
                                         <tr>
                                             <th>EMD Sub Date</th>
                                             <td>
@@ -420,20 +416,16 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                            <th>Tender Status</th>
-                                            <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td>
-                                        </tr>
-                                        <tr>
+                                           
                                             <th>Reverse Auction</th>
                                             <td>{{ rowData?.reserve_auction }}</td>
-                                            <th>Created On</th>
-                                            <td>{{ rowData?.created  }}</td>
-                                            <th>Created By</th>
-                                            <td>{{ rowData?.createdby_name }}</td>
+                                            <th>Tender Status</th>
+                                            <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td>
+                                           
                                         </tr>
                                         <tr>
                                             <th>Payment Terms</th>
-                                            <td colspan="5">
+                                            <td colspan="7">
                                                 <span *ngFor="let ph of (rowData?.tenderpayment_terms != null ? (rowData?.tenderpayment_terms.slice(0, -1)).split('\n') : rowData?.tenderpayment_terms.slice(0, -1)), index as i">
                                                     {{ ph }} <br>
                                                  </span>
@@ -442,6 +434,19 @@
                                                 {{rowData?.tenderpayment_terms }}
                                             </td> -->
                                         </tr>
+                                       
+                                        <tr>
+                                            
+                                            <th>Created On</th>
+                                            <td>{{ rowData?.created }}</td>
+                                            <th>Created By</th>
+                                            <td>{{ rowData?.createdby_name }}</td>
+                                            <th></th>
+                                            <td></td>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>
+                                      
                                     </tbody>
                                 </table>
 
@@ -894,6 +899,8 @@
                                 <div class="row mt-3">
                                         <div class="col-md-3">
                                             <div class="form-group">
+                                                <!-- <label class="form-label fl-10"  *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'">Tender Recommendations <span
+                                                        class="required-asterisk">*</span></label> -->
                                                 <label class="form-label fl-10">Tender Status<span
                                                         class="required-asterisk">*</span></label>
                                                 <select formControlName="tenderstatus_id"

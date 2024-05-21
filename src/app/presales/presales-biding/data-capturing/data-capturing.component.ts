@@ -293,7 +293,7 @@ export class DataCapturingComponent {
       this.update = true;
 
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-
+debugger
         console.log(res);
         this.custDetails = res.result[0];
         this.form.patchValue({
@@ -320,6 +320,7 @@ export class DataCapturingComponent {
           tenderpayment_terms: this.custDetails.tenderpayment_terms,
           tender_location: this.custDetails.tender_location,
           tender_ref_no: this.custDetails.tender_ref_no,
+       
           qacatagory_id: this.custDetails.qacatagory_id,
           subqacatagory_id: this.custDetails.subqacatagory_id,
           capacity_id: this.custDetails.capacity_id,
@@ -349,7 +350,26 @@ export class DataCapturingComponent {
           remarks: this.custDetails.remarks,
           audit_trail: this.custDetails.audit_trail,
         });
+       
+          setTimeout(()=>{
+            // this.getSubData(this.custDetails.qacatagory_id);
+            // this.getSubData(this.custDetails.qacatagory_id);
+            this.form.patchValue({
+              subqacatagory_id: this.custDetails.subqacatagory_id,
+              capacity_id: this.custDetails.capacity_id,
 
+            })
+          },400);
+          setTimeout(()=>{
+            this.form.patchValue({
+       
+            })
+          },800);
+
+          setTimeout(()=>{
+            this.getCapacityData(this.custDetails.subqacatagory_id);
+          },400);
+        
         setTimeout(() => {
           this.getStateData();
           this.getDistrictData();

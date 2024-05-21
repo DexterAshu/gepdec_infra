@@ -167,10 +167,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">NIT No</label>
                                     <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.tender_ref_no}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Financial Year</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.financialyear}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -179,12 +185,33 @@
                                     <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
                                 </div>
                             </div>
+                          
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Financial Year</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.financialyear}}">
+                                    <label class="form-label fl-10">Category</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.qacatagory}}">
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Sub-Category</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.subqacatagory}}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Capacity</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.capacity}}">
+                                </div>
+                            </div>
+                          
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Execution Location</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.tender_location}}">
+                                </div>
+                            </div>
+
                             <!-- <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Financial Year<span
@@ -1007,6 +1034,8 @@
                                             <td>{{rowData?.capacity}}</td>
                                         </tr>
                                         <tr>
+                                            <th>Financial Year</th>
+                                            <td> {{rowData?.financialyear}}</td>
                                             <th>Execution Location</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">
@@ -1026,8 +1055,7 @@
                                                     {{rowData?.tender_title}}
                                                 </ng-template>
                                             </td>
-                                            <th></th>
-                                            <td></td>
+                                           
                                         </tr>
                                     </tbody>
                                 </table>
