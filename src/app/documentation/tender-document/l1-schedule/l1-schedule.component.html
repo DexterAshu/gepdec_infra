@@ -198,7 +198,7 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label fl-10">Tender NIT No<span class="required-asterisk">*</span></label>
+                  <label class="form-label fl-10">NIT No<span class="required-asterisk">*</span></label>
                   <input type="text" class="form-control form-control-sm" readonly [value]="selectedTender?.tender_ref_no">
                 </div>
               </div>
@@ -220,7 +220,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label id="cin" class="form-label fl-10"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                  <input id="cin" name="cin" type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" multiple>
+                  <input type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" multiple>
                 </div>
               </div>
               <div class="col-md-12">

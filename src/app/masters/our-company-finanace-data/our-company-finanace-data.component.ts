@@ -74,7 +74,7 @@ export class OurCompanyFinanaceDataComponent {
       } else {
         this.isNotFound = true;
         this.docData = undefined;
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       this.isNotFound = true;
@@ -97,7 +97,7 @@ export class OurCompanyFinanaceDataComponent {
       if (res.status === 200) {
         this.compData = res.bidderdocumenttype;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       this.alertService.error("Error: Unknown Error!");

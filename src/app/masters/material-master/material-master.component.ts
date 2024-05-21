@@ -152,7 +152,7 @@ export class MaterialMasterComponent {
       if (res.status === 200) {
         this.compData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     });
   }

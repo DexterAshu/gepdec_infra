@@ -98,7 +98,7 @@ export class TechDocumentsComponent {
       } else {
         this.isNotFound = true;
         this.docListData = undefined;
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
         this.isNotFound = true;

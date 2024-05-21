@@ -64,13 +64,11 @@ export class TenderDocumentComponent {
   getData() {
     this.apiService.getCompanyList().subscribe((res: any) => {
       this.comData = res.result;
+      this.companyData = res.result;
       console.log(this.comData);
     });
     this.apiService.getDocType().subscribe((res: any) => {
       this.docType = res.documenttype;
-    });
-    this.apiService.getCompanyList().subscribe((res: any) => {
-      this.companyData = res.result;
     });
     this.apiService.getTenderType().subscribe((res: any) => {
       this.tenderType = res.bidtype;
@@ -90,7 +88,7 @@ export class TenderDocumentComponent {
       } else {
         this.docListData = undefined;
         this.isNotFound = true;
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       this.docListData = undefined;

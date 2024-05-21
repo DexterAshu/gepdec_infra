@@ -80,7 +80,7 @@ export class WarehouseMasterComponent {
       if (res.status === 200) {
         this.tenderList = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
@@ -115,7 +115,7 @@ export class WarehouseMasterComponent {
       if (res.status === 200) {
         this.wareHouseData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
       this.getDropdownList();
     }),
@@ -189,7 +189,7 @@ export class WarehouseMasterComponent {
         this.isSubmitted = false;
         this.getData();
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
       document.getElementById('cancel')?.click();
     }),
@@ -206,7 +206,7 @@ export class WarehouseMasterComponent {
         this.isSubmitted = false;
         this.getData();
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
       document.getElementById('cancel')?.click();
     }),

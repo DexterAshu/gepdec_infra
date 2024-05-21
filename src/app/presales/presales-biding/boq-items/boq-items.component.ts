@@ -197,7 +197,7 @@ export class BoqItemsComponent {
       } else {
         this.boqData = undefined;
         this.isNotFound = true;
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       this.docListData = undefined;

@@ -163,7 +163,7 @@ export class CompanyComponent implements OnInit {
       if (res.status === 200) {
         this.compData = res.companytype;
       } else {
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     });
     this.masterService.getUserMaster().subscribe((res:any)=>{
@@ -171,7 +171,7 @@ export class CompanyComponent implements OnInit {
         this.design = res.designation;
         this.departMent = res.department;
       } else {
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     })
   }

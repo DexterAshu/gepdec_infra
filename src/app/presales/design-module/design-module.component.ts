@@ -79,7 +79,7 @@ export class DesignModuleComponent {
         this.tenderBOQData = res.result;
         this.tenderBOQData = this.tenderBOQData.filter((x:any) => x.items = this.items);
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     },
     (error: any) => {

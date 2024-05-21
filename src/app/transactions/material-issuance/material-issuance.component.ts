@@ -73,7 +73,7 @@ export class MaterialIssuanceComponent {
       } else {
         this.isNotFound = true;
         this.materialIssuanceData = undefined;
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     },
     (error: any) => {
@@ -89,7 +89,7 @@ export class MaterialIssuanceComponent {
       if (res.status === 200) {
         this.tenderList = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     },
     (error: any) => {
@@ -104,7 +104,7 @@ export class MaterialIssuanceComponent {
         this.wareHouseData = res.result;
         this.getItemCategoryData();
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
@@ -118,7 +118,7 @@ export class MaterialIssuanceComponent {
       if (res.status === 200) {
         this.itemCategories = res.itemcategory;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
@@ -135,7 +135,7 @@ export class MaterialIssuanceComponent {
       if (res.status === 200) {
         this.itemData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => {

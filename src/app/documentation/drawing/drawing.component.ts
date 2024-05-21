@@ -41,7 +41,7 @@ export class DrawingComponent {
       drawingFrom: [null, Validators.required],
       artist: [null],
       drawingApprovedBy: [null],
-      drawing: [null, Validators.required],
+      drawing: [null],
       file: [null, Validators.required],
       description: [null, Validators.required]
     });
@@ -109,7 +109,9 @@ export class DrawingComponent {
     console.log(this.form.value);
     const formData: FormData = new FormData();
     formData.append('doc_id', this.form.value.doc_id);
-    formData.append('drawing', this.imageUploadFile);
+    if(this.imageUploadFile) {
+      formData.append('drawing', this.imageUploadFile);
+    }
     formData.append('drawingFrom', this.form.value.drawingFrom);
     formData.append('file', this.uploadFile);
     formData.append('description', this.form.value.description);

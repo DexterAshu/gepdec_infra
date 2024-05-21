@@ -80,18 +80,6 @@ export class TechnicalBidComponent {
   getData() {
     this.docListData = [];
     this.isNotFound = false;
-    this.apiService.getCompanyList().subscribe((res: any) => {
-      if(res.status == 200) {
-        this.companyData = res.result;
-      } else {
-        this.alertService.warning("Looks like no data available in type.");
-      }
-    }),
-    (error: any) => { 
-      console.error(error);
-      this.alertService.error("Error: Unknown Error!");
-    }
-
     this.apiService.getTechDataList().subscribe((res: any) => {
       if (res.status === 200) {
         this.isNotFound = false;
@@ -99,7 +87,7 @@ export class TechnicalBidComponent {
       } else {
         this.isNotFound = true;
         this.docListData = undefined;
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
         this.isNotFound = true;
@@ -201,7 +189,7 @@ export class TechnicalBidComponent {
       if(res.status == 200) {
         this.companyData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => { 
@@ -212,7 +200,7 @@ export class TechnicalBidComponent {
       if(res.status == 200) {
         this.tenderType = res.bidtype;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => { 

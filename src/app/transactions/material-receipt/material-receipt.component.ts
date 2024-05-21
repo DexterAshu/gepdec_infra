@@ -133,7 +133,7 @@ export class MaterialReceiptComponent {
       if (res.status === 200) {
         this.tenderList = res.result;
       } else {
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     },
       (error: any) => {
@@ -149,7 +149,7 @@ export class MaterialReceiptComponent {
         this.vendorDataList = res.result;
       } else {
         this.vendorDataList = [];
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     },
       (error: any) => {
@@ -167,7 +167,7 @@ export class MaterialReceiptComponent {
         this.venderPOData = res.result;
       } else {
         this.venderPOData = [];
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     },
       (error: any) => {
@@ -184,7 +184,7 @@ export class MaterialReceiptComponent {
         this.ngAfterViewInit();
       } else {
         this.selectedPO = [];
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     },
       (error: any) => {
@@ -200,7 +200,7 @@ export class MaterialReceiptComponent {
         this.selectedPO = res.result[0];
       } else {
         this.selectedPO = [];
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     },
       (error: any) => {
@@ -220,7 +220,7 @@ export class MaterialReceiptComponent {
       } else {
         this.isNotFound = true;
         this.poData = undefined;
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     },
       (error: any) => {

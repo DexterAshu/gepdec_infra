@@ -61,7 +61,7 @@ export class ItemLabelComponent {
         this.alertService.success(res.message);
         this.getData();
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
       this.isSubmitted = false;
       document.getElementById('cancel')?.click();
@@ -78,7 +78,7 @@ export class ItemLabelComponent {
       if (res.status === 200) {
         this.wareHouseData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
@@ -124,7 +124,7 @@ export class ItemLabelComponent {
       } else {
         this.isNotFound = true;
         this.itemLocationLabelData = undefined;
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => {

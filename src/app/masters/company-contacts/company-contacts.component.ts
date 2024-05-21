@@ -113,7 +113,7 @@ export class CompanyContactsComponent {
         this.compData = res.result;
         console.log(this.compData);
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
       (error: any) => {
@@ -131,7 +131,7 @@ export class CompanyContactsComponent {
       this.modList = res.result;
       //   if (res.status === 200) {
       //  } else{
-      //   this.alertService.warning("Looks like no data available in type.");
+      //   this.alertService.warning(res.message);
       //  }
     })
   }
@@ -147,7 +147,7 @@ export class CompanyContactsComponent {
       } else {
         this.isNotFound = true;
         this.companyData = undefined;
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       this.isNotFound = true;

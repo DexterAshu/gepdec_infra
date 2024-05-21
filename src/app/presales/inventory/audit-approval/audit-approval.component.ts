@@ -64,7 +64,7 @@ export class AuditApprovalComponent {
       } else {
         this.isNotFound = true;
         this.auditApprovalData = undefined;
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     },
     (error: any) => {
