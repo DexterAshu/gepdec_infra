@@ -266,9 +266,9 @@
                                             <td>{{ a.costtype }}</td>
                                             <td>{{ a.expensetype }}</td>
                                             <td>{{ a.uom }}</td>
-                                            <td>{{ a.unitcost }}</td>
+                                            <td>{{ a.unitcost | currency:'INR':'':'3.2-2'  }}</td>
                                             <td>{{ a.multiplier }}</td>
-                                            <td>{{ a.total }}</td>
+                                            <td>{{ a.total | currency:'INR':'':'3.2-2'  }}</td>
                                         </tr>
                                         <tr class="table-footer fw-bold">
                                             <td colspan="6">Total In-direct Cost</td>
