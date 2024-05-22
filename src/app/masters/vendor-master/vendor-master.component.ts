@@ -126,7 +126,7 @@ export class VendorMasterComponent {
         console.log(this.approvalData);
         
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     });
   }
@@ -142,7 +142,7 @@ export class VendorMasterComponent {
       } else {
         this.isNotFound = true;
         this.companyData = undefined;
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       this.isNotFound = true;

@@ -50,7 +50,7 @@ export class DirectCostingComponent {
   getDataList() {
     this.dataList = [];
     this.isNotFound = false;
-    let apiLink = "/boq/api/v1/getBoqList";
+    let apiLink = "/boq/api/v1/getBoqListForCosting";
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.isNotFound = false;

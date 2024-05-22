@@ -299,11 +299,8 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label id="drawing"> Upload Drawing <span class="required-asterisk">*</span></label><br>
+                    <label id="drawing"> Upload Drawing</label><br>
                     <input class="form-control form-control-sm" name="drawing" type="file" formControlName="drawing" (change)="onImageUpload($event)" accept="image/*">
-                    <div *ngIf="f['drawing'].touched && f['drawing'].invalid">
-                      <small class="text-danger" *ngIf="f['drawing'].errors?.['required']">*Required</small>
-                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">

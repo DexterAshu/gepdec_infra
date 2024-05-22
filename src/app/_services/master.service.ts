@@ -26,9 +26,14 @@ export class MasterService {
     return this.http.post<any[]>(`${environment.apiUrl}/user/api/v1/createuser`, data, httpOptions );
   }
 
-  userUpdation(data: any): Observable<any[]> {
+  userUpdate(data: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.put<any[]>( `${environment.apiUrl}/user/api/v1/updateuser`, data, httpOptions );
+    return this.http.put<any[]>(`${environment.apiUrl}/user/api/v1/updateuser`, data, httpOptions );
+  }
+  
+  userByDepartment(id: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    return this.http.post<any[]>(`${environment.apiUrl}/user/api/v1/getuser/${id}`, httpOptions );
   }
 
   //User-API

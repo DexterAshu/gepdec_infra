@@ -269,7 +269,7 @@
               </tbody>
             </table>
             <h6 class="mt-3 mb-2 text-secondary">Drawing/Document List</h6>
-            <table class="table table-hover table-striped custom-table">
+            <app-responsive-table>
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
@@ -294,7 +294,7 @@
                   <td>{{a.remarks}}</td>
                 </tr>
               </tbody>
-            </table>
+            </app-responsive-table>
           </div>
         </div>
       </div>
@@ -448,7 +448,7 @@
                   </div>
                 </div>
                 <div class="col-md-12 mt-3">
-                  <table class="table table-hover table-striped custom-table">
+                  <app-responsive-table> 
                     <thead class="table-primary text-nowrap">
                       <tr>
                         <th>S No</th>
@@ -474,11 +474,11 @@
                         <td>{{a.remarks}}</td>
                         <td>
                           <a><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                          <a><span class="mdi mdi-trash-can-outline text-danger cursor-pointer mdi-18px"></span></a>
+                          <a (click)="deleteDrawingList(i)"><span class="mdi mdi-trash-can-outline text-danger cursor-pointer mdi-18px"></span></a>
                         </td>
                       </tr>
                     </tbody>
-                  </table>
+                  </app-responsive-table>
                 </div>
               </div>
               <div class="float-right pt-3">

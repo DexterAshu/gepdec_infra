@@ -68,14 +68,16 @@ export class MasterDrawingListComponent {
       planned_submission_date: this.form.value.planned_submission_date,
       remarks: this.form.value.remarks
     };
-    this.form.value.drawingList.push(match);
-    this.form.controls['drawing_title'].reset();
-    this.form.controls['drawing_no'].reset();
-    this.form.controls['discipline'].reset();
-    this.form.controls['stage'].reset();
-    this.form.controls['category'].reset();
-    this.form.controls['planned_submission_date'].reset();
-    this.form.controls['remarks'].reset();
+    if(match.drawing_title && match.drawing_no && match.discipline && match.stage && match.category) {
+      this.form.value.drawingList.push(match)
+      this.form.controls['drawing_title'].reset();
+      this.form.controls['drawing_no'].reset();
+      this.form.controls['discipline'].reset();
+      this.form.controls['stage'].reset();
+      this.form.controls['category'].reset();
+      this.form.controls['planned_submission_date'].reset();
+      this.form.controls['remarks'].reset();
+    }
   }
 
   redirect(route: any) {
@@ -144,6 +146,10 @@ export class MasterDrawingListComponent {
 
   selectTender(): void {
     this.selectedTender = this.tenderList.filter((tender: any) => tender.tender_id == this.form.value.tender_id)[0];
+  }
+
+  deleteDrawingList(index: number): void {
+    this.form.value.drawingList.splice(index, 1);
   }
 
   onFileChanged(event: any) {

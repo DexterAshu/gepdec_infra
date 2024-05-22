@@ -4,8 +4,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Technical
-                            Documents</h4>
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Technical Documents</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -44,7 +43,7 @@
                             <tr>
                                 <th>S No</th>
                                 <th>Company</th>
-                                <th>Client</th>
+                                <!-- <th>Client</th> -->
                                 <!-- <th>Tender Title</th> -->
                                 <th>Category</th>
                                 <th>Sub-Category</th>
@@ -67,7 +66,7 @@
                                 *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.bidder_name}}</td>
-                                <td>{{a.company_name}}</td>
+                                <!-- <td>{{a.company_name}}</td> -->
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
@@ -90,7 +89,7 @@
                                 <td>{{a.capacity}}</td>
                                 <td>{{a.technical_points}}</td> -->
                                 <td>
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#viewPDF" title="View PDF File" (click)="showPdf(a)"><span class="mdi mdi-file-pdf text-warning cursor-pointer mdi-18px"></span></a>
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#viewPDF" title="View PDF File" (click)="showPdf(a)"><span class="mdi mdi-eye text-warning cursor-pointer mdi-18px"></span></a>
                                 </td>
                             </tr>
                             <tr *ngIf="docListData?.length == 0">
@@ -128,7 +127,6 @@
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Company<span class="required-asterisk">*</span></label>
@@ -308,14 +306,89 @@
 <!-- Pdf Modal -->
 <div class="modal fade" id="viewPDF" tabindex="-1" data-bs-toggle="modal" data-bs-target="#editModal"
     data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Uploaded PDF</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Technical Qualification Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <iframe class="pdf-Style" [src]="showAsPdf" type="application/pdf"></iframe>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive" style="min-height: auto;">
+                                <table class="table table-hover table-striped custom-table">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th colspan="6" class="text-center">Qualification Information</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Company</th>
+                                            <td>{{ itemList?.bidder_name }}</td>
+                                            <th>Category</th>
+                                            <td>{{ itemList?.qacatagory }}</td>
+                                            <th>Sub-category</th>
+                                            <td>{{ itemList?.subqacatagory }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Capacity</th>
+                                            <td>{{ itemList?.capacity }}</td>
+                                            <th>Total Experience</th>
+                                            <td>{{ itemList?.total_experience }}</td>
+                                            <th>Completion Period</th>
+                                            <td>{{ itemList?.completion_period }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Completion Year</th>
+                                            <td>{{ itemList?.completion_year }}</td>
+                                            <th>Resource Used</th>
+                                            <td>{{ itemList?.resource_used }}</td>
+                                            <th>Technical Point</th>
+                                            <td>{{ itemList?.technical_points }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Client</th>
+                                            <td>{{ itemList?.company_name }}</td>
+                                            <th> NIT No</th>
+                                            <td>
+                                                <div *ngIf="!!itemList?.tender_ref_no; else elseBlock3"
+                                                data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ itemList?.tender_ref_no }}">
+                                                    {{itemList?.tender_ref_no | slice:0:30}} <span
+                                                        *ngIf="itemList?.tender_ref_no.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock3>
+                                                    {{itemList?.tender_ref_no}}
+                                                </ng-template>
+                                            </td>
+                                            <th>Tender Title</th>
+                                            <td>
+                                                <div *ngIf="!!itemList?.tender_title; else elseBlock4"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ itemList?.tender_title }}">
+                                                    {{itemList?.tender_title | slice:0:30}} <span
+                                                        *ngIf="itemList?.tender_title.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock4>
+                                                    {{itemList?.tender_title}}
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Publish Date</th>
+                                            <td colspan="5">{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <iframe class="pdf-Style mt-2" [src]="showAsPdf" type="application/pdf"></iframe>
             </div>
             <div class="row my-2 mr-2">
                 <div class="modal-btns">

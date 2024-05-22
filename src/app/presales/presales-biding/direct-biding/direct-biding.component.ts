@@ -156,7 +156,7 @@ export class DirectBidingComponent {
       } else {
         this.isNotFound = true;
         this.companyData = undefined;
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       this.isNotFound = true;

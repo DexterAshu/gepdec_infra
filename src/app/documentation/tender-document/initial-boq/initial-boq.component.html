@@ -1,217 +1,223 @@
 <div class="content-wrapper">
-    <div class="row">
-        <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Initial BOQ's Documents</h4>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-
-            </div>
+  <div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="d-flex align-items-end flex-wrap">
+          <div class="mr-md-3 mr-xl-5">
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Initial BOQ's Documents</h4>
           </div>
         </div>
+        <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex my-10">
-                        <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="float-right">
-                                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
-                                    <option [disabled]="true" [value]="null">Select</option>
-                                    <option [selected]="true" value="/documentation/tend-doc/initial-boq"> Initial BOQ</option>
-                                    <option value="/documentation/tend-doc"> Tender</option>
-                                    <option value="/documentation/tend-doc/amedments"> Amendments</option>
-                                    <option value="/documentation/tend-doc/l1-schedule"> L1 Schedule</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="float-right">
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()">
-                                          <span class="mdi mdi-upload"></span> Export
-                                    </button>
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span> Import
-                                    </button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
-                              </div>
-                            </div>
-                      </div>
-                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
-                        <thead class="table-primary text-nowrap">
-                            <tr>
-                                <th>S No</th>
-                                <th>Client</th>
-                                <th>Tender Title</th>
-                                <th>NIT No</th>
-                                <th>Publish Date</th>
-                                <th>Tender Location</th>
-                                <th>Attachments</th>
-
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-nowrap">
-                            <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                                <td>{{limit*(p-1)+i+1}}</td>
-                                <td>{{a.company_name}}</td>
-                                <td>
-                                    <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">
-                                        {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock1>
-                                        {{a?.tender_title}}
-                                    </ng-template>
-                                </td>
-                                <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock2>
-                                        {{a?.tender_ref_no}}
-                                    </ng-template>
-                                </td>
-                                <td> {{a.publish_date | date: 'dd/MM/yyyy'}} </td>
-                                <td>{{a.tender_location}}</td>
-                                <!-- <td><a download="a.document" href=`${environment.apiUrl}{{a.document}}`><span class="mdi mdi-cloud-download cursor-pointer mdi-18px"></span></a></td> -->
-                                <td >{{a.filename.slice(13)}}</td>
-
-                                <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
-                                    <!-- &nbsp; -->
-                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
-
-                                </td>
-                            </tr>
-
-                            <tr *ngIf="docListData?.length == 0">
-                                <td colspan="15" class="text-center">
-                                    <div class="spinner-border"> </div>
-                                </td>
-                            </tr>
-                            <tr *ngIf="isNotFound == true">
-                                <td colspan="15" class="text-center">
-                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </app-responsive-table>
-                    <div class="pagination-sec text-center">
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                    </div>
-                </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex my-10">
+            <div class="col-lg-4">
+              <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
             </div>
+            <div class="col-lg-4">
+              <div class="float-right">
+                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
+                  <option [disabled]="true" [value]="null">Select</option>
+                  <option [selected]="true" value="/documentation/tend-doc/initial-boq"> Initial BOQ</option>
+                  <option value="/documentation/tend-doc"> Tender</option>
+                  <option value="/documentation/tend-doc/amedments"> Amendments</option>
+                  <option value="/documentation/tend-doc/l1-schedule"> L1 Schedule</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="float-right">
+                <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()"> <span class="mdi mdi-upload"></span> Export</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"> <span class="mdi mdi-download"></span> Import </button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
+              </div>
+            </div>
+          </div>
+          <app-responsive-table>
+            <thead class="table-primary text-nowrap">
+              <tr>
+                <th>S No</th>
+                <th>Client</th>
+                <th>Tender Title</th>
+                <th>NIT No</th>
+                <th>Publish Date</th>
+                <th>Execution Location</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap">
+              <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                <td>{{limit*(p-1)+i+1}}</td>
+                <td>{{a.company_name}}</td>
+                <td>
+                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}"> {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <ng-template #elseBlock1>{{a?.tender_title}}</ng-template>
+                </td>
+                <td>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}"> {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span> </div>
+                  <ng-template #elseBlock2> {{a?.tender_ref_no}} </ng-template>
+                </td>
+                <td> {{a.publish_date | date: 'dd/MM/yyyy'}} </td>
+                <td>{{a.tender_location}}</td>
+                <td>
+                  <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectRow(a)" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                  <a data-bs-toggle="modal" data-bs-target="#detailModal" (click)="selectRow(a)" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> &nbsp;
+                  <a *ngIf="a?.document" href="{{apiURL}}{{a.document}}" download="{{apiURL}}{{a.document}}" title="Download BOQ File" target="_blank"><span class="mdi mdi-download text-success cursor-pointer mdi-18px"></span></a>
+                </td>
+              </tr>
+              <tr *ngIf="docListData?.length == 0">
+                <td colspan="15" class="text-center">
+                  <div class="spinner-border"> </div>
+                </td>
+              </tr>
+              <tr *ngIf="isNotFound == true">
+                <td colspan="15" class="text-center">
+                  <div class="text-warning fw-semibold">Looks like no data available!</div>
+                </td>
+              </tr>
+            </tbody>
+          </app-responsive-table>
+          <div class="pagination-sec text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<!-- create modal -->
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Initial BOQ's Form</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
-                        <!-- Document Details -->
-                        <div class="form-row">
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
-                                    <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client Company</option>
-                                        <option *ngFor="let c of comData" value="{{c.company_id}}">{{ c.company_name }}</option>
-                                    </select>
-                                    <div *ngIf="f['utility_id'].touched && f['utility_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['utility_id'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                                    <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
-                                        <option [selected]="true" [disabled]="true">Select Project</option>
-                                        <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
-                                    </select>
-                                        <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <ng-container *ngIf="documentForm.value.tender_id">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label fl-10">NIT No</label>
-                                        <input class="form-control form-control-sm" readonly
-                                        value="{{filterTenderDetailsData[0]?.tender_ref_no}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label fl-10">Publish Date</label>
-                                        <input class="form-control form-control-sm" readonly
-                                        value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label fl-10">Tender Location</label>
-                                        <input class="form-control form-control-sm" readonly
-                                        value="{{filterTenderDetailsData[0]?.tender_location}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-3" *ngIf="!showTypeField">
-                                    <div class="form-group">
-                                        <label class="form-label fl-10">type</label>
-                                        <input class="form-control form-control-sm" formControlName="doc_type">
-                                    </div>
-                                </div>
-                                </ng-container>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-12">
-                                <label for="">Document Description:</label>
-                                <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize>
-                               </textarea>
-                                </div>
-                        </div>
-                        <!-- Other Fields... -->
-
-                        <!-- Attachment Documents -->
-                        <div class="row">
-                                <div class="col-lg-12 col-sm-6">
-                                    <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                                    <input id="cin" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" multiple="true" />
-
-                              </div>
-
-                        </div>
-                        <div class="float-right">
-                            <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
-                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Documents Uploading...</button>
-                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>                        </div>
-                      </form>
-
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Initial BOQ's Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
+                  <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
+                    <option [selected]="true" [disabled]="true" [value]="null">Select Client Company</option>
+                    <option *ngFor="let c of comData" value="{{c.company_id}}">{{ c.company_name }}</option>
+                  </select>
+                  <div *ngIf="f['utility_id'].touched && f['utility_id'].invalid">
+                    <small class="text-danger" *ngIf="f['utility_id'].errors?.['required']">*Required</small>
+                  </div>
                 </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
+                  <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
+                    <option [selected]="true" [disabled]="true">Select Project</option>
+                    <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
+                  </select>
+                  <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                    <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label fl-10">NIT No</label>
+                  <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.tender_ref_no}}">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label fl-10">Publish Date</label>
+                  <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-label fl-10">Tender Location</label>
+                  <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.tender_location}}">
+                </div>
+              </div>
+              <div class="col-md-3" *ngIf="!showTypeField">
+                <div class="form-group">
+                  <label class="form-label fl-10">type</label>
+                  <input class="form-control form-control-sm" formControlName="doc_type">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fl-10"> Upload Documents <span class="required-asterisk">*</span></label><br>
+                <input type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" multiple>
+              </div>
+              <div class="col-md-6">
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <label for="">Document Description:</label>
+                    <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize></textarea>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="float-right mt-3">
+              <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
+              <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Documents Uploading...</button>
+              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-<!-- create modal end-->
+
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">BOQ Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="table-responsive" style="min-height: auto">
+              <h6 class="mb-2 text-secondary">Tender Details</h6>
+              <table class="table table-hover table-striped custom-table">
+                <thead class="hidden-thead"></thead>
+                <tbody>
+                  <tr>
+                    <th>Tender&nbsp;Title</th>
+                    <td colspan="3">{{ selectedRow?.tender_title }}</td>
+                  </tr>
+                  <tr>
+                    <th>Client</th>
+                    <td>{{ selectedRow?.company_name }}</td>
+                    <th>NIT&nbsp;No</th>
+                    <td>
+                      <div *ngIf="!!selectedRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectedRow?.tender_ref_no }}">{{selectedRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectedRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                      <ng-template #elseBlock3>{{selectedRow?.tender_ref_no}}</ng-template>
+                    </td>
+                  </tr>
+                <tr>
+                  <th>Execution&nbsp;Location</th>
+                  <td>{{ selectedRow?.tender_location }}</td>
+                  <th>L1 Comp Period (Months)</th>
+                  <td>{{ selectedRow?.tender_completion_period }}</td>
+                </tr>
+                <tr>
+                  <th>BOQ Files</th>
+                  <td colspan="3"><a *ngIf="selectedRow?.document" href="{{apiURL}}{{selectedRow.document}}" download="{{apiURL}}{{selectedRow.document}}" title="Download BOQ File" target="_blank"><span class="mdi mdi-download text-success cursor-pointer mdi-18px"></span></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

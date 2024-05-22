@@ -101,7 +101,7 @@ export class AuditRequestComponent {
       if (res.status === 200) {
         this.projectData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     },
     (error: any) => {
@@ -115,7 +115,7 @@ export class AuditRequestComponent {
       if (res.status === 200) {
         this.wareHouseData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
@@ -134,7 +134,7 @@ export class AuditRequestComponent {
       } else {
         this.isNotFound = true;
         this.auditRequestData = undefined;
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     },
     (error: any) => {

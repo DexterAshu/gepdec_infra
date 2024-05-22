@@ -31,7 +31,7 @@
                 <th>Warehouse Code</th>
                 <th>Warehouse Name</th>
                 <th>Tender Title</th>
-                <th>Tender NIT No</th>
+                <th>NIT No</th>
                 <th>District</th>
                 <th>Action</th>
               </tr>
@@ -59,7 +59,7 @@
                 </td>
                 <td>{{ a.district }}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWH(a)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
+                  <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWH(a)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>&nbsp;
                   <a class="" data-bs-toggle="modal" data-bs-target="#viewWH" title="Warehouse Profile" (click)="selectWH(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>

@@ -36,9 +36,7 @@
                                     data-bs-target="#createBulkModal" title="Upload bulk Data">
                                     <span class="mdi mdi-download"></span> Import
                                 </button>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
-                                    (click)="createForm()" class="btn btn-primary btn-fw btn-sm s"><span
-                                        class="mdi mdi-plus"></span> Create</button>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
                             </div>
                         </div>
                     </div>
@@ -52,6 +50,7 @@
                                 <th>Email ID</th>
                                 <th>Role</th>
                                 <th>Department</th>
+                                <th>Designation</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -61,23 +60,21 @@
                                 *ngFor="let a of tabledata | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.empid}}</td>
-                                <td>{{a.first_name}} {{a.last_name}}</td>
+                                <td>{{a.title}} {{a.first_name}} {{a.last_name}}</td>
                                 <td>{{a.mobile}}</td>
                                 <td>{{a.emailid}}</td>
                                 <td>{{a.rolename}}</td>
                                 <td>{{a.deptname}}</td>
+                                <td>{{a.designationname}}</td>
                                 <td>{{a.status}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
-                                        (click)="userDetail(a)"><span
-                                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                        (click)="editUser(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details" (click)="userDetail(a)"><span
-                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                        title="View Details" (click)="userDetail(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
-
                                 </td>
                             </tr>
                             <tr *ngIf="tabledata?.length == 0">
@@ -107,23 +104,24 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add User </h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ isUpdate ? 'Update User' : 'Create User' }}</h5>
                 <button type="button" id="closed" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="form" (ngSubmit)="decisionFun()">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Title<span class="required-asterisk">*</span></label>
-                                    <select class=" form-select form-control-sm" formControlName="usctit_id">
+                                    <select class="form-select form-control-sm" formControlName="usctit_id">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select TItle</option>
                                         <option *ngFor="let user of dropdownData?.title" [value]="user?.usctit_id">
                                             {{user?.title}} </option>
                                     </select>
                                     <div *ngIf="f['usctit_id'].touched && f['usctit_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['usctit_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['usctit_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -159,12 +157,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Employee ID<span
-                                            class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="empid"
-                                        appNoSpace>
+                                    <label class="form-label">Employee ID<span class="required-asterisk">*</span></label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="empid" appNoSpace [readOnly]="isUpdate">
                                     <div *ngIf="f['empid'].touched && f['empid'].invalid">
-                                        <small class="text-danger" *ngIf="f['empid'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['empid'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -194,7 +191,8 @@
                                             {{user?.deptname}} </option>
                                     </select>
                                     <div *ngIf="f['usdt_id'].touched && f['usdt_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['usdt_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['usdt_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -203,8 +201,9 @@
                                 <div class="form-group">
                                     <label class="form-label">Designation<span
                                             class="required-asterisk">*</span></label>
-                                    <select class=" form-select form-control-sm" formControlName="usdg_id">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
+                                    <select class="form-select form-control-sm" formControlName="usdg_id">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Designation
+                                        </option>
                                         <option *ngFor="let user of dropdownData?.designation" [value]="user?.usdg_id">
                                             {{user?.designationname}} </option>
                                     </select>
@@ -216,75 +215,76 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Reporting To<span
-                                            class="required-asterisk">*</span></label>
+                                    <label class="form-label">Reporting To<span class="required-asterisk">*</span></label>
                                     <select class=" form-select form-control-sm" formControlName="reporting_to">
                                         <option value="" hidden>Select Reporting To </option>
-                                        <option *ngFor="let user of dropdownData?.reportingto" [value]="user?.reportingto">{{user?.fullname}} </option>
+                                        <option *ngFor="let user of dropdownData?.reportingto"
+                                            [value]="user?.reportingto">{{user?.fullname}} </option>
                                     </select>
                                     <div *ngIf="f['reporting_to'].touched && f['reporting_to'].invalid">
-                                        <small class="text-danger"
-                                            *ngIf="f['reporting_to'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f['reporting_to'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Primary Number<span
-                                            class="required-asterisk">*</span></label>
+                                    <label class="form-label">Primary Number<span class="required-asterisk">*</span></label>
                                     <input type="text" class="form-control form-control-sm" formControlName="mobile"
                                         minlength="10" maxlength="10" appNoSpace appNumberOnly>
                                     <div *ngIf="f['mobile'].touched && f['mobile'].invalid">
-                                        <small class="text-danger"
-                                            *ngIf="f['mobile'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f['mobile'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Secondary Number</label>
                                     <input type="text" class="form-control form-control-sm" formControlName="res_phone"
                                         minlength="10" maxlength="10" appNoSpace appNumberOnly>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
                                     <input type="text" class="form-control form-control-sm" formControlName="emailid"
                                         pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" id="emailid">
                                     <div *ngIf="f['emailid'].touched && f['emailid'].invalid">
-                                        <small class="text-danger" *ngIf="f['emailid'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['emailid'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Is Employee<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Is Employee<span
+                                            class="required-asterisk">*</span></label>
                                     <select class=" form-select form-control-sm" formControlName="isemployee">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                                         <option value="true">Yes</option>
                                         <option value="false">No</option>
                                     </select>
                                     <div *ngIf="f['isemployee'].touched && f['isemployee'].invalid">
-                                        <small class="text-danger" *ngIf="f['isemployee'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['isemployee'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Salary<span class="required-asterisk">*</span></label>
                                     <input type="text" class="form-control form-control-sm" formControlName="sallary"
                                         appNumWithDot appNoSpace>
                                     <div *ngIf="f['sallary'].touched && f['sallary'].invalid">
-                                        <small class="text-danger" *ngIf="f['sallary'].errors?.['required']">Email is
-                                            Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['sallary'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="modal-btns">
-                                <button type="submit" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm me-2">{{button}}</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm me-2">{{isUpdate ? 'Update' : 'Submit'}}</button>
+                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> {{ isUpdate ? 'Updating...' : 'Submitting...' }}</button>
                                 <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
@@ -296,123 +296,69 @@
 </div>
 <!-- create modal end-->
 
-<!-- detail modal -->
+<!-- detail Modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">User Information</h5>
+                <h5 class="modal-title" id="exampleModalLabel"> User details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-3">
                 <div class="container-fluid">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Title</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="usctit_id"
-                                        appWordCapitalize readonly>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">First Name</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="first_name"
-                                        appWordCapitalize readonly>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Middle Name</label>
-                                    <input type="text" class="form-control form-control-sm"
-                                        formControlName="middle_name" readonly appWordCapitalize>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Last Name</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="last_name"
-                                        readonly appWordCapitalize>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Employee ID</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="empid"
-                                        readonly>
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">User Role</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="usrl_id"
-                                        readonly>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Department</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="usdt_id"
-                                        readonly>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Reporting To</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="reporting_to" readonly>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Primary Number</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="mobile"
-                                        readonly>
-
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Secondary Number</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="res_phone"
-                                        readonly>
-
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Email ID</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="emailid"
-                                        readonly>
-
-                                </div>
-                            </div>
-
-                            <!-- <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Login Name</label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="loginname"
-                                        readonly appWordCapitalize>
-
-                                </div>
-                            </div> -->
-
-
+                    <div class="row">
+                        <div class="table-responsive" style="min-height: auto">
+                            <table class="table table-hover table-striped custom-table">
+                                <thead class="hidden-thead"></thead>
+                                <tbody class="text-nowrap">
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <td>{{ selectedRow?.empid }}</td>
+                                        <th>Employee Name</th>
+                                        <td>{{ selectedRow?.title }} {{ selectedRow?.first_name }} {{ selectedRow?.middle_name }} {{ selectedRow?.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email ID</th>
+                                        <td>{{ selectedRow?.emailid }}</td>
+                                        <th>Primary Number</th>
+                                        <td>{{ selectedRow?.mobile }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Secondary Number</th>
+                                        <td>{{ selectedRow?.res_phone }}</td>
+                                        <th>Is Employee</th>
+                                        <td>{{ selectedRow?.isemployee == true ? 'Yes' : 'No' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Role</th>
+                                        <td>{{ selectedRow?.rolename }}</td>
+                                        <th>Department</th>
+                                        <td>{{ selectedRow?.deptname }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Designation</th>
+                                        <td>{{ selectedRow?.designationname }}</td>
+                                        <th>Reporting To</th>
+                                        <td>{{ selectedRow?.reporting_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Salary</th>
+                                        <td>{{ selectedRow?.sallary }}</td>
+                                        <th>Created Date</th>
+                                        <td>{{ selectedRow?.createdtime | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Created By</th>
+                                        <td colspan="3">{{ selectedRow?.createdby_name }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- detail modal end-->
+<!-- detail Modal -->

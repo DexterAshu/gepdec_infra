@@ -38,8 +38,8 @@ export class TechDocumentsComponent {
   subCategoryData: any;
   capacityData: any;
   apiLink: any;
-  rowData: any;
   clientData: any;
+  itemList: any = [];
   showAsPdf: SafeResourceUrl | undefined
 
   constructor(
@@ -98,7 +98,7 @@ export class TechDocumentsComponent {
       } else {
         this.isNotFound = true;
         this.docListData = undefined;
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
         this.isNotFound = true;
@@ -177,11 +177,6 @@ export class TechDocumentsComponent {
     });
   }
 
-  rowListData(row:any) {
-    this.rowData = [];
-    this.rowData = row;
-  }
-
   getrefData(tender_id: any) {
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x: any) => x.tender_id == tender_id);
   }
@@ -189,6 +184,7 @@ export class TechDocumentsComponent {
   //button dropdown
  
   showPdf(a:any) {
+    this.itemList = a
     this.showAsPdf = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.apiUrl}${a?.document}`);
   }
 

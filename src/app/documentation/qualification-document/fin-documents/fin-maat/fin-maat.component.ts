@@ -70,7 +70,7 @@ export class FinMaatComponent {
       if(res.status == 200) {
         this.docType = res.documenttype;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => { 
@@ -81,7 +81,7 @@ export class FinMaatComponent {
       if(res.status == 200) {
         this.companyData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => { 
@@ -92,7 +92,7 @@ export class FinMaatComponent {
       if(res.status == 200) {
         this.tenderType = res.bidtype;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => { 

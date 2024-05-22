@@ -150,7 +150,7 @@ export class BiderCompanyComponent {
       if (res.status === 200) {
         this.compData = res.result;
       } else {
-        this.alertService.warning("Looks like no data available in type.");
+        this.alertService.warning(res.message);
       }
     });
   }
@@ -166,7 +166,7 @@ export class BiderCompanyComponent {
       } else {
         this.isNotFound = true;
         this.companyData = undefined;
-        this.alertService.warning("Looks like no data available.");
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       this.isNotFound = true;
