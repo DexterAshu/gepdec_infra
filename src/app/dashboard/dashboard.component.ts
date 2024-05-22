@@ -1592,6 +1592,8 @@ export class DashboardComponent implements OnInit {
             // Ensure topFiveTender is not null before using it
             if (res.topFiveTender) {
                 this.topFiveOrder = res.topFiveTender;
+                console.log( this.topFiveOrder);
+                
             }
 
             // Performance bar data mapping with null checks
@@ -1624,6 +1626,7 @@ export class DashboardComponent implements OnInit {
                   return {
                       name: item.tender_title,
                       value: item.duration,
+                      // value: [0, 20, 40, 60, 80, 100],
                       tender_id: item.tender_id 
                   };
               });

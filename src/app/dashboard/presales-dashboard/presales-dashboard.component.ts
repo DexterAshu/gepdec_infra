@@ -640,11 +640,14 @@ export class PresalesDashboardComponent {
         if (res.status === 200) {
             this.loading = false;
             this.preSalesDashData = res;
+            console.log( this.preSalesDashData);
 
             // topFiveTender is not null before using it
             if (this.preSalesDashData.topFiveProject) {
                 this.topFiveOrder = this.preSalesDashData.topFiveProject;
-            }
+                
+              }
+              console.log(this.topFiveOrder);
             this.tPublishedData = this.preSalesDashData.cardData[0].data;
             this.qualifiedData = this.preSalesDashData.cardData[1].data;
             this.participatedData = this.preSalesDashData.cardData[2].data;

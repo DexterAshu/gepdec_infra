@@ -293,7 +293,7 @@ export class DataCapturingComponent {
       this.update = true;
 
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-debugger
+
         console.log(res);
         this.custDetails = res.result[0];
         this.form.patchValue({
@@ -352,19 +352,13 @@ debugger
         });
        
           setTimeout(()=>{
-            // this.getSubData(this.custDetails.qacatagory_id);
-            // this.getSubData(this.custDetails.qacatagory_id);
             this.form.patchValue({
               subqacatagory_id: this.custDetails.subqacatagory_id,
               capacity_id: this.custDetails.capacity_id,
 
             })
           },400);
-          setTimeout(()=>{
-            this.form.patchValue({
-       
-            })
-          },800);
+        
 
           setTimeout(()=>{
             this.getCapacityData(this.custDetails.subqacatagory_id);

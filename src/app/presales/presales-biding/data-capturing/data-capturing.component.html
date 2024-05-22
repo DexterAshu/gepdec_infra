@@ -719,10 +719,15 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Previous Notes</label>
                             <textarea formControlName="remarks" type="text" rows="4"
-                                class="form-control form-control-sm" readonly>
-                                           </textarea>
+                                class="form-control form-control-sm" readonly >
+                                       
+                            </textarea>
+                                           <!-- <span formControlName="remarks" *ngFor="let ph of (custDetails?.remarks != null ? (custDetails?.remarks.slice(0, -1)).split('\n') : custDetails?.tenderpayment_terms.slice(0, -1)), index as i">
+                                            {{ ph }} <br>
+                                         </span> -->
                         </div>
                     </div>
+                   
 
                     <div class="col-md-12" *ngIf="update">
                         <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">

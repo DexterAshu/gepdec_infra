@@ -126,7 +126,7 @@
         <div class="col-md-9">
         <h3> {{ ShortNumber(dashboardData?.winArray?.currentData ?? '0') }}  </h3>
           <hr>
-         <h6>Projects Win  </h6>
+         <h6>Projects Won  </h6>
         </div>
       </div> 
     </div>
@@ -662,13 +662,13 @@
                 </ng-template>
                 </div>
                 <div class="col-md-3 col-3"  style="text-align: left;">
-
-                  <div *ngIf="!!tender?.bidtype; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ tender?.bidtype }}">
-                    {{tender?.bidtype | slice:0:10}} <span *ngIf="tender?.bidtype.length > 10">...<i class="mdi mdi-information"></i></span>
+                  {{tender?.qacatagory}}
+                  <!-- <div *ngIf="!!tender?.qacatagory; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ tender?.qacatagory }}">
+                    {{tender?.qacatagory | slice:0:10}} <span *ngIf="tender?.qacatagory.length > 10">...<i class="mdi mdi-information"></i></span>
                 </div>
                 <ng-template #elseBlock3>
-                    {{tender?.bidtype}}
-                </ng-template>
+                    {{tender?.qacatagory}}
+                </ng-template> -->
                   </div>
                 <div class="col-md-3 col-3"  style="text-align: left;">{{tender.ecv}}</div>
               </div>

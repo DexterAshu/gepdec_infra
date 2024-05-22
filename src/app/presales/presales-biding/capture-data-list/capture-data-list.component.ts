@@ -50,6 +50,7 @@ export class CaptureDataListComponent {
   sendForApprovalClicked: boolean =false;
   roleStatusData: any;
   statusList: any = [];
+  approval: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -223,7 +224,8 @@ this.statusList=roleD[0].roleStatus
     } else {
       this.form.value.tenderstatus_id = null;
     }
-
+    this.approval = 'Send Back';
+    this.form.value.approval = this.approval;
     this.form.value.tender_id = this.tenderData[0].tender_id;
     this.apiService.createApproval(this.form.value).subscribe((res: any) => {
       let response: any = res;
