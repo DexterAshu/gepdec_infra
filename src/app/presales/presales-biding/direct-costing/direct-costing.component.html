@@ -29,7 +29,7 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>BOQ Code</th>
+                                <!-- <th>BOQ Code</th> -->
                                 <th>Client</th>
                                 <th>Tender Title</th>
                                 <th> NIT No</th>
@@ -44,7 +44,7 @@
                             <tr
                                 *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
-                                <td>{{ a.boq_code }}</td>
+                                <!-- <td>{{ a.boq_code }}</td> -->
                                 <td>{{ a.company_name}}</td>
                                 <td>
                                     <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
@@ -111,7 +111,7 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped custom-table">
+                                <table class="table table-hover table-striped custom-table mb-3">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
                                             <th colspan="6" class="text-center">Tender Information</th>
@@ -152,61 +152,73 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                             <th>Publish Date</th>
                                             <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' }}</td>
                                             <th>Execution Location</th>
-                                            <td>{{ itemList?.tender_location }}</td>
-                                            <th>BOQ Code</th>
-                                            <td>{{ itemList?.boq_code }}</td>
+                                            <td colspan="3">{{ itemList?.tender_location }}</td>
+                                            <!-- <th>BOQ Code</th>
+                                            <td>{{ itemList?.boq_code }}</td> -->
                                         </tr>
                                     </tbody>
                                 </table>
-                                <app-responsive-table class="mt-1">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th>S No</th>
-                                            <th>Item Code</th>
-                                            <th>Description</th>
-                                            <th>UOM</th>
-                                            <th>Category</th>
-                                            <th>Sub-Category</th>
-                                            <th>Unit Price</th>
-                                            <th>Quantity</th>
-                                            <th>Basic Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <tr *ngFor="let item of itemList?.items; index as i">
-                                            <td>{{ limit*(p-1)+i+1 }}</td>
-                                            <td>{{ item?.itemcode }}</td>
-                                            <td>
-                                                <div *ngIf="!!item?.description; else elseBlock5" data-toggle="tooltip"
-                                                    data-placement="bottom" title="{{ item?.description }}">
-                                                    {{item?.description | slice:0:30}} <span
-                                                    *ngIf="item?.description.length > 30">...<i
-                                                    class="mdi mdi-information"></i></span>
-                                                </div>
-                                                <ng-template #elseBlock5>
-                                                    {{item?.description}}
-                                                </ng-template>
-                                            </td>
-                                            <td>{{ item?.uom }}</td>
-                                            <td>{{ item?.itemcategory }}</td>
-                                            <td>{{ item?.subcategory }}</td>
-                                            <td>{{ item?.unit_price }}</td>
-                                            <td>{{ item?.qty }}</td>
-                                            <td>{{ item?.basic_value }}</td>
-                                        </tr>
-                                        <tr *ngIf="isNotFound == true">
-                                            <td colspan="15" class="text-center">
-                                                <div class="spinner-border"> </div>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="itemList?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </app-responsive-table>
+
+                                <ng-container class="mt-1" *ngFor="let main of itemList?.items">
+                                    <div class="table-responsive pt-2 mb-2" style="min-height: auto;">
+                                        <table class="table table-hover table-striped">
+                                            <thead class="table-primary text-nowrap">
+                                                <tr class="text-center">
+                                                    <th colspan="9">{{main?.category}} - {{main?.subcategory}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>S No</th>
+                                                    <th>Item Code</th>
+                                                    <th>Description</th>
+                                                    <th>UOM</th>
+                                                    <th>Category</th>
+                                                    <th>Sub-Category</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-nowrap">
+                                                <tr *ngFor="let item of main?.items; index as i">
+                                                    <td>{{ limit*(p-1)+i+1 }}</td>
+                                                    <td>{{ item?.itemcode }}</td>
+                                                    <td>
+                                                        <div *ngIf="!!item?.description; else elseBlock5" data-toggle="tooltip"
+                                                            data-placement="bottom" title="{{ item?.description }}">
+                                                            {{item?.description | slice:0:30}} <span
+                                                            *ngIf="item?.description.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
+                                                        </div>
+                                                        <ng-template #elseBlock5>
+                                                            {{item?.description}}
+                                                        </ng-template>
+                                                    </td>
+                                                    <td>{{ item?.uom }}</td>
+                                                    <td>{{ item?.itemcategory }}</td>
+                                                    <td>{{ item?.subcategory }}</td>
+                                                    <td>{{ item?.unit_price }}</td>
+                                                    <td>{{ item?.qty }}</td>
+                                                    <td>{{ item?.total_value }}</td>
+                                                </tr>
+                                                <tr class="table-footer fw-bold">
+                                                    <td>Total</td>
+                                                    <td colspan="8"></td>
+                                                </tr>
+                                                <tr *ngIf="isNotFound == true">
+                                                    <td colspan="15" class="text-center">
+                                                        <div class="spinner-border"> </div>
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="itemList?.length == 0">
+                                                    <td colspan="15" class="text-center">
+                                                        <div class="text-warning fw-semibold">Looks like no data available!
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                     </div>

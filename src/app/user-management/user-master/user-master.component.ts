@@ -26,7 +26,6 @@ export class UserMasterComponent implements OnInit {
   meterDetailData: any;
   meterDataList: any;
   meterIndexData: any;
-  tableHeight: any;
   filterNumber: any;
   filterData: any = [];
   titleData: any;
@@ -34,10 +33,10 @@ export class UserMasterComponent implements OnInit {
   singleMeterData: any;
   dateForFilter: any;
   searchText: any;
-  update: boolean = false;
+  isUpdate: boolean = false;
   button: string = 'Create';
-  formData: any;
-  submitted: boolean = false;
+  // formData: any;
+  isSubmitted: boolean = false;
   loadermsg: any;
   waitmsg: boolean = false;
   loading: boolean = false;
@@ -48,6 +47,8 @@ export class UserMasterComponent implements OnInit {
   inserteddata: any;
   discardeddata: any;
   dropdownData: any;
+  selectedRow: any;
+  rowData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -75,26 +76,13 @@ export class UserMasterComponent implements OnInit {
       isemployee: [null, Validators.required],
       sallary: [null, Validators.required],
     });
-
-    this.tableHeight = `${window.innerHeight * 0.65}px`;
-    this.listData();
+    this.getDataList();
     this.getUserData();
-  }
-  createForm() {
-    this.button = 'Create';
-    this.update = false;
-    this.form.reset();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    // Update the table height when the window is resized
-    this.tableHeight = `${window.innerHeight * 0.65}px`;
   }
 
   get f() { return this.form.controls; }
 
-  listData(): void {
+  getDataList(): void {
     this.tabledata = [];
     this.isNotFound = false;
     this.masterService.getUserList().subscribe((res: any) => {
@@ -116,36 +104,18 @@ export class UserMasterComponent implements OnInit {
 
   //All dropdown API'S
   getUserData() {
+    this.dropdownData = [];
     this.masterService.getUserMaster().subscribe((res: any) => {
-      // if(res.result ==)
-      this.dropdownData = res;
+      if(res.status == 200) {
+        this.dropdownData = res;
+      } else {
+        this.alertService.warning('Looks like no data available in list.');
+      }
     });
   }
 
   userDetail(data: any) {
-    // this.form.controls['password'].clearValidators();
-    this.form.reset();
-    this.button = 'Update';
-    this.update = true;
-    this.masterService.getuserdetail(data.user_id).subscribe((res: any) => {
-      this.userDetails = res.result[0];
-      // this.form.controls['usctit_id'].setValue(this.userDetails.usctit_id);
-      this.form.patchValue({
-        user_id: this.userDetails.user_id,
-        first_name: this.userDetails.first_name,
-        middle_name: this.userDetails.middle_name,
-        last_name: this.userDetails.last_name,
-        // loginname: this.userDetails.loginname,
-        empid: this.userDetails.empid,
-        emailid: this.userDetails.emailid,
-        mobile: this.userDetails.mobile,
-        res_phone: this.userDetails.res_phone,
-        usctit_id: this.userDetails.usctit_id,
-        usdt_id: this.userDetails.usdt_id,
-        reporting_to: this.userDetails.reporting_to,
-        usrl_id: this.userDetails.usrl_id,
-      });
-    });
+    this.selectedRow = data;
   }
 
   download(): void {
@@ -153,84 +123,61 @@ export class UserMasterComponent implements OnInit {
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
-  onSubmit() {
+  createForm() {
+    this.isSubmitted = false;
+    this.isUpdate = false;
+    this.form.reset();
+  }
+
+  editUser(data: any) {
+    this.rowData = data;
+    this.isSubmitted = false;
+    this.isUpdate = true;
+    this.form.patchValue(this.rowData);
+  }
+
+  decisionFun() {
     if (this.form.valid) {
-      this.button = 'Create';
-      this.submitted = true;
-
-      this.formData = this.form.value;
-
-      //passing all values
-      if (this.formData.empid != '') {
-        this.formData.empid == '';
-      } else {
-        this.formData.empid = null;
-      }
-      if (this.formData.middle_name == "") {
-        this.formData.middle_name = null;
-      }
-      if (this.formData.loginname == "") {
-        this.formData.loginname = null;
-      }
-      if (this.formData.password == "") {
-        this.formData.password = null;
-      }
-      if (this.formData.mobile == "") {
-        this.formData.mobile = null;
-      }
-      if (this.formData.emailid == "") {
-        this.formData.emailid = null;
-      }
-      if (this.formData.res_phone == "") {
-        this.formData.res_phone = null;
-      }
-
-      this.loading = true;
-      if (this.update) {
-
-        this.userUpdate();
-      } else {
-        this.createUser();
-      }
+      this.isSubmitted = true;
+      this.onSubmit();
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }
   }
 
-  createUser() {
-    this.formData.active = null,
-      this.formData.inactive = null
-    this.masterService.userCreation(this.formData).subscribe((res: any) => {
+  onSubmit() {
+    debugger
+    if (this.form.valid) {
+      this.form.controls['isemployee'].setValue(this.form.value.isemployee == 'true' ? true : false);
 
-      if (res.status == 200) {
-        this.ngOnInit();
-        document.getElementById('closed')?.click();
-        this.alertService.success(res.message);
-      } else if (res.status == 201) {
-        this.alertService.error(res.message);
+      if(this.isUpdate) {
+        var formData = {
+          ...this.form.value,
+          user_id: this.rowData?.user_id
+        };
       } else {
-        this.alertService.error('Error, Something went wrong please check');
+        var formData = {
+          ...this.form.value
+        };
       }
-    });
 
-  }
-
-  userUpdate(): void {
-    // this.opac=0;
-    // this.formData.status=this.status
-    // this.formData.active=null,
-    // this.formData.inactive=null
-    this.formData.user_id = this.userDetails.user_id;
-    this.loadermsg = "Updating..."
-    this.masterService.userUpdation(this.formData).subscribe((res: any) => {
-      if (res.status == 200) {
-        this.ngOnInit();
-        // this.form.controls['password'].setValidators([Validators.required]);
+      (this.isUpdate ? this.masterService.userUpdate(formData) : this.masterService.userCreation(formData)).subscribe((res: any) => {
+        this.isSubmitted = false;
         document.getElementById('closed')?.click();
-        this.alertService.success('User Updated Successfully');
-      } else {
-        this.alertService.error('Something went wrong please try again');
-      }
-    });
+        if (res.status == 200) {
+          this.getDataList();
+          this.form.reset();
+          this.alertService.success(res.message);
+        } else {
+          this.alertService.warning('Something went wrong.');
+        }
+      }, error => {
+        this.isSubmitted = false;
+        document.getElementById('closed')?.click();
+        this.alertService.error('Error: Unknown Error!');
+      });
+    } else {
+      this.alertService.warning("Form is invalid, Please fill the form correctly.");
+    }
   }
 }
