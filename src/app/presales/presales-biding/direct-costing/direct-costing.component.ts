@@ -20,6 +20,7 @@ export class DirectCostingComponent {
   dataDropdownList: any;
   selectedRow: any;
   itemList: any;
+  totalDirectCost: number = 0;
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
 
@@ -68,8 +69,10 @@ export class DirectCostingComponent {
   }
 
   getBOQItemList(data: any) {
+    debugger
     this.itemList = [];
     this.itemList = data;
+    this.itemList?.items.map((item: any) => this.totalDirectCost += item?.total_basic_value ); 
   }
 
   onSubmit() {

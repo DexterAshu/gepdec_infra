@@ -103,7 +103,7 @@ data-bs-backdrop="static" data-bs-keyboard="true">
 <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">BOQ Item Details</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Direct Costing Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
@@ -152,9 +152,9 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                             <th>Publish Date</th>
                                             <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' }}</td>
                                             <th>Execution Location</th>
-                                            <td colspan="3">{{ itemList?.tender_location }}</td>
-                                            <!-- <th>BOQ Code</th>
-                                            <td>{{ itemList?.boq_code }}</td> -->
+                                            <td>{{ itemList?.tender_location }}</td>
+                                            <th>Total Direct Costing</th>
+                                            <td>{{ totalDirectCost }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -196,13 +196,13 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                                     <td>{{ item?.uom }}</td>
                                                     <td>{{ item?.itemcategory }}</td>
                                                     <td>{{ item?.subcategory }}</td>
-                                                    <td>{{ item?.unit_price }}</td>
+                                                    <td>{{ item?.unit_price | currency:'INR':'':'1.2-2' }}</td>
                                                     <td>{{ item?.qty }}</td>
-                                                    <td>{{ item?.total_value }}</td>
+                                                    <td>{{ item?.total_value | currency:'INR':'':'1.2-2' }}</td>
                                                 </tr>
                                                 <tr class="table-footer fw-bold">
-                                                    <td>Total</td>
-                                                    <td colspan="8"></td>
+                                                    <td colspan="8">Total</td>
+                                                    <td>{{ main?.total_basic_value | currency:'INR':'':'1.2-2' }}</td>
                                                 </tr>
                                                 <tr *ngIf="isNotFound == true">
                                                     <td colspan="15" class="text-center">
