@@ -154,6 +154,8 @@ export class BgDocumentComponent {
       if (res.status === 200) {
         this.isNotFound = false;
         this.docListData = res.result;
+        
+        
       } else {
         this.docListData = undefined;
         this.isNotFound = true;

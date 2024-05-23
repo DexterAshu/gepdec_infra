@@ -48,12 +48,17 @@
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
                                 <th>Publish Date</th>
+                                <th>Category</th>
+                                <th>Sub-Category </th>
+                                <th>Capacity </th>
+                                <th>Execution Location </th>
                                 <th>Bank Name</th>
                                 <th>Document Number</th>
                                 <th>Amount</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Submission Date</th>
+                              
                                 <th>Attachments</th>
                                 <th>Action</th>
                             </tr>
@@ -79,7 +84,11 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
+                                <td>{{a.category}}</td>
+                                <td>{{a.sub_category}}</td>
+                                <td>{{a.capacity}}</td>
+                                <td>{{a.exe_location}}</td>
                                 <td>{{a.bankname}}</td>
                                 <td>{{a.bg_number}}</td>
                                 <td>{{a.bg_amount}}</td>
@@ -189,7 +198,31 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Category</label>
+                                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Sub-Category</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Capacity</label>
+                                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Execution Location</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -201,13 +234,13 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Start Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.start_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">End Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.end_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -240,6 +273,10 @@
                             <label for="">Extend Date </label>
                             <input type="date" class="form-control form-control-sm" formControlName="extend_date">
                         </div>
+
+                      
+
+
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12">

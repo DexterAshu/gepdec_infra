@@ -45,6 +45,14 @@
                 <th>NIT No</th>
                 <th>Execution Location</th>
                 <th>Publish Date</th>
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Capacity </th>
+                <th>Execution Location</th>
+
+                <th>BOQ Category</th>
+                <th>BOQ Sub Category</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -60,8 +68,14 @@
                   <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
-                <td>{{ a.tender_location }}</td>
-                <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                <td>{{ a.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                <td>{{ a.category }}</td>
+                <td>{{ a.sub_category }}</td>
+                <td>{{ a.capacity }}</td>
+                <td>{{ a.exe_date }}</td>
+                <td>{{ a.itemcategory }}</td>
+                <td>{{ a.subcategory }}</td>
+                <td>{{ a.status }}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)" title="Edit BOQ Items Details" ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details" (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
@@ -135,6 +149,33 @@
                   <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                 </div>
               </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Category</label>
+                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Sub-Category</label>
+                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Capacity</label>
+                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Execution Location</label>
+                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                </div>
+            </div>
+
+
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="form-label">BOQ Category<span class="required-asterisk">*</span></label>

@@ -61,10 +61,10 @@
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
                                 <th>Publish Date</th>
-                                <!-- <th>Category</th>
+                                <th>Category</th>
                                 <th>Sub-Category</th>
                                 <th>Capacity</th>
-                                <th>Technical Points</th> -->
+                                <th>Execution Location</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -94,11 +94,12 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                                <!-- <td>{{a.qacatagory}}</td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
+                                <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
-                                <td>{{a.technical_points}}</td> -->
+   
+                                 <td>{{ a.tender_location }}</td>
                                 <td>
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
                                         title="View Details" (click)="rowListData(a)"><span

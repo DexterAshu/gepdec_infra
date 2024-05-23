@@ -88,10 +88,11 @@
                                 <th>Client</th>
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
+                                <th>Publish Date</th>
                                 <th>Category</th>
                                 <th>Sub-Category</th>
                                 <th>Capacity</th>
-                                <th>Publish Date</th>
+                               
                                 <th>Execution Location</th>
                                 <th>ECV (INR)</th>
                                 <th>Submission Date</th>
@@ -120,6 +121,7 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
+                                <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>

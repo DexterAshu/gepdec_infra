@@ -29,6 +29,11 @@
                 <th>S No</th>
                 <th>Tender Title</th>
                 <th>NIT No</th>
+                <th>Publish Date</th>
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Capacity </th>
+            
                 <th>Tender Location</th>
                 <th>Warehouse Code</th>
                 <th>Location Code</th>
@@ -60,6 +65,11 @@
                       {{a?.tender_ref_no}}
                   </ng-template>
                 </td>
+                <td>{{ a.publish_date }}</td>
+                <td>{{ a.category }}</td>
+                <td>{{ a.sub_category }}</td>
+                <td>{{ a.capacity }}</td>
+               
                 <td>{{ a.tender_location }}</td>
                 <td>{{ a.warehouse_code }}</td>
                 <td>{{ a.location_code }}</td>
@@ -81,10 +91,10 @@
                 </td>
               </tr>
               <tr *ngIf="itemData.length === 0">
-                <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>
+                <td colspan="20" class="text-center"><div class="spinner-border"> </div></td>
               </tr>
               <tr *ngIf="isNotFound">
-                <td colspan="15" class="text-center"><div class="text-warning fw-semibold">Looks like no data available!</div></td>
+                <td colspan="20" class="text-center"><div class="text-warning fw-semibold">Looks like no data available!</div></td>
               </tr>
             </tbody>
           </app-responsive-table>
