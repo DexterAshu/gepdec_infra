@@ -163,7 +163,9 @@
                     <th>Task</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>Days Difference</th>
+                    <th>Days</th>
+                    <th>QTY</th>
+                    <th>UOM</th>
                     <th>Action</th>
                     <th>Sub Task</th>
                   </tr>
@@ -177,17 +179,15 @@
                       <td>{{ row.task_start_date | date:'dd/MM/yyyy' }}</td>
                       <td>{{ row.task_end_date | date:'dd/MM/yyyy' }}</td>
                       <td>{{ row.days_difference }}</td>
+                      <td>{{ row.qty }}</td>
+                      <td>{{ row.uom }}</td>
                       <td>
-                        <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details"
-                          (click)="editTaskRow(row)"><span
-                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                        <a title="Delete Details" (click)="removeTask(row)"><span
-                            class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                        <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                        <a title="Delete Details" (click)="removeTask(row)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                       </td>
                       <td>
                         <table class="table">
-                          <tr *ngFor="let ct of row?.childtasks; index as ci"
-                            [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
+                          <tr *ngFor="let ct of row?.childtasks; index as ci" [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
                             <ng-container *ngIf="!ct.is_deleted">
                               <td>{{i+1}}.{{ ci+1 }}</td>
                               <td>{{ ct.task }}</td>
@@ -432,8 +432,7 @@
                   </tr>
                 </thead>
                 <tbody class="text-nowrap">
-                  <tr *ngFor="let row of l1ScheduleData?.tasks; index as i" class="text-nowrap"
-                    [style.color]="row?.is_added ? 'green' : (row?.is_updated ? 'blue' : 'black')">
+                  <tr *ngFor="let row of l1ScheduleData?.tasks; index as i" class="text-nowrap" [style.color]="row?.is_added ? 'green' : (row?.is_updated ? 'blue' : 'black')">
                     <ng-container *ngIf="!row.is_deleted">
                       <td>{{ i+1 }}</td>
                       <td>{{ row.task }}</td>
@@ -441,16 +440,12 @@
                       <td>{{ row.task_end_date | date:'dd/MM/yyyy' }}</td>
                       <td>{{ row.days_difference }}</td>
                       <td>
-                        <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details"
-                          (click)="editTaskRow(row)"><span
-                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                        <a title="Delete Details" (click)="removeTask(row)"><span
-                            class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                        <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                        <a title="Delete Details" (click)="removeTask(row)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                       </td>
                       <td>
                         <table class="table">
-                          <tr *ngFor="let ct of row?.childtasks; index as ci"
-                            [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
+                          <tr *ngFor="let ct of row?.childtasks; index as ci" [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
                             <ng-container *ngIf="!ct.is_deleted">
                               <td>{{i+1}}.{{ ci+1 }}</td>
                               <td>{{ ct.task }}</td>
@@ -458,18 +453,13 @@
                               <td>{{ ct.task_end_date | date:'dd/MM/yyyy' }}</td>
                               <td>{{ ct.days_difference }}</td>
                               <td class="text-right">
-                                <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask"
-                                  (click)="editSubTaskRow(row, ct)"><span
-                                    class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                                <a title="Delete Details" (click)="removeSubTask(row, ct)"><span
-                                    class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                                <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask"able table-hover table-striped custom-table (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                                <a title="Delete Details" (click)="removeSubTask(row, ct)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                               </td>
                             </ng-container>
                           </tr>
                           <tr>
-                            <td colspan="6" class="text-right"><a title="Create Details" (click)="addSubTask(row)"
-                                data-bs-toggle="modal" data-bs-target="#addSubTask"><span
-                                  class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                            <td colspan="6" class="text-right"><a title="Create Details" (click)="addSubTask(row)" data-bs-toggle="modal" data-bs-target="#addSubTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
                           </tr>
                         </table>
                       </td>
@@ -836,7 +826,9 @@
                   <th>Task</th>
                   <th>Start Date</th>
                   <th>End Date</th>
-                  <th>Days Difference</th>
+                  <th>Days</th>
+                  <th>QTY</th>
+                  <th>UOM</th>
                   <th>Sub Task</th>
                 </tr>
               </thead>
@@ -849,6 +841,8 @@
                     <td>{{ row.task_start_date | date:'dd/MM/yyyy' }}</td>
                     <td>{{ row.task_end_date | date:'dd/MM/yyyy' }}</td>
                     <td>{{ row.days_difference }}</td>
+                    <td>{{ row.qty }}</td>
+                    <td>{{ row.uom }}</td>
                     <td>
                       <table class="table">
                         <tr *ngFor="let ct of row?.childtasks; index as ci"

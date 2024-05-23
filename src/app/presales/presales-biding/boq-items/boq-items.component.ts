@@ -38,7 +38,7 @@ export class BoqItemsComponent {
   dataDropdownList: any;
   rmove: any;
   arr: any;
-  itemList: any = [];
+  itemList: any;
   clientListData: any;
   tenderDetailsData: any;
   tendDetails: any;
@@ -56,6 +56,7 @@ export class BoqItemsComponent {
   dataCatList: any;
   dataSubList: any;
   childData: any;
+  boqList: any;
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
 
@@ -189,7 +190,7 @@ export class BoqItemsComponent {
   getBoqListData() {
     this.boqData = [];
     this.isNotFound = false;
-    const apiLink = `/boq/api/v1/getBoqList`;
+    const apiLink = `/boq/api/v1/getTenderBOQData`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.isNotFound = false;
@@ -200,6 +201,7 @@ export class BoqItemsComponent {
         this.alertService.warning(res.message);
       }
     }, (error: any) => {
+      console.error(error);
       this.docListData = undefined;
       this.isNotFound = true;
       this.alertService.error("Error: Unknown Error!")
@@ -208,6 +210,11 @@ export class BoqItemsComponent {
 
   getBOQItemList(data: any) {
     this.itemList = data;
+  }
+
+  getBOQList(data: any) {
+    this.itemList =  [];
+    this.boqList = data;
   }
 
   get f() { return this.form.controls; }
