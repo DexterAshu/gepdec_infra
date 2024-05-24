@@ -95,7 +95,7 @@
                                 <th>Execution Location</th>
                                 <th>ECV (INR)</th>
                                 <th>Submission Date</th>
-                                <th>Tender Status</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -127,7 +127,7 @@
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.ecv }}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
-                                <td>{{ a.tender_status}}</td>
+                                <td>{{ a?.request_status}}</td>
                                 <td>
                                     <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
@@ -896,11 +896,10 @@
 
                             <!-- tender status modal start-->
                             <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
-                                <div class="row mt-3">
-                                        <div class="col-md-3">
+                                <div class="row mt-3" *ngIf="rowData?.prequalification?.length !== 0 && rowData?.tenderfinancials.length !== 0" >
+                                        <div class="col-md-3" *ngIf="this.userData.rolename == 'Manager'">
+                                           
                                             <div class="form-group">
-                                                <!-- <label class="form-label fl-10"  *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'">Tender Recommendations <span
-                                                        class="required-asterisk">*</span></label> -->
                                                 <label class="form-label fl-10">Tender Status<span
                                                         class="required-asterisk">*</span></label>
                                                 <select formControlName="tenderstatus_id"
@@ -908,6 +907,23 @@
                                                     <option [value]="null" disabled selected>Select Status</option>
                                                     <option *ngFor="let c of statusList" [value]="c.tenderstatus_id">{{
                                                         c.tender_status }}</option>
+                                                </select>
+                                                <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
+                                                    <small class="text-danger"
+                                                        *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="this.userData.rolename == 'PreSales'">
+                                          
+                                            <div class="form-group">
+                                                <label class="form-label fl-10">Request Status<span
+                                                        class="required-asterisk">*</span></label>
+                                                <select formControlName="tenderstatus_id"
+                                                    class="form-select form-select-sm">
+                                                    <option [value]="null" disabled selected>Select Status</option>
+                                                    <option *ngFor="let c of reqList" [value]="c.requeststatus_id">{{
+                                                        c.request_status }}</option>
                                                 </select>
                                                 <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
                                                     <small class="text-danger"

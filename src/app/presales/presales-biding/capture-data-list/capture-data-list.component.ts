@@ -51,6 +51,7 @@ export class CaptureDataListComponent {
   roleStatusData: any;
   statusList: any = [];
   approval: any;
+  reqList: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,8 +103,10 @@ export class CaptureDataListComponent {
   }
 
   rowListData(row: any) {
-    debugger
     this.rowData = row;
+    this.reqList  = this.rowData.requestStatus;
+    console.log( this.reqList);
+    
   var roleD = this.roleStatusData.filter((res:any)=>{
   return res.tender_id == this.rowData.tender_id;
 })
@@ -204,6 +207,9 @@ this.statusList=roleD[0].roleStatus
 
   onSubmit() {
     if (this.form.valid) {
+      if(this.userData.rolename == 'PreSales'){
+        this.form.value.tenderstatus_id = this.reqList.requeststatus_id;
+      }
       this.isSubmitted = true;
       this.loading = true;
       this.sendApproval();
@@ -244,6 +250,9 @@ this.statusList=roleD[0].roleStatus
   }
 
   sendApproval() {
+    if(this.userData.rolename == 'PreSales'){
+      this.form.value.requeststatus_id = this.reqList[0].requeststatus_id;
+    }
     this.form.value.tender_id = this.tenderData[0].tender_id;
     this.apiService.createApproval(this.form.value).subscribe((res: any) => {
       let response: any = res;
@@ -252,6 +261,7 @@ this.statusList=roleD[0].roleStatus
       if (response.status == 200) {
         this.userData.rolename === 'Manager' && this.sendForApprovalClicked == true;
         this.form.reset();
+        this.getTenderData();
         this.alertService.success(response.message);
       } else {
         this.alertService.warning(response.message);
