@@ -13,6 +13,10 @@ import { AlertService, ApiService } from 'src/app/_services';
 export class BoqItemsComponent {
   form!: FormGroup;
   form1!: FormGroup;
+  editParentItemForm!: FormGroup;
+  editChildItemForm!: FormGroup;
+  addParentItemForm!: FormGroup;
+  addChildItemForm!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -22,45 +26,29 @@ export class BoqItemsComponent {
   update: boolean = false;
   button: string = 'Create';
   loading: boolean = false;
-  filesToUpload: Array<File> = [];
-  inserteddata: any;
-  discardeddata: any;
-  contactData: any;
-  addressDetails: any;
-  countryName: any;
   attachment: any = [];
-  supgrpmemb: any;
-  selectedItems = [];
-  dropdownList = [];
-  dropdownSettings = {};
-  addmember: any;
-  @ViewChild('multiSelect') multiSelect: any;
-  dataDropdownList: any;
-  rmove: any;
-  arr: any;
   itemList: any;
-  clientListData: any;
   tenderDetailsData: any;
-  tendDetails: any;
-  bankData: any;
-  tenderData: any;
-  tenderType: any;
-  docType: any;
-  docListData: any;
-  refData: any;
-  rowData: any;
-  filterTenderDetailsData: any[] = [];
-  listOfFiles: any[] = [];
+  filterTenderDetailsData: any = [];
+  listOfFiles: any = [];
   boqData: any;
-  comData: any;
+  companyList: any;
   dataCatList: any;
   dataSubList: any;
   childData: any;
   boqList: any;
+  selectParentItemForUpdateChild: any;
+  itemListData: any = [];
+  errorItemList: any = [];
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
 
   ngOnInit() {
+    this.formInit();
+    this.getBoqListData();
+  }
+
+  formInit() {
     this.form = this.formBuilder.group({
       childItem: this.formBuilder.array([]),
     });
@@ -71,9 +59,43 @@ export class BoqItemsComponent {
       itemSubCategory: ['', Validators.required],
       attachment: ['', Validators.required]
     });
-    this.addAnotherRow();
-    this.getDropdownList();
-    this.getBoqListData();
+    this.addParentItemForm = this.formBuilder.group({
+      boq_id: [null, Validators.required],
+      itemcode: [null, Validators.required],
+      item_id: [null, Validators.required],
+      qty: [null, Validators.required],
+      unit_price: [null, Validators.required],
+      freight_charges: [null, Validators.required],
+      have_parent: [null, Validators.required],
+      parent_item_id: [null, Validators.required]
+    });
+    this.editParentItemForm = this.formBuilder.group({
+      boq_id: [null, Validators.required],
+      itemcode: [null, Validators.required],
+      item_id: [null, Validators.required],
+      qty: [null, Validators.required],
+      unit_price: [null, Validators.required],
+      freight_charges: [null, Validators.required],
+    });
+    this.addChildItemForm = this.formBuilder.group({
+      boq_id: [null, Validators.required],
+      itemcode: [null, Validators.required],
+      item_id: [null, Validators.required],
+      qty: [null, Validators.required],
+      unit_price: [null, Validators.required],
+      freight_charges: [null, Validators.required],
+      have_parent: [null, Validators.required],
+      parent_item_id: [null, Validators.required]
+    });
+    this.editChildItemForm = this.formBuilder.group({
+      boq_id: [null, Validators.required],
+      itemcode: [null, Validators.required],
+      item_id: [null, Validators.required],
+      parent_item_id: [null, Validators.required],
+      qty: [null, Validators.required],
+      unit_price: [null, Validators.required],
+      freight_charges: [null, Validators.required],
+    });
     this.getCompanyData();
   }
 
@@ -81,44 +103,44 @@ export class BoqItemsComponent {
     const apiLink = `/company/api/v1/getComapanyList`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
-        this.comData = res.result;
+        this.companyList = res.result;
+        this.getItemListData();
       } else {
         this.alertService.warning("Looks like no data available in type!");
       }
     }),
     (error: any) => {
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     }
   }
 
-  getChildData(data: any): void {
-    this.childData = data;
-  }
-
   getDropdownList() {
-    this.dataDropdownList = [];
     let apiLink = "/item/api/v1/getItemDropdown";
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.dataCatList = res.itemcategory;
         this.dataSubList = res.subcategory;
       } else {
-        this.dataDropdownList = undefined;
         this.alertService.warning("Looks like no data available!");
       }
     }, (error: any) => {
-      this.dataDropdownList = undefined;
+      console.error(error);
       this.alertService.error("Error: Unknown Error!");
     });
   }
 
+  getChildData(data: any): void {
+    this.childData = data;
+  }
+
   getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
-    this.clientListData = company_id;
     const apiLink = `/biding/api/v1/getTenderlist?company_id=${company_id}`
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if(res.status == 200){
         this.tenderDetailsData = res.result;
+        this.getDropdownList();
       } else {
         this.tenderDetailsData = undefined;
         this.alertService.warning("Looks like no data available in type!");
@@ -133,58 +155,6 @@ export class BoqItemsComponent {
 
   getrefData(tender_id: any) {
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x: any) => x.tender_id == tender_id);
-  }
-
-  boqChildItem(): FormArray {
-    return this.form.get("childItem") as FormArray
-  }
-
-  childItemsArray(): FormGroup {
-    return this.formBuilder.group({
-      itemCode: [null, Validators.required],
-      type: [null, Validators.required],
-      quantity: [null, Validators.required],
-      isChild: [null, Validators.required],
-      childItem: [null, Validators.required],
-    })
-  }
-
-  addAnotherRow() {
-    this.boqChildItem().push(this.childItemsArray());
-  }
-
-  removeRow(i: number, type: string) {
-    this.boqChildItem().removeAt(i);
-  }
-
-  createForm() {
-    console.clear();
-    this.button = 'Create';
-    this.update = false;
-    this.form.reset();
-  }
-
-  onItemSelect(item: any) {
-    var a = this.arr
-    var b = this.selectedItems
-    var c = a.filter(function (objFromA: any) {
-      return !b.find(function (objFromB: any) {
-        return objFromA.ussg_id === objFromB.ussg_id
-      })
-    })
-    this.arr = c;
-  }
-
-  onSelectAll(items: any) {
-    console.log(items);
-  }
-
-  rmovemember(data: any) { }
-
-  onItemDeSelect(item: any) {
-    this.rmovemember(item)
-    this.rmove = item;
-    this.arr.push(this.rmove);
   }
 
   getBoqListData() {
@@ -202,8 +172,22 @@ export class BoqItemsComponent {
       }
     }, (error: any) => {
       console.error(error);
-      this.docListData = undefined;
       this.isNotFound = true;
+      this.alertService.error("Error: Unknown Error!")
+    });
+  }
+
+  getItemListData(): void {
+    const apiLink = `/item/api/v1/getItemList`;
+    this.itemListData = undefined;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.itemListData = res.result;
+      } else {
+        this.alertService.warning(res.message);
+      }
+    }, (error: any) => {
+      console.error(error);
       this.alertService.error("Error: Unknown Error!")
     });
   }
@@ -212,9 +196,119 @@ export class BoqItemsComponent {
     this.itemList = data;
   }
 
+  getEditBOQList(data: any): void {
+    this.itemList =  [];
+    this.update = true;
+    this.button = 'Update';
+    this.boqList = data;
+  }
+
   getBOQList(data: any) {
     this.itemList =  [];
+    this.update = false;
+    this.button = 'Create';
     this.boqList = data;
+  }
+
+  editBOQParentItemList(data: any): void {
+    this.editParentItemForm = this.formBuilder.group({
+      boq_id: [this.itemList.boq_id, Validators.required],
+      itemcode: [data.itemcode, Validators.required],
+      item_id: [data.item_id, Validators.required],
+      qty: [data.qty, Validators.required],
+      unit_price: [data.unit_price, Validators.required],
+      freight_charges: [data.freight_charges, Validators.required],
+    })
+  }
+
+  get pic() { return this.editParentItemForm.controls; }
+
+  get addPIC() { return this.addParentItemForm.controls; }
+
+  addParentItem(): void {
+    this.itemList.items.push(this.addParentItemForm.value);
+    this.addParentItemForm.reset();
+  }
+
+  updateParentItem(): void {
+    this.itemList.items = this.itemList.items.map((item: any) => {
+      if (item.item_id == this.editParentItemForm.value.item_id) {
+        let match: any = item;
+        match.isUpdate = true;
+        match.qty = this.editParentItemForm.value.qty;
+        match.unit_price = this.editParentItemForm.value.unit_price;
+        match.freight_charges = this.editParentItemForm.value.freight_charges;
+        return match;
+      } else {
+        return item;
+      }
+    });
+  }
+
+  deleteBOQParentItemList(item: any): void {
+    this.itemList.items = this.itemList.items.filter((x: any) => x.item_id != item.item_id);
+  }
+
+  addBOQChildItem(): void {
+    let match: any = this.addChildItemForm.value;
+    match.isAdded = true;
+    match.isUpdate = false;
+    console.log(this.itemList);
+    this.itemList.items = this.itemList.items.map((item: any) => {
+      if (item.item_id == this.selectParentItemForUpdateChild.item_id) {
+        item.childItemList = item.childItemList ? item.childItemList : [];
+        item.childItemList.push(match);
+        return item;
+      }
+      return item;
+    });
+    this.addChildItemForm.reset();
+  }
+
+  selectParentForAddChildItem(data: any): void {
+    this.selectParentItemForUpdateChild = data;
+    console.log(this.selectParentItemForUpdateChild);
+  }
+
+  editBOQChildItemList(parentItem: any, childItem: any): void {
+    this.editChildItemForm = this.formBuilder.group({
+      boq_id: [this.itemList.boq_id, Validators.required],
+      itemcode: [childItem.itemcode, Validators.required],
+      parent_item_id: [parentItem.parent_item_id ? parentItem.parent_item_id : parentItem.item_id, Validators.required],
+      item_id: [childItem.item_id, Validators.required],
+      qty: [childItem.qty, Validators.required],
+      unit_price: [childItem.unit_price, Validators.required],
+      freight_charges: [childItem.freight_charges, Validators.required]
+    });
+  }
+
+  updateBOQChildItemList(): void {
+    this.itemList.items = this.itemList.items.map((item: any) => {
+      if (item.item_id == this.editChildItemForm.value.parent_item_id) {
+        item.childItemList = item.childItemList.map((childItem: any) => {
+          if (childItem.item_id == this.editChildItemForm.value.item_id) {
+            let match: any = childItem;
+            match.isUpdate = !this.editChildItemForm.value.isAdded;
+            match.qty = this.editChildItemForm.value.qty;
+            match.unit_price = this.editChildItemForm.value.unit_price;
+            match.freight_charges = this.editChildItemForm.value.freight_charges;
+            return match;
+          } else {
+            return childItem;
+          }
+        });
+      }
+      return item;
+    });
+  }
+
+  deleteBOQChildItemList(item: any, childItem: any): void {
+    this.itemList.items = this.itemList.items.map((x: any) => {
+      if (x.item_id == item.item_id) {
+        x.childItemList = x.childItemList.filter((y: any) => y.item_id != childItem.item_id);
+      }
+      return x;
+    });
   }
 
   get f() { return this.form.controls; }
@@ -227,19 +321,6 @@ export class BoqItemsComponent {
     for (let file of fileList) {
       this.listOfFiles.push(file.name);
       this.attachment.push(file);
-    }
-  }
-
-  download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
-    XLSX.writeFile(wb, 'Export Excel File.xlsx');
-  }
-
-  //create form submit
-  onSubmit() {
-    if (this.form.valid) {
-      this.isSubmitted = true;
-      this.loading = true;
     }
   }
 
@@ -263,6 +344,7 @@ export class BoqItemsComponent {
         this.ngOnInit();
       } else {
         this.isSubmitted = false;
+        this.errorItemList = res.Data;
         this.alertService.warning(res.message);
       }
     }, (error: any) => {
@@ -270,5 +352,10 @@ export class BoqItemsComponent {
       this.isSubmitted = false;
       this.alertService.error("Error: Unknown Error!");
     });
+  }
+
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
+    XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 }
