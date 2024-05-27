@@ -166,6 +166,37 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Category</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Sub-Category</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Capacity</label>
+                                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Execution Location<span class="required-asterisk">*</span></label>
+                                    <input formControlName="tender_location" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                    <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
+                                        <small class="text-danger" *ngIf="f['tender_location'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- <div class="form-group col-3">
                                 <label for="">Projects: <span class="required-asterisk">*</span></label>
                                 <select class="form-select form-select-sm" formControlName="documenttype_id">

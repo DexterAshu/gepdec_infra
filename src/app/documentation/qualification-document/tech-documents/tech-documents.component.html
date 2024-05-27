@@ -281,6 +281,30 @@
                                         value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Category</label>
+                                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Sub-Category</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Capacity</label>
+                                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Execution Location</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
                             <!-- <div class="col-md-1">
                                 <div class="modal-btns">
                                     <button type="button" class="btn btn-primary btn-fw btn-sm mt-4" (click)="addMultiTechPoints()" title="Add technical points" [disabled]="!form.valid">+ ADD</button>
@@ -380,7 +404,17 @@
                                         </tr>
                                         <tr>
                                             <th>Publish Date</th>
-                                            <td colspan="5">{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                                            <td >{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                                            <th>Category</th>
+                                            <td>{{ itemList?.qacatagory }}</td>
+                                            <th>Sub Category</th>
+                                            <td>{{ itemList?.subqacatagory }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th> Capacity</th>
+                                            <td>{{ itemList?.capacity }}</td>
+                                            <th>Execution Location</th>
+                                            <td>{{ itemList?.exe_Location }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
