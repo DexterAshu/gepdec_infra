@@ -419,8 +419,9 @@
                                            
                                             <th>Reverse Auction</th>
                                             <td>{{ rowData?.reserve_auction }}</td>
-                                            <th>Tender Status</th>
-                                            <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td>
+                                            <th>Current Status</th>
+                                            <!-- <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td> -->
+                                            <td class="badge badge-primary mt-2">{{ rowData?.request_status }}</td>
                                            
                                         </tr>
                                         <tr>
@@ -897,7 +898,7 @@
                             <!-- tender status modal start-->
                             <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
                                 <div class="row mt-3" *ngIf="rowData?.prequalification?.length !== 0 && rowData?.tenderfinancials.length !== 0" >
-                                        <div class="col-md-3" *ngIf="this.userData.rolename == 'Manager'">
+                                        <!-- <div class="col-md-3" *ngIf="this.userData.rolename == 'Manager'">
                                            
                                             <div class="form-group">
                                                 <label class="form-label fl-10">Tender Status<span
@@ -913,8 +914,8 @@
                                                         *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3" *ngIf="this.userData.rolename == 'PreSales'">
+                                        </div> -->
+                                        <div class="col-md-3" >
                                           
                                             <div class="form-group">
                                                 <label class="form-label fl-10">Request Status<span

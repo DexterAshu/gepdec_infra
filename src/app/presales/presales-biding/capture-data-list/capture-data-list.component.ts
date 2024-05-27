@@ -207,21 +207,21 @@ this.statusList=roleD[0].roleStatus
 
   onSubmit() {
     if (this.form.valid) {
-      if(this.userData.rolename == 'PreSales'){
-        this.form.value.tenderstatus_id = this.reqList.requeststatus_id;
-      }
+      // if(this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager'){
+      //   this.form.value.requeststatus_id = this.reqList.requeststatus_id;
+      // }
       this.isSubmitted = true;
       this.loading = true;
       this.sendApproval();
     }
 
-    if (this.form.value.tenderstatus_id) {
-      this.tendStatusData = this.tendStatus.filter((item: any) => {
-        return item.tenderstatus_id == this.form.value.tenderstatus_id;
-      });
-      this.form.value.tenderstatus_id = this.tendStatusData[0]['tenderstatus_id'];
-      console.log(this.form.value.tenderstatus_id);
-    }
+    // if (this.form.value.tenderstatus_id) {
+    //   this.tendStatusData = this.tendStatus.filter((item: any) => {
+    //     return item.tenderstatus_id == this.form.value.tenderstatus_id;
+    //   });
+    //   this.form.value.tenderstatus_id = this.tendStatusData[0]['tenderstatus_id'];
+    //   console.log(this.form.value.tenderstatus_id);
+    // }
   }
 
   sendBack() {
@@ -250,25 +250,48 @@ this.statusList=roleD[0].roleStatus
   }
 
   sendApproval() {
-    if(this.userData.rolename == 'PreSales'){
-      this.form.value.requeststatus_id = this.reqList[0].requeststatus_id;
-    }
-    this.form.value.tender_id = this.tenderData[0].tender_id;
-    this.apiService.createApproval(this.form.value).subscribe((res: any) => {
-      let response: any = res;
-      document.getElementById('cancel')?.click();
-      this.isSubmitted = false;
-      if (response.status == 200) {
-        this.userData.rolename === 'Manager' && this.sendForApprovalClicked == true;
-        this.form.reset();
-        this.getTenderData();
-        this.alertService.success(response.message);
-      } else {
-        this.alertService.warning(response.message);
+    if(this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager'){
+      var reqTend = {
+        requeststatus_id : this.reqList[0].requeststatus_id,
+        tender_id : this.tenderData[0].tender_id,
       }
-    }, (error: any) => {
-      this.isNotFound = false;
-      this.alertService.error("Error: Unknown Error!")
-    })
+      this.apiService.createApproval(reqTend).subscribe((res: any) => {
+        let response: any = res;
+        document.getElementById('cancel')?.click();
+        this.isSubmitted = false;
+        if (response.status == 200) {
+          this.form.reset();
+          this.getTenderData();
+          this.alertService.success(response.message);
+        } else {
+          this.alertService.warning(response.message);
+        }
+      }, (error: any) => {
+        this.isNotFound = false;
+        this.alertService.error("Error: Unknown Error!")
+      })
+    
+    }
+    else{
+      this.form.value.requeststatus_id = this.reqList[0].requeststatus_id;
+      this.form.value.tender_id = this.tenderData[0].tender_id;
+      this.apiService.createApproval(this.form.value).subscribe((res: any) => {
+        let response: any = res;
+        document.getElementById('cancel')?.click();
+        this.isSubmitted = false;
+        if (response.status == 200) {
+          this.userData.rolename === 'Manager' && this.sendForApprovalClicked == true;
+          this.form.reset();
+          this.getTenderData();
+          this.alertService.success(response.message);
+        } else {
+          this.alertService.warning(response.message);
+        }
+      }, (error: any) => {
+        this.isNotFound = false;
+        this.alertService.error("Error: Unknown Error!")
+      })
+
+    }
   }
 }
