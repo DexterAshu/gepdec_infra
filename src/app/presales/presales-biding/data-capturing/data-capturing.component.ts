@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@ang
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import {NgSelectModule, NgOption} from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-data-capturing',
@@ -49,7 +50,7 @@ export class DataCapturingComponent {
   selectPGField: boolean = false;
   selectPrebidField: boolean = false;
   tenderData: any
-  companyDetails: any;
+  // companyDetails: any;
   update: boolean = false;
   button: string = 'Save & Continue';
   payment: any;
@@ -66,6 +67,9 @@ export class DataCapturingComponent {
   capacityData: any;
   apiLink: any;
   tendContDetails: any;
+  multiLocation:any;
+  // addCustomLocation:any;
+  selectedUserIds:any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -95,7 +99,9 @@ export class DataCapturingComponent {
       qacatagory_id: [null],
       subqacatagory_id: [null],
       bidtype_id: [null, Validators.required],
-      tender_location: [null, Validators.required],
+       tender_location: [null, Validators.required],
+      //  tender_location: new FormArray([]),
+      // tender_location_type: [null, Validators.required],
       publish_date: [null, Validators.required],
       contact: this.formBuilder.array([]),
       // prebid_submission_date:[null, Validators.required],
@@ -176,6 +182,8 @@ export class DataCapturingComponent {
       }
     });
   }
+
+  addCustomLocation = (term:any) => ({id: term, tender_location: term});
 
   getStateData() {
     let countrydata = this.form.value.country_id;
@@ -605,8 +613,8 @@ export class DataCapturingComponent {
       document.getElementById('cancel')?.click();
       this.isSubmitted = false;
       if (response.status == 200) {
-        this.getCompanyData();
-        this.form.reset();
+        this.router.navigate(['/presales/presales-biding/data-capture-list']);
+        // this.form.reset();
         this.alertService.success(response.message);
       } else {
         this.alertService.warning(response.message);
@@ -624,7 +632,6 @@ export class DataCapturingComponent {
       this.update = true;
       this.isSubmitted = false;
       if (res.status == 200) {
-        this.ngOnInit();
         this.router.navigate(['/presales/presales-biding/data-capture-list']);
         this.alertService.success(res.message);
       } else if (res.status == 201) {

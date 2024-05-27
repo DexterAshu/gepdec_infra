@@ -280,7 +280,7 @@
                                         <tr>
                                            
                                             <th>Soft Copy Submission Date </th>
-                                            <td>{{ rowData?.tender_submission_date }}</td>
+                                            <td>{{ rowData?.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
                                             <th>Hard Copy Submission Date </th>
                                             <td>
                                                 <span *ngIf="!!rowData?.tenderhardcopysubmission_date; else elseBlock7">
@@ -439,7 +439,7 @@
                                         <tr>
                                             
                                             <th>Created On</th>
-                                            <td>{{ rowData?.created }}</td>
+                                            <td>{{ rowData?.created | date: 'dd/MM/yyyy' }}</td>
                                             <th>Created By</th>
                                             <td>{{ rowData?.createdby_name }}</td>
                                             <th></th>
