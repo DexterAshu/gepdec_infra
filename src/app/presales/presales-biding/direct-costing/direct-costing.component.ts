@@ -69,7 +69,7 @@ export class DirectCostingComponent {
   }
 
   getBOQItemList(data: any) {
-    debugger
+    this.totalDirectCost = 0;
     this.itemList = [];
     this.itemList = data;
     this.itemList?.items.map((item: any) => this.totalDirectCost += item?.total_basic_value ); 

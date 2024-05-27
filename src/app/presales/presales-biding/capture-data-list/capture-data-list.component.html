@@ -327,13 +327,13 @@
                                                 </ng-template>
                                             </td>
                                             <th>ECV (INR)</th>
-                                            <td>{{ rowData?.ecv | currency:'INR':'':'1.2-2' }}</td>
+                                            <td>{{ rowData?.ecv | currency: 'INR': '' : '1.0-2' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Registration Fees</th>
-                                            <td>{{ rowData?.tender_fee | currency:'INR':'':'1.2-2' }}</td>
+                                            <td>{{ rowData?.tender_fee | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Document Cost</th>
-                                            <td>{{ rowData?.tender_doc_cost  | currency:'INR':'':'1.2-2' }}</td>
+                                            <td>{{ rowData?.tender_doc_cost  | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Bid Validity (Days)</th>
                                             <td>{{ rowData?.bid_validity }}</td>
                                             <th>Complition period (Months)</th>
@@ -345,7 +345,7 @@
                                             <th>Security Amount</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.security_amount; else elseBlock11">
-                                                    {{ rowData?.security_amount | currency:'INR':'':'1.2-2' }}
+                                                    {{ rowData?.security_amount | currency: 'INR': '' : '1.0-2' }}
                                                 </span>
                                                 <ng-template #elseBlock11>
                                                     --
@@ -378,7 +378,7 @@
                                             <th>EMD Amount</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.emd_ammount; else elseBlock14">
-                                                    {{ rowData?.emd_ammount | currency:'INR':'':'1.2-2'  }}
+                                                    {{ rowData?.emd_ammount | currency: 'INR': '' : '1.0-2'  }}
                                                 </span>
                                                 <ng-template #elseBlock14>
                                                     --

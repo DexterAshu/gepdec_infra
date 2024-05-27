@@ -33,7 +33,7 @@ export class MasterService {
   
   userByDepartment(id: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.post<any[]>(`${environment.apiUrl}/user/api/v1/getuser/${id}`, httpOptions );
+    return this.http.get<any[]>(`${environment.apiUrl}/user/api/v1/getuser?usdt_id=${id}`, httpOptions );
   }
 
   //User-API

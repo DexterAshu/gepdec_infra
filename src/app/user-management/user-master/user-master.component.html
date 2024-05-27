@@ -187,8 +187,7 @@
                                     <select class=" form-select form-control-sm" formControlName="usdt_id">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Department
                                         </option>
-                                        <option *ngFor="let user of dropdownData?.department" [value]="user?.usdt_id">
-                                            {{user?.deptname}} </option>
+                                        <option *ngFor="let user of dropdownData?.department" [value]="user?.usdt_id"> {{user?.deptname}} </option>
                                     </select>
                                     <div *ngIf="f['usdt_id'].touched && f['usdt_id'].invalid">
                                         <small class="text-danger"

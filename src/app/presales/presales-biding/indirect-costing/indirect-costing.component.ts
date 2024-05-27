@@ -25,8 +25,11 @@ export class IndirectCostingComponent {
   overHeadData: any = [];
   indexData: any = [];
   mainArray: any = [];
-  rowData: any;
+  itemList: any;
   indirectCostTotal: number = 0;
+  deptData: any;
+  userList: any;
+  isShowModal: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,11 +45,12 @@ export class IndirectCostingComponent {
       expenses: [null, Validators.required],
       unitCost: [null],
       multiplier: [null],
+      department: [null],
     });
 
     this.getClientData();
     this.getDataList();
-    this.getDropdownList()
+    this.getDropdownList();
   } 
 
   get f() { return this.form.controls; }
@@ -68,6 +72,7 @@ export class IndirectCostingComponent {
     this.tenderData = [];
     this.tenderDetailedData = [];
     this.overHeadData = [];
+    this.userList = [];
     this.mainArray = [];
     this.indexData = [];
     this.form.controls['expenses'].reset();
@@ -87,6 +92,7 @@ export class IndirectCostingComponent {
   getDetailedData(tender_id: any) {
     this.tenderDetailedData = [];
     this.overHeadData = [];
+    this.userList = [];
     this.mainArray = [];
     this.indexData = [];
     this.form.controls['expenses'].reset();
@@ -111,38 +117,80 @@ export class IndirectCostingComponent {
 
   overHeadDetails(data: any) {
     this.overHeadData = [];
+    this.userList = [];
     this.mainArray = [];
     this.indexData = [];
-    let apiLink = "/costing/api/v1/getCostingByCostType/" + data;
-    this.apiService.getData(apiLink).subscribe((res:any) => {
-      if (res.status === 200) {
-        this.overHeadData = res.result;
-      } else {
+    this.form.controls['department'].reset();
+    if(!(data == '2038' || data == '2039')) {
+      this.isShowModal = false;
+      let apiLink = "/costing/api/v1/getCostingByCostType/" + data;
+      this.apiService.getData(apiLink).subscribe((res:any) => {
+        if (res.status === 200) {
+          this.overHeadData = res.result;
+        } else {
+          this.overHeadData = undefined;
+          this.alertService.warning("Looks like no data available!");
+        }
+      }, (error: any) => {
         this.overHeadData = undefined;
-        this.alertService.warning("Looks like no data available!");
+        this.alertService.error("Error: Unknown Error!");
+      });
+    } else {
+      this.getDepartmentData();
+      this.isShowModal = true;
+    }
+  }
+
+  getDepartmentData() {
+    this.deptData = [];
+    this.mainArray = [];
+    this.indexData = [];
+    this.masterService.getUserMaster().subscribe((res: any) => {
+      if(res.status == 200) {
+        this.deptData = res.department;
+      } else {
+        this.alertService.warning('Looks like no data available in list.');
       }
-    }, (error: any) => {
-      this.overHeadData = undefined;
-      this.alertService.error("Error: Unknown Error!");
+    });
+  }
+
+  getUserList(dept: any) {
+    this.userList = [];
+    this.mainArray = [];
+    this.indexData = [];
+    this.masterService.userByDepartment(dept).subscribe((res: any) => {
+      if(res.status == 200) {
+        if(res.result.length > 0) {
+          this.userList = res.result;
+        } else {
+          this.userList = undefined;
+          this.alertService.warning('Looks like no data available in list.');
+        }
+      } else {
+        this.alertService.warning('Looks like no data available in list.');
+      }
     });
   }
 
   selectRec(data:any, e:any, index:number) {
+    debugger
     if(e.target.checked == true) {
-      if(!data.multiplier || data.multiplier == null || data.unitcost == null) {
+      if(!data.multiplier && data.multiplier == null) {
         e.target.checked = false;
         this.alertService.warning("Please fill fields properly then click on checkbox.");  
       } else {
         this.indexData.push(index);
-        var totalVal = data.unitcost * data.multiplier;
+        var totalVal = data?.involvement == undefined ? (data.unitcost * data.multiplier) : ((data.sallary * data.multiplier * data.involvement) / 100);
         let finalData =  { 
-          costdetail_id: data.costdetail_id, 
-          unit_id: data.unit_id, 
-          unitcost: data.unitcost, 
+          costdetail_id: data.costdetail_id == undefined ? null : data.costdetail_id, 
+          unit_id: data?.involvement == undefined ? "9011" : data.unit_id, 
+          unitcost: data?.unitcost != undefined ? data?.unitcost : data?.sallary,
           multiplier: data.multiplier, 
           days: null, 
           person: null, 
           total: totalVal,
+          employee_id: data.user_id == undefined ? null : data.user_id,
+          percentage_involvment: data.involvement == undefined ? null : data.involvement,
         }
         this.mainArray.push(finalData);
       }
@@ -174,9 +222,10 @@ export class IndirectCostingComponent {
   }
 
   rowListData(row:any) {
-    this.rowData = [];
-    this.rowData = row;
-    this.rowData?.indirectCost.filter((el:any) => { this.indirectCostTotal += +el?.total; } )
+    this.indirectCostTotal = 0;
+    this.itemList = [];
+    this.itemList = row;
+    this.itemList?.indirectCost.filter((el:any) => { this.indirectCostTotal += +el?.all_total; } )
   }
 
   onSubmit() {

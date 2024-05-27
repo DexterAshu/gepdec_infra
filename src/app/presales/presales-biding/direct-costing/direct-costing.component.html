@@ -153,8 +153,8 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                             <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' }}</td>
                                             <th>Execution Location</th>
                                             <td>{{ itemList?.tender_location }}</td>
-                                            <th>Total Direct Costing</th>
-                                            <td>{{ totalDirectCost }}</td>
+                                            <th>Total Direct Cost</th>
+                                            <td>{{ totalDirectCost | currency: 'INR': '' : '1.0-2' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -164,7 +164,7 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                         <table class="table table-hover table-striped">
                                             <thead class="table-primary text-nowrap">
                                                 <tr class="text-center">
-                                                    <th colspan="9">{{main?.category}} - {{main?.subcategory}}</th>
+                                                    <th colspan="12">{{main?.category}} - {{main?.subcategory}}</th>
                                                 </tr>
                                                 <tr>
                                                     <th>S No</th>
@@ -173,8 +173,11 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                                     <th>UOM</th>
                                                     <th>Category</th>
                                                     <th>Sub-Category</th>
+                                                    <th>HSN Code</th>
                                                     <th>Unit Price</th>
                                                     <th>Quantity</th>
+                                                    <th>GST</th>
+                                                    <th>Freight</th>
                                                     <th>Total Price</th>
                                                 </tr>
                                             </thead>
@@ -196,20 +199,23 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                                     <td>{{ item?.uom }}</td>
                                                     <td>{{ item?.itemcategory }}</td>
                                                     <td>{{ item?.subcategory }}</td>
-                                                    <td>{{ item?.unit_price | currency:'INR':'':'1.2-2' }}</td>
+                                                    <td>{{ item?.hsn_code }}</td>
+                                                    <td>{{ item?.unit_price | currency: 'INR': '' : '1.0-2' }}</td>
                                                     <td>{{ item?.qty }}</td>
-                                                    <td>{{ item?.total_value | currency:'INR':'':'1.2-2' }}</td>
+                                                    <td>{{ item?.gst != null ? item?.gst : 0 }}</td>
+                                                    <td>{{ item?.freight_charges != null ? item?.freight_charges : 0 }}</td>
+                                                    <td>{{ item?.total_value | currency: 'INR': '' : '1.0-2' }}</td>
                                                 </tr>
                                                 <tr class="table-footer fw-bold">
-                                                    <td colspan="8">Total</td>
-                                                    <td>{{ main?.total_basic_value | currency:'INR':'':'1.2-2' }}</td>
+                                                    <td colspan="11">Total Cost</td>
+                                                    <td>{{ main?.total_basic_value | currency: 'INR': '' : '1.0-2' }}</td>
                                                 </tr>
                                                 <tr *ngIf="isNotFound == true">
                                                     <td colspan="15" class="text-center">
                                                         <div class="spinner-border"> </div>
                                                     </td>
                                                 </tr>
-                                                <tr *ngIf="itemList?.length == 0">
+                                                <tr *ngIf="main?.items?.length == 0">
                                                     <td colspan="15" class="text-center">
                                                         <div class="text-warning fw-semibold">Looks like no data available!
                                                         </div>

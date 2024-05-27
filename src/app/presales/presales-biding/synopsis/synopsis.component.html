@@ -290,11 +290,11 @@
                                                 </ng-template>
                                             </td>
                                             <th>ECV (INR)</th>
-                                            <td>{{ rowData?.ecv | currency:'INR':'':'1.2-2' }}</td>
+                                            <td>{{ rowData?.ecv | currency: 'INR': '' : '1.0-2' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Registration Fees</th>
-                                            <td>{{ rowData?.tender_fee | currency:'INR':'':'1.2-2' }}</td>
+                                            <td>{{ rowData?.tender_fee | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Document Cost</th>
                                             <td>{{ rowData?.tender_doc_cost  | currency:'INR':'':'1.2-2' }}</td>
                                             <th>Bid Validity (Days)</th>
