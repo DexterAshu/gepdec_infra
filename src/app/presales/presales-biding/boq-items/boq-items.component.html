@@ -310,57 +310,53 @@
                 <th>Basic Value</th>
                 <th>Freight Charges</th>
                 <th *ngIf="update">Action</th>
-                <th>Child Items</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let item of itemList?.items; index as i">
-                <td>{{ i+1 }}</td>
-                <td>{{ item?.itemcode }}</td>
-                <td>
-                  <div *ngIf="!!item?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}">{{item?.description | slice:0:30}} <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                  <ng-template #elseBlock5>{{item?.description}}</ng-template>
-                </td>
-                <td>{{ item?.uom }}</td>
-                <td>{{ item?.qty }}</td>
-                <td>{{ item?.unit_price }}</td>
-                <td>{{ item?.qty * item?.unit_price }}</td>
-                <td>{{ item?.freight_charges }}</td>
-                <td *ngIf="update">
-                  <a (click)="editBOQParentItemList(item)" data-bs-toggle="modal" data-bs-target="#boqParentItemFormModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                  <a (click)="deleteBOQParentItemList(item)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
-                </td>
-                <td>
-                  <table class="table table-hover table-striped custom-table">
-                    <thead class="table-primary text-nowrap"></thead>
-                    <tbody class="text-nowrap">
-                      <tr *ngFor="let childItem of item?.childItemList; index as ci">
-                        <td> {{i+1}}.{{ci+1}}</td>
-                        <td> {{childItem?.itemcode}}</td>
-                        <td>
-                          <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ childItem?.description }}">{{childItem?.description | slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                          <ng-template #elseBlock5>{{childItem?.description}}</ng-template>
-                        </td>
-                        <td>{{ childItem?.uom }}</td>
-                        <td>{{ childItem?.qty }}</td>
-                        <td>{{ childItem?.unit_price }}</td>
-                        <td>{{ childItem?.qty * childItem?.unit_price }}</td>
-                        <td>{{ childItem?.freight_charges }}</td>
-                        <td *ngIf="update">
-                          <a (click)="editBOQChildItemList(item, childItem)" data-bs-target="#boqChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                          <a (click)="deleteBOQChildItemList(item, childItem)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
-                        </td>
-                      </tr>
-                      <tr *ngIf="update">
-                        <td colspan="15" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3" data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-              <tr *ngIf="update">
-                <td colspan="15" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
-              </tr>
+              <ng-container *ngFor="let item of itemList?.items; index as i">
+                <tr>
+                  <td>{{ i+1 }}</td>
+                  <td>{{ item?.itemcode }}</td>
+                  <td>
+                    <div *ngIf="!!item?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}">{{item?.description | slice:0:30}} <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock5>{{item?.description}}</ng-template>
+                  </td>
+                  <td>{{ item?.uom }}</td>
+                  <td>{{ item?.qty }}</td>
+                  <td>{{ item?.unit_price }}</td>
+                  <td>{{ item?.qty * item?.unit_price }}</td>
+                  <td>{{ item?.freight_charges }}</td>
+                  <td *ngIf="update">
+                    <a (click)="editBOQParentItemList(item)" data-bs-toggle="modal" data-bs-target="#boqParentItemFormModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                    <a (click)="deleteBOQParentItemList(item)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                  </td>
+                </tr>
+                <ng-container *ngIf="item?.childItemList?.length > 0">
+                  <tr *ngFor="let childItem of item?.childItemList; index as ci">
+                    <td> {{i+1}}.{{ci+1}}</td>
+                    <td> {{childItem?.itemcode}}</td>
+                    <td>
+                      <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ childItem?.description }}">{{childItem?.description | slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                      <ng-template #elseBlock5>{{childItem?.description}}</ng-template>
+                    </td>
+                    <td>{{ childItem?.uom }}</td>
+                    <td>{{ childItem?.qty }}</td>
+                    <td>{{ childItem?.unit_price }}</td>
+                    <td>{{ childItem?.qty * childItem?.unit_price }}</td>
+                    <td>{{ childItem?.freight_charges }}</td>
+                    <td *ngIf="update">
+                      <a (click)="editBOQChildItemList(item, childItem)" data-bs-target="#boqChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                      <a (click)="deleteBOQChildItemList(item, childItem)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="update">
+                    <td colspan="15" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3" data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                  </tr>
+                </ng-container>
+                <tr *ngIf="update">
+                  <td colspan="15" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                </tr>
+              </ng-container>
             </tbody>
           </app-responsive-table>
           <div class="row float-right mt-2" *ngIf="update">
