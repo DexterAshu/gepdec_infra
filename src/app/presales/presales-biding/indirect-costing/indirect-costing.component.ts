@@ -183,7 +183,7 @@ export class IndirectCostingComponent {
         var totalVal = data?.involvement == undefined ? (data.unitcost * data.multiplier) : ((data.sallary * data.multiplier * data.involvement) / 100);
         let finalData =  { 
           costdetail_id: data.costdetail_id == undefined ? null : data.costdetail_id, 
-          unit_id: data?.involvement == undefined ? "9011" : data.unit_id, 
+          unit_id: data?.involvement != undefined ? "9011" : data.unit_id, 
           unitcost: data?.unitcost != undefined ? data?.unitcost : data?.sallary,
           multiplier: data.multiplier, 
           days: null, 

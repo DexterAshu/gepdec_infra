@@ -178,7 +178,7 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                                     <th>Quantity</th>
                                                     <th>GST</th>
                                                     <th>Freight</th>
-                                                    <th>Total Price</th>
+                                                    <th class="text-end">Total Price</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-nowrap">
@@ -204,11 +204,11 @@ data-bs-backdrop="static" data-bs-keyboard="true">
                                                     <td>{{ item?.qty }}</td>
                                                     <td>{{ item?.gst != null ? item?.gst : 0 }}</td>
                                                     <td>{{ item?.freight_charges != null ? item?.freight_charges : 0 }}</td>
-                                                    <td>{{ item?.total_value | currency: 'INR': '' : '1.0-2' }}</td>
+                                                    <td class="text-end">{{ item?.total_value | currency: 'INR': '' : '1.0-2' }}</td>
                                                 </tr>
                                                 <tr class="table-footer fw-bold">
                                                     <td colspan="11">Total Cost</td>
-                                                    <td>{{ main?.total_basic_value | currency: 'INR': '' : '1.0-2' }}</td>
+                                                    <td class="text-end">{{ main?.total_basic_value | currency: 'INR': '' : '1.0-2' }}</td>
                                                 </tr>
                                                 <tr *ngIf="isNotFound == true">
                                                     <td colspan="15" class="text-center">
