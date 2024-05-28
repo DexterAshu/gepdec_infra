@@ -65,6 +65,7 @@ export class DataCapturingComponent {
   subCategoryData: any;
   capacityData: any;
   apiLink: any;
+  tendContDetails: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -293,9 +294,13 @@ export class DataCapturingComponent {
       this.update = true;
 
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-debugger
+
         console.log(res);
+        this.tendContDetails = [];
         this.custDetails = res.result[0];
+        this.tendContDetails = res.result[0].tendercontact;
+        console.log(this.tendContDetails);
+       
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
@@ -347,28 +352,18 @@ debugger
           state_id: this.custDetails.state_id,
           district_id: this.custDetails.district_id,
           financialyear_id: this.custDetails.financialyear_id,
-          remarks: this.custDetails.remarks,
-          audit_trail: this.custDetails.audit_trail,
+          remarks: this.custDetails.remarks.join('\n'),
+          audit_trail: this.custDetails.audit_trail.join('\n'),
+          contactperson_check: this.custDetails.contactperson_check,
         });
        
-          setTimeout(()=>{
-            // this.getSubData(this.custDetails.qacatagory_id);
-            // this.getSubData(this.custDetails.qacatagory_id);
-            this.form.patchValue({
-              subqacatagory_id: this.custDetails.subqacatagory_id,
-              capacity_id: this.custDetails.capacity_id,
+          // setTimeout(()=>{
+          //   this.form.patchValue({
+          //     subqacatagory_id: this.custDetails.subqacatagory_id,
+          //     capacity_id: this.custDetails.capacity_id,
 
-            })
-          },400);
-          setTimeout(()=>{
-            this.form.patchValue({
-       
-            })
-          },800);
-
-          setTimeout(()=>{
-            this.getCapacityData(this.custDetails.subqacatagory_id);
-          },400);
+          //   })
+          // },400);
         
         setTimeout(() => {
           this.getStateData();

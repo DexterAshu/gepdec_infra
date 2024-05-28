@@ -241,7 +241,7 @@
                     <tr *ngFor="let files of attachmentName; let i = index">
                       <td><p class="h5">{{files.name}}</p></td>
                       <td>{{files.date | date: 'dd/MM/yyyy'}}</td>
-                      <td>{{files.size/1024 | number: '1.2-2'}} KB</td>
+                      <td>{{files.size/1024 | number: '1.0-2'}} KB</td>
                       <td class="text-right"><a title="Remove file" (click)="deleteFile(i)"><span class="mdi mdi-folder-remove text-danger cursor-pointer mdi-18px"></span></a>&nbsp;</td>
                     </tr>
                   </tbody>

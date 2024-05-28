@@ -95,7 +95,7 @@
                                 <th>Execution Location</th>
                                 <th>ECV (INR)</th>
                                 <th>Submission Date</th>
-                                <th>Tender Status</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -127,9 +127,9 @@
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.ecv }}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
-                                <td>{{ a.tender_status}}</td>
+                                <td>{{ a?.request_status}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                    <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
                                     <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                                     <!-- &nbsp; -->
@@ -327,13 +327,13 @@
                                                 </ng-template>
                                             </td>
                                             <th>ECV (INR)</th>
-                                            <td>{{ rowData?.ecv | currency:'INR':'':'1.2-2' }}</td>
+                                            <td>{{ rowData?.ecv | currency: 'INR': '' : '1.0-2' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Registration Fees</th>
-                                            <td>{{ rowData?.tender_fee | currency:'INR':'':'1.2-2' }}</td>
+                                            <td>{{ rowData?.tender_fee | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Document Cost</th>
-                                            <td>{{ rowData?.tender_doc_cost  | currency:'INR':'':'1.2-2' }}</td>
+                                            <td>{{ rowData?.tender_doc_cost  | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Bid Validity (Days)</th>
                                             <td>{{ rowData?.bid_validity }}</td>
                                             <th>Complition period (Months)</th>
@@ -345,7 +345,7 @@
                                             <th>Security Amount</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.security_amount; else elseBlock11">
-                                                    {{ rowData?.security_amount | currency:'INR':'':'1.2-2' }}
+                                                    {{ rowData?.security_amount | currency: 'INR': '' : '1.0-2' }}
                                                 </span>
                                                 <ng-template #elseBlock11>
                                                     --
@@ -378,7 +378,7 @@
                                             <th>EMD Amount</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.emd_ammount; else elseBlock14">
-                                                    {{ rowData?.emd_ammount | currency:'INR':'':'1.2-2'  }}
+                                                    {{ rowData?.emd_ammount | currency: 'INR': '' : '1.0-2'  }}
                                                 </span>
                                                 <ng-template #elseBlock14>
                                                     --
@@ -419,8 +419,9 @@
                                            
                                             <th>Reverse Auction</th>
                                             <td>{{ rowData?.reserve_auction }}</td>
-                                            <th>Tender Status</th>
-                                            <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td>
+                                            <th>Current Status</th>
+                                            <!-- <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td> -->
+                                            <td class="badge badge-primary mt-2">{{ rowData?.request_status }}</td>
                                            
                                         </tr>
                                         <tr>
@@ -896,11 +897,10 @@
 
                             <!-- tender status modal start-->
                             <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
-                                <div class="row mt-3">
-                                        <div class="col-md-3">
+                                <div class="row mt-3" *ngIf="rowData?.prequalification?.length !== 0 && rowData?.tenderfinancials.length !== 0" >
+                                        <!-- <div class="col-md-3" *ngIf="this.userData.rolename == 'Manager'">
+                                           
                                             <div class="form-group">
-                                                <!-- <label class="form-label fl-10"  *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'">Tender Recommendations <span
-                                                        class="required-asterisk">*</span></label> -->
                                                 <label class="form-label fl-10">Tender Status<span
                                                         class="required-asterisk">*</span></label>
                                                 <select formControlName="tenderstatus_id"
@@ -908,6 +908,23 @@
                                                     <option [value]="null" disabled selected>Select Status</option>
                                                     <option *ngFor="let c of statusList" [value]="c.tenderstatus_id">{{
                                                         c.tender_status }}</option>
+                                                </select>
+                                                <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
+                                                    <small class="text-danger"
+                                                        *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-md-3" >
+                                          
+                                            <div class="form-group">
+                                                <label class="form-label fl-10">Request Status<span
+                                                        class="required-asterisk">*</span></label>
+                                                <select formControlName="tenderstatus_id"
+                                                    class="form-select form-select-sm">
+                                                    <option [value]="null" disabled selected>Select Status</option>
+                                                    <option *ngFor="let c of reqList" [value]="c.requeststatus_id">{{
+                                                        c.request_status }}</option>
                                                 </select>
                                                 <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
                                                     <small class="text-danger"

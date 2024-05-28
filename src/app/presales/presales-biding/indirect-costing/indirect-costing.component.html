@@ -68,9 +68,7 @@
                                 <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
                                 <td>
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details" (click)="rowListData(a)"><span
-                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
@@ -127,7 +125,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div [class]="isShowModal ? 'col-md-2' : 'col-md-3'">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Title<span
                                             class="required-asterisk">*</span></label>
@@ -144,7 +142,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div [class]="isShowModal ? 'col-md-2' : 'col-md-3'">
                                 <div class="form-group">
                                     <label class="form-label fl-10">NIT No</label>
                                     <input class="form-control form-control-sm" readonly value="{{tenderDetailedData[0]?.tender_ref_no}}">
@@ -175,10 +173,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-2" *ngIf="isShowModal">
+                                <div class="form-group">
+                                    <label class="form-label">Department<span class="required-asterisk">*</span></label>
+                                    <select formControlName="department" #dept class="form-select form-select-sm" (change)="getUserList(dept.value)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Department</option>
+                                        <option *ngFor="let t of deptData" [value]="t?.usdt_id"> {{t?.deptname}} </option>
+                                    </select>
+                                    <div *ngIf="f['department'].touched && f['department'].invalid">
+                                        <small class="text-danger" *ngIf="f['department'].errors?.['required']">*Required</small>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </form>
-                    <div class="table-responsive" *ngIf="form.value.expenses != null">
+                    <div class="table-responsive" *ngIf="(!isShowModal) && form.value.expenses != null">
                         <table class="table table-hover table-striped custom-table table-bordered">
                             <thead class="table-primary text-nowrap">
                                 <tr>
@@ -214,6 +224,62 @@
                                             type="checkbox" (click)="selectRec(a, $event, j)">
                                     </td>
                                 </tr>
+                                <tr *ngIf="overHeadData?.length == 0">
+                                    <td colspan="15" class="text-center">
+                                        <div class="spinner-border"> </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive" *ngIf="isShowModal && form.value.department != null">
+                        <table class="table table-hover table-striped custom-table table-bordered">
+                            <thead class="table-primary text-nowrap">
+                                <tr>
+                                    <th>S No</th>
+                                    <th>Department</th>
+                                    <th>Designation</th>
+                                    <th>Name</th>
+                                    <th>UOM</th>
+                                    <th>Salary</th>
+                                    <th>Months</th>
+                                    <th>% Involvement </th>
+                                    <th>Total Cost</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="text-nowrap">
+                                <tr *ngFor="let a of userList; index as j">
+                                    <td>{{ limit*(p-1)+j+1 }}</td>
+                                    <td>{{ a?.deptname }}</td>
+                                    <td>{{ a?.designationname }}</td>
+                                    <td>{{a?.title}} {{ a?.first_name }} {{ a?.last_name }}</td>
+                                    <td>Month</td>
+                                    <td>
+                                        <input [disabled]="indexData.includes(j)" type="number" [(ngModel)]="a.sallary" class="form-control form-control-sm">
+                                    </td>
+                                    <td>
+                                        <input [disabled]="indexData.includes(j)" type="number" class="form-control form-control-sm" [(ngModel)]="a.multiplier">
+
+                                    </td>
+                                    <td>
+                                        <input [disabled]="indexData.includes(j)" type="number" class="form-control form-control-sm" [(ngModel)]="a.involvement" min="0" max="100">
+                                        <small class="text-danger" *ngIf="a.involvement > 100 || a.involvement < 0">*Range 0-100</small>
+                                    </td>
+                                    <td>
+                                        <span class="form-control form-control-sm">{{ !a.multiplier ? 0 : !a.involvement ? 0 : ((a.sallary) * (a.multiplier) * (a.involvement)) / 100 }}</span>
+                                    </td>
+                                    <td>
+                                        <input [disabled]="!a.multiplier || a.multiplier == null || !a.involvement || a.involvement == null || a.sallary == null" type="checkbox" (click)="selectRec(a, $event, j)">
+                                    </td>
+                                </tr>
+                                <tr *ngIf="userList?.length == 0">
+                                    <td colspan="15" class="text-center">
+                                        <div class="spinner-border"> </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -247,35 +313,100 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12 p-0">
-                            <div class="table-responsive pt-2" style="min-height: auto;">
-                                <table class="table table-hover table-striped custom-table">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped custom-table mb-3">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th>S No</th>
-                                            <th>Overhead Type</th>
-                                            <th>Expanse Type</th>
-                                            <th>UOM</th>
-                                            <th>Unit Cost</th>
-                                            <th>Multiplier</th>
-                                            <th>Total</th>
+                                            <th colspan="6" class="text-center">Tender Information</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
-                                        <tr *ngFor="let a of rowData?.indirectCost; index as k">
-                                            <td>{{ limit*(p-1)+k+1 }}</td>
-                                            <td>{{ a.costtype }}</td>
-                                            <td>{{ a.expensetype }}</td>
-                                            <td>{{ a.uom }}</td>
-                                            <td>{{ a.unitcost | currency:'INR':'':'3.2-2'  }}</td>
-                                            <td>{{ a.multiplier }}</td>
-                                            <td>{{ a.total | currency:'INR':'':'3.2-2'  }}</td>
+                                        <tr>
+                                            <th>Client</th>
+                                            <td>{{ itemList?.company_name }}</td>
+                                            <th>Tender Title</th>
+                                            <td>
+                                                <div *ngIf="!!itemList?.tender_title; else elseBlock4"
+                                                data-toggle="tooltip" data-placement="bottom"
+                                                title="{{ itemList?.tender_title }}">
+                                                {{itemList?.tender_title | slice:0:30}} <span
+                                                *ngIf="itemList?.tender_title.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock4>
+                                                    {{itemList?.tender_title}}
+                                                </ng-template>
+                                            </td>
+                                            <th>NIT No</th>
+                                            <td>
+                                                <div *ngIf="!!itemList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ itemList?.tender_ref_no }}"> {{itemList?.tender_ref_no | slice:0:30}} 
+                                                    <span *ngIf="itemList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock3>
+                                                    {{itemList?.tender_ref_no}}
+                                                </ng-template>
+                                            </td>
                                         </tr>
-                                        <tr class="table-footer fw-bold">
-                                            <td colspan="6">Total In-direct Cost</td>
-                                            <td>{{ indirectCostTotal | currency:'INR':'':'3.2-2' }}</td>
+                                        <tr>
+                                            <th>Publish Date</th>
+                                            <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' }}</td>
+                                            <!-- <th>Execution Location</th>
+                                            <td>{{ itemList?.tender_location }}</td> -->
+                                            <th>Total In-direct Cost</th>
+                                            <td colspan="3">{{ indirectCostTotal | currency: 'INR': '' : '1.0-2' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <ng-container class="mt-1" *ngFor="let main of itemList?.indirectCost">
+                                    <div class="table-responsive pt-2 mb-2" style="min-height: auto;">
+                                        <table class="table table-hover table-striped">
+                                            <thead class="table-primary text-nowrap">
+                                                <tr class="text-center">
+                                                    <th colspan="7" *ngIf="main?.deptname != null; else elseBlock10">{{main?.costtype}} - {{main?.deptname}}</th>
+                                                    <ng-template #elseBlock10>
+                                                        <th colspan="9">{{main?.costtype}}</th>
+                                                    </ng-template>
+                                                </tr>
+                                                <tr>
+                                                    <th>S No</th>
+                                                    <th>Overhead Type</th>
+                                                    <th>Expanse Type</th>
+                                                    <th>UOM</th>
+                                                    <th>Unit Cost</th>
+                                                    <th>Multiplier</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-nowrap">
+                                                <tr *ngFor="let item of main?.records; index as i">
+                                                    <td>{{ limit*(p-1)+i+1 }}</td>
+                                                    <td>{{ item.costtype }}</td>
+                                                    <td>{{ item.expensetype }}</td>
+                                                    <td>{{ item.uom }}</td>
+                                                    <td>{{ item.unitcost | currency:'INR':'':'1.0-2'  }}</td>
+                                                    <td>{{ item.multiplier }}</td>
+                                                    <td>{{ item.total | currency:'INR':'':'1.0-2'  }}</td>
+                                                </tr>
+                                                <tr class="table-footer fw-bold">
+                                                    <td colspan="6">Total Cost</td>
+                                                    <td>{{ main?.all_total | currency:'INR':'':'1.0-2' }}</td>
+                                                </tr>
+                                                <tr *ngIf="isNotFound == true">
+                                                    <td colspan="15" class="text-center">
+                                                        <div class="spinner-border"> </div>
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="main?.records?.length == 0">
+                                                    <td colspan="15" class="text-center">
+                                                        <div class="text-warning fw-semibold">Looks like no data available!
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                     </div>

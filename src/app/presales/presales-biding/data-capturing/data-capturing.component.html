@@ -198,14 +198,38 @@
                         <div class="form-group">
                             <label class="form-label">City</label>
                             <input type="text" formControlName="city" class="form-control form-control-sm" placeholder="Enter Your City">
-                          
                         </div>
                     </div>
 
-
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Execution Location<span
+                            <label class="form-label">Execution Location<span class="required-asterisk">*</span></label>
+                            <select formControlName="tender_location" class="form-select form-select-sm">
+                                <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
+                                <option value="single">Single</option>
+                                <option value="multiple">Multiple</option>
+                            </select>
+                            <div *ngIf="f['district_id'].touched && f['tender_location'].invalid">
+                                <small class="text-danger" *ngIf="f['tender_location'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="form.value.tender_location == 'single'">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Execution Location (Single)<span
+                                    class="required-asterisk">*</span></label>
+                            <input formControlName="tender_location" type="text" class="form-control form-control-sm"
+                                appWordCapitalize>
+                            <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['tender_location'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngIf="form.value.tender_location == 'multiple'">
+                        <div class="form-group">
+                            <label class="form-label fl-10">Execution Location (Multiple)<span
                                     class="required-asterisk">*</span></label>
                             <input formControlName="tender_location" type="text" class="form-control form-control-sm"
                                 appWordCapitalize>
@@ -252,7 +276,7 @@
 
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Description<span
                                     class="required-asterisk">*</span></label>
@@ -719,10 +743,14 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Previous Notes</label>
                             <textarea formControlName="remarks" type="text" rows="4"
-                                class="form-control form-control-sm" readonly>
-                                           </textarea>
+                                class="form-control form-control-sm" readonly >
+                            </textarea>
+                                           <!-- <span *ngFor="let ph of (a?.remarks != null ? (a?.remarks.slice(0, -1)).split('\n') : a?.remarks.slice(0, -1)), index as i">
+                                            {{ ph }} <br>
+                                         </span> -->
                         </div>
                     </div>
+                   
 
                     <div class="col-md-12" *ngIf="update">
                         <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
