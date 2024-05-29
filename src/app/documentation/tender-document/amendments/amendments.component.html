@@ -92,7 +92,7 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td> {{a.publish_date | date: 'dd/MM/yyyy'}} </td>
+                                <td> {{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }} </td>
                                 <td>{{a.filename.slice(13)}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
@@ -188,7 +188,7 @@
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
                                     <input class="form-control form-control-sm" readonly
-                                        value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
+                                        value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                                 </div>
                             </div>
                             <div class="col-md-3" *ngIf="!showTypeField">

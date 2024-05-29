@@ -69,7 +69,7 @@
                 <td>{{ purchase.tender_location }}</td>
                 <td> {{ purchase.pono }}</td>
                 <td>{{ purchase?.grn_number }}</td>
-                <td>{{ purchase?.grn_date | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ purchase?.grn_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>{{ purchase?.challan_number }}</td>
                 <td>{{ purchase?.remark }}</td>
                 <td>
@@ -430,7 +430,7 @@
                       <th>PO No</th>
                       <td>{{ selectedPO?.pono }}</td>
                       <th>Date</th>
-                      <td>{{ selectedPO?.po_date }}</td>
+                      <td>{{ selectedPO?.po_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     </tr>
                     <tr>
                       <th>Vendor Code</th>

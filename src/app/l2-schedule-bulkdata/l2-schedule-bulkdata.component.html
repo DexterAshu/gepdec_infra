@@ -58,10 +58,10 @@
                   <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
-                <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                 <td>{{ a.tender_location }}</td>
-                <td>{{ a.schedule_start_date | date: 'dd/MM/yyyy' }}</td>
-                <td>{{ a.schedule_end_date | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ a.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                <td>{{ a.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>{{ a.tender_completion_period }}</td>
                 <td>
                   <a class="cursor-pointer" (click)="selectedRow(a)" data-bs-toggle="modal" data-bs-target="#viewModel" title="Detail Data"><span class="mdi mdi-eye text-success mdi-18px"></span></a>&nbsp;
@@ -120,9 +120,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <th>L2 Comp Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -153,8 +153,8 @@
                       <ng-container *ngIf="!row?.is_deleted">
                         <td>{{ i+1 }}</td>
                         <td>{{ row?.task }}</td>
-                        <td>{{ row?.task_start_date | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ row?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ row?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                        <td>{{ row?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                         <td>{{ row?.days_difference }}</td>
                         <td>{{ row?.qty }}</td>
                         <td>{{ row?.uom }}</td>
@@ -169,8 +169,8 @@
                         <ng-container *ngIf="!ct.is_deleted">
                           <td>&nbsp; &nbsp; &nbsp;{{i+1}}.{{ ci+1 }}</td>
                           <td>{{ ct?.task }}</td>
-                          <td>{{ ct?.task_start_date | date:'dd/MM/yyyy' }}</td>
-                          <td>{{ ct?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                          <td>{{ ct?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                          <td>{{ ct?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                           <td>{{ ct?.days_difference }}</td>
                           <td>{{ ct?.qty }}</td>
                           <td>{{ ct?.uom }}</td>
@@ -247,7 +247,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy'" readonly>
+                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
                 </div>
               </div>
               <div class="col-md-4">
@@ -300,7 +300,7 @@
                   <tbody>
                     <tr *ngFor="let files of attachmentName; let i = index">
                       <td><p class="h5">{{files.name}}</p></td>
-                      <td>{{files.date | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{files.date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{files.size/1024 | number: '1.0-2'}} KB</td>
                       <td class="text-right"><a title="Remove file" (click)="deleteFile(i)"><span class="mdi mdi-folder-remove text-danger cursor-pointer mdi-18px"></span></a>&nbsp;</td>
                     </tr>
@@ -372,9 +372,9 @@
                   </tr>
                   <tr>
                     <th>L2 Start Date</th>
-                    <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                     <th>L2 End Date</th>
-                    <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                     <th>Completion Period (Months)</th>
                     <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                   </tr>
@@ -400,8 +400,8 @@
                     <ng-container *ngIf="!row.is_deleted">
                       <td>{{ i+1 }}</td>
                       <td>{{ row.task }}</td>
-                      <td>{{ row.task_start_date | date:'dd/MM/yyyy' }}</td>
-                      <td>{{ row.task_end_date | date:'dd/MM/yyyy' }}</td>
+                      <td>{{ row.task_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                      <td>{{ row.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{ row.days_difference }}</td>
                       <td>
                         <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -413,8 +413,8 @@
                             <ng-container *ngIf="!ct.is_deleted">
                               <td>{{i+1}}.{{ ci+1 }}</td>
                               <td>{{ ct.task }}</td>
-                              <td>{{ ct.task_start_date | date:'dd/MM/yyyy' }}</td>
-                              <td>{{ ct.task_end_date | date:'dd/MM/yyyy' }}</td>
+                              <td>{{ ct.task_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                              <td>{{ ct.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                               <td>{{ ct.days_difference }}</td>
                               <td class="text-right">
                                 <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask"able table-hover table-striped custom-table (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
@@ -477,9 +477,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -568,9 +568,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -659,9 +659,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -680,9 +680,9 @@
               </tr>
               <tr>
                 <th>Task Start Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.task_start_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                 <th>Task End Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
               </tr>
             </tbody>
           </table>
@@ -768,9 +768,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -789,9 +789,9 @@
               </tr>
               <tr>
                 <th>Task Start Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.task_start_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                 <th>Task End Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
               </tr>
             </tbody>
           </table>
@@ -877,9 +877,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ selectedRowData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ selectedRowData?.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ selectedRowData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ selectedRowData?.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <th>L2 Comp Period (Months)</th>
                   <td>{{ selectedRowData?.tender_completion_period }}</td>
                 </tr>
@@ -904,8 +904,8 @@
                     <ng-container *ngIf="!row?.is_deleted">
                       <td>{{ i+1 }}</td>
                       <td>{{ row?.task }}</td>
-                      <td>{{ row?.task_start_date | date:'dd/MM/yyyy' }}</td>
-                      <td>{{ row?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                      <td>{{ row?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                      <td>{{ row?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                       <td>{{ row?.days_difference }}</td>
                       <td>{{ row?.qty }}</td>
                       <td>{{ row?.uom }}</td>

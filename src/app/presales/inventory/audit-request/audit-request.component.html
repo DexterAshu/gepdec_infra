@@ -138,7 +138,7 @@
                     <th>Auditor Name</th>
                     <td>{{ selectedRow?.auditor_name }}</td>
                     <th>Audit Date</th>
-                    <td>{{ selectedRow?.created }}</td>
+                    <td>{{ selectedRow?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     <th></th>
                     <td></td>
                   </tr>

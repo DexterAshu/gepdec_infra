@@ -79,13 +79,13 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{a.bankname}}</td>
                                 <td>{{a.bg_number}}</td>
                                 <td>{{a.bg_amount}}</td>
-                                <td>{{a.start_date}}</td>
-                                <td>{{a.end_date}}</td>
-                                <td>{{a.submission_date}}</td>
+                                <td>{{a.start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                <td>{{a.end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                <td>{{a.submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>
                                     <div *ngIf="!!a.document; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ a.document }}">
                                         {{a.document | slice:0:30}} <span *ngIf="a.document.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -189,31 +189,31 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Amount</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.Amount | date: 'dd/MM/yyyy'}}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.Amount }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Start Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.start_date | date: 'dd/MM/yyyy'}}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">End Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.end_date | date: 'dd/MM/yyyy'}}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Submission Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.submission_date | date: 'dd/MM/yyyy'}}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}">
                                 </div>
                             </div>
 

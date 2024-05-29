@@ -159,9 +159,7 @@
                             <th>Created By</th>
                             <td>{{rowData?.createdby_name}}</td>
                             <th>Created At</th>
-                            <td>{{rowData?.created | date: 'dd/MM/yyyy'}}</td>
-                           
-                            
+                            <td>{{rowData?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                         </tr>
                     </tbody>
                 </table>

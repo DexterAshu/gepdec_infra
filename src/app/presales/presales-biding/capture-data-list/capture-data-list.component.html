@@ -123,10 +123,10 @@
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
-                                <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.ecv }}</td>
-                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>{{ a?.request_status}}</td>
                                 <td>
                                     <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
@@ -191,7 +191,7 @@
                                                 </ng-template>
                                             </td>
                                             <th>Publish Date</th>
-                                            <td>{{rowData?.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                            <td>{{rowData?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Category</th>
@@ -265,7 +265,7 @@
                                             <th>Tender Type</th>
                                             <td>{{ rowData?.bidtype }}</td>
                                             <th>Tender Closing Date</th>
-                                            <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy'}}</td>
+                                            <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                             <th>Tender Available Link</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.tender_detail_link; else elseBlock6" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_detail_link }}">
@@ -280,11 +280,11 @@
                                         <tr>
                                            
                                             <th>Soft Copy Submission Date </th>
-                                            <td>{{ rowData?.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
+                                            <td>{{ rowData?.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                             <th>Hard Copy Submission Date </th>
                                             <td>
                                                 <span *ngIf="!!rowData?.tenderhardcopysubmission_date; else elseBlock7">
-                                                    {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy'}}
+                                                    {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock7>
                                                     --
@@ -309,7 +309,7 @@
                                             <th>Pre-Bid Meeting Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.prebid_date; else elseBlock9">
-                                                    {{ rowData?.prebid_date | date: 'dd/MM/yyyy'}}
+                                                    {{ rowData?.prebid_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock9>
                                                     --
@@ -320,7 +320,7 @@
                                             <th>Fin Bid Opening Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.fin_bid_opening_date; else elseBlock10">
-                                                    {{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy'}}
+                                                    {{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock10>
                                                     --
@@ -353,8 +353,7 @@
                                             </td>
                                             <th>Security Sub Date</th>
                                             <td>
-                                                <span *ngIf="!!rowData?.securitysubmission_date; else elseBlock12">
-                                                    {{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy' }}
+                                                <span *ngIf="!!rowData?.securitysubmission_date; else elseBlock12"> {{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock12>
                                                     --
@@ -400,7 +399,7 @@
                                             <th>EMD Sub Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.emd_submission_date; else elseBlock16">
-                                                    {{ rowData?.emd_submission_date | date: 'dd/MM/yyyy'}}
+                                                    {{ rowData?.emd_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock16>
                                                     --
@@ -439,7 +438,7 @@
                                         <tr>
                                             
                                             <th>Created On</th>
-                                            <td>{{ rowData?.created | date: 'dd/MM/yyyy' }}</td>
+                                            <td>{{ rowData?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                             <th>Created By</th>
                                             <td>{{ rowData?.createdby_name }}</td>
                                             <th></th>

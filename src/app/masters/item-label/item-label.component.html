@@ -96,7 +96,7 @@
                     </tr>
                     <tr>
                       <th>Created Date</th>
-                      <td>{{ selectedWHL?.created }}</td>
+                      <td>{{ selectedWHL?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <th>Created By</th>
                       <td>{{ selectedWHL?.createdby_name }}</td>
                     </tr>

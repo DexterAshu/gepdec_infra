@@ -130,6 +130,13 @@ export class UserMasterComponent implements OnInit {
   }
 
   editUser(data: any) {
+    if(data.isemployee == true) {
+      data.isemployee = 'true';
+      this.isEmployee('true');
+    } else {
+      data.isemployee = 'false';
+      this.isEmployee('false');
+    }
     this.rowData = data;
     this.isSubmitted = false;
     this.isUpdate = true;
@@ -142,6 +149,41 @@ export class UserMasterComponent implements OnInit {
       this.onSubmit();
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
+    }
+  }
+
+  isEmployee(emp: any) {
+    debugger
+    if(emp == 'false') {
+      this.form.controls['empid'].clearValidators();
+      this.form.controls['empid'].reset();
+
+      this.form.controls['usrl_id'].clearValidators();
+      this.form.controls['usrl_id'].reset();
+
+      this.form.controls['usdt_id'].clearValidators();
+      this.form.controls['usdt_id'].reset();
+      
+      this.form.controls['usdg_id'].clearValidators();
+      this.form.controls['usdg_id'].reset();
+
+      this.form.controls['sallary'].clearValidators();
+      this.form.controls['sallary'].reset();
+    } else {
+      this.form.get('empid')!.setValidators([Validators.required]);
+      this.form.controls['empid'].reset();
+
+      this.form.get('usrl_id')!.setValidators([Validators.required]);
+      this.form.controls['usrl_id'].reset();
+
+      this.form.get('usdt_id')!.setValidators([Validators.required]);
+      this.form.controls['usdt_id'].reset(); 
+
+      this.form.get('usdg_id')!.setValidators([Validators.required]);
+      this.form.controls['usdg_id'].reset();
+
+      this.form.get('sallary')!.setValidators([Validators.required]);
+      this.form.controls['sallary'].reset();
     }
   }
 

@@ -61,7 +61,7 @@
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
                 <td>{{ a.tender_location }}</td>
-                <td>{{ a.publish_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)" title="Edit BOQ Items Details" ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details" (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
@@ -132,7 +132,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date</label>
-                  <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date:'dd/MM/yyyy'}}">
+                  <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                 </div>
               </div>
               <div class="col-md-6">
@@ -211,7 +211,7 @@
                   </tr>
                   <tr>
                     <th>Publish Date</th>
-                    <td>{{ boqList?.publish_date | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     <th>Execution Location</th>
                     <td>{{ boqList?.tender_location }}</td>
                     <th></th>
@@ -239,7 +239,7 @@
                     <td>{{ boq?.category }}</td>
                     <td>{{ boq?.subcategory }}</td>
                     <td>{{ boq?.createdby_name }}</td>
-                    <td>{{ boq?.created }}</td>
+                    <td>{{ boq?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     <td>{{ boq?.status }}</td>
                     <td>
                       <a *ngIf="update" (click)="getBOQItemList(boq)" data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
@@ -289,7 +289,7 @@
                 </tr>
                 <tr>
                   <th>Publish Date</th>
-                  <td>{{ boqList?.publish_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Execution Location</th>
                   <td>{{ boqList?.tender_location }}</td>
                   <th></th>

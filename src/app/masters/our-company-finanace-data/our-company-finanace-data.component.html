@@ -60,7 +60,7 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a?.bidder_name}}</td>
                                 <td>{{a?.bidderdocumenttype}}</td>
-                                <td>{{a?.issue_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{a?.issue_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>{{a?.filename.slice(13)}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
