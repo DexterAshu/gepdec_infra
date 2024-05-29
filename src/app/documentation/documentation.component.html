@@ -52,7 +52,7 @@
                                 <td>{{a.documenttype}}</td>
                                 <td>{{a.filename}}</td>
                                 <td>{{a.createdby_name}}</td>
-                                <td>{{a.created | date:'dd/MM/yyyy hh:mm a'}}</td>
+                                <td>{{a.created | date:'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>

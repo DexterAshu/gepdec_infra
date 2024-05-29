@@ -916,8 +916,8 @@
                       <ng-container *ngIf="!ct.is_deleted">
                         <td>&nbsp; &nbsp; &nbsp;{{i+1}}.{{ ci+1 }}</td>
                         <td>{{ ct?.task }}</td>
-                        <td>{{ ct?.task_start_date | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ ct?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ ct?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                        <td>{{ ct?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                         <td>{{ ct?.days_difference }}</td>
                         <td>{{ ct?.qty }}</td>
                         <td>{{ ct?.uom }}</td>

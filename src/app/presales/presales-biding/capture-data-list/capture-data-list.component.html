@@ -316,7 +316,7 @@
                                                 </ng-template>
                                             </td>
                                             <th>Tech Bid Opening Date </th>
-                                            <td>{{ rowData?.tech_bid_date | date:"dd/MM/yyyy"}}</td>
+                                            <td>{{ rowData?.tech_bid_date | date:"dd/MM/yyyy" : 'GMT'}}</td>
                                             <th>Fin Bid Opening Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.fin_bid_opening_date; else elseBlock10">

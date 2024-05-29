@@ -73,7 +73,7 @@
                   <td>{{ data.audit_purpose }}</td>
                   <td>{{ data.auditor_remarks }}</td>
                   <td>{{ data.createdby_name }}</td>
-                  <td>{{ data.created | date:"dd/MM/yyyy hh:mm a" }}</td>
+                  <td>{{ data.created | date:"dd/MM/yyyy hh:mm a" : 'GMT' }}</td>
                   <td *ngIf="data?.status == 'Approved' || data?.status == 'Rejected'"> <span class="badge badge-{{ (data?.status == 'Approved') ? 'success' : (data?.status == 'Rejected' ? 'danger' : 'warning') }}">{{ data?.status }}</span> </td>
                   <td *ngIf="!data?.status">
                     <a data-bs-toggle="modal" data-bs-target="#authorizeModal" (click)="selectRequest(data)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>&nbsp;
