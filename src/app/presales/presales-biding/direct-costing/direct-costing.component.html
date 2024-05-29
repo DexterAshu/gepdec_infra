@@ -51,7 +51,7 @@
                   <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
-                <td>{{ a.publish_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ a.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                 <td>{{ a.itemCategory }}</td>
                 <td>{{ a.itemSubCategory }}</td>
                 <td>{{ a.status }}</td>
@@ -117,7 +117,7 @@
                     </tr>
                     <tr>
                       <th>Publish Date</th>
-                      <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' }}</td>
+                      <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                       <th>Execution Location</th>
                       <td>{{ itemList?.tender_location }}</td>
                       <th>Total Direct Cost</th>
@@ -252,7 +252,7 @@
                     </tr>
                     <tr>
                       <th>Publish Date</th>
-                      <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' }}</td>
+                      <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                       <th>Execution Location</th>
                       <td>{{ itemList?.tender_location }}</td>
                       <th>Total Direct Cost</th>

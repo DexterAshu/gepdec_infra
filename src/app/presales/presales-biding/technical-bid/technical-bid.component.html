@@ -94,7 +94,7 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <!-- <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
@@ -185,7 +185,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'">
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT'">
                                 </div>
                             </div>
                             <div class="col-md-2">

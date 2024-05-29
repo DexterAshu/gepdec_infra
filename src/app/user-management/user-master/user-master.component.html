@@ -51,7 +51,9 @@
                                 <th>Role</th>
                                 <th>Department</th>
                                 <th>Designation</th>
-                                <th>Status</th>
+                                <th>Login Name</th>
+                                <th>User Type</th>
+                                <!-- <th>Status</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -66,7 +68,9 @@
                                 <td>{{a.rolename}}</td>
                                 <td>{{a.deptname}}</td>
                                 <td>{{a.designationname}}</td>
-                                <td>{{a.status}}</td>
+                                <td>{{a.loginname }}</td>
+                                <td>{{a.isemployee == true ? 'Employee' : 'Other' }}</td>
+                                <!-- <td>{{a.status}}</td> -->
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
                                         (click)="editUser(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
@@ -157,66 +161,82 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Employee ID<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="empid" appNoSpace [readOnly]="isUpdate">
-                                    <div *ngIf="f['empid'].touched && f['empid'].invalid">
-                                        <small class="text-danger"
-                                            *ngIf="f['empid'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">User Role<span class="required-asterisk">*</span></label>
-                                    <select class=" form-select form-control-sm" formControlName="usrl_id">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Role</option>
-                                        <option *ngFor="let user of dropdownData?.role" [value]="user?.usrl_id">
-                                            {{user?.name}} </option>
-                                    </select>
-                                    <div *ngIf="f['usrl_id'].touched && f['usrl_id'].invalid">
-                                        <small class="text-danger"
-                                            *ngIf="f['usrl_id'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Department<span class="required-asterisk">*</span></label>
-                                    <select class=" form-select form-control-sm" formControlName="usdt_id">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Department
-                                        </option>
-                                        <option *ngFor="let user of dropdownData?.department" [value]="user?.usdt_id"> {{user?.deptname}} </option>
-                                    </select>
-                                    <div *ngIf="f['usdt_id'].touched && f['usdt_id'].invalid">
-                                        <small class="text-danger"
-                                            *ngIf="f['usdt_id'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Designation<span
+                                    <label class="form-label">User Type<span
                                             class="required-asterisk">*</span></label>
-                                    <select class="form-select form-control-sm" formControlName="usdg_id">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Designation
-                                        </option>
-                                        <option *ngFor="let user of dropdownData?.designation" [value]="user?.usdg_id">
-                                            {{user?.designationname}} </option>
+                                    <select class=" form-select form-control-sm" formControlName="isemployee" (change)="isEmployee(f['isemployee'].value)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
+                                        <option value="true">Employee</option>
+                                        <option value="false">Other</option>
                                     </select>
-                                    <div *ngIf="f['usdg_id'].touched && f['usdg_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['usdg_id'].errors?.['required']">*Required</small>
+                                    <div *ngIf="f['isemployee'].touched && f['isemployee'].invalid">
+                                        <small class="text-danger"
+                                        *ngIf="f['isemployee'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-
+                            <ng-container *ngIf="f['isemployee'].value == 'true'">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Employee ID<span class="required-asterisk">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" formControlName="empid" appNoSpace [readOnly]="isUpdate">
+                                        <div *ngIf="f['empid'].touched && f['empid'].invalid">
+                                            <small class="text-danger"
+                                                *ngIf="f['empid'].errors?.['required']">*Required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">User Role<span class="required-asterisk">*</span></label>
+                                        <select class=" form-select form-control-sm" formControlName="usrl_id">
+                                            <option [selected]="true" [disabled]="true" [value]="null">Select Role</option>
+                                            <option *ngFor="let user of dropdownData?.role" [value]="user?.usrl_id">
+                                                {{user?.name}} </option>
+                                        </select>
+                                        <div *ngIf="f['usrl_id'].touched && f['usrl_id'].invalid">
+                                            <small class="text-danger"
+                                                *ngIf="f['usrl_id'].errors?.['required']">*Required</small>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Department<span class="required-asterisk">*</span></label>
+                                        <select class=" form-select form-control-sm" formControlName="usdt_id">
+                                            <option [selected]="true" [disabled]="true" [value]="null">Select Department
+                                            </option>
+                                            <option *ngFor="let user of dropdownData?.department" [value]="user?.usdt_id"> {{user?.deptname}} </option>
+                                        </select>
+                                        <div *ngIf="f['usdt_id'].touched && f['usdt_id'].invalid">
+                                            <small class="text-danger"
+                                                *ngIf="f['usdt_id'].errors?.['required']">*Required</small>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Designation<span
+                                                class="required-asterisk">*</span></label>
+                                        <select class="form-select form-control-sm" formControlName="usdg_id">
+                                            <option [selected]="true" [disabled]="true" [value]="null">Select Designation
+                                            </option>
+                                            <option *ngFor="let user of dropdownData?.designation" [value]="user?.usdg_id">
+                                                {{user?.designationname}} </option>
+                                        </select>
+                                        <div *ngIf="f['usdg_id'].touched && f['usdg_id'].invalid">
+                                            <small class="text-danger" *ngIf="f['usdg_id'].errors?.['required']">*Required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Reporting To<span class="required-asterisk">*</span></label>
                                     <select class=" form-select form-control-sm" formControlName="reporting_to">
-                                        <option value="" hidden>Select Reporting To </option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Reporting To  </option>
                                         <option *ngFor="let user of dropdownData?.reportingto"
                                             [value]="user?.reportingto">{{user?.fullname}} </option>
                                     </select>
@@ -254,29 +274,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Is Employee<span
-                                            class="required-asterisk">*</span></label>
-                                    <select class=" form-select form-control-sm" formControlName="isemployee">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                                        <option value="true">Yes</option>
-                                        <option value="false">No</option>
-                                    </select>
-                                    <div *ngIf="f['isemployee'].touched && f['isemployee'].invalid">
-                                        <small class="text-danger"
-                                            *ngIf="f['isemployee'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3" *ngIf="f['isemployee'].value == 'true'">
                                 <div class="form-group">
                                     <label class="form-label">Salary<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="sallary"
-                                        appNumWithDot appNoSpace>
+                                    <input type="text" class="form-control form-control-sm" formControlName="sallary" appNumWithDot appNoSpace>
                                     <div *ngIf="f['sallary'].touched && f['sallary'].invalid">
-                                        <small class="text-danger"
-                                            *ngIf="f['sallary'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f['sallary'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -326,8 +329,8 @@
                                     <tr>
                                         <th>Secondary Number</th>
                                         <td>{{ selectedRow?.res_phone }}</td>
-                                        <th>Is Employee</th>
-                                        <td>{{ selectedRow?.isemployee == true ? 'Yes' : 'No' }}</td>
+                                        <th>Employee Type</th>
+                                        <td>{{ selectedRow?.isemployee == true ? 'Employee' : 'Other' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Role</th>
@@ -344,10 +347,12 @@
                                     <tr>
                                         <th>Salary</th>
                                         <td>{{ selectedRow?.sallary }}</td>
-                                        <th>Created Date</th>
-                                        <td>{{ selectedRow?.createdtime | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                        <th>Status</th>
+                                        <td>{{ selectedRow?.status }}</td>
                                     </tr>
                                     <tr>
+                                        <th>Created Date</th>
+                                        <td>{{ selectedRow?.createdtime | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                         <th>Created By</th>
                                         <td colspan="3">{{ selectedRow?.createdby_name }}</td>
                                     </tr>

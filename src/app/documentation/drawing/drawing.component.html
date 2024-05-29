@@ -63,7 +63,7 @@
                       {{a?.tender_title}}
                   </ng-template>
                </td>
-                <td>{{a.publish_date | date:'dd/MM/yyyy'}}</td>
+                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                 <td>{{a.tender_location}}</td>
                 <td>{{a.version}}</td>
                 <td>
@@ -138,7 +138,7 @@
                     <th>DRG No</th>
                     <td>{{ selectRow?.mdl_no }}</td>
                     <th>Created Date</th>
-                    <td>{{ selectRow?.created | date: 'dd/MM/yyyy hh:mm a' }}</td>
+                    <td>{{ selectRow?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     <th>Created By</th>
                     <td>{{ selectRow?.createdby }}</td>
                   </tr>
@@ -173,7 +173,7 @@
                       <td>{{a.stage}}</td>
                       <td>{{a.category}}</td>
                       <td>{{a.drawing_from}}</td>
-                      <td>{{a.planned_submission | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{a.planned_submission | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{a.remarks}}</td>
                       <td>
                         <div *ngIf="!!a?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">{{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
@@ -243,7 +243,7 @@
                   <th>DRG No</th>
                   <td>{{ selectRow?.mdl_no }}</td>
                   <th>Created Date</th>
-                  <td>{{ selectRow?.created | date: 'dd/MM/yyyy hh:mm a' }}</td>
+                  <td>{{ selectRow?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <th>Created By</th>
                   <td>{{ selectRow?.createdby }}</td>
                 </tr>

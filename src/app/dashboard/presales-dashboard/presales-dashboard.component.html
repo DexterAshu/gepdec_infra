@@ -553,7 +553,7 @@
                 <td>{{t.tender_fee}}</td>
                 <td>{{t.tender_location}}</td>
                 <td>{{t.tender_status}}</td>
-                <td>{{t.tender_submission_date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
                     {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -608,7 +608,7 @@
                 <td>{{t.tender_fee}}</td>
                 <td>{{t.tender_location}}</td>
                 <td>{{t.tender_status}}</td>
-                <td>{{t.tender_submission_date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
                     {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -663,7 +663,7 @@
                 <td>{{t.tender_fee}}</td>
                 <td>{{t.tender_location}}</td>
                 <td>{{t.tender_status}}</td>
-                <td>{{t.tender_submission_date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
                     {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -718,7 +718,7 @@
                 <td>{{t.tender_fee}}</td>
                 <td>{{t.tender_location}}</td>
                 <td>{{t.tender_status}}</td>
-                <td>{{t.tender_submission_date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
                     {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i class="mdi mdi-information"></i></span>

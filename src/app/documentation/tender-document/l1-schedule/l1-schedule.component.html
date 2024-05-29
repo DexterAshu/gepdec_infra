@@ -67,7 +67,7 @@
                   <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
-                <td>{{a.publish_date | date:'dd/MM/yyyy'}}</td>
+                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                 <td>{{a.tender_location}}</td>
                 <td>{{a.tender_completion_period}}</td>
                 <td>
@@ -205,7 +205,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy'" readonly>
+                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
                 </div>
               </div>
               <div class="col-md-6">
@@ -240,7 +240,7 @@
                   <tbody>
                     <tr *ngFor="let files of attachmentName; let i = index">
                       <td><p class="h5">{{files.name}}</p></td>
-                      <td>{{files.date | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{files.date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{files.size/1024 | number: '1.0-2'}} KB</td>
                       <td class="text-right"><a title="Remove file" (click)="deleteFile(i)"><span class="mdi mdi-folder-remove text-danger cursor-pointer mdi-18px"></span></a>&nbsp;</td>
                     </tr>

@@ -453,7 +453,7 @@
                     <span *ngSwitchCase= "2">Billing Data Profile</span>
                     <span *ngSwitchCase= "3">Daily Data Profile</span>
                     <span *ngSwitchCase= "4">Block Load Profile</span>
-                </h5> <span class="model-custom-title">(DeviceID - {{ titleData ? titleData[0]?.deviceID : '' }}, Publish Time - {{ titleData ? (titleData[0]?.meterPublishTime | date: 'dd/MM/yyyy hh:mm a') : '' }})</span>
+                </h5> <span class="model-custom-title">(DeviceID - {{ titleData ? titleData[0]?.deviceID : '' }}, Publish Time - {{ titleData ? (titleData[0]?.meterPublishTime | date: 'dd/MM/yyyy hh:mm a' : 'GMT') : '' }})</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

@@ -203,19 +203,32 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label">Execution Location<span class="required-asterisk">*</span></label>
-                            <select formControlName="tender_location" class="form-select form-select-sm">
-                                <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
-                                <option value="single">Single</option>
-                                <option value="multiple">Multiple</option>
-                            </select>
-                            <div *ngIf="f['district_id'].touched && f['tender_location'].invalid">
-                                <small class="text-danger" *ngIf="f['tender_location'].errors?.['required']">*Required</small>
+                            <label class="form-label fl-10">Execution Location<span
+                                    class="required-asterisk">*</span></label>
+                            <input formControlName="tender_location" type="text" class="form-control form-control-sm"
+                                appWordCapitalize>
+                            <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
+                                <small class="text-danger"
+                                    *ngIf="f['tender_location'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4" *ngIf="form.value.tender_location == 'single'">
+                    <!-- <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Execution Location<span class="required-asterisk">*</span></label>
+                            <select formControlName="tender_location_type" class="form-select form-select-sm">
+                                <option [selected]="true" [disabled]="true" [value]="null">Select </option>
+                                <option value="single">Single</option>
+                                <option value="multiple">Multiple</option>
+                            </select>
+                            <div *ngIf="f['tender_location_type'].touched && f['tender_location_type'].invalid">
+                                <small class="text-danger" *ngIf="f['tender_location_type'].errors?.['required']">*Required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="form.value.tender_location_type == 'single'">
                         <div class="form-group">
                             <label class="form-label fl-10">Execution Location (Single)<span
                                     class="required-asterisk">*</span></label>
@@ -227,18 +240,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4" *ngIf="form.value.tender_location == 'multiple'">
+                    <div class="col-md-4" *ngIf="form.value.tender_location_type == 'multiple'">
                         <div class="form-group">
                             <label class="form-label fl-10">Execution Location (Multiple)<span
                                     class="required-asterisk">*</span></label>
-                            <input formControlName="tender_location" type="text" class="form-control form-control-sm"
-                                appWordCapitalize>
+
+                                    <ng-select [items]="multiLocation" bindLabel="tender_location"
+                                    bindValue="id" [addTag]="addCustomLocation" [multiple]="true"
+                                    placeholder="Select Location or add Multiple Location" [(ngModel)]="selectedUserIds">
+                                     </ng-select>
+                           
                             <div *ngIf="f['tender_location'].touched && f['tender_location'].invalid">
                                 <small class="text-danger"
                                     *ngIf="f['tender_location'].errors?.['required']">*Required</small>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-4">
                         <div class="form-group">

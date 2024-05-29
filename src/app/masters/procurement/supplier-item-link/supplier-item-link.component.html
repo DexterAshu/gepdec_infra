@@ -48,7 +48,7 @@
                                 <td>{{ a?.category }}</td>
                                 <td>{{ a?.contact[0]?.contactno }}</td>
                                 <td>{{ a?.contact[0]?.emailid }}</td>
-                                <td>{{ a?.created }}</td>
+                                <td>{{ a?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#linkModal" title="Link Items"><span class="mdi mdi-link-variant cursor-pointer mdi-18px text-primary" (click)="rowListData(a)"></span></a>
                                     <a data-bs-toggle="modal" data-bs-target="#detailModal" title="View Linked Items"><span class="mdi mdi-format-list-checks cursor-pointer mdi-18px text-secondary ms-1" (click)="rowListData(a)" *ngIf="a?.item.length > 0"></span></a>
