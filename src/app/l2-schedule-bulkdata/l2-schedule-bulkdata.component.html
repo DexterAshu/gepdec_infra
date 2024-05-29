@@ -502,7 +502,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -511,7 +511,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -593,7 +593,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -602,7 +602,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -702,7 +702,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -711,7 +711,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -811,7 +811,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -820,7 +820,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
