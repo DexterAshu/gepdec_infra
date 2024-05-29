@@ -156,7 +156,6 @@ export class L2ScheduleBulkdataComponent {
   }
 
   addSubTask(task: any): void {
-    console.log(task);
     this.addNewSubTaskInSelectedTask = task;
   }
 
@@ -320,6 +319,7 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.error(res.message);
       }
     }, (error: any) => {
+      console.error(error);
       this.isNotFound = true;
       this.l2ScheduleData = undefined;
       this.alertService.error("Error: Unknown Error!");
@@ -374,6 +374,7 @@ export class L2ScheduleBulkdataComponent {
   }
 
   editSubTaskRow(task: any, subTask: any) {
+    this.addNewSubTaskInSelectedTask = task;
     this.selectedSubTaskForEdit = subTask;
     subTask.task_start_date = this.formatDate(new Date(subTask.task_start_date));
     subTask.task_end_date = this.formatDate(new Date(subTask.task_end_date));
