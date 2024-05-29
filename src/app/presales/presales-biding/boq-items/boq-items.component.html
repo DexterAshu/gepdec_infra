@@ -63,7 +63,7 @@
                 <td>{{ a.tender_location }}</td>
                 <td>{{ a.publish_date | date:'dd/MM/yyyy' }}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#boqListModel"  (click)="getEditBOQList(a)" title="Edit BOQ Items Details" ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)" title="Edit BOQ Items Details" ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details" (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
@@ -242,32 +242,79 @@
                     <td>{{ boq?.created }}</td>
                     <td>{{ boq?.status }}</td>
                     <td>
-                      <a *ngIf="update" (click)="getBOQItemList(boq)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                      <a (click)="getBOQItemList(boq)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                      <a *ngIf="update" (click)="getBOQItemList(boq)" data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                      <a (click)="getBOQItemList(boq)"  data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                     </td>
                   </tr>
                 </tbody>
               </app-responsive-table>
             </div>
           </div>
-          <div class="row mt-2" *ngIf="itemList?.items?.length > 0">
-            <app-responsive-table class="mt-2">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="itemListModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ update ? 'Edit' : 'View' }} BOQ Items Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row px-2">
+            <table class="table table-hover table-striped custom-table">
               <thead class="table-primary text-nowrap">
                 <tr>
-                  <th>S No</th>
-                  <th>Item Code</th>
-                  <th>Description</th>
-                  <th>UOM</th>
-                  <th>Quantity</th>
-                  <th>Unit Price</th>
-                  <th>Basic Value</th>
-                  <th>Freight Charges</th>
-                  <th *ngIf="update">Action</th>
-                  <th>Child Items</th>
+                  <th colspan="6" class="text-center">Tender Information</th>
                 </tr>
               </thead>
               <tbody class="text-nowrap">
-                <tr *ngFor="let item of itemList?.items; index as i">
+                <tr>
+                  <th>Client</th>
+                  <td>{{ boqList?.company_name }}</td>
+                  <th> NIT No</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                  </td>
+                  <th>Tender Title</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Publish Date</th>
+                  <td>{{ boqList?.publish_date | date:'dd/MM/yyyy' }}</td>
+                  <th>Execution Location</th>
+                  <td>{{ boqList?.tender_location }}</td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <app-responsive-table class="mt-2">
+            <thead class="table-primary text-nowrap">
+              <tr>
+                <th>S No</th>
+                <th>Item Code</th>
+                <th>Description</th>
+                <th>UOM</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Basic Value</th>
+                <th>Freight Charges</th>
+                <th *ngIf="update">Action</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap">
+              <ng-container *ngFor="let item of itemList?.items; index as i">
+                <tr>
                   <td>{{ i+1 }}</td>
                   <td>{{ item?.itemcode }}</td>
                   <td>
@@ -283,40 +330,35 @@
                     <a (click)="editBOQParentItemList(item)" data-bs-toggle="modal" data-bs-target="#boqParentItemFormModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
                     <a (click)="deleteBOQParentItemList(item)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                   </td>
-                  <td>
-                    <table class="table table-hover table-striped custom-table">
-                      <thead class="table-primary text-nowrap"></thead>
-                      <tbody class="text-nowrap">
-                        <tr *ngFor="let childItem of item?.childItemList; index as ci">
-                          <td> {{i+1}}.{{ci+1}}</td>
-                          <td> {{childItem?.itemcode}}</td>
-                          <td>
-                            <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ childItem?.description }}">{{childItem?.description | slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                            <ng-template #elseBlock5>{{childItem?.description}}</ng-template>
-                          </td>
-                          <td>{{ childItem?.uom }}</td>
-                          <td>{{ childItem?.qty }}</td>
-                          <td>{{ childItem?.unit_price }}</td>
-                          <td>{{ childItem?.qty * childItem?.unit_price }}</td>
-                          <td>{{ childItem?.freight_charges }}</td>
-                          <td *ngIf="update">
-                            <a (click)="editBOQChildItemList(item, childItem)" data-bs-target="#boqChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                            <a (click)="deleteBOQChildItemList(item, childItem)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colspan="15" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3" data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
                 </tr>
-                <tr>
+                <ng-container *ngIf="item?.childItemList?.length > 0">
+                  <tr *ngFor="let childItem of item?.childItemList; index as ci">
+                    <td> {{i+1}}.{{ci+1}}</td>
+                    <td> {{childItem?.itemcode}}</td>
+                    <td>
+                      <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ childItem?.description }}">{{childItem?.description | slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                      <ng-template #elseBlock5>{{childItem?.description}}</ng-template>
+                    </td>
+                    <td>{{ childItem?.uom }}</td>
+                    <td>{{ childItem?.qty }}</td>
+                    <td>{{ childItem?.unit_price }}</td>
+                    <td>{{ childItem?.qty * childItem?.unit_price }}</td>
+                    <td>{{ childItem?.freight_charges }}</td>
+                    <td *ngIf="update">
+                      <a (click)="editBOQChildItemList(item, childItem)" data-bs-target="#boqChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                      <a (click)="deleteBOQChildItemList(item, childItem)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="update">
+                    <td colspan="15" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3" data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                  </tr>
+                </ng-container>
+                <tr *ngIf="update">
                   <td colspan="15" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
                 </tr>
-              </tbody>
-            </app-responsive-table>
-          </div>
+              </ng-container>
+            </tbody>
+          </app-responsive-table>
           <div class="row float-right mt-2" *ngIf="update">
             <div class="my-1">
               <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2">Update</button>
@@ -381,9 +423,9 @@
                   </div>
                 </div>
                 <div class="modal-btns mt-3">
-                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#boqListModel">Update</button>
-                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#boqListModel">Update</button></ng-template>
-                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
+                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
+                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
                 </div>
               </div>
             </form>
@@ -446,9 +488,9 @@
                   </div>
                 </div>
                 <div class="modal-btns mt-3">
-                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#boqListModel">Update</button>
-                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#boqListModel">Update</button></ng-template>
-                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
+                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
+                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
                 </div>
               </div>
             </form>
@@ -508,9 +550,9 @@
                   </div>
                 </div>
                 <div class="modal-btns mt-3">
-                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#boqListModel">Update</button>
-                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#boqListModel">Update</button></ng-template>
-                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
+                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
+                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
                 </div>
               </div>
             </form>
@@ -570,9 +612,9 @@
                   </div>
                 </div>
                 <div class="modal-btns mt-3">
-                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#boqListModel">Update</button>
-                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#boqListModel">Update</button></ng-template>
-                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
+                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
+                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
                 </div>
               </div>
             </form>

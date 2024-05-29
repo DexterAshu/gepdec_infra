@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AlertService, ApiService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
+import { catchError, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-l2-schedule-bulkdata',
@@ -126,6 +128,7 @@ export class L2ScheduleBulkdataComponent {
         return task;
       }
     });
+    this.editTaskForm.reset();
   }
 
   createTask(): void {
@@ -136,6 +139,7 @@ export class L2ScheduleBulkdataComponent {
     this.addTaskForm.value.is_updated = false;
     this.addTaskForm.value.is_deleted = false;
     this.l1ScheduleData.tasks.push(this.addTaskForm.value);
+    this.addTaskForm.reset();
   }
 
   removeTask(task: any): void {
@@ -152,7 +156,6 @@ export class L2ScheduleBulkdataComponent {
   }
 
   addSubTask(task: any): void {
-    console.log(task);
     this.addNewSubTaskInSelectedTask = task;
   }
 
@@ -179,6 +182,7 @@ export class L2ScheduleBulkdataComponent {
         return task;
       }
     });
+    this.editSubTaskForm.reset();
   }
 
   createSubTask(): void {
@@ -228,22 +232,29 @@ export class L2ScheduleBulkdataComponent {
   getCompanyList(): void {
     this.update = false;
     const apiLink = `/company/api/v1/getComapanyList`;
-    this.apiService.getData(apiLink).subscribe((res: any) => {
-      if (res.status === 200) {
-        this.companyList = res.result;
-      } else {
-        this.alertService.error(res.message);
-      }
-    }),
-    (error: any) => {
-      console.error(error);
-      this.alertService.error("Error: Unknown Error!");
-    }
+    this.apiService.getData(apiLink).pipe(
+      map((res: any) => {
+        if (res.status === 200) {
+          return res.result;
+        } else {
+          throw new Error(res.message);
+        }
+      }),
+      catchError((error: any) => {
+        console.error(error);
+        this.alertService.error(error.message || "Error: Unknown Error!");
+        return throwError(error);
+      })
+    ).subscribe({
+      next: (result: any) => this.companyList = result,
+      error: (error: any) => console.error('There was an error!', error)
+    });
   }
 
   getTenderListByCompany(): void {
     this.tenderList = [];
-    const apiLink = `/biding/api/v1/getTenderlist?company_id=${this.documentForm.value.company_id}`
+    let company_id = this.documentForm.value.company_id ? this.documentForm.value.company_id : this.form.value.company_id ? this.form.value.company_id : 0;
+    const apiLink = `/biding/api/v1/getTenderlist?company_id=${company_id}`
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderList = res.result;
@@ -308,6 +319,7 @@ export class L2ScheduleBulkdataComponent {
         this.alertService.error(res.message);
       }
     }, (error: any) => {
+      console.error(error);
       this.isNotFound = true;
       this.l2ScheduleData = undefined;
       this.alertService.error("Error: Unknown Error!");
@@ -362,6 +374,7 @@ export class L2ScheduleBulkdataComponent {
   }
 
   editSubTaskRow(task: any, subTask: any) {
+    this.addNewSubTaskInSelectedTask = task;
     this.selectedSubTaskForEdit = subTask;
     subTask.task_start_date = this.formatDate(new Date(subTask.task_start_date));
     subTask.task_end_date = this.formatDate(new Date(subTask.task_end_date));

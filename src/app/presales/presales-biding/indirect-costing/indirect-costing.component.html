@@ -256,7 +256,7 @@
                                     <td>{{ a?.deptname }}</td>
                                     <td>{{ a?.designationname }}</td>
                                     <td>{{a?.title}} {{ a?.first_name }} {{ a?.last_name }}</td>
-                                    <td>Month</td>
+                                    <td>Months</td>
                                     <td>
                                         <input [disabled]="indexData.includes(j)" type="number" [(ngModel)]="a.sallary" class="form-control form-control-sm">
                                     </td>
@@ -363,35 +363,51 @@
                                         <table class="table table-hover table-striped">
                                             <thead class="table-primary text-nowrap">
                                                 <tr class="text-center">
-                                                    <th colspan="7" *ngIf="main?.deptname != null; else elseBlock10">{{main?.costtype}} - {{main?.deptname}}</th>
+                                                    <th colspan="10" *ngIf="main?.deptname != null; else elseBlock10">{{main?.costtype}} - {{main?.deptname}}</th>
                                                     <ng-template #elseBlock10>
-                                                        <th colspan="9">{{main?.costtype}}</th>
+                                                        <th colspan="7">{{main?.costtype}}</th>
                                                     </ng-template>
                                                 </tr>
                                                 <tr>
                                                     <th>S No</th>
                                                     <th>Overhead Type</th>
-                                                    <th>Expanse Type</th>
+                                                    <th *ngIf="main?.deptname == null">Expense Type</th>
+                                                    <th *ngIf="main?.deptname != null">Department</th>
+                                                    <th *ngIf="main?.deptname != null">Designation</th>
+                                                    <th *ngIf="main?.deptname != null">Employee Name</th>
                                                     <th>UOM</th>
-                                                    <th>Unit Cost</th>
-                                                    <th>Multiplier</th>
-                                                    <th>Total</th>
+                                                    <th *ngIf="main?.deptname == null">Unit Cost</th>
+                                                    <th *ngIf="main?.deptname != null">Salary</th>
+                                                    <th *ngIf="main?.deptname == null">Multiplier</th>
+                                                    <th *ngIf="main?.deptname != null">Months</th>
+                                                    <th *ngIf="main?.deptname != null">% Involvement</th>
+                                                    <th class="text-end">Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-nowrap">
                                                 <tr *ngFor="let item of main?.records; index as i">
                                                     <td>{{ limit*(p-1)+i+1 }}</td>
-                                                    <td>{{ item.costtype }}</td>
-                                                    <td>{{ item.expensetype }}</td>
+                                                    <td>{{ main?.costtype }}</td>
+                                                    <td *ngIf="main?.deptname == null">{{ item.expensetype }}</td>
+                                                    <td *ngIf="main?.deptname != null">{{ item.deptname }}</td>
+                                                    <td *ngIf="main?.deptname != null">{{ item.designationname }}</td>
+                                                    <td *ngIf="main?.deptname != null">{{ item.employee_name }}</td>
                                                     <td>{{ item.uom }}</td>
                                                     <td>{{ item.unitcost | currency:'INR':'':'1.0-2'  }}</td>
                                                     <td>{{ item.multiplier }}</td>
-                                                    <td>{{ item.total | currency:'INR':'':'1.0-2'  }}</td>
+                                                    <td *ngIf="main?.deptname != null">{{ item.percentage_involvment }}</td>
+                                                    <td class="text-end">{{ item.total | currency:'INR':'':'1.0-2'  }}</td>
                                                 </tr>
-                                                <tr class="table-footer fw-bold">
-                                                    <td colspan="6">Total Cost</td>
-                                                    <td>{{ main?.all_total | currency:'INR':'':'1.0-2' }}</td>
+                                                <tr class="table-footer fw-bold" *ngIf="main?.deptname != null; else elseBlock11">
+                                                    <td colspan="9">Total Cost</td>
+                                                    <td class="text-end">{{ main?.all_total | currency:'INR':'':'1.0-2' }}</td>
                                                 </tr>
+                                                <ng-template #elseBlock11>
+                                                    <tr class="table-footer fw-bold">
+                                                        <td colspan="6">Total Cost</td>
+                                                        <td class="text-end">{{ main?.all_total | currency:'INR':'':'1.0-2' }}</td>
+                                                    </tr>
+                                                </ng-template>
                                                 <tr *ngIf="isNotFound == true">
                                                     <td colspan="15" class="text-center">
                                                         <div class="spinner-border"> </div>
