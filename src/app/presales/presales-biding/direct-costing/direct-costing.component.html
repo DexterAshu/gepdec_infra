@@ -120,8 +120,16 @@
                       <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                       <th>Execution Location</th>
                       <td>{{ itemList?.tender_location }}</td>
-                      <th>Total Direct Cost</th>
+                      <th>Purchase Cost</th>
                       <td>{{ totalDirectCost | currency: 'INR': '' : '1.0-2' }}</td>
+                    </tr>
+                    <tr>
+                      <th>Purchase Cost with GST</th>
+                      <td>{{ totalWithGST | currency: 'INR': '' : '1.0-2' }}</td>
+                      <th>Purchase Cost with Freight</th>
+                      <td>{{ totalWithFreight | currency: 'INR': '' : '1.0-2' }}</td>
+                      <th>Total Purchase Amount</th>
+                      <td>{{ totalWithFreightWithGST | currency: 'INR': '' : '1.0-2' }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -140,19 +148,19 @@
                           <th>Category</th>
                           <th>Sub-Category</th>
                           <th>Quantity</th>
-                          <th>Unit Price</th>
-                          <th>Total Price</th>
+                          <th>Unit Purchase Cost</th>
+                          <th>Purchase Cost</th>
                           <th>HSN Code</th>
                           <th>GST</th>
-                          <th>Total with GST</th>
+                          <th>Purchase Cost with GST</th>
                           <th>Freight</th>
-                          <th>Total with Freight</th>
-                          <th>Total Cost</th>
+                          <th>Purchase Cost with Freight</th>
+                          <th>Total Purchase Amount</th>
                         </tr>
                       </thead>
                       <tbody class="text-nowrap">
                         <ng-container *ngFor="let item of main?.items; index as i">
-                          <tr>
+                          <tr class="fw-bold">
                             <td>{{ i+1 }}</td>
                             <td>{{ item?.itemcode }}</td>
                             <td>
@@ -167,10 +175,10 @@
                             <td class="text-end">{{ item?.total_value | currency: 'INR': '' : '1.0-2' }}</td>
                             <td>{{ item?.hsn_code }}</td>
                             <td>{{ item?.gst }}</td>
-                            <td class="text-end">{{ item?.totalPriceWithGST }}</td>
-                            <td>{{ item?.freight_charges }}</td>
-                            <td class="text-end">{{ item?.totalWithFreight }}</td>
-                            <td class="text-end">{{ item?.totalWithFreightWithGST }}</td>
+                            <td class="text-end">{{ item?.totalPriceWithGST | currency: 'INR': '' : '1.0-2'  }}</td>
+                            <td>{{ item?.freight_charges | currency: 'INR': '' : '1.0-2'  }}</td>
+                            <td class="text-end">{{ item?.totalWithFreight | currency: 'INR': '' : '1.0-2'  }}</td>
+                            <td class="text-end">{{ item?.totalWithFreightWithGST | currency: 'INR': '' : '1.0-2'  }}</td>
                           </tr>
                           <ng-container *ngIf="item?.childItemList?.length > 0">
                             <tr *ngFor="let childItem of item?.childItemList; index as ci">
@@ -188,10 +196,10 @@
                               <td class="text-end">{{ childItem?.total_value | currency: 'INR': '' : '1.0-2' }}</td>
                               <td>{{ childItem?.hsn_code }}</td>
                               <td>{{ childItem?.gst }}</td>
-                              <td class="text-end">{{ childItem?.totalPriceWithGST }}</td>
-                              <td>{{ childItem?.freight_charges }}</td>
-                              <td class="text-end">{{ childItem?.totalWithFreight }}</td>
-                              <td class="text-end">{{ childItem?.totalWithFreightWithGST }}</td>
+                              <td class="text-end">{{ childItem?.totalPriceWithGST | currency: 'INR': '' : '1.0-2'  }}</td>
+                              <td>{{ childItem?.freight_charges | currency: 'INR': '' : '1.0-2'  }}</td>
+                              <td class="text-end">{{ childItem?.totalWithFreight | currency: 'INR': '' : '1.0-2'  }}</td>
+                              <td class="text-end">{{ childItem?.totalWithFreightWithGST | currency: 'INR': '' : '1.0-2'  }}</td>
                             </tr>
                           </ng-container>
                         </ng-container>

@@ -21,6 +21,9 @@ export class DirectCostingComponent {
   selectedRow: any;
   itemList: any;
   totalDirectCost: number = 0;
+  totalWithGST: number = 0;
+  totalWithFreight: number = 0;
+  totalWithFreightWithGST: number = 0;
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
 
@@ -72,7 +75,12 @@ export class DirectCostingComponent {
     this.totalDirectCost = 0;
     this.itemList = [];
     this.itemList = data;
-    this.itemList?.items.map((item: any) => this.totalDirectCost += item?.total_basic_value );
+    this.itemList?.items.forEach((item: any) => {
+      this.totalDirectCost += item?.total_price_value;
+      this.totalWithGST += item.total_GST_value;
+      this.totalWithFreight += item.total_freight_value;
+      this.totalWithFreightWithGST += item.total_freight_with_GST_value;
+    });
   }
 
   onSubmit() {
