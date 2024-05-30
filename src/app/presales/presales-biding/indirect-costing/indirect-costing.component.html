@@ -38,6 +38,10 @@
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
                                 <th>Publish Date</th>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Capacity</th>
+                                <th>Execution Location</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -65,7 +69,11 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
+                                <td>{{ a.itemCategory }}</td>
+                                <td>{{ a.itemSubCategory }}</td>
+                                <td>{{ a.capacity }}</td>
+                                <td>{{ a.tender_location }}</td>
                                 <td>
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
@@ -107,7 +115,7 @@
                 <div class="container-fluid">
                     <form [formGroup]="form">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client<span
                                             class="required-asterisk">*</span></label>
@@ -149,14 +157,38 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{tenderDetailedData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
+                                    <input class="form-control form-control-sm" readonly value="{{tenderDetailedData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Category</label>
+                                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Sub-Category</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Capacity</label>
+                                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Execution Location</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
                                 </div>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Overhead Expenses<span
                                             class="required-asterisk">*</span></label>

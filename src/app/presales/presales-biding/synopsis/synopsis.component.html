@@ -51,10 +51,10 @@
                                 <th>Client</th>
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
+                                <th>Publish Date</th>
                                 <th>Category</th>
                                 <th>Sub-Category</th>
                                 <th>Capacity</th>
-                                <th>Publish Date</th>
                                 <th>Execution Location</th>
                                 <th>ECV (INR)</th>
                                 <th>Submission Date</th>
@@ -83,10 +83,10 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
+                                <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
-                                <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.ecv }}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
@@ -165,8 +165,6 @@
                                             <td>{{rowData?.capacity}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Financial Year</th>
-                                            <td> {{rowData?.financialyear}}</td>
                                             <th>Execution Location</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">

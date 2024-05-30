@@ -65,6 +65,9 @@
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
                                 <th>Publish Date</th>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Capacity</th>
                                 <th>Execution Location</th>
                                 <th>Bid Validity (Days)</th>
                                 <th>Comp Period (Months)</th>
@@ -99,6 +102,9 @@
                                     </ng-template>
                                 </td>
                                 <td> {{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }} </td>
+                                <td>{{a.category}}</td>
+                                <td>{{a.sub_category}}</td>
+                                <td>{{a.capacity}}</td>
                                 <td>{{a.tender_location}}</td>
                                 <td>{{a.bid_validity}}</td>
                                 <td>{{a.completion_period}}</td>
@@ -202,7 +208,27 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Publish Date</label>
-                                        <input type="date" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
+                                        <span class="form-control form-control-sm"
+                                            readonly>{{filterTenderDetailsData[0]?.publish_date | date:
+                                            'dd/MM/yyyy' : 'GMT'}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">Category</label>
+                                        <input class="form-control form-control-sm" readonly >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">Sub-Category</label>
+                                        <input class="form-control form-control-sm" readonly >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">Capacity</label>
+                                        <input class="form-control form-control-sm" readonly >
                                     </div>
                                 </div>
 

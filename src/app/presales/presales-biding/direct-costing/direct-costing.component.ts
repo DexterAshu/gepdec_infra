@@ -73,6 +73,9 @@ export class DirectCostingComponent {
 
   getBOQItemList(data: any) {
     this.totalDirectCost = 0;
+    this.totalWithGST = 0;
+    this.totalWithFreight = 0;
+    this.totalWithFreightWithGST = 0;
     this.itemList = [];
     this.itemList = data;
     this.itemList?.items.forEach((item: any) => {
