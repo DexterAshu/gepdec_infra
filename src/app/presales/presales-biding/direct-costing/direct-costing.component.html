@@ -32,7 +32,7 @@
                                 <!-- <th>BOQ Code</th> -->
                                 <th>Client</th>
                                 <th>Tender Title</th>
-                                <th> NIT No</th>
+                                <th>NIT No</th>
                                 <th>Publish Date</th>
                                 <th>Category</th>
                                 <th>Sub Category</th>
@@ -68,8 +68,8 @@
                                     </ng-template>
                                 </td>
                                 <td>{{ a.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
-                                <td>{{ a.itemCategory }}</td>
-                                <td>{{ a.itemSubCategory }}</td>
+                                <td>{{ a.qacatagory }}</td>
+                                <td>{{ a.subqacatagory }}</td>
                                 <td>{{ a.capacity }}</td>
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.status }}</td>
@@ -137,9 +137,9 @@
                       <th>Publish Date</th>
                       <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                       <th>Category </th>
-                         <td >{{ itemList?.catagory }}</td>
+                         <td >{{ itemList?.qacatagory }}</td>
                          <th>Sub Category </th>
-                         <td >{{ itemList?.subcatagory }}</td>
+                         <td >{{ itemList?.subqacatagory }}</td>
                      </tr>
                      <tr>
                          <th>Capacity  </th>
@@ -287,6 +287,14 @@
                     <tr>
                       <th>Publish Date</th>
                       <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                      <th>Category</th>
+                      <td>{{ itemList?.qacatagory }}</td>
+                      <th>Sub-Category</th>
+                      <td>{{ itemList?.subqacatagory }}</td>
+                    </tr>
+                    <tr>
+                      <th>Capacity</th>
+                      <td>{{ itemList?.capacity }}</td>
                       <th>Execution Location</th>
                       <td>{{ itemList?.tender_location }}</td>
                       <th>Total Direct Cost</th>

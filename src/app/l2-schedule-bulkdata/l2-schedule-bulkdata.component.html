@@ -21,12 +21,20 @@
             </div>
             <div class="col-lg-8 col-8">
               <div class="float-right">
-                <button class="btn btn-primary btn-fw btn-sm me-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><span class="mdi mdi-upload"></span>&nbsp;Export</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false"><span
+                    class="mdi mdi-upload"></span>&nbsp;Export</button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li (click)="download()"> <a class="dropdown-item text-small cursor-pointer"><span class="mdi mdi-arrow-down-bold-box-outline"></span>Export Data</a></li>
-                  <li><a class="dropdown-item text-small cursor-pointer" href="../../../../assets/tamplate/l1schedule_upload_template.xlsx" download="l1schedule_upload_template.xlsx"><span class="mdi mdi-download"></span>Download&nbsp;Template</a> </li>
+                  <li (click)="download()"> <a class="dropdown-item text-small cursor-pointer"><span
+                        class="mdi mdi-arrow-down-bold-box-outline"></span>Export Data</a></li>
+                  <li><a class="dropdown-item text-small cursor-pointer"
+                      href="../../../../assets/tamplate/l1schedule_upload_template.xlsx"
+                      download="l1schedule_upload_template.xlsx"><span
+                        class="mdi mdi-download"></span>Download&nbsp;Template</a> </li>
                 </ul>
-                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createModal" (click)="getCompanyList()" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import </button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createModal"
+                  (click)="getCompanyList()" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import
+                </button>
                 <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createL2Modal" (click)="getCompanyList()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button> -->
               </div>
             </div>
@@ -50,28 +58,35 @@
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let a of l2ScheduleData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+              <tr
+                *ngFor="let a of l2ScheduleData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.company_name }}</td>
                 <td>
-                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">{{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.tender_title }}">{{a?.tender_title | slice:0:30}} <span
+                      *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock1>{{a?.tender_title}}</ng-template>
                 </td>
                 <td>
-                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span
+                      *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
                 <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                <td>{{ a.category }}</td>
-                <td>{{ a.sub_category}}</td>
+                <td>{{ a.qacatagory }}</td>
+                <td>{{ a.subqacatagory}}</td>
                 <td>{{ a.capacity }}</td>
                 <td>{{ a.tender_location }}</td>
                 <td>{{ a.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>{{ a.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>{{ a.tender_completion_period }}</td>
                 <td>
-                  <a class="cursor-pointer" (click)="selectedRow(a)" data-bs-toggle="modal" data-bs-target="#viewModel" title="Detail Data"><span class="mdi mdi-eye text-success mdi-18px"></span></a>&nbsp;
-                  <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateL2Modal" title="Edit Details" (click)="updateSelectedRow(a)"><span class="mdi mdi-pencil text-secondary mdi-18px"></span></a>
+                  <a class="cursor-pointer" (click)="selectedRow(a)" data-bs-toggle="modal" data-bs-target="#viewModel"
+                    title="Detail Data"><span class="mdi mdi-eye text-success mdi-18px"></span></a>&nbsp;
+                  <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateL2Modal" title="Edit Details"
+                    (click)="updateSelectedRow(a)"><span class="mdi mdi-pencil text-secondary mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="l2ScheduleData?.length == 0">
@@ -95,7 +110,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="updateL2Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="updateL2Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -118,17 +134,22 @@
                   <td>{{ l1ScheduleData?.company_name }}</td>
                   <th>NIT No</th>
                   <td>
-                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">{{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock3" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">
+                      {{l1ScheduleData?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
                     <ng-template #elseBlock3>{{l1ScheduleData?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Publish Date</th>
-                  <td>{{ l1ScheduleData?.publish_date }}</td>
+                  <td>{{ l1ScheduleData?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                 </tr>
 
-                <tr> <th> Category</th>
-                  <td>{{ l1ScheduleData?.category }}</td>
+                <tr>
+                  <th> Category</th>
+                  <td>{{ l1ScheduleData?.qacatagory }}</td>
                   <th>Sub Category</th>
-                  <td>{{ l1ScheduleData?.sub_category }}</td>
+                  <td>{{ l1ScheduleData?.subqacatagory }}</td>
                   <th> Capacity</th>
                   <td>{{ l1ScheduleData?.capacity }}</td>
 
@@ -136,18 +157,17 @@
                 <tr>
                   <th>Execution Location</th>
                   <td>{{ l1ScheduleData?.tender_location }}</td>
-
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-                 
+                  <td>{{ l1ScheduleData?.schedule_end_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+
                 </tr>
                 <tr>
                   <th>L2 Comp Period (Months)</th>
                   <td colspan="5">{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
-      
+
               </tbody>
             </table>
             <h6 class="text-secondary mt-3 mb-2">Update for L2 Schedule</h6>
@@ -171,7 +191,8 @@
                 </thead>
                 <tbody class="text-nowrap">
                   <ng-container *ngFor="let row of l1ScheduleData?.tasks; index as i">
-                    <tr class="text-nowrap fw-bold" [style.color]="row?.is_added ? 'green' : (row?.is_updated ? 'blue' : 'black')">
+                    <tr class="text-nowrap fw-bold"
+                      [style.color]="row?.is_added ? 'green' : (row?.is_updated ? 'blue' : 'black')">
                       <ng-container *ngIf="!row?.is_deleted">
                         <td>{{ i+1 }}</td>
                         <td>{{ row?.task }}</td>
@@ -181,13 +202,17 @@
                         <td>{{ row?.qty }}</td>
                         <td>{{ row?.uom }}</td>
                         <td class="text-right">
-                          <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                          <a title="Delete Details" (click)="removeTask(row)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                          <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details"
+                            (click)="editTaskRow(row)"><span
+                              class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                          <a title="Delete Details" (click)="removeTask(row)"><span
+                              class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                         </td>
                       </ng-container>
                     </tr>
                     <ng-container *ngIf="row?.childtasks?.length > 0">
-                      <tr *ngFor="let ct of row?.childtasks; index as ci" [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
+                      <tr *ngFor="let ct of row?.childtasks; index as ci"
+                        [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
                         <ng-container *ngIf="!ct.is_deleted">
                           <td>&nbsp; &nbsp; &nbsp;{{i+1}}.{{ ci+1 }}</td>
                           <td>{{ ct?.task }}</td>
@@ -197,22 +222,31 @@
                           <td>{{ ct?.qty }}</td>
                           <td>{{ ct?.uom }}</td>
                           <td class="text-right">
-                            <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask" (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                            <a title="Delete Details" (click)="removeSubTask(row, ct)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                            <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask"
+                              (click)="editSubTaskRow(row, ct)"><span
+                                class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                            <a title="Delete Details" (click)="removeSubTask(row, ct)"><span
+                                class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                           </td>
                         </ng-container>
                       </tr>
                       <tr class="text-right">
-                        <td colspan="12" class="text-right"><a title="Create Details" (click)="addSubTask(row)" data-bs-toggle="modal" data-bs-target="#addSubTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                        <td colspan="12" class="text-right"><a title="Create Details" (click)="addSubTask(row)"
+                            data-bs-toggle="modal" data-bs-target="#addSubTask"><span
+                              class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
                       </tr>
                     </ng-container>
                   </ng-container>
                   <tr class="text-right">
-                    <td colspan="12" class="text-right"><a title="Create Details" data-bs-toggle="modal" data-bs-target="#addTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a>&nbsp;</td>
+                    <td colspan="12" class="text-right"><a title="Create Details" data-bs-toggle="modal"
+                        data-bs-target="#addTask"><span
+                          class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a>&nbsp;</td>
                   </tr>
                 </tbody>
               </app-responsive-table>
-              <div class="row text-center my-2"><p>Validations will be added, once form is freezed.</p></div>
+              <div class="row text-center my-2">
+                <p>Validations will be added, once form is freezed.</p>
+              </div>
               <div class="modal-btns mt-3">
                 <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2"> Update </button>
                 <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
@@ -225,7 +259,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -239,7 +274,8 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
-                  <select formControlName="company_id" class="form-select form-select-sm" (ngModelChange)="getTenderListByCompany()">
+                  <select formControlName="company_id" class="form-select form-select-sm"
+                    (ngModelChange)="getTenderListByCompany()">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
                     <option *ngFor="let c of companyList" value="{{c.company_id}}">{{ c.company_name }}</option>
                   </select>
@@ -251,7 +287,8 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                  <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="selectTender()">
+                  <select formControlName="tender_id" class="form-select form-select-sm"
+                    (ngModelChange)="selectTender()">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
                     <option *ngFor="let t of tenderList" value="{{t.tender_id}}">{{t.tender_title}}</option>
                   </select>
@@ -263,46 +300,49 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">NIT No<span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control form-control-sm" readonly [value]="selectedTender?.tender_ref_no">
+                  <input type="text" class="form-control form-control-sm" readonly
+                    [value]="selectedTender?.tender_ref_no">
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
+                  <input type="text" class="form-control form-control-sm"
+                    [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
                 </div>
               </div>
 
               <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Category</label>
-                    <input class="form-control form-control-sm" readonly >
+                  <label class="form-label fl-10">Category</label>
+                  <input class="form-control form-control-sm" readonly>
                 </div>
-            </div>
-            <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Sub-Category</label>
-                    <input class="form-control form-control-sm" readonly >
+                  <label class="form-label fl-10">Sub-Category</label>
+                  <input class="form-control form-control-sm" readonly>
                 </div>
-            </div>
-            <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Capacity</label>
-                    <input class="form-control form-control-sm" readonly >
+                  <label class="form-label fl-10">Capacity</label>
+                  <input class="form-control form-control-sm" readonly>
                 </div>
-            </div>
-          
-            <div class="col-md-3">
+              </div>
+
+              <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Execution Location</label>
-                    <input class="form-control form-control-sm" readonly >
+                  <label class="form-label fl-10">Execution Location</label>
+                  <input class="form-control form-control-sm" readonly>
                 </div>
-            </div>
+              </div>
 
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">L2 Start Date<span class="required-asterisk">*</span></label>
-                  <input formControlName="start_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+                  <input formControlName="start_date" type="date" class="form-control form-control-sm"
+                    min="{{today | date: 'yyyy-MM-dd'}}">
                   <div *ngIf="lu['start_date'].touched && lu['start_date'].invalid">
                     <small class="text-danger" *ngIf="lu['start_date'].errors?.['required']">*Required</small>
                   </div>
@@ -311,7 +351,8 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">L2 End Date<span class="required-asterisk">*</span></label>
-                  <input formControlName="end_date" type="date" class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd'}}">
+                  <input formControlName="end_date" type="date" class="form-control form-control-sm"
+                    min="{{today | date: 'yyyy-MM-dd'}}">
                   <div *ngIf="lu['end_date'].touched && lu['end_date'].invalid">
                     <small class="text-danger" *ngIf="lu['end_date'].errors?.['required']">*Required</small>
                   </div>
@@ -328,15 +369,18 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label id="cin" class="form-label fl-10"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                  <input type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx">
+                  <label id="cin" class="form-label fl-10"> Upload Documents <span
+                      class="required-asterisk">*</span></label><br>
+                  <input type="file" class="form-control form-control-sm" formControlName="attachment"
+                    (change)="onFileChanged($event)" accept=".xlsx">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-row">
                   <div class="form-group col-12">
                     <label for="description" class="form-label fl-10">Document Description:</label>
-                    <textarea type="text" name="description" class="form-control form-control-sm" formControlName="description" appWordCapitalize></textarea>
+                    <textarea type="text" name="description" class="form-control form-control-sm"
+                      formControlName="description" appWordCapitalize></textarea>
                   </div>
                 </div>
               </div>
@@ -348,18 +392,23 @@
                   <thead class="hidden-thead"></thead>
                   <tbody>
                     <tr *ngFor="let files of attachmentName; let i = index">
-                      <td><p class="h5">{{files.name}}</p></td>
+                      <td>
+                        <p class="h5">{{files.name}}</p>
+                      </td>
                       <td>{{files.date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{files.size/1024 | number: '1.0-2'}} KB</td>
-                      <td class="text-right"><a title="Remove file" (click)="deleteFile(i)"><span class="mdi mdi-folder-remove text-danger cursor-pointer mdi-18px"></span></a>&nbsp;</td>
+                      <td class="text-right"><a title="Remove file" (click)="deleteFile(i)"><span
+                            class="mdi mdi-folder-remove text-danger cursor-pointer mdi-18px"></span></a>&nbsp;</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
             <div class="float-right mt-2">
-              <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="documentForm.invalid">Submit</button>
-              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary btn-fw btn-sm me-2"
+                [disabled]="documentForm.invalid">Submit</button>
+              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                data-bs-dismiss="modal">Close</button>
             </div>
           </form>
         </div>
@@ -368,7 +417,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="createL2Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createL2Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -383,7 +433,8 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="fl-10">Client</label>
-                  <select formControlName="company_id" class="form-select form-select-sm login-input" (ngModelChange)="getTenderListByCompany()">
+                  <select formControlName="company_id" class="form-select form-select-sm login-input"
+                    (ngModelChange)="getTenderListByCompany()">
                     <option value=null disabled selected>Select Client</option>
                     <option *ngFor="let c of companyList" value="{{c.company_id}}">{{ c.company_name }}</option>
                   </select>
@@ -392,7 +443,8 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="fl-10">Tender Title</label>
-                  <select formControlName="tender_id" class="form-select form-select-sm login-input" (ngModelChange)="getL1ScheduleDataByTender()">
+                  <select formControlName="tender_id" class="form-select form-select-sm login-input"
+                    (ngModelChange)="getL1ScheduleDataByTender()">
                     <option value=null disabled selected>Select Tender</option>
                     <option *ngFor="let t of tenderList" value="{{t.tender_id}}">{{ t.tender_title }}</option>
                   </select>
@@ -413,36 +465,35 @@
                     <td>{{ l1ScheduleData?.company_name }}</td>
                     <th>NIT No</th>
                     <td>
-                      <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">{{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                      <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip"
+                        data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">
+                        {{l1ScheduleData?.tender_ref_no | slice:0:30}} <span
+                          *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i
+                            class="mdi mdi-information"></i></span></div>
                       <ng-template #elseBlock4>{{l1ScheduleData?.tender_ref_no}}</ng-template>
                     </td>
-
-
                     <th>Publish Date</th>
-                    <td>{{ l1ScheduleData?.publish_date }}</td>
+                    <td>{{ l1ScheduleData?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   </tr>
-  
-                <tr> <th> Category</th>
-                  <td>{{ l1ScheduleData?.category }}</td>
-                  <th>Sub Category</th>
-                  <td>{{ l1ScheduleData?.sub_category }}</td>
-                  <th> Capacity</th>
-                  <td>{{ l1ScheduleData?.capacity }}</td>
 
-                </tr>
-
-        
-         
-                <tr>
-                  <th>Execution Location</th>
-                  <td>{{ l1ScheduleData?.tender_location }}</td>
+                  <tr>
+                    <th> Category</th>
+                    <td>{{ l1ScheduleData?.qacatagory }}</td>
+                    <th>Sub Category</th>
+                    <td>{{ l1ScheduleData?.subqacatagory }}</td>
+                    <th> Capacity</th>
+                    <td>{{ l1ScheduleData?.capacity }}</td>
+                  </tr>
+                  <tr>
+                    <th>Execution Location</th>
+                    <td>{{ l1ScheduleData?.tender_location }}</td>
                     <th>L2 Start Date</th>
                     <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                     <th>L2 End Date</th>
                     <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
-                 
-                </tr>
-                <tr>
+
+                  </tr>
+                  <tr>
                     <th>Completion Period (Months)</th>
                     <td colspan="5">{{ l1ScheduleData?.tender_completion_period }}</td>
                   </tr>
@@ -464,7 +515,8 @@
                   </tr>
                 </thead>
                 <tbody class="text-nowrap">
-                  <tr *ngFor="let row of l1ScheduleData?.tasks; index as i" class="text-nowrap" [style.color]="row?.is_added ? 'green' : (row?.is_updated ? 'blue' : 'black')">
+                  <tr *ngFor="let row of l1ScheduleData?.tasks; index as i" class="text-nowrap"
+                    [style.color]="row?.is_added ? 'green' : (row?.is_updated ? 'blue' : 'black')">
                     <ng-container *ngIf="!row.is_deleted">
                       <td>{{ i+1 }}</td>
                       <td>{{ row.task }}</td>
@@ -472,12 +524,16 @@
                       <td>{{ row.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{ row.days_difference }}</td>
                       <td>
-                        <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                        <a title="Delete Details" (click)="removeTask(row)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                        <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details"
+                          (click)="editTaskRow(row)"><span
+                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                        <a title="Delete Details" (click)="removeTask(row)"><span
+                            class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                       </td>
                       <td>
                         <table class="table">
-                          <tr *ngFor="let ct of row?.childtasks; index as ci" [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
+                          <tr *ngFor="let ct of row?.childtasks; index as ci"
+                            [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
                             <ng-container *ngIf="!ct.is_deleted">
                               <td>{{i+1}}.{{ ci+1 }}</td>
                               <td>{{ ct.task }}</td>
@@ -485,26 +541,34 @@
                               <td>{{ ct.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                               <td>{{ ct.days_difference }}</td>
                               <td class="text-right">
-                                <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask"able table-hover table-striped custom-table (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                                <a title="Delete Details" (click)="removeSubTask(row, ct)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                                <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask" able
+                                  table-hover table-striped custom-table (click)="editSubTaskRow(row, ct)"><span
+                                    class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                                <a title="Delete Details" (click)="removeSubTask(row, ct)"><span
+                                    class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                               </td>
                             </ng-container>
                           </tr>
                           <tr>
-                            <td colspan="6" class="text-right"><a title="Create Details" (click)="addSubTask(row)" data-bs-toggle="modal" data-bs-target="#addSubTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                            <td colspan="6" class="text-right"><a title="Create Details" (click)="addSubTask(row)"
+                                data-bs-toggle="modal" data-bs-target="#addSubTask"><span
+                                  class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
                           </tr>
                         </table>
                       </td>
                     </ng-container>
                   </tr>
                   <tr>
-                    <td colspan="12" class="text-right"><a title="Create Details" class="me-3" data-bs-toggle="modal" data-bs-target="#addTask"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a>&nbsp;</td>
+                    <td colspan="12" class="text-right"><a title="Create Details" class="me-3" data-bs-toggle="modal"
+                        data-bs-target="#addTask"><span
+                          class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a>&nbsp;</td>
                   </tr>
                 </tbody>
               </app-responsive-table>
               <div class="modal-btns mt-3">
                 <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2"> Create </button>
-                <button type="button" id="closed" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="closed" class="btn btn-secondary btn-fw btn-sm"
+                  data-bs-dismiss="modal">Close</button>
               </div>
             </div>
           </form>
@@ -514,12 +578,14 @@
   </div>
 </div>
 
-<div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Task Create for L2 Schedule</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateL2Modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+          data-bs-target="#updateL2Modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -537,7 +603,11 @@
                   <td>{{ l1ScheduleData?.company_name }}</td>
                   <th>NIT No</th>
                   <td>
-                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">{{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">
+                      {{l1ScheduleData?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
                     <ng-template #elseBlock4>{{l1ScheduleData?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Execution Location</th>
@@ -570,7 +640,9 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm"
+                      min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}"
+                      max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -579,7 +651,9 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm"
+                      min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}"
+                      max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -587,11 +661,13 @@
                 </div>
                 <div class="modal-btns mt-3">
                   <!-- <ng-container *ngIf="update; else create"> -->
-                    <ng-container>
-                      <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#updateL2Modal">Submit</button>
-                      <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateL2Modal">Close</button>
-                    </ng-container>
-                   <!-- <ng-template #create>
+                  <ng-container>
+                    <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal"
+                      data-bs-target="#updateL2Modal">Submit</button>
+                    <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
+                      data-bs-toggle="modal" data-bs-target="#updateL2Modal">Close</button>
+                  </ng-container>
+                  <!-- <ng-template #create>
                      <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#createL2Modal">Submit</button>
                      <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal">Close</button>
                    </ng-template> -->
@@ -605,12 +681,14 @@
   </div>
 </div>
 
-<div class="modal fade" id="editTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="editTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Task Update for L2 Schedule</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateL2Modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+          data-bs-target="#updateL2Modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -628,7 +706,11 @@
                   <td>{{ l1ScheduleData?.company_name }}</td>
                   <th>NIT No</th>
                   <td>
-                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">{{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">
+                      {{l1ScheduleData?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
                     <ng-template #elseBlock4>{{l1ScheduleData?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Execution Location</th>
@@ -661,7 +743,9 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm"
+                      min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}"
+                      max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -670,7 +754,9 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm"
+                      min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}"
+                      max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -679,10 +765,12 @@
                 <div class="modal-btns mt-3">
                   <!-- <ng-container *ngIf="update; else create"> -->
                   <ng-container>
-                    <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#updateL2Modal">Submit</button>
-                    <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateL2Modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal"
+                      data-bs-target="#updateL2Modal">Submit</button>
+                    <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
+                      data-bs-toggle="modal" data-bs-target="#updateL2Modal">Close</button>
                   </ng-container>
-                 <!-- <ng-template #create>
+                  <!-- <ng-template #create>
                    <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#createL2Modal">Submit</button>
                    <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal">Close</button>
                  </ng-template> -->
@@ -696,12 +784,14 @@
   </div>
 </div>
 
-<div class="modal fade" id="addSubTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="addSubTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Sub Task Create for L2 Schedule</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateL2Modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+          data-bs-target="#updateL2Modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -719,7 +809,11 @@
                   <td>{{ l1ScheduleData?.company_name }}</td>
                   <th>NIT No</th>
                   <td>
-                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">{{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">
+                      {{l1ScheduleData?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
                     <ng-template #elseBlock4>{{l1ScheduleData?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Execution Location</th>
@@ -770,7 +864,9 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm"
+                      min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}"
+                      max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -779,19 +875,23 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm"
+                      min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}"
+                      max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
                   </div>
                 </div>
                 <div class="modal-btns mt-3">
-                   <!-- <ng-container *ngIf="update; else create"> -->
-                    <ng-container>
-                      <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#updateL2Modal">Submit</button>
-                      <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateL2Modal">Close</button>
-                    </ng-container>
-                   <!-- <ng-template #create>
+                  <!-- <ng-container *ngIf="update; else create"> -->
+                  <ng-container>
+                    <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal"
+                      data-bs-target="#updateL2Modal">Submit</button>
+                    <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
+                      data-bs-toggle="modal" data-bs-target="#updateL2Modal">Close</button>
+                  </ng-container>
+                  <!-- <ng-template #create>
                      <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#createL2Modal">Submit</button>
                      <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal">Close</button>
                    </ng-template> -->
@@ -805,12 +905,14 @@
   </div>
 </div>
 
-<div class="modal fade" id="editSubTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="editSubTask" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Sub Task Update for L2 Schedule</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateL2Modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+          data-bs-target="#updateL2Modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -828,7 +930,11 @@
                   <td>{{ l1ScheduleData?.company_name }}</td>
                   <th>NIT No</th>
                   <td>
-                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">{{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">
+                      {{l1ScheduleData?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
                     <ng-template #elseBlock4>{{l1ScheduleData?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Execution Location</th>
@@ -879,7 +985,9 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm"
+                      min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}"
+                      max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -888,7 +996,9 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm"
+                      min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}"
+                      max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -896,11 +1006,13 @@
                 </div>
                 <div class="modal-btns mt-3">
                   <!-- <ng-container *ngIf="update; else create"> -->
-                    <ng-container>
-                      <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#updateL2Modal">Submit</button>
-                      <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateL2Modal">Close</button>
-                    </ng-container>
-                   <!-- <ng-template #create>
+                  <ng-container>
+                    <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal"
+                      data-bs-target="#updateL2Modal">Submit</button>
+                    <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
+                      data-bs-toggle="modal" data-bs-target="#updateL2Modal">Close</button>
+                  </ng-container>
+                  <!-- <ng-template #create>
                      <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#createL2Modal">Submit</button>
                      <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createL2Modal">Close</button>
                    </ng-template> -->
@@ -914,7 +1026,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="viewModel" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -937,33 +1050,32 @@
                   <td>{{ selectedRowData?.company_name }}</td>
                   <th>NIT No</th>
                   <td>
-                    <div *ngIf="!!selectedRowData?.tender_ref_no; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ selectedRowData?.tender_ref_no }}">{{selectedRowData?.tender_ref_no | slice:0:30}} <span *ngIf="selectedRowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!selectedRowData?.tender_ref_no; else elseBlock5" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ selectedRowData?.tender_ref_no }}">
+                      {{selectedRowData?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="selectedRowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
                     <ng-template #elseBlock5>{{selectedRowData?.tender_ref_no}}</ng-template>
                   </td>
-                
-                  <th>Publish Date</th>
-                  <td>{{ l1ScheduleData?.publish_date }}</td>
-                </tr>
 
-                <tr> <th> Category</th>
-                  <td>{{ l1ScheduleData?.category }}</td>
+                  <th>Publish Date</th>
+                  <td>{{ l1ScheduleData?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                </tr>
+                <tr>
+                  <th> Category</th>
+                  <td>{{ l1ScheduleData?.qacatagory }}</td>
                   <th>Sub Category</th>
-                  <td>{{ l1ScheduleData?.sub_category }}</td>
+                  <td>{{ l1ScheduleData?.subqacatagory }}</td>
                   <th> Capacity</th>
                   <td>{{ l1ScheduleData?.capacity }}</td>
-
                 </tr>
-
-
                 <tr>
-
                   <th>Execution Location</th>
                   <td>{{ selectedRowData?.tender_location }}</td>
                   <th>L2 Start Date</th>
                   <td>{{ selectedRowData?.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <th>L2 End Date</th>
                   <td>{{ selectedRowData?.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-              
                 </tr>
                 <tr>
                   <th>L2 Comp Period (Months)</th>
@@ -998,7 +1110,8 @@
                     </ng-container>
                   </tr>
                   <ng-container *ngIf="row?.childtasks?.length > 0">
-                    <tr *ngFor="let ct of row?.childtasks; index as ci" [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
+                    <tr *ngFor="let ct of row?.childtasks; index as ci"
+                      [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
                       <ng-container *ngIf="!ct.is_deleted">
                         <td>&nbsp; &nbsp; &nbsp;{{i+1}}.{{ ci+1 }}</td>
                         <td>{{ ct?.task }}</td>

@@ -70,8 +70,8 @@
                                     </ng-template>
                                 </td>
                                 <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
-                                <td>{{ a.itemCategory }}</td>
-                                <td>{{ a.itemSubCategory }}</td>
+                                <td>{{ a.qacatagory }}</td>
+                                <td>{{ a.subqacatagory }}</td>
                                 <td>{{ a.capacity }}</td>
                                 <td>{{ a.tender_location }}</td>
                                 <td>
@@ -166,25 +166,25 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Category</label>
-                                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="tenderDetailedData[0]?.qacatagory">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Sub-Category</label>
-                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="tenderDetailedData[0]?.subqacatagory">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Capacity</label>
-                                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="tenderDetailedData[0]?.capacity">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location</label>
-                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="tenderDetailedData[0]?.tender_location">
                                 </div>
                             </div>
 
@@ -382,8 +382,16 @@
                                         <tr>
                                             <th>Publish Date</th>
                                             <td>{{ itemList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                                            <!-- <th>Execution Location</th>
-                                            <td>{{ itemList?.tender_location }}</td> -->
+                                            <th>Category</th>
+                                            <td>{{ itemList?.qacatagory }}</td>
+                                            <th>Sub-Category</th>
+                                            <td>{{ itemList?.subqacatagory }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Capacity</th>
+                                            <td>{{ itemList?.capacity }}</td>
+                                            <th>Execution Location</th>
+                                            <td>{{ itemList?.tender_location }}</td>
                                             <th>Total In-direct Cost</th>
                                             <td colspan="3">{{ indirectCostTotal | currency: 'INR': '' : '1.0-2' }}</td>
                                         </tr>

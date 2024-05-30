@@ -91,10 +91,10 @@
                                     </ng-template>
                                 </td>
                                 <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
-                                <td>{{ a.category }}</td>
-                                <td>{{ a.sub_category }}</td>
+                                <td>{{ a.qacatagory }}</td>
+                                <td>{{ a.subqacatagory }}</td>
                                 <td>{{ a.capacity }}</td>
-                                <td>{{ a.exe_date }}</td>
+                                <td>{{ a.tender_location }}</td>
                                 <td>{{a.bg_amount}}</td>
                                 <td>{{a.start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>{{a.end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
@@ -220,29 +220,25 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Category</label>
-                                    <input class="form-control form-control-sm" readonly>
-                                    <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.qacatagory">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Sub-Category</label>
-                                    <input class="form-control form-control-sm"
-                                        readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.subqacatagory">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Capacity</label>
-                                    <input class="form-control form-control-sm"
-                                        readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.capacity">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location</label>
-                                    <input class="form-control form-control-sm"
-                                        readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.tender_location">
                                 </div>
                             </div>
                             <div class="form-group col-4">
