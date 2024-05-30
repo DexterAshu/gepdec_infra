@@ -7,11 +7,11 @@ import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-synopsis',
-  templateUrl: './synopsis.component.html',
-  styleUrls: ['./synopsis.component.css']
+  selector: 'app-costing-approval',
+  templateUrl: './costing-approval.component.html',
+  styleUrls: ['./costing-approval.component.css']
 })
-export class SynopsisComponent {
+export class CostingApprovalComponent {
   form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
@@ -42,7 +42,9 @@ export class SynopsisComponent {
   tendStatus: any = [];
   showWorkingDetails: boolean = false;
   showPreNotes: boolean = false;
-    techDataShow: boolean = false;
+  techDataShow: boolean = false;
+  directDataShow: boolean = false;
+  indirectDataShow: boolean = false;
   finDataShow: boolean = false;
   tendStatusData: any;
   data: any;
@@ -51,6 +53,10 @@ export class SynopsisComponent {
   statusList: any = [];
   approval: any;
   reqList: any = [];
+  dataDropdownList: any;
+  selectedRow: any;
+  itemList: any;
+  totalDirectCost: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -75,6 +81,13 @@ export class SynopsisComponent {
     });
 
     this.getTenderData();
+  }
+
+  getBOQItemList(data: any) {
+    this.totalDirectCost = 0;
+    this.itemList = [];
+    this.itemList = data;
+    this.itemList?.items.map((item: any) => this.totalDirectCost += item?.total_basic_value );
   }
 
   //  getDetails(data:any){
@@ -244,7 +257,6 @@ this.statusList=roleD[0].roleStatus
         requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
         // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
         tender_id: this.tenderData[0].tender_id,
-        working_notes: this.form.value.working_notes
     };
     this.apiService.createApproval(reqTend).subscribe((res: any) => {
         let response: any = res;
@@ -269,7 +281,6 @@ this.statusList=roleD[0].roleStatus
       var reqTend = {
         requeststatus_id : this.reqList[0].requeststatus_id,
         tender_id : this.tenderData[0].tender_id,
-        working_notes: this.form.value.working_notes
       }
       this.apiService.createApproval(reqTend).subscribe((res: any) => {
         let response: any = res;
@@ -289,12 +300,9 @@ this.statusList=roleD[0].roleStatus
     
     }
     else{
-      var reqTend = {
-        requeststatus_id : this.reqList[0].requeststatus_id,
-        tender_id : this.tenderData[0].tender_id,
-        working_notes: this.form.value.working_notes
-      }
-      this.apiService.createApproval(reqTend).subscribe((res: any) => {
+      this.form.value.requeststatus_id = this.reqList[0].requeststatus_id;
+      this.form.value.tender_id = this.tenderData[0].tender_id;
+      this.apiService.createApproval(this.form.value).subscribe((res: any) => {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
@@ -314,3 +322,4 @@ this.statusList=roleD[0].roleStatus
     }
   }
 }
+

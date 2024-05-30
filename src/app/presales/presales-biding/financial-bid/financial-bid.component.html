@@ -241,7 +241,7 @@
                                             <label class="form-label fl-10 ">Annual Turnover</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="annual_turnover" #annual type="text" class="form-control form-control-sm"
                                                 (keyup)="comparisonData(annual.value)" appNumberOnly>
                                         </div>
@@ -284,8 +284,8 @@
                                         </div>
                                        
                                         <div class="col-md-2" *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
-                                            <input class="form-control form-control-sm" formControlName="our_annual_turnover" readonly [value]="data?.result">
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
+                                            <input class="form-control form-control-sm" formControlName="our_annual_turnover" readonly [value]="data?.result | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
                                             <br>
@@ -308,7 +308,7 @@
                                             <label class="form-label fl-10">Net Profit</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="net_profit" type="text"
                                                 class="form-control form-control-sm" #netprofit
                                                 (keyup)="comparisonNetProfitData(netprofit.value)" appNumberOnly>
@@ -337,7 +337,7 @@
                                         </div>
 
                                         <!-- <div class="col-md-2" *ngIf="form.value.net_profit_year">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
                                                 readonly [value]="netProf">
                                             <div class="form-group">
@@ -361,9 +361,9 @@
                                         </div>
                                      
                                         <div class="col-md-2" *ngIf="form.value.net_profit_year">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm" formControlName="our_net_profit"
-                                                readonly [value]="netProf">
+                                                readonly [value]="netProf | currency: 'INR': '' : '1.0-2'">
 
                                             <!-- <span type="text" class="form-control form-control-sm" appNumberOnly>{{ rowData?.annual_turnover }}</span> -->
                                         </div>
@@ -385,7 +385,7 @@
                                             <label class="form-label fl-10">EBITDA</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="ebidta" type="text"
                                                 class="form-control form-control-sm" #ebdt
                                                 (keyup)="comparisonEbidtaData(ebdt.value)" appNumberOnly>
@@ -437,9 +437,9 @@
                                         </div>
                                    
                                         <div class="col-md-2" *ngIf="form.value.ebidta_year">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm" formControlName="our_ebidta"
-                                                readonly [value]="ebidtaVal">
+                                                readonly [value]="ebidtaVal | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="ebidtaVal != null">
                                             <br>
@@ -459,7 +459,7 @@
                                             <label class="form-label fl-10">Net Worth</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="net_worth" type="text"
                                                 class="form-control form-control-sm" #networth
                                                 (keyup)="comparisonNetWorthData(networth.value)" appNumberOnly>
@@ -511,9 +511,9 @@
                                         </div>
                                       
                                         <div class="col-md-2" *ngIf="form.value.net_worth_year">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm" formControlName="our_net_worth"
-                                                readonly [value]="data1">
+                                                readonly [value]="data1 | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="data1 != null">
                                             <br>
@@ -534,7 +534,7 @@
                                             <label class="form-label fl-10">Net Working Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="net_working_capital" type="text"
                                                 class="form-control form-control-sm" #networkCap
                                                 (keyup)="comparisonNetWorkData(networkCap.value)" appNumberOnly>
@@ -578,9 +578,9 @@
                                         </div>
                                       
                                         <div class="col-md-2" *ngIf="form.value.net_working_capital_year">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_net_working_capital" readonly [value]="data2">
+                                                formControlName="our_net_working_capital" readonly [value]="data2 | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="data2 != null">
                                             <br>
@@ -602,7 +602,7 @@
                                             <label class="form-label fl-10">Total Liabilities</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="total_liabilities" type="text"
                                                 class="form-control form-control-sm" #libi
                                                 (keyup)="comparisonLibData(libi.value)" appNumberOnly>
@@ -652,10 +652,10 @@
                                         </div>
                                        
                                         <div class="col-md-2" *ngIf="form.value.total_liabilities_year">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
                                                 formControlName="our_total_liabilities" readonly
-                                                [value]="liabilityData">
+                                                [value]="liabilityData | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="liabilityData != null">
                                             <br>
@@ -674,7 +674,7 @@
                                             <label class="form-label fl-10">Total Fixed Assets</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="total_fixed_assets" type="text"
                                                 class="form-control form-control-sm" #fixedasset
                                                 (keyup)="comparisonAssetData(fixedasset.value)" appNumberOnly>
@@ -726,9 +726,9 @@
                                         </div>
                                        
                                         <div class="col-md-2" *ngIf="form.value.total_fixed_assets_year">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_total_fixed_assets" readonly [value]="assetVal">
+                                                formControlName="our_total_fixed_assets" readonly [value]="assetVal | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="assetVal != null">
                                             <br>
@@ -747,7 +747,7 @@
                                             <label class="form-label fl-10">Net Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="net_capital" type="text"
                                                 class="form-control form-control-sm" #netcapital
                                                 (keyup)="comparisonNetCapitalData(netcapital.value)" appNumberOnly>
@@ -788,7 +788,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-2" *ngIf="year6.value">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
                                                 formControlName="our_net_capital" readonly [value]="netCapitalVal">
 
@@ -810,7 +810,7 @@
                                             <label class="form-label fl-10">Reserve & Surplus</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="reserve_surplus" type="text"
                                                 class="form-control form-control-sm" #rsVal
                                                 (keyup)="comparisonRSData(rsVal.value)" appNumberOnly>
@@ -858,9 +858,9 @@
                                         </div>
                                       
                                         <div class="col-md-2" *ngIf="form.value.reserve_surplus_year">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_reserve_surplus" readonly [value]="rAnds">
+                                                formControlName="our_reserve_surplus" readonly [value]="rAnds | currency: 'INR': '' : '1.0-2'">
 
                                         </div>
                                         <div class="col-md-2" *ngIf="rAnds != null">
@@ -880,7 +880,7 @@
                                             <label class="form-label fl-10">Paid Up Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (Cr)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
                                             <input formControlName="paid_upcapital" type="text"
                                                 class="form-control form-control-sm" #paiupcapi
                                                 (keyup)="comparisonPaidupData(paiupcapi.value)" appNumberOnly>
@@ -931,9 +931,9 @@
                                         </div>
                                      
                                         <div class="col-md-2" *ngIf="form.value.paid_upcapital_year">
-                                            <label class="form-label fl-10 text-small">Our Values</label>
+                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_paid_upcapital" readonly [value]="paiCapitalVal">
+                                                formControlName="our_paid_upcapital" readonly [value]="paiCapitalVal | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="paiCapitalVal != null">
                                             <br>
@@ -1069,11 +1069,11 @@
                                     <thead class="table-primary text-nowrap">
                                         <tr>
                                             <th>Financial Parameters</th>
-                                            <th>Amounts (Cr)</th>
+                                            <th>Amounts (INR)</th>
                                             <th>Condition</th>
                                             <th>Years</th>
                                             <th>Fin Year</th>
-                                            <th>Our Values</th>
+                                            <th>Our Values (INR)</th>
                                             <th>Result</th>
                                         </tr>
                                     </thead>
@@ -1303,11 +1303,11 @@
                                     <thead class="table-primary text-nowrap">
                                         <tr>
                                             <th>Financial Parameters</th>
-                                            <th>Amounts (Cr)</th>
+                                            <th>Amounts (INR)</th>
                                             <th>Condition</th>
                                             <th>Years</th>
                                             <th>Fin Year</th>
-                                            <th>Our Values</th>
+                                            <th>Our Values (INR)</th>
                                             <th>Result</th>
                                         </tr>
                                     </thead>

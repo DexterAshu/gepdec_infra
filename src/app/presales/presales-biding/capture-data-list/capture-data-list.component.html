@@ -493,7 +493,7 @@
                             </div>
 
                             <!-- qualification details -->
-                            <div class="card p-2" (click)="finDataShow =! finDataShow">
+                            <!-- <div class="card p-2" (click)="finDataShow =! finDataShow">
                                 <div class="row p-1">
 
                                     <div class="col-md-6">
@@ -532,7 +532,7 @@
                                                 <th>Condition</th>
                                                 <th>Years</th>
                                                 <th>Fin Year</th>
-                                                <th>Our Values</th>
+                                                <th>Our Values (Cr)</th>
                                                 <th>Result</th>
                                             </tr>
                                         </thead>
@@ -549,7 +549,7 @@
                                                         --
                                                     </ng-template>
                                                 </td>
-                                                <!-- <td>{{ a?.annual_turnover_check}}</td> -->
+                                             
                                                 <td>{{ a?.annual_turnover_year }}</td>
                                                 <td>{{ a?.financialyear }}</td>
                                                 <td>{{ a?.our_annual_turnover}}</td>
@@ -565,9 +565,9 @@
                                                 </td>
                                             </tr>
     
-                                               <!-- Net Profit -->
+                                              
                                                <tr *ngIf=" a?.net_profit > 0">
-                                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                             
                                                 <td>Net Profit</td>
                                                 <td>{{ a?.net_profit }}</td>
                                                 <td> -- </td>
@@ -585,9 +585,9 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                              <!--  ebidta -->
+                                             
                                               <tr *ngIf=" a?.ebidta > 0">
-                                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                                               
                                                 <td>EBIDTA</td>
                                                 <td>{{ a?.ebidta }}</td>
                                                 <td> -- </td>
@@ -606,10 +606,7 @@
                                                 </td>
                                             </tr>
     
-                                            <!-- Net Worth -->
-                                      
                                             <tr *ngIf=" a?.net_worth > 0">
-                                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Net Worth</td>
                                                 <td>{{ a?.net_worth }}</td>
                                                 <td> -- </td>
@@ -627,9 +624,7 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                        <!-- Net Working Capital -->
                                             <tr *ngIf=" a?.net_working_capital > 0">
-                                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Net Working Capital</td>
                                                 <td>{{ a?.net_working_capital }}</td>
                                                 <td> -- </td>
@@ -648,9 +643,7 @@
                                                 </td>
                                             </tr>
                                      
-                                        <!--  Total Liability -->
                                             <tr *ngIf=" a?.total_liabilities > 0">
-                                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Total Liability</td>
                                                 <td>{{ a?.total_liabilities }}</td>
                                                 <td> -- </td>
@@ -668,9 +661,7 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                        <!--  Fixed Asset -->
                                             <tr *ngIf="a?.total_fixed_assets > 0">
-                                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Total Fixed Asset</td>
                                                 <td>{{a?.total_fixed_assets }}</td>
                                                 <td> -- </td>
@@ -688,28 +679,8 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                        <!--  Net Capital -->
-                                            <!-- <tr *ngIf=" a?.net_capital > 0">
-                                                <td>Net Capital</td>
-                                                <td>{{ a?.net_capital }}</td>
-                                                <td>{{ a?.net_capital_check}}</td>
-                                                <td>{{ a?.net_capital_year }}</td>
-                                                <td>{{ a?.net_capital_fin }}</td>
-                                                <td>{{ a?.our_net_capital}}</td>
-                                                <td>
-                                                    <div *ngIf=" a?.net_capital_status == true; else ifNot5">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot5>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr> -->
-                                        <!--  reserve_surplus -->
+                                     
                                             <tr *ngIf=" a?.reserve_surplus > 0">
-                                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Reserve & Surplus</td>
                                                 <td>{{ a?.reserve_surplus }}</td>
                                                 <td> -- </td>
@@ -727,9 +698,7 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                        <!--  paid_upcapital -->
                                             <tr *ngIf=" a?.paid_upcapital > 0">
-                                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Paid Up Capital</td>
                                                 <td>{{ a?.paid_upcapital }}</td>
                                                 <td> -- </td>
@@ -765,7 +734,7 @@
                                                 <th>Condition</th>
                                                 <th>Years</th>
                                                 <th>Fin Year</th>
-                                                <th>Our Values</th>
+                                                <th>Our Values (Cr)</th>
                                                 <th>Result</th>
                                             </tr>
                                         </thead>
@@ -857,7 +826,7 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
+                            </div> -->
 <!-- 
                             <div class="row mt-2">
                                 <div class="col-md-6">
@@ -896,9 +865,9 @@
                             </div> -->
 
                             <!-- tender status modal start-->
-                            <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
+                            <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
                                 <div class="row mt-3" *ngIf="rowData?.prequalification?.length !== 0 && rowData?.tenderfinancials.length !== 0" >
-                                        <!-- <div class="col-md-3" *ngIf="this.userData.rolename == 'Manager'">
+                                        <div class="col-md-3" *ngIf="this.userData.rolename == 'Manager'">
                                            
                                             <div class="form-group">
                                                 <label class="form-label fl-10">Tender Status<span
@@ -914,7 +883,7 @@
                                                         *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <div class="col-md-3" >
                                           
                                             <div class="form-group">
@@ -973,8 +942,8 @@
                                             </button>
                                         </ng-container>
                                         <ng-container *ngIf="this.userData.rolename === 'Manager'">
-                                            <div class="float-right">
-                                                <button (click)="sendBack()" type="text"
+                                            <div class="float-right" >
+                                                <button (click)="sendBack()" type="text" *ngIf="!this.form.value.tenderstatus_id"
                                                     class="btn btn-danger btn-fw btn-sm me-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-arrow-90deg-left"
@@ -998,7 +967,7 @@
 
                                 </div>
 
-                            </form>
+                            </form> -->
 
                             <!-- tender status modal end-->
 
