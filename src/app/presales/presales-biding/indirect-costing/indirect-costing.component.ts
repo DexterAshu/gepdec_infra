@@ -75,8 +75,10 @@ export class IndirectCostingComponent {
     this.userList = [];
     this.mainArray = [];
     this.indexData = [];
+    this.deptData = [];
     this.form.controls['expenses'].reset();
     this.form.controls['tender_id'].reset();
+    this.form.controls['department'].reset();
     let client_Id = this.form.value.client_id;
     this.apiService.getTenderLisById(client_Id).subscribe((res: any) => {
       if(res.status == 200) {
@@ -95,7 +97,9 @@ export class IndirectCostingComponent {
     this.userList = [];
     this.mainArray = [];
     this.indexData = [];
+    this.deptData = [];
     this.form.controls['expenses'].reset();
+    this.form.controls['department'].reset();
     this.tenderDetailedData = this.tenderData.filter((x: any) => x.tender_id == tender_id);
   }
   
@@ -120,6 +124,7 @@ export class IndirectCostingComponent {
     this.userList = [];
     this.mainArray = [];
     this.indexData = [];
+    this.deptData = [];
     this.form.controls['department'].reset();
     if(!(data == '2038' || data == '2039')) {
       this.isShowModal = false;
@@ -246,6 +251,7 @@ export class IndirectCostingComponent {
           this.form.reset();
           this.mainArray = [];
           this.indexData = [];
+          this.tenderDetailedData = [];
           this.alertService.success(response.message);
         } else {
           this.alertService.warning(response.message);

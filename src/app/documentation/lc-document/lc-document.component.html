@@ -151,6 +151,7 @@
                                     </div>
                                 </div>
                             </div>
+                   
 
                          
 
@@ -162,6 +163,32 @@
                                     <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
                                         <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
                                     </div>
+                                </div>
+                            </div>     
+                            
+                            
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Category</label>
+                                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Sub-Category</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Capacity</label>
+                                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Execution Location</label>
+                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
                                 </div>
                             </div>
 

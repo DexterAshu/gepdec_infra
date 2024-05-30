@@ -57,6 +57,10 @@
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
                                 <th>Publish Date</th>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Capacity</th>
+                                <th>Execution Location</th>
                                 <th>Financial Year</th>
                                 <!-- <th>Status</th> -->
                                 <th>Action</th>
@@ -86,7 +90,13 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
+
+                                <td>{{ a.itemCategory }}</td>
+                                <td>{{ a.itemSubCategory }}</td>
+                                <td>{{ a.capacity }}</td>
+                                <td>{{ a.tender_location }}</td>
+
                                 <td>{{a.financialyear}}</td>
                                 <!-- <td>{{a.status}}</td> -->
                                 <td>
@@ -172,42 +182,43 @@
                                     <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.tender_ref_no}}">
                                 </div>
                             </div>
+                         
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Financial Year</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.financialyear}}">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                                 </div>
                             </div>
                           
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Category</label>
                                     <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.qacatagory}}">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Sub-Category</label>
                                     <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.subqacatagory}}">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Capacity</label>
                                     <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.capacity}}">
                                 </div>
                             </div>
                           
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location</label>
                                     <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.tender_location}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Financial Year</label>
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.financialyear}}">
                                 </div>
                             </div>
 
@@ -1022,7 +1033,7 @@
                                                 </ng-template>
                                             </td>
                                             <th>Publish Date</th>
-                                            <td>{{rowData?.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                            <td>{{rowData?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Category</th>

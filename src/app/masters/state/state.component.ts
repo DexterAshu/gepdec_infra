@@ -42,8 +42,10 @@ export class StateComponent implements OnInit {
       state_code: [null, Validators.required],
       country_id: [null, Validators.required],
     });
-
     this.getStateData();
+  }
+
+  ngAfterViewInit(): void {
     this.getCountryData();
   }
 

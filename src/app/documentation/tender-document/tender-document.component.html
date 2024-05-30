@@ -65,6 +65,9 @@
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
                                 <th>Publish Date</th>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Capacity</th>
                                 <th>Execution Location</th>
                                 <th>Bid Validity (Days)</th>
                                 <th>Comp Period (Months)</th>
@@ -98,7 +101,10 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td> {{a.publish_date | date: 'dd/MM/yyyy'}} </td>
+                                <td> {{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }} </td>
+                                <td>{{a.category}}</td>
+                                <td>{{a.sub_category}}</td>
+                                <td>{{a.capacity}}</td>
                                 <td>{{a.tender_location}}</td>
                                 <td>{{a.bid_validity}}</td>
                                 <td>{{a.completion_period}}</td>
@@ -190,15 +196,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender ID</label>
-                                        <span class="form-control form-control-sm"
-                                            readonly>{{filterTenderDetailsData[0]?.tender_id}}</span>
+                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.tender_id" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">NIT No</label>
-                                        <span class="form-control form-control-sm"
-                                            readonly>{{filterTenderDetailsData[0]?.tender_ref_no}}</span>
+                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.tender_ref_no" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -206,37 +210,51 @@
                                         <label class="form-label fl-10">Publish Date</label>
                                         <span class="form-control form-control-sm"
                                             readonly>{{filterTenderDetailsData[0]?.publish_date | date:
-                                            'dd/MM/yyyy'}}</span>
+                                            'dd/MM/yyyy' : 'GMT'}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">Category</label>
+                                        <input class="form-control form-control-sm" readonly >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">Sub-Category</label>
+                                        <input class="form-control form-control-sm" readonly >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label fl-10">Capacity</label>
+                                        <input class="form-control form-control-sm" readonly >
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender Type</label>
-                                        <span class="form-control form-control-sm"
-                                            readonly>{{filterTenderDetailsData[0]?.bidtype}}</span>
+                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.bidtype" readonly>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Comp Period (Months)</label>
-                                        <span class="form-control form-control-sm"
-                                            readonly>{{filterTenderDetailsData[0]?.completion_period}}</span>
+                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.completion_period" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">ECV</label>
-                                        <span class="form-control form-control-sm"
-                                            readonly>{{filterTenderDetailsData[0]?.ecv}}</span>
+                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.ecv" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Bid Validity (Days)</label>
-                                        <span class="form-control form-control-sm"
-                                            readonly>{{filterTenderDetailsData[0]?.bid_validity}}</span>
+                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.bid_validity" readonly>
 
                                     </div>
                                 </div>
@@ -244,16 +262,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender Location</label>
-                                        <span class="form-control form-control-sm"
-                                            readonly>{{filterTenderDetailsData[0]?.tender_location}}</span>
+                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.tender_location" readonly>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender Description</label>
-                                        <textarea class="form-control form-control-sm"
-                                            readonly>{{filterTenderDetailsData[0]?.tender_description}}</textarea>
+                                        <textarea class="form-control form-control-sm" readonly>{{filterTenderDetailsData[0]?.tender_description}}</textarea>
                                     </div>
                                 </div>
                             </ng-container>

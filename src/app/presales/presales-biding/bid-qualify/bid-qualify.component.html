@@ -86,8 +86,8 @@
                                 <td>{{ a.company_name }}</td>
                                 <td>{{ a.company_type }}</td>
                                 <td>{{ a.name }}</td>
-                                <td>{{ a.doi | date: 'dd/MM/yyyy' }}</td>
-                                <td>{{ a.created }}</td>
+                                <td>{{ a.doi | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                <td>{{ a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
                                 </td> -->
@@ -170,10 +170,13 @@
                                         </div>
                                     </div>
 
-                                </div>
+                          
+
+
+                               
 
                             </div>
-
+                        </div>
                             <div class="card mt-1 p-2">
                                 <div class="row">
                                     <h6>Technical Qualification:</h6>

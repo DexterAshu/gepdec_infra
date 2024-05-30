@@ -43,8 +43,15 @@
                 <th>Client</th>
                 <th>Tender Title</th>
                 <th>NIT No</th>
-                <th>Execution Location</th>
                 <th>Publish Date</th>
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Capacity </th>
+                <th>Execution Location</th>
+
+                <th>BOQ Category</th>
+                <th>BOQ Sub Category</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -60,8 +67,14 @@
                   <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
-                <td>{{ a.tender_location }}</td>
-                <td>{{ a.publish_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ a.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                <td>{{ a.category }}</td>
+                <td>{{ a.sub_category }}</td>
+                <td>{{ a.capacity }}</td>
+                <td>{{ a.exe_date }}</td>
+                <td>{{ a.itemcategory }}</td>
+                <td>{{ a.subcategory }}</td>
+                <td>{{ a.status }}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)" title="Edit BOQ Items Details" ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details" (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
@@ -132,9 +145,36 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date</label>
-                  <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date:'dd/MM/yyyy'}}">
+                  <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                 </div>
               </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Category</label>
+                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Sub-Category</label>
+                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Capacity</label>
+                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Execution Location</label>
+                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                </div>
+            </div>
+
+
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="form-label">BOQ Category<span class="required-asterisk">*</span></label>
@@ -187,68 +227,66 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
-            <div class="table-responsive">
-              <table class="table table-hover table-striped custom-table">
-                <thead class="table-primary text-nowrap">
-                  <tr>
-                    <th colspan="6" class="text-center">Tender Information</th>
-                  </tr>
-                </thead>
-                <tbody class="text-nowrap">
-                  <tr>
-                    <th>Client</th>
-                    <td>{{ boqList?.company_name }}</td>
-                    <th> NIT No</th>
-                    <td>
-                      <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                      <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
-                    </td>
-                    <th>Tender Title</th>
-                    <td>
-                      <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                      <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Publish Date</th>
-                    <td>{{ boqList?.publish_date | date:'dd/MM/yyyy' }}</td>
-                    <th>Execution Location</th>
-                    <td>{{ boqList?.tender_location }}</td>
-                    <th></th>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <app-responsive-table class="mt-2">
-                <thead class="table-primary text-nowrap">
-                  <tr>
-                    <th>S No</th>
-                    <th>BOQ Code</th>
-                    <th>Category</th>
-                    <th>Sub Category</th>
-                    <th>Created By</th>
-                    <th>Created Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody class="text-nowrap">
-                  <tr *ngFor="let boq of boqList?.boqs; index as i">
-                    <td>{{ limit*(p-1)+i+1 }}</td>
-                    <td>{{ boq?.boq_code }}</td>
-                    <td>{{ boq?.category }}</td>
-                    <td>{{ boq?.subcategory }}</td>
-                    <td>{{ boq?.createdby_name }}</td>
-                    <td>{{ boq?.created }}</td>
-                    <td>{{ boq?.status }}</td>
-                    <td>
-                      <a *ngIf="update" (click)="getBOQItemList(boq)" data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                      <a (click)="getBOQItemList(boq)"  data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </app-responsive-table>
-            </div>
+            <table class="table table-hover table-striped custom-table">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th colspan="6" class="text-center">Tender Information</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <th>Client</th>
+                  <td>{{ boqList?.company_name }}</td>
+                  <th> NIT No</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                  </td>
+                  <th>Tender Title</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Publish Date</th>
+                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                  <th>Execution Location</th>
+                  <td>{{ boqList?.tender_location }}</td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <app-responsive-table class="mt-2">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>BOQ Code</th>
+                  <th>Category</th>
+                  <th>Sub Category</th>
+                  <th>Created By</th>
+                  <th>Created Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr *ngFor="let boq of boqList?.boqs; index as i">
+                  <td>{{ limit*(p-1)+i+1 }}</td>
+                  <td>{{ boq?.boq_code }}</td>
+                  <td>{{ boq?.category }}</td>
+                  <td>{{ boq?.subcategory }}</td>
+                  <td>{{ boq?.createdby_name }}</td>
+                  <td>{{ boq?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                  <td>{{ boq?.status }}</td>
+                  <td>
+                    <a *ngIf="update" (click)="getBOQItemList(boq)" data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                    <a (click)="getBOQItemList(boq)"  data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  </td>
+                </tr>
+              </tbody>
+            </app-responsive-table>
           </div>
         </div>
       </div>
@@ -289,7 +327,7 @@
                 </tr>
                 <tr>
                   <th>Publish Date</th>
-                  <td>{{ boqList?.publish_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Execution Location</th>
                   <td>{{ boqList?.tender_location }}</td>
                   <th></th>
@@ -314,7 +352,7 @@
             </thead>
             <tbody class="text-nowrap">
               <ng-container *ngFor="let item of itemList?.items; index as i">
-                <tr>
+                <tr class="fw-bold">
                   <td>{{ i+1 }}</td>
                   <td>{{ item?.itemcode }}</td>
                   <td>
@@ -333,7 +371,7 @@
                 </tr>
                 <ng-container *ngIf="item?.childItemList?.length > 0">
                   <tr *ngFor="let childItem of item?.childItemList; index as ci">
-                    <td> {{i+1}}.{{ci+1}}</td>
+                    <td>&nbsp; &nbsp; &nbsp;{{i+1}}.{{ci+1}}</td>
                     <td> {{childItem?.itemcode}}</td>
                     <td>
                       <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ childItem?.description }}">{{childItem?.description | slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
@@ -353,10 +391,10 @@
                     <td colspan="15" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3" data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
                   </tr>
                 </ng-container>
-                <tr *ngIf="update">
-                  <td colspan="15" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
-                </tr>
               </ng-container>
+              <tr *ngIf="update">
+                <td colspan="15" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+              </tr>
             </tbody>
           </app-responsive-table>
           <div class="row float-right mt-2" *ngIf="update">

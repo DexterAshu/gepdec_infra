@@ -69,7 +69,7 @@
                 <td>{{ purchase.tender_location }}</td>
                 <td> {{ purchase.pono }}</td>
                 <td>{{ purchase?.grn_number }}</td>
-                <td>{{ purchase?.grn_date | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ purchase?.grn_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>{{ purchase?.challan_number }}</td>
                 <td>{{ purchase?.remark }}</td>
                 <td>
@@ -81,12 +81,12 @@
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">
-                <td colspan="8" class="text-center">
+                <td colspan="15" class="text-center">
                   <div class="spinner-border"></div>
                 </td>
               </tr>
               <tr *ngIf="poData?.length == 0">
-                <td colspan="8" class="text-center">
+                <td colspan="15" class="text-center">
                   <div class="text-warning fw-semibold">No purchase orders available.</div>
                 </td>
               </tr>
@@ -430,7 +430,7 @@
                       <th>PO No</th>
                       <td>{{ selectedPO?.pono }}</td>
                       <th>Date</th>
-                      <td>{{ selectedPO?.po_date }}</td>
+                      <td>{{ selectedPO?.po_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     </tr>
                     <tr>
                       <th>Vendor Code</th>

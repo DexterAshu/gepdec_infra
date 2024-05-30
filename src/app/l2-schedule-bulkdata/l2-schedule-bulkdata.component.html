@@ -39,6 +39,9 @@
                 <th>Tender Title</th>
                 <th>NIT No</th>
                 <th>Publish Date</th>
+                <th>Category</th>
+                <th>Sub-Category</th>
+                <th>Capacity</th>
                 <th>Location</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -58,10 +61,13 @@
                   <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
-                <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                <td>{{ a.category }}</td>
+                <td>{{ a.sub_category}}</td>
+                <td>{{ a.capacity }}</td>
                 <td>{{ a.tender_location }}</td>
-                <td>{{ a.schedule_start_date | date: 'dd/MM/yyyy' }}</td>
-                <td>{{ a.schedule_end_date | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ a.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                <td>{{ a.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>{{ a.tender_completion_period }}</td>
                 <td>
                   <a class="cursor-pointer" (click)="selectedRow(a)" data-bs-toggle="modal" data-bs-target="#viewModel" title="Detail Data"><span class="mdi mdi-eye text-success mdi-18px"></span></a>&nbsp;
@@ -115,17 +121,33 @@
                     <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">{{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock3>{{l1ScheduleData?.tender_ref_no}}</ng-template>
                   </td>
-                  <th>Execution Location</th>
-                  <td>{{ l1ScheduleData?.tender_location }}</td>
+                  <th>Publish Date</th>
+                  <td>{{ l1ScheduleData?.publish_date }}</td>
+                </tr>
+
+                <tr> <th> Category</th>
+                  <td>{{ l1ScheduleData?.category }}</td>
+                  <th>Sub Category</th>
+                  <td>{{ l1ScheduleData?.sub_category }}</td>
+                  <th> Capacity</th>
+                  <td>{{ l1ScheduleData?.capacity }}</td>
+
                 </tr>
                 <tr>
+                  <th>Execution Location</th>
+                  <td>{{ l1ScheduleData?.tender_location }}</td>
+
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
-                  <th>L2 Comp Period (Months)</th>
-                  <td>{{ l1ScheduleData?.tender_completion_period }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                 
                 </tr>
+                <tr>
+                  <th>L2 Comp Period (Months)</th>
+                  <td colspan="5">{{ l1ScheduleData?.tender_completion_period }}</td>
+                </tr>
+      
               </tbody>
             </table>
             <h6 class="text-secondary mt-3 mb-2">Update for L2 Schedule</h6>
@@ -153,8 +175,8 @@
                       <ng-container *ngIf="!row?.is_deleted">
                         <td>{{ i+1 }}</td>
                         <td>{{ row?.task }}</td>
-                        <td>{{ row?.task_start_date | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ row?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ row?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                        <td>{{ row?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                         <td>{{ row?.days_difference }}</td>
                         <td>{{ row?.qty }}</td>
                         <td>{{ row?.uom }}</td>
@@ -169,8 +191,8 @@
                         <ng-container *ngIf="!ct.is_deleted">
                           <td>&nbsp; &nbsp; &nbsp;{{i+1}}.{{ ci+1 }}</td>
                           <td>{{ ct?.task }}</td>
-                          <td>{{ ct?.task_start_date | date:'dd/MM/yyyy' }}</td>
-                          <td>{{ ct?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                          <td>{{ ct?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                          <td>{{ ct?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                           <td>{{ ct?.days_difference }}</td>
                           <td>{{ ct?.qty }}</td>
                           <td>{{ ct?.uom }}</td>
@@ -247,9 +269,36 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy'" readonly>
+                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
                 </div>
               </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Category</label>
+                    <input class="form-control form-control-sm" readonly >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Sub-Category</label>
+                    <input class="form-control form-control-sm" readonly >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Capacity</label>
+                    <input class="form-control form-control-sm" readonly >
+                </div>
+            </div>
+          
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Execution Location</label>
+                    <input class="form-control form-control-sm" readonly >
+                </div>
+            </div>
+
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">L2 Start Date<span class="required-asterisk">*</span></label>
@@ -300,7 +349,7 @@
                   <tbody>
                     <tr *ngFor="let files of attachmentName; let i = index">
                       <td><p class="h5">{{files.name}}</p></td>
-                      <td>{{files.date | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{files.date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{files.size/1024 | number: '1.0-2'}} KB</td>
                       <td class="text-right"><a title="Remove file" (click)="deleteFile(i)"><span class="mdi mdi-folder-remove text-danger cursor-pointer mdi-18px"></span></a>&nbsp;</td>
                     </tr>
@@ -367,16 +416,35 @@
                       <div *ngIf="!!l1ScheduleData?.tender_ref_no; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ l1ScheduleData?.tender_ref_no }}">{{l1ScheduleData?.tender_ref_no | slice:0:30}} <span *ngIf="l1ScheduleData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                       <ng-template #elseBlock4>{{l1ScheduleData?.tender_ref_no}}</ng-template>
                     </td>
-                    <th>Execution Location</th>
-                    <td>{{ l1ScheduleData?.tender_location }}</td>
+
+
+                    <th>Publish Date</th>
+                    <td>{{ l1ScheduleData?.publish_date }}</td>
                   </tr>
-                  <tr>
+  
+                <tr> <th> Category</th>
+                  <td>{{ l1ScheduleData?.category }}</td>
+                  <th>Sub Category</th>
+                  <td>{{ l1ScheduleData?.sub_category }}</td>
+                  <th> Capacity</th>
+                  <td>{{ l1ScheduleData?.capacity }}</td>
+
+                </tr>
+
+        
+         
+                <tr>
+                  <th>Execution Location</th>
+                  <td>{{ l1ScheduleData?.tender_location }}</td>
                     <th>L2 Start Date</th>
-                    <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                     <th>L2 End Date</th>
-                    <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                 
+                </tr>
+                <tr>
                     <th>Completion Period (Months)</th>
-                    <td>{{ l1ScheduleData?.tender_completion_period }}</td>
+                    <td colspan="5">{{ l1ScheduleData?.tender_completion_period }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -400,8 +468,8 @@
                     <ng-container *ngIf="!row.is_deleted">
                       <td>{{ i+1 }}</td>
                       <td>{{ row.task }}</td>
-                      <td>{{ row.task_start_date | date:'dd/MM/yyyy' }}</td>
-                      <td>{{ row.task_end_date | date:'dd/MM/yyyy' }}</td>
+                      <td>{{ row.task_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                      <td>{{ row.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{ row.days_difference }}</td>
                       <td>
                         <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details" (click)="editTaskRow(row)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -413,8 +481,8 @@
                             <ng-container *ngIf="!ct.is_deleted">
                               <td>{{i+1}}.{{ ci+1 }}</td>
                               <td>{{ ct.task }}</td>
-                              <td>{{ ct.task_start_date | date:'dd/MM/yyyy' }}</td>
-                              <td>{{ ct.task_end_date | date:'dd/MM/yyyy' }}</td>
+                              <td>{{ ct.task_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                              <td>{{ ct.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                               <td>{{ ct.days_difference }}</td>
                               <td class="text-right">
                                 <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask"able table-hover table-striped custom-table (click)="editSubTaskRow(row, ct)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
@@ -477,9 +545,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -502,7 +570,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -511,7 +579,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -568,9 +636,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -593,7 +661,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -602,7 +670,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{l1ScheduleData?.schedule_start_date | date:'yyyy-MM-dd'}}" max="{{l1ScheduleData?.schedule_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -659,9 +727,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -680,9 +748,9 @@
               </tr>
               <tr>
                 <th>Task Start Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.task_start_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                 <th>Task End Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
               </tr>
             </tbody>
           </table>
@@ -702,7 +770,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -711,7 +779,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -768,9 +836,9 @@
                 </tr>
                 <tr>
                   <th>L2 Start Date</th>
-                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>L2 End Date</th>
-                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ l1ScheduleData?.schedule_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                   <th>Completion Period (Months)</th>
                   <td>{{ l1ScheduleData?.tender_completion_period }}</td>
                 </tr>
@@ -789,9 +857,9 @@
               </tr>
               <tr>
                 <th>Task Start Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.task_start_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                 <th>Task End Date</th>
-                <td>{{ addNewSubTaskInSelectedTask?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                <td>{{ addNewSubTaskInSelectedTask?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
               </tr>
             </tbody>
           </table>
@@ -811,7 +879,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Start Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_start_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_start_date'].touched && etf['task_start_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_start_date'].errors?.['required']">*Required</small>
                     </div>
@@ -820,7 +888,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">End Date<span class="required-asterisk">*</span></label>
-                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm">
+                    <input formControlName="task_end_date" type="date" class="form-control form-control-sm" min="{{addNewSubTaskInSelectedTask?.task_start_date | date:'yyyy-MM-dd'}}" max="{{addNewSubTaskInSelectedTask?.task_end_date | date:'yyyy-MM-dd'}}">
                     <div *ngIf="etf['task_end_date'].touched && etf['task_end_date'].invalid">
                       <small class="text-danger" *ngIf="etf['task_end_date'].errors?.['required']">*Required</small>
                     </div>
@@ -872,16 +940,34 @@
                     <div *ngIf="!!selectedRowData?.tender_ref_no; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ selectedRowData?.tender_ref_no }}">{{selectedRowData?.tender_ref_no | slice:0:30}} <span *ngIf="selectedRowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock5>{{selectedRowData?.tender_ref_no}}</ng-template>
                   </td>
+                
+                  <th>Publish Date</th>
+                  <td>{{ l1ScheduleData?.publish_date }}</td>
+                </tr>
+
+                <tr> <th> Category</th>
+                  <td>{{ l1ScheduleData?.category }}</td>
+                  <th>Sub Category</th>
+                  <td>{{ l1ScheduleData?.sub_category }}</td>
+                  <th> Capacity</th>
+                  <td>{{ l1ScheduleData?.capacity }}</td>
+
+                </tr>
+
+
+                <tr>
+
                   <th>Execution Location</th>
                   <td>{{ selectedRowData?.tender_location }}</td>
+                  <th>L2 Start Date</th>
+                  <td>{{ selectedRowData?.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                  <th>L2 End Date</th>
+                  <td>{{ selectedRowData?.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+              
                 </tr>
                 <tr>
-                  <th>L2 Start Date</th>
-                  <td>{{ selectedRowData?.schedule_start_date | date:'dd/MM/yyyy' }}</td>
-                  <th>L2 End Date</th>
-                  <td>{{ selectedRowData?.schedule_end_date | date:'dd/MM/yyyy' }}</td>
                   <th>L2 Comp Period (Months)</th>
-                  <td>{{ selectedRowData?.tender_completion_period }}</td>
+                  <td colspan="5">{{ selectedRowData?.tender_completion_period }}</td>
                 </tr>
               </tbody>
             </table>
@@ -904,8 +990,8 @@
                     <ng-container *ngIf="!row?.is_deleted">
                       <td>{{ i+1 }}</td>
                       <td>{{ row?.task }}</td>
-                      <td>{{ row?.task_start_date | date:'dd/MM/yyyy' }}</td>
-                      <td>{{ row?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                      <td>{{ row?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                      <td>{{ row?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                       <td>{{ row?.days_difference }}</td>
                       <td>{{ row?.qty }}</td>
                       <td>{{ row?.uom }}</td>
@@ -916,8 +1002,8 @@
                       <ng-container *ngIf="!ct.is_deleted">
                         <td>&nbsp; &nbsp; &nbsp;{{i+1}}.{{ ci+1 }}</td>
                         <td>{{ ct?.task }}</td>
-                        <td>{{ ct?.task_start_date | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ ct?.task_end_date | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ ct?.task_start_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                        <td>{{ ct?.task_end_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                         <td>{{ ct?.days_difference }}</td>
                         <td>{{ ct?.qty }}</td>
                         <td>{{ ct?.uom }}</td>

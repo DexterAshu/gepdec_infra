@@ -1,16 +1,17 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Security Deposit</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Security
+                            Deposit</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
@@ -19,25 +20,30 @@
                 <div class="card-body">
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
+                            <input type="search" class="form-control form-control-sm" placeholder="Search..."
+                                [(ngModel)]="searchText">
                         </div>
                         <div class="col-lg-4"></div>
                         <div class="col-lg-4">
                             <div class="float-right">
-                               
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()">
-                                          <span class="mdi mdi-upload"></span> Export
-                                    </button>
-                                    <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                          <span class="mdi mdi-download"></span> Import 
-                                    </button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#bankModal" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
-                         
+
+                                <button class="btn btn-primary btn-fw btn-sm me-2"
+                                    title="Download List of Data in Excel" (click)="download()">
+                                    <span class="mdi mdi-upload"></span> Export
+                                </button>
+                                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                                    data-bs-target="#createBulkModal" title="Upload bulk Data">
+                                    <span class="mdi mdi-download"></span> Import
+                                </button>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#bankModal"
+                                    class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span>
+                                    Create</button>
+
 
                             </div>
-                            </div>
+                        </div>
 
-                       
+
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
                         <thead class="table-primary text-nowrap">
@@ -47,6 +53,10 @@
                                 <th>Tender Title</th>
                                 <th>NIT No</th>
                                 <th>Publish Date</th>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Capacity </th>
+                                <th>Execution Location</th>
                                 <th>Amount</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
@@ -55,44 +65,59 @@
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <tr *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                            <tr
+                                *ngFor="let a of docListData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock1>
                                         {{a.tender_title}}
                                     </ng-template>
                                 </td>
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                                        {{a?.tender_ref_no | slice:0:30}} <span
+                                            *ngIf="a?.tender_ref_no.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock2>
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td>{{a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
+                                <td>{{ a.category }}</td>
+                                <td>{{ a.sub_category }}</td>
+                                <td>{{ a.capacity }}</td>
+                                <td>{{ a.exe_date }}</td>
                                 <td>{{a.bg_amount}}</td>
-                                <td>{{a.start_date}}</td>
-                                <td>{{a.end_date}}</td>
-                                <td>{{a.submission_date}}</td>
-                          
+                                <td>{{a.start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                <td>{{a.end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                <td>{{a.submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal"data-bs-target="#detailModal" title="View Details" (click)="getBankDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
+                                        (click)="getPatchDetails(a)"><span
+                                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                    &nbsp;
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        title="View Details" (click)="getBankDetails(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
-                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 
                                 </td>
-                               
+
                             </tr>
                             <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                  
+
                                 </td>
                             </tr>
                             <tr *ngIf="docListData?.length == 0">
@@ -110,8 +135,8 @@
         </div>
     </div>
 </div>
- 
- <!-- Banking modal -->
+
+<!-- Banking modal -->
 
 <div class="modal fade" id="bankModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
@@ -129,194 +154,253 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Security<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Security<span
+                                            class="required-asterisk">*</span></label>
                                     <select formControlName="security_id" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Security</option>
-                                        <option *ngFor="let c of securityData" value="{{c.security_id}}">{{ c.security }}</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Security
+                                        </option>
+                                        <option *ngFor="let c of securityData" value="{{c.security_id}}">{{ c.security
+                                            }}</option>
                                     </select>
                                     <div *ngIf="f['security_id'].touched && f['security_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['security_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['security_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
-                                    <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
-                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name }}</option>
+                                    <label class="form-label fl-10">Client<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="utility_id" class="form-select form-select-sm"
+                                        (ngModelChange)="getDetails($event)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client
+                                        </option>
+                                        <option *ngFor="let c of companyData" value="{{c.company_id}}">{{ c.company_name
+                                            }}</option>
                                     </select>
                                     <div *ngIf="f['utility_id'].touched && f['utility_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['utility_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['utility_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                                    <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
+                                    <label class="form-label fl-10">Tender Title<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="tender_id" class="form-select form-select-sm"
+                                        (ngModelChange)="getrefData($event)">
                                         <option [selected]="true" [disabled]="true">Select Project</option>
-                                        <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
+                                        <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">
+                                            {{c.tender_title}}</option>
                                     </select>
-                                        <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
+                                    <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                                        <small class="text-danger"
+                                            *ngIf="f['tender_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                          
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">NIT No</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.tender_ref_no}}">
+                                    <input class="form-control form-control-sm" readonly
+                                        value="{{filterTenderDetailsData[0]?.tender_ref_no}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy'}}">
+                                    <input class="form-control form-control-sm" readonly
+                                        value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Category</label>
+                                    <input class="form-control form-control-sm" readonly>
+                                    <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Sub-Category</label>
+                                    <input class="form-control form-control-sm"
+                                        readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Capacity</label>
+                                    <input class="form-control form-control-sm"
+                                        readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Execution Location</label>
+                                    <input class="form-control form-control-sm"
+                                        readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
                                 </div>
                             </div>
                             <div class="form-group col-4">
-                            <label for="">Amount <span class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="bg_amount" appNumberOnly>
-                            <div *ngIf="f['bg_amount'].touched && f['bg_amount'].invalid">
-                                <small class="text-danger" *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
-                            </div>    
-                        </div>
-                            <div class="form-group col-4" >
-                            <label for="">Start Date <span class="required-asterisk">*</span></label>
-                            <input type="date" class="form-control form-control-sm" formControlName="start_date">
-                            <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
-                                <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
-                            </div> 
-                        </div>
+                                <label for="">Amount <span class="required-asterisk">*</span></label>
+                                <input type="text" class="form-control form-control-sm" formControlName="bg_amount"
+                                    appNumberOnly>
+                                <div *ngIf="f['bg_amount'].touched && f['bg_amount'].invalid">
+                                    <small class="text-danger"
+                                        *ngIf="f['bg_amount'].errors?.['required']">*Required</small>
+                                </div>
+                            </div>
                             <div class="form-group col-4">
-                            <label for="">End Date <span class="required-asterisk">*</span></label>
-                            <input type="date" class="form-control form-control-sm" formControlName="end_date">
-                            <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
-                                <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
+                                <label for="">Start Date <span class="required-asterisk">*</span></label>
+                                <input type="date" class="form-control form-control-sm" formControlName="start_date">
+                                <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
+                                    <small class="text-danger"
+                                        *ngIf="f['start_date'].errors?.['required']">*Required</small>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group col-4">
+                                <label for="">End Date <span class="required-asterisk">*</span></label>
+                                <input type="date" class="form-control form-control-sm" formControlName="end_date">
+                                <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
+                                    <small class="text-danger"
+                                        *ngIf="f['end_date'].errors?.['required']">*Required</small>
+                                </div>
+                            </div>
 
-                            <div class="form-group col-4" >
-                            <label for="">Submission Date <span class="required-asterisk">*</span></label>
-                            <input type="date" class="form-control form-control-sm" formControlName="submission_date">
-                            <div *ngIf="f['submission_date'].touched && f['submission_date'].invalid">
-                                <small class="text-danger" *ngIf="f['submission_date'].errors?.['required']">*Required</small>
+                            <div class="form-group col-4">
+                                <label for="">Submission Date <span class="required-asterisk">*</span></label>
+                                <input type="date" class="form-control form-control-sm"
+                                    formControlName="submission_date">
+                                <div *ngIf="f['submission_date'].touched && f['submission_date'].invalid">
+                                    <small class="text-danger"
+                                        *ngIf="f['submission_date'].errors?.['required']">*Required</small>
+                                </div>
                             </div>
-                        </div>
-                         
+
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="">Description <span class="required-asterisk">*</span></label>
-                                <textarea type="text" class="form-control form-control-sm" formControlName="document_description">
+                                <textarea type="text" class="form-control form-control-sm"
+                                    formControlName="document_description">
                                </textarea>
                             </div>
                             <div *ngIf="f['document_description'].touched && f['document_description'].invalid">
-                                <small class="text-danger" *ngIf="f['document_description'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['document_description'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                         <!-- Other Fields... -->
-                      
+
 
                         <div class="float-right">
-                            <button type="submit" *ngIf="!isSubmitted" [disabled]="documentForm.invalid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
-                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...</button>
-                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" *ngIf="!isSubmitted" [disabled]="documentForm.invalid"
+                                class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                            <button type="button" *ngIf="isSubmitted" disabled
+                                class="btn btn-primary btn-fw btn-sm mr-2"><span
+                                    class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                Loading...</button>
+                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                data-bs-dismiss="modal">Close</button>
                         </div>
-                      </form>
-                      
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
- <!-- Banking modal end-->
+<!-- Banking modal end-->
 
- <!-- details modal -->
+<!-- details modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-data-bs-backdrop="static" data-bs-keyboard="true">
-<div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
 
-            <table class="table table-hover table-striped custom-table">
-                <thead class="hidden-thead"></thead>
-                <tbody class="text-nowrap">
-                    <tr>
-                        <th>Company</th>
-                        <td>{{ rowData?.bidder_name }}</td>
-                        <th>Financial Year</th>
-                        <td>{{ rowData?.financialyear }}</td>
-                       
-                    </tr>
-                    <tr>
-                        <th>Total Liability</th>
-                        <td>{{ rowData?.total_liabilities }}</td>
-                        <th>Total Fixed Asset</th>
-                        <td>{{ rowData?.total_fixed_assets }}</td>
-                    </tr>
-                    <tr>
-                       
-                        <th>Net Profit</th>
-                        <td>{{ rowData?.net_profit }}</td>
-                        <th>Net Worth</th>
-                        <td>{{ rowData?.net_worth }}</td>
-                    </tr>
-                    <tr>
-                      
-                        <th>Net Capital</th>
-                        <td>{{ rowData?.net_capital }}</td>
-                        <th>Reserve & Surplus</th>
-                        <td>{{ rowData?.reserve_surplus }}</td>
-                    </tr>
-                    <tr>
-                     
-                        <th>Paid up Capital</th>
-                        <td>{{ rowData?.paid_upcapital }}</td>
-                        <th>Annual TUrnover</th>
-                        <td>{{ rowData?.annual_turnover }}</td>
-                    </tr>
-                    <tr>
-                       
-                        <th>Networking Capital</th>
-                        <td>{{ rowData?.net_working_capital }}</td>
-                        <th>Ebidta</th>
-                        <td>{{ rowData?.ebidta }}</td>
-                        </tr>
-                       
+                <table class="table table-hover table-striped custom-table">
+                    <thead class="hidden-thead"></thead>
+                    <tbody class="text-nowrap">
                         <tr>
-                        <th>Description</th>
-                        <td>
-                            <div *ngIf="!!rowData?.description; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.description }}">
-                                {{rowData?.description | slice:0:30}} <span *ngIf="rowData?.description.length > 30">...<i class="mdi mdi-information"></i></span>
-                            </div>
-                            <ng-template #elseBlock3>
-                                --
-                            </ng-template>
-                        </td>
-                        <th></th>
-                        <td></td>
-                    </tr>
-                    
-                    <tr>
-                        <th>Created By</th>
-                        <td>{{rowData?.createdby_name}}</td>
-                        <th>Created At</th>
-                        <td>{{rowData?.created | date: 'dd/MM/yyyy'}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        
+                            <th>Company</th>
+                            <td>{{ rowData?.bidder_name }}</td>
+                            <th>Financial Year</th>
+                            <td>{{ rowData?.financialyear }}</td>
+
+                        </tr>
+                        <tr>
+                            <th>Total Liability</th>
+                            <td>{{ rowData?.total_liabilities }}</td>
+                            <th>Total Fixed Asset</th>
+                            <td>{{ rowData?.total_fixed_assets }}</td>
+                        </tr>
+                        <tr>
+
+                            <th>Net Profit</th>
+                            <td>{{ rowData?.net_profit }}</td>
+                            <th>Net Worth</th>
+                            <td>{{ rowData?.net_worth }}</td>
+                        </tr>
+                        <tr>
+
+                            <th>Net Capital</th>
+                            <td>{{ rowData?.net_capital }}</td>
+                            <th>Reserve & Surplus</th>
+                            <td>{{ rowData?.reserve_surplus }}</td>
+                        </tr>
+                        <tr>
+
+                            <th>Paid up Capital</th>
+                            <td>{{ rowData?.paid_upcapital }}</td>
+                            <th>Annual TUrnover</th>
+                            <td>{{ rowData?.annual_turnover }}</td>
+                        </tr>
+                        <tr>
+
+                            <th>Networking Capital</th>
+                            <td>{{ rowData?.net_working_capital }}</td>
+                            <th>Ebidta</th>
+                            <td>{{ rowData?.ebidta }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Description</th>
+                            <td>
+                                <div *ngIf="!!rowData?.description; else elseBlock3" data-toggle="tooltip"
+                                    data-placement="bottom" title="{{ rowData?.description }}">
+                                    {{rowData?.description | slice:0:30}} <span
+                                        *ngIf="rowData?.description.length > 30">...<i
+                                            class="mdi mdi-information"></i></span>
+                                </div>
+                                <ng-template #elseBlock3>
+                                    --
+                                </ng-template>
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <th>Created By</th>
+                            <td>{{rowData?.createdby_name}}</td>
+                            <th>Created At</th>
+                            <td>{{rowData?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
-</div>
 </div>
 <!-- details modal end-->

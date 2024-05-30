@@ -40,6 +40,11 @@
                   <th>S No</th>
                   <th>Tender Title</th>
                   <th>NIT No</th>
+                  <th>Publish Date</th>
+                  <th>Category</th>
+                  <th>Sub Category</th>
+                  <th>Capacity </th>
+                  <th>Execution Location</th>
                   <th>Warehouse Code</th>
                   <th>Item Category</th>
                   <th>Auditor Name</th>
@@ -70,25 +75,30 @@
                         {{data?.tender_ref_no}}
                     </ng-template>
                   </td>
+                  <td>{{ data.publish_date }}</td>
+                  <td>{{ data.category }}</td>
+                  <td>{{ data.sub_category }}</td>
+                  <td>{{ data.capacity }}</td>
+                  <td>{{ data.exe_date }}</td>
                   <td>{{ data.warehouse_code }}</td>
                   <td>{{ data.itemcategory }}</td>
                   <td>{{ data.auditor_name }}</td>
                   <td>{{ data.audit_purpose }}</td>
                   <td>{{ data.auditor_remarks }}</td>
                   <!-- <td>{{ data.createdby_name }}</td>
-                  <td>{{ data.created | date:"dd/MM/yyyy hh:mm a" }}</td> -->
+                  <td>{{ data.created | date:"dd/MM/yyyy hh:mm a" : 'GMT' }}</td> -->
                   <td *ngIf="data?.status == 'Approved' || data?.status == 'Rejected'"> <span class="badge badge-{{ (data?.status == 'Approved') ? 'success' : (data?.status == 'Rejected' ? 'danger' : 'warning') }}">{{ data?.status }}</span> </td>
                   <td>
                     <a class="" data-bs-toggle="modal" (click)="selectRequest(data)" data-bs-target="#view" title="Warehouse Profile"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                   </td>
                 </tr>
                 <tr *ngIf="auditRequestData?.length == 0">
-                  <td colspan="10" class="text-center">
+                  <td colspan="20" class="text-center">
                     <div class="spinner-border"></div>
                   </td>
                 </tr>
                 <tr *ngIf="isNotFound == true">
-                  <td colspan="10" class="text-center">
+                  <td colspan="20" class="text-center">
                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                   </td>
                 </tr>
@@ -138,7 +148,7 @@
                     <th>Auditor Name</th>
                     <td>{{ selectedRow?.auditor_name }}</td>
                     <th>Audit Date</th>
-                    <td>{{ selectedRow?.created }}</td>
+                    <td>{{ selectedRow?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                     <th></th>
                     <td></td>
                   </tr>

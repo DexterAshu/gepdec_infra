@@ -63,7 +63,7 @@
                                     </ng-template>
                                 </td>
                                 <td>{{a.category}}</td>
-                                <td>{{a.createdAt | date:'dd/MM/yyyy hh:mm a'}}</td>
+                                <td>{{a.createdAt | date:'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <!-- <td>
                                     <a class="pr-2 mr-2" data-bs-toggle="modal" data-bs-target="#detailModal" title="Detail Data" (click)="meterDetail(a)"><span class="mdi mdi-format-list-bulleted text-warning cursor-pointer mdi-18px"></span></a>
 
@@ -193,7 +193,7 @@
                                             <!-- <td>{{a.customerID}}</td> -->
                                             <td>{{a.Association}}</td>
                                             <td>{{a.Status}}</td>
-                                            <td>{{a.meterPublishTime | date:'dd/MM/yyyy hh:mm a'}}</td>
+                                            <td>{{a.meterPublishTime | date:'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
                                             <td>
                                                 <a href="#" class="px-1" data-bs-toggle="modal" data-bs-target="#detailModalById" title="Detail Data"><span class="mdi mdi-format-list-bulleted text-warning cursor-pointer mdi-18px"></span></a>
                                             </td>
@@ -226,7 +226,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Data List <small>({{meterIndexData?.meterID}} - {{meterIndexData?.meterPublishTime | date:'dd/MM/yyyy hh:mm a'}})</small></h5>
+                <h5 class="modal-title" id="exampleModalLabel">Data List <small>({{meterIndexData?.meterID}} - {{meterIndexData?.meterPublishTime | date:'dd/MM/yyyy hh:mm a' : 'GMT'}})</small></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#detailModal"></button>
             </div>
             <div class="modal-body">
@@ -287,7 +287,7 @@
                     <span *ngSwitchCase= "2">Billing Data Profile</span>
                     <span *ngSwitchCase= "3">Daily Data Profile</span>
                     <span *ngSwitchCase= "4">Block Load Profile</span>
-                </h5> <span class="model-custom-title">(DeviceID - {{ titleData ? titleData[0]?.deviceID : '' }}, Publish Time - {{ titleData ? (titleData[0]?.meterPublishTime | date: 'dd/MM/yyyy hh:mm a') : '' }})</span>
+                </h5> <span class="model-custom-title">(DeviceID - {{ titleData ? titleData[0]?.deviceID : '' }}, Publish Time - {{ titleData ? (titleData[0]?.meterPublishTime | date: 'dd/MM/yyyy hh:mm a' : 'GMT') : '' }})</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

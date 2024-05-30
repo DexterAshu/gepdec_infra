@@ -45,6 +45,9 @@
                 <th>NIT No</th>
                 <th>Tender Title</th>
                 <th>Publish Date</th>
+                <th>Category</th>
+                <th>Sub-Category</th>
+                <th>Capacity</th>
                 <th>Execution Location</th>
                 <th>Status</th>
                 <th>Version</th>
@@ -66,7 +69,10 @@
                       {{a?.tender_title}}
                   </ng-template>
                </td>
-                <td>{{a.publish_date | date:'dd/MM/yyyy'}}</td>
+                <td>{{a.publish_date | date:'dd/MM/yyyy' : 'GMT'}}</td>
+                <td>{{a.qacatagory}}</td>
+                <td>{{a.subqacategory}}</td>
+                <td>{{a.capacity}}</td>
                 <td>{{a.tender_location}}</td>
                 <td>{{a.status}}</td>
                 <td>{{a.version}}</td>
@@ -131,12 +137,24 @@
                             {{selectMDLRow?.tender_ref_no}}
                         </ng-template>
                     </td>
-                      <th>Execution Location</th>
-                      <td>{{ selectMDLRow?.tender_location }}</td>
+                    <th>Publish Date</th>
+                  <td>{{ selectMDLRow?.publish_date }}</td>
+                     
                     </tr>
                     <tr>
-                      <th>Document Description</th>
-                      <td colspan="5">{{ selectMDLRow?.description }}</td>
+                      <th> Category</th>
+                      <td>{{ selectMDLRow?.category }}</td>
+
+                      <th>Sub Category </th>
+                      <td>{{ selectMDLRow?.sub_category }}</td>
+                   
+                  
+                      <th>Capacity </th>
+                      <td colspan="5">{{ selectMDLRow?.capacity }}</td>
+                    </tr>
+                    <tr>
+                      <th>Execution Location</th>
+                      <td>{{ selectMDLRow?.tender_location }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -148,7 +166,7 @@
                       <th>DRG No</th>
                       <td>{{ selectMDLRow?.mdl_no }}</td>
                       <th>Created Date</th>
-                      <td>{{ selectMDLRow?.created | date: 'dd/MM/yyyy hh:mm a' }}</td>
+                      <td>{{ selectMDLRow?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <th>Created By</th>
                       <td>{{ selectMDLRow?.createdby }}</td>
                     </tr>
@@ -176,7 +194,7 @@
                       <td>{{a.discipline}}</td>
                       <td>{{a.stage}}</td>
                       <td>{{a.category}}</td>
-                      <td>{{a.planned_submission_date | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{a.planned_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{a.remarks}}</td>
                     </tr>
                   </tbody>
@@ -245,10 +263,23 @@
                         {{selectMDLRow?.tender_ref_no}}
                     </ng-template>
                 </td>
-                  <th>Execution Location</th>
-                  <td>{{ selectMDLRow?.tender_location }}</td>
+                  <th>Publish Date</th>
+                  <td>{{ selectMDLRow?.publish_date }}</td>
                 </tr>
                 <tr>
+                  <th> Category</th>
+                  <td>{{ selectMDLRow?.category }}</td>
+
+                  <th>Sub Category </th>
+                  <td>{{ selectMDLRow?.sub_category }}</td>
+               
+              
+                  <th>Capacity </th>
+                  <td colspan="5">{{ selectMDLRow?.capacity }}</td>
+                </tr>
+                <tr>
+                  <th>Execution Location</th>
+                  <td>{{ selectMDLRow?.tender_location }}</td>
                   <th>Document Description</th>
                   <td colspan="5">{{ selectMDLRow?.description }}</td>
                 </tr>
@@ -262,7 +293,7 @@
                   <th>DRG No</th>
                   <td>{{ selectMDLRow?.mdl_no }}</td>
                   <th>Created Date</th>
-                  <td>{{ selectMDLRow?.created | date: 'dd/MM/yyyy hh:mm a' }}</td>
+                  <td>{{ selectMDLRow?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <th>Created By</th>
                   <td>{{ selectMDLRow?.createdby }}</td>
                 </tr>
@@ -290,7 +321,7 @@
                   <td>{{a.discipline}}</td>
                   <td>{{a.stage}}</td>
                   <td>{{a.category}}</td>
-                  <td>{{a.planned_submission_date | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{a.planned_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <td>{{a.remarks}}</td>
                 </tr>
               </tbody>
@@ -348,9 +379,36 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
-                    <input type="date" class="form-control form-control-sm" [value]="selectedTender?.publish_date" readonly>
+                    <input type="date" class="form-control form-control-sm" [value]="selectedTender?.publish_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
                   </div>
                 </div>
+                
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <label class="form-label fl-10">Category</label>
+                      <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="form-group">
+                      <label class="form-label fl-10">Sub-Category</label>
+                      <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="form-group">
+                      <label class="form-label fl-10">Capacity</label>
+                      <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label class="form-label fl-10">Execution Location</label>
+                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                </div>
+            </div>
+
+
               </div>
               <h6 class="mb-2 text-secondary mt-3">Drawing/Document Form</h6>
               <div class="row">
@@ -470,7 +528,7 @@
                         <td>{{a.discipline}}</td>
                         <td>{{a.stage}}</td>
                         <td>{{a.category}}</td>
-                        <td>{{a.planned_submission_date | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{a.planned_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                         <td>{{a.remarks}}</td>
                         <td>
                           <a><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
