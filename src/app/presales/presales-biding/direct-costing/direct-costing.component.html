@@ -86,7 +86,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Direct Costing Details</h5>
+        <h5 class="modal-title" id="exampleModalLabel">View Direct Costing Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-3">
@@ -97,7 +97,7 @@
                 <table class="table table-hover table-striped custom-table mb-3">
                   <thead class="table-primary text-nowrap">
                     <tr>
-                      <th colspan="6" class="text-center">Tender Information</th>
+                      <th colspan="6" class="text-center">Client & Tender Information</th>
                     </tr>
                   </thead>
                   <tbody class="text-nowrap">
@@ -151,7 +151,7 @@
                           <th>Unit Purchase Cost</th>
                           <th>Purchase Cost</th>
                           <th>HSN Code</th>
-                          <th>GST</th>
+                          <th>GST (%)</th>
                           <th>Purchase Cost with GST</th>
                           <th>Freight</th>
                           <th>Purchase Cost with Freight</th>
@@ -285,7 +285,7 @@
                           <th>HSN Code</th>
                           <th>Unit Price</th>
                           <th>Quantity</th>
-                          <th>GST</th>
+                          <th>GST (%)</th>
                           <th>Freight</th>
                           <th class="text-end">Total Price</th>
                         </tr>
@@ -303,11 +303,11 @@
                             <td>{{ item?.itemcategory }}</td>
                             <td>{{ item?.subcategory }}</td>
                             <td>{{ item?.hsn_code }}</td>
-                            <td>{{ item?.unit_price | currency: 'INR': '' : '1.0-2' }}</td>
+                            <td> <input type="text" class="form-control form-control-sm" [value]="item?.unit_price" (ngModel)="item?.unit_price"> </td>
                             <td>{{ item?.qty }}</td>
-                            <td>{{ item?.gst }}</td>
-                            <td>{{ item?.freight_charges }}</td>
-                            <td class="text-end">{{ item?.total_value | currency: 'INR': '' : '1.0-2' }}</td>
+                            <td><input type="text" class="form-control form-control-sm" [value]="item?.gst" readonly></td>
+                            <td><input type="text" class="form-control form-control-sm" [value]="item?.freight_charges"></td>
+                            <td class="text-end">{{ item?.unit_price * item?.qty | currency: 'INR': '' : '1.0-2' }}</td>
                           </tr>
                           <ng-container *ngIf="item?.childItemList?.length > 0">
                             <tr *ngFor="let childItem of item?.childItemList; index as ci">
@@ -321,11 +321,11 @@
                               <td>{{ childItem?.itemcategory }}</td>
                               <td>{{ childItem?.subcategory }}</td>
                               <td>{{ childItem?.hsn_code }}</td>
-                              <td>{{ childItem?.unit_price | currency: 'INR': '' : '1.0-2' }}</td>
+                              <td><input type="text" class="form-control form-control-sm" [value]="childItem?.unit_price"></td>
                               <td>{{ childItem?.qty }}</td>
-                              <td>{{ childItem?.gst != null ? childItem?.gst : 0 }}</td>
-                              <td>{{ childItem?.freight_charges != null ? childItem?.freight_charges : 0 }}</td>
-                              <td class="text-end">{{ childItem?.total_value | currency: 'INR': '' : '1.0-2' }}</td>
+                              <td><input type="text" class="form-control form-control-sm" [value]="childItem?.gst" readonly></td>
+                              <td><input type="text" class="form-control form-control-sm" [value]="childItem?.freight_charges"></td>
+                              <td class="text-end">{{ childItem?.unit_price * childItem?.qty | currency: 'INR': '' : '1.0-2' }}</td>
                             </tr>
                           </ng-container>
                         </ng-container>
@@ -338,6 +338,12 @@
                   </div>
                 </ng-container>
               </div>
+            </div>
+          </div>
+          <div class="row float-right my-2">
+            <div class="mt-1">
+              <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2">Update</button>
+              <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
