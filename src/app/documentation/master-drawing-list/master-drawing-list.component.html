@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-between flex-wrap">
         <div class="d-flex align-items-end flex-wrap">
           <div class="mr-md-3 mr-xl-5">
-            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Master Drawing List</h4>
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i> Master Drawing List</h4>
           </div>
         </div>
         <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
@@ -17,13 +17,15 @@
         <div class="card-body">
           <div class="d-flex my-10">
             <div class="col-lg-5">
-              <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
+              <input type="search" class="form-control form-control-sm" placeholder="Search..."
+                [(ngModel)]="searchText">
             </div>
             <div class="col-lg-3">
               <div class="float-right">
                 <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
                   <option [disabled]="true" [value]="null">Select</option>
-                  <option [selected]="true" value="/documentation/master-drawing-list"> Master Drawing List (MDL)</option>
+                  <option [selected]="true" value="/documentation/master-drawing-list"> Master Drawing List (MDL)
+                  </option>
                   <option value="/documentation/final-boq"> Final BOQ</option>
                   <option value="/documentation/drawing-doc"> Drawing</option>
                 </select>
@@ -31,9 +33,13 @@
             </div>
             <div class="col-lg-4">
               <div class="float-right">
-                <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()"><span class="mdi mdi-upload"></span>Export</button>
-                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s" (click)="getClient()">+ Create</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel"
+                  (click)="download()"><span class="mdi mdi-upload"></span>Export</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                  data-bs-target="#createBulkModal" title="Upload bulk Data"> <span
+                    class="mdi mdi-download"></span>Import</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                  class="btn btn-primary btn-fw btn-sm s" (click)="getClient()">+ Create</button>
               </div>
             </div>
           </div>
@@ -42,8 +48,9 @@
               <tr>
                 <th>S No</th>
                 <th>DRG No</th>
-                <th>NIT No</th>
+                <th>Client</th>
                 <th>Tender Title</th>
+                <th>NIT No</th>
                 <th>Publish Date</th>
                 <th>Category</th>
                 <th>Sub-Category</th>
@@ -60,39 +67,51 @@
                 *ngFor="let a of mdlData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{limit*(p-1)+i+1}}</td>
                 <td>{{a.mdl_no}}</td>
-                <td>{{a.tender_ref_no}}</td>
+                <td>{{a.company_name}}</td>
                 <td>
-                  <div *ngIf="!!a?.tender_title elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">
-                      {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
-                  </div>
-                  <ng-template #elseBlock>
-                      {{a?.tender_title}}
-                  </ng-template>
-               </td>
+                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.tender_title }}"> {{a?.tender_title | slice:0:30}} <span
+                      *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <ng-template #elseBlock1>{{a?.tender_title}}</ng-template>
+                </td>
+                <td>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span
+                      *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
+                </td>
                 <td>{{a.publish_date | date:'dd/MM/yyyy' : 'GMT'}}</td>
                 <td>{{a.qacatagory}}</td>
-                <td>{{a.subqacategory}}</td>
+                <td>{{a.subqacatagory}}</td>
                 <td>{{a.capacity}}</td>
                 <td>{{a.tender_location}}</td>
                 <td>{{a.status}}</td>
                 <td>{{a.version}}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                  <a class="ms-2" (click)="getMDLRow(a)" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
-                  <a class="ms-2" *ngIf="a?.approved_file" href="{{apiURL}}/{{a?.approved_file}}" download target="_blank"><span class="mdi mdi-download text-success cursor-pointer mdi-18px"></span></a>
+                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
+                      class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                  <a class="ms-2" (click)="getMDLRow(a)" data-bs-toggle="modal" data-bs-target="#detailModal"
+                    title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a class="ms-2" *ngIf="a?.approved_file" href="{{apiURL}}/{{a?.approved_file}}" download
+                    target="_blank"><span class="mdi mdi-download text-success cursor-pointer mdi-18px"></span></a>
                 </td>
                 <td>
-                  <a *ngIf="a.status !== 'Approved'" data-bs-toggle="modal" (click)="getMDLRow(a)" data-bs-target="#approvalModel" title="Edit Details"><span class="mdi mdi-security-home text-info cursor-pointer mdi-18px"></span></a>
-                  <a *ngIf="a.status === 'Approved'"><span class="mdi mdi-security-home text-secondary mdi-18px"></span></a>
+                  <a *ngIf="a.status !== 'Approved'" data-bs-toggle="modal" (click)="getMDLRow(a)"
+                    data-bs-target="#approvalModel" title="Edit Details"><span
+                      class="mdi mdi-security-home text-info cursor-pointer mdi-18px"></span></a>
+                  <a *ngIf="a.status === 'Approved'"><span
+                      class="mdi mdi-security-home text-secondary mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="mdlData?.length == 0">
                 <td colspan="15" class="text-center">
-                    <div class="spinner-border"></div>
+                  <div class="spinner-border"></div>
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">
-                <td colspan="9" class="text-center"><div class="text-warning fw-semibold">Looks like no data available!</div></td>
+                <td colspan="9" class="text-center">
+                  <div class="text-warning fw-semibold">Looks like no data available!</div>
+                </td>
               </tr>
             </tbody>
           </app-responsive-table>
@@ -105,7 +124,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="approvalModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="approvalModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -130,31 +150,30 @@
                       <td>{{ selectMDLRow?.company_name }}</td>
                       <th>NIT No</th>
                       <td>
-                        <div *ngIf="!!selectMDLRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectMDLRow?.tender_ref_no }}">
-                            {{selectMDLRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectMDLRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                        <div *ngIf="!!selectMDLRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip"
+                          data-placement="bottom" title="{{ selectMDLRow?.tender_ref_no }}">
+                          {{selectMDLRow?.tender_ref_no | slice:0:30}} <span
+                            *ngIf="selectMDLRow?.tender_ref_no.length > 30">...<i
+                              class="mdi mdi-information"></i></span>
                         </div>
                         <ng-template #elseBlock3>
-                            {{selectMDLRow?.tender_ref_no}}
+                          {{selectMDLRow?.tender_ref_no}}
                         </ng-template>
-                    </td>
-                    <th>Publish Date</th>
-                  <td>{{ selectMDLRow?.publish_date }}</td>
-                     
+                      </td>
+                      <th>Publish Date</th>
+                      <td>{{ selectMDLRow?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                     </tr>
                     <tr>
                       <th> Category</th>
-                      <td>{{ selectMDLRow?.category }}</td>
-
+                      <td>{{ selectMDLRow?.qacatagory }}</td>
                       <th>Sub Category </th>
-                      <td>{{ selectMDLRow?.sub_category }}</td>
-                   
-                  
+                      <td>{{ selectMDLRow?.subqacatagory }}</td>
                       <th>Capacity </th>
-                      <td colspan="5">{{ selectMDLRow?.capacity }}</td>
+                      <td>{{ selectMDLRow?.capacity }}</td>
                     </tr>
                     <tr>
                       <th>Execution Location</th>
-                      <td>{{ selectMDLRow?.tender_location }}</td>
+                      <td colspan="5">{{ selectMDLRow?.tender_location }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -206,7 +225,8 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="control-label">Upload Document<span class="required-asterisk">*</span></label>
-                  <input type="file" class="form-control form-control-sm" formControlName="approval_file" accept="application/pdf" (change)="onFileChanged($event)">
+                  <input type="file" class="form-control form-control-sm" formControlName="approval_file"
+                    accept="application/pdf" (change)="onFileChanged($event)">
                   <div *ngIf="a['approval_file'].touched && a['approval_file'].invalid">
                     <small class="text-danger" *ngIf="a['approval_file'].errors?.['required']">*Required</small>
                   </div>
@@ -224,7 +244,8 @@
             </div>
             <div class="float-right pt-3">
               <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" data-bs-dismiss="modal">Submit</button>
-              <button type="button" id="cancelApprovalModel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+              <button type="button" id="cancelApprovalModel" class="btn btn-secondary btn-fw btn-sm"
+                data-bs-dismiss="modal">Close</button>
             </div>
           </form>
         </div>
@@ -233,7 +254,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -256,24 +278,26 @@
                   <td>{{ selectMDLRow?.company_name }}</td>
                   <th>NIT No</th>
                   <td>
-                    <div *ngIf="!!selectMDLRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectMDLRow?.tender_ref_no }}">
-                        {{selectMDLRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectMDLRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    <div *ngIf="!!selectMDLRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ selectMDLRow?.tender_ref_no }}">
+                      {{selectMDLRow?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="selectMDLRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
                     </div>
                     <ng-template #elseBlock3>
-                        {{selectMDLRow?.tender_ref_no}}
+                      {{selectMDLRow?.tender_ref_no}}
                     </ng-template>
-                </td>
+                  </td>
                   <th>Publish Date</th>
-                  <td>{{ selectMDLRow?.publish_date }}</td>
+                  <td>{{ selectMDLRow?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                 </tr>
                 <tr>
                   <th> Category</th>
-                  <td>{{ selectMDLRow?.category }}</td>
+                  <td>{{ selectMDLRow?.qacatagory }}</td>
 
                   <th>Sub Category </th>
-                  <td>{{ selectMDLRow?.sub_category }}</td>
-               
-              
+                  <td>{{ selectMDLRow?.subqacatagory }}</td>
+
+
                   <th>Capacity </th>
                   <td colspan="5">{{ selectMDLRow?.capacity }}</td>
                 </tr>
@@ -333,7 +357,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -349,7 +374,8 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
-                    <select formControlName="client" class="form-select form-select-sm" (ngModelChange)="getTenderList()">
+                    <select formControlName="client" class="form-select form-select-sm"
+                      (ngModelChange)="getTenderList()">
                       <option [selected]="true" [disabled]="true" [value]="null">Select </option>
                       <option *ngFor="let c of companyData" [value]=c.company_id>{{ c.company_name }}</option>
                     </select>
@@ -361,7 +387,8 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                    <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="selectTender()">
+                    <select formControlName="tender_id" class="form-select form-select-sm"
+                      (ngModelChange)="selectTender()">
                       <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
                       <option *ngFor="let c of tenderList" value="{{c.tender_id}}">{{ c.tender_title }}</option>
                     </select>
@@ -373,42 +400,41 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label fl-10">NIT No<span class="required-asterisk">*</span></label>
-                    <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_ref_no" readonly>
+                    <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_ref_no"
+                      readonly>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
-                    <input type="date" class="form-control form-control-sm" [value]="selectedTender?.publish_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
+                    <input type="text" class="form-control form-control-sm" [value]="selectedTender?.publish_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
                   </div>
                 </div>
-                
+
                 <div class="col-md-3">
                   <div class="form-group">
-                      <label class="form-label fl-10">Category</label>
-                      <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                    <label class="form-label fl-10">Category</label>
+                    <input class="form-control form-control-sm" readonly [value]="selectedTender?.qacatagory">
                   </div>
-              </div>
-              <div class="col-md-3">
-                  <div class="form-group">
-                      <label class="form-label fl-10">Sub-Category</label>
-                      <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
-                  </div>
-              </div>
-              <div class="col-md-3">
-                  <div class="form-group">
-                      <label class="form-label fl-10">Capacity</label>
-                      <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
-                  </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                    <label class="form-label fl-10">Execution Location</label>
-                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
                 </div>
-            </div>
-
-
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Sub-Category</label>
+                    <input class="form-control form-control-sm" readonly [value]="selectedTender?.subqacatagory">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Capacity</label>
+                    <input class="form-control form-control-sm" readonly [value]="selectedTender?.capacity">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Execution Location</label>
+                    <input class="form-control form-control-sm" readonly [value]="selectedTender?.tender_location">
+                  </div>
+                </div>
               </div>
               <h6 class="mb-2 text-secondary mt-3">Drawing/Document Form</h6>
               <div class="row">
@@ -426,8 +452,10 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label class="form-label fl-10">Drawing/Document Title<span class="required-asterisk">*</span></label>
-                    <input type="text" class="form-control form-control-sm" formControlName="drawing_title" appWordCapitalize>
+                    <label class="form-label fl-10">Drawing/Document Title<span
+                        class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control form-control-sm" formControlName="drawing_title"
+                      appWordCapitalize>
                     <div *ngIf="f['drawing_title'].touched && f['drawing_title'].invalid">
                       <small class="text-danger" *ngIf="f['drawing_title'].errors?.['required']">*Required</small>
                     </div>
@@ -502,11 +530,12 @@
                 </div>
                 <div class="col-md-3">
                   <div class="row float-right mt-4 pe-2">
-                    <button type="button" class="btn btn-primary btn-fw btn-sm" (click)="addDrawingList()"><span class="mdi mdi-format-list-checks mdi-18px"></span></button>
+                    <button type="button" class="btn btn-primary btn-fw btn-sm" (click)="addDrawingList()"><span
+                        class="mdi mdi-format-list-checks mdi-18px"></span></button>
                   </div>
                 </div>
                 <div class="col-md-12 mt-3">
-                  <app-responsive-table> 
+                  <app-responsive-table>
                     <thead class="table-primary text-nowrap">
                       <tr>
                         <th>S No</th>
@@ -532,7 +561,8 @@
                         <td>{{a.remarks}}</td>
                         <td>
                           <a><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                          <a (click)="deleteDrawingList(i)"><span class="mdi mdi-trash-can-outline text-danger cursor-pointer mdi-18px"></span></a>
+                          <a (click)="deleteDrawingList(i)"><span
+                              class="mdi mdi-trash-can-outline text-danger cursor-pointer mdi-18px"></span></a>
                         </td>
                       </tr>
                     </tbody>
@@ -541,7 +571,8 @@
               </div>
               <div class="float-right pt-3">
                 <button type="submit" class="btn btn-primary btn-fw btn-sm me-2">Submit</button>
-                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                  data-bs-dismiss="modal">Close</button>
               </div>
             </form>
           </div>

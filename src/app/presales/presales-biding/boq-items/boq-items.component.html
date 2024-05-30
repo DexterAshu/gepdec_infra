@@ -23,16 +23,24 @@
             </div>
             <div class="col-lg-6">
               <div class="float-right">
-                <button class="btn btn-primary btn-fw btn-sm me-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><span class="mdi mdi-upload"></span>&nbsp;Export</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false"><span
+                    class="mdi mdi-upload"></span>&nbsp;Export</button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li (click)="download()">
-                    <a class="dropdown-item text-small cursor-pointer"><span class="mdi mdi-arrow-down-bold-box-outline"></span>Export Data</a>
+                    <a class="dropdown-item text-small cursor-pointer"><span
+                        class="mdi mdi-arrow-down-bold-box-outline"></span>Export Data</a>
                   </li>
                   <li>
-                    <a class="dropdown-item text-small cursor-pointer" href="../../../../assets/tamplate/BOQ_upload_template.xlsx" download="BOQ_upload_template.xlsx"><span class="mdi mdi-download"></span>Download&nbsp;Template</a>
+                    <a class="dropdown-item text-small cursor-pointer"
+                      href="../../../../assets/tamplate/BOQ_upload_template.xlsx"
+                      download="BOQ_upload_template.xlsx"><span
+                        class="mdi mdi-download"></span>Download&nbsp;Template</a>
                   </li>
                 </ul>
-                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"><span class="mdi mdi-download"></span>&nbsp; Import</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                  data-bs-target="#createBulkModal" title="Upload bulk Data"><span
+                    class="mdi mdi-download"></span>&nbsp; Import</button>
               </div>
             </div>
           </div>
@@ -56,28 +64,36 @@
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let a of boqData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+              <tr
+                *ngFor="let a of boqData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.company_name}}</td>
                 <td>
-                  <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a.tender_title }}">{{a.tender_title | slice:0:30}} <span
+                      *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock1>{{a.tender_title}}</ng-template>
                 </td>
                 <td>
-                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span
+                      *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
                 <td>{{ a.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
-                <td>{{ a.category }}</td>
-                <td>{{ a.sub_category }}</td>
+                <td>{{ a.qacatagory }}</td>
+                <td>{{ a.subqacatagory }}</td>
                 <td>{{ a.capacity }}</td>
-                <td>{{ a.exe_date }}</td>
+                <td>{{ a.tender_location }}</td>
                 <td>{{ a.itemcategory }}</td>
                 <td>{{ a.subcategory }}</td>
                 <td>{{ a.status }}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)" title="Edit BOQ Items Details" ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details" (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)"
+                    title="Edit BOQ Items Details"><span
+                      class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details"
+                    (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">
@@ -101,7 +117,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="createBulkModal" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createBulkModal" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -115,7 +132,8 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
-                  <select formControlName="utility_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
+                  <select formControlName="utility_id" class="form-select form-select-sm"
+                    (ngModelChange)="getDetails($event)">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Client Company</option>
                     <option *ngFor="let c of companyList" value="{{c.company_id}}">{{ c.company_name }}</option>
                   </select>
@@ -127,7 +145,8 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                  <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
+                  <select formControlName="tender_id" class="form-select form-select-sm"
+                    (ngModelChange)="getrefData($event)">
                     <option [selected]="true" [disabled]="true">Select Project</option>
                     <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">{{c.tender_title}}</option>
                   </select>
@@ -139,42 +158,44 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">NIT No</label>
-                  <input class="form-control form-control-sm" readonly value="{{ filterTenderDetailsData[0]?.tender_ref_no }}">
+                  <input class="form-control form-control-sm" readonly
+                    value="{{ filterTenderDetailsData[0]?.tender_ref_no }}">
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date</label>
-                  <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
+                  <input class="form-control form-control-sm" readonly
+                    value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
                 </div>
               </div>
 
               <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Category</label>
-                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  <label class="form-label fl-10">Category</label>
+                  <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.qacatagory">
                 </div>
-            </div>
-            <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Sub-Category</label>
-                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  <label class="form-label fl-10">Sub-Category</label>
+                  <input class="form-control form-control-sm" readonly
+                    [value]="filterTenderDetailsData[0]?.subqacatagory">
                 </div>
-            </div>
-            <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Capacity</label>
-                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  <label class="form-label fl-10">Capacity</label>
+                  <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.capacity">
                 </div>
-            </div>
-            <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Execution Location</label>
-                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  <label class="form-label fl-10">Execution Location</label>
+                  <input class="form-control form-control-sm" readonly
+                    [value]="filterTenderDetailsData[0]?.tender_location">
                 </div>
-            </div>
-
-
+              </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="form-label">BOQ Category<span class="required-asterisk">*</span></label>
@@ -194,21 +215,28 @@
                 </div>
               </div>
               <div class="col-md-12 mt-1">
-                <label class="form-label fl-10">Please ensure your file is named 'BOQ_sample_template' <span class="required-asterisk">*</span>
+                <label class="form-label fl-10">Please ensure your file is named 'BOQ_sample_template' <span
+                    class="required-asterisk">*</span>
                 </label><br>
-                <input class="mt-2" type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
+                <input class="mt-2" type="file" class="form-control form-control-sm" formControlName="attachment"
+                  (change)="onFileChanged($event)" accept=".xlsx, .xls" />
               </div>
             </div>
             <div class="row px-2 my-2" *ngIf="errorItemList.length > 0">
               <label class="form-label">Error Items List (Given Items are not in the list)</label>
-              <div class="alert alert-danger d-flex align-items-center" role="alert" *ngFor="let error of errorItemList">
-                <div><span class="mdi mdi-alert-circle mdi-18px"></span>&nbsp;&nbsp;{{error['Item Code']}} - {{error['Description of Item']}}</div>
+              <div class="alert alert-danger d-flex align-items-center" role="alert"
+                *ngFor="let error of errorItemList">
+                <div><span class="mdi mdi-alert-circle mdi-18px"></span>&nbsp;&nbsp;{{error['Item Code']}} -
+                  {{error['Description of Item']}}</div>
               </div>
             </div>
             <div class="float-right my-2">
-              <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="form1.invalid"> Upload</button>
-              <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span>Uploading...</button>
-              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+              <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2"
+                [disabled]="form1.invalid"> Upload</button>
+              <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span
+                  class="spinner-border spinner-border-sm" aria-hidden="true"></span>Uploading...</button>
+              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                data-bs-dismiss="modal">Close</button>
             </div>
           </form>
         </div>
@@ -217,7 +245,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="boqListModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="boqListModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -239,22 +268,32 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
                 <tr>
                   <th>Publish Date</th>
-                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                  <th>Category</th>
+                  <td>{{ boqList?.qacatagory }}</td>
+                  <th>Sub-Category</th>
+                  <td>{{ boqList?.subqacatagory }}</td>
+                </tr>
+                <tr>
+                  <th>Capacity</th>
+                  <td>{{ boqList?.capacity }}</td>
                   <th>Execution Location</th>
-                  <td>{{ boqList?.tender_location }}</td>
-                  <th></th>
-                  <td></td>
+                  <td colspan="3">{{ boqList?.tender_location }}</td>
                 </tr>
               </tbody>
             </table>
@@ -281,8 +320,11 @@
                   <td>{{ boq?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <td>{{ boq?.status }}</td>
                   <td>
-                    <a *ngIf="update" (click)="getBOQItemList(boq)" data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                    <a (click)="getBOQItemList(boq)"  data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                    <a *ngIf="update" (click)="getBOQItemList(boq)" data-bs-toggle="modal"
+                      data-bs-target="#itemListModel"><span
+                        class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                    <a (click)="getBOQItemList(boq)" data-bs-toggle="modal" data-bs-target="#itemListModel"><span
+                        class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                   </td>
                 </tr>
               </tbody>
@@ -294,7 +336,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="itemListModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="itemListModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -316,22 +359,32 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
                 <tr>
                   <th>Publish Date</th>
                   <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                  <th>Category</th>
+                  <td>{{ boqList?.qacatagory }}</td>
+                  <th>Sub-Category</th>
+                  <td>{{ boqList?.subqacatagory }}</td>
+                </tr>
+                <tr>
+                  <th>Capacity</th>
+                  <td>{{ boqList?.capacity }}</td>
                   <th>Execution Location</th>
-                  <td>{{ boqList?.tender_location }}</td>
-                  <th></th>
-                  <td></td>
+                  <td colspan="3">{{ boqList?.tender_location }}</td>
                 </tr>
               </tbody>
             </table>
@@ -356,7 +409,9 @@
                   <td>{{ i+1 }}</td>
                   <td>{{ item?.itemcode }}</td>
                   <td>
-                    <div *ngIf="!!item?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}">{{item?.description | slice:0:30}} <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!item?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ item?.description }}">{{item?.description | slice:0:30}} <span
+                        *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock5>{{item?.description}}</ng-template>
                   </td>
                   <td>{{ item?.uom }}</td>
@@ -365,8 +420,11 @@
                   <td>{{ item?.qty * item?.unit_price }}</td>
                   <td>{{ item?.freight_charges }}</td>
                   <td *ngIf="update">
-                    <a (click)="editBOQParentItemList(item)" data-bs-toggle="modal" data-bs-target="#boqParentItemFormModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                    <a (click)="deleteBOQParentItemList(item)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                    <a (click)="editBOQParentItemList(item)" data-bs-toggle="modal"
+                      data-bs-target="#boqParentItemFormModel"><span
+                        class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                    <a (click)="deleteBOQParentItemList(item)"><span
+                        class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                   </td>
                 </tr>
                 <ng-container *ngIf="item?.childItemList?.length > 0">
@@ -374,7 +432,10 @@
                     <td>&nbsp; &nbsp; &nbsp;{{i+1}}.{{ci+1}}</td>
                     <td> {{childItem?.itemcode}}</td>
                     <td>
-                      <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ childItem?.description }}">{{childItem?.description | slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                      <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip"
+                        data-placement="bottom" title="{{ childItem?.description }}">{{childItem?.description |
+                        slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i
+                            class="mdi mdi-information"></i></span></div>
                       <ng-template #elseBlock5>{{childItem?.description}}</ng-template>
                     </td>
                     <td>{{ childItem?.uom }}</td>
@@ -383,24 +444,32 @@
                     <td>{{ childItem?.qty * childItem?.unit_price }}</td>
                     <td>{{ childItem?.freight_charges }}</td>
                     <td *ngIf="update">
-                      <a (click)="editBOQChildItemList(item, childItem)" data-bs-target="#boqChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                      <a (click)="deleteBOQChildItemList(item, childItem)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                      <a (click)="editBOQChildItemList(item, childItem)" data-bs-target="#boqChildItemFormModel"
+                        data-bs-toggle="modal"><span
+                          class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                      <a (click)="deleteBOQChildItemList(item, childItem)"><span
+                          class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                     </td>
                   </tr>
                   <tr *ngIf="update">
-                    <td colspan="15" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3" data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                    <td colspan="15" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3"
+                        data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span
+                          class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
                   </tr>
                 </ng-container>
               </ng-container>
               <tr *ngIf="update">
-                <td colspan="15" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                <td colspan="15" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel"
+                    data-bs-toggle="modal"><span
+                      class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
               </tr>
             </tbody>
           </app-responsive-table>
           <div class="row float-right mt-2" *ngIf="update">
             <div class="my-1">
               <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2">Update</button>
-              <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
+              <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
+                data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
             </div>
           </div>
         </div>
@@ -409,7 +478,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="boqAddParentItemFormModel" tabindex="-1" aria-labelledby="boqParentItemFormModelLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="boqAddParentItemFormModel" tabindex="-1" aria-labelledby="boqParentItemFormModelLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -424,7 +494,8 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label" for="itemcode">Item Code<span class="required-asterisk">*</span></label>
-                    <input formControlName="itemcode" type="text" id="itemcode" list="itemListData" class="form-control form-control-sm">
+                    <input formControlName="itemcode" type="text" id="itemcode" list="itemListData"
+                      class="form-control form-control-sm">
                     <datalist id="itemListData">
                       <option *ngFor="let item of itemListData" [value]="item.itemcode">{{item.description}}</option>
                     </datalist>
@@ -461,9 +532,12 @@
                   </div>
                 </div>
                 <div class="modal-btns mt-3">
-                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
-                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
-                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
+                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2"
+                    data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
+                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2"
+                      data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
+                    data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
                 </div>
               </div>
             </form>
@@ -474,7 +548,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="boqAddChildItemFormModel" tabindex="-1" aria-labelledby="boqAddChildItemFormModelLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="boqAddChildItemFormModel" tabindex="-1" aria-labelledby="boqAddChildItemFormModelLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -489,7 +564,8 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label" for="itemcode">Item Code<span class="required-asterisk">*</span></label>
-                    <input formControlName="itemcode" type="text" id="itemcode" list="itemListData" class="form-control form-control-sm">
+                    <input formControlName="itemcode" type="text" id="itemcode" list="itemListData"
+                      class="form-control form-control-sm">
                     <datalist id="itemListData">
                       <option *ngFor="let item of itemListData" [value]="item.itemcode">{{item.description}}</option>
                     </datalist>
@@ -526,9 +602,12 @@
                   </div>
                 </div>
                 <div class="modal-btns mt-3">
-                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
-                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
-                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
+                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2"
+                    data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
+                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2"
+                      data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
+                    data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
                 </div>
               </div>
             </form>
@@ -539,7 +618,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="boqParentItemFormModel" tabindex="-1" aria-labelledby="boqParentItemFormModelLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="boqParentItemFormModel" tabindex="-1" aria-labelledby="boqParentItemFormModelLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -588,9 +668,12 @@
                   </div>
                 </div>
                 <div class="modal-btns mt-3">
-                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
-                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
-                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
+                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2"
+                    data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
+                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2"
+                      data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
+                    data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
                 </div>
               </div>
             </form>
@@ -601,7 +684,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="boqChildItemFormModel" tabindex="-1" aria-labelledby="boqChildItemFormModelLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="boqChildItemFormModel" tabindex="-1" aria-labelledby="boqChildItemFormModelLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -650,9 +734,12 @@
                   </div>
                 </div>
                 <div class="modal-btns mt-3">
-                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
-                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
-                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
+                  <button type="submit" *ngIf="update; else create" class="btn btn-primary btn-fw btn-sm mr-2"
+                    data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button>
+                  <ng-template #create> <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2"
+                      data-bs-toggle="modal" data-bs-target="#itemListModel">Update</button></ng-template>
+                  <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
+                    data-bs-toggle="modal" data-bs-target="#itemListModel">Close</button>
                 </div>
               </div>
             </form>

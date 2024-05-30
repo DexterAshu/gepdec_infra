@@ -97,11 +97,10 @@
                                     </ng-template>
                                 </td>
                                 <td> {{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }} </td>
-                                <td>{{a.category}}</td>
-                                <td>{{a.sub_category}}</td>
+                                <td>{{a.qacatagory}}</td>
+                                <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
                                 <td>{{a.tender_location}}</td>
-                                
                                 <td>{{a.filename.slice(13)}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
@@ -150,7 +149,6 @@
                     <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
                         <!-- Document Details -->
                         <div class="form-row">
-
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client<span
@@ -196,8 +194,31 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly
-                                        value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
+                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Category</label>
+                                    <input class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.qacatagory" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Sub-Category</label>
+                                    <input class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.subqacatagory" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Capacity</label>
+                                    <input class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.capacity" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label fl-10">Execution Location</label>
+                                    <input class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.capacity" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3" *ngIf="!showTypeField">
@@ -206,37 +227,7 @@
                                     <input class="form-control form-control-sm" formControlName="doc_type">
                                 </div>
                             </div>
-                  
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label fl-10">Category</label>
-                                <input class="form-control form-control-sm" readonly >
-                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label fl-10">Sub-Category</label>
-                                <input class="form-control form-control-sm" readonly >
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label fl-10">Capacity</label>
-                                <input class="form-control form-control-sm" readonly >
-                            </div>
-                        </div>
-                      
-                       
-            
-            
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label class="form-label fl-10">Execution Location</label>
-                              <input class="form-control form-control-sm" readonly >
-                            </div>
-                        </div>
-                      </div>
 
                         <div class="form-row">
                             <div class="form-group col-12">
