@@ -92,7 +92,6 @@
                                 <th>Category</th>
                                 <th>Sub-Category</th>
                                 <th>Capacity</th>
-                               
                                 <th>Execution Location</th>
                                 <th>ECV (INR)</th>
                                 <th>Submission Date</th>
@@ -121,14 +120,13 @@
                                         {{a?.tender_ref_no}}
                                     </ng-template>
                                 </td>
-                                <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
-                                <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.ecv }}</td>
-                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{ a?.request_status}}</td>
                                 <td>
                                     <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
