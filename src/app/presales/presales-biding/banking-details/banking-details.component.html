@@ -319,82 +319,114 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">BG Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
-                <table class="table table-hover table-striped custom-table">
-                    <thead class="hidden-thead"></thead>
-                    <tbody class="text-nowrap">
-                        <tr>
-                            <th>Company</th>
-                            <td>{{ rowData?.bidder_name }}</td>
-                            <th>Financial Year</th>
-                            <td>{{ rowData?.financialyear }}</td>
+                <div class="table-responsive pt-2" style="min-height: auto;">
+                    <table class="table table-hover table-striped custom-table">
+                        <!-- <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th colspan="6" class="text-center">Tender Information</th>
+                            </tr>
+                        </thead> -->
+                        <tbody class="text-nowrap">
+                            <tr>
+                                <th>Client</th>
+                                <td>{{ rowData?.company_name }}</td>
+                                <th>NIT No</th>
+                                <td>
+                                    <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_ref_no }}">
+                                        {{rowData?.tender_ref_no | slice:0:30}} <span *ngIf="rowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock3>
+                                        {{rowData?.tender_ref_no}}
+                                    </ng-template>
+                                </td>
+                                <th>Publish Date</th>
+                                <td>{{rowData?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Category</th>
+                                <td>{{rowData?.qacatagory}}</td>
+                                <th>Sub-Category</th>
+                                <td>{{rowData?.subqacatagory}}</td>
+                                <th>Capacity</th>
+                                <td>{{rowData?.capacity}}</td>
+                            </tr>
+                            <tr>
+                                <th>Financial Year</th>
+                                <td> {{rowData?.financialyear}}</td>
+                                <th>Execution Location</th>
+                                <td>
+                                    <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">
+                                        {{rowData?.tender_location | slice:0:30}} <span *ngIf="rowData?.tender_location.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock4>
+                                        {{rowData?.tender_location}}
+                                    </ng-template>
+                                </td>
+                              
+                                <th>Tender Title</th>
+                                <td>
+                                    <div *ngIf="!!rowData?.tender_title; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">
+                                        {{rowData?.tender_title | slice:0:30}} <span *ngIf="rowData?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock5>
+                                        {{rowData?.tender_title}}
+                                    </ng-template>
+                                </td>
+                              
+                            </tr>
 
-                        </tr>
-                        <tr>
-                            <th>Total Liability</th>
-                            <td>{{ rowData?.total_liabilities }}</td>
-                            <th>Total Fixed Asset</th>
-                            <td>{{ rowData?.total_fixed_assets }}</td>
-                        </tr>
-                        <tr>
+                            <tr>
+                                <th>Amount</th>
+                                <td>{{ rowData?.bg_amount }}</td>
+                                <th>BG Number</th>
+                                <td>{{ rowData?.bg_number }}</td>
+                            </tr>
+                            <tr>
+                                <th>Start Date</th>
+                                <td>{{ rowData?.start_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
+                                <th>End Date</th>
+                                <td>{{ rowData?.end_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Submission Date</th>
+                                <td>{{ rowData?.submission_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
+                                <th></th>
+                                <td></td>
+                            </tr>
+    
+                            <tr>
+                                <th>Description</th>
+                                <td>
+                                    <div *ngIf="!!rowData?.description; else elseBlock3" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ rowData?.description }}">
+                                        {{rowData?.description | slice:0:30}} <span
+                                            *ngIf="rowData?.description.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock3>
+                                        --
+                                    </ng-template>
+                                </td>
+                                <th></th>
+                                <td></td>
+                            </tr>
 
-                            <th>Net Profit</th>
-                            <td>{{ rowData?.net_profit }}</td>
-                            <th>Net Worth</th>
-                            <td>{{ rowData?.net_worth }}</td>
-                        </tr>
-                        <tr>
+                            <tr>
+                                <th>Created By</th>
+                                <td>{{rowData?.createdby_name}}</td>
+                                <th>Created At</th>
+                                <td>{{rowData?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                            </tr>
 
-                            <th>Net Capital</th>
-                            <td>{{ rowData?.net_capital }}</td>
-                            <th>Reserve & Surplus</th>
-                            <td>{{ rowData?.reserve_surplus }}</td>
-                        </tr>
-                        <tr>
-
-                            <th>Paid up Capital</th>
-                            <td>{{ rowData?.paid_upcapital }}</td>
-                            <th>Annual TUrnover</th>
-                            <td>{{ rowData?.annual_turnover }}</td>
-                        </tr>
-                        <tr>
-
-                            <th>Networking Capital</th>
-                            <td>{{ rowData?.net_working_capital }}</td>
-                            <th>Ebidta</th>
-                            <td>{{ rowData?.ebidta }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Description</th>
-                            <td>
-                                <div *ngIf="!!rowData?.description; else elseBlock3" data-toggle="tooltip"
-                                    data-placement="bottom" title="{{ rowData?.description }}">
-                                    {{rowData?.description | slice:0:30}} <span
-                                        *ngIf="rowData?.description.length > 30">...<i
-                                            class="mdi mdi-information"></i></span>
-                                </div>
-                                <ng-template #elseBlock3>
-                                    --
-                                </ng-template>
-                            </td>
-                            <th></th>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <th>Created By</th>
-                            <td>{{rowData?.createdby_name}}</td>
-                            <th>Created At</th>
-                            <td>{{rowData?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                        </tbody>
+                    </table>
+                </div>
+             
             </div>
         </div>
     </div>
