@@ -97,7 +97,7 @@ const routes: Routes = [
   {path: 'documentation', component:DocumentationComponent, canActivate:[AuthGuard]},
   //teder-documnets
   {path: 'documentation/tend-doc', component:TenderDocumentComponent, canActivate:[AuthGuard]},
-  {path: 'documentation/tend-doc/amedments', component:AmendmentsComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/tend-doc/amendments', component:AmendmentsComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/initial-boq', component:InitialBoqComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/l1-schedule', component:L1ScheduleComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc', component:QualificationDocumentComponent, canActivate:[AuthGuard]},

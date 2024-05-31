@@ -1,29 +1,33 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Projects</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Projects
+                        </h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                  
+
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                                (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+
+                                Create</button>
                         </div>
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
@@ -41,7 +45,8 @@
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                            <tr
+                                *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.company_name }}</td>
                                 <td>{{ a.mstcompanytype }}</td>
@@ -51,9 +56,11 @@
                                 <td>{{ a.pan }}</td>
                                 <td>{{ a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile"
+                                        (click)="getDetails(a)"><span
+                                            class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
                                 </td>
-                              </tr>
+                            </tr>
                             <tr *ngIf="companyData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
@@ -81,56 +88,67 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Projects Information</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Projects Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                          
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Client<span class="required-asterisk">*</span></label>
                                     <select formControlName="customer_name" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Customer</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Customer
+                                        </option>
                                         <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
                                     </select>
                                     <div *ngIf="f['customer_name'].touched && f['customer_name'].invalid">
-                                        <small class="text-danger" *ngIf="f['customer_name'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['customer_name'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Project Name<span class="required-asterisk">*</span></label>
-                                    <input formControlName="project_name" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                    <label class="form-label">Project Name<span
+                                            class="required-asterisk">*</span></label>
+                                    <input formControlName="project_name" type="text"
+                                        class="form-control form-control-sm" appWordCapitalize>
                                     <div *ngIf="f['project_name'].touched && f['project_name'].invalid">
-                                        <small class="text-danger" *ngIf="f['project_name'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['project_name'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Project Type<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Project Type<span
+                                            class="required-asterisk">*</span></label>
                                     <select formControlName="project_type" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Project Type</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Project Type
+                                        </option>
                                         <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
                                     </select>
                                     <div *ngIf="f['project_type'].touched && f['project_type'].invalid">
-                                        <small class="text-danger" *ngIf="f['project_type'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['project_type'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Project Manager<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Project Manager<span
+                                            class="required-asterisk">*</span></label>
                                     <select formControlName="proj_manager" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Project Manager</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Project
+                                            Manager</option>
                                         <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
                                     </select>
                                     <div *ngIf="f['proj_manager'].touched && f['proj_manager'].invalid">
-                                        <small class="text-danger" *ngIf="f['proj_manager'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['proj_manager'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -138,18 +156,21 @@
                                 <div class="form-group">
                                     <label class="form-label">Priority<span class="required-asterisk">*</span></label>
                                     <select formControlName="priority" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Priority</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Priority
+                                        </option>
                                         <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
                                     </select>
                                     <div *ngIf="f['priority'].touched && f['priority'].invalid">
-                                        <small class="text-danger" *ngIf="f['priority'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['priority'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Budget</label>
-                                    <input formControlName="budget" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                    <input formControlName="budget" type="text" class="form-control form-control-sm"
+                                        appWordCapitalize>
                                     <!-- <div *ngIf="f['budget'].touched && f['budget'].invalid">
                                         <small class="text-danger" *ngIf="f['budget'].errors?.['required']">*Required</small>
                                     </div> -->
@@ -158,20 +179,23 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Total hours</label>
-                                    <input formControlName="hours" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                    <input formControlName="hours" type="text" class="form-control form-control-sm"
+                                        appWordCapitalize>
                                     <!-- <div *ngIf="f['hours'].touched && f['hours'].invalid">
                                         <small class="text-danger" *ngIf="f['hours'].errors?.['required']">*Required</small>
                                     </div> -->
                                 </div>
                             </div>
-                         
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Project Start Date<span
                                             class="required-asterisk">*</span></label>
-                                    <input formControlName="start_date" type="date" class="form-control form-control-sm">
+                                    <input formControlName="start_date" type="date"
+                                        class="form-control form-control-sm">
                                     <div *ngIf="f['start_date'].touched && f['start_date'].invalid">
-                                        <small class="text-danger" *ngIf="f['start_date'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['start_date'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -181,16 +205,22 @@
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="end_date" type="date" class="form-control form-control-sm">
                                     <div *ngIf="f['end_date'].touched && f['end_date'].invalid">
-                                        <small class="text-danger" *ngIf="f['end_date'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['end_date'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                           
-                   
+
+
                             <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                                    class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                                <button type="button" *ngIf="isSubmitted" disabled
+                                    class="btn btn-primary btn-fw btn-sm mr-2"><span
+                                        class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                    Adding...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                    data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </form>

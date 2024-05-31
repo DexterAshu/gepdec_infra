@@ -31,7 +31,7 @@
                                     (change)="redirect($event)">
                                     <option [disabled]="true" [value]="null">Select</option>
                                     <option [selected]="true" value="/documentation/tend-doc"> Tender</option>
-                                    <option value="/documentation/tend-doc/amedments"> Amendment</option>
+                                    <option value="/documentation/tend-doc/amendments"> Amendment</option>
                                     <option value="/documentation/tend-doc/initial-boq"> Initial BOQ</option>
                                     <option value="/documentation/tend-doc/l1-schedule"> L1 Schedule</option>
                                 </select>
@@ -196,13 +196,15 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender ID</label>
-                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.tender_id" readonly>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.tender_id" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">NIT No</label>
-                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.tender_ref_no" readonly>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.tender_ref_no" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -215,52 +217,60 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Category</label>
-                                        <input class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.qacatagory" readonly>
+                                        <input class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.qacatagory" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Sub-Category</label>
-                                        <input class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.subqacatagory" readonly >
+                                        <input class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.subqacatagory" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Capacity</label>
-                                        <input class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.capacity" readonly >
+                                        <input class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.capacity" readonly>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender Location</label>
-                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.tender_location" readonly>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.tender_location" readonly>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender Type</label>
-                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.bidtype" readonly>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.bidtype" readonly>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Comp Period (Months)</label>
-                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.completion_period" readonly>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.completion_period" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">ECV</label>
-                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.ecv" readonly>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.ecv" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Bid Validity (Days)</label>
-                                        <input type="text" class="form-control form-control-sm" [value]="filterTenderDetailsData[0]?.bid_validity" readonly>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [value]="filterTenderDetailsData[0]?.bid_validity" readonly>
 
                                     </div>
                                 </div>
@@ -268,7 +278,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-label fl-10">Tender Description</label>
-                                        <textarea class="form-control form-control-sm" readonly>{{filterTenderDetailsData[0]?.tender_description}}</textarea>
+                                        <textarea class="form-control form-control-sm"
+                                            readonly>{{filterTenderDetailsData[0]?.tender_description}}</textarea>
                                     </div>
                                 </div>
                             </ng-container>

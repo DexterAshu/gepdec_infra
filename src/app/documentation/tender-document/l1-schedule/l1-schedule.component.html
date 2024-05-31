@@ -25,10 +25,10 @@
               <div class="float-right">
                 <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
                   <option [disabled]="true" [value]="null">Select</option>
-                  <option [selected]="true" value="/documentation/tend-doc/l1-schedule"> L1 Schedule</option>
                   <option value="/documentation/tend-doc"> Tender</option>
-                  <option value="/documentation/tend-doc/amedments"> Amendments</option>
+                  <option value="/documentation/tend-doc/amendments"> Amendments</option>
                   <option value="/documentation/tend-doc/initial-boq"> Initial BOQ</option>
+                  <option [selected]="true" value="/documentation/tend-doc/l1-schedule"> L1 Schedule</option>
                 </select>
               </div>
             </div>
@@ -130,8 +130,8 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="table-responsive" style="min-height: auto">
-            <h6 class="mb-2 text-secondary">Tender Details</h6>
-            <table class="table table-hover table-striped custom-table">
+            <h6 class="mb-2 text-secondary">Tender Detail</h6>
+            <table class="table table-hover table-striped custom-table table-bordered">
               <thead class="hidden-thead"></thead>
               <tbody>
                 <tr>
