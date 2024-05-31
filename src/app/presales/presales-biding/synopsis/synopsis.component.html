@@ -4,7 +4,8 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Tender Synopsis</h4>
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Tender
+                            Synopsis</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -25,14 +26,13 @@
                         </div>
 
                         <div class="col-lg-4">
-                            
+
                         </div>
 
                         <div class="col-lg-4">
                             <div class="float-right">
                                 <button class="btn btn-primary btn-fw btn-sm me-2"
-                                    title="Download List of Data in Excel"
-                                    (click)="download()">
+                                    title="Download List of Data in Excel" (click)="download()">
                                     <span class="mdi mdi-upload"></span> Export
                                 </button>
                                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
@@ -69,16 +69,21 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.company_name }}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock1>
                                         {{a.tender_title}}
                                     </ng-template>
                                 </td>
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                                        {{a?.tender_ref_no | slice:0:30}} <span
+                                            *ngIf="a?.tender_ref_no.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock2>
                                         {{a?.tender_ref_no}}
@@ -95,7 +100,9 @@
                                 <td>
                                     <!-- <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp; -->
-                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data"
+                                        (click)="rowListData(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
@@ -138,7 +145,7 @@
                                 <table class="table table-hover table-striped custom-table">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th colspan="6" class="text-center">Tender Information</th>
+                                            <th colspan="6" class="text-center">Tender Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
@@ -147,8 +154,12 @@
                                             <td>{{ rowData?.company_name }}</td>
                                             <th>NIT No</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_ref_no }}">
-                                                    {{rowData?.tender_ref_no | slice:0:30}} <span *ngIf="rowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_ref_no }}">
+                                                    {{rowData?.tender_ref_no | slice:0:30}} <span
+                                                        *ngIf="rowData?.tender_ref_no.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock3>
                                                     {{rowData?.tender_ref_no}}
@@ -168,18 +179,26 @@
                                         <tr>
                                             <th>Execution Location</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">
-                                                    {{rowData?.tender_location | slice:0:30}} <span *ngIf="rowData?.tender_location.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_location }}">
+                                                    {{rowData?.tender_location | slice:0:30}} <span
+                                                        *ngIf="rowData?.tender_location.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock4>
                                                     {{rowData?.tender_location}}
                                                 </ng-template>
                                             </td>
-                                          
+
                                             <th>Tender Title</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_title; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">
-                                                    {{rowData?.tender_title | slice:0:30}} <span *ngIf="rowData?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.tender_title; else elseBlock5"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_title }}">
+                                                    {{rowData?.tender_title | slice:0:30}} <span
+                                                        *ngIf="rowData?.tender_title.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock5>
                                                     {{rowData?.tender_title}}
@@ -187,7 +206,7 @@
                                             </td>
                                             <th></th>
                                             <td></td>
-                                          
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -213,7 +232,8 @@
                                             <td>{{ rowData?.district_name}}</td>
                                             <th>City</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.city; else elseCity" data-toggle="tooltip" data-placement="bottom" title="{{rowData?.city}}">
+                                                <div *ngIf="!!rowData?.city; else elseCity" data-toggle="tooltip"
+                                                    data-placement="bottom" title="{{rowData?.city}}">
                                                     <span>{{rowData?.city}}</span>
 
                                                 </div>
@@ -222,7 +242,7 @@
                                                 </ng-template>
                                             </td>
                                         </tr>
-                                   
+
                                         <tr>
                                             <th>Bidder Company</th>
                                             <td>{{ rowData?.bidder_name }}</td>
@@ -232,8 +252,13 @@
                                             <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                             <th>Tender Available Link</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_detail_link; else elseBlock6" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_detail_link }}">
-                                                    <a [href]="rowData?.tender_detail_link" target="_blank">{{rowData?.tender_detail_link | slice:0:20}} <span *ngIf="rowData?.tender_detail_link.length > 20">...<i class="mdi mdi-information"></i></span></a>
+                                                <div *ngIf="!!rowData?.tender_detail_link; else elseBlock6"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_detail_link }}">
+                                                    <a [href]="rowData?.tender_detail_link"
+                                                        target="_blank">{{rowData?.tender_detail_link | slice:0:20}}
+                                                        <span *ngIf="rowData?.tender_detail_link.length > 20">...<i
+                                                                class="mdi mdi-information"></i></span></a>
                                                 </div>
                                                 <ng-template #elseBlock6>
                                                     <!-- <a [href]="rowData?.tender_detail_link" target="_blank">{{rowData?.tender_detail_link}}</a> -->
@@ -242,13 +267,14 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                           
+
                                             <th>Soft Copy Submission Date </th>
                                             <td>{{ rowData?.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
                                             <th>Hard Copy Submission Date </th>
                                             <td>
                                                 <span *ngIf="!!rowData?.tenderhardcopysubmission_date; else elseBlock7">
-                                                    {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
+                                                    {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy hh:mm
+                                                    a' : 'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock7>
                                                     --
@@ -268,7 +294,7 @@
                                                 </ng-template>
                                             </td>
                                         </tr>
-                                       
+
                                         <tr>
                                             <th>Pre-Bid Meeting Date</th>
                                             <td>
@@ -284,7 +310,8 @@
                                             <th>Fin Bid Opening Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.fin_bid_opening_date; else elseBlock10">
-                                                    {{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
+                                                    {{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy hh:mm a' :
+                                                    'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock10>
                                                     --
@@ -297,7 +324,7 @@
                                             <th>Registration Fees</th>
                                             <td>{{ rowData?.tender_fee | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Document Cost</th>
-                                            <td>{{ rowData?.tender_doc_cost  | currency: 'INR': '' : '1.0-2' }}</td>
+                                            <td>{{ rowData?.tender_doc_cost | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Bid Validity (Days)</th>
                                             <td>{{ rowData?.bid_validity }}</td>
                                             <th>Completion period (Months)</th>
@@ -318,7 +345,8 @@
                                             <th>Security Sub Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.securitysubmission_date; else elseBlock12">
-                                                    {{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
+                                                    {{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy hh:mm a' :
+                                                    'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock12>
                                                     --
@@ -342,11 +370,11 @@
                                             <th>EMD Amount</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.emd_ammount; else elseBlock14">
-                                                    {{ rowData?.emd_ammount | currency: 'INR': '' : '1.0-2'  }}
+                                                    {{ rowData?.emd_ammount | currency: 'INR': '' : '1.0-2' }}
                                                 </span>
                                                 <ng-template #elseBlock14>
                                                     --
-                                                </ng-template>    
+                                                </ng-template>
                                             </td>
                                             <th>EMD Payment Mode</th>
                                             <td>
@@ -355,53 +383,59 @@
                                                 </span>
                                                 <ng-template #elseBlock15>
                                                     --
-                                                </ng-template>    
+                                                </ng-template>
                                             </td>
 
                                         </tr>
-                                       
+
                                         <tr>
                                             <th>EMD Sub Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.emd_submission_date; else elseBlock16">
-                                                    {{ rowData?.emd_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
+                                                    {{ rowData?.emd_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT'
+                                                    }}
                                                 </span>
                                                 <ng-template #elseBlock16>
                                                     --
-                                                </ng-template>    
+                                                </ng-template>
                                             </td>
                                             <th>Forfeiture Condition</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.forfeiture_condition; else elseBlock17" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.forfeiture_condition }}">
-                                                    {{rowData?.forfeiture_condition | slice:0:30}} <span *ngIf="rowData?.forfeiture_condition.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.forfeiture_condition; else elseBlock17"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.forfeiture_condition }}">
+                                                    {{rowData?.forfeiture_condition | slice:0:30}} <span
+                                                        *ngIf="rowData?.forfeiture_condition.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock17>
                                                     <!-- {{rowData?.forfeiture_condition}} -->
                                                     --
                                                 </ng-template>
                                             </td>
-                                           
+
                                             <th>Reverse Auction</th>
                                             <td>{{ rowData?.reserve_auction }}</td>
                                             <th>Current Status</th>
                                             <!-- <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td> -->
                                             <td class="badge badge-primary mt-2">{{ rowData?.request_status }}</td>
-                                           
+
                                         </tr>
                                         <tr>
                                             <th>Payment Terms</th>
                                             <td colspan="7">
-                                                <span *ngFor="let ph of (rowData?.tenderpayment_terms != null ? (rowData?.tenderpayment_terms.slice(0, -1)).split('\n') : rowData?.tenderpayment_terms.slice(0, -1)), index as i">
+                                                <span
+                                                    *ngFor="let ph of (rowData?.tenderpayment_terms != null ? (rowData?.tenderpayment_terms.slice(0, -1)).split('\n') : rowData?.tenderpayment_terms.slice(0, -1)), index as i">
                                                     {{ ph }} <br>
-                                                 </span>
+                                                </span>
                                             </td>
                                             <!-- <td colspan="5">
                                                 {{rowData?.tenderpayment_terms }}
                                             </td> -->
                                         </tr>
-                                       
+
                                         <tr>
-                                            
+
                                             <th>Created On</th>
                                             <td>{{ rowData?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                             <th>Created By</th>
@@ -411,7 +445,7 @@
                                             <th></th>
                                             <td></td>
                                         </tr>
-                                      
+
                                     </tbody>
                                 </table>
 
@@ -419,7 +453,8 @@
                                     <h6>Contact Information</h6>
                                     <div class="row">
                                         <div class="col-md-12 p-0">
-                                            <div class="table-responsive tableStyle" style="min-height: auto !important;">
+                                            <div class="table-responsive tableStyle"
+                                                style="min-height: auto !important;">
                                                 <table class="table table-hover table-striped mb-3">
                                                     <thead class="table-primary text-nowrap">
                                                         <tr>
@@ -439,12 +474,13 @@
                                                             <td>{{ a?.deptname }}</td>
                                                             <td>{{ a?.contactno1}}</td>
                                                             <td>{{ a?.email}}</td>
-                                                          
+
                                                         </tr>
-                                                     
+
                                                         <tr *ngIf="rowData?.contact?.length == 0">
                                                             <td colspan="15" class="text-center">
-                                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                                                <div class="text-warning fw-semibold">Looks like no data
+                                                                    available!</div>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -461,34 +497,39 @@
                                 <div class="row p-1">
 
                                     <div class="col-md-6">
-                                        <h6 class="mb-2 text-primary cursor-pointer" >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
-                                                <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z"/>
-                                              </svg> &nbsp;
-                                           Financial Qualification Details</h6>
-    
+                                        <h6 class="mb-2 text-primary cursor-pointer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z" />
+                                            </svg> &nbsp;
+                                            Financial Qualification Details
+                                        </h6>
+
                                     </div>
-    
-                                        <div class="col-md-6">
-                                            <div class="float-right" title="Show/Hide Details">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd"
-                                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                                                </svg>
-                    
-                                            </div>
+
+                                    <div class="col-md-6">
+                                        <div class="float-right" title="Show/Hide Details">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                            </svg>
+
                                         </div>
+                                    </div>
                                 </div>
 
-                                <div class="table-responsive tableStyle mt-2" *ngIf="finDataShow" style="min-height: auto !important;">
+                                <div class="table-responsive tableStyle mt-2" *ngIf="finDataShow"
+                                    style="min-height: auto !important;">
                                     <div class="row p-2" style="background-color: #eceff7; border-radius: 5px;">
                                         <div class="col-md-8 bg-darkblue">Data Required (As Per Tender)</div>
                                         <div class="col-md-1"> | </div>
                                         <div class="col-md-3 bg-darkblue text-center">Our Company Data</div>
                                     </div>
-                                    <table class="table table-hover table-striped mb-3" *ngFor="let a of rowData?.tenderfinancials">
-                                      
+                                    <table class="table table-hover table-striped mb-3"
+                                        *ngFor="let a of rowData?.tenderfinancials">
+
                                         <thead class="table-primary text-nowrap">
                                             <tr>
                                                 <th>Financial Parameters</th>
@@ -500,7 +541,7 @@
                                                 <th>Result</th>
                                             </tr>
                                         </thead>
-                                       
+
                                         <tbody class="text-nowrap">
                                             <tr *ngIf=" a?.annual_turnover > 0">
                                                 <td>Annual Turnover</td>
@@ -528,9 +569,9 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-    
-                                               <!-- Net Profit -->
-                                               <tr *ngIf=" a?.net_profit > 0">
+
+                                            <!-- Net Profit -->
+                                            <tr *ngIf=" a?.net_profit > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Net Profit</td>
                                                 <td>{{ a?.net_profit }}</td>
@@ -549,8 +590,8 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                              <!--  ebidta -->
-                                              <tr *ngIf=" a?.ebidta > 0">
+                                            <!--  ebidta -->
+                                            <tr *ngIf=" a?.ebidta > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>EBIDTA</td>
                                                 <td>{{ a?.ebidta }}</td>
@@ -569,9 +610,9 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-    
+
                                             <!-- Net Worth -->
-                                      
+
                                             <tr *ngIf=" a?.net_worth > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Net Worth</td>
@@ -591,7 +632,7 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                        <!-- Net Working Capital -->
+                                            <!-- Net Working Capital -->
                                             <tr *ngIf=" a?.net_working_capital > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Net Working Capital</td>
@@ -611,8 +652,8 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                     
-                                        <!--  Total Liability -->
+
+                                            <!--  Total Liability -->
                                             <tr *ngIf=" a?.total_liabilities > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Total Liability</td>
@@ -632,7 +673,7 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                        <!--  Fixed Asset -->
+                                            <!--  Fixed Asset -->
                                             <tr *ngIf="a?.total_fixed_assets > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Total Fixed Asset</td>
@@ -652,7 +693,7 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                        <!--  Net Capital -->
+                                            <!--  Net Capital -->
                                             <!-- <tr *ngIf=" a?.net_capital > 0">
                                                 <td>Net Capital</td>
                                                 <td>{{ a?.net_capital }}</td>
@@ -671,7 +712,7 @@
                                                     </ng-template>
                                                 </td>
                                             </tr> -->
-                                        <!--  reserve_surplus -->
+                                            <!--  reserve_surplus -->
                                             <tr *ngIf=" a?.reserve_surplus > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Reserve & Surplus</td>
@@ -691,7 +732,7 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                        <!--  paid_upcapital -->
+                                            <!--  paid_upcapital -->
                                             <tr *ngIf=" a?.paid_upcapital > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Paid Up Capital</td>
@@ -711,17 +752,19 @@
                                                     </ng-template>
                                                 </td>
                                             </tr>
-                                      
-    
+
+
                                             <tr *ngIf="rowData?.tenderfinancials.length == 0">
                                                 <td colspan="15" class="text-center">
-                                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                                    <div class="text-warning fw-semibold">Looks like no data available!
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                     
-                                    <table class="table table-hover table-striped mb-3" *ngIf="rowData?.tenderfinancials.length == 0">
+
+                                    <table class="table table-hover table-striped mb-3"
+                                        *ngIf="rowData?.tenderfinancials.length == 0">
                                         <thead class="table-primary text-nowrap">
                                             <tr>
                                                 <th>Financial Parameters</th>
@@ -736,7 +779,8 @@
                                         <tbody class="text-nowrap">
                                             <tr>
                                                 <td colspan="15" class="text-center">
-                                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                                    <div class="text-warning fw-semibold">Looks like no data available!
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -745,84 +789,91 @@
 
                             </div>
                             <div class="card p-2 mt-1" (click)="techDataShow=!techDataShow">
-                                <div class="row p-1" >
+                                <div class="row p-1">
                                     <div class="col-md-6">
-                                        <h6 class="mb-2 text-primary cursor-pointer" >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-up" viewBox="0 0 16 16">
-                                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.854 1.5 1.5a.5.5 0 0 1-.708.708L13 11.707V14.5a.5.5 0 0 1-1 0v-2.793l-.646.647a.5.5 0 0 1-.708-.708l1.5-1.5a.5.5 0 0 1 .708 0"/>
-                                                <path d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4"/>
-                                              </svg> &nbsp;
+                                        <h6 class="mb-2 text-primary cursor-pointer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-database-up" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.854 1.5 1.5a.5.5 0 0 1-.708.708L13 11.707V14.5a.5.5 0 0 1-1 0v-2.793l-.646.647a.5.5 0 0 1-.708-.708l1.5-1.5a.5.5 0 0 1 .708 0" />
+                                                <path
+                                                    d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4" />
+                                            </svg> &nbsp;
                                             Technical Qualification Details
                                         </h6>
 
                                     </div>
-        
+
                                     <div class="col-md-6">
                                         <div class="float-right" title="Show/Hide Details">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd"
                                                     d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
                                             </svg>
-                
+
                                         </div>
                                     </div>
 
                                 </div>
 
-                            <div class="container-fluid mt-1" *ngIf="techDataShow">
-                                <div class="row">
-                                    <div class="col-md-12 p-0">
-                                        <div class="table-responsive tableStyle" style="min-height: auto !important;">
-                                            <table class="table table-hover table-striped mb-3">
-                                                <thead class="table-primary text-nowrap">
-                                                    <tr>
-                                                        <th>S No</th>
-                                                        <th>Category</th>
-                                                        <th>Sub-Category</th>
-                                                        <th>Capacity</th>
-                                                        <th>Experience</th>
-                                                        <th>Completion Period</th>
-                                                        <th>Resource Used</th>
-                                                        <th>Completion Year</th>
-                                                        <th>Technical Point</th>
-                                                        <th>Result</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-nowrap">
-                                                    <tr *ngFor="let a of rowData?.prequalification; index as i">
-                                                        <td>{{ limit*(p-1)+i+1 }}</td>
-                                                        <td>{{ a?.qacatagory }}</td>
-                                                        <td>{{ a?.subqacatagory }}</td>
-                                                        <td>{{ a?.capacity }}</td>
-                                                        <td>{{ a?.total_experience}}</td>
-                                                        <td>{{ a?.completion_period}}</td>
-                                                        <td>{{ a?.resource_used}}</td>
-                                                        <td>{{ a?.completion_year}}</td>
-                                                        <td>{{ a?.technical_points}}</td>
-                                                        <td>
-                                                            <div *ngIf=" a?.qualified == true; else ifNot2">
-                                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
-                                                            </div>
-                                                            <ng-template #ifNot2>
-                                                                <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
-                                                            </ng-template>
-                                                        </td>
-                                                    </tr>
-                                                 
-                                                    <tr *ngIf="rowData?.prequalification?.length == 0">
-                                                        <td colspan="15" class="text-center">
-                                                            <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                <div class="container-fluid mt-1" *ngIf="techDataShow">
+                                    <div class="row">
+                                        <div class="col-md-12 p-0">
+                                            <div class="table-responsive tableStyle"
+                                                style="min-height: auto !important;">
+                                                <table class="table table-hover table-striped mb-3">
+                                                    <thead class="table-primary text-nowrap">
+                                                        <tr>
+                                                            <th>S No</th>
+                                                            <th>Category</th>
+                                                            <th>Sub-Category</th>
+                                                            <th>Capacity</th>
+                                                            <th>Experience</th>
+                                                            <th>Completion Period</th>
+                                                            <th>Resource Used</th>
+                                                            <th>Completion Year</th>
+                                                            <th>Technical Point</th>
+                                                            <th>Result</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-nowrap">
+                                                        <tr *ngFor="let a of rowData?.prequalification; index as i">
+                                                            <td>{{ limit*(p-1)+i+1 }}</td>
+                                                            <td>{{ a?.qacatagory }}</td>
+                                                            <td>{{ a?.subqacatagory }}</td>
+                                                            <td>{{ a?.capacity }}</td>
+                                                            <td>{{ a?.total_experience}}</td>
+                                                            <td>{{ a?.completion_period}}</td>
+                                                            <td>{{ a?.resource_used}}</td>
+                                                            <td>{{ a?.completion_year}}</td>
+                                                            <td>{{ a?.technical_points}}</td>
+                                                            <td>
+                                                                <div *ngIf=" a?.qualified == true; else ifNot2">
+                                                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                                                        title="Qualified"></i>
+                                                                </div>
+                                                                <ng-template #ifNot2>
+                                                                    <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                                                        title="Not-Qualified"></i>
+                                                                </ng-template>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr *ngIf="rowData?.prequalification?.length == 0">
+                                                            <td colspan="15" class="text-center">
+                                                                <div class="text-warning fw-semibold">Looks like no data
+                                                                    available!</div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            </div>
-<!-- 
+                            <!-- 
                             <div class="row mt-2">
                                 <div class="col-md-6">
                                     <div class="text-primary cursor-pointer" (click)="showPreNotes=!showPreNotes">
@@ -861,8 +912,9 @@
 
                             <!-- tender status modal start-->
                             <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
-                                <div class="row mt-3" *ngIf="rowData?.prequalification?.length !== 0 && rowData?.tenderfinancials.length !== 0 ">
-                                        <!-- <div class="col-md-3" *ngIf="this.userData.rolename == 'Manager'">
+                                <div class="row mt-3"
+                                    *ngIf="rowData?.prequalification?.length !== 0 && rowData?.tenderfinancials.length !== 0 ">
+                                    <!-- <div class="col-md-3" *ngIf="this.userData.rolename == 'Manager'">
                                            
                                             <div class="form-group">
                                                 <label class="form-label fl-10">Tender Status<span
@@ -879,41 +931,42 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                        <ng-container >
+                                    <ng-container>
 
-                                            <div class="col-md-3">
-                                              
-                                                <div class="form-group">
-                                                    <label class="form-label fl-10">Request Status<span
-                                                            class="required-asterisk">*</span></label>
-                                                    <select formControlName="tenderstatus_id"
-                                                        class="form-select form-select-sm">
-                                                        <option [value]="null" disabled selected>Select Status</option>
-                                                        <option *ngFor="let c of reqList" [value]="c.requeststatus_id">{{
-                                                            c.request_status }}</option>
-                                                    </select>
-                                                    <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
-                                                        <small class="text-danger"
-                                                            *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
-                                                    </div>
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label class="form-label fl-10">Request Status<span
+                                                        class="required-asterisk">*</span></label>
+                                                <select formControlName="tenderstatus_id"
+                                                    class="form-select form-select-sm">
+                                                    <option [value]="null" disabled selected>Select Status</option>
+                                                    <option *ngFor="let c of reqList" [value]="c.requeststatus_id">{{
+                                                        c.request_status }}</option>
+                                                </select>
+                                                <div
+                                                    *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
+                                                    <small class="text-danger"
+                                                        *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
-                                            <div class="col-md-9">
-                                                <div class="form-group">
-                                                    <label class="form-label fl-10">Remarks<span
-                                                            class="required-asterisk">*</span></label>
-                                                    <input formControlName="working_notes" type="text"
-                                                        class="form-control form-control-sm">
-                                                    <div *ngIf="f['working_notes'].touched && f['working_notes'].invalid">
-                                                        <small class="text-danger"
-                                                            *ngIf="f['working_notes'].errors?.['required']">*Required</small>
-                                                    </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10">Remarks<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="working_notes" type="text"
+                                                    class="form-control form-control-sm">
+                                                <div *ngIf="f['working_notes'].touched && f['working_notes'].invalid">
+                                                    <small class="text-danger"
+                                                        *ngIf="f['working_notes'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
-                                        </ng-container>
-                                 
+                                        </div>
+                                    </ng-container>
 
-                                    <div class="col-md-12" >
+
+                                    <div class="col-md-12">
                                         <div class="presales">
                                             <button
                                                 *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'"
@@ -929,14 +982,17 @@
 
                                         <ng-container *ngIf="this.userData.rolename === 'Manager'">
                                             <div class="float-right">
-                                                <button (click)="sendBack()" type="submit" *ngIf="reqList?.requeststatus_id === '7009'?true:false"
+                                                <button (click)="sendBack()" type="submit"
+                                                    *ngIf="reqList?.requeststatus_id === '7009'?true:false"
+                                                    class="btn btn-danger btn-fw btn-sm me-2" [disabled]="form.invalid">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-arrow-90deg-left"
+                                                        viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z" />
+                                                    </svg> &nbsp;Change Request
+                                                </button>
 
-                                                 class="btn btn-danger btn-fw btn-sm me-2"  [disabled]="form.invalid" >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z" />
-                                                </svg> &nbsp;Change Request 
-                                            </button>
-                                           
                                                 <button type="submit" class="btn btn-primary btn-fw btn-sm me-2 "
                                                     [disabled]="form.invalid">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -961,7 +1017,7 @@
                                                 </svg> &nbsp;Final Update
                                             </button>
                                         </ng-container>
-                                  
+
                                     </div>
 
                                 </div>

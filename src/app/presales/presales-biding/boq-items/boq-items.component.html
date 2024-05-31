@@ -249,47 +249,47 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row px-2">
-              <table class="table table-hover table-striped custom-table">
-                <thead class="table-primary text-nowrap">
-                  <tr>
-                    <th colspan="6" class="text-center">Tender Information</th>
-                  </tr>
-                </thead>
-                <tbody class="text-nowrap">
-                  <tr>
-                    <th>Client</th>
-                    <td>{{ boqList?.company_name }}</td>
-                    <th> NIT No</th>
-                    <td>
-                      <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
-                        title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
-                          *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                      <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
-                    </td>
-                    <th>Tender Title</th>
-                    <td>
-                      <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
-                        title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
-                          *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                      <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Publish Date</th>
-                    <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                    <th>Category</th>
-                    <td>{{ boqList?.qacatagory }}</td>
-                    <th>Sub-Category</th>
-                    <td>{{ boqList?.subqacatagory }}</td>
-                  </tr>
-                  <tr>
-                    <th>Capacity</th>
-                    <td>{{ boqList?.capacity }}</td>
-                    <th>Execution Location</th>
-                    <td colspan="3">{{ boqList?.tender_location }}</td>
-                  </tr>
-                </tbody>
-              </table>
+            <table class="table table-hover table-striped custom-table">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th colspan="6" class="text-center">Tender Detail</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <th>Client</th>
+                  <td>{{ boqList?.company_name }}</td>
+                  <th> NIT No</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                  </td>
+                  <th>Tender Title</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Publish Date</th>
+                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                  <th>Category</th>
+                  <td>{{ boqList?.qacatagory }}</td>
+                  <th>Sub-Category</th>
+                  <td>{{ boqList?.subqacatagory }}</td>
+                </tr>
+                <tr>
+                  <th>Capacity</th>
+                  <td>{{ boqList?.capacity }}</td>
+                  <th>Execution Location</th>
+                  <td colspan="3">{{ boqList?.tender_location }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div class="row">
             <app-responsive-table class="mt-2 px-2">
@@ -337,7 +337,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{ update ? 'Edit' : 'View' }} BOQ Item</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#boqListModel"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal"
+          data-bs-target="#boqListModel"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -345,7 +346,7 @@
             <table class="table table-hover table-striped custom-table">
               <thead class="table-primary text-nowrap">
                 <tr>
-                  <th colspan="6" class="text-center">Tender Information</th>
+                  <th colspan="6" class="text-center">Tender Detail</th>
                 </tr>
               </thead>
               <tbody class="text-nowrap">
@@ -416,8 +417,11 @@
                   <td>{{ item?.qty * item?.unit_price }}</td>
                   <td>{{ item?.freight_charges }}</td>
                   <td *ngIf="update">
-                    <a (click)="editBOQParentItemList(item)" data-bs-toggle="modal" data-bs-target="#boqParentItemFormModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                    <a (click)="deleteBOQParentItemList(item)"><span class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
+                    <a (click)="editBOQParentItemList(item)" data-bs-toggle="modal"
+                      data-bs-target="#boqParentItemFormModel"><span
+                        class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                    <a (click)="deleteBOQParentItemList(item)"><span
+                        class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                   </td>
                   <td *ngIf="update">
                     <input type="checkbox" (click)="selectItemForUpdate(item)">
@@ -452,12 +456,16 @@
                   </tr>
                 </ng-container>
                 <tr *ngIf="update == true">
-                  <td colspan="9" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3" data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                  <td colspan="9" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3"
+                      data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span
+                        class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
                   <td></td>
                 </tr>
               </ng-container>
               <tr *ngIf="update">
-                <td colspan="9" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel" data-bs-toggle="modal"><span class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                <td colspan="9" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel"
+                    data-bs-toggle="modal"><span
+                      class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
                 <td></td>
               </tr>
             </tbody>
@@ -468,7 +476,8 @@
         <div class="row float-right mt-2">
           <div class="my-1">
             <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" (click)="onBOQItemSubmit()">Update</button>
-            <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
+            <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal"
+              data-bs-target="#boqListModel">Close</button>
           </div>
         </div>
       </div>
@@ -476,7 +485,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="boqAddParentItemFormModel" tabindex="-1" aria-labelledby="boqParentItemFormModelLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="boqAddParentItemFormModel" tabindex="-1" aria-labelledby="boqParentItemFormModelLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -485,7 +495,7 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <h6 class="mb-1 text-secondary">Tender Information</h6>
+          <h6 class="mb-1 text-secondary">Tender Detail</h6>
           <div class="row px-2 mb-2">
             <table class="table table-hover table-striped custom-table">
               <thead></thead>
@@ -495,12 +505,16 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
@@ -576,7 +590,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="boqAddChildItemFormModel" tabindex="-1" aria-labelledby="boqAddChildItemFormModelLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="boqAddChildItemFormModel" tabindex="-1" aria-labelledby="boqAddChildItemFormModelLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -585,7 +600,7 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <h6 class="mb-1 text-secondary">Tender Information</h6>
+          <h6 class="mb-1 text-secondary">Tender Detail</h6>
           <div class="row px-2 mb-2">
             <table class="table table-hover table-striped custom-table">
               <thead></thead>
@@ -595,12 +610,16 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
@@ -726,7 +745,7 @@
             <table class="table table-hover table-striped custom-table">
               <thead class="table-primary text-nowrap">
                 <tr>
-                  <th colspan="6" class="text-center">Tender Information</th>
+                  <th colspan="6" class="text-center">Tender Detail</th>
                 </tr>
               </thead>
               <tbody class="text-nowrap">
@@ -735,12 +754,16 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
@@ -822,7 +845,7 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <h6 class="mb-1 text-secondary">Tender Information</h6>
+          <h6 class="mb-1 text-secondary">Tender Detail</h6>
           <div class="row px-2 mb-2">
             <table class="table table-hover table-striped custom-table">
               <thead></thead>
@@ -832,12 +855,16 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>

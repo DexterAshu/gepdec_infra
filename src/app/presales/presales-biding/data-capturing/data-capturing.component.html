@@ -40,7 +40,7 @@
                                 <path fill-rule="evenodd"
                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                             </svg> &nbsp;
-                            Tender Information
+                            Tender Detail
                         </h5>
                     </div>
                     <div class="col-6">
@@ -97,8 +97,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Category<span
-                                    class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
                             <select formControlName="qacatagory_id" class="form-select form-select-sm" #cat
                                 (change)="getSubData(cat.value)">
                                 <option [selected]="true" [disabled]="true">Select Category</option>
@@ -113,8 +112,7 @@
                     </div>
                     <div class="col-md-4" *ngIf="cat.value == '1002' || cat.value == '1003'">
                         <div class="form-group">
-                            <label class="form-label fl-10">Sub-Category<span
-                                    class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Sub-Category<span class="required-asterisk">*</span></label>
                             <select formControlName="subqacatagory_id" class="form-select form-select-sm" #sub
                                 (change)="getCapacityData(sub.value)">
                                 <option [selected]="true" [disabled]="true">Select Sub-Category</option>
@@ -130,8 +128,7 @@
 
                     <div class="col-md-4" *ngIf="cat.value == '1001' || cat.value == '1002'">
                         <div class="form-group">
-                            <label class="form-label fl-10">Capacity<span
-                                    class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Capacity<span class="required-asterisk">*</span></label>
                             <select formControlName="capacity_id" class="form-select form-select-sm">
                                 <option [selected]="true" [disabled]="true">Select Capacity</option>
                                 <option *ngFor="let c of capacityData" value="{{c.capacity_id}}">
@@ -161,19 +158,22 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                            <select formControlName="country_id" class="form-select form-select-sm" (ngModelChange)="getStateData()">
+                            <select formControlName="country_id" class="form-select form-select-sm"
+                                (ngModelChange)="getStateData()">
                                 <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
                                 <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
                             </select>
                             <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
-                                <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['country_id'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">State<span class="required-asterisk">*</span></label>
-                            <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData()">
+                            <select formControlName="state_id" class="form-select form-select-sm"
+                                (ngModelChange)="getDistrictData()">
                                 <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
                                 <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
                             </select>
@@ -187,17 +187,20 @@
                             <label class="form-label">District<span class="required-asterisk">*</span></label>
                             <select formControlName="district_id" class="form-select form-select-sm">
                                 <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
-                                <option *ngFor="let d of districtData" value="{{d.district_id}}">{{ d.district_name }}</option>
+                                <option *ngFor="let d of districtData" value="{{d.district_id}}">{{ d.district_name }}
+                                </option>
                             </select>
                             <div *ngIf="f['district_id'].touched && f['district_id'].invalid">
-                                <small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small>
+                                <small class="text-danger"
+                                    *ngIf="f['district_id'].errors?.['required']">*Required</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">City</label>
-                            <input type="text" formControlName="city" class="form-control form-control-sm" placeholder="Enter Your City">
+                            <input type="text" formControlName="city" class="form-control form-control-sm"
+                                placeholder="Enter Your City">
                         </div>
                     </div>
 
@@ -271,14 +274,13 @@
                                 <small class="text-danger"
                                     *ngIf="f['financialyear_id'].errors?.['required']">*Required</small>
                             </div>
-                          
+
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label fl-10">Publish Date<span
-                                    class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
                             <input formControlName="publish_date" type="date" class="form-control form-control-sm">
                             <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
                                 <small class="text-danger"
@@ -289,7 +291,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Link</label>
-                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm" appNoSpace>
+                            <input formControlName="tender_detail_link" type="text" class="form-control form-control-sm"
+                                appNoSpace>
 
                         </div>
                     </div>
@@ -306,7 +309,7 @@
                         </div>
                     </div>
 
-         
+
 
                     <!-- <div class="col-md-3">
                         <div class="form-group">
@@ -356,7 +359,8 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Comp Period (Months)<span
                                     class="required-asterisk">*</span></label>
-                            <input formControlName="completion_period" type="text" class="form-control form-control-sm" minlength="1" maxlength="2" appNumberOnly>
+                            <input formControlName="completion_period" type="text" class="form-control form-control-sm"
+                                minlength="1" maxlength="2" appNumberOnly>
                             <div *ngIf="f['completion_period'].touched && f['completion_period'].invalid">
                                 <small class="text-danger"
                                     *ngIf="f['completion_period'].errors?.['required']">*Required</small>
@@ -367,7 +371,8 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Bid Validity (Days)<span
                                     class="required-asterisk">*</span></label>
-                            <input formControlName="bid_validity" type="text" class="form-control form-control-sm" minlength="1" maxlength="3" appNumberOnly>
+                            <input formControlName="bid_validity" type="text" class="form-control form-control-sm"
+                                minlength="1" maxlength="3" appNumberOnly>
                             <div *ngIf="f['bid_validity'].touched && f['bid_validity'].invalid">
                                 <small class="text-danger"
                                     *ngIf="f['bid_validity'].errors?.['required']">*Required</small>
@@ -469,7 +474,8 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">Registration Fees<span class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Registration Fees<span
+                                    class="required-asterisk">*</span></label>
                             <input type="text" class="form-control form-control-sm" formControlName="tender_fee"
                                 placeholder="Enter '0' if not applicable" appNumberOnly>
                             <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
@@ -760,14 +766,14 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Previous Notes</label>
                             <textarea formControlName="remarks" type="text" rows="4"
-                                class="form-control form-control-sm" readonly >
+                                class="form-control form-control-sm" readonly>
                             </textarea>
-                                           <!-- <span *ngFor="let ph of (a?.remarks != null ? (a?.remarks.slice(0, -1)).split('\n') : a?.remarks.slice(0, -1)), index as i">
+                            <!-- <span *ngFor="let ph of (a?.remarks != null ? (a?.remarks.slice(0, -1)).split('\n') : a?.remarks.slice(0, -1)), index as i">
                                             {{ ph }} <br>
                                          </span> -->
                         </div>
                     </div>
-                   
+
 
                     <div class="col-md-12" *ngIf="update">
                         <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
@@ -942,7 +948,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Name<span class="required-asterisk">*</span></label>
-                                    <input formControlName="name" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                    <input formControlName="name" type="text" class="form-control form-control-sm"
+                                        appWordCapitalize>
                                     <div *ngIf="f1['name'].touched && f1['name'].invalid">
                                         <small class="text-danger"
                                             *ngIf="f1['name'].errors?.['required']">*Required</small>
@@ -979,7 +986,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Primary No<span class="required-asterisk">*</span></label>
-                                    <input formControlName="contactno1" minlength="10" maxlength="10" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="contactno1" minlength="10" maxlength="10" type="text"
+                                        class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f1['contactno1'].touched && f1['contactno1'].invalid">
                                         <small class="text-danger"
                                             *ngIf="f1['contactno1'].errors?.['required']">*Required</small>
@@ -998,10 +1006,13 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
-                                    <input formControlName="emailid" type="text" class="form-control form-control-sm" appNoSpace>
+                                    <input formControlName="emailid" type="text" class="form-control form-control-sm"
+                                        appNoSpace>
                                     <div *ngIf="f1['emailid'].touched && f1['emailid'].invalid">
-                                        <small class="text-danger" *ngIf="f1['emailid'].errors?.['required']">*Required</small>
-                                        <small class="text-danger" *ngIf="f1['emailid'].errors?.['pattern']">*Email must be a valid Email ID</small>
+                                        <small class="text-danger"
+                                            *ngIf="f1['emailid'].errors?.['required']">*Required</small>
+                                        <small class="text-danger" *ngIf="f1['emailid'].errors?.['pattern']">*Email must
+                                            be a valid Email ID</small>
                                     </div>
                                 </div>
                             </div>

@@ -191,10 +191,11 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Financial Year</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.financialyear}}">
+                                    <input class="form-control form-control-sm" readonly
+                                        value="{{filterTenderDetailsData[0]?.financialyear}}">
                                 </div>
                             </div>
-                         
+
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
@@ -224,7 +225,7 @@
                                         value="{{filterTenderDetailsData[0]?.capacity}}">
                                 </div>
                             </div>
-                          
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location</label>
@@ -232,7 +233,7 @@
                                         value="{{filterTenderDetailsData[0]?.tender_location}}">
                                 </div>
                             </div>
-                          
+
 
                             <!-- <div class="col-md-2">
                                 <div class="form-group">
@@ -311,10 +312,13 @@
                                                 </select>
                                             </div>
                                         </div>
-                                       
-                                        <div class="col-md-2" *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
+
+                                        <div class="col-md-2"
+                                            *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
-                                            <input class="form-control form-control-sm" formControlName="our_annual_turnover" readonly [value]="data?.result | currency: 'INR': '' : '1.0-2'">
+                                            <input class="form-control form-control-sm"
+                                                formControlName="our_annual_turnover" readonly
+                                                [value]="data?.result | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2"
                                             *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
@@ -616,7 +620,8 @@
                                         <div class="col-md-2" *ngIf="form.value.net_working_capital_year">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_net_working_capital" readonly [value]="data2 | currency: 'INR': '' : '1.0-2'">
+                                                formControlName="our_net_working_capital" readonly
+                                                [value]="data2 | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="data2 != null">
                                             <br>
@@ -768,7 +773,8 @@
                                         <div class="col-md-2" *ngIf="form.value.total_fixed_assets_year">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_total_fixed_assets" readonly [value]="assetVal | currency: 'INR': '' : '1.0-2'">
+                                                formControlName="our_total_fixed_assets" readonly
+                                                [value]="assetVal | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="assetVal != null">
                                             <br>
@@ -902,7 +908,8 @@
                                         <div class="col-md-2" *ngIf="form.value.reserve_surplus_year">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_reserve_surplus" readonly [value]="rAnds | currency: 'INR': '' : '1.0-2'">
+                                                formControlName="our_reserve_surplus" readonly
+                                                [value]="rAnds | currency: 'INR': '' : '1.0-2'">
 
                                         </div>
                                         <div class="col-md-2" *ngIf="rAnds != null">
@@ -977,7 +984,8 @@
                                         <div class="col-md-2" *ngIf="form.value.paid_upcapital_year">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_paid_upcapital" readonly [value]="paiCapitalVal | currency: 'INR': '' : '1.0-2'">
+                                                formControlName="our_paid_upcapital" readonly
+                                                [value]="paiCapitalVal | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="paiCapitalVal != null">
                                             <br>
@@ -1049,7 +1057,7 @@
                                 <table class="table table-hover table-striped custom-table">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th colspan="6" class="text-center">Tender Information</th>
+                                            <th colspan="6" class="text-center">Tender Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
@@ -1096,7 +1104,12 @@
                                             <td>{{rowData?.capacity}}</td>
                                             <th>Execution Location</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}"> {{rowData?.tender_location | slice:0:30}} <span *ngIf="rowData?.tender_location.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_location }}"> {{rowData?.tender_location |
+                                                    slice:0:30}} <span
+                                                        *ngIf="rowData?.tender_location.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock4>
                                                     {{rowData?.tender_location}}
