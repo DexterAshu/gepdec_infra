@@ -91,9 +91,7 @@
                                 <td>{{a.capacity}}</td>
                                 <td>{{a.technical_points}}</td> -->
                                 <td>
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#viewPDF" title="View PDF File"
-                                        (click)="showPdf(a)"><span
-                                            class="mdi mdi-eye text-warning cursor-pointer mdi-18px"></span></a>
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#viewPDF" title="View PDF File" (click)="showPdf(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                 </td>
                             </tr>
                             <tr *ngIf="docListData?.length == 0">
@@ -369,7 +367,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Technical Qualification Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Technical Qualification Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
@@ -377,12 +375,9 @@
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="table-responsive" style="min-height: auto;">
-                                <table class="table table-hover table-striped custom-table">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th colspan="6" class="text-center">Qualification Detail</th>
-                                        </tr>
-                                    </thead>
+                                <h6 class="mb-2 text-secondary">Qualification Detail</h6>
+                                <table class="table table-hover table-striped custom-table table-bordered">
+                                    <thead class="hidden-thead"></thead>
                                     <tbody class="text-nowrap">
                                         <tr>
                                             <th>Company</th>
@@ -440,17 +435,7 @@
                                         </tr>
                                         <tr>
                                             <th>Publish Date</th>
-                                            <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
-                                            <th>Category</th>
-                                            <td>{{ itemList?.qacatagory }}</td>
-                                            <th>Sub Category</th>
-                                            <td>{{ itemList?.subqacatagory }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th> Capacity</th>
-                                            <td>{{ itemList?.capacity }}</td>
-                                            <th>Execution Location</th>
-                                            <td>{{ itemList?.exe_Location }}</td>
+                                            <td colspan="5">{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -458,7 +443,10 @@
                         </div>
                     </div>
                 </div>
-                <iframe class="pdf-Style mt-2" [src]="showAsPdf" type="application/pdf"></iframe>
+                <ng-container *ngIf="itemList?.document != null">
+                    <h6 class="mb-2 mt-3 text-secondary">Uploaded Document</h6>
+                    <iframe class="pdf-Style mt-2" [src]="showAsPdf" type="application/pdf"></iframe>
+                </ng-container>
             </div>
             <div class="row my-2 mr-2">
                 <div class="modal-btns">
