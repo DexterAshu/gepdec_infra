@@ -67,8 +67,8 @@
                   </ng-template>
                </td>
                 <td>{{a.publish_date | date:'dd/MM/yyyy' : 'GMT'}}</td>
-                <td>{{a.category}}</td>
-                <td>{{a.sub_category}}</td>
+                <td>{{a.qacatagory}}</td>
+                <td>{{a.subqacatagory}}</td>
                 <td>{{a.capacity}}</td>
                 <td>{{a.tender_location}}</td>
                 <td>{{a.version}}</td>
@@ -128,13 +128,13 @@
                       </ng-template>
                   </td>
                     <th>Publish Date</th>
-                    <td>{{ selectRow?.publish_date }}</td>
+                    <td>{{ selectRow?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                   </tr>
                   <tr>
                     <th>Category</th>
-                    <td>{{ selectRow?.category }}</td>
+                    <td>{{ selectRow?.qacatagory }}</td>
                     <th>Sub Category</th>
-                    <td>{{ selectRow?.sub_category }}</td>
+                    <td>{{ selectRow?.subqacatagory }}</td>
                     <th>Capacity</th>
                     <td>{{ selectRow?.capacity }}</td>
                   </tr>
@@ -241,14 +241,14 @@
                     </ng-template>
                 </td>
                   <th>Publish Date</th>
-                  <td>{{ selectRow?.publish_date }}</td>
+                  <td>{{ selectRow?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                 </tr>
 
                 <tr>
                   <th>Category</th>
-                  <td>{{ selectRow?.category }}</td>
+                  <td>{{ selectRow?.qacatagory }}</td>
                   <th>Sub Category</th>
-                  <td>{{ selectRow?.sub_category }}</td>
+                  <td>{{ selectRow?.subqacatagory }}</td>
                   <th>Capacity</th>
                   <td>{{ selectRow?.capacity }}</td>
                 </tr>

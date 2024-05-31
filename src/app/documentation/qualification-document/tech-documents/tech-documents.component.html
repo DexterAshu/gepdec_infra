@@ -270,39 +270,37 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">NIT No</label>
-                                    <input class="form-control form-control-sm" readonly
-                                        value="{{filterTenderDetailsData[0]?.tender_ref_no}}">
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.tender_ref_no">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly
-                                        value="{{filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}">
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT'">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Category</label>
-                                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.qacatagory">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Sub-Category</label>
-                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.subqacatagory">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Capacity</label>
-                                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.capacity">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location</label>
-                                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.tender_location">
                                 </div>
                             </div>
                             <!-- <div class="col-md-1">

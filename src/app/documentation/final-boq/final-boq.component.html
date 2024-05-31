@@ -17,7 +17,8 @@
         <div class="card-body">
           <div class="d-flex my-10">
             <div class="col-lg-5">
-              <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
+              <input type="search" class="form-control form-control-sm" placeholder="Search..."
+                [(ngModel)]="searchText">
             </div>
             <div class="col-lg-3">
               <div class="float-right">
@@ -31,9 +32,13 @@
             </div>
             <div class="col-lg-4">
               <div class="float-right">
-                <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()"><span class="mdi mdi-upload"></span>Export</button>
-                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm s" (click)="getClient()">+ Create</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel"
+                  (click)="download()"><span class="mdi mdi-upload"></span>Export</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                  data-bs-target="#createBulkModal" title="Upload bulk Data"> <span
+                    class="mdi mdi-download"></span>Import</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                  class="btn btn-primary btn-fw btn-sm s" (click)="getClient()">+ Create</button>
               </div>
             </div>
           </div>
@@ -63,8 +68,10 @@
                 <td>{{a.documentdate}}</td>
                 <td>{{a.documentdate}}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                  <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
+                      class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                  <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span
+                      class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
             </tbody>
@@ -78,7 +85,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -104,7 +112,8 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
-                  <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="selectTender()">
+                  <select formControlName="tender_id" class="form-select form-select-sm"
+                    (ngModelChange)="selectTender()">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
                     <option *ngFor="let c of tenderList" value="{{c.tender_id}}">{{ c.tender_title }}</option>
                   </select>
@@ -116,58 +125,62 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10"> NIT No<span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_ref_no" readonly>
+                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_ref_no"
+                    readonly>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
-                  <input type="date" class="form-control form-control-sm" [value]="selectedTender?.publish_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
+                  <input type="text" class="form-control form-control-sm" [value]="selectedTender?.publish_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
                 </div>
               </div>
 
 
               <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Category</label>
-                    <input class="form-control form-control-sm" readonly >  <!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  <label class="form-label fl-10">Category</label>
+                  <input class="form-control form-control-sm" readonly [value]="selectedTender?.qacatagory">
                 </div>
-            </div>
-            <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Sub-Category</label>
-                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  <label class="form-label fl-10">Sub-Category</label>
+                  <input class="form-control form-control-sm" readonly [value]="selectedTender?.subqacatagory">
                 </div>
-            </div>
-            <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Capacity</label>
-                    <input class="form-control form-control-sm" readonly><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  <label class="form-label fl-10">Capacity</label>
+                  <input class="form-control form-control-sm" readonly [value]="selectedTender?.capacity">
                 </div>
-            </div>
-            <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label fl-10">Execution Location</label>
-                    <input class="form-control form-control-sm" readonly ><!--value="{{filterTenderDetailsData[0]?.qacatagory}}"-->
+                  <label class="form-label fl-10">Execution Location</label>
+                  <input class="form-control form-control-sm" readonly [value]="selectedTender?.tender_location">
                 </div>
-            </div>
+              </div>
 
               <div class="col-md-6">
                 <div class="form-group">
                   <label id="label1"> Upload Documents <span class="required-asterisk">*</span></label><br>
-                  <input id="cin" class="form-control form-control-sm" name="cin" type="file" formControlName="attachment" (change)="onFileChanged($event)" multiple="true" />
+                  <input id="cin" class="form-control form-control-sm" name="cin" type="file"
+                    formControlName="attachment" (change)="onFileChanged($event)" multiple="true" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="">Document Description:</label>
-                  <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize></textarea>
+                  <textarea type="text" class="form-control form-control-sm" formControlName="description"
+                    appWordCapitalize></textarea>
                 </div>
               </div>
             </div>
             <div class="float-right">
               <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="form.invalid">Submit</button>
-              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+              <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                data-bs-dismiss="modal">Close</button>
             </div>
           </form>
         </div>

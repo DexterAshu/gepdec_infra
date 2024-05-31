@@ -160,7 +160,7 @@
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date<span
                                             class="required-asterisk">*</span></label>
-                                    <input formControlName="publish_date" type="date" class="form-control form-control-sm" readonly>
+                                    <input formControlName="publish_date" type="text" class="form-control form-control-sm" readonly>
                                     <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
                                         <small class="text-danger" *ngIf="f['publish_date'].errors?.['required']">*Required</small>
                                     </div>
