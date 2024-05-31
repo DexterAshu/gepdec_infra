@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-drawing',
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./drawing.component.css']
 })
 export class DrawingComponent {
-    searchText: any
+  searchText: any
   docListData: any = [];
   p: number = 1;
   limit = environment.pageLimit;
@@ -28,7 +27,7 @@ export class DrawingComponent {
   isNotFound: boolean = false;
   selectRow: any;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService) {}
 
   ngOnInit(): void {
     this.getMDLList();
@@ -48,12 +47,6 @@ export class DrawingComponent {
   }
 
   get f() { return this.form.controls }
-
-  redirect(route: any) {
-    if (route) {
-      this.router.navigateByUrl(route.target.value);
-    }
-  }
 
   getMDLList(): void {
     this.mdlData = [];

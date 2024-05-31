@@ -72,7 +72,7 @@
                 <td>{{ a.district }}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWH(a)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>&nbsp;
-                  <a class="" data-bs-toggle="modal" data-bs-target="#viewWH" title="Warehouse Profile" (click)="selectWH(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a data-bs-toggle="modal" data-bs-target="#viewWH" title="Warehouse Profile" (click)="selectWH(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">
@@ -111,7 +111,7 @@
                 <table class="table table-hover table-striped custom-table">
                   <thead class="table-primary text-nowrap">
                     <tr>
-                      <th colspan="6" class="text-center">Tender Information</th>
+                      <th colspan="6" class="text-center">Tender Detail</th>
                     </tr>
                   </thead>
                   <tbody class="text-nowrap">

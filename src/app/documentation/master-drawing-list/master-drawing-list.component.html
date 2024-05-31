@@ -20,15 +20,7 @@
               <input type="search" class="form-control form-control-sm" placeholder="Search..."
                 [(ngModel)]="searchText">
             </div>
-            <div class="col-lg-3">
-              <div class="float-right">
-                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
-                  <option [disabled]="true" [value]="null">Select</option>
-                  <option [selected]="true" value="/documentation/master-drawing-list"> Master Drawing List (MDL)</option>
-                  <option value="/documentation/final-boq"> Final BOQ</option>
-                </select>
-              </div>
-            </div>
+            <div class="col-lg-3"></div>
             <div class="col-lg-4">
               <div class="float-right">
                 <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel"
@@ -135,7 +127,7 @@
           <form [formGroup]="approvalForm" (ngSubmit)="onApprovalSubmit()">
             <div class="row">
               <div class="table-responsive" style="min-height: 300px">
-                <h6 class="mb-2 text-secondary">Tender Details</h6>
+                <h6 class="mb-2 text-secondary">Tender Detail</h6>
                 <table class="table table-hover table-striped custom-table">
                   <thead class="hidden-thead"></thead>
                   <tbody>
@@ -267,7 +259,7 @@
               <table class="table table-hover table-striped custom-table">
                 <thead class="table-primary text-nowrap">
                   <tr>
-                    <th colspan="6" class="text-center">Tender Information</th>
+                    <th colspan="6" class="text-center">Tender Detail</th>
                   </tr>
                 </thead>
                 <tbody class="text-nowrap">
@@ -367,7 +359,7 @@
         <div class="container-fluid">
           <div class="row" [formGroup]="form">
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
-              <h6 class="mb-2 text-secondary">Client & Tender Details</h6>
+              <h6 class="mb-2 text-secondary">Tender Detail</h6>
               <div class="form-row">
                 <div class="col-md-3">
                   <div class="form-group">

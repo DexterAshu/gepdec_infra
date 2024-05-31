@@ -12,7 +12,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CompanyComponent } from './masters/company/company.component';
 import { StateComponent } from './masters/state/state.component';
 import { DistrictComponent } from './masters/district/district.component';
-import { CustomerComponent } from './masters/customer/customer.component';
 import { FinYearComponent } from './masters/fin-year/fin-year.component';
 import { LoginComponent } from './account/login/login.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -37,14 +36,6 @@ import { DatePipe } from '@angular/common';
 //import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FilterPipe } from './_pipes/filter.pipe';
 import { PresalesBidingComponent } from './presales/presales-biding/presales-biding.component';
-import { WarehouseStoreComponent } from './presales/warehouse-store/warehouse-store.component';
-import { ExecutionComponent } from './presales/execution/execution.component';
-import { QualitySafetyComponent } from './presales/quality-safety/quality-safety.component';
-import { ProjHandoverComponent } from './presales/proj-handover/proj-handover.component';
-import { PaymentComponent } from './presales/payment/payment.component';
-import { FinanceComponent } from './presales/finance/finance.component';
-import { ProjClosureComponent } from './presales/proj-closure/proj-closure.component';
-import { PerformanceComponent } from './presales/performance/performance.component';
 //dashboard-import section
 import { CompanyDashboardComponent } from './dashboard/company-dashboard/company-dashboard.component';
 import { FinanceDashboardComponent } from './dashboard/finance-dashboard/finance-dashboard.component';
@@ -68,15 +59,11 @@ import { ParticipationsComponent } from './dashboard/presales-dashboard/particip
 import { AbandonedComponent } from './dashboard/presales-dashboard/abandoned/abandoned.component';
 import { TenderWinsComponent } from './dashboard/presales-dashboard/tender-wins/tender-wins.component';
 import { CompletedComponent } from './dashboard/presales-dashboard/completed/completed.component';
-import { BiderCompanyComponent } from './masters/bider-company/bider-company.component';
 import { L2ScheduleBulkdataComponent } from './l2-schedule-bulkdata/l2-schedule-bulkdata.component';
 //master-import-section
 import { DepartmentMasterComponent } from './masters/department-master/department-master.component';
 import { DesignationMasterComponent } from './masters/designation-master/designation-master.component';
-import { EmployeeMasterComponent } from './masters/employee-master/employee-master.component';
 import { ItemMasterComponent } from './masters/procurement/item-master/item-master.component';
-import { MachineMasterComponent } from './masters/machine-master/machine-master.component';
-import { MaterialMasterComponent } from './masters/material-master/material-master.component';
 import { MyCompanyComponent } from './masters/my-company/my-company.component';
 import { SpareMasterComponent } from './masters/spare-master/spare-master.component';
 import { TenderMasterComponent } from './masters/tender-master/tender-master.component';
@@ -89,7 +76,6 @@ import { ProjectMilestoneComponent } from './masters/project-milestone/project-m
 import { ProjectsComponent } from './masters/projects/projects.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BidQualifyComponent } from './presales/presales-biding/bid-qualify/bid-qualify.component';
-import { ProblemTicketComponent } from './problem-ticket/problem-ticket.component';
 import { HelpSupportComponent } from './help-support/help-support.component';
 import { DocumentationComponent } from './documentation/documentation.component';
 import { ProjReportsComponent } from './proj-reports/proj-reports.component';
@@ -119,8 +105,6 @@ import { QualificationDocumentComponent } from './documentation/qualification-do
 import { FinDocumentsComponent } from './documentation/qualification-document/fin-documents/fin-documents.component';
 import { TechDocumentsComponent } from './documentation/qualification-document/tech-documents/tech-documents.component';
 import { OtherDocumentsComponent } from './documentation/qualification-document/other-documents/other-documents.component';
-import { PriceStructureComponent } from './masters/procurement/price-structure/price-structure.component';
-import { EcoTermsDeliveryComponent } from './masters/procurement/eco-terms-delivery/eco-terms-delivery.component';
 
 import { FinBalancesheetComponent } from './documentation/qualification-document/fin-documents/fin-balancesheet/fin-balancesheet.component';
 import { FinMaatComponent } from './documentation/qualification-document/fin-documents/fin-maat/fin-maat.component';
@@ -129,8 +113,6 @@ import { FinBankCertificateComponent } from './documentation/qualification-docum
 import { FinItrComponent } from './documentation/qualification-document/fin-documents/fin-itr/fin-itr.component';
 import { FinTenderFeesComponent } from './documentation/qualification-document/fin-documents/fin-tender-fees/fin-tender-fees.component';
 import { TechQualificationComponent } from './documentation/qualification-document/tech-documents/tech-qualification/tech-qualification.component';
-import { BillingAddressComponent } from './masters/procurement/billing-address/billing-address.component';
-import { ShippingAddressComponent } from './masters/procurement/shipping-address/shipping-address.component';
 import { ProcurementDocumentComponent } from './documentation/procurement-document/procurement-document.component';
 import { ProjectDocumentComponent } from './documentation/project-document/project-document.component';
 import { FinanceDocumentComponent } from './documentation/finance-document/finance-document.component';
@@ -167,6 +149,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 registerLocaleData(localeIn, 'en-IN');
 import { LOCALE_ID } from '@angular/core';
 import { CostingApprovalComponent } from './presales/presales-biding/costing-approval/costing-approval.component';
+import { UnderDevelopmentComponent } from './sharedComponent/under-development/under-development.component';
 @NgModule({
   declarations: [
     UsdOnlyDirective,
@@ -179,7 +162,6 @@ import { CostingApprovalComponent } from './presales/presales-biding/costing-app
     StateComponent,
     DistrictComponent,
     OurCompanyFinanaceDataComponent,
-    CustomerComponent,
     LoginComponent,
     UserLogsComponent,
     UserRolesComponent,
@@ -197,14 +179,6 @@ import { CostingApprovalComponent } from './presales/presales-biding/costing-app
     AlphaWithSpaceDirective,
     FilterPipe,
     PresalesBidingComponent,
-    WarehouseStoreComponent,
-    ExecutionComponent,
-    QualitySafetyComponent,
-    ProjHandoverComponent,
-    PaymentComponent,
-    FinanceComponent,
-    ProjClosureComponent,
-    PerformanceComponent,
     CompanyDashboardComponent,
     FinanceDashboardComponent,
     PerformanceDashboardComponent,
@@ -219,18 +193,17 @@ import { CostingApprovalComponent } from './presales/presales-biding/costing-app
     AbandonedComponent,
     TenderWinsComponent,
     CompletedComponent,
-    BiderCompanyComponent,
     L2ScheduleBulkdataComponent,
     WarehouseMasterComponent,
     ItemsMasterComponent,
-    MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, EmployeeMasterComponent, DepartmentMasterComponent, MachineMasterComponent, MaterialMasterComponent, DesignationMasterComponent, SpareMasterComponent
+    MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, DepartmentMasterComponent, DesignationMasterComponent, SpareMasterComponent
     ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
-    ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, ProblemTicketComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
-    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent, 
-    AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent,
-    FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent,
+    ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
+    CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent,
+    AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent,
+    FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent,
     ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent, MaterialReceiptComponent, MaterialIssuanceComponent, BoqItemsComponent, SignInComponent, MasterDrawingListComponent, DrawingComponent, FinalBOQComponent, IndirectCostingComponent, SynopsisComponent,
-    CompFinanceComponent, DirectCostingComponent, CostingApprovalComponent ],
+    CompFinanceComponent, DirectCostingComponent, CostingApprovalComponent, UnderDevelopmentComponent ],
 
   imports: [
     BrowserModule,
