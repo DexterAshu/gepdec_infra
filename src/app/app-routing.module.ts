@@ -6,7 +6,6 @@ import { UserLogsComponent } from './user-management/user-logs/user-logs.compone
 import { UserRolesComponent } from './user-management/user-roles/user-roles.component';
 import { UserMasterComponent } from './user-management/user-master/user-master.component';
 import { PresalesBidingComponent } from './presales/presales-biding/presales-biding.component';
-import { DesignModuleComponent } from './presales/design-module/design-module.component';
 import { WarehouseStoreComponent } from './presales/warehouse-store/warehouse-store.component';
 import { ExecutionComponent } from './presales/execution/execution.component';
 import { QualitySafetyComponent } from './presales/quality-safety/quality-safety.component';
@@ -165,7 +164,6 @@ const routes: Routes = [
   {path: 'master',loadChildren: () => import('./masters/master.module').then((m) => m.MasterModule),canActivate: [AuthGuard]},
   //presales
   {path: 'presales/presales-biding', component:PresalesBidingComponent, canActivate:[AuthGuard]},
-  {path: 'presales/design-module', component:DesignModuleComponent, canActivate:[AuthGuard]},
   {path: 'presales/warehouse', component:WarehouseStoreComponent, canActivate:[AuthGuard]},
   {path: 'presales/execution', component:ExecutionComponent, canActivate:[AuthGuard]},
   {path: 'presales/quality-safety', component:QualitySafetyComponent, canActivate:[AuthGuard]},

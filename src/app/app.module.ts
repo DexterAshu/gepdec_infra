@@ -37,7 +37,6 @@ import { DatePipe } from '@angular/common';
 //import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FilterPipe } from './_pipes/filter.pipe';
 import { PresalesBidingComponent } from './presales/presales-biding/presales-biding.component';
-import { DesignModuleComponent } from './presales/design-module/design-module.component';
 import { WarehouseStoreComponent } from './presales/warehouse-store/warehouse-store.component';
 import { ExecutionComponent } from './presales/execution/execution.component';
 import { QualitySafetyComponent } from './presales/quality-safety/quality-safety.component';
@@ -198,7 +197,6 @@ import { CostingApprovalComponent } from './presales/presales-biding/costing-app
     AlphaWithSpaceDirective,
     FilterPipe,
     PresalesBidingComponent,
-    DesignModuleComponent,
     WarehouseStoreComponent,
     ExecutionComponent,
     QualitySafetyComponent,
