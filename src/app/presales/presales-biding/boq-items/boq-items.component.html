@@ -456,9 +456,6 @@
                     <td colspan="15" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3"
                         data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span
                           class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
-                    <td *ngIf="update">
-                      <input type="checkbox" (click)="selectItemForUpdate(childItem)">
-                    </td>
                   </tr>
                 </ng-container>
                 <tr *ngIf="update == true">
