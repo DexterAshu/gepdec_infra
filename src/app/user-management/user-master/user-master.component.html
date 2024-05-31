@@ -36,7 +36,9 @@
                                     data-bs-target="#createBulkModal" title="Upload bulk Data">
                                     <span class="mdi mdi-download"></span> Import
                                 </button>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                                    (click)="createForm()" class="btn btn-primary btn-fw btn-sm s"><span
+                                        class="mdi mdi-plus"></span> Create</button>
                             </div>
                         </div>
                     </div>
@@ -73,10 +75,12 @@
                                 <!-- <td>{{a.status}}</td> -->
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
-                                        (click)="editUser(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                        (click)="editUser(a)"><span
+                                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
                                     <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details" (click)="userDetail(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                        title="View Details" (click)="userDetail(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
@@ -161,24 +165,26 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">User Type<span
-                                            class="required-asterisk">*</span></label>
-                                    <select class=" form-select form-control-sm" formControlName="isemployee" (change)="isEmployee(f['isemployee'].value)">
+                                    <label class="form-label">User Type<span class="required-asterisk">*</span></label>
+                                    <select class=" form-select form-control-sm" formControlName="isemployee"
+                                        (change)="isEmployee(f['isemployee'].value)">
                                         <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
                                         <option value="true">Employee</option>
                                         <option value="false">Other</option>
                                     </select>
                                     <div *ngIf="f['isemployee'].touched && f['isemployee'].invalid">
                                         <small class="text-danger"
-                                        *ngIf="f['isemployee'].errors?.['required']">*Required</small>
+                                            *ngIf="f['isemployee'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <ng-container *ngIf="f['isemployee'].value == 'true'">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="form-label">Employee ID<span class="required-asterisk">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" formControlName="empid" appNoSpace [readOnly]="isUpdate">
+                                        <label class="form-label">Employee ID<span
+                                                class="required-asterisk">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" formControlName="empid"
+                                            appNoSpace [readOnly]="isUpdate">
                                         <div *ngIf="f['empid'].touched && f['empid'].invalid">
                                             <small class="text-danger"
                                                 *ngIf="f['empid'].errors?.['required']">*Required</small>
@@ -187,9 +193,11 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="form-label">User Role<span class="required-asterisk">*</span></label>
+                                        <label class="form-label">User Role<span
+                                                class="required-asterisk">*</span></label>
                                         <select class=" form-select form-control-sm" formControlName="usrl_id">
-                                            <option [selected]="true" [disabled]="true" [value]="null">Select Role</option>
+                                            <option [selected]="true" [disabled]="true" [value]="null">Select Role
+                                            </option>
                                             <option *ngFor="let user of dropdownData?.role" [value]="user?.usrl_id">
                                                 {{user?.name}} </option>
                                         </select>
@@ -199,14 +207,16 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="form-label">Department<span class="required-asterisk">*</span></label>
+                                        <label class="form-label">Department<span
+                                                class="required-asterisk">*</span></label>
                                         <select class=" form-select form-control-sm" formControlName="usdt_id">
                                             <option [selected]="true" [disabled]="true" [value]="null">Select Department
                                             </option>
-                                            <option *ngFor="let user of dropdownData?.department" [value]="user?.usdt_id"> {{user?.deptname}} </option>
+                                            <option *ngFor="let user of dropdownData?.department"
+                                                [value]="user?.usdt_id"> {{user?.deptname}} </option>
                                         </select>
                                         <div *ngIf="f['usdt_id'].touched && f['usdt_id'].invalid">
                                             <small class="text-danger"
@@ -214,45 +224,53 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="form-label">Designation<span
                                                 class="required-asterisk">*</span></label>
                                         <select class="form-select form-control-sm" formControlName="usdg_id">
-                                            <option [selected]="true" [disabled]="true" [value]="null">Select Designation
+                                            <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                Designation
                                             </option>
-                                            <option *ngFor="let user of dropdownData?.designation" [value]="user?.usdg_id">
+                                            <option *ngFor="let user of dropdownData?.designation"
+                                                [value]="user?.usdg_id">
                                                 {{user?.designationname}} </option>
                                         </select>
                                         <div *ngIf="f['usdg_id'].touched && f['usdg_id'].invalid">
-                                            <small class="text-danger" *ngIf="f['usdg_id'].errors?.['required']">*Required</small>
+                                            <small class="text-danger"
+                                                *ngIf="f['usdg_id'].errors?.['required']">*Required</small>
                                         </div>
                                     </div>
                                 </div>
                             </ng-container>
-                            
+
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Reporting To<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Reporting To<span
+                                            class="required-asterisk">*</span></label>
                                     <select class=" form-select form-control-sm" formControlName="reporting_to">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Reporting To  </option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Reporting To
+                                        </option>
                                         <option *ngFor="let user of dropdownData?.reportingto"
                                             [value]="user?.reportingto">{{user?.fullname}} </option>
                                     </select>
                                     <div *ngIf="f['reporting_to'].touched && f['reporting_to'].invalid">
-                                        <small class="text-danger" *ngIf="f['reporting_to'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['reporting_to'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Primary Number<span class="required-asterisk">*</span></label>
+                                    <label class="form-label">Primary Number<span
+                                            class="required-asterisk">*</span></label>
                                     <input type="text" class="form-control form-control-sm" formControlName="mobile"
                                         minlength="10" maxlength="10" appNoSpace appNumberOnly>
                                     <div *ngIf="f['mobile'].touched && f['mobile'].invalid">
-                                        <small class="text-danger" *ngIf="f['mobile'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['mobile'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -277,17 +295,25 @@
                             <div class="col-md-3" *ngIf="f['isemployee'].value == 'true'">
                                 <div class="form-group">
                                     <label class="form-label">Salary<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" formControlName="sallary" appNumWithDot appNoSpace>
+                                    <input type="text" class="form-control form-control-sm" formControlName="sallary"
+                                        appNumWithDot appNoSpace>
                                     <div *ngIf="f['sallary'].touched && f['sallary'].invalid">
-                                        <small class="text-danger" *ngIf="f['sallary'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['sallary'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm me-2">{{isUpdate ? 'Update' : 'Submit'}}</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> {{ isUpdate ? 'Updating...' : 'Submitting...' }}</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                                    class="btn btn-primary btn-fw btn-sm me-2">{{isUpdate ? 'Update' :
+                                    'Submit'}}</button>
+                                <button type="button" *ngIf="isSubmitted" disabled
+                                    class="btn btn-primary btn-fw btn-sm mr-2"><span
+                                        class="spinner-border spinner-border-sm" aria-hidden="true"></span> {{ isUpdate
+                                    ? 'Updating...' : 'Submitting...' }}</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                    data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </form>
@@ -318,7 +344,8 @@
                                         <th>Employee ID</th>
                                         <td>{{ selectedRow?.empid }}</td>
                                         <th>Employee Name</th>
-                                        <td>{{ selectedRow?.title }} {{ selectedRow?.first_name }} {{ selectedRow?.middle_name }} {{ selectedRow?.last_name }}</td>
+                                        <td>{{ selectedRow?.title }} {{ selectedRow?.first_name }} {{
+                                            selectedRow?.middle_name }} {{ selectedRow?.last_name }}</td>
                                     </tr>
                                     <tr>
                                         <th>Email ID</th>

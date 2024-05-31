@@ -9,343 +9,325 @@
 
   <!-- filter data country state project wise -->
 
-    <div class="row module-wise ">
+  <div class="row module-wise ">
     <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
       <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
         </div> -->
     <div class="col-md-12" style="font-family:'Times New Roman', Times, serif">
-        <form  [formGroup]="form">
-          <div class="d-flex">
-              <div class="col-md-2">
-                <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
-                  <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">Country</label>
-                  <div class="col-sm-8">
-                    <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
-                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                      <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
-                  </select>
-                    
-                  </div>
-                  </div>
-              </div>
-              <div class="col-md-2">
-                  <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">State</label>
-                  <div class="col-sm-9">
-                    <select formControlName="state_id" class="form-select form-select-sm">
-                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                      <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
-                  </select>
-                  </div>
-                  </div>
-              </div>
-              <div class="col-md-2">
-                  <div class="form-group row">
-                  <label class="col-sm-5 col-form-label">Duration</label>
-                  <div class="col-sm-7">
-                      <select formControlName="duration" class="form-select form-select-sm" (change)="onDurationChange($event)">
-                        <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                          <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+      <form [formGroup]="form">
+        <div class="d-flex">
+          <div class="col-md-2">
+            <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Country</label>
+              <div class="col-sm-8">
+                <select class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
+                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                  <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
+                </select>
 
-                      </select>
-                  </div>
-                  </div>
               </div>
-              <div class="col-md-2">
-                <div class="form-group row">
-                  <label class="col-sm-5 col-form-label">Company</label>
-                  <div class="col-sm-7">
-                    <select formControlName="company" class="form-select form-select-sm" (change)="onCompanyChange($event)">
-                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                        <!-- <option *ngFor="let f of projData" value="{{f.company_id}}">{{f.company_name}}</option> -->
-                        <option *ngFor="let c of companyData" value="{{c.bidder_id}}">{{ c.bidder_name }}</option>
-                    </select>
-                  </div>
-                  </div>
-                  
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">State</label>
+              <div class="col-sm-9">
+                <select formControlName="state_id" class="form-select form-select-sm">
+                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                  <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
+                </select>
               </div>
-              <div class="col-md-2">
-                <div class="form-group row">
-                  <label  class="col-sm-5 col-form-label"> Category</label>
-                  <div class="col-sm-7">
-                      <select formControlName="category" class="form-select form-select-sm" (change)="onCategoryChange($event)">
-                          <!-- <option>All</option>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group row">
+              <label class="col-sm-5 col-form-label">Duration</label>
+              <div class="col-sm-7">
+                <select formControlName="duration" class="form-select form-select-sm"
+                  (change)="onDurationChange($event)">
+                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                  <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group row">
+              <label class="col-sm-5 col-form-label">Company</label>
+              <div class="col-sm-7">
+                <select formControlName="company" class="form-select form-select-sm" (change)="onCompanyChange($event)">
+                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                  <!-- <option *ngFor="let f of projData" value="{{f.company_id}}">{{f.company_name}}</option> -->
+                  <option *ngFor="let c of companyData" value="{{c.bidder_id}}">{{ c.bidder_name }}</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-2">
+            <div class="form-group row">
+              <label class="col-sm-5 col-form-label"> Category</label>
+              <div class="col-sm-7">
+                <select formControlName="category" class="form-select form-select-sm"
+                  (change)="onCategoryChange($event)">
+                  <!-- <option>All</option>
                           <option>Meter</option>
                           <option>220/33kV, 80MVA Power Transformer</option> -->
-                          <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                          <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">{{ c.qacatagory }}</option>
-                      </select>
-                  </div>
-                </div>
+                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                  <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">{{ c.qacatagory }}</option>
+                </select>
               </div>
-              <div class="col-md-2">
-                  <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">Project</label>
-                  <div class="col-sm-8">
-                      <select formControlName="project" class="form-select form-select-sm">
-                          <!-- <option>All</option>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Project</label>
+              <div class="col-sm-8">
+                <select formControlName="project" class="form-select form-select-sm">
+                  <!-- <option>All</option>
                           <option>Jaunpur Project</option>
                           <option>Noida project</option> -->
-                          <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                          <option *ngFor="let c of projectData" value="{{c.tender_id}}">{{ c.tender_title }}</option>
-                      </select>
-                  </div>
-                  </div>
+                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                  <option *ngFor="let c of projectData" value="{{c.tender_id}}">{{ c.tender_title }}</option>
+                </select>
               </div>
+            </div>
           </div>
-        </form>
-      </div>
-  
+        </div>
+      </form>
+    </div>
+
   </div>
- 
-  
+
+
   <div class="row m-0">
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
-    <div class="business-card p-3">
-      <div class="row">
-        <div class="col-md-3">
-          <i class="mdi mdi-currency-inr text-center" style="font-size: 40px;"></i>
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
+      <div class="business-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-currency-inr text-center" style="font-size: 40px;"></i>
+          </div>
+
+
+          <div class="col-md-9">
+            <h3> {{ ShortNumber(dashboardData?.revenueData?.current_revenue ?? '0') }} </h3>
+            <hr>
+            <h6> Revenue </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard">
+      <div class="cust-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-trophy-award text-center" style=" font-size: 44px;"></i>
+          </div>
+          <div class="col-md-9">
+            <h3> {{ ShortNumber(dashboardData?.winArray?.currentData ?? '0') }} </h3>
+            <hr>
+            <h6>Projects Won </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
+      <div class="Profit-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-chart-line text-center" style="font-size: 36px;"></i>
+          </div>
+          <div class="col-md-9">
+            <h3>{{ ShortNumber(dashboardData?.ebitdaData?.current_ebidta ?? '0') }}</h3>
+            <hr>
+            <h6> EBITDA (%) </h6>
+          </div>
+
         </div>
 
-      
-        <div class="col-md-9">
-          <h3> {{ ShortNumber(dashboardData?.revenueData?.current_revenue ?? '0') }} </h3>
-          <hr>
-         <h6> Revenue </h6>
-        </div>
       </div>
     </div>
-  </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard">
-    <div class="cust-card p-3">
-      <div class="row">
-        <div class="col-md-3">
-          <i class="mdi mdi-trophy-award text-center" style=" font-size: 44px;"></i>
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/execution-dashboard">
+      <div class="loss-card p-3">
+        <div class="row">
+          <div class="col-md-3">
+            <i class="mdi mdi-content-duplicate text-center" style=" font-size: 38px;"></i>
+          </div>
+          <div class="col-md-9">
+            <h3>{{ ShortNumber(dashboardData?.closedArray?.currentData ?? '0') }}</h3>
+            <hr>
+            <h6>Projects Completed </h6>
+          </div>
+
         </div>
-        <div class="col-md-9">
-        <h3> {{ ShortNumber(dashboardData?.winArray?.currentData ?? '0') }}  </h3>
-          <hr>
-         <h6>Projects Won  </h6>
-        </div>
-      </div> 
-    </div>
-  </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
-    <div class="Profit-card p-3">
-      <div class="row">
-        <div class="col-md-3">
-          <i class="mdi mdi-chart-line text-center" style="font-size: 36px;"></i>
-        </div>
-        <div class="col-md-9">
-          <h3>{{ ShortNumber(dashboardData?.ebitdaData?.current_ebidta ?? '0') }}</h3>
-          <hr>
-         <h6> EBITDA (%) </h6>
-        </div>
-  
+
       </div>
-     
     </div>
-  </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/execution-dashboard">
-    <div class="loss-card p-3">
-      <div class="row">
-        <div class="col-md-3">
-          <i class="mdi mdi-content-duplicate text-center" style=" font-size: 38px;"></i>
-        </div>
-        <div class="col-md-9">
-         <h3>{{ ShortNumber(dashboardData?.closedArray?.currentData ?? '0') }}</h3>
-          <hr>
-        <h6>Projects Completed </h6>
-        </div>
-  
-      </div>
-     
-    </div>
-  </div>    
   </div>
-  
+
   <div class="row mt-1 m-0">
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard" >
-    <div class="business-card p-2">
-      <div class="row">
-        <div class="col-md-5 ">
-          <h6> {{ ShortNumber(dashboardData?.revenueData?.last_revenue ?? '0') }} </h6>
-          <hr>
-          <small>Previous yr</small>
-        </div>
-        <div class="col-md-5">
-          <h6> {{dashboardData?.revenueData?.revenuePercentage ?? '0'}}% </h6>
-          <hr>
-          <small>Change</small>
-        </div>
-        <div *ngIf="dashboardData?.revenueData?.isPositiveGrowth" class="col-md-2">
-          <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
-        </div>
-        <div *ngIf="!dashboardData?.revenueData?.isPositiveGrowth" class="col-md-2">
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
+      <div class="business-card p-2">
+        <div class="row">
+          <div class="col-md-5 ">
+            <h6> {{ ShortNumber(dashboardData?.revenueData?.last_revenue ?? '0') }} </h6>
+            <hr>
+            <small>Previous yr</small>
+          </div>
+          <div class="col-md-5">
+            <h6> {{dashboardData?.revenueData?.revenuePercentage ?? '0'}}% </h6>
+            <hr>
+            <small>Change</small>
+          </div>
+          <div *ngIf="dashboardData?.revenueData?.isPositiveGrowth" class="col-md-2">
+            <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
+          </div>
+          <div *ngIf="!dashboardData?.revenueData?.isPositiveGrowth" class="col-md-2">
             <i class="mdi mdi-arrow-down mdi-36px text-center"></i>
+          </div>
         </div>
       </div>
     </div>
-  </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard">
-    <div class="cust-card p-2">
-      <div class="row">
-        <div class="col-md-5">
-          <h6> {{ShortNumber(dashboardData?.winArray?.lastData ?? '0')}} </h6>
-          <hr>
-          <small>Previous Yr</small>
-        </div>
-        <div class="col-md-5">
-          <h6> {{dashboardData?.winArray?.growthPercentage ?? '0'}}% </h6>
-          <hr>
-          <small>Change</small>
-        </div>
-        <div *ngIf="dashboardData?.winArray?.isPositiveGrowth" class="col-md-2">
-          <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
-        </div>
-        <div *ngIf="!dashboardData?.winArray?.isPositiveGrowth" class="col-md-2">
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/presales-dashboard">
+      <div class="cust-card p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <h6> {{ShortNumber(dashboardData?.winArray?.lastData ?? '0')}} </h6>
+            <hr>
+            <small>Previous Yr</small>
+          </div>
+          <div class="col-md-5">
+            <h6> {{dashboardData?.winArray?.growthPercentage ?? '0'}}% </h6>
+            <hr>
+            <small>Change</small>
+          </div>
+          <div *ngIf="dashboardData?.winArray?.isPositiveGrowth" class="col-md-2">
+            <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
+          </div>
+          <div *ngIf="!dashboardData?.winArray?.isPositiveGrowth" class="col-md-2">
             <i class="mdi mdi-arrow-down mdi-36px text-center"></i>
+          </div>
         </div>
+
       </div>
-     
     </div>
-  </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
-    <div class="Profit-card p-2">
-      <div class="row">
-        <div class="col-md-5">
-          <h6> {{ShortNumber(dashboardData?.ebitdaData?.last_ebidta ?? '0')}} </h6>
-          <hr>
-          <small>Previous Yr</small>
-        </div>
-        <div class="col-md-5">
-          <h6> {{dashboardData?.ebitdaData?.ebitdaPercentage ?? '0'}}% </h6>
-          <hr>
-          <small>Change</small>
-        </div>
-        <div *ngIf="dashboardData?.ebitdaData?.isPositiveGrowth" class="col-md-2">
-          <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
-        </div>
-        <div *ngIf="!dashboardData?.ebitdaData?.isPositiveGrowth" class="col-md-2">
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/fin-dashboard">
+      <div class="Profit-card p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <h6> {{ShortNumber(dashboardData?.ebitdaData?.last_ebidta ?? '0')}} </h6>
+            <hr>
+            <small>Previous Yr</small>
+          </div>
+          <div class="col-md-5">
+            <h6> {{dashboardData?.ebitdaData?.ebitdaPercentage ?? '0'}}% </h6>
+            <hr>
+            <small>Change</small>
+          </div>
+          <div *ngIf="dashboardData?.ebitdaData?.isPositiveGrowth" class="col-md-2">
+            <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
+          </div>
+          <div *ngIf="!dashboardData?.ebitdaData?.isPositiveGrowth" class="col-md-2">
             <i class="mdi mdi-arrow-down mdi-36px text-center"></i>
+          </div>
         </div>
+
       </div>
-     
     </div>
-  </div> 
-  <div class="col-md-3 cust-padding" routerLink="/dashboard/execution-dashboard">
-    <div class="loss-card p-2">
-      <div class="row">
-        <div class="col-md-5">
-          <h6> {{ShortNumber(dashboardData?.closedArray?.lastData ?? '0')}} </h6>
-          <hr>
-          <small>Previous Yr</small>
-        </div>
-        <div class="col-md-5">
-          <h6> {{dashboardData?.closedArray?.growthPercentage ?? '0'}}% </h6>
-          <hr>
-          <small>Change</small>
-        </div>
-        <div *ngIf="dashboardData?.closedArray?.isPositiveGrowth" class="col-md-2">
-          <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
-        </div>
-        <div *ngIf="!dashboardData?.closedArray?.isPositiveGrowth" class="col-md-2">
+    <div class="col-md-3 cust-padding" routerLink="/dashboard/execution-dashboard">
+      <div class="loss-card p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <h6> {{ShortNumber(dashboardData?.closedArray?.lastData ?? '0')}} </h6>
+            <hr>
+            <small>Previous Yr</small>
+          </div>
+          <div class="col-md-5">
+            <h6> {{dashboardData?.closedArray?.growthPercentage ?? '0'}}% </h6>
+            <hr>
+            <small>Change</small>
+          </div>
+          <div *ngIf="dashboardData?.closedArray?.isPositiveGrowth" class="col-md-2">
+            <i class="mdi mdi-arrow-up mdi-36px text-center"></i>
+          </div>
+          <div *ngIf="!dashboardData?.closedArray?.isPositiveGrowth" class="col-md-2">
             <i class="mdi mdi-arrow-down mdi-36px text-center"></i>
+          </div>
         </div>
+
       </div>
-     
     </div>
-  </div>    
   </div>
-  
+
   <div class="row mt-2">
     <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
         <div class="card-body">
           <p class="card-title mb-2">Performance</p>
-     
+
           <div class="chartBar" #containerRef4>
             <div *ngIf="loading" class="text-center">
               <div class="spinner-border"> </div>
             </div>
-            <ngx-charts-bar-vertical-2d
-            [view]="[containerRef4.offsetWidth, 190]"
-            [scheme]="colorSchemeLoadQuarter1"
-            [results]="performaceBar"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [gradient]="true"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelBarLoad"
-            [yAxisLabel]="yAxisLabelBarLoad"
-            [barPadding]="5"
-            [groupPadding]="7"
-            (select)="onChartSelect($event)"
-            >
+            <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth, 190]" [scheme]="colorSchemeLoadQuarter1"
+              [results]="performaceBar" [xAxis]="showXAxis" [yAxis]="showYAxis" [gradient]="true"
+              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
+              [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="5" [groupPadding]="7" (select)="onChartSelect($event)">
 
-            <!-- <ng-template #tooltipTemplate let-model="model">
+              <!-- <ng-template #tooltipTemplate let-model="model">
               <div class="custom-tooltip">
                 <p>{{ model.name }}</p>
                 <p>{{ model.data.toLocaleString() }} ({{ model.data / total * 100 | number: '1.0-2' }}%)</p>
               </div>
             </ng-template> -->
 
-            <!-- <ng-template #tooltipTemplate let-model="model">
+              <!-- <ng-template #tooltipTemplate let-model="model">
               <p class="p-0 m-0">{{model.name}}</p>
               <p>{{(model.value/model.value)*100 | number : '1.1-1'}} %</p>
             </ng-template> -->
 
-            <!-- <ng-template #tooltipTemplate let-model="model">
+              <!-- <ng-template #tooltipTemplate let-model="model">
               <p class="p-0 m-0">{{model.name}}</p>
               <p>{{ calculateCompletionPercentage(model.series) | number : '1.1-1'}} %</p>
             </ng-template> -->
 
-          </ngx-charts-bar-vertical-2d>
+            </ngx-charts-bar-vertical-2d>
           </div>
           <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total</li>
             <li><i class="mdi mdi-checkbox-blank load_box4"></i> Completed</li>
-        
+
           </ul>
         </div>
       </div>
     </div>
 
-   
 
-    <div class="col-md-6 grid-margin stretch-card" >
+
+    <div class="col-md-6 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
           <div class="row">
             <p class="card-title mb-2 col-md-9">Revenue | Expense</p>
             <div class="float-right col-md-3">
-                  <!-- <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
+              <!-- <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
                     <option selected value="year">Yearly</option>
                     <option value="quarter">Quarterly</option>
                     <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
                 </select> -->
             </div>
           </div>
-            <!-- <p class=" col-md-6 p-1 bg-warning text-center rounded">$000</p> -->
-         
+          <!-- <p class=" col-md-6 p-1 bg-warning text-center rounded">$000</p> -->
+
           <div class="chartBar" #containerRef5 routerLink="/dashboard/fin-dashboard">
-            <ngx-charts-area-chart
-              [view]="[containerRef5.offsetWidth, 190]"
-              [scheme]="lineColorSchemeFinance"
-              [legend]="false"
-              [gradient]="true"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxis]="xAxisf"
-              [yAxis]="yAxisf"
-              [xAxisLabel]="xAxisLabelf"
-              [yAxisLabel]="yAxisLabelf"
-              [results]="lineChartFinance"
-              (select)="onSelect($event)">
+            <ngx-charts-area-chart [view]="[containerRef5.offsetWidth, 190]" [scheme]="lineColorSchemeFinance"
+              [legend]="false" [gradient]="true" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+              [xAxis]="xAxisf" [yAxis]="yAxisf" [xAxisLabel]="xAxisLabelf" [yAxisLabel]="yAxisLabelf"
+              [results]="lineChartFinance" (select)="onSelect($event)">
             </ngx-charts-area-chart>
-           
+
           </div>
           <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank per_box1"></i> Rev</li>
@@ -356,7 +338,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Department wise performance -->
   <!-- <div class="row mt-1">
     <div class="col-md-12 grid-margin stretch-card">
@@ -401,65 +383,67 @@
 
   </div> -->
   <div class="row mt-1">
-  <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
 
-        <div class="row module-wise " >
-          <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
+          <div class="row module-wise ">
+            <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
             <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
               </div> -->
-              <div class="col-md-12">
-                <form [formGroup]="form">
-                  <div class="d-flex">
-                    <div class="col-md-4">
-                      <p class="card-title mb-2">Budget | Expense</p>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Duration</label>
-                        <div class="col-sm-8">
-                          <select class="form-select form-select-sm">
-                            <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                            <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
-                          </select>
-                        </div>
+            <div class="col-md-12">
+              <form [formGroup]="form">
+                <div class="d-flex">
+                  <div class="col-md-4">
+                    <p class="card-title mb-2">Budget | Expense</p>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">Duration</label>
+                      <div class="col-sm-8">
+                        <select class="form-select form-select-sm">
+                          <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                          <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}
+                          </option>
+                        </select>
                       </div>
                     </div>
-                    <div class="col-md-2">
-                      <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Status</label>
-                        <div class="col-sm-7">
-                          <select class="form-select form-select-sm" (change)="onStatusChange($event)">
-                            <!-- <option>All</option>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group row">
+                      <label class="col-sm-5 col-form-label">Status</label>
+                      <div class="col-sm-7">
+                        <select class="form-select form-select-sm" (change)="onStatusChange($event)">
+                          <!-- <option>All</option>
                             <option value="open">Open</option>
                             <option value="closed">Closed</option> -->
-                            <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                            <option *ngFor="let c of statusData" value="{{c.tenderstatus_id}}">{{ c.tender_status }}</option>
-                          </select>
-                        </div>
+                          <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                          <option *ngFor="let c of statusData" value="{{c.tenderstatus_id}}">{{ c.tender_status }}
+                          </option>
+                        </select>
                       </div>
                     </div>
-                    <div class="col-md-3">
-                      <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Projects</label>
-                        <div class="col-sm-8">
-                          <select class="form-select form-select-sm">
-                            <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                            <option *ngFor="let t of projectData2" value="{{t.tender_id}}">{{t.tender_title}}</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  
                   </div>
-                </form>
-              </div>
-              
-        
-        </div>
+                  <div class="col-md-3">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">Projects</label>
+                      <div class="col-sm-8">
+                        <select class="form-select form-select-sm">
+                          <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                          <option *ngFor="let t of projectData2" value="{{t.tender_id}}">{{t.tender_title}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
 
-        <!-- <div class="row ">
+                </div>
+              </form>
+            </div>
+
+
+          </div>
+
+          <!-- <div class="row ">
           <div class="col-md-6 col-6" routerLink="/dashboard/performance-dashboard">
             <p class="card-title mb-2">Budget | Expense</p>
 
@@ -510,36 +494,28 @@
        
         </div> -->
 
-        <!-- <div class="" #containerPerformance>
+          <!-- <div class="" #containerPerformance>
           <div class="Highcharts " [chart]="LineChartGraph"></div>
          
         </div> -->
 
-        <div #lineBarChart>
-          <ngx-charts-line-chart
-            [view]="[lineBarChart.offsetWidth - 30, 370]"
-            [scheme]="lineBarColorScheme"
-            
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxis]="xAxis"
-            [yAxis]="yAxis"
-            [xAxisLabel]="xAxisLabel3"
-            [yAxisLabel]="yAxisLabel3"
-            [timeline]="timeline"
-            [results]="budgetData"
-            >
-          </ngx-charts-line-chart>  
+          <div #lineBarChart>
+            <ngx-charts-line-chart [view]="[lineBarChart.offsetWidth - 30, 370]" [scheme]="lineBarColorScheme"
+              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis"
+              [xAxisLabel]="xAxisLabel3" [yAxisLabel]="yAxisLabel3" [timeline]="timeline" [results]="budgetData">
+            </ngx-charts-line-chart>
+          </div>
+          <!-- [legend]="legend" -->
+          <ul class="cust-legend">
+            <li><i class="mdi mdi-circle load_box1" style="font-size: 16px;padding-right: 0.5rem;color: #d6a974;"></i>
+              Budget</li>
+            <li><i class="mdi mdi-circle load_box4" style="font-size: 16px;padding-right: 0.5rem;color: #97daa7;"></i>
+              Expense</li>
+
+          </ul>
         </div>
-        <!-- [legend]="legend" -->
-        <ul class="cust-legend">
-          <li><i class="mdi mdi-circle load_box1" style="font-size: 16px;padding-right: 0.5rem;color: #d6a974;"></i> Budget</li>
-          <li><i class="mdi mdi-circle load_box4" style="font-size: 16px;padding-right: 0.5rem;color: #97daa7;"></i> Expense</li>
-      
-        </ul>
       </div>
     </div>
-  </div>
   </div>
 
   <!-- <div class="row mt-1">
@@ -592,9 +568,9 @@
           <div class="row">
             <div class="col-md-12" routerLink="/dashboard/performance-dashboard">
               <p class="card-title mb-2">Project Wise Status</p>
-  
+
             </div>
-     
+
           </div>
           <div class="" #progressBarchart>
             <!-- <div class="Highcharts " [chart]="scateredGraphPrject"></div> -->
@@ -603,22 +579,15 @@
             <div *ngIf="loading" class="text-center">
               <div class="spinner-border"> </div>
             </div>
-            <ngx-charts-bar-horizontal
-              [view]="[progressBarchart.offsetWidth, 370]"
-              [scheme]="colorScheme"
-              [results]="progressBar"
-              [gradient]="gradient"
-              [xAxis]="showXAxis"
-              [yAxis]="showYAxis"
-              [legend]="showLegend"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabel"
-              [yAxisLabel]="yAxisLabel">
+            <ngx-charts-bar-horizontal [view]="[progressBarchart.offsetWidth, 370]" [scheme]="colorScheme"
+              [results]="progressBar" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+              [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
             </ngx-charts-bar-horizontal>
           </div>
           <div class="btnMain text-center">
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#progressBarModal">More Detail</button>
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+              data-bs-target="#progressBarModal">More Detail</button>
           </div>
         </div>
       </div>
@@ -626,7 +595,7 @@
 
   </div>
 
- 
+
   <!-- Top Deals project data -->
   <div class="row mt-1">
     <div class="col-md-6 col-sm-12 grid-margin stretch-card pe-0">
@@ -635,15 +604,15 @@
           <div class="row">
             <p class="card-title mb-2 col-md-9">Top 5 Tenders</p>
             <div class="float-right col-md-3">
-                 <!-- <a class="" href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a> -->
+              <!-- <a class="" href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a> -->
             </div>
           </div>
           <div class="cardHead" style="cursor: pointer;">
             <div class="row">
               <div class="col-md-2 col-2">S No</div>
-              <div class="col-md-4 col-4"  style="text-align: left;">Project Name</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">Category</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">ECV (INR)</div>
+              <div class="col-md-4 col-4" style="text-align: left;">Project Name</div>
+              <div class="col-md-3 col-3" style="text-align: left;">Category</div>
+              <div class="col-md-3 col-3" style="text-align: left;">ECV (INR)</div>
             </div>
           </div>
           <div class="table-wrap">
@@ -652,16 +621,18 @@
             </div>
             <div class="card1 mt-1" *ngFor="let tender of topFiveOrder; let i = index">
               <div class="row d-flex">
-                <div class="col-md-2 col-2" >{{i + 1}}</div>
-                <div class="col-md-4 col-4"  style="text-align: left;">
-                  <div *ngIf="!!tender?.tender_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ tender?.tender_title }}">
-                    {{tender?.tender_title | slice:0:15}} <span *ngIf="tender?.tender_title.length > 15">...<i class="mdi mdi-information"></i></span>
-                </div>
-                <ng-template #elseBlock3>
+                <div class="col-md-2 col-2">{{i + 1}}</div>
+                <div class="col-md-4 col-4" style="text-align: left;">
+                  <div *ngIf="!!tender?.tender_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ tender?.tender_title }}">
+                    {{tender?.tender_title | slice:0:15}} <span *ngIf="tender?.tender_title.length > 15">...<i
+                        class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock3>
                     {{tender?.tender_title}}
-                </ng-template>
+                  </ng-template>
                 </div>
-                <div class="col-md-3 col-3"  style="text-align: left;">
+                <div class="col-md-3 col-3" style="text-align: left;">
                   {{tender?.qacatagory}}
                   <!-- <div *ngIf="!!tender?.qacatagory; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ tender?.qacatagory }}">
                     {{tender?.qacatagory | slice:0:10}} <span *ngIf="tender?.qacatagory.length > 10">...<i class="mdi mdi-information"></i></span>
@@ -669,12 +640,12 @@
                 <ng-template #elseBlock3>
                     {{tender?.qacatagory}}
                 </ng-template> -->
-                  </div>
-                <div class="col-md-3 col-3"  style="text-align: left;">{{tender.ecv}}</div>
+                </div>
+                <div class="col-md-3 col-3" style="text-align: left;">{{tender.ecv}}</div>
               </div>
             </div>
           </div>
-<!-- 
+          <!-- 
           <div class="table-responsive ht-auto" style="border-top-right-radius: 10px;
           border-top-left-radius: 10px;">
             <table class="table custTable table-striped table-hover">
@@ -698,35 +669,30 @@
             </table>
           </div> -->
 
-        
+
         </div>
       </div>
     </div>
     <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <!-- data-bs-toggle="modal" data-bs-target="#createModal2" -->
-          <div class="card-body">
-              <p class="card-title mb-2">Top 5 State Wise Performance</p>
-            <!-- <div class="chartBar" #containerRef>
+      <div class="card">
+        <!-- data-bs-toggle="modal" data-bs-target="#createModal2" -->
+        <div class="card-body">
+          <p class="card-title mb-2">Top 5 State Wise Performance</p>
+          <!-- <div class="chartBar" #containerRef>
               <div class="Highcharts " [chart]="statePie"></div>
            
             </div> -->
-            <!-- [view]="view" -->
-            <div class="chartBar" #pieChartRef>
-              <div *ngIf="loading" class="text-center">
-                <div class="spinner-border"> </div>
-              </div>
-              <ngx-charts-pie-chart
-                [view]="[pieChartRef.offsetWidth - 30, 290]"
-                [scheme]="pieColorsCust"
-                [labels]="showLabels"
-                [gradient]="true"
-                [legend]="false"
-                [results]="pieChartData2"
-                (select)="onPieChartSelect($event)">
-              </ngx-charts-pie-chart>
+          <!-- [view]="view" -->
+          <div class="chartBar" #pieChartRef>
+            <div *ngIf="loading" class="text-center">
+              <div class="spinner-border"> </div>
             </div>
-            <!-- <div class="legend-table">
+            <ngx-charts-pie-chart [view]="[pieChartRef.offsetWidth - 30, 290]" [scheme]="pieColorsCust"
+              [labels]="showLabels" [gradient]="true" [legend]="false" [results]="pieChartData2"
+              (select)="onPieChartSelect($event)">
+            </ngx-charts-pie-chart>
+          </div>
+          <!-- <div class="legend-table">
               <table class="table table-sm table-bordered">
                 <thead>
                   <tr>
@@ -744,65 +710,65 @@
                 </tbody>
               </table>
             </div> -->
-            
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- create modal L1 -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Project Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="m-2">
+        <div class="table-responsive ht-auto">
+          <table class="table table-hover table-striped">
+            <thead class="table-primary text-nowrap" style="cursor: pointer;">
+              <tr>
+                <th>S No</th>
+                <th>Project Name</th>
+                <th>Category</th>
+                <th>ECV (INR)</th>
+                <th>Amount with GST</th>
+                <th>Amount without GST</th>
+                <th>Profitability</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap" style="cursor: pointer;">
+              <tr *ngFor="let t of topFiveOrder | paginate: { itemsPerPage: limit, currentPage: p }; let i = index">
+                <td>{{limit*(p-1)+i+1}}</td>
+                <td>{{t.tender_title}}</td>
+                <td>{{t.bidtype}}</td>
+                <td>{{t.ecv}}</td>
+                <td>250</td>
+                <td>200</td>
+                <td>195</td>
+              </tr>
+
+
+            </tbody>
+          </table>
+          <div class="pagination-sec text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
         </div>
       </div>
-  </div>
-  
-  </div>
 
 
-  <!-- create modal L1 -->
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-data-bs-backdrop="static" data-bs-keyboard="true">
-<div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-          <div class="m-2">
-            <div class="table-responsive ht-auto">
-              <table class="table table-hover table-striped">
-                <thead class="table-primary text-nowrap" style="cursor: pointer;">
-                  <tr>
-                    <th>S No</th>
-                    <th>Project Name</th>
-                    <th>Category</th>
-                    <th>ECV (INR)</th>
-                    <th>Amount with GST</th>
-                    <th>Amount without GST</th>
-                    <th>Profitability</th>
-                  </tr>
-                </thead>
-                <tbody class="text-nowrap" style="cursor: pointer;">
-                  <tr *ngFor="let t of topFiveOrder | paginate: { itemsPerPage: limit, currentPage: p }; let i = index">
-                    <td>{{limit*(p-1)+i+1}}</td>
-                    <td>{{t.tender_title}}</td>
-                    <td>{{t.bidtype}}</td>
-                    <td>{{t.ecv}}</td>
-                    <td>250</td>
-                    <td>200</td>
-                    <td>195</td>
-                  </tr>
-                 
-                 
-                </tbody>
-              </table>
-              <div class="pagination-sec text-center">
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-            </div>
-            </div>
-          </div>
-         
-    
     </div>
-</div>
+  </div>
 </div>
 <!-- create modal end L1-->
 
- <!-- Project status modal -->
+<!-- Project status modal -->
 <div class="modal fade" id="progressBarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -816,19 +782,10 @@ data-bs-backdrop="static" data-bs-keyboard="true">
           <div *ngIf="loading" class="text-center">
             <div class="spinner-border"> </div>
           </div>
-          <ngx-charts-bar-horizontal
-            [view]="[modalProgressBarchart.offsetWidth, 370]"
-            [scheme]="colorScheme"
-            [results]="allProgressBar"
-            [gradient]="gradient"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabel3"
-            [yAxisLabel]="yAxisLabel3"
-            (select)="onBarClick($event)">
+          <ngx-charts-bar-horizontal [view]="[modalProgressBarchart.offsetWidth, 370]" [scheme]="colorScheme"
+            [results]="allProgressBar" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+            [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel3" [yAxisLabel]="yAxisLabel3" (select)="onBarClick($event)">
           </ngx-charts-bar-horizontal>
         </div>
       </div>
@@ -837,146 +794,146 @@ data-bs-backdrop="static" data-bs-keyboard="true">
 </div>
 <!-- Project status modal end -->
 
-  <!-- Project status modal -->
-  <div class="modal fade" id="progressBarModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<!-- Project status modal -->
+<div class="modal fade" id="progressBarModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title">Project Wise Status</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-            <div class="m-2">
-              <div class="table-responsive ht-auto">
-                <table class="table table-hover table-striped">
-                  <thead class="table-primary text-nowrap" style="cursor: pointer;">
-                    <tr>
-                      <th>S No</th>
-                      <th>Project Name</th>
-                      <th>Tender ID</th>
-                      <th>Duration</th>
-                      <th>Progress</th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-nowrap" style="cursor: pointer;">
-                    <tr *ngFor="let p of tenderDetails | paginate: { itemsPerPage: limit, currentPage: p2 }; let i = index">
-                      <td>{{limit*(p2-1)+i+1}}</td>
-                      <td>{{p.tender_title}}</td>
-                      <td>{{p.tender_id}}</td>
-                      <td>{{p.duration}}</td>
-                      <td>{{p.progress}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="pagination-sec text-center">
-                  <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
-                </div>
-              </div>
-            </div>
-           
-      
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Project Wise Status</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="m-2">
+        <div class="table-responsive ht-auto">
+          <table class="table table-hover table-striped">
+            <thead class="table-primary text-nowrap" style="cursor: pointer;">
+              <tr>
+                <th>S No</th>
+                <th>Project Name</th>
+                <th>Tender ID</th>
+                <th>Duration</th>
+                <th>Progress</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap" style="cursor: pointer;">
+              <tr *ngFor="let p of tenderDetails | paginate: { itemsPerPage: limit, currentPage: p2 }; let i = index">
+                <td>{{limit*(p2-1)+i+1}}</td>
+                <td>{{p.tender_title}}</td>
+                <td>{{p.tender_id}}</td>
+                <td>{{p.duration}}</td>
+                <td>{{p.progress}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination-sec text-center">
+            <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
   </div>
-  </div>
-  <!-- Project status modal end-->
+</div>
+<!-- Project status modal end-->
 
 
 
-  <!-- create modal state wise L1 -->
-  <div class="modal fade" id="createModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<!-- create modal state wise L1 -->
+<div class="modal fade" id="createModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-           
-              <div class="m-2">
-                <div class="table-responsive ht-auto">
-                  <table class="table table-hover table-striped">
-                    <thead class="table-primary text-nowrap" style="cursor: pointer;">
-                      <tr>
-                        <th>S No</th>
-                        <th>Project Name</th>
-                        <th>Category</th>
-                        <th>Amount (Cr)</th>
-                        <th>Amount with GST</th>
-                        <th>Amount without GST</th>
-                        <th>Profitability</th>
-                      </tr>
-                    </thead>
-                    <tbody class="text-nowrap" style="cursor: pointer;">
-                      <tr>
-                        <td>1</td>
-                        <td>Taldihi</td>
-                        <td>330 Kv</td>
-                        <td>300</td>
-                        <td>250</td>
-                        <td>200</td>
-                        <td>195</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Jaunpur</td>
-                        <td>220 Kv</td>
-                        <td>400</td>
-                        <td>300</td>
-                        <td>250</td>
-                        <td>200</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Noida Sec-45</td>
-                        <td>220 Kv</td>
-                        <td>400</td>
-                        <td>300</td>
-                        <td>250</td>
-                        <td>200</td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Delhi</td>
-                        <td>320 Kv</td>
-                        <td>200</td>
-                        <td>150</td>
-                        <td>100</td>
-                        <td>80</td>
-                      </tr>
-                      <tr >
-                        <td>5</td>
-                        <td>Noida</td>
-                        <td>240 Kv</td>
-                        <td>200</td>
-                        <td>150</td>
-                        <td>100</td>
-                        <td>80</td>
-                      </tr>
-                    
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-                               
-          
-
-      </div>
-  </div>
-  </div>
-  <!-- create modal state wise end L1-->
-
-    <!-- create modal L2 -->
-<div class="modal fade" id="createModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">List Data</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="exampleModalLabel">Project Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="card-body"  style="padding:2px;">
-      <h4 class="text-center mt-2">Work in Progress...</h4>
+
+
+      <div class="m-2">
+        <div class="table-responsive ht-auto">
+          <table class="table table-hover table-striped">
+            <thead class="table-primary text-nowrap" style="cursor: pointer;">
+              <tr>
+                <th>S No</th>
+                <th>Project Name</th>
+                <th>Category</th>
+                <th>Amount (Cr)</th>
+                <th>Amount with GST</th>
+                <th>Amount without GST</th>
+                <th>Profitability</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap" style="cursor: pointer;">
+              <tr>
+                <td>1</td>
+                <td>Taldihi</td>
+                <td>330 Kv</td>
+                <td>300</td>
+                <td>250</td>
+                <td>200</td>
+                <td>195</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jaunpur</td>
+                <td>220 Kv</td>
+                <td>400</td>
+                <td>300</td>
+                <td>250</td>
+                <td>200</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Noida Sec-45</td>
+                <td>220 Kv</td>
+                <td>400</td>
+                <td>300</td>
+                <td>250</td>
+                <td>200</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Delhi</td>
+                <td>320 Kv</td>
+                <td>200</td>
+                <td>150</td>
+                <td>100</td>
+                <td>80</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Noida</td>
+                <td>240 Kv</td>
+                <td>200</td>
+                <td>150</td>
+                <td>100</td>
+                <td>80</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+<!-- create modal state wise end L1-->
+
+<!-- create modal L2 -->
+<div class="modal fade" id="createModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">List Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="card-body" style="padding:2px;">
+        <h4 class="text-center mt-2">Work in Progress...</h4>
       </div>
     </div>
   </div>

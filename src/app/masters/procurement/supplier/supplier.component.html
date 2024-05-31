@@ -1,77 +1,86 @@
 <div class="content-wrapper">
-  <div class="row">
-    <div class="col-md-12 grid-margin">
-      <div class="d-flex justify-content-between flex-wrap">
-        <div class="d-flex align-items-end flex-wrap">
-          <div class="mr-md-3 mr-xl-5">
-            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Vendor</h4>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex my-10">
-            <div class="col-lg-4">
-              <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Vendor</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
             </div>
-            <div class="col-lg-8">
-              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
-            </div>
-          </div>
-          <app-responsive-table id="export">
-            <thead class="table-primary text-nowrap">
-              <tr>
-                <th>S No</th>
-                <th>Vendor Code</th>
-                <th>Vendor Name</th>
-                <th>Reg Type</th>
-                <!-- <th>Reg No</th> -->
-                <th>Contact No</th>
-                <th>Email ID</th>
-                <!-- <th>Pan No</th> -->
-                <!-- <th>GST No</th> -->
-                <!-- <th>GST Date</th> -->
-                <!-- <th>DOI</th> -->
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody class="text-nowrap">
-              <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                <td>{{ limit*(p-1)+i+1 }}</td>
-                <td>{{ a.suppliercode }}</td>
-                <td>{{ a.suppliername }}</td>
-                <td>{{ a?.category }}</td>
-                <!-- <td>{{ a?.category_no }}</td> -->
-                <td>{{ a?.contact[0]?.contactno }}</td>
-                <td>{{ a?.contact[0]?.emailid }}</td>
-                <!-- <td>{{ a?.panno }}</td>
-                <td>{{ a?.gstno }}</td>
-                <td>{{ a?.gstdate }}</td>
-                <td>{{ a.doi }}</td> -->
-                <td>
-                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="Supplier Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
-                </td>
-              </tr>
-              <tr *ngIf="dataList?.length == 0">
-                <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>
-              </tr>
-              <tr *ngIf="isNotFound == true">
-                <td colspan="15" class="text-center"><div class="text-warning fw-semibold">Looks like no data available!</div></td>
-              </tr>
-            </tbody>
-          </app-responsive-table>
-          <div class="pagination-sec text-center">
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex my-10">
+                        <div class="col-lg-4">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search">
+                        </div>
+                        <div class="col-lg-8">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                                class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+                        </div>
+                    </div>
+                    <app-responsive-table id="export">
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Vendor Code</th>
+                                <th>Vendor Name</th>
+                                <th>Reg Type</th>
+                                <!-- <th>Reg No</th> -->
+                                <th>Contact No</th>
+                                <th>Email ID</th>
+                                <!-- <th>Pan No</th> -->
+                                <!-- <th>GST No</th> -->
+                                <!-- <th>GST Date</th> -->
+                                <!-- <th>DOI</th> -->
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr
+                                *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <td>{{ a.suppliercode }}</td>
+                                <td>{{ a.suppliername }}</td>
+                                <td>{{ a?.category }}</td>
+                                <!-- <td>{{ a?.category_no }}</td> -->
+                                <td>{{ a?.contact[0]?.contactno }}</td>
+                                <td>{{ a?.contact[0]?.emailid }}</td>
+                                <!-- <td>{{ a?.panno }}</td>
+                                <td>{{ a?.gstno }}</td>
+                                <td>{{ a?.gstdate }}</td>
+                                <td>{{ a.doi }}</td> -->
+                                <td>
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        title="Supplier Detailed Data" (click)="rowListData(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                </td>
+                            </tr>
+                            <tr *ngIf="dataList?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"> </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="isNotFound == true">
+                                <td colspan="15" class="text-center">
+                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </app-responsive-table>
+                    <div class="pagination-sec text-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- create modal -->
@@ -88,7 +97,7 @@
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="card">
                             <div class="card-header card-primary">
-                                Vendor Details
+                                Vendor Detail
                             </div>
                             <div class="card-body">
                                 <div class="container-fluid">
@@ -104,10 +113,13 @@
                                         </div> -->
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">Vendor Name<span class="required-asterisk">*</span></label>
-                                                <input formControlName="supplierName" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                                <label class="form-label">Vendor Name<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="supplierName" type="text"
+                                                    class="form-control form-control-sm" appWordCapitalize>
                                                 <div *ngIf="f['supplierName'].touched && f['supplierName'].invalid">
-                                                    <small class="text-danger" *ngIf="f['supplierName'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['supplierName'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,89 +134,121 @@
                                         </div> -->
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">Reg Type<span class="required-asterisk">*</span></label>
-                                                <select formControlName="category" class="form-select form-select-sm" (change)="regType()">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
-                                                    <option *ngFor="let t of dataDropdownList?.category" [value]="t.category_id">{{ t.category }}</option>
+                                                <label class="form-label">Reg Type<span
+                                                        class="required-asterisk">*</span></label>
+                                                <select formControlName="category" class="form-select form-select-sm"
+                                                    (change)="regType()">
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                        Category</option>
+                                                    <option *ngFor="let t of dataDropdownList?.category"
+                                                        [value]="t.category_id">{{ t.category }}</option>
                                                 </select>
                                                 <div *ngIf="f['category'].touched && f['category'].invalid">
-                                                    <small class="text-danger" *ngIf="f['category'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['category'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2" *ngIf="form.value.category != '6004'">
                                             <div class="form-group">
-                                                <label class="form-label">Reg No<span class="required-asterisk">*</span></label>
-                                                <input formControlName="categoryNo" type="text" class="form-control form-control-sm" appNoSpace appUpperCase>
+                                                <label class="form-label">Reg No<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="categoryNo" type="text"
+                                                    class="form-control form-control-sm" appNoSpace appUpperCase>
                                                 <div *ngIf="f['categoryNo'].touched && f['categoryNo'].invalid">
-                                                    <small class="text-danger" *ngIf="f['categoryNo'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['categoryNo'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">GST No</label>
-                                                <input formControlName="gstNo" type="text" class="form-control form-control-sm" appNoSpace appUpperCase minlength="15" maxlength="15">
+                                                <input formControlName="gstNo" type="text"
+                                                    class="form-control form-control-sm" appNoSpace appUpperCase
+                                                    minlength="15" maxlength="15">
                                                 <div *ngIf="f['gstNo'].touched && f['gstNo'].invalid">
-                                                    <small class="text-danger" *ngIf="f['gstNo'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['gstNo'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">GST Reg Date</label>
-                                                <input formControlName="gstDate" type="date" class="form-control form-control-sm" [max]="currentDate | date: 'yyyy-MM-dd'">
+                                                <input formControlName="gstDate" type="date"
+                                                    class="form-control form-control-sm"
+                                                    [max]="currentDate | date: 'yyyy-MM-dd'">
                                                 <div *ngIf="f['gstDate'].touched && f['gstDate'].invalid">
-                                                    <small class="text-danger" *ngIf="f['gstDate'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['gstDate'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">PAN No<span class="required-asterisk">*</span></label>
-                                                <input formControlName="panNo" type="text" class="form-control form-control-sm" appUpperCase appNoSpace minlength="10"
-                                                maxlength="10">
+                                                <label class="form-label">PAN No<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="panNo" type="text"
+                                                    class="form-control form-control-sm" appUpperCase appNoSpace
+                                                    minlength="10" maxlength="10">
                                                 <div *ngIf="f['panNo'].touched && f['panNo'].invalid">
-                                                    <small class="text-danger" *ngIf="f['panNo'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['panNo'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="form-label">TAN No</label>
-                                                <input formControlName="tanNo" type="text" class="form-control form-control-sm" appUpperCase appNoSpace minlength="10" maxlength="10">
+                                                <input formControlName="tanNo" type="text"
+                                                    class="form-control form-control-sm" appUpperCase appNoSpace
+                                                    minlength="10" maxlength="10">
                                                 <div *ngIf="f['tanNo'].touched && f['tanNo'].invalid">
-                                                    <small class="text-danger" *ngIf="f['tanNo'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['tanNo'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">Technical Rating<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">Technical Rating<span
+                                                        class="required-asterisk">*</span></label>
                                                 <select formControlName="techRating" class="form-select form-select-sm">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select Rating</option>
-                                                    <option *ngFor="let t of dataDropdownList?.technicalrating" [value]="t.technicalrating_id">{{ t.technicalrating }}</option>
+                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                        Rating</option>
+                                                    <option *ngFor="let t of dataDropdownList?.technicalrating"
+                                                        [value]="t.technicalrating_id">{{ t.technicalrating }}</option>
                                                 </select>
                                                 <div *ngIf="f['techRating'].touched && f['techRating'].invalid">
-                                                    <small class="text-danger" *ngIf="f['techRating'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['techRating'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="form-label">DOI (Date of Incorporation)<span class="required-asterisk">*</span></label>
-                                                <input formControlName="doi" type="date" class="form-control form-control-sm" [max]="currentDate | date: 'yyyy-MM-dd'">
+                                                <label class="form-label">DOI (Date of Incorporation)<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="doi" type="date"
+                                                    class="form-control form-control-sm"
+                                                    [max]="currentDate | date: 'yyyy-MM-dd'">
                                                 <div *ngIf="f['doi'].touched && f['doi'].invalid">
-                                                    <small class="text-danger" *ngIf="f['doi'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['doi'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="form-label">DOI Document<span class="required-asterisk">*</span></label>
-                                                <input formControlName="doiDoc" type="file" class="form-control form-control-sm" (change)="profileUpload($event)" accept=".jpg, .jpeg, .png, .pdf">
+                                                <label class="form-label">DOI Document<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="doiDoc" type="file"
+                                                    class="form-control form-control-sm"
+                                                    (change)="profileUpload($event)" accept=".jpg, .jpeg, .png, .pdf">
                                                 <div *ngIf="f['doiDoc'].touched && f['doiDoc'].invalid">
-                                                    <small class="text-danger" *ngIf="f['doiDoc'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['doiDoc'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,70 +257,94 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="form-label">Address (House/Flat No, St No & Area)<span class="required-asterisk">*</span></label>
-                                                <input formControlName="headAddress" type="text" class="form-control form-control-sm">
+                                                <label class="form-label">Address (House/Flat No, St No & Area)<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="headAddress" type="text"
+                                                    class="form-control form-control-sm">
                                                 <div *ngIf="f['headAddress'].touched && f['headAddress'].invalid">
-                                                    <small class="text-danger" *ngIf="f['headAddress'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['headAddress'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="headCountry" (change)="getStateData()">
+                                                <label class="form-label">Country<span
+                                                        class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm" formControlName="headCountry"
+                                                    (change)="getStateData()">
                                                     <option [selected]="true" [disabled]="true">Select Country</option>
-                                                    <option *ngFor="let t of countryData" [value]="t.country_id">{{ t.name }}</option>
+                                                    <option *ngFor="let t of countryData" [value]="t.country_id">{{
+                                                        t.name }}</option>
                                                 </select>
                                                 <div *ngIf="f['headCountry'].touched && f['headCountry'].invalid">
-                                                    <small class="text-danger" *ngIf="f['headCountry'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['headCountry'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">State<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="headState" (change)="getDistrictData()">
+                                                <label class="form-label">State<span
+                                                        class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm" formControlName="headState"
+                                                    (change)="getDistrictData()">
                                                     <option [selected]="true" [disabled]="true">Select State</option>
-                                                    <option *ngFor="let t of stateData" [value]="t.state_id">{{ t.state_name }}</option>
+                                                    <option *ngFor="let t of stateData" [value]="t.state_id">{{
+                                                        t.state_name }}</option>
                                                 </select>
                                                 <div *ngIf="f['headState'].touched && f['headState'].invalid">
-                                                    <small class="text-danger" *ngIf="f['headState'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['headState'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">District<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">District<span
+                                                        class="required-asterisk">*</span></label>
                                                 <!-- <select class="form-select form-select-sm" formControlName="headDistrict" (change)="getCityData()"> -->
-                                                <select class="form-select form-select-sm" formControlName="headDistrict">
+                                                <select class="form-select form-select-sm"
+                                                    formControlName="headDistrict">
                                                     <option [selected]="true" [disabled]="true">Select District</option>
-                                                    <option *ngFor="let t of districtData" [value]="t.district_id">{{ t.district_name }}</option>
+                                                    <option *ngFor="let t of districtData" [value]="t.district_id">{{
+                                                        t.district_name }}</option>
                                                 </select>
                                                 <div *ngIf="f['headDistrict'].touched && f['headDistrict'].invalid">
-                                                    <small class="text-danger" *ngIf="f['headDistrict'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['headDistrict'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">City<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">City<span
+                                                        class="required-asterisk">*</span></label>
                                                 <!-- <select class="form-select form-select-sm" formControlName="headCity">
                                                 <option [selected]="true" [disabled]="true">Select City</option>
                                                     <option *ngFor="let t of cityData" [value]="t.city_id">{{ t.city }}</option>
                                                 </select> -->
-                                                <input type="text" formControlName="headCity" class="form-control form-control-sm">
+                                                <input type="text" formControlName="headCity"
+                                                    class="form-control form-control-sm">
                                                 <div *ngIf="f['headCity'].touched && f['headCity'].invalid">
-                                                    <small class="text-danger" *ngIf="f['headCity'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['headCity'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
                                             <div class="form-group">
-                                                <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
-                                                <input formControlName="headPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly maxlength="6" minlength="6">
+                                                <label class="form-label">Pincode<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="headPincode" type="text"
+                                                    class="form-control form-control-sm" appNoSpace appNumberOnly
+                                                    maxlength="6" minlength="6">
                                                 <div *ngIf="f['headPincode'].touched && f['headPincode'].invalid">
-                                                    <small class="text-danger" *ngIf="f['headPincode'].errors?.['required']">*Required</small>
-                                                    <small class="text-danger" *ngIf="f['headPincode'].errors?.['pattern']">*Please enter 6 digit code.</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['headPincode'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['headPincode'].errors?.['pattern']">*Please enter 6
+                                                        digit code.</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -285,70 +353,95 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="form-label">Address (House/Flat No, St No & Area)<span class="required-asterisk">*</span></label>
-                                                <input formControlName="factoryAddress" type="text" class="form-control form-control-sm">
+                                                <label class="form-label">Address (House/Flat No, St No & Area)<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="factoryAddress" type="text"
+                                                    class="form-control form-control-sm">
                                                 <div *ngIf="f['factoryAddress'].touched && f['factoryAddress'].invalid">
-                                                    <small class="text-danger" *ngIf="f['factoryAddress'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['factoryAddress'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="factoryCountry" (change)="getFactoryStateData()">
+                                                <label class="form-label">Country<span
+                                                        class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm"
+                                                    formControlName="factoryCountry" (change)="getFactoryStateData()">
                                                     <option [selected]="true" [disabled]="true">Select Country</option>
-                                                    <option *ngFor="let t of countryData" [value]="t.country_id">{{ t.name }}</option>
+                                                    <option *ngFor="let t of countryData" [value]="t.country_id">{{
+                                                        t.name }}</option>
                                                 </select>
                                                 <div *ngIf="f['factoryCountry'].touched && f['factoryCountry'].invalid">
-                                                    <small class="text-danger" *ngIf="f['factoryCountry'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['factoryCountry'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">State<span class="required-asterisk">*</span></label>
-                                                <select class="form-select form-select-sm" formControlName="factoryState" (change)="getFactoryDistrictData()">
+                                                <label class="form-label">State<span
+                                                        class="required-asterisk">*</span></label>
+                                                <select class="form-select form-select-sm"
+                                                    formControlName="factoryState" (change)="getFactoryDistrictData()">
                                                     <option [selected]="true" [disabled]="true">Select State</option>
-                                                    <option *ngFor="let t of factoryStateData" [value]="t.state_id">{{ t.state_name }}</option>
+                                                    <option *ngFor="let t of factoryStateData" [value]="t.state_id">{{
+                                                        t.state_name }}</option>
                                                 </select>
                                                 <div *ngIf="f['factoryState'].touched && f['factoryState'].invalid">
-                                                    <small class="text-danger" *ngIf="f['factoryState'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['factoryState'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">District<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">District<span
+                                                        class="required-asterisk">*</span></label>
                                                 <!-- <select class="form-select form-select-sm" formControlName="factoryDistrict" (change)="getFactoryCityData()"> -->
-                                                <select class="form-select form-select-sm" formControlName="factoryDistrict">
+                                                <select class="form-select form-select-sm"
+                                                    formControlName="factoryDistrict">
                                                     <option [selected]="true" [disabled]="true">Select District</option>
-                                                    <option *ngFor="let t of factoryDistrictData" [value]="t.district_id">{{ t.district_name }}</option>
+                                                    <option *ngFor="let t of factoryDistrictData"
+                                                        [value]="t.district_id">{{ t.district_name }}</option>
                                                 </select>
-                                                <div *ngIf="f['factoryDistrict'].touched && f['factoryDistrict'].invalid">
-                                                    <small class="text-danger" *ngIf="f['factoryDistrict'].errors?.['required']">*Required</small>
+                                                <div
+                                                    *ngIf="f['factoryDistrict'].touched && f['factoryDistrict'].invalid">
+                                                    <small class="text-danger"
+                                                        *ngIf="f['factoryDistrict'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label class="form-label">City<span class="required-asterisk">*</span></label>
+                                                <label class="form-label">City<span
+                                                        class="required-asterisk">*</span></label>
                                                 <!-- <select class="form-select form-select-sm" formControlName="factoryCity">
                                                 <option [selected]="true" [disabled]="true">Select City</option>
                                                     <option *ngFor="let t of factoryCityData" [value]="t.city_id">{{ t.city }}</option>
                                                 </select> -->
-                                                <input type="text" formControlName="factoryCity" class="form-control form-control-sm">
+                                                <input type="text" formControlName="factoryCity"
+                                                    class="form-control form-control-sm">
                                                 <div *ngIf="f['factoryCity'].touched && f['factoryCity'].invalid">
-                                                    <small class="text-danger" *ngIf="f['factoryCity'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['factoryCity'].errors?.['required']">*Required</small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
                                             <div class="form-group">
-                                                <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
-                                                <input formControlName="factoryPincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly maxlength="6" minlength="6">
+                                                <label class="form-label">Pincode<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="factoryPincode" type="text"
+                                                    class="form-control form-control-sm" appNoSpace appNumberOnly
+                                                    maxlength="6" minlength="6">
                                                 <div *ngIf="f['factoryPincode'].touched && f['factoryPincode'].invalid">
-                                                    <small class="text-danger" *ngIf="f['factoryPincode'].errors?.['required']">*Required</small>
-                                                    <small class="text-danger" *ngIf="f['factoryPincode'].errors?.['pattern']">*Please enter 6 digit code.</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['factoryPincode'].errors?.['required']">*Required</small>
+                                                    <small class="text-danger"
+                                                        *ngIf="f['factoryPincode'].errors?.['pattern']">*Please enter 6
+                                                        digit code.</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -359,17 +452,22 @@
                         <ng-container formArrayName="bankDetails">
                             <div class="card mt-2">
                                 <div class="card-header card-primary">
-                                    Vendor Bank Details
+                                    Vendor Bank Detail
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
-                                        <div class="row" *ngFor="let quantity of bank().controls; let i=index" [formGroupName]="i">
+                                        <div class="row" *ngFor="let quantity of bank().controls; let i=index"
+                                            [formGroupName]="i">
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">Bank Name<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="bank_id" class="form-select form-select-sm">
-                                                        <option [selected]="true" [disabled]="true" [value]="null">Select Bank Name</option>
-                                                        <option *ngFor="let t of dataDropdownList.bank" [value]="t.bank_id">{{ t.bankname }}</option>
+                                                    <label class="form-label">Bank Name<span
+                                                            class="required-asterisk">*</span></label>
+                                                    <select formControlName="bank_id"
+                                                        class="form-select form-select-sm">
+                                                        <option [selected]="true" [disabled]="true" [value]="null">
+                                                            Select Bank Name</option>
+                                                        <option *ngFor="let t of dataDropdownList.bank"
+                                                            [value]="t.bank_id">{{ t.bankname }}</option>
                                                     </select>
                                                     <!-- <div *ngIf="f['bank_id'].touched && f['bank_id'].invalid">
                                                         <small class="text-danger" *ngIf="f['bank_id'].errors?.['required']">*Required</small>
@@ -378,8 +476,11 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">Account Holder Name<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="account_holder_name" type="text" class="form-control form-control-sm" appWordCapitalize appAlphaWithSpace>
+                                                    <label class="form-label">Account Holder Name<span
+                                                            class="required-asterisk">*</span></label>
+                                                    <input formControlName="account_holder_name" type="text"
+                                                        class="form-control form-control-sm" appWordCapitalize
+                                                        appAlphaWithSpace>
                                                     <!-- <div *ngIf="f['account_holder_name'].touched && f['account_holder_name'].invalid">
                                                         <small class="text-danger" *ngIf="f['account_holder_name'].errors?.['required']">*Required</small>
                                                     </div> -->
@@ -387,8 +488,10 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">Account No<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="bankaccountno" type="text" class="form-control form-control-sm" appNumberOnly appNoSpace>
+                                                    <label class="form-label">Account No<span
+                                                            class="required-asterisk">*</span></label>
+                                                    <input formControlName="bankaccountno" type="text"
+                                                        class="form-control form-control-sm" appNumberOnly appNoSpace>
                                                     <!-- <div *ngIf="f['bankaccountno'].touched && f['bankaccountno'].invalid">
                                                         <small class="text-danger" *ngIf="f['bankaccountno'].errors?.['required']">*Required</small>
                                                     </div> -->
@@ -396,8 +499,10 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">Branch Name<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="branch_name" type="text" class="form-control form-control-sm" appWordCapitalize>
+                                                    <label class="form-label">Branch Name<span
+                                                            class="required-asterisk">*</span></label>
+                                                    <input formControlName="branch_name" type="text"
+                                                        class="form-control form-control-sm" appWordCapitalize>
                                                     <!-- <div *ngIf="f['branch_name'].touched && f['branch_name'].invalid">
                                                         <small class="text-danger" *ngIf="f['branch_name'].errors?.['required']">*Required</small>
                                                     </div> -->
@@ -405,8 +510,11 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">IFSC Code<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="bankifsc" type="text" class="form-control form-control-sm" appAlphaNumeric appNoSpace appUpperCase minlength="11" maxlength="11">
+                                                    <label class="form-label">IFSC Code<span
+                                                            class="required-asterisk">*</span></label>
+                                                    <input formControlName="bankifsc" type="text"
+                                                        class="form-control form-control-sm" appAlphaNumeric appNoSpace
+                                                        appUpperCase minlength="11" maxlength="11">
                                                     <!-- <div *ngIf="f['bankifsc'].touched && f['bankifsc'].invalid">
                                                         <small class="text-danger" *ngIf="f['bankifsc'].errors?.['required']">*Required</small>
                                                     </div> -->
@@ -414,10 +522,14 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">Acount Type<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="accounttype_id" class="form-select form-select-sm">
-                                                        <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
-                                                        <option *ngFor="let t of dataDropdownList.accounttype" [value]="t.accounttype_id">{{ t.accounttype }}</option>
+                                                    <label class="form-label">Acount Type<span
+                                                            class="required-asterisk">*</span></label>
+                                                    <select formControlName="accounttype_id"
+                                                        class="form-select form-select-sm">
+                                                        <option [selected]="true" [disabled]="true" [value]="null">
+                                                            Select Type</option>
+                                                        <option *ngFor="let t of dataDropdownList.accounttype"
+                                                            [value]="t.accounttype_id">{{ t.accounttype }}</option>
                                                     </select>
                                                     <!-- <div *ngIf="f['accounttype_id'].touched && f['accounttype_id'].invalid">
                                                         <small class="text-danger" *ngIf="f['accounttype_id'].errors?.['required']">*Required</small>
@@ -426,34 +538,45 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group">
-                                                    <label class="form-label">Bank Address<span class="required-asterisk">*</span></label>
+                                                    <label class="form-label">Bank Address<span
+                                                            class="required-asterisk">*</span></label>
                                                     <div class="d-flex">
-                                                        <input formControlName="bank_address" type="text" class="form-control form-control-sm">
+                                                        <input formControlName="bank_address" type="text"
+                                                            class="form-control form-control-sm">
                                                         <!-- <div *ngIf="f['bank_address'].touched && f['bank_address'].invalid">
                                                             <small class="text-danger" *ngIf="f['bank_address'].errors?.['required']">*Required</small>
                                                         </div> -->
-                                                        <button *ngIf="i > 0" type="button" (click)="removeRow(i, 'bankDetails')" class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span class="mdi mdi-close"></span></button>
+                                                        <button *ngIf="i > 0" type="button"
+                                                            (click)="removeRow(i, 'bankDetails')"
+                                                            class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span
+                                                                class="mdi mdi-close"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <span type="button" (click)="addAnotherRow('bankDetails')" class="text-light bg-success float-right p-1 rounded-circle" title="Click to add more bank details"><span class="mdi mdi-plus"></span></span>
+                                    <span type="button" (click)="addAnotherRow('bankDetails')"
+                                        class="text-light bg-success float-right p-1 rounded-circle"
+                                        title="Click to add more bank detail"><span class="mdi mdi-plus"></span></span>
                                 </div>
                             </div>
                         </ng-container>
                         <ng-container formArrayName="contactDetails">
                             <div class="card mt-2">
                                 <div class="card-header card-primary">
-                                    Vendor Contact Details
+                                    Vendor Contact Detail
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
-                                        <div class="row" *ngFor="let quantity of contact().controls; let i=index" [formGroupName]="i">
+                                        <div class="row" *ngFor="let quantity of contact().controls; let i=index"
+                                            [formGroupName]="i">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Contact Person Name<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="contactperson" type="text" class="form-control form-control-sm" appWordCapitalize appAlphaWithSpace>
+                                                    <label class="form-label">Contact Person Name<span
+                                                            class="required-asterisk">*</span></label>
+                                                    <input formControlName="contactperson" type="text"
+                                                        class="form-control form-control-sm" appWordCapitalize
+                                                        appAlphaWithSpace>
                                                     <!-- <div *ngIf="f['contactperson'].touched && f['contactperson'].invalid">
                                                         <small class="text-danger" *ngIf="f['contactperson'].errors?.['required']">*Required</small>
                                                     </div> -->
@@ -461,10 +584,14 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Designation<span class="required-asterisk">*</span></label>
-                                                    <select formControlName="usdg_id" class="form-select form-select-sm">
-                                                        <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
-                                                        <option *ngFor="let t of dataDropdownList.designation" [value]="t.usdg_id">{{ t.designationname }}</option>
+                                                    <label class="form-label">Designation<span
+                                                            class="required-asterisk">*</span></label>
+                                                    <select formControlName="usdg_id"
+                                                        class="form-select form-select-sm">
+                                                        <option [selected]="true" [disabled]="true" [value]="null">
+                                                            Select Designation</option>
+                                                        <option *ngFor="let t of dataDropdownList.designation"
+                                                            [value]="t.usdg_id">{{ t.designationname }}</option>
                                                     </select>
                                                     <!-- <div *ngIf="f['usdg_id'].touched && f['usdg_id'].invalid">
                                                         <small class="text-danger" *ngIf="f['usdg_id'].errors?.['required']">*Required</small>
@@ -473,9 +600,11 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Contact No<span class="required-asterisk">*</span></label>
-                                                    <input formControlName="contactno" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly minlength="10"
-                                                    maxlength="10">
+                                                    <label class="form-label">Contact No<span
+                                                            class="required-asterisk">*</span></label>
+                                                    <input formControlName="contactno" type="text"
+                                                        class="form-control form-control-sm" appNoSpace appNumberOnly
+                                                        minlength="10" maxlength="10">
                                                     <!-- <div *ngIf="f['contactno'].touched && f['contactno'].invalid">
                                                         <small class="text-danger" *ngIf="f['contactno'].errors?.['required']">*Required</small>
                                                     </div> -->
@@ -483,20 +612,28 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Email ID<span class="required-asterisk">*</span></label>
+                                                    <label class="form-label">Email ID<span
+                                                            class="required-asterisk">*</span></label>
                                                     <div class="d-flex">
-                                                        <input formControlName="emailid" type="text" class="form-control form-control-sm">
+                                                        <input formControlName="emailid" type="text"
+                                                            class="form-control form-control-sm">
                                                         <!-- <div *ngIf="f['emailid'].touched && f['emailid'].invalid">
                                                             <small class="text-danger" *ngIf="f['emailid'].errors?.['required']">*Required</small>
                                                         </div> -->
-                                                        <button *ngIf="i > 0" type="button" (click)="removeRow(i, 'contactDetails')" class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span class="mdi mdi-close"></span></button>
+                                                        <button *ngIf="i > 0" type="button"
+                                                            (click)="removeRow(i, 'contactDetails')"
+                                                            class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span
+                                                                class="mdi mdi-close"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <span type="button" (click)="addAnotherRow('contactDetails')" class="text-light bg-success float-right p-1 rounded-circle" title="Click to add more contact details"><span class="mdi mdi-plus"></span></span>
+                                    <span type="button" (click)="addAnotherRow('contactDetails')"
+                                        class="text-light bg-success float-right p-1 rounded-circle"
+                                        title="Click to add more contact details"><span
+                                            class="mdi mdi-plus"></span></span>
                                 </div>
                             </div>
                         </ng-container>
@@ -507,44 +644,63 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
-                                        <div class="row" *ngFor="let quantity of document().controls; let i=index" [formGroupName]="i">
+                                        <div class="row" *ngFor="let quantity of document().controls; let i=index"
+                                            [formGroupName]="i">
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Certificate Name</label>
                                                     <!-- <input formControlName="name" type="text" class="form-control form-control-sm"> -->
                                                     <select formControlName="name" class="form-select form-select-sm">
-                                                        <option [selected]="true" [disabled]="true" [value]="null">Select Certification</option>
-                                                        <option *ngFor="let t of dataDropdownList.certification" [value]="t.mstcertification_id">{{ t.certification_name }}</option>
+                                                        <option [selected]="true" [disabled]="true" [value]="null">
+                                                            Select Certification</option>
+                                                        <option *ngFor="let t of dataDropdownList.certification"
+                                                            [value]="t.mstcertification_id">{{ t.certification_name }}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Certification Date</label>
-                                                    <input formControlName="date" type="date" class="form-control form-control-sm">
+                                                    <input formControlName="date" type="date"
+                                                        class="form-control form-control-sm">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Upload Certificate</label>
                                                     <div class="d-flex">
-                                                        <input formControlName="uploadCertificate" type="file" class="form-control form-control-sm" accept=".png, .jpg, .jpeg" (change)="onFileChange($event, i)">
-                                                        <button *ngIf="i > 0" type="button" (click)="removeRow(i, 'documentDetails')" class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span class="mdi mdi-close"></span></button>
+                                                        <input formControlName="uploadCertificate" type="file"
+                                                            class="form-control form-control-sm"
+                                                            accept=".png, .jpg, .jpeg"
+                                                            (change)="onFileChange($event, i)">
+                                                        <button *ngIf="i > 0" type="button"
+                                                            (click)="removeRow(i, 'documentDetails')"
+                                                            class="btn btn-secondary btn-fw btn-sm float-right ml-2 p-2"><span
+                                                                class="mdi mdi-close"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- {{ form.value.documentDetails | json }} -->
-                                    <span type="button" (click)="addAnotherRow('documentDetails')" class="text-light bg-success float-right p-1 rounded-circle" title="Click to add more contact details"><span class="mdi mdi-plus"></span></span>
+                                    <span type="button" (click)="addAnotherRow('documentDetails')"
+                                        class="text-light bg-success float-right p-1 rounded-circle"
+                                        title="Click to add more contact details"><span
+                                            class="mdi mdi-plus"></span></span>
                                 </div>
                             </div>
                         </ng-container>
                         <div class="modal-btns mt-3">
-                            <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
+                            <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                                class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
                             <!-- <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm mr-2">Add</button> -->
-                            <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
-                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                            <button type="button" *ngIf="isSubmitted" disabled
+                                class="btn btn-primary btn-fw btn-sm mr-2"><span
+                                    class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                Submitting...</button>
+                            <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>
@@ -553,154 +709,159 @@
     </div>
 </div>
 
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Vendor Detailed Data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body p-3">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12 p-0">
-              <div class="table-responsive">
-                <h6 class="mb-2 text-secondary">Vendor Details</h6>
-                <table class="table table-hover table-striped custom-table table-bordered">
-                  <thead class="hidden-thead"></thead>
-                  <tbody class="text-nowrap">
-                    <tr>
-                      <th>Vendor Code</th>
-                      <td>{{ rowData?.suppliercode }}</td>
-                      <th>Vendor Name</th>
-                      <td>{{ rowData?.suppliername }}</td>
-                      <th>Reg Type</th>
-                      <td>{{ rowData?.category }}</td>
-                    </tr>
-                    <tr>
-                      <th>Reg No</th>
-                      <td>{{ rowData?.category_no }}</td>
-                      <th>GST No</th>
-                      <td>{{ rowData?.gstno }}</td>
-                      <th>GST Date</th>
-                      <td>{{ rowData?.gstdate | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-                    </tr>
-                    <tr>
-                      <th>PAN No</th>
-                      <td>{{ rowData?.panno }}</td>
-                      <th>TAN No</th>
-                      <td>{{ rowData?.tanno }}</td>
-                      <th>DOI</th>
-                      <td>{{ rowData?.doi | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h6 class="mb-2 mt-3 text-secondary">Head Office Address</h6>
-                <table class="table table-hover table-striped custom-table table-bordered">
-                  <thead class="hidden-thead"></thead>
-                  <tbody class="text-nowrap">
-                    <tr>
-                      <th>Address</th>
-                      <td>{{ rowData?.address[0]?.address }}</td>
-                      <th>City</th>
-                      <td>{{ rowData?.address[0]?.city }}</td>
-                      <th>District</th>
-                      <td>{{ rowData?.address[0]?.district_name }}</td>
-                    </tr>
-                    <tr>
-                      <th>State</th>
-                      <td>{{ rowData?.address[0]?.state_name }}</td>
-                      <th>Vendor Name</th>
-                      <td>{{ rowData?.address[0]?.name }}</td>
-                      <th>Category</th>
-                      <td>{{ rowData?.address[0]?.pincode }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h6 class="mb-2 mt-3 text-secondary">Factory Address</h6>
-                <table class="table table-hover table-striped custom-table table-bordered">
-                  <thead class="hidden-thead"></thead>
-                  <tbody class="text-nowrap">
-                    <tr>
-                      <th>Address</th>
-                      <td>{{ rowData?.address[1]?.address }}</td>
-                      <th>City</th>
-                      <td>{{ rowData?.address[1]?.city }}</td>
-                      <th>District</th>
-                      <td>{{ rowData?.address[1]?.district_name }}</td>
-                    </tr>
-                    <tr>
-                      <th>State</th>
-                      <td>{{ rowData?.address[1]?.state_name }}</td>
-                      <th>Vendor Name</th>
-                      <td>{{ rowData?.address[1]?.name }}</td>
-                      <th>Category</th>
-                      <td>{{ rowData?.address[1]?.pincode }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h6 class="mb-2 mt-3 text-secondary">Contact Details</h6>
-                <table class="table table-hover table-striped custom-table table-bordered">
-                  <thead class="hidden-thead"></thead>
-                  <tbody class="text-nowrap">
-                    <tr *ngFor="let a of rowData?.contact">
-                      <th>Person name</th>
-                      <td>{{ a?.contactperson }}</td>
-                      <th>Designation</th>
-                      <td>{{ a?.designationname }}</td>
-                      <th>Contact</th>
-                      <td>{{ a?.contactno }}</td>
-                      <th>Email</th>
-                      <td>{{ a?.emailid }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h6 class="mb-2 mt-3 text-secondary">Vendor Bank Details</h6>
-                <table class="table table-hover table-striped custom-table table-bordered">
-                  <thead class="hidden-thead"></thead>
-                  <tbody class="text-nowrap">
-                    <ng-container *ngFor="let a of rowData?.bank">
-                      <tr>
-                        <th>Bank Name</th>
-                        <td>{{ a?.bankname }}</td>
-                        <th>Account Holder Name</th>
-                        <td>{{ a?.account_holder_name }}</td>
-                        <th>Account No</th>
-                        <td>{{ a?.bankaccountno }}</td>
-                        <th>Branch Name</th>
-                        <td>{{ a?.branch_name }}</td>
-                      </tr>
-                      <tr>
-                        <th>IFSC Code</th>
-                        <td>{{ a?.bankifsc }}</td>
-                        <th>Account Type</th>
-                        <td>{{ a?.accounttype }}</td>
-                        <th>Bank Address</th>
-                        <td colspan="3">{{ a?.bank_address }}</td>
-                      </tr>
-                    </ng-container>
-                  </tbody>
-                </table>
-                <h6 class="mb-2 mt-3 text-secondary">Documents</h6>
-                <div class="col-md-12 ps-0">
-                  <div class="d-inline-flex">
-                    <div *ngIf="rowData?.doidocument != null" class="col-md-3 col-sm-3 col-3 p-2 ps-0">
-                      <div class="img-sec shadow">
-                        <img src="{{apiUrl}}/{{rowData?.doidocument}}" class="img-fluid" title="DOI Document" alt="DOI Document not available!">
-                      </div>
-                    </div>
-                    <div *ngFor="let d of rowData?.certification" class="col-md-3 col-sm-3 col-3 p-2 ps-0">
-                      <div class="img-sec shadow">
-                        <img src="{{apiUrl}}/{{d?.document}}" class="img-fluid" [title]="d?.certification_name" alt="Not Available!">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vendor Detailed Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive">
+                                <h6 class="mb-2 text-secondary">Vendor Detail</h6>
+                                <table class="table table-hover table-striped custom-table table-bordered">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Vendor Code</th>
+                                            <td>{{ rowData?.suppliercode }}</td>
+                                            <th>Vendor Name</th>
+                                            <td>{{ rowData?.suppliername }}</td>
+                                            <th>Reg Type</th>
+                                            <td>{{ rowData?.category }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Reg No</th>
+                                            <td>{{ rowData?.category_no }}</td>
+                                            <th>GST No</th>
+                                            <td>{{ rowData?.gstno }}</td>
+                                            <th>GST Date</th>
+                                            <td>{{ rowData?.gstdate | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>PAN No</th>
+                                            <td>{{ rowData?.panno }}</td>
+                                            <th>TAN No</th>
+                                            <td>{{ rowData?.tanno }}</td>
+                                            <th>DOI</th>
+                                            <td>{{ rowData?.doi | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-3 text-secondary">Head Office Address</h6>
+                                <table class="table table-hover table-striped custom-table table-bordered">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{{ rowData?.address[0]?.address }}</td>
+                                            <th>City</th>
+                                            <td>{{ rowData?.address[0]?.city }}</td>
+                                            <th>District</th>
+                                            <td>{{ rowData?.address[0]?.district_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>State</th>
+                                            <td>{{ rowData?.address[0]?.state_name }}</td>
+                                            <th>Vendor Name</th>
+                                            <td>{{ rowData?.address[0]?.name }}</td>
+                                            <th>Category</th>
+                                            <td>{{ rowData?.address[0]?.pincode }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-3 text-secondary">Factory Address</h6>
+                                <table class="table table-hover table-striped custom-table table-bordered">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{{ rowData?.address[1]?.address }}</td>
+                                            <th>City</th>
+                                            <td>{{ rowData?.address[1]?.city }}</td>
+                                            <th>District</th>
+                                            <td>{{ rowData?.address[1]?.district_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>State</th>
+                                            <td>{{ rowData?.address[1]?.state_name }}</td>
+                                            <th>Vendor Name</th>
+                                            <td>{{ rowData?.address[1]?.name }}</td>
+                                            <th>Category</th>
+                                            <td>{{ rowData?.address[1]?.pincode }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-3 text-secondary">Contact Details</h6>
+                                <table class="table table-hover table-striped custom-table table-bordered">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr *ngFor="let a of rowData?.contact">
+                                            <th>Person name</th>
+                                            <td>{{ a?.contactperson }}</td>
+                                            <th>Designation</th>
+                                            <td>{{ a?.designationname }}</td>
+                                            <th>Contact</th>
+                                            <td>{{ a?.contactno }}</td>
+                                            <th>Email</th>
+                                            <td>{{ a?.emailid }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-3 text-secondary">Vendor Bank Details</h6>
+                                <table class="table table-hover table-striped custom-table table-bordered">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <ng-container *ngFor="let a of rowData?.bank">
+                                            <tr>
+                                                <th>Bank Name</th>
+                                                <td>{{ a?.bankname }}</td>
+                                                <th>Account Holder Name</th>
+                                                <td>{{ a?.account_holder_name }}</td>
+                                                <th>Account No</th>
+                                                <td>{{ a?.bankaccountno }}</td>
+                                                <th>Branch Name</th>
+                                                <td>{{ a?.branch_name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>IFSC Code</th>
+                                                <td>{{ a?.bankifsc }}</td>
+                                                <th>Account Type</th>
+                                                <td>{{ a?.accounttype }}</td>
+                                                <th>Bank Address</th>
+                                                <td colspan="3">{{ a?.bank_address }}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                                <h6 class="mb-2 mt-3 text-secondary">Documents</h6>
+                                <div class="col-md-12 ps-0">
+                                    <div class="d-inline-flex">
+                                        <div *ngIf="rowData?.doidocument != null"
+                                            class="col-md-3 col-sm-3 col-3 p-2 ps-0">
+                                            <div class="img-sec shadow">
+                                                <img src="{{apiUrl}}/{{rowData?.doidocument}}" class="img-fluid"
+                                                    title="DOI Document" alt="DOI Document not available!">
+                                            </div>
+                                        </div>
+                                        <div *ngFor="let d of rowData?.certification"
+                                            class="col-md-3 col-sm-3 col-3 p-2 ps-0">
+                                            <div class="img-sec shadow">
+                                                <img src="{{apiUrl}}/{{d?.document}}" class="img-fluid"
+                                                    [title]="d?.certification_name" alt="Not Available!">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

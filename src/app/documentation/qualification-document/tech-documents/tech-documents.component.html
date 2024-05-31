@@ -4,7 +4,8 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Technical Documents</h4>
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Technical
+                            Documents</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -23,7 +24,8 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="float-right">
-                                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
+                                <select class="form-select form-select-sm border-secondary pt-04 w-auto"
+                                    (change)="redirect($event)">
                                     <option [disabled]="true" [value]="null">Select</option>
                                     <option [selected]="true"> Technical</option>
                                 </select>
@@ -89,7 +91,9 @@
                                 <td>{{a.capacity}}</td>
                                 <td>{{a.technical_points}}</td> -->
                                 <td>
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#viewPDF" title="View PDF File" (click)="showPdf(a)"><span class="mdi mdi-eye text-warning cursor-pointer mdi-18px"></span></a>
+                                    <a class="" data-bs-toggle="modal" data-bs-target="#viewPDF" title="View PDF File"
+                                        (click)="showPdf(a)"><span
+                                            class="mdi mdi-eye text-warning cursor-pointer mdi-18px"></span></a>
                                 </td>
                             </tr>
                             <tr *ngIf="docListData?.length == 0">
@@ -121,7 +125,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Technical: Pre-Qualification</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#createModal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    data-bs-toggle="modal" data-bs-target="#createModal"></button>
             </div>
             <div class="modal-body cardd">
                 <div class="container-fluid">
@@ -129,7 +134,8 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Company<span class="required-asterisk">*</span></label>
+                                    <label class="form-label fl-10">Company<span
+                                            class="required-asterisk">*</span></label>
                                     <select formControlName="company" class="form-select form-select-sm">
                                         <option [selected]="true" [disabled]="true">Select Company</option>
                                         <option *ngFor="let c of companyData" value="{{c.bidder_id}}">
@@ -143,8 +149,10 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
-                                    <select formControlName="qacatagory_id" class="form-select form-select-sm" #cat (change)="getSubData(cat.value)">
+                                    <label class="form-label fl-10">Category<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="qacatagory_id" class="form-select form-select-sm" #cat
+                                        (change)="getSubData(cat.value)">
                                         <option [selected]="true" [disabled]="true">Select Category</option>
                                         <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">
                                             {{c.qacatagory}}</option>
@@ -157,8 +165,10 @@
                             </div>
                             <div class="col-md-2" *ngIf="cat.value == '1002' || cat.value == '1003'">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Sub-Category<span class="required-asterisk">*</span></label>
-                                    <select formControlName="subqacatagory_id" class="form-select form-select-sm" #sub (change)="getCapacityData(sub.value)">
+                                    <label class="form-label fl-10">Sub-Category<span
+                                            class="required-asterisk">*</span></label>
+                                    <select formControlName="subqacatagory_id" class="form-select form-select-sm" #sub
+                                        (change)="getCapacityData(sub.value)">
                                         <option [selected]="true" [disabled]="true">Select Sub-Category</option>
                                         <option *ngFor="let c of subCategoryData" value="{{c.subqacatagory_id}}">
                                             {{c.subqacatagory}}</option>
@@ -180,7 +190,8 @@
                                             {{c.capacity}}</option>
                                     </select>
                                     <div *ngIf="f['capacity_id'].touched && f['capacity_id'].invalid">
-                                        <small class="text-danger" *ngIf="f['capacity_id'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['capacity_id'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -188,9 +199,11 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Total Experience (In years)</label>
-                                    <input formControlName="experience" type="text" class="form-control form-control-sm" appNumWithDot>
+                                    <input formControlName="experience" type="text" class="form-control form-control-sm"
+                                        appNumWithDot>
                                     <div *ngIf="f['experience'].touched && f['experience'].invalid">
-                                        <small class="text-danger" *ngIf="f['experience'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['experience'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
@@ -198,54 +211,70 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Completion Period (In Months)</label>
-                                    <input formControlName="compPeriod" type="text" class="form-control form-control-sm" appNumWithDot>
+                                    <input formControlName="compPeriod" type="text" class="form-control form-control-sm"
+                                        appNumWithDot>
                                     <div *ngIf="f['compPeriod'].touched && f['compPeriod'].invalid">
-                                        <small class="text-danger" *ngIf="f['compPeriod'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['compPeriod'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Resource Used</label>
-                                    <input formControlName="resourceUsed" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="resourceUsed" type="text"
+                                        class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['resourceUsed'].touched && f['resourceUsed'].invalid">
-                                        <small class="text-danger" *ngIf="f['resourceUsed'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['resourceUsed'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Completion Year</label>
-                                    <input formControlName="compYear" type="text" class="form-control form-control-sm" appNumberOnly>
+                                    <input formControlName="compYear" type="text" class="form-control form-control-sm"
+                                        appNumberOnly>
                                     <div *ngIf="f['compYear'].touched && f['compYear'].invalid">
-                                        <small class="text-danger" *ngIf="f['compYear'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['compYear'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Upload File<span class="required-asterisk">*</span></label>
-                                    <input formControlName="attachment" type="file" class="form-control form-control-sm" accept=".pdf" (change)="onFileChanged($event)">
+                                    <label class="form-label fl-10">Upload File<span
+                                            class="required-asterisk">*</span></label>
+                                    <input formControlName="attachment" type="file" class="form-control form-control-sm"
+                                        accept=".pdf" (change)="onFileChanged($event)">
                                     <div *ngIf="f['attachment'].touched && f['attachment'].invalid">
-                                        <small class="text-danger" *ngIf="f['attachment'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['attachment'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Technical Points<span class="required-asterisk">*</span></label>
-                                    <input formControlName="technical_points" type="text" class="form-control form-control-sm" placeholder="eg: Put your bid points one by one">
+                                    <label class="form-label fl-10">Technical Points<span
+                                            class="required-asterisk">*</span></label>
+                                    <input formControlName="technical_points" type="text"
+                                        class="form-control form-control-sm"
+                                        placeholder="eg: Put your bid points one by one">
                                     <div *ngIf="f['technical_points'].touched && f['technical_points'].invalid">
-                                        <small class="text-danger" *ngIf="f['technical_points'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['technical_points'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client</label>
-                                    <select formControlName="client_id" class="form-select form-select-sm" (ngModelChange)="getDetails($event)">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client</option>
-                                        <option *ngFor="let c of clientData" value="{{c.company_id}}">{{ c.company_name }}</option>
+                                    <select formControlName="client_id" class="form-select form-select-sm"
+                                        (ngModelChange)="getDetails($event)">
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Client
+                                        </option>
+                                        <option *ngFor="let c of clientData" value="{{c.company_id}}">{{ c.company_name
+                                            }}</option>
                                     </select>
                                     <!-- <div *ngIf="f['client_id'].touched && f['client_id'].invalid">
                                         <small class="text-danger" *ngIf="f['client_id'].errors?.['required']">*Required</small>
@@ -256,7 +285,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Tender Title</label>
-                                    <select formControlName="tender_id" class="form-select form-select-sm" (ngModelChange)="getrefData($event)">
+                                    <select formControlName="tender_id" class="form-select form-select-sm"
+                                        (ngModelChange)="getrefData($event)">
                                         <option [selected]="true" [disabled]="true">Select Title</option>
                                         <option *ngFor="let c of tenderDetailsData" value="{{c.tender_id}}">
                                             {{c.tender_title}}</option>
@@ -270,37 +300,43 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">NIT No</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.tender_ref_no">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.tender_ref_no">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT'">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT'">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Category</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.qacatagory">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.qacatagory">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Sub-Category</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.subqacatagory">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.subqacatagory">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Capacity</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.capacity">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.capacity">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.tender_location">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.tender_location">
                                 </div>
                             </div>
                             <!-- <div class="col-md-1">
@@ -312,8 +348,10 @@
 
                         <div class="row mt-2">
                             <div class="modal-btns">
-                                <button type="submit" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm mr-2" [disabled]="!form.valid">Submit</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" data-bs-toggle="modal" data-bs-target="#createModal"
+                                    class="btn btn-primary btn-fw btn-sm mr-2" [disabled]="!form.valid">Submit</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                    data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
 
@@ -342,7 +380,7 @@
                                 <table class="table table-hover table-striped custom-table">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th colspan="6" class="text-center">Qualification Information</th>
+                                            <th colspan="6" class="text-center">Qualification Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
@@ -376,7 +414,7 @@
                                             <th> NIT No</th>
                                             <td>
                                                 <div *ngIf="!!itemList?.tender_ref_no; else elseBlock3"
-                                                data-toggle="tooltip" data-placement="bottom"
+                                                    data-toggle="tooltip" data-placement="bottom"
                                                     title="{{ itemList?.tender_ref_no }}">
                                                     {{itemList?.tender_ref_no | slice:0:30}} <span
                                                         *ngIf="itemList?.tender_ref_no.length > 30">...<i
@@ -402,7 +440,7 @@
                                         </tr>
                                         <tr>
                                             <th>Publish Date</th>
-                                            <td >{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                                            <td>{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                                             <th>Category</th>
                                             <td>{{ itemList?.qacatagory }}</td>
                                             <th>Sub Category</th>

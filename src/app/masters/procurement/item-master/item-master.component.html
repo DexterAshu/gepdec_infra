@@ -20,7 +20,8 @@
               <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
             <div class="col-lg-8">
-              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
             </div>
           </div>
           <app-responsive-table id="export">
@@ -42,7 +43,9 @@
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a?.itemcode }}</td>
                 <td>
-                  <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">{{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.description }}">{{a?.description | slice:0:30}} <span
+                      *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock1>{{a?.description}}</ng-template>
                 </td>
                 <td>{{ a?.itemcategory }}</td>
@@ -50,11 +53,14 @@
                 <td>{{ a?.uom }}</td>
                 <td>{{ a?.gst }}</td>
                 <td>
-                  <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#detailModel" (click)="selectRow(a)" title="Item Detail Model"><span class="mdi mdi-eye text-success mdi-18px"></span></a>
+                  <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#detailModel" (click)="selectRow(a)"
+                    title="Item Detail Model"><span class="mdi mdi-eye text-success mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="dataList?.length == 0">
-                <td colspan="15" class="text-center"><div class="spinner-border"> </div></td>
+                <td colspan="15" class="text-center">
+                  <div class="spinner-border"> </div>
+                </td>
               </tr>
               <tr *ngIf="isNotFound == true">
                 <td colspan="15" class="text-center">
@@ -72,31 +78,41 @@
   </div>
 </div>
 
-<div class="modal fade" id="detailModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="detailModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ selectedRow?.itemcode }} - Item details</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Item Detail</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body p-3">
+      <div class="modal-body px-1 py-2">
         <div class="container-fluid">
           <div class="row">
             <div class="table-responsive" style="min-height: auto">
-              <table class="table table-hover table-striped custom-table">
+              <table class="table table-hover table-striped custom-table table-bordered">
                 <thead class="hidden-thead"></thead>
                 <tbody class="text-nowrap">
                   <tr>
                     <th>Item Code</th>
                     <td>{{ selectedRow?.itemcode }}</td>
                     <th>Description</th>
-                    <td>{{ selectedRow?.description }}</td>
+                    <td>
+                      <div *ngIf="!!selectedRow?.description; else elseBlock1" data-toggle="tooltip"
+                        data-placement="bottom" title="{{ selectedRow?.description }}"> {{selectedRow?.description |
+                        slice:0:30}} <span *ngIf="selectedRow?.description.length > 30">...<i
+                            class="mdi mdi-information"></i></span>
+                      </div>
+                      <ng-template #elseBlock1>
+                        {{selectedRow?.description}}
+                      </ng-template>
+                    </td>
                   </tr>
                   <tr>
                     <th>UOM</th>
                     <td>{{ selectedRow?.uom }}</td>
                     <th>Cost</th>
-                    <td>{{ selectedRow?.cost }}</td>
+                    <td>{{ selectedRow?.cost | currency: 'INR': '' : '1.0-2' }}</td>
                   </tr>
                   <tr>
                     <th>Item Category</th>
@@ -126,7 +142,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -151,7 +168,8 @@
                   <label class="form-label">Item Category<span class="required-asterisk">*</span></label>
                   <select formControlName="itemCategory" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Category</option>
-                    <option *ngFor="let t of dataDropdownList?.itemcategory" [value]="t?.itemcategory_id">{{t?.itemcategory }}</option>
+                    <option *ngFor="let t of dataDropdownList?.itemcategory" [value]="t?.itemcategory_id">
+                      {{t?.itemcategory }}</option>
                   </select>
                   <div *ngIf="f['itemCategory'].touched && f['itemCategory'].invalid">
                     <small class="text-danger" *ngIf="f['itemCategory'].errors?.['required']">*Required</small>
@@ -163,7 +181,8 @@
                   <label class="form-label">Item Sub-Category<span class="required-asterisk">*</span></label>
                   <select formControlName="itemSubCategory" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Sub-category</option>
-                    <option *ngFor="let t of dataDropdownList?.subcategory" [value]="t?.subcategory_id">{{t?.subcategory }}</option>
+                    <option *ngFor="let t of dataDropdownList?.subcategory" [value]="t?.subcategory_id">{{t?.subcategory
+                      }}</option>
                   </select>
                   <div *ngIf="f['itemSubCategory'].touched && f['itemSubCategory'].invalid">
                     <small class="text-danger" *ngIf="f['itemSubCategory'].errors?.['required']">*Required</small>
@@ -185,7 +204,8 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Last Procured Cost</label>
-                  <input formControlName="cost" type="text" class="form-control form-control-sm" appNoSpace appNumWithDot>
+                  <input formControlName="cost" type="text" class="form-control form-control-sm" appNoSpace
+                    appNumWithDot>
                   <div *ngIf="f['cost'].touched && f['cost'].invalid">
                     <small class="text-danger" *ngIf="f['cost'].errors?.['required']">*Required</small>
                   </div>
@@ -220,7 +240,8 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Segment<span class="required-asterisk">*</span></label>
-                  <select formControlName="parentItem" #parentItem class="form-select form-select-sm" (change)="isParent(parentItem.value)">
+                  <select formControlName="parentItem" #parentItem class="form-select form-select-sm"
+                    (change)="isParent(parentItem.value)">
                     <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                     <option value="Yes">Child Item</option>
                     <option value="No">Parent Item</option>
@@ -235,7 +256,8 @@
                   <label class="form-label">Select Parent Item<span class="required-asterisk">*</span></label>
                   <select formControlName="parentItem_id" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Parent</option>
-                    <option *ngFor="let t of dataList" [value]="t.item_id">{{ t.itemcode }} [{{ t.description }}]</option>
+                    <option *ngFor="let t of dataList" [value]="t.item_id">{{ t.itemcode }} [{{ t.description }}]
+                    </option>
                   </select>
                   <div *ngIf="f['parentItem_id'].touched && f['parentItem_id'].invalid">
                     <small class="text-danger" *ngIf="f['parentItem_id'].errors?.['required']">*Required</small>
@@ -247,7 +269,8 @@
                   <label class="form-label">Class<span class="required-asterisk">*</span></label>
                   <select formControlName="itemClass" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Class</option>
-                    <option *ngFor="let t of dataDropdownList?.materialclass" [value]="t.materialclass_id">{{t.materialclass }}</option>
+                    <option *ngFor="let t of dataDropdownList?.materialclass" [value]="t.materialclass_id">
+                      {{t.materialclass }}</option>
                   </select>
                   <div *ngIf="f['itemClass'].touched && f['itemClass'].invalid">
                     <small class="text-danger" *ngIf="f['itemClass'].errors?.['required']">*Required</small>
@@ -259,7 +282,8 @@
                   <label class="form-label">Tolerance<span class="required-asterisk">*</span></label>
                   <select formControlName="itemTolerance" class="form-select form-select-sm">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Tolerance</option>
-                    <option *ngFor="let t of dataDropdownList?.tolerance" [value]="t.tolerance_id">{{ t.tolerance }}</option>
+                    <option *ngFor="let t of dataDropdownList?.tolerance" [value]="t.tolerance_id">{{ t.tolerance }}
+                    </option>
                   </select>
                   <div *ngIf="f['itemTolerance'].touched && f['itemTolerance'].invalid">
                     <small class="text-danger" *ngIf="f['itemTolerance'].errors?.['required']">*Required</small>
@@ -267,9 +291,12 @@
                 </div>
               </div>
               <div class="modal-btns">
-                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
-                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
-                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                  class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
+                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span
+                    class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                  data-bs-dismiss="modal">Close</button>
               </div>
             </div>
           </form>
