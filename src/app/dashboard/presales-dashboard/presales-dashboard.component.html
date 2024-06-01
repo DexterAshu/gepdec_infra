@@ -423,15 +423,15 @@
           <div class="row">
             <p class="card-title mb-2 col-md-9">Top 5 Tenders</p>
             <div class="float-right col-md-3">
-                 <!-- <a class="" href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a> -->
+                 <!-- <a  href="" data-bs-toggle="modal" data-bs-target="#createModal" style="font-size: 12px;"> <span class="mdi mdi-eye-outline"></span> View More</a> -->
             </div>
           </div>
           <div class="cardHead" style="cursor: pointer;">
             <div class="row">
               <div class="col-md-2 col-2">S No</div>
-              <div class="col-md-4 col-4"  style="text-align: left;">Project Name</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">Category</div>
-              <div class="col-md-3 col-3"  style="text-align: left;">ECV (INR)</div>
+              <div class="col-md-4 col-4" style="text-align: left;">Project Name</div>
+              <div class="col-md-3 col-3" style="text-align: left;">Category</div>
+              <div class="col-md-3 col-3" style="text-align: left;">ECV (INR)</div>
             </div>
           </div>
           <div class="table-wrap">
@@ -440,16 +440,18 @@
             </div>
             <div class="card1 mt-1" *ngFor="let tender of topFiveOrder; let i = index">
               <div class="row d-flex">
-                <div class="col-md-2 col-2" >{{i + 1}}</div>
-                <div class="col-md-4 col-4"  style="text-align: left;">
-                  <div *ngIf="!!tender?.tender_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ tender?.tender_title }}">
-                    {{tender?.tender_title | slice:0:15}} <span *ngIf="tender?.tender_title.length > 15">...<i class="mdi mdi-information"></i></span>
-                </div>
-                <ng-template #elseBlock3>
+                <div class="col-md-2 col-2">{{i + 1}}</div>
+                <div class="col-md-4 col-4" style="text-align: left;">
+                  <div *ngIf="!!tender?.tender_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ tender?.tender_title }}">
+                    {{tender?.tender_title | slice:0:15}} <span *ngIf="tender?.tender_title.length > 15">...<i
+                        class="mdi mdi-information"></i></span>
+                  </div>
+                  <ng-template #elseBlock3>
                     {{tender?.tender_title}}
-                </ng-template>
+                  </ng-template>
                 </div>
-                <div class="col-md-3 col-3"  style="text-align: left;">
+                <div class="col-md-3 col-3" style="text-align: left;">
                   {{tender?.qacatagory}}
                   <!-- <div *ngIf="!!tender?.qacatagory; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ tender?.qacatagory }}">
                     {{tender?.qacatagory | slice:0:10}} <span *ngIf="tender?.qacatagory.length > 10">...<i class="mdi mdi-information"></i></span>
@@ -457,12 +459,12 @@
                 <ng-template #elseBlock3>
                     {{tender?.qacatagory}}
                 </ng-template> -->
-                  </div>
-                <div class="col-md-3 col-3"  style="text-align: left;">{{tender.ecv}}</div>
+                </div>
+                <div class="col-md-3 col-3" style="text-align: left;">{{tender.ecv}}</div>
               </div>
             </div>
           </div>
-<!-- 
+          <!-- 
           <div class="table-responsive ht-auto" style="border-top-right-radius: 10px;
           border-top-left-radius: 10px;">
             <table class="table custTable table-striped table-hover">
@@ -486,7 +488,7 @@
             </table>
           </div> -->
 
-        
+
         </div>
       </div>
     </div>
@@ -556,7 +558,8 @@
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
-                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i class="mdi mdi-information"></i></span>
+                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
                   </div>
                 </td>
               </tr>
@@ -564,7 +567,7 @@
           </table>
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p1 = $event"></pagination-controls>
-        </div>
+          </div>
         </div>
 
       </div>
@@ -611,7 +614,8 @@
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
-                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i class="mdi mdi-information"></i></span>
+                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
                   </div>
                 </td>
               </tr>
@@ -619,7 +623,7 @@
           </table>
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
-        </div>
+          </div>
         </div>
 
       </div>
@@ -655,7 +659,8 @@
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let t of participatedData | paginate: { itemsPerPage: limit, currentPage: p3 }; let i = index">
+              <tr
+                *ngFor="let t of participatedData | paginate: { itemsPerPage: limit, currentPage: p3 }; let i = index">
                 <td>{{limit*(p3-1)+i+1}}</td>
                 <td>{{t.tender_title}}</td>
                 <td>{{t.bidtype}}</td>
@@ -666,7 +671,8 @@
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
-                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i class="mdi mdi-information"></i></span>
+                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
                   </div>
                 </td>
               </tr>
@@ -674,7 +680,7 @@
           </table>
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p3 = $event"></pagination-controls>
-        </div>
+          </div>
         </div>
 
       </div>
@@ -721,7 +727,8 @@
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
-                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i class="mdi mdi-information"></i></span>
+                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
                   </div>
                 </td>
               </tr>
@@ -729,7 +736,7 @@
           </table>
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p4 = $event"></pagination-controls>
-        </div>
+          </div>
         </div>
 
       </div>
@@ -746,7 +753,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Project Detail</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="p-2">
@@ -777,7 +784,7 @@
           </table>
           <div class="pagination-sec text-center">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>
+          </div>
         </div>
 
       </div>

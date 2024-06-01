@@ -20,16 +20,7 @@
               <input type="search" class="form-control form-control-sm" placeholder="Search..."
                 [(ngModel)]="searchText">
             </div>
-            <div class="col-lg-3">
-              <div class="float-right">
-                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
-                  <option [disabled]="true" [value]="null">Select</option>
-                  <option [selected]="true" value="/documentation/final-boq"> Final BOQ</option>
-                  <option value="/documentation/drawing-doc"> Drawing</option>
-                  <option value="/documentation/master-drawing-list"> Master Drawing List (MDL)</option>
-                </select>
-              </div>
-            </div>
+            <div class="col-lg-3"></div>
             <div class="col-lg-4">
               <div class="float-right">
                 <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel"
@@ -68,9 +59,9 @@
                 <td>{{a.documentdate}}</td>
                 <td>{{a.documentdate}}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
+                  <a data-bs-toggle="modal" data-bs-target="#createModal"><span
                       class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                  <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span
+                  <a data-bs-toggle="modal" data-bs-target="#detailModal"><span
                       class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>

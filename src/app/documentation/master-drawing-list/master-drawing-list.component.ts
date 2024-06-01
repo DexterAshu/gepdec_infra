@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-master-drawing-list',
@@ -27,7 +26,7 @@ export class MasterDrawingListComponent {
   isSubmitted: boolean = false;
   isNotFound: boolean = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -77,12 +76,6 @@ export class MasterDrawingListComponent {
       this.form.controls['category'].reset();
       this.form.controls['planned_submission_date'].reset();
       this.form.controls['remarks'].reset();
-    }
-  }
-
-  redirect(route: any) {
-    if (route) {
-      this.router.navigateByUrl(route.target.value);
     }
   }
 

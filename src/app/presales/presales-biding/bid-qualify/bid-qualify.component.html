@@ -128,7 +128,7 @@
                         <div class="scroll-container">
                             <div class="card p-2">
                                 <div class="row">
-                                    <h6>Bid | Tender Information:</h6>
+                                    <h6>Bid | Tender Information</h6>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-label">Client Name<span
@@ -170,13 +170,13 @@
                                         </div>
                                     </div>
 
-                          
 
 
-                               
 
+
+
+                                </div>
                             </div>
-                        </div>
                             <div class="card mt-1 p-2">
                                 <div class="row">
                                     <h6>Technical Qualification:</h6>
@@ -254,7 +254,7 @@
                                     </div> -->
 
 
-                                    <div class="">
+                                    <div >
                                         <button type="button" [disabled]="!form.valid"
                                             class="float-right btn btn-primary tn-fw btn-sm"
                                             (click)="toggleVisibility()">+ ADD</button>
@@ -287,7 +287,7 @@
 
                                         </tbody>
                                     </app-responsive-table>
-                                    <div class="" *ngIf="!isVisible">
+                                    <div  *ngIf="!isVisible">
                                         <button type="button" [disabled]="!form.valid"
                                             class="float-right btn btn-success tn-fw btn-sm"
                                             data-bs-dismiss="modal">Submit</button>
@@ -354,8 +354,9 @@
                                     <div class="row ">
                                         <div class="col-lg-12 col-sm-6">
                                             <label id="label1"> Upload Evidence </label><br>
-                                            <input type="file" class="form-control form-control-sm" formControlName="attachment"
-                                                (change)="onFileChanged($event)" multiple="true" />
+                                            <input type="file" class="form-control form-control-sm"
+                                                formControlName="attachment" (change)="onFileChanged($event)"
+                                                multiple="true" />
                                         </div>
 
                                     </div>

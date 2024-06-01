@@ -20,46 +20,54 @@
               <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
             <div class="col-lg-8">
-              <button type="button" class="btn btn-primary btn-fw btn-sm float-right ms-2" data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWH({})">+ Create</button>
-              <button type="button" class="btn btn-primary btn-fw btn-sm float-right" title="Download List of Data in Excel" (click)="download()"><span class="mdi mdi-upload"></span>&nbsp; Export</button>
+              <button type="button" class="btn btn-primary btn-fw btn-sm float-right ms-2" data-bs-toggle="modal"
+                data-bs-target="#createModal" (click)="selectWH({})">+ Create</button>
+              <button type="button" class="btn btn-primary btn-fw btn-sm float-right"
+                title="Download List of Data in Excel" (click)="download()"><span class="mdi mdi-upload"></span>&nbsp;
+                Export</button>
             </div>
           </div>
           <app-responsive-table id="export">
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>Warehouse Code</th>
-                <th>Warehouse Name</th>
+                <th>Client</th>
                 <th>Tender Title</th>
                 <th>NIT No</th>
                 <th>Publish Date</th>
                 <th>Category</th>
-                <th>Sub-Category</th>
-                <th>Capacity</th>
+                <th>Sub Category</th>
+                <th>Capacity </th>
                 <th>Execution Location</th>
+                <th>Warehouse Code</th>
+                <th>Warehouse Name</th>
                 <th>District</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let a of wareHouseData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
+              <tr
+                *ngFor="let a of wareHouseData | filter : searchText | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit * (p - 1) + i + 1 }}</td>
-                <td>{{ a.warehouse_code}}</td>
-                <td>{{ a.warehouse_name }}</td>
+                <td>{{ a.company_name}}</td>
                 <td>
-                  <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                    {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                  <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a.tender_title }}">
+                    {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
                   </div>
                   <ng-template #elseBlock1>
-                      {{a.tender_title}}
+                    {{a.tender_title}}
                   </ng-template>
                 </td>
                 <td>
-                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                      {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.tender_ref_no }}">
+                    {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
                   </div>
                   <ng-template #elseBlock2>
-                      {{a?.tender_ref_no}}
+                    {{a?.tender_ref_no}}
                   </ng-template>
                 </td>
                 <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
@@ -67,10 +75,12 @@
                 <td>{{a.subqacatagory}}</td>
                 <td>{{a.capacity}}</td>
                 <td>{{a.tender_location}}</td>
+                <td>{{ a.warehouse_code}}</td>
+                <td>{{ a.warehouse_name }}</td>
                 <td>{{ a.district }}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectWH(a)" title="edit Warehouse Profile"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>&nbsp;
-                  <a class="" data-bs-toggle="modal" data-bs-target="#viewWH" title="Warehouse Profile" (click)="selectWH(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a data-bs-toggle="modal" data-bs-target="#viewWH" title="Warehouse Profile" (click)="selectWH(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">
@@ -94,7 +104,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="viewWH" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="viewWH" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content" *ngIf="selectedWH?.warehouse_code">
       <div class="modal-header">
@@ -106,7 +117,51 @@
           <div class="row">
             <div class="col-md-12 p-0">
               <div class="table-responsive" style="min-height: 300px">
-                <h6 class="mb-2 text-secondary">Warehouse Details</h6>
+                <table class="table table-hover table-striped custom-table">
+                  <thead class="table-primary text-nowrap">
+                    <tr>
+                      <th colspan="6" class="text-center">Tender Detail</th>
+                      <th colspan="6" class="text-center">Tender Detail</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Client</th>
+                      <td>{{ selectedWH?.company_name }}</td>
+                      <th> NIT No</th>
+                      <td>
+                        <div *ngIf="!!selectedWH?.tender_ref_no; else elseBlock3" data-toggle="tooltip"
+                          data-placement="bottom" title="{{ selectedWH?.tender_ref_no }}"> {{selectedWH?.tender_ref_no |
+                          slice:0:30}} <span *ngIf="selectedWH?.tender_ref_no.length > 30">...<i
+                              class="mdi mdi-information"></i></span></div>
+                        <ng-template #elseBlock3>{{selectedWH?.tender_ref_no}}</ng-template>
+                      </td>
+                      <th>Tender Title</th>
+                      <td>
+                        <div *ngIf="!!selectedWH?.tender_title; else elseBlock4" data-toggle="tooltip"
+                          data-placement="bottom" title="{{ selectedWH?.tender_title }}">{{selectedWH?.tender_title |
+                          slice:0:30}} <span *ngIf="selectedWH?.tender_title.length > 30">...<i
+                              class="mdi mdi-information"></i></span></div>
+                        <ng-template #elseBlock4>{{selectedWH?.tender_title}}</ng-template>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Publish Date</th>
+                      <td>{{ selectedWH?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                      <th>Category</th>
+                      <td>{{ selectedWH?.qacatagory }}</td>
+                      <th>Sub-Category</th>
+                      <td>{{ selectedWH?.subqacatagory }}</td>
+                    </tr>
+                    <tr>
+                      <th>Capacity</th>
+                      <td>{{ selectedWH?.capacity }}</td>
+                      <th>Execution Location</th>
+                      <td colspan="3">{{ selectedWH?.tender_location }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h6 class="my-2 text-secondary">Warehouse Details</h6>
                 <table class="table table-hover table-striped custom-table">
                   <thead class="hidden-thead"></thead>
                   <tbody class="text-nowrap">
@@ -124,7 +179,7 @@
                     </tr>
                   </tbody>
                 </table>
-                <h6 class="mb-2 mt-4 text-secondary">Address Details</h6>
+                <h6 class="my-2 text-secondary">Address Details</h6>
                 <table class="table table-hover table-striped custom-table">
                   <thead class="hidden-thead"></thead>
                   <tbody class="text-nowrap">
@@ -186,7 +241,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -205,21 +261,25 @@
                     <option [selected]="true" [disabled]="true" [value]="null">Select Tender</option>
                     <option *ngFor="let t of tenderList" [value]="t.tender_id">{{ t.tender_title }}</option>
                   </select>
-                  <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid"><small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small></div>
+                  <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid"><small class="text-danger"
+                      *ngIf="f['tender_id'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Warehouse Name<span class="required-asterisk">*</span></label>
-                  <input formControlName="warehouse_name" type="text" class="form-control form-control-sm" appWordCapitalize />
-                  <div *ngIf="f['warehouse_name'].touched && f['warehouse_name'].invalid"><small class="text-danger" *ngIf="f['warehouse_name'].errors?.['required']">*Required</small></div>
+                  <input formControlName="warehouse_name" type="text" class="form-control form-control-sm"
+                    appWordCapitalize />
+                  <div *ngIf="f['warehouse_name'].touched && f['warehouse_name'].invalid"><small class="text-danger"
+                      *ngIf="f['warehouse_name'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Address<span class="required-asterisk">*</span></label>
                   <input formControlName="address1" type="text" class="form-control form-control-sm">
-                  <div *ngIf="f['address1'].touched && f['address1'].invalid"><small class="text-danger" *ngIf="f['address1'].errors?.['required']">*Required</small></div>
+                  <div *ngIf="f['address1'].touched && f['address1'].invalid"><small class="text-danger"
+                      *ngIf="f['address1'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
@@ -231,21 +291,25 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                  <select formControlName="country_id" class="form-select form-select-sm" (ngModelChange)="getStateData()">
+                  <select formControlName="country_id" class="form-select form-select-sm"
+                    (ngModelChange)="getStateData()">
                     <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
                     <option *ngFor="let t of countryData" [value]="t.country_id">{{ t.name }}</option>
                   </select>
-                  <div *ngIf="f['country_id'].touched && f['country_id'].invalid"><small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small></div>
+                  <div *ngIf="f['country_id'].touched && f['country_id'].invalid"><small class="text-danger"
+                      *ngIf="f['country_id'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">State<span class="required-asterisk">*</span></label>
-                  <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData()">
+                  <select formControlName="state_id" class="form-select form-select-sm"
+                    (ngModelChange)="getDistrictData()">
                     <option [selected]="true" [disabled]="true" [value]="null">Select State</option>
                     <option *ngFor="let t of stateData" [value]="t.state_id">{{ t.state_name }}</option>
                   </select>
-                  <div *ngIf="f['state_id'].touched && f['state_id'].invalid"><small class="text-danger" *ngIf="f['state_id'].errors?.['required']">*Required</small></div>
+                  <div *ngIf="f['state_id'].touched && f['state_id'].invalid"><small class="text-danger"
+                      *ngIf="f['state_id'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
@@ -255,7 +319,8 @@
                     <option [selected]="true" [disabled]="true" [value]="null">Select District</option>
                     <option *ngFor="let t of districtData" [value]="t.district_id">{{ t.district_name }}</option>
                   </select>
-                  <div *ngIf="f['district_id'].touched && f['district_id'].invalid"><small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small></div>
+                  <div *ngIf="f['district_id'].touched && f['district_id'].invalid"><small class="text-danger"
+                      *ngIf="f['district_id'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <div class="col-md-4">
@@ -267,8 +332,10 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label">Pin Code<span class="required-asterisk">*</span></label>
-                  <input formControlName="pincode" type="text" class="form-control form-control-sm" maxlength="6" minlength="6" appNumberOnly appNoSpace>
-                  <div *ngIf="f['pincode'].touched && f['pincode'].invalid"><small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small></div>
+                  <input formControlName="pincode" type="text" class="form-control form-control-sm" maxlength="6"
+                    minlength="6" appNumberOnly appNoSpace>
+                  <div *ngIf="f['pincode'].touched && f['pincode'].invalid"><small class="text-danger"
+                      *ngIf="f['pincode'].errors?.['required']">*Required</small></div>
                 </div>
               </div>
               <h6 class="my-2 text-secondary">Contact Details</h6>
@@ -279,7 +346,8 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label>Name<span class="required-asterisk">*</span></label>
-                          <input formControlName="contact_name" type="text" class="form-control form-control-sm" appWordCapitalize>
+                          <input formControlName="contact_name" type="text" class="form-control form-control-sm"
+                            appWordCapitalize>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -287,41 +355,48 @@
                           <label class="form-label">Designation<span class="required-asterisk">*</span></label>
                           <select formControlName="usdg_id" class="form-select form-select-sm">
                             <option [selected]="true" [disabled]="true" [value]="null">Select Designation</option>
-                            <option *ngFor="let t of dataDropdownList.designation" [value]="t.usdg_id">{{t.designationname }}</option>
-                        </select>
+                            <option *ngFor="let t of dataDropdownList.designation" [value]="t.usdg_id">
+                              {{t.designationname }}</option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Primary No<span class="required-asterisk">*</span></label>
-                        <input formControlName="contactno1" type="text" class="form-control form-control-sm" minlength="10"
-                        maxlength="10">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Primary No<span class="required-asterisk">*</span></label>
+                          <input formControlName="contactno1" type="text" class="form-control form-control-sm"
+                            minlength="10" maxlength="10">
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Secondary No</label>
-                        <input formControlName="contactno2" type="text" class="form-control form-control-sm" [maxlength]="10" appNumberOnly appNoSpace minlength="10" maxlength="10">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Secondary No</label>
+                          <input formControlName="contactno2" type="text" class="form-control form-control-sm"
+                            [maxlength]="10" appNumberOnly appNoSpace minlength="10" maxlength="10">
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Email ID<span class="required-asterisk">*</span></label>
-                        <input formControlName="email" type="email" class="form-control form-control-sm">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Email ID<span class="required-asterisk">*</span></label>
+                          <input formControlName="email" type="email" class="form-control form-control-sm">
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-4">
-                      <button type="button" class="btn btn-primary btn-fw btn-sm" style="margin-top: 25px;" *ngIf="i > 0" (click)="removeContact(i)">Remove</button>
+                      <div class="col-md-4">
+                        <button type="button" class="btn btn-primary btn-fw btn-sm" style="margin-top: 25px;"
+                          *ngIf="i > 0" (click)="removeContact(i)">Remove</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                  <button type="button" class="btn btn-primary btn-fw btn-sm" (click)="addContact()">Add More Contact</button>
+                  <button type="button" class="btn btn-primary btn-fw btn-sm" (click)="addContact()">Add More
+                    Contact</button>
                 </div>
               </div>
               <div class="modal-btns">
-                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>
-                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                  class="btn btn-primary btn-fw btn-sm mr-2"> {{!update ? "Add" : "Update"}}</button>
+                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span
+                    class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                  data-bs-dismiss="modal">Close</button>
               </div>
             </div>
           </form>

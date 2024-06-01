@@ -89,7 +89,7 @@
                   <td>{{ data.created | date:"dd/MM/yyyy hh:mm a" : 'GMT' }}</td> -->
                   <td *ngIf="data?.status == 'Approved' || data?.status == 'Rejected'"> <span class="badge badge-{{ (data?.status == 'Approved') ? 'success' : (data?.status == 'Rejected' ? 'danger' : 'warning') }}">{{ data?.status }}</span> </td>
                   <td>
-                    <a class="" data-bs-toggle="modal" (click)="selectRequest(data)" data-bs-target="#view" title="Warehouse Profile"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                    <a  data-bs-toggle="modal" (click)="selectRequest(data)" data-bs-target="#view" title="Warehouse Profile"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                   </td>
                 </tr>
                 <tr *ngIf="auditRequestData?.length == 0">

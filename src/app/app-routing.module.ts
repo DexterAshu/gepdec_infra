@@ -6,15 +6,6 @@ import { UserLogsComponent } from './user-management/user-logs/user-logs.compone
 import { UserRolesComponent } from './user-management/user-roles/user-roles.component';
 import { UserMasterComponent } from './user-management/user-master/user-master.component';
 import { PresalesBidingComponent } from './presales/presales-biding/presales-biding.component';
-import { DesignModuleComponent } from './presales/design-module/design-module.component';
-import { WarehouseStoreComponent } from './presales/warehouse-store/warehouse-store.component';
-import { ExecutionComponent } from './presales/execution/execution.component';
-import { QualitySafetyComponent } from './presales/quality-safety/quality-safety.component';
-import { ProjHandoverComponent } from './presales/proj-handover/proj-handover.component';
-import { PaymentComponent } from './presales/payment/payment.component';
-import { FinanceComponent } from './presales/finance/finance.component';
-import { ProjClosureComponent } from './presales/proj-closure/proj-closure.component';
-import { PerformanceComponent } from './presales/performance/performance.component';
 import { CompanyDashboardComponent } from './dashboard/company-dashboard/company-dashboard.component';
 import { FinanceDashboardComponent } from './dashboard/finance-dashboard/finance-dashboard.component';
 import { PerformanceDashboardComponent } from './dashboard/performance-dashboard/performance-dashboard.component';
@@ -45,7 +36,6 @@ import { SynopsisComponent } from './presales/presales-biding/synopsis/synopsis.
 import { FinancialBidComponent } from './presales/presales-biding/financial-bid/financial-bid.component';
 import { BankingDetailsComponent } from './presales/presales-biding/banking-details/banking-details.component';
 import { BoqItemsComponent } from './presales/presales-biding/boq-items/boq-items.component';
-import { ProblemTicketComponent } from './problem-ticket/problem-ticket.component';
 import { HelpSupportComponent } from './help-support/help-support.component';
 import { DocumentationComponent } from './documentation/documentation.component';
 import { TenderDocumentComponent } from './documentation/tender-document/tender-document.component';
@@ -92,6 +82,7 @@ import { IndirectCostingComponent } from './presales/presales-biding/indirect-co
 import { DirectCostingComponent } from './presales/presales-biding/direct-costing/direct-costing.component';
 import { CostingApprovalComponent } from './presales/presales-biding/costing-approval/costing-approval.component';
 import { TenderFinalApprovalComponent } from './presales/presales-biding/tender-final-approval/tender-final-approval.component';
+import { UnderDevelopmentComponent } from './sharedComponent/under-development/under-development.component';
 
 const routes: Routes = [
   // {path: 'login', component: LoginComponent},
@@ -101,13 +92,13 @@ const routes: Routes = [
   {path: 'dashboard', component:DashboardComponent, canActivate:[AuthGuard]},
   //L2-schedule-bulkdata
   {path: 'l2-bulkdata', component:L2ScheduleBulkdataComponent, canActivate:[AuthGuard]},
-  {path: 'issue-tickets', component:ProblemTicketComponent, canActivate:[AuthGuard]},
+  {path: 'issue-tickets', component:UnderDevelopmentComponent, canActivate:[AuthGuard]},
   {path: 'help-support', component:HelpSupportComponent, canActivate:[AuthGuard]},
   //Documentation-routing
   {path: 'documentation', component:DocumentationComponent, canActivate:[AuthGuard]},
   //teder-documnets
   {path: 'documentation/tend-doc', component:TenderDocumentComponent, canActivate:[AuthGuard]},
-  {path: 'documentation/tend-doc/amedments', component:AmendmentsComponent, canActivate:[AuthGuard]},
+  {path: 'documentation/tend-doc/amendments', component:AmendmentsComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/initial-boq', component:InitialBoqComponent, canActivate:[AuthGuard]},
   {path: 'documentation/tend-doc/l1-schedule', component:L1ScheduleComponent, canActivate:[AuthGuard]},
   {path: 'documentation/qualification-doc', component:QualificationDocumentComponent, canActivate:[AuthGuard]},
@@ -166,15 +157,14 @@ const routes: Routes = [
   {path: 'master',loadChildren: () => import('./masters/master.module').then((m) => m.MasterModule),canActivate: [AuthGuard]},
   //presales
   {path: 'presales/presales-biding', component:PresalesBidingComponent, canActivate:[AuthGuard]},
-  {path: 'presales/design-module', component:DesignModuleComponent, canActivate:[AuthGuard]},
-  {path: 'presales/warehouse', component:WarehouseStoreComponent, canActivate:[AuthGuard]},
-  {path: 'presales/execution', component:ExecutionComponent, canActivate:[AuthGuard]},
-  {path: 'presales/quality-safety', component:QualitySafetyComponent, canActivate:[AuthGuard]},
-  {path: 'presales/proj-handover', component:ProjHandoverComponent, canActivate:[AuthGuard]},
-  {path: 'presales/payment', component:PaymentComponent, canActivate:[AuthGuard]},
-  {path: 'presales/finance', component:FinanceComponent, canActivate:[AuthGuard]},
-  {path: 'presales/proj-closure', component:ProjClosureComponent, canActivate:[AuthGuard]},
-  {path: 'presales/performance', component:PerformanceComponent, canActivate:[AuthGuard]},
+  {path: 'presales/warehouse', component:UnderDevelopmentComponent, canActivate:[AuthGuard]},
+  {path: 'presales/execution', component:UnderDevelopmentComponent, canActivate:[AuthGuard]},
+  {path: 'presales/quality-safety', component:UnderDevelopmentComponent, canActivate:[AuthGuard]},
+  {path: 'presales/proj-handover', component:UnderDevelopmentComponent, canActivate:[AuthGuard]},
+  {path: 'presales/payment', component:UnderDevelopmentComponent, canActivate:[AuthGuard]},
+  {path: 'presales/finance', component:UnderDevelopmentComponent, canActivate:[AuthGuard]},
+  {path: 'presales/proj-closure', component:UnderDevelopmentComponent, canActivate:[AuthGuard]},
+  {path: 'presales/performance', component:UnderDevelopmentComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/direct-biding', component:DirectBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/indirect-biding', component:IndirectBidingComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/bid-qualify', component:BidQualifyComponent, canActivate:[AuthGuard]},

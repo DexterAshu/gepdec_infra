@@ -26,10 +26,10 @@
 
                                 <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
                                     <option [disabled]="true" [value]="null">Select</option>
-                                    <option [selected]="true" value="/documentation/qualification-doc/fin/maat"> MAAT</option>
-                                    <option value="/documentation/qualification-doc/fin/bank-certificate"> Bank certificate</option>
                                     <option value="/documentation/qualification-doc/fin/balance-sheet"> Balance Sheet</option>
+                                    <option [selected]="true" value="/documentation/qualification-doc/fin/maat"> MAAT</option>
                                     <option value="/documentation/qualification-doc/fin/liq-asset"> Liquid Assets</option>
+                                    <option value="/documentation/qualification-doc/fin/bank-certificate"> Bank Certificate</option>
                                     <option value="/documentation/qualification-doc/fin/itr"> ITR</option>
                                     <option value="/documentation/qualification-doc/fin/tender-fees"> Registration Fees</option>
                                 </select>    
@@ -82,8 +82,8 @@
                                 </td>
                               
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a  data-bs-toggle="modal" data-bs-target="#detailModal"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                                     <!-- &nbsp; -->
                                      <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 

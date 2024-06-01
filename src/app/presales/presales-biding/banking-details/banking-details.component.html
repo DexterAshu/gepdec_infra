@@ -101,12 +101,12 @@
                                 <td>{{a.submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
 
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal"
                                         (click)="getPatchDetails(a)"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details" (click)="getBankDetails(a)"><span
+                                    <a  data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        (click)="getBankDetails(a)"><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
@@ -220,25 +220,29 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Category</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.qacatagory">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.qacatagory">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Sub-Category</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.subqacatagory">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.subqacatagory">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Capacity</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.capacity">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.capacity">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.tender_location">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.tender_location">
                                 </div>
                             </div>
                             <div class="form-group col-4">
@@ -328,7 +332,7 @@
                     <table class="table table-hover table-striped custom-table">
                         <!-- <thead class="table-primary text-nowrap">
                             <tr>
-                                <th colspan="6" class="text-center">Tender Information</th>
+                                <th colspan="6" class="text-center">Tender Detail</th>
                             </tr>
                         </thead> -->
                         <tbody class="text-nowrap">
@@ -337,8 +341,11 @@
                                 <td>{{ rowData?.company_name }}</td>
                                 <th>NIT No</th>
                                 <td>
-                                    <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_ref_no }}">
-                                        {{rowData?.tender_ref_no | slice:0:30}} <span *ngIf="rowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ rowData?.tender_ref_no }}">
+                                        {{rowData?.tender_ref_no | slice:0:30}} <span
+                                            *ngIf="rowData?.tender_ref_no.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock3>
                                         {{rowData?.tender_ref_no}}
@@ -360,24 +367,30 @@
                                 <td> {{rowData?.financialyear}}</td>
                                 <th>Execution Location</th>
                                 <td>
-                                    <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">
-                                        {{rowData?.tender_location | slice:0:30}} <span *ngIf="rowData?.tender_location.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ rowData?.tender_location }}">
+                                        {{rowData?.tender_location | slice:0:30}} <span
+                                            *ngIf="rowData?.tender_location.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock4>
                                         {{rowData?.tender_location}}
                                     </ng-template>
                                 </td>
-                              
+
                                 <th>Tender Title</th>
                                 <td>
-                                    <div *ngIf="!!rowData?.tender_title; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">
-                                        {{rowData?.tender_title | slice:0:30}} <span *ngIf="rowData?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!rowData?.tender_title; else elseBlock5" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ rowData?.tender_title }}">
+                                        {{rowData?.tender_title | slice:0:30}} <span
+                                            *ngIf="rowData?.tender_title.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock5>
                                         {{rowData?.tender_title}}
                                     </ng-template>
                                 </td>
-                              
+
                             </tr>
 
                             <tr>
@@ -397,7 +410,7 @@
                                 <th></th>
                                 <td></td>
                             </tr>
-    
+
                             <tr>
                                 <th>Description</th>
                                 <td>
@@ -429,7 +442,7 @@
                         </tbody>
                     </table>
                 </div>
-             
+
             </div>
         </div>
     </div>

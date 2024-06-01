@@ -61,14 +61,13 @@
                         </div>
 
                         <div class="col-lg-4">
-                            
+
                         </div>
 
                         <div class="col-lg-4">
                             <div class="float-right">
                                 <button class="btn btn-primary btn-fw btn-sm me-2"
-                                    title="Download List of Data in Excel"
-                                    (click)="download()">
+                                    title="Download List of Data in Excel" (click)="download()">
                                     <span class="mdi mdi-upload"></span> Export
                                 </button>
                                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
@@ -76,7 +75,8 @@
                                     <span class="mdi mdi-download"></span> Import
                                 </button>
                                 <button type="button" routerLink="/presales/presales-biding/data-capture"
-                                    class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span> Create</button>
+                                    class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span>
+                                    Create</button>
                             </div>
                         </div>
                     </div>
@@ -105,16 +105,21 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.company_name }}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a.tender_title }}">
+                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock1>
                                         {{a.tender_title}}
                                     </ng-template>
                                 </td>
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">
+                                        {{a?.tender_ref_no | slice:0:30}} <span
+                                            *ngIf="a?.tender_ref_no.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock2>
                                         {{a?.tender_ref_no}}
@@ -129,9 +134,14 @@
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{ a?.request_status}}</td>
                                 <td>
-                                    <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                                    <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal"
+                                        data-bs-target="#createModal"
+                                        (click)="getDetails(a.tender_id)"><span
+                                            class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data"
+                                        (click)="rowListData(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
@@ -174,7 +184,7 @@
                                 <table class="table table-hover table-striped custom-table">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th colspan="6" class="text-center">Tender Information</th>
+                                            <th colspan="6" class="text-center">Tender Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
@@ -183,8 +193,12 @@
                                             <td>{{ rowData?.company_name }}</td>
                                             <th>NIT No</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_ref_no }}">
-                                                    {{rowData?.tender_ref_no | slice:0:30}} <span *ngIf="rowData?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_ref_no }}">
+                                                    {{rowData?.tender_ref_no | slice:0:30}} <span
+                                                        *ngIf="rowData?.tender_ref_no.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock3>
                                                     {{rowData?.tender_ref_no}}
@@ -206,24 +220,32 @@
                                             <td> {{rowData?.financialyear}}</td>
                                             <th>Execution Location</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}">
-                                                    {{rowData?.tender_location | slice:0:30}} <span *ngIf="rowData?.tender_location.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_location }}">
+                                                    {{rowData?.tender_location | slice:0:30}} <span
+                                                        *ngIf="rowData?.tender_location.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock4>
                                                     {{rowData?.tender_location}}
                                                 </ng-template>
                                             </td>
-                                          
+
                                             <th>Tender Title</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_title; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_title }}">
-                                                    {{rowData?.tender_title | slice:0:30}} <span *ngIf="rowData?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.tender_title; else elseBlock5"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_title }}">
+                                                    {{rowData?.tender_title | slice:0:30}} <span
+                                                        *ngIf="rowData?.tender_title.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock5>
                                                     {{rowData?.tender_title}}
                                                 </ng-template>
                                             </td>
-                                          
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -249,7 +271,8 @@
                                             <td>{{ rowData?.district_name}}</td>
                                             <th>City</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.city; else elseCity" data-toggle="tooltip" data-placement="bottom" title="{{rowData?.city}}">
+                                                <div *ngIf="!!rowData?.city; else elseCity" data-toggle="tooltip"
+                                                    data-placement="bottom" title="{{rowData?.city}}">
                                                     <span>{{rowData?.city}}</span>
 
                                                 </div>
@@ -258,7 +281,7 @@
                                                 </ng-template>
                                             </td>
                                         </tr>
-                                   
+
                                         <tr>
                                             <th>Bidder Company</th>
                                             <td>{{ rowData?.bidder_name }}</td>
@@ -268,8 +291,13 @@
                                             <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                             <th>Tender Available Link</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_detail_link; else elseBlock6" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_detail_link }}">
-                                                    <a [href]="rowData?.tender_detail_link" target="_blank">{{rowData?.tender_detail_link | slice:0:20}} <span *ngIf="rowData?.tender_detail_link.length > 20">...<i class="mdi mdi-information"></i></span></a>
+                                                <div *ngIf="!!rowData?.tender_detail_link; else elseBlock6"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_detail_link }}">
+                                                    <a [href]="rowData?.tender_detail_link"
+                                                        target="_blank">{{rowData?.tender_detail_link | slice:0:20}}
+                                                        <span *ngIf="rowData?.tender_detail_link.length > 20">...<i
+                                                                class="mdi mdi-information"></i></span></a>
                                                 </div>
                                                 <ng-template #elseBlock6>
                                                     <!-- <a [href]="rowData?.tender_detail_link" target="_blank">{{rowData?.tender_detail_link}}</a> -->
@@ -278,13 +306,15 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                           
+
                                             <th>Soft Copy Submission Date </th>
-                                            <td>{{ rowData?.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                            <td>{{ rowData?.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT'
+                                                }}</td>
                                             <th>Hard Copy Submission Date </th>
                                             <td>
                                                 <span *ngIf="!!rowData?.tenderhardcopysubmission_date; else elseBlock7">
-                                                    {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
+                                                    {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy hh:mm
+                                                    a' : 'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock7>
                                                     --
@@ -304,7 +334,7 @@
                                                 </ng-template>
                                             </td>
                                         </tr>
-                                       
+
                                         <tr>
                                             <th>Pre-Bid Meeting Date</th>
                                             <td>
@@ -320,7 +350,8 @@
                                             <th>Fin Bid Opening Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.fin_bid_opening_date; else elseBlock10">
-                                                    {{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
+                                                    {{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy hh:mm a' :
+                                                    'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock10>
                                                     --
@@ -333,7 +364,7 @@
                                             <th>Registration Fees</th>
                                             <td>{{ rowData?.tender_fee | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Document Cost</th>
-                                            <td>{{ rowData?.tender_doc_cost  | currency: 'INR': '' : '1.0-2' }}</td>
+                                            <td>{{ rowData?.tender_doc_cost | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Bid Validity (Days)</th>
                                             <td>{{ rowData?.bid_validity }}</td>
                                             <th>Completion period (Months)</th>
@@ -353,7 +384,9 @@
                                             </td>
                                             <th>Security Sub Date</th>
                                             <td>
-                                                <span *ngIf="!!rowData?.securitysubmission_date; else elseBlock12"> {{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
+                                                <span *ngIf="!!rowData?.securitysubmission_date; else elseBlock12"> {{
+                                                    rowData?.securitysubmission_date | date: 'dd/MM/yyyy hh:mm a' :
+                                                    'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock12>
                                                     --
@@ -377,11 +410,11 @@
                                             <th>EMD Amount</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.emd_ammount; else elseBlock14">
-                                                    {{ rowData?.emd_ammount | currency: 'INR': '' : '1.0-2'  }}
+                                                    {{ rowData?.emd_ammount | currency: 'INR': '' : '1.0-2' }}
                                                 </span>
                                                 <ng-template #elseBlock14>
                                                     --
-                                                </ng-template>    
+                                                </ng-template>
                                             </td>
                                             <th>EMD Payment Mode</th>
                                             <td>
@@ -390,53 +423,59 @@
                                                 </span>
                                                 <ng-template #elseBlock15>
                                                     --
-                                                </ng-template>    
+                                                </ng-template>
                                             </td>
 
                                         </tr>
-                                       
+
                                         <tr>
                                             <th>EMD Sub Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.emd_submission_date; else elseBlock16">
-                                                    {{ rowData?.emd_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
+                                                    {{ rowData?.emd_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT'
+                                                    }}
                                                 </span>
                                                 <ng-template #elseBlock16>
                                                     --
-                                                </ng-template>    
+                                                </ng-template>
                                             </td>
                                             <th>Forfeiture Condition</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.forfeiture_condition; else elseBlock17" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.forfeiture_condition }}">
-                                                    {{rowData?.forfeiture_condition | slice:0:30}} <span *ngIf="rowData?.forfeiture_condition.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.forfeiture_condition; else elseBlock17"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.forfeiture_condition }}">
+                                                    {{rowData?.forfeiture_condition | slice:0:30}} <span
+                                                        *ngIf="rowData?.forfeiture_condition.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock17>
                                                     <!-- {{rowData?.forfeiture_condition}} -->
                                                     --
                                                 </ng-template>
                                             </td>
-                                           
+
                                             <th>Reverse Auction</th>
                                             <td>{{ rowData?.reserve_auction }}</td>
                                             <th>Current Status</th>
                                             <!-- <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td> -->
                                             <td class="badge badge-primary mt-2">{{ rowData?.request_status }}</td>
-                                           
+
                                         </tr>
                                         <tr>
                                             <th>Payment Terms</th>
                                             <td colspan="7">
-                                                <span *ngFor="let ph of (rowData?.tenderpayment_terms != null ? (rowData?.tenderpayment_terms.slice(0, -1)).split('\n') : rowData?.tenderpayment_terms.slice(0, -1)), index as i">
+                                                <span
+                                                    *ngFor="let ph of (rowData?.tenderpayment_terms != null ? (rowData?.tenderpayment_terms.slice(0, -1)).split('\n') : rowData?.tenderpayment_terms.slice(0, -1)), index as i">
                                                     {{ ph }} <br>
-                                                 </span>
+                                                </span>
                                             </td>
                                             <!-- <td colspan="5">
                                                 {{rowData?.tenderpayment_terms }}
                                             </td> -->
                                         </tr>
-                                       
+
                                         <tr>
-                                            
+
                                             <th>Created On</th>
                                             <td>{{ rowData?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                             <th>Created By</th>
@@ -446,7 +485,7 @@
                                             <th></th>
                                             <td></td>
                                         </tr>
-                                      
+
                                     </tbody>
                                 </table>
 
@@ -454,7 +493,8 @@
                                     <h6>Contact Information</h6>
                                     <div class="row">
                                         <div class="col-md-12 p-0">
-                                            <div class="table-responsive tableStyle" style="min-height: auto !important;">
+                                            <div class="table-responsive tableStyle"
+                                                style="min-height: auto !important;">
                                                 <table class="table table-hover table-striped mb-3">
                                                     <thead class="table-primary text-nowrap">
                                                         <tr>
@@ -474,12 +514,13 @@
                                                             <td>{{ a?.deptname }}</td>
                                                             <td>{{ a?.contactno1}}</td>
                                                             <td>{{ a?.email}}</td>
-                                                          
+
                                                         </tr>
-                                                     
+
                                                         <tr *ngIf="rowData?.contact?.length == 0">
                                                             <td colspan="15" class="text-center">
-                                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                                                <div class="text-warning fw-semibold">Looks like no data
+                                                                    available!</div>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -826,7 +867,7 @@
                                 </div>
                             </div>
                             </div> -->
-<!-- 
+                            <!-- 
                             <div class="row mt-2">
                                 <div class="col-md-6">
                                     <div class="text-primary cursor-pointer" (click)="showPreNotes=!showPreNotes">

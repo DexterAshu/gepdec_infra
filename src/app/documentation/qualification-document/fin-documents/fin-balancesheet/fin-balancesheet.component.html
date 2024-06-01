@@ -28,7 +28,7 @@
                                     <option [selected]="true" value="/documentation/qualification-doc/fin/balance-sheet"> Balance Sheet</option>
                                     <option value="/documentation/qualification-doc/fin/maat"> MAAT</option>
                                     <option value="/documentation/qualification-doc/fin/liq-asset"> Liquid Assets</option>
-                                    <option value="/documentation/qualification-doc/fin/bank-certificate"> Bank certificate</option>
+                                    <option value="/documentation/qualification-doc/fin/bank-certificate"> Bank Certificate</option>
                                     <option value="/documentation/qualification-doc/fin/itr"> ITR</option>
                                     <option value="/documentation/qualification-doc/fin/tender-fees"> Registration Fees</option>
                                 </select>
@@ -73,8 +73,8 @@
                                     </ng-template>
                                 </td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal"data-bs-target="#detailModal" title="View Details" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a  data-bs-toggle="modal"data-bs-target="#detailModal" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                                     <!-- &nbsp; -->
                                      <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 
@@ -273,12 +273,12 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Balance Sheet Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
-                <table class="table table-hover table-striped custom-table">
+                <table class="table table-hover table-striped custom-table table-bordered">
                     <thead class="hidden-thead"></thead>
                     <tbody class="text-nowrap">
                         <tr>

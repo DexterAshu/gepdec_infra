@@ -25,9 +25,9 @@
               <div class="float-right">
                 <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
                   <option [disabled]="true" [value]="null">Select</option>
-                  <option [selected]="true" value="/documentation/tend-doc/initial-boq"> Initial BOQ</option>
                   <option value="/documentation/tend-doc"> Tender</option>
-                  <option value="/documentation/tend-doc/amedments"> Amendments</option>
+                  <option value="/documentation/tend-doc/amendments"> Amendments</option>
+                  <option [selected]="true" value="/documentation/tend-doc/initial-boq"> Initial BOQ</option>
                   <option value="/documentation/tend-doc/l1-schedule"> L1 Schedule</option>
                 </select>
               </div>
@@ -83,10 +83,10 @@
                 <td>{{a.tender_location}}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectRow(a)"
-                    title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                   ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                   &nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#detailModal" (click)="selectRow(a)"
-                    title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                   ><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                   &nbsp;
                   <a *ngIf="a?.document" href="{{apiURL}}{{a.document}}" download="{{apiURL}}{{a.document}}"
                     title="Download BOQ File" target="_blank"><span
@@ -241,8 +241,8 @@
         <div class="container-fluid">
           <div class="row">
             <div class="table-responsive" style="min-height: auto">
-              <h6 class="mb-2 text-secondary">Tender Details</h6>
-              <table class="table table-hover table-striped custom-table">
+              <h6 class="mb-2 text-secondary">Tender Detail</h6>
+              <table class="table table-hover table-striped custom-table table-bordered">
                 <thead class="hidden-thead"></thead>
                 <tbody>
                   <tr>

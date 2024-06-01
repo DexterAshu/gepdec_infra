@@ -75,8 +75,8 @@
                                 <td>{{a.company_name}}</td>
                                 <td>
                                     <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a?.tender_title }}">
-                                        {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i
+                                        data-placement="bottom" title="{{ a?.tender_title }}"> {{a?.tender_title |
+                                        slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i
                                                 class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock1>
@@ -118,11 +118,11 @@
                                 </td>
 
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details"><span
+                                    <a  data-bs-toggle="modal" data-bs-target="#detailModal"
+                                       ><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
@@ -229,13 +229,15 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT'">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT'">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Category</label>
-                                    <input class="form-control form-control-sm" readonly [value]="filterTenderDetailsData[0]?.qacatagory">
+                                    <input class="form-control form-control-sm" readonly
+                                        [value]="filterTenderDetailsData[0]?.qacatagory">
                                 </div>
                             </div>
                             <div class="col-md-3">
