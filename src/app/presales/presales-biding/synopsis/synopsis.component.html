@@ -533,11 +533,11 @@
                                         <thead class="table-primary text-nowrap">
                                             <tr>
                                                 <th>Financial Parameters</th>
-                                                <th>Amounts (Cr)</th>
+                                                <th>Amounts (INR)</th>
                                                 <th>Condition</th>
                                                 <th>Years</th>
                                                 <th>Fin Year</th>
-                                                <th>Our Values (Cr)</th>
+                                                <th>Our Values (INR)</th>
                                                 <th>Result</th>
                                             </tr>
                                         </thead>
@@ -557,7 +557,7 @@
                                                 <!-- <td>{{ a?.annual_turnover_check}}</td> -->
                                                 <td>{{ a?.annual_turnover_year }}</td>
                                                 <td>{{ a?.financialyear }}</td>
-                                                <td>{{ a?.our_annual_turnover}}</td>
+                                                <td>{{ a?.our_annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf=" a?.annual_turnover_status == true; else ifNot2">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -578,7 +578,7 @@
                                                 <td> -- </td>
                                                 <td>{{ a?.net_profit_year }}</td>
                                                 <td>{{ a?.net_profit_fin }}</td>
-                                                <td>{{ a?.our_net_profit}}</td>
+                                                <td>{{ a?.our_net_profit | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf=" a?.net_profit_status == true; else ifNot5">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -598,7 +598,7 @@
                                                 <td> -- </td>
                                                 <td>{{ a?.ebidta_year }}</td>
                                                 <td>{{ a?.ebidta_fin }}</td>
-                                                <td>{{ a?.our_ebidta}}</td>
+                                                <td>{{ a?.our_ebidta | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf=" a?.ebidta_status == true; else ifNot5">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -620,7 +620,7 @@
                                                 <td> -- </td>
                                                 <td>{{ a?.net_worth_year }}</td>
                                                 <td>{{ a?.net_worth_fin }}</td>
-                                                <td>{{ a?.our_net_worth}}</td>
+                                                <td>{{ a?.our_net_worth | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf=" a?.net_worth_status == true; else ifNot3">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -640,7 +640,7 @@
                                                 <td> -- </td>
                                                 <td>{{ a?.net_working_capital_year }}</td>
                                                 <td>{{ a?.net_working_capital_fin }}</td>
-                                                <td>{{ a?.our_net_working_capital}}</td>
+                                                <td>{{ a?.our_net_working_capital | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf=" a?.net_working_status == true; else ifNot4">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -661,7 +661,7 @@
                                                 <td> -- </td>
                                                 <td>{{ a?.total_liabilities_year }}</td>
                                                 <td>{{ a?.total_liabilities_fin }}</td>
-                                                <td>{{ a?.our_total_liabilities}}</td>
+                                                <td>{{ a?.our_total_liabilities | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf=" a?.total_liabilities_status == true; else ifNot5">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -681,7 +681,7 @@
                                                 <td> -- </td>
                                                 <td>{{a?.total_fixed_assets_year }}</td>
                                                 <td>{{a?.total_fixed_assets_fin }}</td>
-                                                <td>{{a?.our_total_fixed_assets}}</td>
+                                                <td>{{a?.our_total_fixed_assets | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf="a?.total_fixed_assets_status == true; else ifNot5">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -700,7 +700,7 @@
                                                 <td>{{ a?.net_capital_check}}</td>
                                                 <td>{{ a?.net_capital_year }}</td>
                                                 <td>{{ a?.net_capital_fin }}</td>
-                                                <td>{{ a?.our_net_capital}}</td>
+                                                <td>{{ a?.our_net_capital | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf=" a?.net_capital_status == true; else ifNot5">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -720,7 +720,7 @@
                                                 <td> -- </td>
                                                 <td>{{ a?.reserve_surplus_year }}</td>
                                                 <td>{{ a?.reserve_surplus_fin }}</td>
-                                                <td>{{ a?.our_reserve_surplus}}</td>
+                                                <td>{{ a?.our_reserve_surplus | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf=" a?.reserve_surplus_status == true; else ifNot5">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -740,7 +740,7 @@
                                                 <td> -- </td>
                                                 <td>{{ a?.paid_upcapital_year }}</td>
                                                 <td>{{ a?.paid_upcapital_fin }}</td>
-                                                <td>{{ a?.our_paid_upcapital}}</td>
+                                                <td>{{ a?.our_paid_upcapital | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <div *ngIf=" a?.paid_upcapital_status == true; else ifNot5">
                                                         <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -768,11 +768,11 @@
                                         <thead class="table-primary text-nowrap">
                                             <tr>
                                                 <th>Financial Parameters</th>
-                                                <th>Amounts (Cr)</th>
+                                                <th>Amounts (INR)</th>
                                                 <th>Condition</th>
                                                 <th>Years</th>
                                                 <th>Fin Year</th>
-                                                <th>Our Values (Cr)</th>
+                                                <th>Our Values (INR)</th>
                                                 <th>Result</th>
                                             </tr>
                                         </thead>

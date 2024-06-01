@@ -1157,7 +1157,7 @@
                                             <!-- <td>{{ rowData?.annual_turnover_check}}</td> -->
                                             <td>{{ rowData?.annual_turnover_year }}</td>
                                             <td>{{ rowData?.financialyear }}</td>
-                                            <td>{{ rowData?.our_annual_turnover}}</td>
+                                            <td>{{ rowData?.our_annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.annual_turnover_status == true; else ifNot2">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1178,7 +1178,7 @@
                                             <td> -- </td>
                                             <td>{{ rowData?.net_profit_year }}</td>
                                             <td>{{ rowData?.net_profit_fin }}</td>
-                                            <td>{{ rowData?.our_net_profit}}</td>
+                                            <td>{{ rowData?.our_net_profit | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.net_profit_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1198,7 +1198,7 @@
                                             <td> -- </td>
                                             <td>{{ rowData?.ebidta_year }}</td>
                                             <td>{{ rowData?.ebidta_fin }}</td>
-                                            <td>{{ rowData?.our_ebidta}}</td>
+                                            <td>{{ rowData?.our_ebidta | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.ebidta_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1219,7 +1219,7 @@
                                             <td> -- </td>
                                             <td>{{ rowData?.net_worth_year }}</td>
                                             <td>{{ rowData?.net_worth_fin }}</td>
-                                            <td>{{ rowData?.our_net_worth}}</td>
+                                            <td>{{ rowData?.our_net_worth | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.net_worth_status == true; else ifNot3">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1239,7 +1239,7 @@
                                             <td> -- </td>
                                             <td>{{ rowData?.net_working_capital_year }}</td>
                                             <td>{{ rowData?.net_working_capital_fin }}</td>
-                                            <td>{{ rowData?.our_net_working_capital}}</td>
+                                            <td>{{ rowData?.our_net_working_capital | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.net_working_status == true; else ifNot4">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1260,7 +1260,7 @@
                                             <td> -- </td>
                                             <td>{{ rowData?.total_liabilities_year }}</td>
                                             <td>{{ rowData?.total_liabilities_fin }}</td>
-                                            <td>{{ rowData?.our_total_liabilities}}</td>
+                                            <td>{{ rowData?.our_total_liabilities | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.total_liabilities_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1280,7 +1280,7 @@
                                             <td> -- </td>
                                             <td>{{ rowData?.total_fixed_assets_year }}</td>
                                             <td>{{ rowData?.total_fixed_assets_fin }}</td>
-                                            <td>{{ rowData?.our_total_fixed_assets}}</td>
+                                            <td>{{ rowData?.our_total_fixed_assets | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.total_fixed_assets_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1319,7 +1319,7 @@
                                             <td> -- </td>
                                             <td>{{ rowData?.reserve_surplus_year }}</td>
                                             <td>{{ rowData?.reserve_surplus_fin }}</td>
-                                            <td>{{ rowData?.our_reserve_surplus}}</td>
+                                            <td>{{ rowData?.our_reserve_surplus | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.reserve_surplus_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1339,7 +1339,7 @@
                                             <td> -- </td>
                                             <td>{{ rowData?.paid_upcapital_year }}</td>
                                             <td>{{ rowData?.paid_upcapital_fin }}</td>
-                                            <td>{{ rowData?.our_paid_upcapital}}</td>
+                                            <td>{{ rowData?.our_paid_upcapital | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.paid_upcapital_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
