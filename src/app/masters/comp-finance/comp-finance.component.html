@@ -58,12 +58,12 @@
                                 <td>{{a.financialyear}}</td>
                                 <td>{{a.annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal"
                                         (click)="getPatchDetails(a)"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
                                     <a  data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details" (click)="getDetails(a)"><span
+                                        (click)="getDetails(a)"><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->

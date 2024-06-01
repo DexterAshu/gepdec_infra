@@ -82,11 +82,8 @@
                 <td>{{ a.capacity }}</td>
                 <td>{{ a.tender_location }}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)"
-                    title="Edit BOQ Items Details"><span
-                      class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details"
-                    (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">

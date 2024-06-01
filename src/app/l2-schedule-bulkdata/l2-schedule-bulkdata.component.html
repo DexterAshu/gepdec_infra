@@ -85,7 +85,7 @@
                 <td>
                   <a class="cursor-pointer" (click)="selectedRow(a)" data-bs-toggle="modal" data-bs-target="#viewModel"
                     title="Detail Data"><span class="mdi mdi-eye text-success mdi-18px"></span></a>&nbsp;
-                  <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateL2Modal" title="Edit Details"
+                  <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateL2Modal"
                     (click)="updateSelectedRow(a)"><span class="mdi mdi-pencil text-secondary mdi-18px"></span></a>
                 </td>
               </tr>
@@ -202,7 +202,7 @@
                         <td>{{ row?.qty }}</td>
                         <td>{{ row?.uom }}</td>
                         <td class="text-right">
-                          <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details"
+                          <a data-bs-toggle="modal" data-bs-target="#editTask"
                             (click)="editTaskRow(row)"><span
                               class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                           <a title="Delete Details" (click)="removeTask(row)"><span
@@ -222,7 +222,7 @@
                           <td>{{ ct?.qty }}</td>
                           <td>{{ ct?.uom }}</td>
                           <td class="text-right">
-                            <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask"
+                            <a data-bs-toggle="modal" data-bs-target="#editSubTask"
                               (click)="editSubTaskRow(row, ct)"><span
                                 class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
                             <a title="Delete Details" (click)="removeSubTask(row, ct)"><span
@@ -524,7 +524,7 @@
                       <td>{{ row.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{ row.days_difference }}</td>
                       <td>
-                        <a data-bs-toggle="modal" data-bs-target="#editTask" title="Edit Details"
+                        <a data-bs-toggle="modal" data-bs-target="#editTask"
                           (click)="editTaskRow(row)"><span
                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
                         <a title="Delete Details" (click)="removeTask(row)"><span
@@ -541,7 +541,7 @@
                               <td>{{ ct.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                               <td>{{ ct.days_difference }}</td>
                               <td class="text-right">
-                                <a title="Edit Details" data-bs-toggle="modal" data-bs-target="#editSubTask" able
+                                <a data-bs-toggle="modal" data-bs-target="#editSubTask" able
                                   table-hover table-striped custom-table (click)="editSubTaskRow(row, ct)"><span
                                     class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
                                 <a title="Delete Details" (click)="removeSubTask(row, ct)"><span

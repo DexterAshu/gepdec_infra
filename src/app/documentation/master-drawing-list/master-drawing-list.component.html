@@ -79,16 +79,16 @@
                 <td>{{a.status}}</td>
                 <td>{{a.version}}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
+                  <a data-bs-toggle="modal" data-bs-target="#createModal"><span
                       class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                   <a class="ms-2" (click)="getMDLRow(a)" data-bs-toggle="modal" data-bs-target="#detailModal"
-                    title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                   ><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                   <a class="ms-2" *ngIf="a?.approved_file" href="{{apiURL}}/{{a?.approved_file}}" download
                     target="_blank"><span class="mdi mdi-download text-success cursor-pointer mdi-18px"></span></a>
                 </td>
                 <td>
                   <a *ngIf="a.status !== 'Approved'" data-bs-toggle="modal" (click)="getMDLRow(a)"
-                    data-bs-target="#approvalModel" title="Edit Details"><span
+                    data-bs-target="#approvalModel"><span
                       class="mdi mdi-security-home text-info cursor-pointer mdi-18px"></span></a>
                   <a *ngIf="a.status === 'Approved'"><span
                       class="mdi mdi-security-home text-secondary mdi-18px"></span></a>

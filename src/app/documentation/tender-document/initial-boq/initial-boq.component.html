@@ -83,10 +83,10 @@
                 <td>{{a.tender_location}}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="selectRow(a)"
-                    title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                   ><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                   &nbsp;
                   <a data-bs-toggle="modal" data-bs-target="#detailModal" (click)="selectRow(a)"
-                    title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                   ><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                   &nbsp;
                   <a *ngIf="a?.document" href="{{apiURL}}{{a.document}}" download="{{apiURL}}{{a.document}}"
                     title="Download BOQ File" target="_blank"><span
