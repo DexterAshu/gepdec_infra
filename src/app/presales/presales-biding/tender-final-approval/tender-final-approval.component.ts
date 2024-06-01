@@ -7,11 +7,11 @@ import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-costing-approval',
-  templateUrl: './costing-approval.component.html',
-  styleUrls: ['./costing-approval.component.css']
+  selector: 'app-tender-final-approval',
+  templateUrl: './tender-final-approval.component.html',
+  styleUrls: ['./tender-final-approval.component.css']
 })
-export class CostingApprovalComponent {
+export class TenderFinalApprovalComponent {
   form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
@@ -77,6 +77,7 @@ export class CostingApprovalComponent {
     this.form = this.formBuilder.group({
       tenderstatus_id: ['', Validators.required],
       working_notes: ['', Validators.required],
+      submitted_on: ['', Validators.required],
       audit_trail: [null],
     });
 
@@ -258,6 +259,7 @@ this.statusList=roleD[0].roleStatus
         // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
         tender_id: this.tenderData[0].tender_id,
         working_notes: this.form.value.working_notes,
+        submitted_on: this.form.value.submitted_on
     };
     this.apiService.createApproval(reqTend).subscribe((res: any) => {
         let response: any = res;
@@ -284,6 +286,7 @@ this.statusList=roleD[0].roleStatus
         working_notes: this.form.value.working_notes,
         requeststatus_id : this.reqList[0].requeststatus_id,
         tender_id : this.tenderData[0].tender_id,
+        submitted_on: this.form.value.submitted_on
       }
       this.apiService.createApproval(reqTend).subscribe((res: any) => {
         let response: any = res;

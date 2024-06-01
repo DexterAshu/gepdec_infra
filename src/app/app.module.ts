@@ -168,6 +168,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 registerLocaleData(localeIn, 'en-IN');
 import { LOCALE_ID } from '@angular/core';
 import { CostingApprovalComponent } from './presales/presales-biding/costing-approval/costing-approval.component';
+import { TenderFinalApprovalComponent } from './presales/presales-biding/tender-final-approval/tender-final-approval.component';
 @NgModule({
   declarations: [
     UsdOnlyDirective,
@@ -232,7 +233,7 @@ import { CostingApprovalComponent } from './presales/presales-biding/costing-app
     AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, PriceStructureComponent, EcoTermsDeliveryComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent,
     FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, BillingAddressComponent, ShippingAddressComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent,
     ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent, MaterialReceiptComponent, MaterialIssuanceComponent, BoqItemsComponent, SignInComponent, MasterDrawingListComponent, DrawingComponent, FinalBOQComponent, IndirectCostingComponent, SynopsisComponent,
-    CompFinanceComponent, DirectCostingComponent, CostingApprovalComponent ],
+    CompFinanceComponent, DirectCostingComponent, CostingApprovalComponent, TenderFinalApprovalComponent ],
 
   imports: [
     BrowserModule,

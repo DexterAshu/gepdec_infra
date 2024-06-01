@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Tender Synopsis (With Costing)</h4>
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Tender Final Approval</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -126,7 +126,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tender/Bid - Costing Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tender/Bid - Participation Approval Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cancel"></button>
             </div>
             <div class="modal-body p-3">
@@ -400,7 +400,6 @@
                                         </tr>
                                        
                                         <tr>
-                                            
                                             <th>Created On</th>
                                             <td>{{ rowData?.created | date: 'dd/MM/yyyy' }}</td>
                                             <th>Created By</th>
@@ -1127,7 +1126,20 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-9">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label fl-10">Submitted On<span
+                                                        class="required-asterisk">*</span></label>
+                                                <input formControlName="submitted_on" type="date" class="form-control form-control-sm">
+                                                <div *ngIf="f['submitted_on'].touched && f['submitted_on'].invalid">
+                                                    <small class="text-danger"
+                                                        *ngIf="f['submitted_on'].errors?.['required']">*Required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label fl-10">Remarks<span
                                                         class="required-asterisk">*</span></label>

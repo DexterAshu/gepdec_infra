@@ -91,6 +91,7 @@ import { FinalBOQComponent } from './documentation/final-boq/final-boq.component
 import { IndirectCostingComponent } from './presales/presales-biding/indirect-costing/indirect-costing.component';
 import { DirectCostingComponent } from './presales/presales-biding/direct-costing/direct-costing.component';
 import { CostingApprovalComponent } from './presales/presales-biding/costing-approval/costing-approval.component';
+import { TenderFinalApprovalComponent } from './presales/presales-biding/tender-final-approval/tender-final-approval.component';
 
 const routes: Routes = [
   // {path: 'login', component: LoginComponent},
@@ -184,6 +185,7 @@ const routes: Routes = [
   {path: 'presales/presales-biding/financial', component:FinancialBidComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/synopsis', component:SynopsisComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/synopsis-costing', component:CostingApprovalComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/tender-final-approval', component:TenderFinalApprovalComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/boq-item', component:BoqItemsComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/indirect-cost', component:IndirectCostingComponent, canActivate:[AuthGuard]},
