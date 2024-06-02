@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {NgSelectModule, NgOption} from '@ng-select/ng-select';
-
+import { dateRangeValidator } from 'src/app/date-custom-validate';
 @Component({
   selector: 'app-data-capturing',
   templateUrl: './data-capturing.component.html',
@@ -70,6 +70,7 @@ export class DataCapturingComponent {
   multiLocation:any;
   // addCustomLocation:any;
   selectedUserIds:any = [];
+  ecvData:any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -148,7 +149,8 @@ export class DataCapturingComponent {
       working_notes: [null],
       audit_trail: [null],
       remarks: [null],
-    });
+    },
+    { validators: dateRangeValidator('publish_date', 'closing_date') });
 
     this.form1 = this.formBuilder.group({
       company_id: [null],
@@ -172,6 +174,11 @@ export class DataCapturingComponent {
     })
   }
  
+
+  onKeyPress(event: KeyboardEvent): void {
+    // Handle keypress event if needed
+    console.log('Key pressed:', event.key);
+  }
 
   getCountryData() {
     this.apiService.getCountryDataList().subscribe((res: any) => {
@@ -320,8 +327,8 @@ export class DataCapturingComponent {
      
           pre_meeting: this.custDetails.pre_meeting,
           prebidmeetingmode_id: this.custDetails.prebidmeetingmode_id,
-          publish_date: this.custDetails.publish_date ? new Date(this.custDetails.publish_date).toISOString().split('T')[0] : '',
-          tech_bid_date: this.custDetails.tech_bid_date ? new Date(this.custDetails.tech_bid_date).toISOString().split('T')[0] : '',
+          publish_date: this.custDetails.publish_date ? new Date(this.custDetails.publish_date).toISOString().split('T')[0] : null,
+          tech_bid_date: this.custDetails.tech_bid_date ? new Date(this.custDetails.tech_bid_date).toISOString().split('T')[0] : null,
           tender_description: this.custDetails.tender_description,
           completion_period: this.custDetails.completion_period,
           bid_validity: this.custDetails.bid_validity,
@@ -335,8 +342,8 @@ export class DataCapturingComponent {
           subqacatagory_id: this.custDetails.subqacatagory_id,
           capacity_id: this.custDetails.capacity_id,
           tender_status: this.custDetails.tender_status,
-          tender_submission_date: this.custDetails.tender_submission_date ? new Date(this.custDetails.tender_submission_date).toISOString().split('T')[0] : '',
-          tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date ? new Date(this.custDetails.tenderhardcopysubmission_date).toISOString().split('T')[0] : '',
+          tender_submission_date: this.custDetails.tender_submission_date ? new Date(this.custDetails.tender_submission_date).toISOString().split('T')[0] : null,
+          tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date ? new Date(this.custDetails.tenderhardcopysubmission_date).toISOString().split('T')[0] : null,
           tender_title: this.custDetails.tender_title,
           ecv: this.custDetails.ecv,
           //Security Details
@@ -360,12 +367,12 @@ export class DataCapturingComponent {
           audit_trail: this.custDetails.audit_trail ? this.custDetails.audit_trail.join('\n') : '',
           contactperson_check: this.custDetails.contactperson_check,
 
-          fin_bid_opening_date: this.custDetails.fin_bid_opening_date ? new Date(this.custDetails.fin_bid_opening_date).toISOString().split('T')[0] : '',
-          closing_date: this.custDetails.closing_date ? new Date(this.custDetails.closing_date).toISOString().split('T')[0] : '',
-          prebid_date: this.custDetails.prebid_date ? new Date(this.custDetails.prebid_date).toISOString().split('T')[0] : '',
-          prebid_submission_date: this.custDetails.prebid_submission_date ? new Date(this.custDetails.prebid_submission_date).toISOString().split('T')[0] : '',
-          securitysubmission_date: this.custDetails.securitysubmission_date ? new Date(this.custDetails.securitysubmission_date).toISOString().split('T')[0] : '',
-          emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : ''
+          fin_bid_opening_date: this.custDetails.fin_bid_opening_date ? new Date(this.custDetails.fin_bid_opening_date).toISOString().split('T')[0] : null,
+          closing_date: this.custDetails.closing_date ? new Date(this.custDetails.closing_date).toISOString().split('T')[0] : null,
+          prebid_date: this.custDetails.prebid_date ? new Date(this.custDetails.prebid_date).toISOString().split('T')[0] : null,
+          prebid_submission_date: this.custDetails.prebid_submission_date ? new Date(this.custDetails.prebid_submission_date).toISOString().split('T')[0] : null,
+          securitysubmission_date: this.custDetails.securitysubmission_date ? new Date(this.custDetails.securitysubmission_date).toISOString().split('T')[0] : null,
+          emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
 
         });
        

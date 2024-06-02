@@ -322,7 +322,7 @@
                         </div>
                     </div> -->
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Closing Date<span
                                     class="required-asterisk">*</span></label>
@@ -463,8 +463,8 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label fl-10">ECV (INR)<span class="required-asterisk">*</span></label>
-                            <input formControlName="ecv" type="text" class="form-control form-control-sm" appNumberOnly>
+                            <label class="form-label fl-10">ECV (INR)<span class=" required-asterisk">*</span> <span *ngIf="form.value.ecv" class="p-1 bg-light rounded-pill">{{ecvData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                            <input formControlName="ecv" type="text" class="form-control form-control-sm" [(ngModel)]="ecvData" (keypress)="onKeyPress($event)" appNumberOnly>
                             <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
                                 <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
                             </div>

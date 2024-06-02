@@ -8,12 +8,21 @@ import { AccountService, MasterService } from 'src/app/_services';
 })
 export class SidebarComponent implements OnInit {
   storedData: any;
+  userData: any;
 
   constructor(public accountService: AccountService, private masterService: MasterService) {
     this.storedData = this.masterService.getLocalStorage();
+    const userDataString = localStorage.getItem('gdUserData');
+
+    if (userDataString) {
+      this.userData = JSON.parse(userDataString);
+    }
   }
 
   ngOnInit(): void {
+  }
+  isRoleHidden(): boolean {
+    return this.userData.rolename === 'Manager' || this.userData.rolename === 'Administrator';
   }
   logout() {
     this.accountService.logout();

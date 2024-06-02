@@ -51,6 +51,7 @@ export class SynopsisComponent {
   statusList: any = [];
   approval: any;
   reqList: any = [];
+  reqStatus: any=''
 
   constructor(
     private formBuilder: FormBuilder,
@@ -105,7 +106,15 @@ export class SynopsisComponent {
     this.rowData = row;
     this.reqList  = this.rowData.requestStatus;
     console.log( this.reqList);
-    
+    if(this.userData.rolename === 'Manager' || this.userData.rolename === 'Administrator')
+      {
+        this.reqStatus='';
+      }else
+
+      {
+        this.reqStatus=row.request_status;
+
+      }
   var roleD = this.roleStatusData.filter((res:any)=>{
   return res.tender_id == this.rowData.tender_id;
 })
@@ -233,20 +242,20 @@ this.statusList=roleD[0].roleStatus
     //   this.form.controls['working_notes'].reset();
      
     // }
-    if (this.form.value.tenderstatus_id !== '') {
-        this.form.value.tenderstatus_id = '';
-    } else {
-        this.form.value.tenderstatus_id = null;
-    }
-    this.approval = 'Send Back';
-    this.form.value.approval = this.approval;
-    var reqTend = {
+    // if (this.form.value.tenderstatus_id !== '') {
+    //     this.form.value.tenderstatus_id = '';
+    // } else {
+    //     this.form.value.tenderstatus_id = null;
+    // }
+    // this.approval = 'Send Back';
+    // this.form.value.approval = this.approval;
+    var reqTender = {
         requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
         // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
         tender_id: this.tenderData[0].tender_id,
         working_notes: this.form.value.working_notes
     };
-    this.apiService.createApproval(reqTend).subscribe((res: any) => {
+    this.apiService.createApproval(reqTender).subscribe((res: any) => {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
@@ -264,11 +273,11 @@ this.statusList=roleD[0].roleStatus
 
 
   sendApproval() {
-
     if(this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager'){
       var reqTend = {
-        requeststatus_id : this.reqList[0].requeststatus_id,
+        // requeststatus_id: this.reqList[1].requeststatus_id != null ? this.reqList[1].requeststatus_id : null,
         tender_id : this.tenderData[0].tender_id,
+        requeststatus_id:this.form.value.tenderstatus_id,
         working_notes: this.form.value.working_notes
       }
       this.apiService.createApproval(reqTend).subscribe((res: any) => {
@@ -290,16 +299,16 @@ this.statusList=roleD[0].roleStatus
     }
     else{
       var reqTend = {
-        requeststatus_id : this.reqList[0].requeststatus_id,
+        requeststatus_id : this.reqList.requeststatus_id,
         tender_id : this.tenderData[0].tender_id,
         working_notes: this.form.value.working_notes
       }
-      this.apiService.createApproval(reqTend).subscribe((res: any) => {
+      this.apiService.createApproval(this.form.value).subscribe((res: any) => {
         let response: any = res;
         document.getElementById('cancel')?.click();
         this.isSubmitted = false;
         if (response.status == 200) {
-          this.userData.rolename === 'Manager' && this.sendForApprovalClicked == true;
+          // this.userData.rolename === 'Manager' && this.sendForApprovalClicked == true;
           this.form.reset();
           this.getTenderData();
           this.alertService.success(response.message);

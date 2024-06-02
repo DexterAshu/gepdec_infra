@@ -87,7 +87,15 @@ export class FinancialBidComponent {
   rsDate: any;
   paidDate: any;
   annuvalTDate: any;
-
+  atData:any;
+  netPData:any;
+  ebdtData:any;
+  netWData:any;
+  netWortData:any;
+  libbData:any;
+  astData:any;
+  rssData:any;
+  paidCData:any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -254,7 +262,7 @@ export class FinancialBidComponent {
 
   comparisonData(annual: any) {
     if (this.data.result != null) {
-      if (parseInt(annual) < parseInt(this.data.result)) {
+      if (parseInt(annual) <= parseInt(this.data.result)) {
         this.isSuccess = true;
       } else {
         this.isSuccess = false;
@@ -277,7 +285,7 @@ export class FinancialBidComponent {
   }
   comparisonNetWorthData(networth: any) {
     if (this.data1 != null) {
-      this.isNetWorth = parseInt(networth) < parseInt(this.data1);
+      this.isNetWorth = parseInt(networth) <= parseInt(this.data1);
     } else {
       this.isNetWorth = false;
     }
@@ -312,7 +320,7 @@ export class FinancialBidComponent {
   }
   comparisonNetWorkData(networkCap: any) {
     if (this.data2 != null) {
-      this.isNetWorkingCap = parseInt(networkCap) < parseInt(this.data2);
+      this.isNetWorkingCap = parseInt(networkCap) <= parseInt(this.data2);
     } else {
       this.isNetWorkingCap = false;
     }
@@ -334,7 +342,7 @@ export class FinancialBidComponent {
   comparisonLibData(libi: any) {
 
     if (this.liabilityData != null) {
-      if (parseInt(libi) < parseInt(this.liabilityData)) {
+      if (parseInt(libi) <= parseInt(this.liabilityData)) {
         this.isLiability = true;
       } else {
         this.isLiability = false;
@@ -356,7 +364,7 @@ export class FinancialBidComponent {
   }
   comparisonAssetData(fixedasset: any) {
     if (this.assetVal != null) {
-      if (parseInt(fixedasset) < parseInt(this.assetVal)) {
+      if (parseInt(fixedasset) <= parseInt(this.assetVal)) {
         this.isTotaAsset = true;
       } else {
         this.isTotaAsset = false;
@@ -379,7 +387,7 @@ export class FinancialBidComponent {
   }
   comparisonNetProfitData(netprofit: any) {
     if (this.netProf != null) {
-      if (parseInt(netprofit) < parseInt(this.netProf)) {
+      if (parseInt(netprofit) <= parseInt(this.netProf)) {
         this.isNetProfit = true;
       } else {
         this.isNetProfit = false;
@@ -426,7 +434,7 @@ export class FinancialBidComponent {
   }
   comparisonRSData(rsVal: any) {
     if (this.rAnds != null) {
-      if (parseInt(rsVal) < parseInt(this.rAnds)) {
+      if (parseInt(rsVal) <= parseInt(this.rAnds)) {
         this.isRS = true;
       } else {
         this.isRS = false;
@@ -449,7 +457,7 @@ export class FinancialBidComponent {
   }
   comparisonPaidupData(paiupcapi: any) {
     if (this.paiCapitalVal != null) {
-      if (parseInt(paiupcapi) < parseInt(this.paiCapitalVal)) {
+      if (parseInt(paiupcapi) <= parseInt(this.paiCapitalVal)) {
         this.isPaidupCapital = true;
       } else {
         this.isPaidupCapital = false;
@@ -473,7 +481,7 @@ export class FinancialBidComponent {
   }
   comparisonEbidtaData(ebdt: any) {
     if (this.ebidtaVal != null) {
-      if (parseInt(ebdt) < parseInt(this.ebidtaVal)) {
+      if (parseInt(ebdt) <= parseInt(this.ebidtaVal)) {
         this.isEbidta = true;
       } else {
         this.isEbidta = false;

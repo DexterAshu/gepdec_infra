@@ -265,10 +265,10 @@
                                             <label class="form-label fl-10 ">Annual Turnover</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="annual.value" class="p-1 bg-light rounded-pill">{{atData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="annual_turnover" #annual type="text"
                                                 class="form-control form-control-sm"
-                                                (keyup)="comparisonData(annual.value)" appNumberOnly>
+                                                (keyup)="comparisonData(annual.value)" [(ngModel)]="atData" appNumberOnly>
                                         </div>
 
                                         <div class="col-md-2" *ngIf="form.value.annual_turnover != ''">
@@ -318,7 +318,7 @@
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
                                                 formControlName="our_annual_turnover" readonly
-                                                [value]="data?.result | currency: 'INR': '' : '1.0-2'">
+                                                [value]="data?.result | currency: 'INR':'':'1.0-2'">
                                         </div>
                                         <div class="col-md-2"
                                             *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
@@ -342,10 +342,10 @@
                                             <label class="form-label fl-10">Net Profit</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="netprofit.value" class="p-1 bg-light rounded-pill">{{netPData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="net_profit" type="text"
                                                 class="form-control form-control-sm" #netprofit
-                                                (keyup)="comparisonNetProfitData(netprofit.value)" appNumberOnly>
+                                                (keyup)="comparisonNetProfitData(netprofit.value)" [(ngModel)]="netPData" appNumberOnly>
 
                                         </div>
 
@@ -420,10 +420,10 @@
                                             <label class="form-label fl-10">EBITDA</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="ebdt.value" class="p-1 bg-light rounded-pill">{{ebdtData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="ebidta" type="text"
                                                 class="form-control form-control-sm" #ebdt
-                                                (keyup)="comparisonEbidtaData(ebdt.value)" appNumberOnly>
+                                                (keyup)="comparisonEbidtaData(ebdt.value)"  [(ngModel)]="ebdtData" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.ebidta != ''">
@@ -496,10 +496,10 @@
                                             <label class="form-label fl-10">Net Worth</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="networth.value" class="p-1 bg-light rounded-pill">{{netWData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="net_worth" type="text"
                                                 class="form-control form-control-sm" #networth
-                                                (keyup)="comparisonNetWorthData(networth.value)" appNumberOnly>
+                                                (keyup)="comparisonNetWorthData(networth.value)" [(ngModel)]="netWData" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.net_worth != ''">
@@ -573,10 +573,10 @@
                                             <label class="form-label fl-10">Net Working Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="networkCap.value" class="p-1 bg-light rounded-pill">{{netWortData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="net_working_capital" type="text"
                                                 class="form-control form-control-sm" #networkCap
-                                                (keyup)="comparisonNetWorkData(networkCap.value)" appNumberOnly>
+                                                (keyup)="comparisonNetWorkData(networkCap.value)" [(ngModel)]="netWortData" appNumberOnly>
 
                                         </div>
 
@@ -643,10 +643,10 @@
                                             <label class="form-label fl-10">Total Liabilities</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="libi.value" class="p-1 bg-light rounded-pill">{{libbData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="total_liabilities" type="text"
                                                 class="form-control form-control-sm" #libi
-                                                (keyup)="comparisonLibData(libi.value)" appNumberOnly>
+                                                (keyup)="comparisonLibData(libi.value)" [(ngModel)]="libbData" appNumberOnly>
                                         </div>
 
                                         <!-- <div class="col-md-2" *ngIf="form.value.total_liabilities != ''">
@@ -717,10 +717,10 @@
                                             <label class="form-label fl-10">Total Fixed Assets</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="fixedasset.value" class="p-1 bg-light rounded-pill">{{astData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="total_fixed_assets" type="text"
                                                 class="form-control form-control-sm" #fixedasset
-                                                (keyup)="comparisonAssetData(fixedasset.value)" appNumberOnly>
+                                                (keyup)="comparisonAssetData(fixedasset.value)" [(ngModel)]="astData" appNumberOnly>
 
                                         </div>
 
@@ -856,10 +856,10 @@
                                             <label class="form-label fl-10">Reserve & Surplus</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="rsVal.value" class="p-1 bg-light rounded-pill">{{rssData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="reserve_surplus" type="text"
                                                 class="form-control form-control-sm" #rsVal
-                                                (keyup)="comparisonRSData(rsVal.value)" appNumberOnly>
+                                                (keyup)="comparisonRSData(rsVal.value)" [(ngModel)]="rssData" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.reserve_surplus != ''">
@@ -929,10 +929,10 @@
                                             <label class="form-label fl-10">Paid Up Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="paiupcapi.value" class="p-1 bg-light rounded-pill">{{paidCData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="paid_upcapital" type="text"
                                                 class="form-control form-control-sm" #paiupcapi
-                                                (keyup)="comparisonPaidupData(paiupcapi.value)" appNumberOnly>
+                                                (keyup)="comparisonPaidupData(paiupcapi.value)" [(ngModel)]="paidCData" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.paid_upcapital != ''">
@@ -1145,7 +1145,7 @@
                                     <tbody class="text-nowrap">
                                         <tr *ngIf=" rowData?.annual_turnover > 0">
                                             <td>Annual Turnover</td>
-                                            <td>{{ rowData?.annual_turnover }}</td>
+                                            <td>{{ rowData?.annual_turnover | currency: 'INR': '' : '1.0-2' }}</td>
                                             <td>
                                                 <span *ngIf="!!rowData?.annual_turnover_check; else elseBlock11">
                                                     {{ rowData?.annual_turnover_check }}
@@ -1174,7 +1174,7 @@
                                         <tr *ngIf=" rowData?.net_profit > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Net Profit</td>
-                                            <td>{{ rowData?.net_profit }}</td>
+                                            <td>{{ rowData?.net_profit | currency: 'INR': '' : '1.0-2' }}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.net_profit_year }}</td>
                                             <td>{{ rowData?.net_profit_fin }}</td>
@@ -1194,7 +1194,7 @@
                                         <tr *ngIf=" rowData?.ebidta > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>EBIDTA</td>
-                                            <td>{{ rowData?.ebidta }}</td>
+                                            <td>{{ rowData?.ebidta | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.ebidta_year }}</td>
                                             <td>{{ rowData?.ebidta_fin }}</td>
@@ -1215,7 +1215,7 @@
                                         <tr *ngIf=" rowData?.net_worth > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Net Worth</td>
-                                            <td>{{ rowData?.net_worth }}</td>
+                                            <td>{{ rowData?.net_worth | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.net_worth_year }}</td>
                                             <td>{{ rowData?.net_worth_fin }}</td>
@@ -1235,7 +1235,7 @@
                                         <tr *ngIf=" rowData?.net_working_capital > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Net Working Capital</td>
-                                            <td>{{ rowData?.net_working_capital }}</td>
+                                            <td>{{ rowData?.net_working_capital | currency: 'INR': '' : '1.0-2' }}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.net_working_capital_year }}</td>
                                             <td>{{ rowData?.net_working_capital_fin }}</td>
@@ -1256,7 +1256,7 @@
                                         <tr *ngIf=" rowData?.total_liabilities > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Total Liability</td>
-                                            <td>{{ rowData?.total_liabilities }}</td>
+                                            <td>{{ rowData?.total_liabilities | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.total_liabilities_year }}</td>
                                             <td>{{ rowData?.total_liabilities_fin }}</td>
@@ -1276,7 +1276,7 @@
                                         <tr *ngIf=" rowData?.total_fixed_assets > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Total Fixed Asset</td>
-                                            <td>{{ rowData?.total_fixed_assets }}</td>
+                                            <td>{{ rowData?.total_fixed_assets | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.total_fixed_assets_year }}</td>
                                             <td>{{ rowData?.total_fixed_assets_fin }}</td>
@@ -1315,7 +1315,7 @@
                                         <tr *ngIf=" rowData?.reserve_surplus > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Reserve & Surplus</td>
-                                            <td>{{ rowData?.reserve_surplus }}</td>
+                                            <td>{{ rowData?.reserve_surplus | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.reserve_surplus_year }}</td>
                                             <td>{{ rowData?.reserve_surplus_fin }}</td>
@@ -1335,7 +1335,7 @@
                                         <tr *ngIf=" rowData?.paid_upcapital > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Paid Up Capital</td>
-                                            <td>{{ rowData?.paid_upcapital }}</td>
+                                            <td>{{ rowData?.paid_upcapital | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.paid_upcapital_year }}</td>
                                             <td>{{ rowData?.paid_upcapital_fin }}</td>
