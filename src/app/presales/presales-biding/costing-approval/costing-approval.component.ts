@@ -57,6 +57,14 @@ export class CostingApprovalComponent {
   selectedRow: any;
   itemList: any;
   totalDirectCost: number = 0;
+  marginPer: number = 0;
+  overallDirectCost: number = 0;
+  overallInDirectCost: number = 0;
+  totalMargin: number = 0;
+  totalProjectCost: number = 0;
+  totalProjectCostWithMargin: number = 0;
+  totalProfit: number = 0;
+  profitPer: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,6 +89,24 @@ export class CostingApprovalComponent {
     });
 
     this.getTenderData();
+  }
+
+  validateInput() {
+    debugger
+    if (this.marginPer === null || this.marginPer === undefined) {
+      debugger
+      this.marginPer = 0;
+    }  else if(this.marginPer < 0) {
+      this.marginPer = 0;
+    } else if(this.marginPer > 100) {
+      this.marginPer = 100;
+    }
+
+    this.totalProjectCost = this.overallDirectCost + this.overallInDirectCost;
+    this.totalMargin = (this.totalProjectCost * this.marginPer) / 100;
+    this.totalProjectCostWithMargin = this.totalProjectCost + this.totalMargin;
+    this.totalProfit = +this.rowData?.ecv - this.totalProjectCostWithMargin;
+    this.profitPer = (this.totalProfit / +this.rowData?.ecv) * 100;
   }
 
   getBOQItemList(data: any) {
@@ -116,6 +142,17 @@ export class CostingApprovalComponent {
 
   rowListData(row: any) {
     this.rowData = row;
+
+    if (this.rowData.directCost.length > 0 && this.rowData?.indirectCost.length > 0) {
+      this.rowData.directCost[0]?.items?.map((el: any) => {
+        this.overallDirectCost += +el?.total_freight_with_GST_value;
+      });
+  
+      this.rowData.indirectCost?.map((el: any) => {
+        this.overallInDirectCost += +el?.all_total;
+      });
+    }
+
     this.reqList = this.rowData.requestStatus;
     console.log(this.reqList);
 
