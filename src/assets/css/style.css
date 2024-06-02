@@ -21126,6 +21126,7 @@ dl li {
 }
 
 .main-panel {
+  background: #f6f8fc;
   transition: width 0.25s ease, margin 0.25s ease;
   width: calc(100% - 257px);
   min-height: calc(100vh - 60px);
@@ -21150,7 +21151,6 @@ dl li {
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
-
 @media (max-width: 767px) {
   .content-wrapper {
     padding: 0.5rem 0.5rem;

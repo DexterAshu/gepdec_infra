@@ -20,8 +20,11 @@
               <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
             </div>
             <div class="col-lg-8">
-              <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
-                class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+              <div class="float-right">
+                <!-- <button class="btn btn-primary btn-fw btn-sm me-2" type="button" (click)="download()"><span class="mdi mdi-arrow-down-bold-box-outline"></span>&nbsp;Export</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"><span class="mdi mdi-download"></span>&nbsp; Import</button> -->
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm">+ Create</button>
+              </div>
             </div>
           </div>
           <app-responsive-table id="export">

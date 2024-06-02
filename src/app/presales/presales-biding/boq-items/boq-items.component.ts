@@ -174,6 +174,7 @@ export class BoqItemsComponent {
     }, (error: any) => {
       console.error(error);
       this.isNotFound = true;
+      this.boqData = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }
@@ -380,7 +381,7 @@ export class BoqItemsComponent {
     }
     console.log(this.selectedItemsListForUpdate);
   }
-  
+
   onBOQItemSubmit(): void {
     console.log(this.selectedItemsListForUpdate);
   }
