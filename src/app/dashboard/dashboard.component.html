@@ -140,7 +140,7 @@
             <i class="mdi mdi-chart-line text-center" style="font-size: 36px;"></i>
           </div>
           <div class="col-md-9">
-            <h3>{{ ShortNumber(dashboardData?.ebitdaData?.current_ebidta ?? '0') }}</h3>
+            <h3>{{ ShortNumber(dashboardData?.ebitdaData?.current_ebidta ?? 0, false) }}</h3>
             <hr>
             <h6> EBITDA (%) </h6>
           </div>
@@ -177,7 +177,8 @@
             <small>Previous yr</small>
           </div>
           <div class="col-md-5">
-            <h6> {{dashboardData?.revenueData?.revenuePercentage ?? '0'}}% </h6>
+            <!-- <h6> {{dashboardData?.revenueData?.revenuePercentage ?? '0'}}% </h6> -->
+            <h6> {{ getIntegerValue(dashboardData?.revenueData?.revenuePercentage ?? 0) }}% </h6>
             <hr>
             <small>Change</small>
           </div>
@@ -199,7 +200,8 @@
             <small>Previous Yr</small>
           </div>
           <div class="col-md-5">
-            <h6> {{dashboardData?.winArray?.growthPercentage ?? '0'}}% </h6>
+            <!-- <h6> {{dashboardData?.winArray?.growthPercentage ?? '0'}}% </h6> -->
+            <h6> {{ getIntegerValue(dashboardData?.winArray?.growthPercentage ?? 0) }}% </h6>
             <hr>
             <small>Change</small>
           </div>
@@ -217,12 +219,13 @@
       <div class="Profit-card p-2">
         <div class="row">
           <div class="col-md-5">
-            <h6> {{ShortNumber(dashboardData?.ebitdaData?.last_ebidta ?? '0')}} </h6>
+            <h6> {{ShortNumber(dashboardData?.ebitdaData?.last_ebidta ?? 0, false)}} </h6>
             <hr>
             <small>Previous Yr</small>
           </div>
           <div class="col-md-5">
-            <h6> {{dashboardData?.ebitdaData?.ebitdaPercentage ?? '0'}}% </h6>
+            <!-- <h6> {{dashboardData?.ebitdaData?.ebitdaPercentage ?? '0'}}% </h6> -->
+            <h6> {{ getIntegerValue(dashboardData?.ebitdaData?.ebitdaPercentage ?? 0) }}% </h6>
             <hr>
             <small>Change</small>
           </div>
@@ -245,7 +248,8 @@
             <small>Previous Yr</small>
           </div>
           <div class="col-md-5">
-            <h6> {{dashboardData?.closedArray?.growthPercentage ?? '0'}}% </h6>
+            <!-- <h6> {{dashboardData?.closedArray?.growthPercentage ?? '0'}}% </h6> -->
+            <h6> {{ getIntegerValue(dashboardData?.closedArray?.growthPercentage ?? 0) }}% </h6>
             <hr>
             <small>Change</small>
           </div>
