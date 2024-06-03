@@ -144,7 +144,7 @@ export class CostingApprovalComponent {
 
   rowListData(row: any) {
     this.rowData = row;
-
+    this.tenderID = row.tender_id;
     if (this.rowData.directCost.length > 0 && this.rowData?.indirectCost.length > 0) {
       this.rowData.directCost[0]?.items?.map((el: any) => {
         this.overallDirectCost += +el?.total_freight_with_GST_value;
