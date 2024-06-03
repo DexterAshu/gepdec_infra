@@ -290,7 +290,7 @@ export class L2ScheduleBulkdataComponent {
       if (res.status === 200) {
         this.l1ScheduleData = res.result;
       } else {
-        this.alertService.warning(res.message);
+        // this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
