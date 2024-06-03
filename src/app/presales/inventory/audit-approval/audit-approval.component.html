@@ -21,7 +21,7 @@
               <input type="search" class="form-control form-control-sm" (click)="p = 1" [(ngModel)]="searchText" placeholder="Search">
             </div>
             <div class="col-lg-8">
-              <ul class="head-ul d-flex">
+              <!-- <ul class="head-ul d-flex">
                 <form [formGroup]="searchForm" (ngSubmit)="searchData()">
                   <li><label class="col-form-label">From</label></li>
                   <li><input class="form-control form-control-sm date-picker" formControlName="fromDate" type="date" [ngModel]="fromDate | date:'yyyy-MM-dd'" max="{{currentDate}}"></li>
@@ -29,7 +29,7 @@
                   <li><input class="form-control form-control-sm date-picker" formControlName="toDate" type="date" [ngModel]="toDate | date:'yyyy-MM-dd'" max="{{currentDate}}"></li>
                   <li><button class="btn btn-primary btn-sm" type="submit">GO!</button></li>
                 </form>
-              </ul>
+              </ul> -->
             </div>
           </div>
           <app-responsive-table id="export">

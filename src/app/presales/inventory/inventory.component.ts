@@ -53,6 +53,7 @@ export class InventoryComponent {
         }
       },
       error: (error) => {
+        console.error(error);
         this.isNotFound = true;
         this.itemData = undefined;
         this.alertService.error("Error: Unknown Error!");
