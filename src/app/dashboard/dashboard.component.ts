@@ -1506,14 +1506,30 @@ export class DashboardComponent implements OnInit {
       this.alertService.error("Error: " + error.statusText);
     }); 
   }
-  ShortNumber(value: number): string {
+
+  // ShortNumber(value: number): string {
+  //   if (value >= 10000000) {
+  //     return Math.floor(value / 10000000) + ' Cr';
+  //   } else if (value >= 100000) {
+  //     return Math.floor(value / 100000) + ' Lakh';
+  //   } else {
+  //     return Math.floor(value).toString();
+  //   }
+  // }
+
+
+  ShortNumber(value: number, includeCr: boolean = true): string {
     if (value >= 10000000) {
-      return (value / 10000000).toFixed(2) + ' Cr';
+      return Math.floor(value / 10000000) + (includeCr ? ' Cr' : '');
     } else if (value >= 100000) {
-      return (value / 100000).toFixed(2) + ' Lakh';
+      return Math.floor(value / 100000) + ' Lakh';
     } else {
-      return value.toString();
+      return Math.floor(value).toString();
     }
+  }
+
+  getIntegerValue(value: number): string {
+    return Math.floor(value).toString();
   }
 
   //   getDashboardData() {
