@@ -1,7 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
@@ -34,7 +34,9 @@ export class FinMaatComponent {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
@@ -56,6 +58,10 @@ export class FinMaatComponent {
       description: [''],
     });
     this.getData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   redirect(route: any) {
