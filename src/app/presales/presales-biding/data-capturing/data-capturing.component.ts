@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {NgSelectModule, NgOption} from '@ng-select/ng-select';
-import { dateRangeValidator } from 'src/app/date-custom-validate';
+
 @Component({
   selector: 'app-data-capturing',
   templateUrl: './data-capturing.component.html',
@@ -70,7 +70,7 @@ export class DataCapturingComponent {
   multiLocation:any;
   // addCustomLocation:any;
   selectedUserIds:any = [];
-  ecvData:any;
+  ecvData:any
 
   constructor(
     private formBuilder: FormBuilder,
@@ -149,8 +149,7 @@ export class DataCapturingComponent {
       working_notes: [null],
       audit_trail: [null],
       remarks: [null],
-    },
-    { validators: dateRangeValidator('publish_date', 'closing_date') });
+    });
 
     this.form1 = this.formBuilder.group({
       company_id: [null],
@@ -174,11 +173,6 @@ export class DataCapturingComponent {
     })
   }
  
-
-  onKeyPress(event: KeyboardEvent): void {
-    // Handle keypress event if needed
-    console.log('Key pressed:', event.key);
-  }
 
   getCountryData() {
     this.apiService.getCountryDataList().subscribe((res: any) => {

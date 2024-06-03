@@ -5,7 +5,7 @@ export function dateRangeValidator(publishDateKey: string, closingDateKey: strin
     const publishDate = control.get(publishDateKey)?.value;
     const closingDate = control.get(closingDateKey)?.value;
 
-    if (publishDate && closingDate && new Date(closingDate) < new Date(publishDate)) {
+    if (publishDate && closingDate && new Date(closingDate) > new Date(publishDate)) {
       return { dateRangeInvalid: true };
     }
 

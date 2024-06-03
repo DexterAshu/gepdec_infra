@@ -93,12 +93,9 @@
                 <td>{{ a.tender_location }}</td>
                 <td>{{ a.ecv | currency: 'INR': '' : '1.0-2'}}</td>
                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
-                <td>{{ a?.request_status}}</td>
+                <td>{{ a?.reqTenderStatus}}</td>
                 <td>
-                  <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal"
-                    (click)="getDetails(a.tender_id)"><span
-                      class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                  &nbsp;
+                
                   <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data"
                     (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                   <!-- &nbsp; -->
@@ -398,7 +395,7 @@
                       <td>{{ rowData?.reserve_auction }}</td>
                       <th>Current Status</th>
                       <!-- <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td> -->
-                      <td class="badge badge-primary mt-2">{{ rowData?.request_status }}</td>
+                      <td class="badge badge-primary mt-2">{{ rowData?.reqTenderStatus }}</td>
 
                     </tr>
                     <tr>
@@ -1159,39 +1156,42 @@
 
               <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
                 <div class="row mt-3" *ngIf="rowData?.directCost.length > 0 && rowData?.indirectCost.length > 0">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label class="form-label fl-10">Request Status<span class="required-asterisk">*</span></label>
-                      <select formControlName="tenderstatus_id" class="form-select form-select-sm">
-                        <option [value]="null" disabled selected>Select Status</option>
-                        <option *ngFor="let c of reqList" [value]="c.requeststatus_id">{{
-                          c.request_status }}</option>
-                      </select>
-                      <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
-                        <small class="text-danger" *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
+                 
+                  
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label class="form-label fl-10">Request Status<span class="required-asterisk">*</span></label>
+                        <select formControlName="tenderstatus_id" class="form-select form-select-sm">
+                          <option [value]="null" disabled selected>Select Status</option>
+                          <option *ngFor="let c of reqList" [value]="c.requeststatus_id">{{
+                            c.request_status }}</option>
+                        </select>
+                        <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
+                          <small class="text-danger" *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-9">
-                    <div class="form-group">
-                      <label class="form-label fl-10">Remarks<span class="required-asterisk">*</span></label>
-                      <input formControlName="working_notes" type="text" class="form-control form-control-sm">
-                      <div *ngIf="f['working_notes'].touched && f['working_notes'].invalid">
-                        <small class="text-danger" *ngIf="f['working_notes'].errors?.['required']">*Required</small>
+                    <div class="col-md-9">
+                      <div class="form-group">
+                        <label class="form-label fl-10">Remarks<span class="required-asterisk">*</span></label>
+                        <input formControlName="working_notes" type="text" class="form-control form-control-sm">
+                        <div *ngIf="f['working_notes'].touched && f['working_notes'].invalid">
+                          <small class="text-danger" *ngIf="f['working_notes'].errors?.['required']">*Required</small>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                 
 
 
                   <div class="col-md-12">
-                    <div class="presales">
+                    <div class="presales" >
                       <button *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'"
                         type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right" [disabled]="form.invalid">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-send" viewBox="0 0 16 16">
                           <path
                             d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                        </svg> &nbsp;Send For Costing Approval
+                        </svg> &nbsp;Send Approval For Costing
                       </button>
                     </div>
 
@@ -1207,14 +1207,7 @@
                     </ng-container>
                     <ng-container *ngIf="this.userData.rolename === 'Manager'">
                       <div class="float-right">
-                        <button (click)="sendBack()" type="text" *ngIf="!this.form.value.tenderstatus_id"
-                          class="btn btn-danger btn-fw btn-sm me-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                              d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z" />
-                          </svg> &nbsp;Send Back
-                        </button>
+                      
                         <button type="submit" class="btn btn-primary btn-fw btn-sm me-2 " [disabled]="form.invalid">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-save" viewBox="0 0 16 16">

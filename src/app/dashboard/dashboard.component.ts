@@ -1625,7 +1625,7 @@ export class DashboardComponent implements OnInit {
               this.allProgressBar = this.dashboardData.statusProgress.map((item: any) => {
                   return {
                       name: item.tender_title,
-                      value: item.duration,
+                      value: item.progress,
                       // value: [0, 20, 40, 60, 80, 100],
                       tender_id: item.tender_id 
                   };

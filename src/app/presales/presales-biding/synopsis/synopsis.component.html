@@ -96,7 +96,7 @@
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.ecv | currency: 'INR': '' : '1.0-2'}}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-                                <td>{{ a?.request_status}}</td>
+                                <td>{{ a?.reqTenderStatus}}</td>
                                 <td>
                                     <!-- <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp; -->
@@ -134,7 +134,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tender/Bid Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tender Synopsis Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cancel"></button>
             </div>
             <div class="modal-body p-3">
@@ -419,7 +419,7 @@
                                             <td>{{ rowData?.reserve_auction }}</td>
                                             <th>Current Status</th>
                                             <!-- <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td> -->
-                                            <td class="badge badge-primary mt-2">{{ rowData?.request_status }}</td>
+                                            <td class="badge badge-primary mt-2">{{ rowData?.reqTenderStatus }}</td>
 
                                         </tr>
                                         <tr>
@@ -546,7 +546,7 @@
                                         <tbody class="text-nowrap">
                                             <tr *ngIf=" a?.annual_turnover > 0">
                                                 <td>Annual Turnover</td>
-                                                <td>{{ a?.annual_turnover }}</td>
+                                                <td>{{ a?.annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>
                                                     <span *ngIf="!!a?.annual_turnover_check; else elseBlock11">
                                                         {{ a?.annual_turnover_check }}
@@ -575,7 +575,7 @@
                                             <tr *ngIf=" a?.net_profit > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Net Profit</td>
-                                                <td>{{ a?.net_profit }}</td>
+                                                <td>{{ a?.net_profit | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td> -- </td>
                                                 <td>{{ a?.net_profit_year }}</td>
                                                 <td>{{ a?.net_profit_fin }}</td>
@@ -595,7 +595,7 @@
                                             <tr *ngIf=" a?.ebidta > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>EBIDTA</td>
-                                                <td>{{ a?.ebidta }}</td>
+                                                <td>{{ a?.ebidta | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td> -- </td>
                                                 <td>{{ a?.ebidta_year }}</td>
                                                 <td>{{ a?.ebidta_fin }}</td>
@@ -617,7 +617,7 @@
                                             <tr *ngIf=" a?.net_worth > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Net Worth</td>
-                                                <td>{{ a?.net_worth }}</td>
+                                                <td>{{ a?.net_worth | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td> -- </td>
                                                 <td>{{ a?.net_worth_year }}</td>
                                                 <td>{{ a?.net_worth_fin }}</td>
@@ -637,7 +637,7 @@
                                             <tr *ngIf=" a?.net_working_capital > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Net Working Capital</td>
-                                                <td>{{ a?.net_working_capital }}</td>
+                                                <td>{{ a?.net_working_capital | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td> -- </td>
                                                 <td>{{ a?.net_working_capital_year }}</td>
                                                 <td>{{ a?.net_working_capital_fin }}</td>
@@ -658,7 +658,7 @@
                                             <tr *ngIf=" a?.total_liabilities > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Total Liability</td>
-                                                <td>{{ a?.total_liabilities }}</td>
+                                                <td>{{ a?.total_liabilities | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td> -- </td>
                                                 <td>{{ a?.total_liabilities_year }}</td>
                                                 <td>{{ a?.total_liabilities_fin }}</td>
@@ -678,7 +678,7 @@
                                             <tr *ngIf="a?.total_fixed_assets > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Total Fixed Asset</td>
-                                                <td>{{a?.total_fixed_assets }}</td>
+                                                <td>{{a?.total_fixed_assets | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td> -- </td>
                                                 <td>{{a?.total_fixed_assets_year }}</td>
                                                 <td>{{a?.total_fixed_assets_fin }}</td>
@@ -697,7 +697,7 @@
                                             <!--  Net Capital -->
                                             <!-- <tr *ngIf=" a?.net_capital > 0">
                                                 <td>Net Capital</td>
-                                                <td>{{ a?.net_capital }}</td>
+                                                <td>{{ a?.net_capital | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td>{{ a?.net_capital_check}}</td>
                                                 <td>{{ a?.net_capital_year }}</td>
                                                 <td>{{ a?.net_capital_fin }}</td>
@@ -717,7 +717,7 @@
                                             <tr *ngIf=" a?.reserve_surplus > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Reserve & Surplus</td>
-                                                <td>{{ a?.reserve_surplus }}</td>
+                                                <td>{{ a?.reserve_surplus | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td> -- </td>
                                                 <td>{{ a?.reserve_surplus_year }}</td>
                                                 <td>{{ a?.reserve_surplus_fin }}</td>
@@ -737,7 +737,7 @@
                                             <tr *ngIf=" a?.paid_upcapital > 0">
                                                 <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                                 <td>Paid Up Capital</td>
-                                                <td>{{ a?.paid_upcapital }}</td>
+                                                <td>{{ a?.paid_upcapital | currency: 'INR': '' : '1.0-2'}}</td>
                                                 <td> -- </td>
                                                 <td>{{ a?.paid_upcapital_year }}</td>
                                                 <td>{{ a?.paid_upcapital_fin }}</td>
@@ -932,9 +932,9 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                    <ng-container *ngIf="reqStatus!='Recommended for Costing'">
+                                    <ng-container *ngIf="(this.userData.rolename == 'PreSales')?(reqStatus=='Pending For Approval'):(this.userData.rolename != 'PreSales')?true:false" >
 
-                                        <div class="col-md-3" *ngIf="reqStatus!='Recommended'">
+                                        <div class="col-md-3">
 
                                             <div class="form-group" >
                                                 <label class="form-label fl-10">Request Status<span
@@ -952,7 +952,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-9" *ngIf="reqStatus!='Recommended'">
+                                        <div class="col-md-9">
                                             <div class="form-group">
                                                 <label class="form-label fl-10">Remarks<span
                                                         class="required-asterisk">*</span></label>
@@ -967,8 +967,8 @@
                                     </ng-container>
 
 
-                                    <div class="col-md-12" *ngIf="reqStatus!='Recommended for Costing'">
-                                        <div class="presales" *ngIf="reqStatus!='Recommended'">
+                                    <div class="col-md-12">
+                                        <div class="presales" *ngIf="(this.userData.rolename == 'PreSales')?(reqStatus=='Pending For Approval'):(this.userData.rolename != 'PreSales')?true:false">
                                             <button
                                                 *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'"
                                                 type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right"

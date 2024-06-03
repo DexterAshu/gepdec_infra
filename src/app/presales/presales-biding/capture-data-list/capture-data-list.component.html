@@ -132,7 +132,7 @@
                                 <td>{{ a.tender_location }}</td>
                                 <td>{{ a.ecv }}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                                <td>{{ a?.request_status}}</td>
+                                <td>{{ a?.reqTenderStatus}}</td>
                                 <td>
                                     <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal"
                                         data-bs-target="#createModal"
@@ -459,7 +459,7 @@
                                             <td>{{ rowData?.reserve_auction }}</td>
                                             <th>Current Status</th>
                                             <!-- <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td> -->
-                                            <td class="badge badge-primary mt-2">{{ rowData?.request_status }}</td>
+                                            <td class="badge badge-primary mt-2">{{ rowData?.reqTenderStatus }}</td>
 
                                         </tr>
                                         <tr>

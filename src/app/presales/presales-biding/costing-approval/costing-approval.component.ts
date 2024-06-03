@@ -66,6 +66,7 @@ export class CostingApprovalComponent {
   totalProfit: number = 0;
   profitPer: number = 0;
 
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -160,6 +161,7 @@ export class CostingApprovalComponent {
       return res.tender_id == this.rowData.tender_id;
     })
     this.statusList = roleD[0].roleStatus
+
   }
 
 
@@ -319,7 +321,7 @@ export class CostingApprovalComponent {
       var reqTend = {
 
         working_notes: this.form.value.working_notes,
-        requeststatus_id: this.reqList[0].requeststatus_id,
+        requeststatus_id:this.form.value.tenderstatus_id,
         tender_id: this.tenderData[0].tender_id,
       }
       this.apiService.createApproval(reqTend).subscribe((res: any) => {
