@@ -52,6 +52,7 @@ export class SynopsisComponent {
   approval: any;
   reqList: any = [];
   reqStatus: any=''
+  tenderID: any
 
   constructor(
     private formBuilder: FormBuilder,
@@ -105,6 +106,7 @@ export class SynopsisComponent {
   rowListData(row: any) {
     this.rowData = row;
     this.reqList  = this.rowData.requestStatus;
+    this.tenderID = this.rowData.tender_id;
     console.log( this.reqList);
     if(this.userData.rolename === 'Manager' || this.userData.rolename === 'Administrator')
       {
@@ -252,7 +254,7 @@ this.statusList=roleD[0].roleStatus
     var reqTender = {
         requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
         // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
-        tender_id: this.tenderData[0].tender_id,
+        tender_id: this.tenderID,
         working_notes: this.form.value.working_notes
     };
     this.apiService.createApproval(reqTender).subscribe((res: any) => {
@@ -276,7 +278,7 @@ this.statusList=roleD[0].roleStatus
     if(this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager'){
       var reqTend = {
         // requeststatus_id: this.reqList[1].requeststatus_id != null ? this.reqList[1].requeststatus_id : null,
-        tender_id : this.tenderData[0].tender_id,
+        tender_id : this.tenderID,
         requeststatus_id:this.form.value.tenderstatus_id,
         working_notes: this.form.value.working_notes
       }
@@ -300,7 +302,7 @@ this.statusList=roleD[0].roleStatus
     else{
       var reqTend = {
         requeststatus_id : this.reqList.requeststatus_id,
-        tender_id : this.tenderData[0].tender_id,
+        tender_id : this.tenderID,
         working_notes: this.form.value.working_notes
       }
       this.apiService.createApproval(this.form.value).subscribe((res: any) => {

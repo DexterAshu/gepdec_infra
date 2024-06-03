@@ -65,6 +65,7 @@ export class CostingApprovalComponent {
   totalProjectCostWithMargin: number = 0;
   totalProfit: number = 0;
   profitPer: number = 0;
+  tenderID: any;
 
 
   constructor(
@@ -295,7 +296,7 @@ export class CostingApprovalComponent {
     var reqTend = {
       requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
       // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
-      tender_id: this.tenderData[0].tender_id,
+      tender_id : this.tenderID,
       working_notes: this.form.value.working_notes,
     };
     this.apiService.createApproval(reqTend).subscribe((res: any) => {
@@ -322,7 +323,7 @@ export class CostingApprovalComponent {
 
         working_notes: this.form.value.working_notes,
         requeststatus_id:this.form.value.tenderstatus_id,
-        tender_id: this.tenderData[0].tender_id,
+        tender_id : this.tenderID,
       }
       this.apiService.createApproval(reqTend).subscribe((res: any) => {
         let response: any = res;
@@ -343,7 +344,7 @@ export class CostingApprovalComponent {
     }
     else {
       this.form.value.requeststatus_id = this.reqList[0].requeststatus_id;
-      this.form.value.tender_id = this.tenderData[0].tender_id;
+      this.form.value.tender_id = this.tenderID;
       this.apiService.createApproval(this.form.value).subscribe((res: any) => {
         let response: any = res;
         document.getElementById('cancel')?.click();
