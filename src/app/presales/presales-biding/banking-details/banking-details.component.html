@@ -57,7 +57,7 @@
                                 <th>Sub Category</th>
                                 <th>Capacity </th>
                                 <th>Execution Location</th>
-                                <th>Amount</th>
+                                <th class="text-end">Amount</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Submission Date</th>
@@ -95,7 +95,7 @@
                                 <td>{{ a.subqacatagory }}</td>
                                 <td>{{ a.capacity }}</td>
                                 <td>{{ a.tender_location }}</td>
-                                <td>{{a.bg_amount}}</td>
+                                <td class="text-end">{{a.bg_amount | currency:'INR':'':'1.0-2'}}</td>
                                 <td>{{a.start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>{{a.end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>{{a.submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
@@ -395,7 +395,7 @@
 
                             <tr>
                                 <th>Amount</th>
-                                <td>{{ rowData?.bg_amount }}</td>
+                                <td>{{ rowData?.bg_amount | currency:'INR':'':'1.0-2' }}</td>
                                 <th>BG Number</th>
                                 <td>{{ rowData?.bg_number }}</td>
                                 <th>Start Date</th>

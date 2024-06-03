@@ -46,7 +46,7 @@
                                 <th>S No</th>
                                 <th>Company</th>
                                 <th>Financial Year</th>
-                                <th>Annual Turnover (INR)</th>
+                                <th class="text-end">Annual Turnover (INR)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.bidder_name}}</td>
                                 <td>{{a.financialyear}}</td>
-                                <td>{{a.annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
+                                <td class="text-end">{{a.annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal"
                                         (click)="getPatchDetails(a)"><span
