@@ -551,6 +551,10 @@ export class PresalesDashboardComponent {
     state_id: [null, Validators.required],
   })
   }
+
+  getIntegerValue(value: string | number): string {
+    return Math.floor(Number(value)).toString();
+  }
   
   getCountryData() {
     this.apiService.getCountryDataList().subscribe((res:any) => {
