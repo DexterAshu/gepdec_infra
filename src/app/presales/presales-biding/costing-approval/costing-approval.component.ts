@@ -57,7 +57,7 @@ export class CostingApprovalComponent {
   selectedRow: any;
   itemList: any;
   totalDirectCost: number = 0;
-  marginPer: number = 0;
+  marginPer: number = 12;
   overallDirectCost: number = 0;
   overallInDirectCost: number = 0;
   totalMargin: number = 0;
@@ -96,7 +96,6 @@ export class CostingApprovalComponent {
   validateInput() {
     debugger
     if (this.marginPer === null || this.marginPer === undefined) {
-      debugger
       this.marginPer = 0;
     }  else if(this.marginPer < 0) {
       this.marginPer = 0;
