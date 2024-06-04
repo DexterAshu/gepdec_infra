@@ -162,7 +162,8 @@
             <h6>Won</h6>
           </div>
           <div class="col-md-4">
-            <h3> {{ preSalesDashData?.cardData?.[3]?.percentage ?? '0' }} </h3>
+            <!-- <h3> {{ preSalesDashData?.cardData?.[3]?.percentage ?? '0' }} </h3> -->
+            <h3> {{ getIntegerValue(preSalesDashData?.cardData?.[3]?.percentage ?? '0') }} </h3>
             <hr>
             <h6>(%)</h6>
           </div>
