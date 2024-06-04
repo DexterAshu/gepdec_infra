@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { MasterService, AlertService, ApiService, SharedService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -21,7 +21,7 @@ export class ItemLabelComponent {
   itemData: any = [];
   selectedWHL: any;
 
-  constructor( private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService ) { }
+  constructor( private formBuilder: FormBuilder, private masterService: MasterService, private alertService: AlertService, private apiService: ApiService, private sharedService:SharedService, private elementRef:ElementRef ) { }
 
   ngOnInit(): void {
     this.getData();
@@ -31,6 +31,10 @@ export class ItemLabelComponent {
       capacity: [null, Validators.required],
       items: [null]
     });
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   get f() { return this.form.controls; }

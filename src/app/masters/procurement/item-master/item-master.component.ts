@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService, ApiService, ExcelExportService } from 'src/app/_services';
+import { AlertService, ApiService, ExcelExportService, SharedService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -20,7 +20,7 @@ export class ItemMasterComponent {
   dataDropdownList: any;
   selectedRow: any;
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private excelExport: ExcelExportService) { }
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private excelExport: ExcelExportService, private sharedService:SharedService, private elementRef:ElementRef) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -44,6 +44,9 @@ export class ItemMasterComponent {
     this.getDropdownList()
   }
 
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
+  }
   get f() { return this.form.controls; }
 
   selectRow(data: any): void {

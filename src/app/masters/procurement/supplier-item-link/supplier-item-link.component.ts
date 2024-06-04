@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { MasterService, AlertService, ApiService, SharedService } from 'src/app/_services';
 
 @Component({
   selector: 'app-supplier-item-link',
@@ -26,6 +26,8 @@ export class SupplierItemLinkComponent {
     private formBuilder: FormBuilder,
     private alertService: AlertService,
     private apiService: ApiService,
+    private sharedService: SharedService,
+    private elementRef: ElementRef,
   ) { }
 
   ngOnInit(){
@@ -38,6 +40,10 @@ export class SupplierItemLinkComponent {
     this.getItemList();
   }
 
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
+  }
+  
   get f() { return this.form.controls; }
 
   // getLabel(item: any): string {

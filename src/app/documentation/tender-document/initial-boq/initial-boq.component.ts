@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -36,7 +36,7 @@ export class InitialBoqComponent {
   comData: any;
   selectedRow: any;
 
-  constructor(private formBuilder: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router, private elementRef: ElementRef, private sharedService: SharedService) { }
 
   ngOnInit() {
     this.documentForm = this.formBuilder.group({
@@ -48,6 +48,10 @@ export class InitialBoqComponent {
     });
     this.listAPIData('initialboq');
     this.getData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   redirect(route: any) {

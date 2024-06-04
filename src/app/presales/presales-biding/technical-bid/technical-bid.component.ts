@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/_services/api.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/_services';
 @Component({
   selector: 'app-technical-bid',
   templateUrl: './technical-bid.component.html',
@@ -46,7 +47,9 @@ export class TechnicalBidComponent {
     private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit() {
@@ -67,6 +70,10 @@ export class TechnicalBidComponent {
     this.getCompanyData();
     this.getData();
     this.getCategoryData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   get f() { return this.form.controls; }

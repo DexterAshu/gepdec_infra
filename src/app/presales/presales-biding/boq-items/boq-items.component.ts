@@ -1,8 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
-import { AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService, SharedService } from 'src/app/_services';
 
 @Component({
   selector: 'app-boq-items',
@@ -42,11 +42,15 @@ export class BoqItemsComponent {
   errorItemList: any = [];
   selectedItemsListForUpdate: any = [];
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService:SharedService, private elementRef:ElementRef) { }
 
   ngOnInit() {
     this.formInit();
     this.getBoqListData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   formInit() {

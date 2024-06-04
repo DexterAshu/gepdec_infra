@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService, AlertService, ApiService, AccountService } from 'src/app/_services';
+import { MasterService, AlertService, ApiService, AccountService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
@@ -59,6 +59,8 @@ export class CaptureDataListComponent {
     private apiService: ApiService,
     private user: AccountService,
     private router: Router,
+    private sharedService: SharedService,
+    private elementRef: ElementRef
   ) {
     const userDataString = localStorage.getItem('gdUserData');
 
@@ -75,6 +77,10 @@ export class CaptureDataListComponent {
     });
 
     this.getTenderData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   //  getDetails(data:any){

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService, SharedService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -24,11 +24,15 @@ export class MaterialIssuanceComponent {
   form!: FormGroup;
   selectedRow: any;
 
-  constructor( private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService ) { }
+  constructor( private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService:SharedService, private elementRef:ElementRef ) { }
 
   ngOnInit(): void {
     this.formInit();
     this.getMaterialIssuanceData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   formInit(): void {
