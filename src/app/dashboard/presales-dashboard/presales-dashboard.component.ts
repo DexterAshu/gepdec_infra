@@ -608,6 +608,10 @@ export class PresalesDashboardComponent {
   getIntegerValue(value: string | number): string {
     return Math.floor(Number(value)).toString();
   }
+
+  getIntegerValue(value: string | number): string {
+    return Math.floor(Number(value)).toString();
+  }
   
   getCountryData() {
     this.apiService.getCountryDataList().subscribe((res:any) => {
