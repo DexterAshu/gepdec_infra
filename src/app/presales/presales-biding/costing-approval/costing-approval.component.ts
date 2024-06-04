@@ -109,13 +109,6 @@ export class CostingApprovalComponent {
     this.sharedService.initializeTooltips(this.elementRef);
   }
 
-  rowLocation(row:any) {
-  
-    this.locationArray = row.tender_location;
-  }
-
-  get f() { return this.form.controls; }
-
   getBOQItemList(data: any) {
     this.totalDirectCost = 0;
     this.itemList = [];
