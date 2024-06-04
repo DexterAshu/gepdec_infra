@@ -103,9 +103,9 @@
                                 <td>{{a.financialyear}}</td>
                                 <!-- <td>{{a.status}}</td> -->
                                 <td>
-                                    <!-- <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details" (click)="rowListData(a)"><span
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#createModal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
+                                    <a  data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        (click)="rowListData(a)"><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
@@ -191,10 +191,11 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Financial Year</label>
-                                    <input class="form-control form-control-sm" readonly value="{{filterTenderDetailsData[0]?.financialyear}}">
+                                    <input class="form-control form-control-sm" readonly
+                                        value="{{filterTenderDetailsData[0]?.financialyear}}">
                                 </div>
                             </div>
-                         
+
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
@@ -203,7 +204,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Category</label>
                                     <input class="form-control form-control-sm" readonly
@@ -224,7 +225,7 @@
                                         value="{{filterTenderDetailsData[0]?.capacity}}">
                                 </div>
                             </div>
-                          
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location</label>
@@ -232,13 +233,7 @@
                                         value="{{filterTenderDetailsData[0]?.tender_location}}">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Financial Year</label>
-                                    <input class="form-control form-control-sm" readonly
-                                        value="{{filterTenderDetailsData[0]?.financialyear}}">
-                                </div>
-                            </div>
+
 
                             <!-- <div class="col-md-2">
                                 <div class="form-group">
@@ -270,10 +265,10 @@
                                             <label class="form-label fl-10 ">Annual Turnover</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="annual.value" class="p-1 bg-light rounded-pill">{{atData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="annual_turnover" #annual type="text"
                                                 class="form-control form-control-sm"
-                                                (keyup)="comparisonData(annual.value)" appNumberOnly>
+                                                (keyup)="comparisonData(annual.value)" [(ngModel)]="atData" appNumberOnly>
                                         </div>
 
                                         <div class="col-md-2" *ngIf="form.value.annual_turnover != ''">
@@ -317,10 +312,13 @@
                                                 </select>
                                             </div>
                                         </div>
-                                       
-                                        <div class="col-md-2" *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
+
+                                        <div class="col-md-2"
+                                            *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
-                                            <input class="form-control form-control-sm" formControlName="our_annual_turnover" readonly [value]="data?.result | currency: 'INR': '' : '1.0-2'">
+                                            <input class="form-control form-control-sm"
+                                                formControlName="our_annual_turnover" readonly
+                                                [value]="data?.result | currency: 'INR':'':'1.0-2'">
                                         </div>
                                         <div class="col-md-2"
                                             *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
@@ -344,10 +342,10 @@
                                             <label class="form-label fl-10">Net Profit</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="netprofit.value" class="p-1 bg-light rounded-pill">{{netPData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="net_profit" type="text"
                                                 class="form-control form-control-sm" #netprofit
-                                                (keyup)="comparisonNetProfitData(netprofit.value)" appNumberOnly>
+                                                (keyup)="comparisonNetProfitData(netprofit.value)" [(ngModel)]="netPData" appNumberOnly>
 
                                         </div>
 
@@ -422,10 +420,10 @@
                                             <label class="form-label fl-10">EBITDA</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="ebdt.value" class="p-1 bg-light rounded-pill">{{ebdtData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="ebidta" type="text"
                                                 class="form-control form-control-sm" #ebdt
-                                                (keyup)="comparisonEbidtaData(ebdt.value)" appNumberOnly>
+                                                (keyup)="comparisonEbidtaData(ebdt.value)"  [(ngModel)]="ebdtData" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.ebidta != ''">
@@ -498,10 +496,10 @@
                                             <label class="form-label fl-10">Net Worth</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="networth.value" class="p-1 bg-light rounded-pill">{{netWData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="net_worth" type="text"
                                                 class="form-control form-control-sm" #networth
-                                                (keyup)="comparisonNetWorthData(networth.value)" appNumberOnly>
+                                                (keyup)="comparisonNetWorthData(networth.value)" [(ngModel)]="netWData" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.net_worth != ''">
@@ -575,10 +573,10 @@
                                             <label class="form-label fl-10">Net Working Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="networkCap.value" class="p-1 bg-light rounded-pill">{{netWortData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="net_working_capital" type="text"
                                                 class="form-control form-control-sm" #networkCap
-                                                (keyup)="comparisonNetWorkData(networkCap.value)" appNumberOnly>
+                                                (keyup)="comparisonNetWorkData(networkCap.value)" [(ngModel)]="netWortData" appNumberOnly>
 
                                         </div>
 
@@ -622,7 +620,8 @@
                                         <div class="col-md-2" *ngIf="form.value.net_working_capital_year">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_net_working_capital" readonly [value]="data2 | currency: 'INR': '' : '1.0-2'">
+                                                formControlName="our_net_working_capital" readonly
+                                                [value]="data2 | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="data2 != null">
                                             <br>
@@ -644,10 +643,10 @@
                                             <label class="form-label fl-10">Total Liabilities</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="libi.value" class="p-1 bg-light rounded-pill">{{libbData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="total_liabilities" type="text"
                                                 class="form-control form-control-sm" #libi
-                                                (keyup)="comparisonLibData(libi.value)" appNumberOnly>
+                                                (keyup)="comparisonLibData(libi.value)" [(ngModel)]="libbData" appNumberOnly>
                                         </div>
 
                                         <!-- <div class="col-md-2" *ngIf="form.value.total_liabilities != ''">
@@ -718,10 +717,10 @@
                                             <label class="form-label fl-10">Total Fixed Assets</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="fixedasset.value" class="p-1 bg-light rounded-pill">{{astData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="total_fixed_assets" type="text"
                                                 class="form-control form-control-sm" #fixedasset
-                                                (keyup)="comparisonAssetData(fixedasset.value)" appNumberOnly>
+                                                (keyup)="comparisonAssetData(fixedasset.value)" [(ngModel)]="astData" appNumberOnly>
 
                                         </div>
 
@@ -774,7 +773,8 @@
                                         <div class="col-md-2" *ngIf="form.value.total_fixed_assets_year">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_total_fixed_assets" readonly [value]="assetVal | currency: 'INR': '' : '1.0-2'">
+                                                formControlName="our_total_fixed_assets" readonly
+                                                [value]="assetVal | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="assetVal != null">
                                             <br>
@@ -856,10 +856,10 @@
                                             <label class="form-label fl-10">Reserve & Surplus</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="rsVal.value" class="p-1 bg-light rounded-pill">{{rssData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="reserve_surplus" type="text"
                                                 class="form-control form-control-sm" #rsVal
-                                                (keyup)="comparisonRSData(rsVal.value)" appNumberOnly>
+                                                (keyup)="comparisonRSData(rsVal.value)" [(ngModel)]="rssData" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.reserve_surplus != ''">
@@ -908,7 +908,8 @@
                                         <div class="col-md-2" *ngIf="form.value.reserve_surplus_year">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_reserve_surplus" readonly [value]="rAnds | currency: 'INR': '' : '1.0-2'">
+                                                formControlName="our_reserve_surplus" readonly
+                                                [value]="rAnds | currency: 'INR': '' : '1.0-2'">
 
                                         </div>
                                         <div class="col-md-2" *ngIf="rAnds != null">
@@ -928,10 +929,10 @@
                                             <label class="form-label fl-10">Paid Up Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="paiupcapi.value" class="p-1 bg-light rounded-pill">{{paidCData | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="paid_upcapital" type="text"
                                                 class="form-control form-control-sm" #paiupcapi
-                                                (keyup)="comparisonPaidupData(paiupcapi.value)" appNumberOnly>
+                                                (keyup)="comparisonPaidupData(paiupcapi.value)" [(ngModel)]="paidCData" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.paid_upcapital != ''">
@@ -983,7 +984,8 @@
                                         <div class="col-md-2" *ngIf="form.value.paid_upcapital_year">
                                             <label class="form-label fl-10 text-small">Our Values (INR)</label>
                                             <input class="form-control form-control-sm"
-                                                formControlName="our_paid_upcapital" readonly [value]="paiCapitalVal | currency: 'INR': '' : '1.0-2'">
+                                                formControlName="our_paid_upcapital" readonly
+                                                [value]="paiCapitalVal | currency: 'INR': '' : '1.0-2'">
                                         </div>
                                         <div class="col-md-2" *ngIf="paiCapitalVal != null">
                                             <br>
@@ -1052,10 +1054,10 @@
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="table-responsive pt-2" style="min-height: auto;">
-                                <table class="table table-hover table-striped custom-table">
+                                <table class="table table-hover table-striped custom-table table-bordered">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th colspan="6" class="text-center">Tender Information</th>
+                                            <th colspan="6" class="text-center">Tender Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
@@ -1102,7 +1104,12 @@
                                             <td>{{rowData?.capacity}}</td>
                                             <th>Execution Location</th>
                                             <td>
-                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ rowData?.tender_location }}"> {{rowData?.tender_location | slice:0:30}} <span *ngIf="rowData?.tender_location.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.tender_location }}"> {{rowData?.tender_location |
+                                                    slice:0:30}} <span
+                                                        *ngIf="rowData?.tender_location.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock4>
                                                     {{rowData?.tender_location}}
@@ -1138,7 +1145,7 @@
                                     <tbody class="text-nowrap">
                                         <tr *ngIf=" rowData?.annual_turnover > 0">
                                             <td>Annual Turnover</td>
-                                            <td>{{ rowData?.annual_turnover }}</td>
+                                            <td>{{ rowData?.annual_turnover | currency: 'INR': '' : '1.0-2' }}</td>
                                             <td>
                                                 <span *ngIf="!!rowData?.annual_turnover_check; else elseBlock11">
                                                     {{ rowData?.annual_turnover_check }}
@@ -1150,7 +1157,7 @@
                                             <!-- <td>{{ rowData?.annual_turnover_check}}</td> -->
                                             <td>{{ rowData?.annual_turnover_year }}</td>
                                             <td>{{ rowData?.financialyear }}</td>
-                                            <td>{{ rowData?.our_annual_turnover}}</td>
+                                            <td>{{ rowData?.our_annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.annual_turnover_status == true; else ifNot2">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1167,11 +1174,11 @@
                                         <tr *ngIf=" rowData?.net_profit > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Net Profit</td>
-                                            <td>{{ rowData?.net_profit }}</td>
+                                            <td>{{ rowData?.net_profit | currency: 'INR': '' : '1.0-2' }}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.net_profit_year }}</td>
                                             <td>{{ rowData?.net_profit_fin }}</td>
-                                            <td>{{ rowData?.our_net_profit}}</td>
+                                            <td>{{ rowData?.our_net_profit | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.net_profit_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1187,11 +1194,11 @@
                                         <tr *ngIf=" rowData?.ebidta > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>EBIDTA</td>
-                                            <td>{{ rowData?.ebidta }}</td>
+                                            <td>{{ rowData?.ebidta | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.ebidta_year }}</td>
                                             <td>{{ rowData?.ebidta_fin }}</td>
-                                            <td>{{ rowData?.our_ebidta}}</td>
+                                            <td>{{ rowData?.our_ebidta | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.ebidta_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1208,11 +1215,11 @@
                                         <tr *ngIf=" rowData?.net_worth > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Net Worth</td>
-                                            <td>{{ rowData?.net_worth }}</td>
+                                            <td>{{ rowData?.net_worth | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.net_worth_year }}</td>
                                             <td>{{ rowData?.net_worth_fin }}</td>
-                                            <td>{{ rowData?.our_net_worth}}</td>
+                                            <td>{{ rowData?.our_net_worth | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.net_worth_status == true; else ifNot3">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1228,11 +1235,11 @@
                                         <tr *ngIf=" rowData?.net_working_capital > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Net Working Capital</td>
-                                            <td>{{ rowData?.net_working_capital }}</td>
+                                            <td>{{ rowData?.net_working_capital | currency: 'INR': '' : '1.0-2' }}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.net_working_capital_year }}</td>
                                             <td>{{ rowData?.net_working_capital_fin }}</td>
-                                            <td>{{ rowData?.our_net_working_capital}}</td>
+                                            <td>{{ rowData?.our_net_working_capital | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.net_working_status == true; else ifNot4">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1249,11 +1256,11 @@
                                         <tr *ngIf=" rowData?.total_liabilities > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Total Liability</td>
-                                            <td>{{ rowData?.total_liabilities }}</td>
+                                            <td>{{ rowData?.total_liabilities | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.total_liabilities_year }}</td>
                                             <td>{{ rowData?.total_liabilities_fin }}</td>
-                                            <td>{{ rowData?.our_total_liabilities}}</td>
+                                            <td>{{ rowData?.our_total_liabilities | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.total_liabilities_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1269,11 +1276,11 @@
                                         <tr *ngIf=" rowData?.total_fixed_assets > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Total Fixed Asset</td>
-                                            <td>{{ rowData?.total_fixed_assets }}</td>
+                                            <td>{{ rowData?.total_fixed_assets | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.total_fixed_assets_year }}</td>
                                             <td>{{ rowData?.total_fixed_assets_fin }}</td>
-                                            <td>{{ rowData?.our_total_fixed_assets}}</td>
+                                            <td>{{ rowData?.our_total_fixed_assets | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.total_fixed_assets_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1308,11 +1315,11 @@
                                         <tr *ngIf=" rowData?.reserve_surplus > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Reserve & Surplus</td>
-                                            <td>{{ rowData?.reserve_surplus }}</td>
+                                            <td>{{ rowData?.reserve_surplus | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.reserve_surplus_year }}</td>
                                             <td>{{ rowData?.reserve_surplus_fin }}</td>
-                                            <td>{{ rowData?.our_reserve_surplus}}</td>
+                                            <td>{{ rowData?.our_reserve_surplus | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.reserve_surplus_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
@@ -1328,11 +1335,11 @@
                                         <tr *ngIf=" rowData?.paid_upcapital > 0">
                                             <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
                                             <td>Paid Up Capital</td>
-                                            <td>{{ rowData?.paid_upcapital }}</td>
+                                            <td>{{ rowData?.paid_upcapital | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td> -- </td>
                                             <td>{{ rowData?.paid_upcapital_year }}</td>
                                             <td>{{ rowData?.paid_upcapital_fin }}</td>
-                                            <td>{{ rowData?.our_paid_upcapital}}</td>
+                                            <td>{{ rowData?.our_paid_upcapital | currency: 'INR': '' : '1.0-2'}}</td>
                                             <td>
                                                 <div *ngIf=" rowData?.paid_upcapital_status == true; else ifNot5">
                                                     <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"

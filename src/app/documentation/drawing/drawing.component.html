@@ -19,16 +19,7 @@
             <div class="col-lg-5">
               <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
             </div>
-            <div class="col-lg-3">
-              <div class="float-right">
-                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
-                  <option [disabled]="true" [value]="null">Select</option>
-                  <option [selected]="true" value="/documentation/drawing-doc"> Drawing</option>
-                  <option value="/documentation/master-drawing-list"> Master Drawing List (MDL)</option>
-                  <option value="/documentation/final-boq"> Final BOQ</option>
-                </select>
-              </div>
-            </div>
+            <div class="col-lg-3"></div>
             <div class="col-lg-4">
               <div class="float-right">
                 <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()"><span class="mdi mdi-upload"></span>Export</button>
@@ -73,8 +64,8 @@
                 <td>{{a.tender_location}}</td>
                 <td>{{a.version}}</td>
                 <td>
-                  <a data-bs-toggle="modal" (click)="getDrawingList(a)" data-bs-target="#createModal" title="Edit Details"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                  <a class="ms-2" (click)="getDrawingList(a)" data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a data-bs-toggle="modal" (click)="getDrawingList(a)" data-bs-target="#createModal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                  <a class="ms-2" (click)="getDrawingList(a)" data-bs-toggle="modal" data-bs-target="#detailModal"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="mdlData.length == 0 && isNotFound">
@@ -107,46 +98,48 @@
         <div class="container-fluid">
           <div class="row">
             <div class="table-responsive" style="min-height: 300px">
-              <h6 class="mb-2 text-secondary">Tender Details</h6>
-              <table class="table table-hover table-striped custom-table">
-                <thead class="hidden-thead"></thead>
-                <tbody>
-                  <tr>
-                    <th>Tender Title</th>
-                    <td colspan="5">{{ selectRow?.tender_title }}</td>
-                  </tr>
-                  <tr>
-                    <th>Client</th>
-                    <td>{{ selectRow?.company_name }}</td>
-                    <th>NIT No</th>
-                    <td>
-                      <div *ngIf="!!selectRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectRow?.tender_ref_no }}">
-                          {{selectRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
-                      </div>
-                      <ng-template #elseBlock3>
-                          {{selectRow?.tender_ref_no}}
-                      </ng-template>
-                  </td>
-                    <th>Publish Date</th>
-                    <td>{{ selectRow?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                  </tr>
-                  <tr>
-                    <th>Category</th>
-                    <td>{{ selectRow?.qacatagory }}</td>
-                    <th>Sub Category</th>
-                    <td>{{ selectRow?.subqacatagory }}</td>
-                    <th>Capacity</th>
-                    <td>{{ selectRow?.capacity }}</td>
-                  </tr>
-                  <tr>
-                    <th>Execution Location</th>
-                    <td>{{ selectRow?.tender_location }}</td>
-                    <th>Document Description</th>
-                    <td colspan="5">{{ selectRow?.description }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h6 class="mt-3 mb-2 text-secondary">Master Drawing Details</h6>
+              <div class="row px-2">
+                <table class="table table-hover table-striped custom-table table-bordered">
+                  <thead class="table-primary text-nowrap">
+                    <tr>
+                      <th colspan="6" class="text-center">Tender Detail</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-nowrap">
+                    <tr>
+                      <th>Client</th>
+                      <td>{{ selectRow?.company_name }}</td>
+                      <th> NIT No</th>
+                      <td>
+                        <div *ngIf="!!selectRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectRow?.tender_ref_no }}"> {{selectRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                        <ng-template #elseBlock3>{{selectRow?.tender_ref_no}}</ng-template>
+                      </td>
+                      <th>Tender Title</th>
+                      <td>
+                        <div *ngIf="!!selectRow?.tender_title; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                          title="{{ selectRow?.tender_title }}">{{selectRow?.tender_title | slice:0:30}} <span
+                            *ngIf="selectRow?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                        <ng-template #elseBlock2>{{selectRow?.tender_title}}</ng-template>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Publish Date</th>
+                      <td>{{ selectRow?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                      <th>Category</th>
+                      <td>{{ selectRow?.qacatagory }}</td>
+                      <th>Sub-Category</th>
+                      <td>{{ selectRow?.subqacatagory }}</td>
+                    </tr>
+                    <tr>
+                      <th>Capacity</th>
+                      <td>{{ selectRow?.capacity }}</td>
+                      <th>Execution Location</th>
+                      <td colspan="3">{{ selectRow?.tender_location }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <h6 class="mt-2 mb-2 text-secondary">Master Drawing Details</h6>
               <table class="table table-hover table-striped custom-table">
                 <thead class="hidden-thead"></thead>
                 <tbody>
@@ -183,13 +176,16 @@
                   <tbody class="text-nowrap">
                     <tr *ngFor="let a of selectRow?.drawing; index as i">
                       <td>{{i+1}}</td>
-                      <td>{{a.drawing_title}}</td>
+                      <td>
+                        <div *ngIf="!!a.drawing_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ a.drawing_title }}"> {{a.drawing_title | slice:0:30}} <span *ngIf="a.drawing_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                        <ng-template #elseBlock3>{{a.drawing_title}}</ng-template>
+                      </td>
                       <td>{{a.drawing_no}}</td>
                       <td>{{a.discipline}}</td>
                       <td>{{a.stage}}</td>
                       <td>{{a.category}}</td>
                       <td>{{a.drawing_from}}</td>
-                      <td>{{a.planned_submission | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                      <td>{{a.planned_submission | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                       <td>{{a.remarks}}</td>
                       <td>
                         <div *ngIf="!!a?.description; else elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">{{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
@@ -219,7 +215,7 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <h6 class="mb-2 text-secondary">Tender Details</h6>
+          <h6 class="mb-2 text-secondary">Tender Detail</h6>
           <div class="row px-2">
             <table class="table table-hover table-striped custom-table">
               <thead class="hidden-thead"></thead>
@@ -233,10 +229,10 @@
                   <td>{{ selectRow?.company_name }}</td>
                   <th>NIT No</th>
                   <td>
-                    <div *ngIf="!!selectRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectRow?.tender_ref_no }}">
+                    <div *ngIf="!!selectRow?.tender_ref_no; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ selectRow?.tender_ref_no }}">
                         {{selectRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
                     </div>
-                    <ng-template #elseBlock3>
+                    <ng-template #elseBlock1>
                         {{selectRow?.tender_ref_no}}
                     </ng-template>
                 </td>

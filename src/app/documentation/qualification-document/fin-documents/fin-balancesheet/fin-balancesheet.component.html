@@ -28,7 +28,7 @@
                                     <option [selected]="true" value="/documentation/qualification-doc/fin/balance-sheet"> Balance Sheet</option>
                                     <option value="/documentation/qualification-doc/fin/maat"> MAAT</option>
                                     <option value="/documentation/qualification-doc/fin/liq-asset"> Liquid Assets</option>
-                                    <option value="/documentation/qualification-doc/fin/bank-certificate"> Bank certificate</option>
+                                    <option value="/documentation/qualification-doc/fin/bank-certificate"> Bank Certificate</option>
                                     <option value="/documentation/qualification-doc/fin/itr"> ITR</option>
                                     <option value="/documentation/qualification-doc/fin/tender-fees"> Registration Fees</option>
                                 </select>
@@ -53,7 +53,7 @@
                                 <th>S No</th>
                                 <th>Company</th>
                                 <th>Financial Year</th>
-                                <th>Annual Turnover</th>
+                                <th class="text-end">Annual Turnover</th>
                                 <th>Attachments</th>
                                 <th>Action</th>
                             </tr>
@@ -63,7 +63,7 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.bidder_name}}</td>
                                 <td>{{a.financialyear}}</td>
-                                <td>{{a.annual_turnover}}</td>
+                                <td class="text-end">{{a.annual_turnover | currency:'INR':'':'1.0-2'}}</td>
                                 <td>
                                     <div *ngIf="!!a.filename; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
                                         {{a.filename | slice:0:30}} <span *ngIf="a.filename.length > 30">...<i class="mdi mdi-information"></i></span>
@@ -73,8 +73,8 @@
                                     </ng-template>
                                 </td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
-                                    <a class="" data-bs-toggle="modal"data-bs-target="#detailModal" title="View Details" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
+                                    <a  data-bs-toggle="modal"data-bs-target="#detailModal" (click)="getDetails(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
                                     <!-- &nbsp; -->
                                      <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
 
@@ -273,12 +273,12 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Balance Sheet Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
-                <table class="table table-hover table-striped custom-table">
+                <table class="table table-hover table-striped custom-table table-bordered">
                     <thead class="hidden-thead"></thead>
                     <tbody class="text-nowrap">
                         <tr>
@@ -290,39 +290,39 @@
                         </tr>
                         <tr>
                             <th>Total Liability</th>
-                            <td>{{ rowData?.total_liabilities }}</td>
+                            <td>{{ rowData?.total_liabilities | currency:'INR':'':'1.0-2' }}</td>
                             <th>Total Fixed Asset</th>
-                            <td>{{ rowData?.total_fixed_assets }}</td>
+                            <td>{{ rowData?.total_fixed_assets  | currency:'INR':'':'1.0-2'}}</td>
                         </tr>
                         <tr>
                            
                             <th>Net Profit</th>
-                            <td>{{ rowData?.net_profit }}</td>
+                            <td>{{ rowData?.net_profit | currency:'INR':'':'1.0-2' }}</td>
                             <th>Net Worth</th>
-                            <td>{{ rowData?.net_worth }}</td>
+                            <td>{{ rowData?.net_worth | currency:'INR':'':'1.0-2' }}</td>
                         </tr>
                         <tr>
                           
                             <!-- <th>Net Capital</th>
                             <td>{{ rowData?.net_capital }}</td> -->
                             <th>Reserve & Surplus</th>
-                            <td>{{ rowData?.reserve_surplus }}</td>
+                            <td>{{ rowData?.reserve_surplus | currency:'INR':'':'1.0-2' }}</td>
                             <th></th>
                             <td></td>
                         </tr>
                         <tr>
                          
                             <th>Paid up Capital</th>
-                            <td>{{ rowData?.paid_upcapital }}</td>
+                            <td>{{ rowData?.paid_upcapital | currency:'INR':'':'1.0-2' }}</td>
                             <th>Annual Turnover</th>
-                            <td>{{ rowData?.annual_turnover }}</td>
+                            <td>{{ rowData?.annual_turnover | currency:'INR':'':'1.0-2' }}</td>
                         </tr>
                         <tr>
                            
                             <th>Networking Capital</th>
-                            <td>{{ rowData?.net_working_capital }}</td>
+                            <td>{{ rowData?.net_working_capital | currency:'INR':'':'1.0-2' }}</td>
                             <th>Ebidta</th>
-                            <td>{{ rowData?.ebidta }}</td>
+                            <td>{{ rowData?.ebidta | currency:'INR':'':'1.0-2' }}</td>
                             </tr>
                            
                             <tr>

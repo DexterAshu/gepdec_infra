@@ -46,7 +46,7 @@
                                 <th>S No</th>
                                 <th>Company</th>
                                 <th>Financial Year</th>
-                                <th>Annual Turnover (INR)</th>
+                                <th class="text-end">Annual Turnover (INR)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -56,14 +56,14 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.bidder_name}}</td>
                                 <td>{{a.financialyear}}</td>
-                                <td>{{a.annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
+                                <td class="text-end">{{a.annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal"
                                         (click)="getPatchDetails(a)"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details" (click)="getDetails(a)"><span
+                                    <a  data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        (click)="getDetails(a)"><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
@@ -140,7 +140,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Total Liabilities<span
+                                    <label class="form-label fl-10">Total Liabilities (INR)<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="total_liabilities" type="text"
                                         class="form-control form-control-sm" appNumberOnly>
@@ -152,7 +152,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Total Fixed Assets<span
+                                    <label class="form-label fl-10">Total Fixed Assets (INR)<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="total_fixed_assets" type="text"
                                         class="form-control form-control-sm" appNumberOnly>
@@ -164,7 +164,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Net Profit (Cr)<span
+                                    <label class="form-label fl-10">Net Profit (INR)<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="net_profit" type="text" class="form-control form-control-sm"
                                         appNumberOnly>
@@ -176,7 +176,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Net Worth (Cr)<span
+                                    <label class="form-label fl-10">Net Worth (INR)<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="net_worth" type="text" class="form-control form-control-sm"
                                         appNumberOnly>
@@ -188,7 +188,7 @@
                             </div>
                             <!-- <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Net Capital (Cr)<span
+                                    <label class="form-label fl-10">Net Capital (INR)<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="net_capital" type="text"
                                         class="form-control form-control-sm" appNumberOnly>
@@ -201,7 +201,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Reserve & Surplus<span
+                                    <label class="form-label fl-10">Reserve & Surplus (INR)<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="reserve_surplus" type="text"
                                         class="form-control form-control-sm" appNumberOnly>
@@ -215,7 +215,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Paid Up Capital<span
+                                    <label class="form-label fl-10">Paid Up Capital (INR)<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="paid_upcapital" type="text"
                                         class="form-control form-control-sm" appNumberOnly>
@@ -228,7 +228,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Annual Turnover (Cr)<span
+                                    <label class="form-label fl-10">Annual Turnover (INR)<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="annual_turnover" type="text"
                                         class="form-control form-control-sm" appNumberOnly>
@@ -240,7 +240,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Net Working Capital (Cr)<span
+                                    <label class="form-label fl-10">Net Working Capital (INR)<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="net_working_capital" type="text"
                                         class="form-control form-control-sm" appNumberOnly>
@@ -252,7 +252,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">EBIDTA</label>
+                                    <label class="form-label fl-10">EBIDTA (INR)</label>
                                     <input formControlName="ebidta" type="text" class="form-control form-control-sm"
                                         appNumberOnly>
                                     <div *ngIf="f['ebidta'].touched && f['ebidta'].invalid">

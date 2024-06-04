@@ -232,28 +232,25 @@ export class L2ScheduleBulkdataComponent {
   getCompanyList(): void {
     this.update = false;
     const apiLink = `/company/api/v1/getComapanyList`;
-    this.apiService.getData(apiLink).pipe(
-      map((res: any) => {
-        if (res.status === 200) {
-          return res.result;
-        } else {
-          throw new Error(res.message);
-        }
-      }),
-      catchError((error: any) => {
-        console.error(error);
-        this.alertService.error(error.message || "Error: Unknown Error!");
-        return throwError(error);
-      })
-    ).subscribe({
-      next: (result: any) => this.companyList = result,
-      error: (error: any) => console.error('There was an error!', error)
-    });
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.companyList = res.result;
+      } else {
+        this.alertService.warning(res.message);
+      }
+    }),
+    (error: any) => {
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    }
   }
 
   getTenderListByCompany(): void {
     this.tenderList = [];
     let company_id = this.documentForm.value.company_id ? this.documentForm.value.company_id : this.form.value.company_id ? this.form.value.company_id : 0;
+    if(company_id == 0) {
+      return;
+    }
     const apiLink = `/biding/api/v1/getTenderlist?company_id=${company_id}`
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {
@@ -275,7 +272,7 @@ export class L2ScheduleBulkdataComponent {
       if (res.status === 200) {
         this.l1ScheduleData = res.result[0];
       } else {
-        this.alertService.error(res.message);
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
@@ -296,7 +293,7 @@ export class L2ScheduleBulkdataComponent {
       if (res.status === 200) {
         this.l1ScheduleData = res.result;
       } else {
-        this.alertService.error(res.message);
+        // this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
@@ -316,7 +313,7 @@ export class L2ScheduleBulkdataComponent {
       } else {
         this.isNotFound = true;
         this.l2ScheduleData = undefined;
-        this.alertService.error(res.message);
+        this.alertService.warning(res.message);
       }
     }, (error: any) => {
       console.error(error);
@@ -401,7 +398,7 @@ export class L2ScheduleBulkdataComponent {
         this.getL2ScheduleData();
         document.getElementById('createModelClose')?.click();
       } else {
-        this.alertService.error(res.message);
+        this.alertService.warning(res.message);
       }
     }),
     (error: any) => {
@@ -431,7 +428,7 @@ export class L2ScheduleBulkdataComponent {
         this.getL2ScheduleData();
         document.getElementById('updateModelClose')?.click();
       } else {
-        this.alertService.error(res.message);
+        this.alertService.warning(res.message);
       }
     }),
       (error: any) => {

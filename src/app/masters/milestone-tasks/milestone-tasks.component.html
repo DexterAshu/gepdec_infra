@@ -1,16 +1,16 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Tasks</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Tasks</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
@@ -21,10 +21,13 @@
                     <hr> -->
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                                (click)="createForm()" class="btn btn-primary btn-fw btn-sm float-right">+
+                                Create</button>
                         </div>
                     </div>
                     <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
@@ -39,16 +42,19 @@
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <tr *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                            <tr
+                                *ngFor="let a of companyData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <!-- <td>{{ a.company_id }}</td> -->
                                 <td>{{ a.company_name }}</td>
                                 <td>{{ a.mstcompanytype }}</td>
                                 <td>{{ a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile" (click)="getDetails(a)"><span class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Instant Data Profile"
+                                        (click)="getDetails(a)"><span
+                                            class="mdi mdi-account-edit cursor-pointer mdi-18px"></span></a>
                                 </td>
-                              </tr>
+                            </tr>
                             <tr *ngIf="companyData?.length == 0">
                                 <td colspan="15" class="text-center">
                                     <div class="spinner-border"> </div>
@@ -76,7 +82,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tasks Information</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tasks Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -87,11 +93,13 @@
                                 <div class="form-group">
                                     <label class="form-label">Milestone<span class="required-asterisk">*</span></label>
                                     <select formControlName="milestone_name" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Milestone</option>
+                                        <option [selected]="true" [disabled]="true" [value]="null">Select Milestone
+                                        </option>
                                         <option *ngFor="let s of compData">{{ s.mstcompanytype }}</option>
                                     </select>
                                     <div *ngIf="f['milestone_name'].touched && f['milestone_name'].invalid">
-                                        <small class="text-danger" *ngIf="f['milestone_name'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['milestone_name'].errors?.['required']">*Required</small>
                                     </div>
 
                                 </div>
@@ -99,24 +107,27 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Tasks<span class="required-asterisk">*</span></label>
-                                    <ng-select [items]="users" formControlName="task"
-                                    bindLabel="name"
-                                    bindValue="id"
-                                    [addTag]="addCustomUser"
-                                    [multiple]="true"
-                                    placeholder="Add Multiple Task with Press 'Enter' ..."
-                                    [(ngModel)]="selectedUserIds">
-                         </ng-select>
+                                    <ng-select [items]="users" formControlName="task" bindLabel="name" bindValue="id"
+                                        [addTag]="addCustomUser" [multiple]="true"
+                                        placeholder="Add Multiple Task with Press 'Enter' ..."
+                                        [(ngModel)]="selectedUserIds">
+                                    </ng-select>
                                     <div *ngIf="f['task'].touched && f['task'].invalid">
-                                        <small class="text-danger" *ngIf="f['task'].errors?.['required']">*Required</small>
+                                        <small class="text-danger"
+                                            *ngIf="f['task'].errors?.['required']">*Required</small>
                                     </div>
                                 </div>
                             </div>
-                         
+
                             <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Adding...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                                    class="btn btn-primary btn-fw btn-sm mr-2">{{button}}</button>
+                                <button type="button" *ngIf="isSubmitted" disabled
+                                    class="btn btn-primary btn-fw btn-sm mr-2"><span
+                                        class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                    Adding...</button>
+                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                    data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </form>

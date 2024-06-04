@@ -30,9 +30,8 @@
                                 <select class="form-select form-select-sm border-secondary pt-04 w-auto"
                                     (change)="redirect($event)">
                                     <option [disabled]="true" [value]="null">Select</option>
-                                    <option [selected]="true" value="/documentation/tend-doc/amedments"> Amendments
-                                    </option>
                                     <option value="/documentation/tend-doc"> Tender</option>
+                                    <option [selected]="true" value="/documentation/tend-doc/amendments"> Amendments </option>
                                     <option value="/documentation/tend-doc/initial-boq"> Initial BOQ</option>
                                     <option value="/documentation/tend-doc/l1-schedule"> L1 Schedule</option>
                                 </select>
@@ -103,11 +102,11 @@
                                 <td>{{a.tender_location}}</td>
                                 <td>{{a.filename.slice(13)}}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"><span
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details"><span
+                                    <a  data-bs-toggle="modal" data-bs-target="#detailModal"
+                                       ><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
@@ -6,6 +6,7 @@ import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { SharedService } from 'src/app/_services';
 @Component({
   selector: 'app-bg-document',
   templateUrl: './bg-document.component.html',
@@ -44,7 +45,9 @@ export class BgDocumentComponent {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private  masterService: MasterService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private elementRef: ElementRef,
+    private sharedService: SharedService
   ) {
     const userDataString = localStorage.getItem('gdUserData');
     if (userDataString) {
@@ -71,6 +74,9 @@ export class BgDocumentComponent {
 
     this.getData();
     this.bankList();
+  }
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   updateDoc(){

@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-master-drawing-list',
@@ -27,11 +26,15 @@ export class MasterDrawingListComponent {
   isSubmitted: boolean = false;
   isNotFound: boolean = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private elementRef: ElementRef, private sharedService: SharedService) {}
 
   ngOnInit(): void {
     this.formInit();
     this.getMDLList();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   formInit(): void {
@@ -77,12 +80,6 @@ export class MasterDrawingListComponent {
       this.form.controls['category'].reset();
       this.form.controls['planned_submission_date'].reset();
       this.form.controls['remarks'].reset();
-    }
-  }
-
-  redirect(route: any) {
-    if (route) {
-      this.router.navigateByUrl(route.target.value);
     }
   }
 

@@ -69,12 +69,12 @@
                                 <td>{{ a.state_name }}</td>
                                 <td>{{ a.district_name }}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details"
+                                    <a data-bs-toggle="modal" data-bs-target="#createModal"
                                         (click)="getPatchDetails(a)"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
-                                    <a class="" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        title="View Details" (click)="getDetails(a)"><span
+                                    <a  data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        (click)="getDetails(a)"><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
@@ -108,14 +108,14 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Client Information</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Client Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid scroll-container">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <h6 class="">Client Details:</h6>
+                            <h6 >Client Details:</h6>
 
                             <div class="col-md-4">
                                 <div class="form-group">

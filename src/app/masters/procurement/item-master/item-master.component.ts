@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService, ExcelExportService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,12 +15,12 @@ export class ItemMasterComponent {
   form!: FormGroup;
   isSubmitted: boolean = false;
   isNotFound: boolean = false;
-  dataList: any;
+  dataList: any = [];
   file: any;
   dataDropdownList: any;
   selectedRow: any;
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private excelExport: ExcelExportService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -152,5 +152,9 @@ export class ItemMasterComponent {
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }
+  }
+
+  download(): void {
+    this.excelExport.exportAsExcelFile(this.dataList, 'sample');
   }
 }

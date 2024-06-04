@@ -1,7 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { ApiService, AlertService, MasterService } from 'src/app/_services';
+import { ApiService, AlertService, MasterService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
@@ -41,7 +41,9 @@ export class FinBalancesheetComponent {
     private apiService: ApiService,
     private alertService: AlertService,
     private masterService: MasterService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit() {
@@ -69,6 +71,9 @@ export class FinBalancesheetComponent {
     this.companyDataList();
   }
 
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
+  }
   get f() { return this.documentForm.controls; }
 
   getDetails(data: any) {

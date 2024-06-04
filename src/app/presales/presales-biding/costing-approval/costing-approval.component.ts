@@ -48,7 +48,7 @@ export class CostingApprovalComponent {
   finDataShow: boolean = false;
   tendStatusData: any;
   data: any;
-  sendForApprovalClicked: boolean =false;
+  sendForApprovalClicked: boolean = false;
   roleStatusData: any;
   statusList: any = [];
   approval: any;
@@ -57,6 +57,16 @@ export class CostingApprovalComponent {
   selectedRow: any;
   itemList: any;
   totalDirectCost: number = 0;
+  marginPer: number = 12;
+  overallDirectCost: number = 0;
+  overallInDirectCost: number = 0;
+  totalMargin: number = 0;
+  totalProjectCost: number = 0;
+  totalProjectCostWithMargin: number = 0;
+  totalProfit: number = 0;
+  profitPer: number = 0;
+  tenderID: any;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -83,11 +93,28 @@ export class CostingApprovalComponent {
     this.getTenderData();
   }
 
+  validateInput() {
+    debugger
+    if (this.marginPer === null || this.marginPer === undefined) {
+      this.marginPer = 0;
+    }  else if(this.marginPer < 0) {
+      this.marginPer = 0;
+    } else if(this.marginPer > 100) {
+      this.marginPer = 100;
+    }
+
+    this.totalProjectCost = this.overallDirectCost + this.overallInDirectCost;
+    this.totalMargin = (this.totalProjectCost * this.marginPer) / 100;
+    this.totalProjectCostWithMargin = this.totalProjectCost + this.totalMargin;
+    this.totalProfit = +this.rowData?.ecv - this.totalProjectCostWithMargin;
+    this.profitPer = (this.totalProfit / +this.rowData?.ecv) * 100;
+  }
+
   getBOQItemList(data: any) {
     this.totalDirectCost = 0;
     this.itemList = [];
     this.itemList = data;
-    this.itemList?.items.map((item: any) => this.totalDirectCost += item?.total_basic_value );
+    this.itemList?.items.map((item: any) => this.totalDirectCost += item?.total_basic_value);
   }
 
   //  getDetails(data:any){
@@ -116,16 +143,28 @@ export class CostingApprovalComponent {
 
   rowListData(row: any) {
     this.rowData = row;
-    this.reqList  = this.rowData.requestStatus;
-    console.log( this.reqList);
-    
-  var roleD = this.roleStatusData.filter((res:any)=>{
-  return res.tender_id == this.rowData.tender_id;
-})
-this.statusList=roleD[0].roleStatus
+    this.tenderID = row.tender_id;
+    if (this.rowData.directCost.length > 0 && this.rowData?.indirectCost.length > 0) {
+      this.rowData.directCost[0]?.items?.map((el: any) => {
+        this.overallDirectCost += +el?.total_freight_with_GST_value;
+      });
+  
+      this.rowData.indirectCost?.map((el: any) => {
+        this.overallInDirectCost += +el?.all_total;
+      });
+    }
+
+    this.reqList = this.rowData.requestStatus;
+    console.log(this.reqList);
+
+    var roleD = this.roleStatusData.filter((res: any) => {
+      return res.tender_id == this.rowData.tender_id;
+    })
+    this.statusList = roleD[0].roleStatus
+
   }
 
- 
+
   get f() { return this.form.controls; }
 
   getTenderData() {
@@ -137,7 +176,7 @@ this.statusList=roleD[0].roleStatus
     this.apiService.getTenderList().subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderData = res.result;
-        this.roleStatusData = this.tenderData.filter((data:any)=> data.roleStatus);
+        this.roleStatusData = this.tenderData.filter((data: any) => data.roleStatus);
         this.statusData = res.counts;
         this.isNotFound = false;
       } else {
@@ -212,8 +251,8 @@ this.statusList=roleD[0].roleStatus
     // this.setDataSourceAttributes()
   }
 
-   download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
@@ -244,43 +283,46 @@ this.statusList=roleD[0].roleStatus
     // else {
     //   this.form.controls['working_notes'].clearValidators();
     //   this.form.controls['working_notes'].reset();
-     
+
     // }
     if (this.form.value.tenderstatus_id !== '') {
-        this.form.value.tenderstatus_id = '';
+      this.form.value.tenderstatus_id = '';
     } else {
-        this.form.value.tenderstatus_id = null;
+      this.form.value.tenderstatus_id = null;
     }
     this.approval = 'Send Back';
     this.form.value.approval = this.approval;
     var reqTend = {
-        requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
-        // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
-        tender_id: this.tenderData[0].tender_id,
+      requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
+      // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
+      tender_id : this.tenderID,
+      working_notes: this.form.value.working_notes,
     };
     this.apiService.createApproval(reqTend).subscribe((res: any) => {
-        let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.isSubmitted = false;
-        if (response.status == 200) {
-            this.form.reset();
-            this.alertService.success(response.message);
-        } else {
-            this.alertService.warning(response.message);
-        }
+      let response: any = res;
+      document.getElementById('cancel')?.click();
+      this.isSubmitted = false;
+      if (response.status == 200) {
+        this.form.reset();
+        this.alertService.success(response.message);
+      } else {
+        this.alertService.warning(response.message);
+      }
     }, (error: any) => {
-        this.isNotFound = false;
-        this.alertService.error("Error: " + error.message); // Updated error message
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.message); // Updated error message
     });
-}
+  }
 
 
   sendApproval() {
 
-    if(this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager'){
+    if (this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager') {
       var reqTend = {
-        requeststatus_id : this.reqList[0].requeststatus_id,
-        tender_id : this.tenderData[0].tender_id,
+
+        working_notes: this.form.value.working_notes,
+        requeststatus_id:this.form.value.tenderstatus_id,
+        tender_id : this.tenderID,
       }
       this.apiService.createApproval(reqTend).subscribe((res: any) => {
         let response: any = res;
@@ -297,11 +339,11 @@ this.statusList=roleD[0].roleStatus
         this.isNotFound = false;
         this.alertService.error("Error: Unknown Error!")
       })
-    
+
     }
-    else{
+    else {
       this.form.value.requeststatus_id = this.reqList[0].requeststatus_id;
-      this.form.value.tender_id = this.tenderData[0].tender_id;
+      this.form.value.tender_id = this.tenderID;
       this.apiService.createApproval(this.form.value).subscribe((res: any) => {
         let response: any = res;
         document.getElementById('cancel')?.click();

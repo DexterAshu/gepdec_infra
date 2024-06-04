@@ -56,10 +56,6 @@
                 <th>Sub Category</th>
                 <th>Capacity </th>
                 <th>Execution Location</th>
-
-                <th>BOQ Category</th>
-                <th>BOQ Sub Category</th>
-                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -85,15 +81,9 @@
                 <td>{{ a.subqacatagory }}</td>
                 <td>{{ a.capacity }}</td>
                 <td>{{ a.tender_location }}</td>
-                <td>{{ a.itemcategory }}</td>
-                <td>{{ a.subcategory }}</td>
-                <td>{{ a.status }}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)"
-                    title="Edit BOQ Items Details"><span
-                      class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details"
-                    (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">
@@ -250,16 +240,16 @@
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ update ? 'Edit' : 'View' }} BOQ Items Information</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{ update ? 'Edit' : 'View' }} BOQ List</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="row">
-            <table class="table table-hover table-striped custom-table">
+          <div class="row px-2">
+            <table class="table table-hover table-striped custom-table table-bordered">
               <thead class="table-primary text-nowrap">
                 <tr>
-                  <th colspan="6" class="text-center">Tender Information</th>
+                  <th colspan="6" class="text-center">Tender Detail</th>
                 </tr>
               </thead>
               <tbody class="text-nowrap">
@@ -297,13 +287,15 @@
                 </tr>
               </tbody>
             </table>
-            <app-responsive-table class="mt-2">
+          </div>
+          <div class="row">
+            <app-responsive-table class="mt-2 px-2">
               <thead class="table-primary text-nowrap">
                 <tr>
                   <th>S No</th>
                   <th>BOQ Code</th>
-                  <th>Category</th>
-                  <th>Sub Category</th>
+                  <th>BOQ Category</th>
+                  <th>BOQ Sub Category</th>
                   <th>Created By</th>
                   <th>Created Date</th>
                   <th>Status</th>
@@ -311,10 +303,10 @@
                 </tr>
               </thead>
               <tbody class="text-nowrap">
-                <tr *ngFor="let boq of boqList?.boqs; index as i">
+                <tr *ngFor="let boq of boqList?.boq; index as i">
                   <td>{{ limit*(p-1)+i+1 }}</td>
                   <td>{{ boq?.boq_code }}</td>
-                  <td>{{ boq?.category }}</td>
+                  <td>{{ boq?.itemcategory }}</td>
                   <td>{{ boq?.subcategory }}</td>
                   <td>{{ boq?.createdby_name }}</td>
                   <td>{{ boq?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
@@ -341,8 +333,9 @@
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ update ? 'Edit' : 'View' }} BOQ Items Information</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="exampleModalLabel">{{ update ? 'Edit' : 'View' }} BOQ Item</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal"
+          data-bs-target="#boqListModel"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -350,7 +343,7 @@
             <table class="table table-hover table-striped custom-table">
               <thead class="table-primary text-nowrap">
                 <tr>
-                  <th colspan="6" class="text-center">Tender Information</th>
+                  <th colspan="6" class="text-center">Tender Detail</th>
                 </tr>
               </thead>
               <tbody class="text-nowrap">
@@ -401,6 +394,7 @@
                 <th>Basic Value</th>
                 <th>Freight Charges</th>
                 <th *ngIf="update">Action</th>
+                <th *ngIf="update">Select</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
@@ -426,6 +420,9 @@
                     <a (click)="deleteBOQParentItemList(item)"><span
                         class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                   </td>
+                  <td *ngIf="update">
+                    <input type="checkbox" (click)="selectItemForUpdate(item)">
+                  </td>
                 </tr>
                 <ng-container *ngIf="item?.childItemList?.length > 0">
                   <tr *ngFor="let childItem of item?.childItemList; index as ci">
@@ -450,27 +447,34 @@
                       <a (click)="deleteBOQChildItemList(item, childItem)"><span
                           class="mdi mdi-playlist-remove text-danger cursor-pointer mdi-18px"></span></a>
                     </td>
-                  </tr>
-                  <tr *ngIf="update">
-                    <td colspan="15" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3"
-                        data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span
-                          class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                    <td *ngIf="update">
+                      <input type="checkbox" (click)="selectItemForUpdate(childItem)">
+                    </td>
                   </tr>
                 </ng-container>
+                <tr *ngIf="update == true">
+                  <td colspan="9" class="text-right"><a (click)="selectParentForAddChildItem(item)" class="me-3"
+                      data-bs-target="#boqAddChildItemFormModel" data-bs-toggle="modal"><span
+                        class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                  <td></td>
+                </tr>
               </ng-container>
               <tr *ngIf="update">
-                <td colspan="15" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel"
+                <td colspan="9" class="text-right"><a class="me-4" data-bs-target="#boqAddParentItemFormModel"
                     data-bs-toggle="modal"><span
                       class="mdi mdi-playlist-plus text-success cursor-pointer mdi-18px"></span></a></td>
+                <td></td>
               </tr>
             </tbody>
           </app-responsive-table>
-          <div class="row float-right mt-2" *ngIf="update">
-            <div class="my-1">
-              <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2">Update</button>
-              <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal"
-                data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
-            </div>
+        </div>
+      </div>
+      <div class="modal-footer py-0" *ngIf="update">
+        <div class="row float-right mt-2">
+          <div class="my-1">
+            <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" (click)="onBOQItemSubmit()">Update</button>
+            <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal"
+              data-bs-target="#boqListModel">Close</button>
           </div>
         </div>
       </div>
@@ -480,14 +484,49 @@
 
 <div class="modal fade" id="boqAddParentItemFormModel" tabindex="-1" aria-labelledby="boqParentItemFormModelLabel"
   aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="boqAddParentItemFormModelLabel">Add New BOQ Parent Item</h5>
+        <h5 class="modal-title" id="boqAddParentItemFormModelLabel">Add Item</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
+          <h6 class="mb-1 text-secondary">Tender Detail</h6>
+          <div class="row px-2 mb-2">
+            <table class="table table-hover table-striped custom-table">
+              <thead></thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <th>Client</th>
+                  <td>{{ boqList?.company_name }}</td>
+                  <th> NIT No</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                  </td>
+                  <th>Tender Title</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Publish Date</th>
+                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                  <th>Execution Location</th>
+                  <td>{{ boqList?.tender_location }}</td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h6 class="mb-1 text-secondary">Add Item</h6>
           <div class="row">
             <form [formGroup]="addParentItemForm" (ngSubmit)="addParentItem()">
               <div class="row">
@@ -550,14 +589,85 @@
 
 <div class="modal fade" id="boqAddChildItemFormModel" tabindex="-1" aria-labelledby="boqAddChildItemFormModelLabel"
   aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="boqAddChildItemFormModelLabel">Add New BOQ Parent Item</h5>
+        <h5 class="modal-title" id="boqAddChildItemFormModelLabel">Add Child Item</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
+          <h6 class="mb-1 text-secondary">Tender Detail</h6>
+          <div class="row px-2 mb-2">
+            <table class="table table-hover table-striped custom-table">
+              <thead></thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <th>Client</th>
+                  <td>{{ boqList?.company_name }}</td>
+                  <th> NIT No</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                  </td>
+                  <th>Tender Title</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Publish Date</th>
+                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                  <th>Execution Location</th>
+                  <td>{{ boqList?.tender_location }}</td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h6 class="mb-1 text-secondary">Parent Item Detail</h6>
+          <div class="row px-2 mb-2">
+            <table class="table table-hover table-striped custom-table">
+              <thead></thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <th>Description</th>
+                  <td colspan="5">{{selectParentItemForUpdateChild?.description}}</td>
+                </tr>
+                <tr>
+                  <th>Item Code</th>
+                  <td>{{ selectParentItemForUpdateChild?.itemcode }}</td>
+                  <th>UOM</th>
+                  <td>{{ selectParentItemForUpdateChild?.uom }}</td>
+                  <th>Quantity</th>
+                  <td>{{ selectParentItemForUpdateChild?.qty }}</td>
+                </tr>
+                <tr>
+                  <th>Item Category</th>
+                  <td>{{ selectParentItemForUpdateChild?.itemcategory }}</td>
+                  <th>Item Sub Category</th>
+                  <td>{{ selectParentItemForUpdateChild?.subcategory }}</td>
+                  <th>Unit Price</th>
+                  <td>{{ selectParentItemForUpdateChild?.unit_price }}</td>
+                </tr>
+                <tr>
+                  <th>GST</th>
+                  <td>{{ selectParentItemForUpdateChild?.gst }}</td>
+                  <th>Freight Charges</th>
+                  <td>{{ selectParentItemForUpdateChild?.freight_charges }}</td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h6 class="mb-1 text-secondary">Add Item</h6>
           <div class="row">
             <form [formGroup]="addChildItemForm" (ngSubmit)="addBOQChildItem()">
               <div class="row">
@@ -628,6 +738,44 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
+          <div class="row px-2 mb-2">
+            <table class="table table-hover table-striped custom-table">
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th colspan="6" class="text-center">Tender Detail</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <th>Client</th>
+                  <td>{{ boqList?.company_name }}</td>
+                  <th> NIT No</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                  </td>
+                  <th>Tender Title</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Publish Date</th>
+                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                  <th>Execution Location</th>
+                  <td>{{ boqList?.tender_location }}</td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h6 class="mb-1 text-secondary">Edit Item</h6>
           <div class="row">
             <form [formGroup]="editParentItemForm" (ngSubmit)="updateParentItem()">
               <div class="row">
@@ -694,6 +842,77 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
+          <h6 class="mb-1 text-secondary">Tender Detail</h6>
+          <div class="row px-2 mb-2">
+            <table class="table table-hover table-striped custom-table">
+              <thead></thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <th>Client</th>
+                  <td>{{ boqList?.company_name }}</td>
+                  <th> NIT No</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                  </td>
+                  <th>Tender Title</th>
+                  <td>
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
+                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Publish Date</th>
+                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                  <th>Execution Location</th>
+                  <td>{{ boqList?.tender_location }}</td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h6 class="mb-1 text-secondary">Parent Item Detail</h6>
+          <div class="row px-2 mb-2">
+            <table class="table table-hover table-striped custom-table">
+              <thead></thead>
+              <tbody class="text-nowrap">
+                <tr>
+                  <th>Description</th>
+                  <td colspan="5">{{selectParentItemForUpdateChild?.description}}</td>
+                </tr>
+                <tr>
+                  <th>Item Code</th>
+                  <td>{{ selectParentItemForUpdateChild?.itemcode }}</td>
+                  <th>UOM</th>
+                  <td>{{ selectParentItemForUpdateChild?.uom }}</td>
+                  <th>Quantity</th>
+                  <td>{{ selectParentItemForUpdateChild?.qty }}</td>
+                </tr>
+                <tr>
+                  <th>Item Category</th>
+                  <td>{{ selectParentItemForUpdateChild?.itemcategory }}</td>
+                  <th>Item Sub Category</th>
+                  <td>{{ selectParentItemForUpdateChild?.subcategory }}</td>
+                  <th>Unit Price</th>
+                  <td>{{ selectParentItemForUpdateChild?.unit_price }}</td>
+                </tr>
+                <tr>
+                  <th>GST</th>
+                  <td>{{ selectParentItemForUpdateChild?.gst }}</td>
+                  <th>Freight Charges</th>
+                  <td>{{ selectParentItemForUpdateChild?.freight_charges }}</td>
+                  <th></th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h6 class="mb-1 text-secondary">Edit Item</h6>
           <div class="row">
             <form [formGroup]="editChildItemForm" (ngSubmit)="updateBOQChildItemList()">
               <div class="row">

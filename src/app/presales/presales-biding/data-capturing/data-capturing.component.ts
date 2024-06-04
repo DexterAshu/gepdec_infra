@@ -70,6 +70,7 @@ export class DataCapturingComponent {
   multiLocation:any;
   // addCustomLocation:any;
   selectedUserIds:any = [];
+  ecvData:any
 
   constructor(
     private formBuilder: FormBuilder,
@@ -314,16 +315,14 @@ export class DataCapturingComponent {
           bidtype_id: this.custDetails.bidtype_id,
           company_id: this.custDetails.company_id,
           paymentmethod_id: this.custDetails.paymentmethod_id,
-          fin_bid_opening_date: this.custDetails.fin_bid_opening_date,
+        
           // opening_date: this.custDetails.opening_date,
           reserve_auction: this.custDetails.reserve_auction,
-          closing_date: this.custDetails.closing_date,
-          prebid_date: this.custDetails.prebid_date,
+     
           pre_meeting: this.custDetails.pre_meeting,
-          prebid_submission_date: this.custDetails.prebid_submission_date,
           prebidmeetingmode_id: this.custDetails.prebidmeetingmode_id,
-          publish_date: this.custDetails.publish_date,
-          tech_bid_date: this.custDetails.tech_bid_date,
+          publish_date: this.custDetails.publish_date ? new Date(this.custDetails.publish_date).toISOString().split('T')[0] : null,
+          tech_bid_date: this.custDetails.tech_bid_date ? new Date(this.custDetails.tech_bid_date).toISOString().split('T')[0] : null,
           tender_description: this.custDetails.tender_description,
           completion_period: this.custDetails.completion_period,
           bid_validity: this.custDetails.bid_validity,
@@ -333,19 +332,18 @@ export class DataCapturingComponent {
           tenderpayment_terms: this.custDetails.tenderpayment_terms,
           tender_location: this.custDetails.tender_location,
           tender_ref_no: this.custDetails.tender_ref_no,
-       
           qacatagory_id: this.custDetails.qacatagory_id,
           subqacatagory_id: this.custDetails.subqacatagory_id,
           capacity_id: this.custDetails.capacity_id,
           tender_status: this.custDetails.tender_status,
-          tender_submission_date: this.custDetails.tender_submission_date,
-          tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date,
+          tender_submission_date: this.custDetails.tender_submission_date ? new Date(this.custDetails.tender_submission_date).toISOString().split('T')[0] : null,
+          tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date ? new Date(this.custDetails.tenderhardcopysubmission_date).toISOString().split('T')[0] : null,
           tender_title: this.custDetails.tender_title,
           ecv: this.custDetails.ecv,
           //Security Details
           securitydeposit_id: this.custDetails.securitydeposit_id,
           security_amount: this.custDetails.security_amount,
-          securitysubmission_date: this.custDetails.securitysubmission_date,
+       
           //performance Details
           performanceguarantee_id: this.custDetails.performanceguarantee_id,
           pg_amount: this.custDetails.pg_amount,
@@ -353,16 +351,23 @@ export class DataCapturingComponent {
           //exemption details
           exemption_id: this.custDetails.exemption_id,
           emd_ammount: this.custDetails.emd_ammount,
-          emd_submission_date: this.custDetails.emd_submission_date,
           forfeiture_condition: this.custDetails.forfeiture_condition,
           city:this.custDetails.city,
           country_id: this.custDetails.country_id,
           state_id: this.custDetails.state_id,
           district_id: this.custDetails.district_id,
           financialyear_id: this.custDetails.financialyear_id,
-          remarks: this.custDetails.remarks.join('\n'),
-          audit_trail: this.custDetails.audit_trail.join('\n'),
+          remarks: this.custDetails.remarks ? this.custDetails.remarks.join('\n') : '',
+          audit_trail: this.custDetails.audit_trail ? this.custDetails.audit_trail.join('\n') : '',
           contactperson_check: this.custDetails.contactperson_check,
+
+          fin_bid_opening_date: this.custDetails.fin_bid_opening_date ? new Date(this.custDetails.fin_bid_opening_date).toISOString().split('T')[0] : null,
+          closing_date: this.custDetails.closing_date ? new Date(this.custDetails.closing_date).toISOString().split('T')[0] : null,
+          prebid_date: this.custDetails.prebid_date ? new Date(this.custDetails.prebid_date).toISOString().split('T')[0] : null,
+          prebid_submission_date: this.custDetails.prebid_submission_date ? new Date(this.custDetails.prebid_submission_date).toISOString().split('T')[0] : null,
+          securitysubmission_date: this.custDetails.securitysubmission_date ? new Date(this.custDetails.securitysubmission_date).toISOString().split('T')[0] : null,
+          emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
+
         });
        
           // setTimeout(()=>{

@@ -40,6 +40,7 @@ export class BoqItemsComponent {
   selectParentItemForUpdateChild: any;
   itemListData: any = [];
   errorItemList: any = [];
+  selectedItemsListForUpdate: any = [];
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
 
@@ -173,6 +174,7 @@ export class BoqItemsComponent {
     }, (error: any) => {
       console.error(error);
       this.isNotFound = true;
+      this.boqData = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }
@@ -226,7 +228,14 @@ export class BoqItemsComponent {
   get addPIC() { return this.addParentItemForm.controls; }
 
   addParentItem(): void {
-    this.itemList.items.push(this.addParentItemForm.value);
+    let match: any = this.itemListData.find((x: any) => x.itemcode == this.addParentItemForm.value.itemcode);
+    console.log(match);
+    match.isAdded = true;
+    match.isUpdate = false;
+    match.qty = this.addParentItemForm.value.qty;
+    match.unit_price = this.addParentItemForm.value.unit_price;
+    match.freight_charges = this.addParentItemForm.value.freight_charges;
+    this.itemList.items.push(match);
     this.addParentItemForm.reset();
   }
 
@@ -243,6 +252,7 @@ export class BoqItemsComponent {
         return item;
       }
     });
+    this.editParentItemForm.reset();
   }
 
   deleteBOQParentItemList(item: any): void {
@@ -250,19 +260,24 @@ export class BoqItemsComponent {
   }
 
   addBOQChildItem(): void {
-    let match: any = this.addChildItemForm.value;
-    match.isAdded = true;
-    match.isUpdate = false;
-    console.log(this.itemList);
     this.itemList.items = this.itemList.items.map((item: any) => {
       if (item.item_id == this.selectParentItemForUpdateChild.item_id) {
+        let match: any = this.itemListData.find((x: any) => x.itemcode == this.addChildItemForm.value.itemcode);
+        console.log(match);
+        match.isAdded = true;
+        match.isUpdate = false;
+        match.qty = this.addChildItemForm.value.qty;
+        match.unit_price = this.addChildItemForm.value.unit_price;
+        match.freight_charges = this.addChildItemForm.value.freight_charges;
         item.childItemList = item.childItemList ? item.childItemList : [];
         item.childItemList.push(match);
+        console.log(item);
         return item;
       }
       return item;
     });
     this.addChildItemForm.reset();
+    this.selectParentItemForUpdateChild = null;
   }
 
   selectParentForAddChildItem(data: any): void {
@@ -271,6 +286,7 @@ export class BoqItemsComponent {
   }
 
   editBOQChildItemList(parentItem: any, childItem: any): void {
+    this.selectParentItemForUpdateChild = parentItem;
     this.editChildItemForm = this.formBuilder.group({
       boq_id: [this.itemList.boq_id, Validators.required],
       itemcode: [childItem.itemcode, Validators.required],
@@ -300,6 +316,8 @@ export class BoqItemsComponent {
       }
       return item;
     });
+    this.editChildItemForm.reset();
+    this.selectParentItemForUpdateChild = null;
   }
 
   deleteBOQChildItemList(item: any, childItem: any): void {
@@ -352,6 +370,20 @@ export class BoqItemsComponent {
       this.isSubmitted = false;
       this.alertService.error("Error: Unknown Error!");
     });
+  }
+
+  selectItemForUpdate(item: any): void {
+    let data = this.selectedItemsListForUpdate.filter((x: any) => x.item_id == item.item_id);
+    if(data.length > 0) {
+      this.selectedItemsListForUpdate = this.selectedItemsListForUpdate.filter((x: any) => x.item_id != item.item_id);
+    } else {
+      this.selectedItemsListForUpdate.push(item);
+    }
+    console.log(this.selectedItemsListForUpdate);
+  }
+
+  onBOQItemSubmit(): void {
+    console.log(this.selectedItemsListForUpdate);
   }
 
   download(): void {
