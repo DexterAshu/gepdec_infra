@@ -57,7 +57,7 @@ export class CostingApprovalComponent {
   selectedRow: any;
   itemList: any;
   totalDirectCost: number = 0;
-  marginPer: number = 0;
+  marginPer: number = 12;
   overallDirectCost: number = 0;
   overallInDirectCost: number = 0;
   totalMargin: number = 0;
@@ -65,6 +65,7 @@ export class CostingApprovalComponent {
   totalProjectCostWithMargin: number = 0;
   totalProfit: number = 0;
   profitPer: number = 0;
+  tenderID: any;
 
 
   constructor(
@@ -95,7 +96,6 @@ export class CostingApprovalComponent {
   validateInput() {
     debugger
     if (this.marginPer === null || this.marginPer === undefined) {
-      debugger
       this.marginPer = 0;
     }  else if(this.marginPer < 0) {
       this.marginPer = 0;
@@ -143,7 +143,7 @@ export class CostingApprovalComponent {
 
   rowListData(row: any) {
     this.rowData = row;
-
+    this.tenderID = row.tender_id;
     if (this.rowData.directCost.length > 0 && this.rowData?.indirectCost.length > 0) {
       this.rowData.directCost[0]?.items?.map((el: any) => {
         this.overallDirectCost += +el?.total_freight_with_GST_value;
@@ -295,7 +295,7 @@ export class CostingApprovalComponent {
     var reqTend = {
       requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
       // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
-      tender_id: this.tenderData[0].tender_id,
+      tender_id : this.tenderID,
       working_notes: this.form.value.working_notes,
     };
     this.apiService.createApproval(reqTend).subscribe((res: any) => {
@@ -322,7 +322,7 @@ export class CostingApprovalComponent {
 
         working_notes: this.form.value.working_notes,
         requeststatus_id:this.form.value.tenderstatus_id,
-        tender_id: this.tenderData[0].tender_id,
+        tender_id : this.tenderID,
       }
       this.apiService.createApproval(reqTend).subscribe((res: any) => {
         let response: any = res;
@@ -343,7 +343,7 @@ export class CostingApprovalComponent {
     }
     else {
       this.form.value.requeststatus_id = this.reqList[0].requeststatus_id;
-      this.form.value.tender_id = this.tenderData[0].tender_id;
+      this.form.value.tender_id = this.tenderID;
       this.apiService.createApproval(this.form.value).subscribe((res: any) => {
         let response: any = res;
         document.getElementById('cancel')?.click();
