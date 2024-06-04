@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
@@ -8,103 +8,127 @@ import { environment } from 'src/environments/environment';
   templateUrl: './boq.component.html',
   styleUrls: ['./boq.component.css']
 })
-export class BoqComponent {
+export class BoqComponent implements OnInit, OnDestroy {
 
+  private destroy$ = new Subject<void>();
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
-  form!: FormGroup;
   isSubmitted: boolean = false;
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
+  isDropDownDisabled: boolean = false;
   dataList: any;
+  vendorDetails: any = [];
   rowData: any;
-  vendorList = [ { vendorCode: 'V0001', name: 'Demo Vendor'}, { vendorCode: 'C0001', name: 'Demo Vendor 2'}, { vendorCode: 'K0001', name: 'Demo Vendor3'}, { vendorCode: 'M0001', name: 'Demo Vendor4'} ]
+  vendorList: any = [];
+  selectedVendors: any = [];
 
   constructor(
-    private formBuilder: FormBuilder,
-    private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService,
   ) { }
 
-  ngOnInit(){
-    // this.form = this.formBuilder.group({
-    //   addressFor: [null, Validators.required],
-    //   billingAddress: [null, Validators.required],
-    //   billingDetails: [null],
-    //   code: [null, Validators.required],
-    //   type: [null, Validators.required],
-    //   address: [null, Validators.required],
-    //   country: [null, Validators.required],
-    //   state: [null, Validators.required],
-    //   district: [null, Validators.required],
-    //   city: [null, Validators.required],
-    //   pincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
-    // });
-
+  ngOnInit() {
     this.getDataList();
-    // this.getDropdownList()
   }
-
-  get f() { return this.form.controls; }
 
   getDataList() {
     this.dataList = [];
     this.isNotFound = false;
-    let apiLink = "/boq/api/v1/getBoqList";
-    this.apiService.getData(apiLink).subscribe((res:any) => {
-      if (res.status === 200) {
-        this.isNotFound = false;
-        this.dataList = res.result;
-      } else {
-        this.isNotFound = true;
-        this.dataList = undefined;
-        this.alertService.warning("Looks like no data available!");
-      }
-    }, (error: any) => {
-      this.isNotFound = true;
-      this.dataList = undefined;
-      this.alertService.error("Error: Unknown Error!");
-    });
-  }
-
-  rowListData() {
-    this.rowData = [];
-    // this.rowData = row;
-  }
-
-  onSubmit() {
-    if (this.form.valid) {
-      this.isSubmitted = true;
-      let data = {
-        // basePrice: this.form.value.basePrice,
-        // gst: this.form.value.gst,
-        // freightRate: this.form.value.freightRate,
-        // packingCharges: this.form.value.packingCharges,
-        // otherCharges: this.form.value.otherCharges,
-      } 
-
-      // let apiLink = '/Item/api/v1/addItem';
-      let apiLink = '';
-      this.apiService.postData(apiLink, data).subscribe(res => {
-        let response: any = res;
-        document.getElementById('cancel')?.click();
-        this.getDataList();
-        this.isSubmitted = false;
-        if (response.status == 200) {
-          this.form.reset();
-          this.alertService.success(response.message);
+    const apiLink = `/boq/api/v1/getBoqList`;
+    this.apiService.getData(apiLink).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.isNotFound = false;
+          this.dataList = res.result;
         } else {
-          this.alertService.warning(response.message);
+          this.dataList = undefined;
+          this.isNotFound = true;
+          this.alertService.warning(res.message);
         }
-      }, (error) => {
-          this.isSubmitted = false;
-          document.getElementById('cancel')?.click();
-          // this.alertService.error("Error: Unknown Error!");
-        })
-    } else {
-      this.alertService.warning("Form is invalid, Please fill the form correctly.");
+      }, error: (error: any) => {
+        console.error(error);
+        this.isNotFound = true;
+        this.alertService.error("Error: Unknown Error!")
+      }
     }
+    );
+  }
+
+  getVendorList() {
+    const apiLink = `/supplier/api/v1/getSupplierList`;
+    this.apiService.getData(apiLink).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.vendorList = res.result;
+        } else {
+          this.vendorList = undefined;
+        }
+      }, error: (error: any) => {
+        console.error(error);
+        this.alertService.error("Error: Unknown Error!")
+      }
+    }
+    );
+  }
+
+  getBoqItemsList(item: any) {
+    this.vendorDetails = item;
+    this.rowData = item.items?.map((mainItem: any) => ({
+      ...mainItem,
+      isVendorSelected: false,
+      isChecked: false,
+      childItemList: mainItem.childItemList ? mainItem.childItemList.map((childItem: any) => ({
+        ...childItem,
+        isVendorSelected: false,
+        isChecked: false
+      })) : []
+    })) || [];
+    console.log(JSON.stringify(this.rowData));
+    this.getVendorList();
+  }
+
+  onVendorSelect(item: any, event: any) {
+    item.selectedVendor = event;
+    item.isVendorSelected = event && event.length > 0;
+  }
+
+  onCheckboxChange(item: any, event: any) {
+    item.isChecked = event.target.checked;
+  }
+
+  sendSelectedItems() {
+    const selectedItems: any = this.rowData.reduce((acc: any, item: any) => {
+      if (item.isChecked) {
+        const selectedItem: any = {
+          item_id: item.item_id,
+          boq_id: item.boq_id,
+          selected_vendors: item.selectedVendors.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
+        };
+
+        if (item.childItemList && item.childItemList.length > 0) {
+          selectedItem['childItems'] = item.childItemList.reduce((childAcc: any, childItem: any) => {
+            if (childItem.isChecked) {
+              childAcc.push({
+                boq_id: childItem.boq_id,
+                item_id: childItem.item_id,
+                selected_vendors: childItem.selectedVendors.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
+              });
+            }
+            return childAcc;
+          }, []);
+        }
+
+        acc.push(selectedItem);
+      }
+      return acc;
+    }, []);
+    console.log(selectedItems);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }
