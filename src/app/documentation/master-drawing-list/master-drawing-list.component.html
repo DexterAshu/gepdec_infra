@@ -269,11 +269,11 @@
                     <td>{{ selectMDLRow?.company_name }}</td>
                     <th> NIT No</th>
                     <td>
-                      <div *ngIf="!!selectMDLRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip"
+                      <div *ngIf="!!selectMDLRow?.tender_ref_no; else elseBlock6" data-toggle="tooltip"
                         data-placement="bottom" title="{{ selectMDLRow?.tender_ref_no }}"> {{selectMDLRow?.tender_ref_no
                         | slice:0:30}} <span *ngIf="selectMDLRow?.tender_ref_no.length > 30">...<i
                             class="mdi mdi-information"></i></span></div>
-                      <ng-template #elseBlock3>{{selectMDLRow?.tender_ref_no}}</ng-template>
+                      <ng-template #elseBlock6>{{selectMDLRow?.tender_ref_no}}</ng-template>
                     </td>
                     <th>Tender Title</th>
                     <td>

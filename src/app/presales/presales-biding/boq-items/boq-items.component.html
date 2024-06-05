@@ -258,17 +258,17 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock6" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
                         *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                    <ng-template #elseBlock6>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock13" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
                         *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                    <ng-template #elseBlock13>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
                 <tr>
@@ -352,17 +352,17 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock7" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
                         *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                    <ng-template #elseBlock7>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock14" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
                         *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                    <ng-template #elseBlock14>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
                 <tr>
@@ -429,11 +429,11 @@
                     <td>&nbsp; &nbsp; &nbsp;{{i+1}}.{{ci+1}}</td>
                     <td> {{childItem?.itemcode}}</td>
                     <td>
-                      <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip"
+                      <div *ngIf="!!childItem?.description; else elseBlock16" data-toggle="tooltip"
                         data-placement="bottom" title="{{ childItem?.description }}">{{childItem?.description |
                         slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i
                             class="mdi mdi-information"></i></span></div>
-                      <ng-template #elseBlock5>{{childItem?.description}}</ng-template>
+                      <ng-template #elseBlock16>{{childItem?.description}}</ng-template>
                     </td>
                     <td>{{ childItem?.uom }}</td>
                     <td>{{ childItem?.qty }}</td>
@@ -502,17 +502,17 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock8" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
                         *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                    <ng-template #elseBlock8>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock15" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
                         *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                    <ng-template #elseBlock15>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
                 <tr>
@@ -607,10 +607,10 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock9" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
                         *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                    <ng-template #elseBlock9>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
@@ -751,17 +751,17 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock10" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
                         *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock3>{{boqList?.tender_ref_no}}</ng-template>
+                    <ng-template #elseBlock10>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock11" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
                         *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                    <ng-template #elseBlock11>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
                 <tr>
@@ -859,10 +859,10 @@
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                    <div *ngIf="!!boqList?.tender_title; else elseBlock12" data-toggle="tooltip" data-placement="bottom"
                       title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
                         *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock4>{{boqList?.tender_title}}</ng-template>
+                    <ng-template #elseBlock12>{{boqList?.tender_title}}</ng-template>
                   </td>
                 </tr>
                 <tr>
