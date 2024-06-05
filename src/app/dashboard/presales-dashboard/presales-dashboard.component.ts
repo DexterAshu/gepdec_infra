@@ -609,6 +609,10 @@ export class PresalesDashboardComponent {
     return Math.floor(Number(value)).toString();
   }
 
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
+  }
+
   getIntegerValue(value: string | number): string {
     return Math.floor(Number(value)).toString();
   }
