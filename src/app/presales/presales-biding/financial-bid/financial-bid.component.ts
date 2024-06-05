@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/_services/api.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/_services';
 
 @Component({
   selector: 'app-financial-bid',
@@ -102,7 +103,9 @@ export class FinancialBidComponent {
     private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit() {
@@ -175,6 +178,10 @@ export class FinancialBidComponent {
     this.finListData();
     this.finYearData();
     this.getData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   redirect(route: any) {
@@ -262,13 +269,15 @@ export class FinancialBidComponent {
 
   comparisonData(annual: any) {
     if (this.data.result != null) {
+     
       if (parseInt(annual) <= parseInt(this.data.result)) {
         this.isSuccess = true;
       } else {
         this.isSuccess = false;
+        
       }
     }
-
+    
     this.form.controls['our_annual_turnover'].setValue(this.data.result);
     this.form.controls['annual_turnover_status'].setValue(this.isSuccess);
   }
@@ -440,6 +449,8 @@ export class FinancialBidComponent {
         this.isRS = false;
       }
     }
+   
+   
     this.form.controls['our_reserve_surplus'].setValue(this.rAnds);
     this.form.controls['reserve_surplus_status'].setValue(this.isRS);
 

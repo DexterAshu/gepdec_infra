@@ -271,6 +271,7 @@
                                                 (keyup)="comparisonData(annual.value)" [(ngModel)]="atData" appNumberOnly>
                                         </div>
 
+                                       
                                         <div class="col-md-2" *ngIf="form.value.annual_turnover != ''">
                                             <div class="form-group">
                                                 <label class="form-label fl-10 text-small">Condition</label>
@@ -287,53 +288,52 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-2" *ngIf="form.value.annual_turnover_check == '1'">
-                                            <label class="form-label fl-10 text-small">Fin Year</label>
-                                            <input class="form-control form-control-sm"
-                                                formControlName="annual_turnover_fin" readonly value="{{data?.date }}">
-                                        </div>
-
-                                        <div class="col-md-2"
-                                            *ngIf="form.value.annual_turnover_check != '1' && form.value.annual_turnover_check != ''">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="annual_turnover_year" #year
-                                                    class="form-select form-select-sm"
-                                                    (change)="annuvalTurnVal(year.value, form.value.annual_turnover_check, annual.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                        Year</option>
-                                                    <!-- <option value="0">Current Year</option> -->
-                                                    <!-- <option value="1">Previous Year</option> -->
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
+                                            <div class="col-md-2" *ngIf="form.value.annual_turnover_check == '1'">
+                                                <label class="form-label fl-10 text-small">Fin Year</label>
+                                                <input class="form-control form-control-sm"
+                                                    formControlName="annual_turnover_fin" readonly value="{{data?.date }}">
                                             </div>
-                                        </div>
-
-                                        <div class="col-md-2"
-                                            *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
-                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
-                                            <input class="form-control form-control-sm"
-                                                formControlName="our_annual_turnover" readonly
-                                                [value]="data?.result | currency: 'INR':'':'1.0-2'">
-                                        </div>
-                                        <div class="col-md-2"
-                                            *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
-                                            <br>
-                                            <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isSuccess == true; else lowData">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
-                                                </ng-container>
-                                                <ng-template #lowData>
-                                                    <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
-                                                </ng-template>
+    
+                                            <div class="col-md-2"
+                                                *ngIf="form.value.annual_turnover_check != '1' && form.value.annual_turnover_check != ''">
+                                                <div class="form-group">
+                                                    <label class="form-label fl-10 text-small">Years</label>
+                                                    <select formControlName="annual_turnover_year" #year
+                                                        class="form-select form-select-sm"
+                                                        (change)="annuvalTurnVal(year.value, form.value.annual_turnover_check, annual.value)">
+                                                        <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                            Year</option>
+                                                        <!-- <option value="0">Current Year</option> -->
+                                                        <!-- <option value="1">Previous Year</option> -->
+                                                        <option value="2">Last 2 Year</option>
+                                                        <option value="3">Last 3 Years</option>
+                                                        <option value="4">Last 4 Years</option>
+                                                        <option value="5">Last 5 Years</option>
+                                                        <option value="7">Last 7 Years</option>
+                                                    </select>
+                                                </div>
                                             </div>
-
-                                        </div>
-
+    
+                                            <div class="col-md-2"
+                                                *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
+                                                <label class="form-label fl-10 text-small">Our Values (INR)</label>
+                                                <input class="form-control form-control-sm"
+                                                    formControlName="our_annual_turnover" readonly
+                                                    [value]="data?.result | currency: 'INR':'':'1.0-2'">
+                                            </div>
+                                            <div class="col-md-2"
+                                                *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
+                                                <br>
+                                                <div class="status-icon mt-2">
+                                                    <ng-container *ngIf="isSuccess == true; else lowData">
+                                                        <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
+                                                    </ng-container>
+                                                    <ng-template #lowData>
+                                                        <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
+                                                    </ng-template>
+                                                </div>
+    
+                                            </div>
 
                                     </div>
 

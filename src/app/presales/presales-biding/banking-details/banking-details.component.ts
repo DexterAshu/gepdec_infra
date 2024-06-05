@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
@@ -6,6 +6,7 @@ import { AlertService } from 'src/app/_services/alert.service';
 import { ApiService } from 'src/app/_services/api.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { SharedService } from 'src/app/_services';
 @Component({
   selector: 'app-banking-details',
   templateUrl: './banking-details.component.html',
@@ -48,7 +49,9 @@ export class BankingDetailsComponent {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private  masterService: MasterService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private sharedService: SharedService,
+    private elementRef: ElementRef
   ) {
     const userDataString = localStorage.getItem('gdUserData');
     if (userDataString) {
@@ -71,6 +74,10 @@ export class BankingDetailsComponent {
 
     this.getData();
     this.bankList();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   getBankDetails(data:any){

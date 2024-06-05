@@ -1,16 +1,16 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>BOQ</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>BOQ</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
@@ -21,7 +21,8 @@
                     <hr> -->
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search">
                         </div>
                         <div class="col-lg-8">
                             <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button> -->
@@ -31,39 +32,65 @@
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
+                                <th>Client</th>
+                                <th>Tender Title</th>
+                                <th>NIT No</th>
+                                <th>Publish Date</th>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Capacity </th>
+                                <th>Execution Location</th>
                                 <th>BOQ Code</th>
-                                <th>Description</th>
-                                <th>Client Name</th>
-                                <th>Site Address</th>
-                                <th>No of Items</th>
+                                <th>BOQ Category</th>
+                                <th>BOQ Sub Category</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                            <tr>
-                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                <td>1</td>
-                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="BOQ Items List" (click)="rowListData()" class="cursor-pointer text-primary text-decoration-underline">TD00101</td>
-                                <td>Demo</td>
-                                <td>Power</td>
-                                <td>Noida</td>
-                                <td>10</td>
-                                <td>Pending</td>
-                                <!-- <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
-                                </td> -->
-                            </tr>
-                            <tr *ngIf="dataList?.length == 0">
-                                <td colspan="15" class="text-center">
-                                    <div class="spinner-border"> </div>
+                            <tr
+                                *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <td>{{ a.company_name}}</td>
+                                <td>
+                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title |
+                                        slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
+                                                class="mdi mdi-information"></i></span></div>
+                                    <ng-template #elseBlock1>{{a.tender_title}}</ng-template>
+                                </td>
+                                <td>
+                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no |
+                                        slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i
+                                                class="mdi mdi-information"></i></span></div>
+                                    <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
+                                </td>
+                                <td>{{ a.publish_date ? (a.publish_date | date:'dd/MM/yyyy' : 'GMT') : '--' }}</td>
+                                <td>{{ a.qacatagory ? a.qacatagory : '--' }}</td>
+                                <td>{{ a.subqacatagory ? a.subqacatagory : '--' }}</td>
+                                <td>{{ a.capacity ? a.capacity : '--' }}</td>
+                                <td>{{ a.tender_location ? a.tender_location : '--' }}</td>
+                                <td>{{ a.boq_code ? a.boq_code : '--' }}</td>
+                                <td>{{ a.itemcategory ? a.itemcategory : '--' }}</td>
+                                <td>{{ a.subcategory ? a.subcategory : '--' }}</td>
+                                <td>{{ a.status ? a.status : '--' }}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="View Details"
+                                        (click)="getBoqItemsList(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                 </td>
                             </tr>
-                            <!-- <tr *ngIf="isNotFound == true">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
-                            </tr> -->
+                            </tr>
+                            <tr *ngIf="dataList?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"></div>
+                                </td>
+                            </tr>
                         </tbody>
                     </app-responsive-table>
                     <div class="pagination-sec text-center">
@@ -232,68 +259,168 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">BOQ Items List</h5>
+                <h5 class="modal-title" id="exampleModalLabel">View Tender Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12 p-0">
-                            <div class="table-responsive tableStyle">
-                                <table class="table table-hover table-striped mb-3">
+                            <div class="table-responsive" style="min-height: auto;">
+                                <table class="table table-hover table-striped custom-table mb-3">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th>S No</th>
-                                            <th>Item Code</th>
-                                            <th>Item Description</th>
-                                            <th>Quantity</th>
-                                            <th>Procurement UOM</th>
-                                            <th>Item UOM</th>
-                                            <th>Select Vender</th>
-                                            <th>Action</th>
+                                            <th colspan="6" class="text-center">Tender Details</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
-                                        <!-- <tr *ngFor="let a of rowData?.item; index as i"> -->
                                         <tr>
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>1</td>
-                                            <td>ITM0001</td>
-                                            <td>Demo Item 1</td>
-                                            <td>50</td>
-                                            <td>Ton</td>
-                                            <td>KG</td>
-                                            <td> 
-                                                <!-- <select class="form-select form-select-sm">
-                                                    <option value="">Demo Vendor</option>
-                                                </select>  -->
-                                                <ng-select formControlName="itemCode" [items]="vendorList" [multiple]="true" bindLabel="name" [closeOnSelect]="false" bindValue="vendorCode">
-                                                </ng-select>
+                                            <th>Client</th>
+                                            <td>{{ vendorDetails?.company_name ? vendorDetails?.company_name : '--' }}
                                             </td>
-                                            <td> <input type="checkbox"> </td>
+                                            <th> NIT No</th>
+                                            <td>
+                                                <div *ngIf="!!vendorDetails?.tender_ref_no; else elseBlock3"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ vendorDetails?.tender_ref_no }}">
+                                                    {{vendorDetails?.tender_ref_no |
+                                                    slice:0:30}} <span
+                                                        *ngIf="vendorDetails?.tender_ref_no.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span></div>
+                                                <ng-template #elseBlock3>{{vendorDetails?.tender_ref_no}}</ng-template>
+                                            </td>
+                                            <th>Tender Title</th>
+                                            <td>
+                                                <div *ngIf="!!vendorDetails?.tender_title; else elseBlock4"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ vendorDetails?.tender_title }}">
+                                                    {{vendorDetails?.tender_title |
+                                                    slice:0:30}} <span
+                                                        *ngIf="vendorDetails?.tender_title.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span></div>
+                                                <ng-template #elseBlock4>{{vendorDetails?.tender_title}}</ng-template>
+                                            </td>
                                         </tr>
-                                        <!-- <tr *ngIf="rowData?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="spinner-border"> </div>
+                                        <tr>
+                                            <th>Publish Date</th>
+                                            <td>{{ vendorDetails?.publish_date ? (vendorDetails?.publish_date |
+                                                date:'dd/MM/yyyy' :
+                                                'GMT') : '--' }}</td>
+                                            <th>Category </th>
+                                            <td>{{ vendorDetails?.qacatagory ? vendorDetails?.qacatagory : '--' }}</td>
+                                            <th>Sub Category </th>
+                                            <td>{{ vendorDetails?.subqacatagory ? vendorDetails?.subqacatagory : '--' }}
                                             </td>
-                                        </tr> -->
-                                        <!-- <tr *ngIf="verificationData?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                            </td>
-                                        </tr> -->
+                                        </tr>
+                                        <tr>
+                                            <th>Capacity </th>
+                                            <td>{{ vendorDetails?.capacity ? vendorDetails?.capacity : '--' }}</td>
+                                            <th>Execution Location</th>
+                                            <td>{{ vendorDetails?.tender_location ? vendorDetails?.tender_location :
+                                                '--' }}</td>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="modal-btns">
-                                <button type="button" class="btn btn-primary btn-fw btn-sm mr-2">Send RFQ</button>
-                                <!-- <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button> -->
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
-                                data-bs-dismiss="modal">Close</button>
-                            </div>
+                            <ng-container class="mt-1">
+                                <div class="table-responsive pt-2 mb-2" style="min-height: auto;">
+                                    <table class="table table-hover table-striped">
+                                        <thead class="table-primary text-nowrap">
+                                            <tr class="text-center">
+                                                <th colspan="15">Item Details</th>
+                                                <!-- <th colspan="15">{{main?.itemcategory}} - {{main?.subcategory}}</th> -->
+                                            </tr>
+                                            <tr>
+                                                <th>S No</th>
+                                                <th>Item Code</th>
+                                                <th>Description</th>
+                                                <th>UOM</th>
+                                                <th>Category</th>
+                                                <th>Sub-Category</th>
+                                                <th>Quantity</th>
+                                                <th>Select Vender</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-nowrap">
+                                            <ng-container *ngFor="let main of rowData; index as i">
+                                                <tr class="fw-bold">
+                                                    <td>{{ i+1 }}</td>
+                                                    <td>{{ main?.itemcode }}</td>
+                                                    <td>
+                                                        <div *ngIf="!!main?.description; else elseBlock5"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="{{ main?.description }}"> {{main?.description |
+                                                            slice:0:30}} <span
+                                                                *ngIf="main?.description.length > 30">...<i
+                                                                    class="mdi mdi-information"></i></span></div>
+                                                        <ng-template #elseBlock5> {{main?.description}}
+                                                        </ng-template>
+                                                    </td>
+                                                    <td>{{ main?.uom }}</td>
+                                                    <td>{{ main?.itemcategory }}</td>
+                                                    <td>{{ main?.subcategory }}</td>
+                                                    <td>{{ main?.qty }}</td>
+                                                    <td>
+                                                        <ng-select [items]="vendorList" [multiple]="true"
+                                                            bindLabel="suppliername" [closeOnSelect]="false"
+                                                            bindValue="supplier_id"
+                                                            (change)="onVendorSelect(main, $event)"
+                                                            [ngClass]="{'disabled-select': main.isChecked}">
+                                                        </ng-select>
+                                                    </td>
+                                                    <td> <input type="checkbox" [disabled]="!main.isVendorSelected"
+                                                            (change)="onCheckboxChange(main, $event)">
+                                                    </td>
+                                                </tr>
+                                                <ng-container *ngIf="main?.childItemList?.length > 0">
+                                                    <tr *ngFor="let childItem of main?.childItemList; index as ci">
+                                                        <td class="ms-2">&nbsp; &nbsp; &nbsp;{{i+1}}.{{ci+1}}</td>
+                                                        <td>{{ childItem?.itemcode }}</td>
+                                                        <td>
+                                                            <div *ngIf="!!childItem?.description; else elseBlock5"
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="{{ childItem?.description }}">
+                                                                {{childItem?.description | slice:0:30}} <span
+                                                                    *ngIf="childItem?.description.length > 30">...<i
+                                                                        class="mdi mdi-information"></i></span>
+                                                            </div>
+                                                            <ng-template #elseBlock5> {{childItem?.description}}
+                                                            </ng-template>
+                                                        </td>
+                                                        <td>{{ childItem?.uom }}</td>
+                                                        <td>{{ childItem?.itemcategory }}</td>
+                                                        <td>{{ childItem?.subcategory }}</td>
+                                                        <td>{{ childItem?.qty }}</td>
+                                                        <td>
+                                                            <ng-select [items]="vendorList" [multiple]="true"
+                                                                bindLabel="suppliername" [closeOnSelect]="false"
+                                                                bindValue="supplier_id"
+                                                                (change)="onVendorSelect(childItem, $event)"
+                                                                [ngClass]="{'disabled-select': childItem.isChecked}">
+                                                            </ng-select>
+                                                        </td>
+                                                        <td> <input type="checkbox"
+                                                                [disabled]="!childItem.isVendorSelected"
+                                                                (change)="onCheckboxChange(childItem, $event)"> </td>
+                                                    </tr>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="modal-btns p-3">
+                <button type="button" class="btn btn-primary btn-fw btn-sm mr-2"
+                    (click)="sendSelectedItems()">Submit</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                    data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
