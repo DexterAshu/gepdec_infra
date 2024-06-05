@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
   isRoleHidden(): boolean {
-    return this.userData.rolename === 'Manager' || this.userData.rolename === 'Administrator';
+    return this.userData.rolename === 'Manager';
   }
   logout() {
     this.accountService.logout();
