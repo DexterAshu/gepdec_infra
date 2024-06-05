@@ -432,7 +432,7 @@
               <div class="col-md-2 col-2">S No</div>
               <div class="col-md-4 col-4" style="text-align: left;">Project Name</div>
               <div class="col-md-3 col-3" style="text-align: left;">Category</div>
-              <div class="col-md-3 col-3" style="text-align: left;">ECV (INR)</div>
+              <div class="col-md-3 col-3" style="text-align: left;">Submission Date</div>
             </div>
           </div>
           <div class="table-wrap">
@@ -461,7 +461,7 @@
                     {{tender?.qacatagory}}
                 </ng-template> -->
                 </div>
-                <div class="col-md-3 col-3 text-end" style="text-align: left;">{{tender.ecv | currency: 'INR': '' : '1.0-2'}}</div>
+                <div class="col-md-3 col-3 text-end" style="text-align: left;">{{tender.tender_submission_date | date: 'dd/MM/yyyy'}}</div>
               </div>
             </div>
           </div>
@@ -537,24 +537,41 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>Project Name</th>
+                <th>Client</th>
+                <th>Tender Title</th>
+                <th>NIT No</th>
+                <th>Publish Date</th>
                 <th>Category</th>
+                <th>Sub Category</th>
+                <th>Capacity</th>
+                <th>Execution Location</th>
                 <th>Amount (INR)</th>
                 <th>Tender fee</th>
-                <th>Tender Location</th>
                 <th>Tendor Status</th>
                 <th>Submission Date</th>
                 <th>Payment Terms</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let t of tPublishedData | paginate: { itemsPerPage: limit, currentPage: p1 }; let i = index">
+              <tr *ngFor="let t of tPublishedData | paginate: { itemsPerPage: limit, currentPage: p1, id: 'pagination1' }; let i = index">
                 <td>{{limit*(p1-1)+i+1}}</td>
-                <td>{{t.tender_title}}</td>
-                <td>{{t.bidtype}}</td>
-                <td>{{t.ecv}}</td>
-                <td>{{t.tender_fee}}</td>
+                <td>{{t.company_name}}</td>
+                <td>
+                  <!-- {{t.tender_title}} -->
+                  <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tender_title }}">
+                    {{t?.tender_title | slice:0:30}} <span *ngIf="t?.tender_title.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
+                  </div>
+                </td>
+                <td>{{t.tender_ref_no}}</td>
+                <td>{{t.publish_date | date:'dd/MM/yyyy' : 'GMT'}}</td>
+                <!-- <td>{{t.bidtype}}</td> -->
+                <td>{{t.qacatagory}}</td>
+                <td>{{t.subqacatagory}}</td>
+                <td>{{t.capacity}}</td>
                 <td>{{t.tender_location}}</td>
+                <td>{{t.ecv | currency :'INR':'':'1.0-2'}}</td>
+                <td>{{t.tender_fee | currency :'INR':'':'1.0-2'}}</td>
                 <td>{{t.tender_status}}</td>
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
@@ -567,7 +584,7 @@
             </tbody>
           </table>
           <div class="pagination-sec text-center">
-            <pagination-controls (pageChange)="p1 = $event"></pagination-controls>
+            <pagination-controls id="pagination1" (pageChange)="p1 = $event"></pagination-controls>
           </div>
         </div>
 
@@ -593,24 +610,41 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>Project Name</th>
+                <th>Client</th>
+                <th>Tender Title</th>
+                <th>NIT No</th>
+                <th>Publish Date</th>
                 <th>Category</th>
+                <th>Sub Category</th>
+                <th>Capacity</th>
+                <th>Execution Location</th>
                 <th>Amount (INR)</th>
                 <th>Tender fee</th>
-                <th>Tender Location</th>
                 <th>Tendor Status</th>
                 <th>Submission Date</th>
                 <th>Payment Terms</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let t of qualifiedData | paginate: { itemsPerPage: limit, currentPage: p2 }; let i = index">
+              <tr *ngFor="let t of qualifiedData | paginate: { itemsPerPage: limit, currentPage: p2, id: 'pagination2' }; let i = index">
                 <td>{{limit*(p2-1)+i+1}}</td>
-                <td>{{t.tender_title}}</td>
-                <td>{{t.bidtype}}</td>
-                <td>{{t.ecv}}</td>
-                <td>{{t.tender_fee}}</td>
+                <td>{{t.company_name}}</td>
+                <td>
+                  <!-- {{t.tender_title}} -->
+                  <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tender_title }}">
+                    {{t?.tender_title | slice:0:30}} <span *ngIf="t?.tender_title.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
+                  </div>
+                </td>
+                <td>{{t.tender_ref_no}}</td>
+                <td>{{t.publish_date | date:'dd/MM/yyyy' : 'GMT'}}</td>
+                <!-- <td>{{t.bidtype}}</td> -->
+                <td>{{t.qacatagory}}</td>
+                <td>{{t.subqacatagory}}</td>
+                <td>{{t.capacity}}</td>
                 <td>{{t.tender_location}}</td>
+                <td>{{t.ecv | currency :'INR':'':'1.0-2'}}</td>
+                <td>{{t.tender_fee | currency :'INR':'':'1.0-2'}}</td>
                 <td>{{t.tender_status}}</td>
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
@@ -623,13 +657,10 @@
             </tbody>
           </table>
           <div class="pagination-sec text-center">
-            <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
+            <pagination-controls id="pagination2" (pageChange)="p2 = $event"></pagination-controls>
           </div>
         </div>
-
       </div>
-
-
     </div>
   </div>
 </div>
@@ -649,11 +680,16 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>Project Name</th>
+                <th>Client</th>
+                <th>Tender Title</th>
+                <th>NIT No</th>
+                <th>Publish Date</th>
                 <th>Category</th>
+                <th>Sub Category</th>
+                <th>Capacity</th>
+                <th>Execution Location</th>
                 <th>Amount (INR)</th>
                 <th>Tender fee</th>
-                <th>Tender Location</th>
                 <th>Tendor Status</th>
                 <th>Submission Date</th>
                 <th>Payment Terms</th>
@@ -661,13 +697,25 @@
             </thead>
             <tbody class="text-nowrap">
               <tr
-                *ngFor="let t of participatedData | paginate: { itemsPerPage: limit, currentPage: p3 }; let i = index">
+                *ngFor="let t of participatedData | paginate: { itemsPerPage: limit, currentPage: p3, id: 'pagination3' }; let i = index">
                 <td>{{limit*(p3-1)+i+1}}</td>
-                <td>{{t.tender_title}}</td>
-                <td>{{t.bidtype}}</td>
-                <td>{{t.ecv}}</td>
-                <td>{{t.tender_fee}}</td>
+                <td>{{t.company_name}}</td>
+                <td>
+                  <!-- {{t.tender_title}} -->
+                  <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tender_title }}">
+                    {{t?.tender_title | slice:0:30}} <span *ngIf="t?.tender_title.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
+                  </div>
+                </td>
+                <td>{{t.tender_ref_no}}</td>
+                <td>{{t.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
+                <!-- <td>{{t.bidtype}}</td> -->
+                <td>{{t.qacatagory}}</td>
+                <td>{{t.subqacatagory}}</td>
+                <td>{{t.capacity}}</td>
                 <td>{{t.tender_location}}</td>
+                <td>{{t.ecv | currency :'INR':'':'1.0-2'}}</td>
+                <td>{{t.tender_fee | currency :'INR':'':'1.0-2'}}</td>
                 <td>{{t.tender_status}}</td>
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
@@ -680,7 +728,7 @@
             </tbody>
           </table>
           <div class="pagination-sec text-center">
-            <pagination-controls (pageChange)="p3 = $event"></pagination-controls>
+            <pagination-controls id="pagination3" (pageChange)="p3 = $event"></pagination-controls>
           </div>
         </div>
 
@@ -706,24 +754,41 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>Project Name</th>
+                <th>Client</th>
+                <th>Tender Title</th>
+                <th>NIT No</th>
+                <th>Publish Date</th>
                 <th>Category</th>
+                <th>Sub Category</th>
+                <th>Capacity</th>
+                <th>Execution Location</th>
                 <th>Amount (INR)</th>
                 <th>Tender fee</th>
-                <th>Tender Location</th>
                 <th>Tendor Status</th>
                 <th>Submission Date</th>
                 <th>Payment Terms</th>
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let t of wonData | paginate: { itemsPerPage: limit, currentPage: p4 }; let i = index">
+              <tr *ngFor="let t of wonData | paginate: { itemsPerPage: limit, currentPage: p4, id: 'pagination4' }; let i = index">
                 <td>{{limit*(p4-1)+i+1}}</td>
-                <td>{{t.tender_title}}</td>
-                <td>{{t.bidtype}}</td>
-                <td>{{t.ecv}}</td>
-                <td>{{t.tender_fee}}</td>
+                <td>{{t.company_name}}</td>
+                <td>
+                  <!-- {{t.tender_title}} -->
+                  <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tender_title }}">
+                    {{t?.tender_title | slice:0:30}} <span *ngIf="t?.tender_title.length > 30">...<i
+                        class="mdi mdi-information"></i></span>
+                  </div>
+                </td>
+                <td>{{t.tender_ref_no}}</td>
+                <td>{{t.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
+                <!-- <td>{{t.bidtype}}</td> -->
+                <td>{{t.qacatagory}}</td>
+                <td>{{t.subqacatagory}}</td>
+                <td>{{t.capacity}}</td>
                 <td>{{t.tender_location}}</td>
+                <td>{{t.ecv | currency :'INR':'':'1.0-2'}}</td>
+                <td>{{t.tender_fee | currency :'INR':'':'1.0-2'}}</td>
                 <td>{{t.tender_status}}</td>
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
@@ -736,7 +801,7 @@
             </tbody>
           </table>
           <div class="pagination-sec text-center">
-            <pagination-controls (pageChange)="p4 = $event"></pagination-controls>
+            <pagination-controls id="pagination4" (pageChange)="p4 = $event"></pagination-controls>
           </div>
         </div>
 
@@ -772,7 +837,7 @@
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let t of topFiveOrder | paginate: { itemsPerPage: limit, currentPage: p }; let i = index">
+              <tr *ngFor="let t of topFiveOrder | paginate: { itemsPerPage: limit, currentPage: p, id: 'pagination' }; let i = index">
                 <td>{{limit*(p-1)+i+1}}</td>
                 <td>{{t.tender_title}}</td>
                 <td>{{t.bidtype}}</td>
@@ -784,7 +849,7 @@
             </tbody>
           </table>
           <div class="pagination-sec text-center">
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls id="pagination" (pageChange)="p = $event"></pagination-controls>
           </div>
         </div>
 
