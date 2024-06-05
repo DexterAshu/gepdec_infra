@@ -31,14 +31,15 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>DRG No</th>
-                <th>NIT No</th>
+                <th>Client</th>
                 <th>Tender Title</th>
+                <th>NIT No</th>
                 <th>Publish Date</th>
                 <th>Category</th>
                 <th>Sub-Category</th>
                 <th>Capacity</th>
                 <th>Execution Location</th>
+                <th>DRG No</th>
                 <th>Version</th>
                 <th>Action</th>
               </tr>
@@ -47,21 +48,22 @@
               <tr
                 *ngFor="let a of mdlData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{limit*(p-1)+i+1}}</td>
-                <td>{{a.mdl_no}}</td>
-                <td>{{a.tender_ref_no}}</td>
+                <td>{{ a.company_name }}</td>
                 <td>
                   <div *ngIf="!!a?.tender_title elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">
-                      {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
+                    {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
                   </div>
                   <ng-template #elseBlock>
-                      {{a?.tender_title}}
+                    {{a?.tender_title}}
                   </ng-template>
-               </td>
+                </td>
+                <td>{{a.tender_ref_no}}</td>
                 <td>{{a.publish_date | date:'dd/MM/yyyy' : 'GMT'}}</td>
                 <td>{{a.qacatagory}}</td>
                 <td>{{a.subqacatagory}}</td>
                 <td>{{a.capacity}}</td>
                 <td>{{a.tender_location}}</td>
+                <td>{{a.mdl_no}}</td>
                 <td>{{a.version}}</td>
                 <td>
                   <a data-bs-toggle="modal" (click)="getDrawingList(a)" data-bs-target="#createModal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>

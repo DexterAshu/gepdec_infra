@@ -536,6 +536,7 @@ export class PresalesDashboardComponent {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private masterService: MasterService,
+    private elementRef: ElementRef
   ) { }
 
 
@@ -550,6 +551,10 @@ export class PresalesDashboardComponent {
     country_id: [null, Validators.required],
     state_id: [null, Validators.required],
   })
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   getIntegerValue(value: string | number): string {

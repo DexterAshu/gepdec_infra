@@ -38,7 +38,6 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>DRG No</th>
                 <th>Client</th>
                 <th>Tender Title</th>
                 <th>NIT No</th>
@@ -47,6 +46,7 @@
                 <th>Sub-Category</th>
                 <th>Capacity</th>
                 <th>Execution Location</th>
+                <th>DRG No</th>
                 <th>Status</th>
                 <th>Version</th>
                 <th>Action</th>
@@ -57,18 +57,17 @@
               <tr
                 *ngFor="let a of mdlData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{limit*(p-1)+i+1}}</td>
-                <td>{{a.mdl_no}}</td>
                 <td>{{a.company_name}}</td>
                 <td>
                   <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ a?.tender_title }}"> {{a?.tender_title | slice:0:30}} <span
-                      *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  title="{{ a?.tender_title }}"> {{a?.tender_title | slice:0:30}} <span
+                  *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock1>{{a?.tender_title}}</ng-template>
                 </td>
                 <td>
                   <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span
-                      *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span
+                  *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
                 <td>{{a.publish_date | date:'dd/MM/yyyy' : 'GMT'}}</td>
@@ -76,6 +75,7 @@
                 <td>{{a.subqacatagory}}</td>
                 <td>{{a.capacity}}</td>
                 <td>{{a.tender_location}}</td>
+                <td>{{a.mdl_no}}</td>
                 <td>{{a.status}}</td>
                 <td>{{a.version}}</td>
                 <td>
