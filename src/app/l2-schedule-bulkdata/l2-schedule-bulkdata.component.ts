@@ -248,6 +248,9 @@ export class L2ScheduleBulkdataComponent {
   getTenderListByCompany(): void {
     this.tenderList = [];
     let company_id = this.documentForm.value.company_id ? this.documentForm.value.company_id : this.form.value.company_id ? this.form.value.company_id : 0;
+    if(company_id == 0) {
+      return;
+    }
     const apiLink = `/biding/api/v1/getTenderlist?company_id=${company_id}`
     this.apiService.getData(apiLink).subscribe((res: any) => {
       if (res.status === 200) {

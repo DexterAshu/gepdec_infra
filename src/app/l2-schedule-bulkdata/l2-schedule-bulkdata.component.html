@@ -33,7 +33,7 @@
                         class="mdi mdi-download"></span>Download&nbsp;Template</a> </li>
                 </ul>
                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createModal"
-                  (click)="getCompanyList()" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import
+                  (click)="getCompanyList(); documentForm.reset()" title="Upload bulk Data"> <span class="mdi mdi-download"></span>Import
                 </button>
                 <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createL2Modal" (click)="getCompanyList()" class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span> Create</button> -->
               </div>
@@ -315,29 +315,28 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Category</label>
-                  <input class="form-control form-control-sm" readonly>
+                  <input class="form-control form-control-sm" [value]="selectedTender?.qacatagory" readonly>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Sub-Category</label>
-                  <input class="form-control form-control-sm" readonly>
+                  <input class="form-control form-control-sm" [value]="selectedTender?.qasubcatagory" readonly>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Capacity</label>
-                  <input class="form-control form-control-sm" readonly>
+                  <input class="form-control form-control-sm" [value]="selectedTender?.capacity" readonly>
                 </div>
               </div>
 
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="form-label fl-10">Execution Location</label>
-                  <input class="form-control form-control-sm" readonly>
+                  <input class="form-control form-control-sm" [value]="selectedTender?.tender_location" readonly>
                 </div>
               </div>
-
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="form-label fl-10">L2 Start Date<span class="required-asterisk">*</span></label>

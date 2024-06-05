@@ -504,16 +504,17 @@
         </div> -->
 
           <div #lineBarChart>
-            <ngx-charts-line-chart [view]="[lineBarChart.offsetWidth - 30, 370]" [scheme]="lineBarColorScheme"
+            <ngx-charts-area-chart [view]="[lineBarChart.offsetWidth - 30, 370]" [scheme]="lineBarColorScheme"
               [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis"
-              [xAxisLabel]="xAxisLabel3" [yAxisLabel]="yAxisLabel3" [timeline]="timeline" [results]="budgetData">
-            </ngx-charts-line-chart>
+              [xAxisLabel]="xAxisLabel3" [yAxisLabel]="yAxisLabel3" [timeline]="timeline" [results]="budgetData"
+              [curve]="curve">
+            </ngx-charts-area-chart>
           </div>
           <!-- [legend]="legend" -->
           <ul class="cust-legend">
-            <li><i class="mdi mdi-circle load_box1" style="font-size: 16px;padding-right: 0.5rem;color: #d6a974;"></i>
+            <li><i class="mdi mdi-circle load_box1" style="font-size: 16px;padding-right: 0.5rem;color: #5AA454;"></i>
               Budget</li>
-            <li><i class="mdi mdi-circle load_box4" style="font-size: 16px;padding-right: 0.5rem;color: #97daa7;"></i>
+            <li><i class="mdi mdi-circle load_box4" style="font-size: 16px;padding-right: 0.5rem;color: #E44D25;"></i>
               Expense</li>
 
           </ul>
@@ -576,7 +577,7 @@
             </div>
 
           </div>
-          <div  #progressBarchart>
+          <div #progressBarchart>
             <!-- <div class="Highcharts " [chart]="scateredGraphPrject"></div> -->
             <!-- <div class="Highcharts " [chart]="Highcharts"></div> -->
 
@@ -645,7 +646,7 @@
                     {{tender?.qacatagory}}
                 </ng-template> -->
                 </div>
-                <div class="col-md-3 col-3 text-end" style="text-align: left;">{{tender.ecv | currency: 'INR': '' : '1.0-2'}}</div>
+                <div class="col-md-3 col-3" style="text-align: left;">{{tender.ecv}}</div>
               </div>
             </div>
           </div>
@@ -724,12 +725,13 @@
 
 
 <!-- create modal L1 -->
+<!-- create modal L1 -->
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Project Detail</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="m-2">
@@ -849,7 +851,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Project Detail</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 

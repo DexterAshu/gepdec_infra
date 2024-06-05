@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService, AlertService, ApiService, AccountService } from 'src/app/_services';
+import { MasterService, AlertService, ApiService, AccountService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
@@ -57,7 +57,7 @@ export class CostingApprovalComponent {
   selectedRow: any;
   itemList: any;
   totalDirectCost: number = 0;
-  marginPer: number = 0;
+  marginPer: number = 12;
   overallDirectCost: number = 0;
   overallInDirectCost: number = 0;
   totalMargin: number = 0;
@@ -75,6 +75,8 @@ export class CostingApprovalComponent {
     private apiService: ApiService,
     private user: AccountService,
     private router: Router,
+    private sharedService: SharedService,
+    private elementRef: ElementRef
   ) {
     const userDataString = localStorage.getItem('gdUserData');
 
@@ -93,10 +95,13 @@ export class CostingApprovalComponent {
     this.getTenderData();
   }
 
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
+  }
+
   validateInput() {
     debugger
     if (this.marginPer === null || this.marginPer === undefined) {
-      debugger
       this.marginPer = 0;
     }  else if(this.marginPer < 0) {
       this.marginPer = 0;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService } from 'src/app/_services/master.service';
@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/_services/api.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/_services';
 @Component({
   selector: 'app-technical-bid',
   templateUrl: './technical-bid.component.html',
@@ -46,7 +47,9 @@ export class TechnicalBidComponent {
     private masterService: MasterService,
     private alertService: AlertService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit() {
@@ -67,6 +70,10 @@ export class TechnicalBidComponent {
     this.getCompanyData();
     this.getData();
     this.getCategoryData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   get f() { return this.form.controls; }
@@ -155,6 +162,7 @@ export class TechnicalBidComponent {
   getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
+    this.filterTenderDetailsData = [];
     this.apiService.getTenderLisById(this.clientListData).subscribe((res: any) => {
       this.tenderDetailsData = res.result;
     });
@@ -166,6 +174,7 @@ export class TechnicalBidComponent {
   }
 
   getrefData(tender_id: any) {
+    debugger
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x: any) => x.tender_id == tender_id);
   }
 
@@ -244,18 +253,6 @@ export class TechnicalBidComponent {
     if (this.addTech.length > 0) {
       this.isSubmitted = true;
       this.loading = true;
-      // const formData: any = new FormData();
-      // this.addTech.forEach((obj:any, index:any) => {
-      //   formData.append(`qualification[${index}][tender_id]`, obj.tender_id);
-      //   formData.append(`qualification[${index}][bideligibility_criteria]`, obj.eligibility);
-      //   formData.append(`qualification[${index}][technical_points]`, obj.technical_points);
-      //   formData.append(`qualification[${index}][technical_remarks]`, obj.techRemarks);
-      //   formData.append(`qualification[${index}][documentname]`, obj.attachment.length != 0 ? obj.attachment.name : null);
-      //   formData.append('attachment', obj.attachment.length != 0 ? obj.attachment : null);
-      //   formData.append(`qualification[${index}][count]`, obj.attachment.length != 0 ? 1 : 0);
-      //   formData.append(`qualification[${index}][document]`, obj.attachment.length != 0 ? "true" : "false");
-      // });
-
       let data = this.addTech;
       this.addTech = [];
       this.apiService.addTechData(data).subscribe((res:any) => {
@@ -263,7 +260,8 @@ export class TechnicalBidComponent {
         this.getData();
         this.isSubmitted = false;
         if (res.status == 200) {
-          // this.form.reset();
+          this.filterTenderDetailsData = [];
+          this.form.reset();
           this.alertService.success(res.message);
         } else {
           this.alertService.warning(res.message);

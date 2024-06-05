@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
@@ -26,11 +26,15 @@ export class MasterDrawingListComponent {
   isSubmitted: boolean = false;
   isNotFound: boolean = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private elementRef: ElementRef, private sharedService: SharedService) {}
 
   ngOnInit(): void {
     this.formInit();
     this.getMDLList();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   formInit(): void {

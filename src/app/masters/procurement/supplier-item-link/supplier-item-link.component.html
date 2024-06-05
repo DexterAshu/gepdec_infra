@@ -1,16 +1,17 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Vendor Item Linking</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Vendor Item
+                            Linking</h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+
+                </div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
@@ -21,7 +22,8 @@
                     <hr> -->
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search">
                         </div>
                         <div class="col-lg-8">
                             <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button> -->
@@ -41,7 +43,8 @@
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                            <tr
+                                *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a?.suppliercode }}</td>
                                 <td>{{ a?.suppliername }}</td>
@@ -50,8 +53,13 @@
                                 <td>{{ a?.contact[0]?.emailid }}</td>
                                 <td>{{ a?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#linkModal" title="Link Items"><span class="mdi mdi-link-variant cursor-pointer mdi-18px text-primary" (click)="rowListData(a)"></span></a>
-                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="View Linked Items"><span class="mdi mdi-format-list-checks cursor-pointer mdi-18px text-secondary ms-1" (click)="rowListData(a)" *ngIf="a?.item.length > 0"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#linkModal" title="Link Items"><span
+                                            class="mdi mdi-link-variant cursor-pointer mdi-18px text-primary"
+                                            (click)="rowListData(a)"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#detailModal"
+                                        title="View Linked Items"><span
+                                            class="mdi mdi-format-list-checks cursor-pointer mdi-18px text-secondary ms-1"
+                                            (click)="rowListData(a)" *ngIf="a?.item.length > 0"></span></a>
                                 </td>
                             </tr>
                             <tr *ngIf="dataList?.length == 0">
@@ -91,20 +99,23 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">Vendor Name [Code]<span class="required-asterisk">*</span></label>
-                                        <input formControlName="supplierCode" type="text" class="form-control form-control-sm" readonly>
-                                        <div *ngIf="f['supplierCode'].touched && f['supplierCode'].invalid">
-                                            <small class="text-danger" *ngIf="f['supplierCode'].errors?.['required']">*Required</small>
+                                        <label class="form-label">Vendor Name [Code]<span
+                                                class="required-asterisk">*</span></label>
+                                        <input formControlName="supplier_id" type="text"
+                                            class="form-control form-control-sm" readonly>
+                                        <div *ngIf="f['supplier_id'].touched && f['supplier_id'].invalid">
+                                            <small class="text-danger"
+                                                *ngIf="f['supplier_id'].errors?.['required']">*Required</small>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">Item List (Select Multiple)<span class="required-asterisk">*</span></label>
-                                        <!-- <ng-select formControlName="itemCode" [items]="itemDataList" [multiple]="true" bindLabel="itemcode" [closeOnSelect]="false" bindValue="item_id">
-                                        </ng-select> -->
-
-                                        <ng-select formControlName="itemCode" [items]="itemDataList" [multiple]="true" bindLabel="itemcode" bindValue="item_id" [closeOnSelect]="false">
+                                        <label class="form-label">Item List (Select Multiple)<span
+                                                class="required-asterisk">*</span></label>
+                                        <ng-select formControlName="item" [items]="itemDataList" [multiple]="true"
+                                            bindLabel="itemcode" bindValue="item_id" [closeOnSelect]="false"
+                                            [virtualScroll]="true" [bufferAmount]="10">
                                             <!-- Customize display format of each option -->
                                             <ng-template ng-label-tmp let-item="item">
                                                 {{ item.itemcode }} ({{ item.description }})
@@ -113,33 +124,21 @@
                                                 {{ item.itemcode }} ({{ item.description }})
                                             </ng-template>
                                         </ng-select>
-
-                                        <!-- <ng-select formControlName="itemCode"
-                                            [items]="itemDataList"
-                                            [multiple]="true"
-                                            bindLabel="itemcode"
-                                            [selectableGroup]="true"
-                                            [selectableGroupAsModel]="false"
-                                            [closeOnSelect]="false"
-                                            bindValue="item_id">
-                                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                                                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.itemcode}}
-                                            </ng-template>
-                                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                                                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.itemcode}} {{ item.item_id }}
-                                            </ng-template>
-                                        </ng-select> -->
-
-
-                                        <div *ngIf="f['itemCode'].touched && f['itemCode'].invalid">
-                                            <small class="text-danger" *ngIf="f['itemCode'].errors?.['required']">*Required</small>
+                                        <div *ngIf="f['item'].touched && f['item'].invalid">
+                                            <small class="text-danger"
+                                                *ngIf="f['item'].errors?.['required']">*Required</small>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-btns">
-                                    <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Link</button>
-                                    <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Linking...</button>
-                                    <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                                        class="btn btn-primary btn-fw btn-sm mr-2">Link</button>
+                                    <button type="button" *ngIf="isSubmitted" disabled
+                                        class="btn btn-primary btn-fw btn-sm mr-2"><span
+                                            class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                        Linking...</button>
+                                    <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                                        data-bs-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -182,8 +181,11 @@
                                             <td>{{ limit*(p-1)+i+1 }}</td>
                                             <td>{{ a?.itemcode }}</td>
                                             <td>
-                                                <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.description }}">
-                                                    {{a?.description | slice:0:30}} <span *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip"
+                                                    data-placement="bottom" title="{{ a?.description }}">
+                                                    {{a?.description | slice:0:30}} <span
+                                                        *ngIf="a?.description.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
                                                 </div>
                                                 <ng-template #elseBlock1>
                                                     {{a?.description}}

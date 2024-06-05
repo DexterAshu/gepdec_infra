@@ -1,7 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
@@ -47,7 +47,9 @@ export class TechDocumentsComponent {
     private apiService: ApiService,
     private alertService: AlertService,
     private sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef,
+    private sharedService: SharedService
   ) {}
 
   ngOnInit() {
@@ -70,6 +72,10 @@ export class TechDocumentsComponent {
     this.getClientData();
     this.companyDataList();
     this.getCategoryData();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   get f() { return this.form.controls; }
