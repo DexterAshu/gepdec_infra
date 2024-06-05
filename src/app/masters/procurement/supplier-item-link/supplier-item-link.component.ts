@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService } from 'src/app/_services';
 
 @Component({
   selector: 'app-supplier-item-link',
   templateUrl: './supplier-item-link.component.html',
   styleUrls: ['./supplier-item-link.component.css']
 })
-export class SupplierItemLinkComponent {
 
+export class SupplierItemLinkComponent {
   p: number = 1;
   limit = environment.pageLimit;
   form!: FormGroup;
@@ -22,27 +22,18 @@ export class SupplierItemLinkComponent {
   itemDataList:any;
   supplierId:any;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private alertService: AlertService,
-    private apiService: ApiService,
-  ) { }
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService) { }
 
   ngOnInit(){
     this.form = this.formBuilder.group({
       supplierCode: [null, Validators.required],
       itemCode: [null, Validators.required],
     });
-
     this.getDataList();
     this.getItemList();
   }
 
   get f() { return this.form.controls; }
-
-  // getLabel(item: any): string {
-  //   return `${item?.itemname} [${item?.itemcode}]`;
-  // }
 
   getItemList() {
     this.itemDataList = [];
