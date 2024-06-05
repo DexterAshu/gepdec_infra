@@ -262,13 +262,15 @@ export class FinancialBidComponent {
 
   comparisonData(annual: any) {
     if (this.data.result != null) {
+     
       if (parseInt(annual) <= parseInt(this.data.result)) {
         this.isSuccess = true;
       } else {
         this.isSuccess = false;
+        
       }
     }
-
+    
     this.form.controls['our_annual_turnover'].setValue(this.data.result);
     this.form.controls['annual_turnover_status'].setValue(this.isSuccess);
   }
@@ -440,6 +442,8 @@ export class FinancialBidComponent {
         this.isRS = false;
       }
     }
+   
+   
     this.form.controls['our_reserve_surplus'].setValue(this.rAnds);
     this.form.controls['reserve_surplus_status'].setValue(this.isRS);
 

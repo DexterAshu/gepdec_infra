@@ -41,6 +41,7 @@ export class TenderFinalApprovalComponent {
   rowData: any;
   tendStatus: any = [];
   showWorkingDetails: boolean = false;
+  attachmentDataShow: boolean =false;
   showPreNotes: boolean = false;
   techDataShow: boolean = false;
   directDataShow: boolean = false;
@@ -94,9 +95,7 @@ export class TenderFinalApprovalComponent {
   }
 
   validateInput() {
-    debugger
     if (this.marginPer === null || this.marginPer === undefined) {
-      debugger
       this.marginPer = 0;
     }  else if(this.marginPer < 0) {
       this.marginPer = 0;
@@ -117,20 +116,6 @@ export class TenderFinalApprovalComponent {
     this.itemList = data;
     this.itemList?.items.map((item: any) => this.totalDirectCost += item?.total_basic_value);
   }
-
-  //  getDetails(data:any){
-  //   if (data) {
-  //     if (this.userData && this.userData.rolename === "Administrator") {
-  //       this.router.navigate(['presales/presales-biding/management-approval',data]);
-  //     } else {
-  //       this.router.navigate(['/presales/presales-biding/data-capture',data]);
-  //     }
-  //     this.router.navigate(['/presales/presales-biding/data-capture']);
-  //     this.button = 'Update';
-  //     this.update = true;
-  //   } else {}
-  // }
-
   getDetails(data: any) {
     console.log(data);
     if (data) {
@@ -205,53 +190,6 @@ export class TenderFinalApprovalComponent {
     });
   }
 
-  //status-filter
-  gettaball(data: any) {
-    // this.dataSource = new MatTableDataSource(this.casetabledata);
-    // this.setDataSourceAttributes()
-
-  }
-  getnewcase(data: any) {
-    // var newCases=this.casetabledata.filter((res:any)=>{
-    //   return res.status==="New"
-    // })
-    //       this.dataSource = new MatTableDataSource(newCases);
-    //       this.setDataSourceAttributes()
-  }
-
-  getopencase(data: any) {
-    // var openCases=this.casetabledata.filter((res:any)=>{
-    //   return res.status==="Open"
-    // })
-    //       this.dataSource = new MatTableDataSource(openCases);
-    //       this.setDataSourceAttributes()
-  }
-
-  getholdcase(data: any) {
-    // var holdcase=this.casetabledata.filter((res:any)=>{
-    //   return res.status==="On Hold"
-    // })
-    // this.dataSource = new MatTableDataSource(holdcase);
-    // this.setDataSourceAttributes()
-  }
-  getclosecase(data: any) {
-
-    // var closed=this.casetabledata.filter((res:any)=>{
-    //   return res.status==="Closed"
-    // })
-    // this.dataSource = new MatTableDataSource(closed);
-    // this.setDataSourceAttributes()
-
-  }
-
-  underreviewdata(data: any) {
-    // var closed=this.casetabledata.filter((res:any)=>{
-    //   return res.status==="Closed"
-    // })
-    // this.dataSource = new MatTableDataSource(closed);
-    // this.setDataSourceAttributes()
-  }
-
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
@@ -267,25 +205,10 @@ export class TenderFinalApprovalComponent {
       this.sendApproval();
     }
 
-    // if (this.form.value.tenderstatus_id) {
-    //   this.tendStatusData = this.tendStatus.filter((item: any) => {
-    //     return item.tenderstatus_id == this.form.value.tenderstatus_id;
-    //   });
-    //   this.form.value.tenderstatus_id = this.tendStatusData[0]['tenderstatus_id'];
-    //   console.log(this.form.value.tenderstatus_id);
-    // }
   }
 
   sendBack() {
-    // if (this.form.value.requeststatus_id = '7003') {
-    //   this.form.get('working_notes')!.setValidators([Validators.required]);
-    //   this.form.controls['working_notes'].reset();
-    // }
-    // else {
-    //   this.form.controls['working_notes'].clearValidators();
-    //   this.form.controls['working_notes'].reset();
-
-    // }
+  
     if (this.form.value.tenderstatus_id !== '') {
       this.form.value.tenderstatus_id = '';
     } else {
@@ -317,10 +240,8 @@ export class TenderFinalApprovalComponent {
 
 
   sendApproval() {
-
     if (this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager') {
       var reqTend = {
-
         working_notes: this.form.value.working_notes,
         requeststatus_id:this.form.value.tenderstatus_id,
         tender_id : this.tenderID,
