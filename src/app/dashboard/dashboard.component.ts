@@ -1627,7 +1627,7 @@ export class DashboardComponent implements OnInit {
               name: item.name,
               series: item.series ? [
                 { name: item.series[0]?.name, value: item.series[0]?.value ? +item.series[0].value : 0 },
-                { name: item.series[1]?.name: item.series[1]?.value ? +item.series[1].value : 0 }
+                { name: item.series[1]?.name, value: item.series[1]?.value ? +item.series[1].value : 0 }
               ] : []
             };
           });
