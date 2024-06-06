@@ -179,8 +179,8 @@
                     <tr *ngFor="let a of selectRow?.drawing; index as i">
                       <td>{{i+1}}</td>
                       <td>
-                        <div *ngIf="!!a.drawing_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ a.drawing_title }}"> {{a.drawing_title | slice:0:30}} <span *ngIf="a.drawing_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                        <ng-template #elseBlock3>{{a.drawing_title}}</ng-template>
+                        <div *ngIf="!!a.drawing_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ a.drawing_title }}"> {{a.drawing_title | slice:0:30}} <span *ngIf="a.drawing_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                        <ng-template #elseBlock4>{{a.drawing_title}}</ng-template>
                       </td>
                       <td>{{a.drawing_no}}</td>
                       <td>{{a.discipline}}</td>

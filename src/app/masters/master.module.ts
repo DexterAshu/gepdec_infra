@@ -24,7 +24,6 @@ import { FinYearComponent } from './fin-year/fin-year.component';
 import { CompanyContactsComponent } from './company-contacts/company-contacts.component';
 import { CountryMasterComponent } from './country-master/country-master.component';
 import { SupplierItemLinkComponent } from './procurement/supplier-item-link/supplier-item-link.component';
-import { ItemsMasterComponent } from './items-master/items-master.component';
 import { WarehouseMasterComponent } from './warehouse-master/warehouse-master.component';
 import { ItemLabelComponent } from './item-label/item-label.component';
 import { OurCompanyFinanaceDataComponent } from './our-company-finanace-data/our-company-finanace-data.component';
@@ -57,7 +56,6 @@ const routes: Routes = [
   { path: 'fin-year', component: FinYearComponent },
   { path: 'tender-company-contacts', component: CompanyContactsComponent },
   { path: 'warehouse', component: WarehouseMasterComponent },
-  { path: 'items-master', component: ItemsMasterComponent },
   { path: 'items-location', component: ItemLabelComponent }
 ];
 
