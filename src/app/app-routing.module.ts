@@ -83,6 +83,9 @@ import { DirectCostingComponent } from './presales/presales-biding/direct-costin
 import { CostingApprovalComponent } from './presales/presales-biding/costing-approval/costing-approval.component';
 import { TenderFinalApprovalComponent } from './presales/presales-biding/tender-final-approval/tender-final-approval.component';
 import { UnderDevelopmentComponent } from './sharedComponent/under-development/under-development.component';
+import { PreSalesDrawingComponent } from './presales/design/pre-sales-drawing/pre-sales-drawing.component';
+import { PreSalesFinalBOQComponent } from './presales/design/pre-sales-final-boq/pre-sales-final-boq.component';
+import { PreSalesMasterDrawingListComponent } from './presales/design/pre-sales-master-drawing-list/pre-sales-master-drawing-list.component';
 
 const routes: Routes = [
   // {path: 'login', component: LoginComponent},
@@ -183,6 +186,9 @@ const routes: Routes = [
   {path: 'presales/inventory', component:InventoryComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory/audit-request', component: AuditRequestComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory/audit-approval', component:AuditApprovalComponent, canActivate:[AuthGuard]},
+  {path: 'presales/master-drawing-list', component:PreSalesMasterDrawingListComponent, canActivate:[AuthGuard]},
+  {path: 'presales/drawing-doc', component:PreSalesDrawingComponent, canActivate:[AuthGuard]},
+  {path: 'presales/final-boq', component:PreSalesFinalBOQComponent, canActivate:[AuthGuard]},
   //user
   {path: 'user-management/user-logs', component:UserLogsComponent, canActivate:[AuthGuard]},
   {path: 'user-management/user-roles', component:UserRolesComponent, canActivate:[AuthGuard]},

@@ -19,16 +19,7 @@
             <div class="col-lg-5">
               <input type="search" class="form-control form-control-sm" placeholder="Search..." [(ngModel)]="searchText">
             </div>
-            <div class="col-lg-3">
-              <div class="float-right">
-                <select class="form-select form-select-sm border-secondary pt-04 w-auto" (change)="redirect($event)">
-                    <option [disabled]="true" [value]="null">Select</option>
-                    <option value="/documentation/master-drawing-list">Master Drawing List</option>
-                    <option [selected]="true" value="/documentation/drawing-doc">Drawing</option>
-                    <option value="/documentation/final-boq">Final BOQ</option>
-                </select>
-              </div>
-            </div>
+            <div class="col-lg-3"></div>
             <div class="col-lg-4">
               <div class="float-right">
                 <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel" (click)="download()"><span class="mdi mdi-upload"></span>Export</button>
@@ -73,7 +64,6 @@
                 <td>{{a.tender_location}}</td>
                 <td>{{a.version}}</td>
                 <td>
-                  <a data-bs-toggle="modal" (click)="getDrawingList(a)" data-bs-target="#createModal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                   <a class="ms-2" (click)="getDrawingList(a)" data-bs-toggle="modal" data-bs-target="#detailModal"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
@@ -208,158 +198,6 @@
                 </app-responsive-table>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Drawing/Document Upload</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <h6 class="mb-2 text-secondary">Tender Detail</h6>
-          <div class="row px-2">
-            <table class="table table-hover table-striped custom-table">
-              <thead class="hidden-thead"></thead>
-              <tbody>
-                <tr>
-                  <th>Tender Title</th>
-                  <td colspan="5">{{ selectRow?.tender_title }}</td>
-                </tr>
-                <tr>
-                  <th>Client</th>
-                  <td>{{ selectRow?.company_name }}</td>
-                  <th>NIT No</th>
-                  <td>
-                    <div *ngIf="!!selectRow?.tender_ref_no; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ selectRow?.tender_ref_no }}">
-                        {{selectRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
-                    </div>
-                    <ng-template #elseBlock1>
-                        {{selectRow?.tender_ref_no}}
-                    </ng-template>
-                </td>
-                  <th>Publish Date</th>
-                  <td>{{ selectRow?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                </tr>
-
-                <tr>
-                  <th>Category</th>
-                  <td>{{ selectRow?.qacatagory }}</td>
-                  <th>Sub Category</th>
-                  <td>{{ selectRow?.subqacatagory }}</td>
-                  <th>Capacity</th>
-                  <td>{{ selectRow?.capacity }}</td>
-                </tr>
-
-                <tr>
-                  <th>Execution Location</th>
-                  <td>{{ selectRow?.tender_location }}</td>
-                  <th>Document Description</th>
-                  <td colspan="5">{{ selectRow?.description }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <h6 class="mt-3 mb-2 text-secondary">Master Drawing Details</h6>
-          <div class="row">
-            <table class="table table-hover table-striped custom-table">
-              <thead class="hidden-thead"></thead>
-              <tbody>
-                <tr>
-                  <th>DRG No</th>
-                  <td>{{ selectRow?.mdl_no }}</td>
-                  <th>Created Date</th>
-                  <td>{{ selectRow?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-                  <th>Created By</th>
-                  <td>{{ selectRow?.createdby }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <h6 class="mb-2 mt-3 text-secondary">Drawing/Document Upload</h6>
-          <div class="row">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-              <div class="form-row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label class="form-label fl-10">Drawing/Document Title<span class="required-asterisk">*</span></label>
-                    <select formControlName="doc_id" class="form-select form-select-sm">
-                      <option [selected]="true" [disabled]="true" [value]="null">Select Drawing</option>
-                      <option *ngFor="let c of selectRow?.drawing" [value]=c.doc_id>{{ c.drawing_title }}</option>
-                    </select>
-                    <div *ngIf="f['doc_id'].touched && f['doc_id'].invalid">
-                      <small class="text-danger" *ngIf="f['doc_id'].errors?.['required']">*Required</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
-                    <select formControlName="drawingFrom" class="form-select form-select-sm" (ngModelChange)="selectDrawingFrom()">
-                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                      <option value="In House">In House</option>
-                      <option value="Third Party">Third Party</option>
-                    </select>
-                    <div *ngIf="f['drawingFrom'].touched && f['drawingFrom'].invalid">
-                      <small class="text-danger" *ngIf="f['drawingFrom'].errors?.['required']">*Required</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label class="form-label fl-10">Drawn By<span class="required-asterisk" *ngIf="isInHouse">*</span></label>
-                    <input type="text" formControlName="artist" [readOnly]="!isInHouse" class="form-control form-control-sm" appWordCapitalize>
-                    <div *ngIf="f['artist'].touched && f['artist'].invalid">
-                      <small class="text-danger" *ngIf="f['artist'].errors?.['required']">*Required</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label class="form-label fl-10">Approved By<span class="required-asterisk" *ngIf="isInHouse">*</span></label>
-                    <input type="text" formControlName="drawingApprovedBy" [readOnly]="!isInHouse" class="form-control form-control-sm" appWordCapitalize>
-                    <div *ngIf="f['drawingApprovedBy'].touched && f['drawingApprovedBy'].invalid">
-                      <small class="text-danger" *ngIf="f['drawingApprovedBy'].errors?.['required']">*Required</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label id="drawing"> Upload Drawing</label><br>
-                    <input class="form-control form-control-sm" name="drawing" type="file" formControlName="drawing" (change)="onImageUpload($event)" accept="image/*">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label id="file"> Upload PDF <span class="required-asterisk">*</span></label><br>
-                    <input class="form-control form-control-sm" name="file" type="file" formControlName="file" (change)="onFileUpload($event)" accept=".pdf">
-                    <div *ngIf="f['file'].touched && f['file'].invalid">
-                      <small class="text-danger" *ngIf="f['file'].errors?.['required']">*Required</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="">Document Description: <span class="required-asterisk">*</span></label>
-                    <textarea type="text" class="form-control form-control-sm" formControlName="description" appWordCapitalize></textarea>
-                    <div *ngIf="f['description'].touched && f['description'].invalid">
-                      <small class="text-danger" *ngIf="f['description'].errors?.['required']">*Required</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="float-right">
-                <button type="submit" class="btn btn-primary btn-fw btn-sm me-2" [disabled]="form.invalid">Submit</button>
-                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal">Close</button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
