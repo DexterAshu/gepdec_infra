@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
@@ -28,11 +29,15 @@ export class DrawingComponent {
   isNotFound: boolean = false;
   selectRow: any;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService:SharedService, private elementRef:ElementRef, private router: Router) {}
 
   ngOnInit(): void {
     this.getMDLList();
     this.formInit();
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   formInit(): void {

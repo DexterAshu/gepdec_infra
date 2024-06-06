@@ -130,7 +130,7 @@
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
                                 <td>{{ a.tender_location }}</td>
-                                <td>{{ a.ecv }}</td>
+                                <td>{{ a.ecv | currency :'INR':'':'1.0-2'}}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{ a?.reqTenderStatus}}</td>
                                 <td>
