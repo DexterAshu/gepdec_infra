@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -84,7 +84,7 @@ export class BoqComponent implements OnInit, OnDestroy {
         isChecked: false
       })) : []
     })) || [];
-    console.log(JSON.stringify(this.rowData));
+    // console.log(JSON.stringify(this.rowData));
     this.getVendorList();
   }
 
@@ -103,7 +103,7 @@ export class BoqComponent implements OnInit, OnDestroy {
         const selectedItem: any = {
           item_id: item.item_id,
           boq_id: item.boq_id,
-          selected_vendors: item.selectedVendors.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
+          selected_vendors: item.selectedVendor.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
         };
 
         if (item.childItemList && item.childItemList.length > 0) {
@@ -112,7 +112,7 @@ export class BoqComponent implements OnInit, OnDestroy {
               childAcc.push({
                 boq_id: childItem.boq_id,
                 item_id: childItem.item_id,
-                selected_vendors: childItem.selectedVendors.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
+                selected_vendors: childItem.selectedVendor.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
               });
             }
             return childAcc;

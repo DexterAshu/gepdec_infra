@@ -96,7 +96,6 @@ import { FinancialBidComponent } from './presales/presales-biding/financial-bid/
 import { BankingDetailsComponent } from './presales/presales-biding/banking-details/banking-details.component';
 import { CountryMasterComponent } from './masters/country-master/country-master.component';
 import { SupplierItemLinkComponent } from './masters/procurement/supplier-item-link/supplier-item-link.component';
-import { ItemsMasterComponent } from './masters/items-master/items-master.component';
 import { WarehouseMasterComponent } from './masters/warehouse-master/warehouse-master.component';
 import { AmendmentsComponent } from './documentation/tender-document/amendments/amendments.component';
 import { InitialBoqComponent } from './documentation/tender-document/initial-boq/initial-boq.component';
@@ -151,6 +150,7 @@ import { LOCALE_ID } from '@angular/core';
 import { CostingApprovalComponent } from './presales/presales-biding/costing-approval/costing-approval.component';
 import { TenderFinalApprovalComponent } from './presales/presales-biding/tender-final-approval/tender-final-approval.component';
 import { UnderDevelopmentComponent } from './sharedComponent/under-development/under-development.component';
+
 @NgModule({
   declarations: [
     UsdOnlyDirective,
@@ -196,9 +196,8 @@ import { UnderDevelopmentComponent } from './sharedComponent/under-development/u
     CompletedComponent,
     L2ScheduleBulkdataComponent,
     WarehouseMasterComponent,
-    ItemsMasterComponent,
-    MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, DepartmentMasterComponent, DesignationMasterComponent, SpareMasterComponent
-    ,TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
+    MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, DepartmentMasterComponent, DesignationMasterComponent, SpareMasterComponent,
+    TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
     CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent,
     AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent,
@@ -219,11 +218,10 @@ import { UnderDevelopmentComponent } from './sharedComponent/under-development/u
     NgSelectModule,
     NgMultiSelectDropDownModule,
     ChartModule,
-    AppRoutingModule,
-
+    AppRoutingModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'en-IN' } ,// Set the default locale to 'en-IN'
+    { provide: LOCALE_ID, useValue: 'en-IN' },
     CurrencyPipe,
     DecimalPipe,
     DatePipe,

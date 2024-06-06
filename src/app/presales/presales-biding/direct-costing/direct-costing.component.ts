@@ -10,7 +10,8 @@ import { environment } from 'src/environments/environment';
 })
 export class DirectCostingComponent {
   p: number = 1;
-  limit = environment.pageLimit;
+  limit: any = environment.pageLimit;
+  apiLink: any = environment.apiUrl;
   searchText: any;
   form!: FormGroup;
   isSubmitted: boolean = false;
@@ -18,12 +19,9 @@ export class DirectCostingComponent {
   dataList: any;
   file: any;
   dataDropdownList: any;
+  selectedBOQRow: any;
   selectedRow: any;
   itemList: any;
-  totalDirectCost: number = 0;
-  totalWithGST: number = 0;
-  totalWithFreight: number = 0;
-  totalWithFreightWithGST: number = 0;
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService:SharedService, private elementRef:ElementRef) { }
 
@@ -69,25 +67,20 @@ export class DirectCostingComponent {
         this.alertService.warning("Looks like no data available!");
       }
     }, (error: any) => {
+      console.error(error);
       this.isNotFound = true;
       this.dataList = undefined;
       this.alertService.error("Error: Unknown Error!")
     });
   }
 
-  getBOQItemList(data: any) {
-    this.totalDirectCost = 0;
-    this.totalWithGST = 0;
-    this.totalWithFreight = 0;
-    this.totalWithFreightWithGST = 0;
+  getBOQList(data: any): void {
+    this.selectedBOQRow = data;
+  }
+
+  getItemList(data: any) {
     this.itemList = [];
     this.itemList = data;
-    this.itemList?.items.forEach((item: any) => {
-      this.totalDirectCost += item?.total_price_value;
-      this.totalWithGST += item.total_GST_value;
-      this.totalWithFreight += item.total_freight_value;
-      this.totalWithFreightWithGST += item.total_freight_with_GST_value;
-    });
   }
 
   onSubmit() {

@@ -33,7 +33,11 @@
                 <th>S No</th>
                 <th>Tender Title</th>
                 <th>NIT No</th>
-                <th>Tender Location</th>
+                <th>Publish Date</th>
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Capacity</th>
+                <th>Execution Location</th>
                 <th>PO No</th>
                 <th>GRN No</th>
                 <th>GRN Date</th>
@@ -66,6 +70,10 @@
                     {{purchase?.tender_ref_no}}
                   </ng-template>
                 </td>
+                <td>{{ purchase.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                <td>{{ purchase.qacatagory }}</td>
+                <td>{{ purchase.subqacatagory}}</td>
+                <td>{{ purchase.capacity }}</td>
                 <td>{{ purchase.tender_location }}</td>
                 <td> {{ purchase.pono }}</td>
                 <td>{{ purchase?.grn_number }}</td>

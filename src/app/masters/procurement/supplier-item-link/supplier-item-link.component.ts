@@ -52,10 +52,6 @@ export class SupplierItemLinkComponent implements OnDestroy {
 
   get f() { return this.form.controls; }
 
-  // getLabel(item: any): string {
-  //   return `${item?.itemname} [${item?.itemcode}]`;
-  // }
-
   getItemList() {
     this.itemDataList = [];
     let apiLink = "/item/api/v1/getItemList";
