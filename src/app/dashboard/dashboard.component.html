@@ -275,10 +275,10 @@
             <div *ngIf="loading" class="text-center">
               <div class="spinner-border"> </div>
             </div>
-            <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth, 190]" [scheme]="colorSchemeLoadQuarter1"
+            <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth, 180]" [scheme]="colorSchemeLoadQuarter1"
               [results]="performaceBar" [xAxis]="showXAxis" [yAxis]="showYAxis" [gradient]="true"
               [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
-              [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="5" [groupPadding]="7" (select)="onChartSelect($event)">
+              [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="2" [groupPadding]="1" (select)="onChartSelect($event)">
 
               <!-- <ng-template #tooltipTemplate let-model="model">
               <div class="custom-tooltip">
@@ -336,7 +336,7 @@
           <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank per_box1"></i> Rev</li>
             <li><i class="mdi mdi-checkbox-blank per_box2"></i> Exp</li>
-            <li><i class="mdi mdi-checkbox-blank per_box3"></i> Profit</li>
+            <li><i class="mdi mdi-checkbox-blank per_box3"></i> EBITDA</li>
           </ul>
         </div>
       </div>
@@ -646,7 +646,7 @@
                     {{tender?.qacatagory}}
                 </ng-template> -->
                 </div>
-                <div class="col-md-3 col-3" style="text-align: left;">{{tender.ecv}}</div>
+                <div class="col-md-3 col-3" style="text-align: left;">{{tender.ecv | currency : 'INR' :'':'1.0-2'}}</div>
               </div>
             </div>
           </div>
@@ -753,7 +753,7 @@
                 <td>{{limit*(p-1)+i+1}}</td>
                 <td>{{t.tender_title}}</td>
                 <td>{{t.bidtype}}</td>
-                <td>{{t.ecv}}</td>
+                <td>{{t.ecv | currency:'INR':'':'1.0-2'}}</td>
                 <td>250</td>
                 <td>200</td>
                 <td>195</td>

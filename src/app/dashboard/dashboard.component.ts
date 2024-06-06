@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService, ApiService, SharedService } from 'src/app/_services';
@@ -689,7 +689,7 @@ export class DashboardComponent implements OnInit {
       ]
     },
     {
-      "name": "Profit",
+      "name": "EBITDA",
       "series": [
         // {
         //   "name": "Total",
@@ -702,7 +702,7 @@ export class DashboardComponent implements OnInit {
         },
         {
           "name": "2022",
-          "value": 180
+          "value": 100
         },
         {
           "name": "2023",
@@ -1367,6 +1367,7 @@ export class DashboardComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private masterService: MasterService,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -1392,6 +1393,10 @@ export class DashboardComponent implements OnInit {
       company: [null, Validators.required],
       project: [null, Validators.required],
     })
+  }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
   }
 
   // Method to calculate completion percentage
@@ -1621,8 +1626,8 @@ export class DashboardComponent implements OnInit {
             return {
               name: item.name,
               series: item.series ? [
-                { name: 'Published', value: item.series[0]?.value ? +item.series[0].value : 0 },
-                { name: 'Completed', value: item.series[1]?.value ? +item.series[1].value : 0 }
+                { name: item.series[0]?.name, value: item.series[0]?.value ? +item.series[0].value : 0 },
+                { name: item.series[1]?.name, value: item.series[1]?.value ? +item.series[1].value : 0 }
               ] : []
             };
           });
@@ -1644,7 +1649,7 @@ export class DashboardComponent implements OnInit {
           this.allProgressBar = this.dashboardData.statusProgress.map((item: any) => {
             return {
               name: item.tender_title,
-              value: item.duration,
+              value: item.progress,
               // value: [0, 20, 40, 60, 80, 100],
               tender_id: item.tender_id
             };
