@@ -235,6 +235,11 @@
                             </div>
 
 
+                                <div class="col-md-12" *ngIf="filterTenderDetailsData[0]?.finCheck == true">
+                                    <h6 class="text-danger text-center" style="text-shadow: 1px 1px 2px #696969;">Financial Parameter for this tender are already updated</h6>
+
+                                </div>
+
                             <!-- <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Financial Year<span
@@ -254,7 +259,7 @@
                             </div> -->
 
                             <ng-container class="mt-2" *ngIf="filterTenderDetailsData[0]?.financialyear">
-                                <div class="container">
+                                <div class="container" *ngIf="filterTenderDetailsData[0]?.finCheck == false">
                                     <div class="row text-center text-white bg-primary p-2">
                                         <div class="col-md-6">Data Required (As Per Tender)</div>
                                         <div class="col-md-6">Our Company Data</div>
@@ -999,27 +1004,28 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label fl-10">Remarks<span
+                                                    class="required-asterisk">*</span></label>
+                                            <textarea formControlName="remark" type="text" class="form-control form-control-sm"
+                                                appWordCapitalize>
+                                           </textarea>
+                                            <div *ngIf="f['remark'].touched && f['remark'].invalid">
+                                                <small class="text-danger" *ngIf="f['remark'].errors?.['required']">Short
+                                                    Description...</small>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </ng-container>
 
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label fl-10">Remarks<span
-                                            class="required-asterisk">*</span></label>
-                                    <textarea formControlName="remark" type="text" class="form-control form-control-sm"
-                                        appWordCapitalize>
-                                   </textarea>
-                                    <div *ngIf="f['remark'].touched && f['remark'].invalid">
-                                        <small class="text-danger" *ngIf="f['remark'].errors?.['required']">Short
-                                            Description...</small>
-                                    </div>
-                                </div>
-                            </div>
 
                         </div>
 
 
-                        <div class="row mt-2">
+                        <div class="row mt-2" *ngIf="filterTenderDetailsData[0]?.finCheck == false">
                             <div class="modal-btns">
                                 <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
                                     class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>

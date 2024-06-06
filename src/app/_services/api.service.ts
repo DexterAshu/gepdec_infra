@@ -448,4 +448,12 @@ finAbidta(year:any, check:any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
     return this.http.post(`${environment.apiUrl}/drawing/api/v1/uploadAndApprovedMDL`, data, httpOptions);
   }
+
+  // attachment-details
+  getAttachmentDetails(tender_id: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    const params = new HttpParams({fromString: `tender_id=${tender_id}`});
+    return this.http.get<any[]>(`${environment.apiUrl}/biding/api/v1/getTenderAllDocumentList?${params}`, httpOptions);
+  }
+
 }
