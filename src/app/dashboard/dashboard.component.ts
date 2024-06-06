@@ -1414,6 +1414,10 @@ export class DashboardComponent implements OnInit {
     this.sharedService.initializeTooltips(this.elementRef);
   }
 
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
+  }
+
   // Method to calculate completion percentage
   calculateCompletionPercentage(series: any[]): number {
     const completedValue = series.find(s => s.name === 'Completed').value;
