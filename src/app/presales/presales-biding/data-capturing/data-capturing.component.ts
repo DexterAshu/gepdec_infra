@@ -1,16 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {NgSelectModule, NgOption} from '@ng-select/ng-select';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-data-capturing',
   templateUrl: './data-capturing.component.html',
   styleUrls: ['./data-capturing.component.css']
 })
-export class DataCapturingComponent {
+export class DataCapturingComponent implements OnDestroy {
   form!: FormGroup;
   form1!: FormGroup;
   p: number = 1;
@@ -71,6 +72,7 @@ export class DataCapturingComponent {
   // addCustomLocation:any;
   selectedUserIds:any = [];
   ecvData:any
+  private destroy$ = new Subject<void>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -172,14 +174,19 @@ export class DataCapturingComponent {
       company_id: this.custDetails[0]?.company_name
     })
   }
- 
 
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res: any) => {
-      if (res.status === 200) {
-        this.countryData = res.result;
-      } else {
-        this.alertService.warning("Looks like no data available in country data.");
+    this.apiService.getCountryDataList().pipe(takeUntil(this.destroy$)).subscribe(
+      {next: (res: any) => {
+        if (res.status === 200) {
+          this.countryData = res.result;
+        } else {
+          this.alertService.warning("Looks like no data available in country data.");
+        }
+      }, error: (error: any) => {
+        console.error(error);
+        this.isNotFound = true;
+        this.alertService.error("Error: Unknown Error!")
       }
     });
   }
@@ -189,43 +196,68 @@ export class DataCapturingComponent {
   getStateData() {
     let countrydata = this.form.value.country_id;
     let statedata = null;
-    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
-      if (res.status === 200) {
-        this.stateData = res.result;
-      } else {
-        this.alertService.warning(`Looks like no state available related to the selected country.`);
+    this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
+      {next: (res: any) => {
+        if (res.status === 200) {
+          this.stateData = res.result;
+        } else {
+          this.alertService.warning(`Looks like no state available related to the selected country.`);
+        }
+      }, error: (error: any) => {
+        console.error(error);
+        this.isNotFound = true;
+        this.alertService.error("Error: Unknown Error!")
       }
-    });
+    }
+    );
   }
 
   getDistrictData() {
     this.districtData = [];
     let data = this.form.value.state_id;
     let dist = this.form.value.district_id;
-    this.apiService.getDistData(data, dist).subscribe((res: any) => {
-      if (res.status === 200) {
-        this.districtData = res.result;
-      } else {
-        this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
+    this.apiService.getDistData(data, dist).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.districtData = res.result;
+        } else {
+          this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
+        }
+      }, error: (error: any) => {
+        console.error(error);
+        this.isNotFound = true;
+        this.alertService.error("Error: Unknown Error!")
       }
     });
   }
 
   getDesignDeptData() {
-    this.masterService.getUserMaster().subscribe((res: any) => {
-      this.design = res.designation;
-      this.departMent = res.department;
+    this.masterService.getUserMaster().pipe(takeUntil(this.destroy$)).subscribe({
+      next:(res: any) => {
+        this.design = res.designation;
+        this.departMent = res.department;
+      },error: (error: any) => {
+        console.error(error);
+        this.isNotFound = true;
+        this.alertService.error("Error: Unknown Error!")
+      }
     })
   }
 
   finYearData() {
     this.isNotFound = true;
-    this.masterService.getFinData().subscribe((res: any) => {
-      console.log(res);
-      
-      this.financialData = res.result;
-      console.log( this.financialData);
-      
+    this.masterService.getFinData().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        
+        this.financialData = res.result;
+        console.log( this.financialData);
+        
+      }, error: (error: any) => {
+        console.error(error);
+        this.isNotFound = true;
+        this.alertService.error("Error: Unknown Error!")
+      }
     })
   }
 
@@ -407,28 +439,29 @@ export class DataCapturingComponent {
     this.custDetails = []
     this.contactDetails = []
     this.addressDetails = []
-    this.apiService.companyDetails(data).subscribe((res: any) => {
-      if (res.status === 200) {
-        this.custDetails = res.result;
-        this.contactDetails = res.result[0].contact;
-        this.addressDetails = res.result[0].adderss;
-        this.isContactFound = false;
-      } else {
-        this.isContactFound = true;
-        this.custDetails = undefined;
-        this.contactDetails = undefined;
-        this.addressDetails = undefined;
-        this.alertService.warning(res.message);
-      }
-    }, (error: any) => {
+    this.apiService.companyDetails(data).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.custDetails = res.result;
+          this.contactDetails = res.result[0].contact;
+          this.addressDetails = res.result[0].adderss;
+          this.isContactFound = false;
+        } else {
+          this.isContactFound = true;
+          this.custDetails = undefined;
+          this.contactDetails = undefined;
+          this.addressDetails = undefined;
+          this.alertService.warning(res.message);
+        }
+      },error: (error: any) => {
         this.isContactFound = true;
         this.custDetails = undefined;
         this.contactDetails = undefined;
         this.addressDetails = undefined;
         this.alertService.error("Error: Unknown Error!");
+    }
     });
   }
-
 
   getCategoryData() {
     this.categoryData = [];
@@ -438,11 +471,13 @@ export class DataCapturingComponent {
     this.form.controls['subqacatagory_id'].setValue(null);
     this.form.controls['capacity_id'].setValue(null);
     let apiLink = "/biding/api/v1/getQualificationDropdown";
-    this.apiService.getData(apiLink).subscribe((res: any) => {
-      this.categoryData = res.catagory;
-    }, (error: any) => {
-      this.categoryData = undefined;
-      this.alertService.error("Error: Unknown Error!");
+    this.apiService.getData(apiLink).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        this.categoryData = res.catagory;
+      }, error: (error: any) => {
+        this.categoryData = undefined;
+        this.alertService.error("Error: Unknown Error!");
+      }
     });
   }
 
@@ -453,11 +488,13 @@ export class DataCapturingComponent {
     this.form.controls['capacity_id'].setValue(null);
     if(data == '1002' || data == '1003') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
-      this.apiService.getData(this.apiLink).subscribe((res: any) => {
-        this.subCategoryData = res.subcatagory;
-      }, (error: any) => {
-        this.subCategoryData = undefined;
-        this.alertService.error("Error: Unknown Error!");
+      this.apiService.getData(this.apiLink).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (res: any) => {
+          this.subCategoryData = res.subcatagory;
+        }, error: (error: any) => {
+          this.subCategoryData = undefined;
+          this.alertService.error("Error: Unknown Error!");
+        }
       });
     } else if(data == '1001') {
         this.getCapacityData(data);
@@ -468,63 +505,55 @@ export class DataCapturingComponent {
     this.capacityData = [];
     if(data == '2001' || data == '2002') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?subqacatagory_id=${data}`;
-      this.apiService.getData(this.apiLink).subscribe((res: any) => {
-        this.capacityData = res.capacity;
-      }, (error: any) => {
-        this.capacityData = undefined;
-        this.alertService.error("Error: Unknown Error!");
+      this.apiService.getData(this.apiLink).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (res: any) => {
+          this.capacityData = res.capacity;
+        }, error:  (error: any) => {
+          this.capacityData = undefined;
+          this.alertService.error("Error: Unknown Error!");
+        }
       });
     } else if (data == '1001') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
-      this.apiService.getData(this.apiLink).subscribe((res: any) => {
-        this.capacityData = res.capacity;
-      }, (error: any) => {
-        this.capacityData = undefined;
-        this.alertService.error("Error: Unknown Error!");
+      this.apiService.getData(this.apiLink).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (res: any) => {
+          this.capacityData = res.capacity;
+        }, error: (error: any) => {
+          this.capacityData = undefined;
+          this.alertService.error("Error: Unknown Error!");
+        }
       });
 
     }
   }
-  
 
   getCompanyData() {
-    this.apiService.getCompanyList().subscribe((res: any) => {
-      if(res.status == 200) {
-        this.companyData = res.result;
-      } else {
-        this.alertService.warning(res.message);
+    this.apiService.getCompanyList().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if(res.status == 200) {
+          this.companyData = res.result;
+        } else {
+          this.alertService.warning(res.message);
+        }
+      }, error:  (error: any) => { 
+        this.alertService.error("Error: Unknown Error!");
       }
-    }),
-    (error: any) => { 
-      console.error(error);
-      this.alertService.error("Error: Unknown Error!");
-    }
-    this.apiService.getTenderType().subscribe((res: any) => {
-      this.tenderType = res.bidtype;
-      this.meetingMode = res.mettingmode;
-      this.emdExp = res.emdexemption;
-      this.performanceGuarntee = res.performanceguarantee;
-      this.securityDeposit = res.securitydeposit;
-      this.payment = res.paymentmethod;
-      this.tendStatus = res.tenderstatus;
+    })
+   
+    this.apiService.getTenderType().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        this.tenderType = res.bidtype;
+        this.meetingMode = res.mettingmode;
+        this.emdExp = res.emdexemption;
+        this.performanceGuarntee = res.performanceguarantee;
+        this.securityDeposit = res.securitydeposit;
+        this.payment = res.paymentmethod;
+        this.tendStatus = res.tenderstatus;
+      }, error:  (error: any) => { 
+        this.alertService.error("Error: Unknown Error!");
+      }
     });
-
-
   }
-
-
-  // handleCheckboxChange(e: any, data: any) {
-  //   if(e.target.checked == true) {
-  //     let match = { contact_id: data.contact_id };
-  //     this.form.value.contact.push(match);
-  //   } else {
-  //     let remainData = this.form.value.contact.filter((x: any) => x.contact_id != data.contact_id);
-  //     this.form.controls['contact'].setValue(remainData);
-  //   }
-  //   if(this.form.value.contact.length == 0) {
-  //     this.form.controls['contact'].reset();
-  //   }
-  // }
 
   handleCheckboxChange(event: any, data: any) {
     const contactArray = this.form.get('contact') as FormArray;
@@ -564,18 +593,20 @@ export class DataCapturingComponent {
     console.log(custID);
 
     this.form1.value.company_id = this.custDetails[0].company_id;
-    this.apiService.createContacts(match).subscribe((res: any) => {
-      let response: any = res;
-      document.getElementById('cancel1')?.click();
-      this.isSubmitted = false;
-      if (response.status == 200) {
-        this.getDetails(custID);
-        this.alertService.success(response.message);
-      } else {
-        this.alertService.warning(response.message);
+    this.apiService.createContacts(match).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        let response: any = res;
+        document.getElementById('cancel1')?.click();
+        this.isSubmitted = false;
+        if (response.status == 200) {
+          this.getDetails(custID);
+          this.alertService.success(response.message);
+        } else {
+          this.alertService.warning(response.message);
+        }
+      }, error: (error: any) => {
+        this.alertService.error("Error: Unknown Error!");
       }
-    }, (error: any) => {
-      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -595,55 +626,52 @@ export class DataCapturingComponent {
         this.form.controls['working_notes'].reset();
       }
     }
-
-    //   const formData: any = new FormData();
-    //   for (let i = 0; i < this.attachment.length; i++) {
-    //     formData.append("attachment", this.attachment[i]);
-    //   }
-
-    // formData.append("eligibility",this.form.value.eligibility);
-    // formData.append("technical_qualification",this.form.value.technical_qualification);
-    // formData.append("tender_company_name",this.form.value.tender_company_name);
-    // formData.append("tender_title",this.form.value.tender_title);
-    // formData.append("tender_ref_no",this.form.value.tender_ref_no);
-    // formData.append("remarks",this.form.value.remarks);
-
   }
 
   addTender() {
     this.button = 'Save & Continue';
     this.update = false;
-    this.apiService.createTender(this.form.value).subscribe((res: any) => {
-      let response: any = res;
-      document.getElementById('cancel')?.click();
-      this.isSubmitted = false;
-      if (response.status == 200) {
-        this.router.navigate(['/presales/presales-biding/data-capture-list']);
-        // this.form.reset();
-        this.alertService.success(response.message);
-      } else {
-        this.alertService.warning(response.message);
+    this.apiService.createTender(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        let response: any = res;
+        document.getElementById('cancel')?.click();
+        this.isSubmitted = false;
+        if (response.status == 200) {
+          this.router.navigate(['/presales/presales-biding/data-capture-list']);
+          // this.form.reset();
+          this.alertService.success(response.message);
+        } else {
+          this.alertService.warning(response.message);
+        }
+      }, error:  (error: any) => {
+        this.alertService.error("Error: Unknown Error!");
       }
-    }, (error: any) => {
-      this.alertService.error("Error: Unknown Error!");
     });
   }
 
   updateTender(): void {
     this.form.value.tender_id = this.tenderData.id;
-    console.log(this.form.value.tender_id);
-
-    this.apiService.tenderUpdation(this.form.value).subscribe((res: any) => {
-      this.update = true;
-      this.isSubmitted = false;
-      if (res.status == 200) {
-        this.router.navigate(['/presales/presales-biding/data-capture-list']);
-        this.alertService.success(res.message);
-      } else if (res.status == 201) {
-        this.alertService.error(res.message);
-      } else {
-        this.alertService.error('Error, Something went wrong please check');
+    this.apiService.tenderUpdation(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        this.update = true;
+        this.isSubmitted = false;
+        if (res.status == 200) {
+          this.router.navigate(['/presales/presales-biding/data-capture-list']);
+          this.alertService.success(res.message);
+        } else if (res.status == 201) {
+          this.alertService.error(res.message);
+        } else {
+          this.alertService.error('Error, Something went wrong please check');
+        }
+      }, error: (error: any) => { 
+        console.error(error);
+        this.alertService.error("Error: Unknown Error!");
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

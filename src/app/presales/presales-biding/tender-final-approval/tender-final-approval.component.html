@@ -15,109 +15,111 @@
       </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                     <div class="d-flex my-10 mt-2">
-                        <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
-                                placeholder="Search">
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                        </div>
-
-                        <div class="col-lg-4">
-                            <div class="float-right">
-                                <button class="btn btn-primary btn-fw btn-sm me-2"
-                                    title="Download List of Data in Excel"
-                                    (click)="download()">
-                                    <span class="mdi mdi-upload"></span> Export
-                                </button>
-                                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
-                                    data-bs-target="#createBulkModal" title="Upload bulk Data">
-                                    <span class="mdi mdi-download"></span> Import
-                                </button>
-                                <!-- <button type="button" routerLink="/presales/presales-biding/data-capture"
-                                    class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span> Create</button> -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
-                        <thead class="table-primary text-nowrap">
-                            <tr>
-                                <th>S No</th>
-                                <th>Client</th>
-                                <th>Tender Title</th>
-                                <th>NIT No</th>
-                                <th>Category</th>
-                                <th>Sub-Category</th>
-                                <th>Capacity</th>
-                                <th>Publish Date</th>
-                                <th>Execution Location</th>
-                                <th class="text-end">ECV (INR)</th>
-                                <th>Submission Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-nowrap">
-                            <tr
-                                *ngFor="let a of tenderData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                                <td>{{ limit*(p-1)+i+1 }}</td>
-                                <td>{{ a.company_name }}</td>
-                                <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock1>
-                                        {{a.tender_title}}
-                                    </ng-template>
-                                </td>
-                                <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock2>
-                                        {{a?.tender_ref_no}}
-                                    </ng-template>
-                                </td>
-                                <td>{{a.qacatagory}}</td>
-                                <td>{{a.subqacatagory}}</td>
-                                <td>{{a.capacity}}</td>
-                                <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
-                                <td>{{ a.tender_location }}</td>
-                                <td class="text-end">{{ a.ecv | currency: 'INR': '' : '1.0-2'}}</td>
-                                <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
-                                <td>{{ a?.request_status}}</td>
-                                <td>
-                                    <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal" title="Edit Details" (click)="getDetails(a.tender_id)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                                    &nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> 
-                                    <!-- &nbsp; -->
-                                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
-                                </td>
-                            </tr>
-                            <tr *ngIf="tenderData?.length == 0">
-                                <td colspan="15" class="text-center">
-                                    <div class="spinner-border"> </div>
-                                </td>
-                            </tr>
-                            <tr *ngIf="isNotFound == true">
-                                <td colspan="15" class="text-center">
-                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </app-responsive-table>
-                    <div class="pagination-sec text-center">
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                    </div>
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex my-10 mt-2">
+              <div class="col-lg-4">
+                <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+              </div>
+  
+              <div class="col-lg-4">
+  
+              </div>
+  
+              <div class="col-lg-4">
+                <div class="float-right">
+                  <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel"
+                    (click)="download()">
+                    <span class="mdi mdi-upload"></span> Export
+                  </button>
+                  <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                    data-bs-target="#createBulkModal" title="Upload bulk Data">
+                    <span class="mdi mdi-download"></span> Import
+                  </button>
+                  <!-- <button type="button" routerLink="/presales/presales-biding/data-capture"
+                                      class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span> Create</button> -->
                 </div>
+              </div>
             </div>
+  
+            <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>Client</th>
+                  <th>Tender Title</th>
+                  <th>NIT No</th>
+                  <th>Category</th>
+                  <th>Sub-Category</th>
+                  <th>Capacity</th>
+                  <th>Publish Date</th>
+                  <th>Execution Location</th>
+                  <th>ECV (INR)</th>
+                  <th>Submission Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr
+                  *ngFor="let a of tenderData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                  <td>{{ limit*(p-1)+i+1 }}</td>
+                  <td>{{ a.company_name }}</td>
+                  <td>
+                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ a.tender_title }}">
+                      {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
+                          class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock1>
+                      {{a.tender_title}}
+                    </ng-template>
+                  </td>
+                  <td>
+                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ a?.tender_ref_no }}">
+                      {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i
+                          class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock2>
+                      {{a?.tender_ref_no}}
+                    </ng-template>
+                  </td>
+                  <td>{{a.qacatagory}}</td>
+                  <td>{{a.subqacatagory}}</td>
+                  <td>{{a.capacity}}</td>
+                  <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{ a.tender_location }}</td>
+                  <td>{{ a.ecv | currency: 'INR': '' : '1.0-2'}}</td>
+                  <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ a?.reqTenderStatus}}</td>
+                  <td>
+                  
+                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data"
+                      (click)="rowListData(a);attachmentDetails()"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                    <!-- &nbsp; -->
+                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+                  </td>
+                </tr>
+                <tr *ngIf="tenderData?.length == 0">
+                  <td colspan="15" class="text-center">
+                    <div class="spinner-border"> </div>
+                  </td>
+                </tr>
+                <tr *ngIf="isNotFound == true">
+                  <td colspan="15" class="text-center">
+                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                  </td>
+                </tr>
+              </tbody>
+            </app-responsive-table>
+            <div class="pagination-sec text-center">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
   
@@ -1153,10 +1155,10 @@
 
                 <!-- ******************************Tender Attachments details ******************************************* -->
                 <div class="col-md-6">
-                    <h6 class="mt-3 mb-2 text-secondary">Tender Attachments Detail</h6>
+                    <h6 class="mt-3 mb-2 text-secondary">Attachments</h6>
                   </div>
-                  <div class="card p-2 mt-1" (click)="attachmentDataShow = !attachmentDataShow">
-                    <div class="row p-1">
+                  <div class="card p-2 mt-1" >
+                    <div class="row p-1" (click)="attachmentDataShow = !attachmentDataShow">
                       <div class="col-md-6">
                         <h6 class="mb-2 text-primary cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
@@ -1178,7 +1180,7 @@
                       </div>
                     </div>
     
-                    <div class="container-fluid mt-1" *ngIf="attachmentDataShow && (rowData?.indirectCost.length > 0)">
+                    <div class="container-fluid mt-1" *ngIf="attachmentDataShow">
                       <div class="row">
                         <div class="col-md-12 p-0">
                           <div class="container-fluid">
@@ -1186,6 +1188,100 @@
                               <div class="col-md-12 p-0">
                                 <div class="table-responsive">
                                   
+                                  <!-- Company attachemnts -->
+                                  <div class="card p-2 mt-1" (click)="compattachmentDataShow = !compattachmentDataShow">
+                                    <div class="row p-1">
+                                      <div class="col-md-6">
+                                        <h6 class="mb-2 text-primary cursor-pointer">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-buildings" viewBox="0 0 16 16">
+                                            <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z"/>
+                                            <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z"/>
+                                          </svg> &nbsp;
+                                        Company Attachments
+                                        </h6>
+                                      </div>
+                    
+                                      <div class="col-md-6">
+                                        <div class="float-right" title="Show/Hide Details">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                          </svg>
+                    
+                                        </div>
+                                      </div>
+                                    </div>
+                    
+                                    <div class="container-fluid mt-1" *ngIf="compattachmentDataShow && (rowData?.indirectCost.length > 0)">
+                                      <div class="row">
+                                        <div class="col-md-12 p-0">
+                                          <div class="container-fluid">
+                                            <div class="row">
+                                              <div class="col-md-12 p-0">
+                                                <div class="table-responsive">
+                                                  
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                    
+                                    <div class="d-flex justify-content-center" *ngIf="compattachmentDataShow && (rowData?.indirectCost.length == 0)">
+                                      <div class="text-warning fw-semibold text-small">Looks like no attachments available! </div>
+                                    </div>
+                    
+                                  </div>
+
+                                  <!-- tender attachments -->
+                                  <div class="card p-2 mt-1" (click)="tendattachmentDataShow = !tendattachmentDataShow">
+                                    <div class="row p-1">
+                                      <div class="col-md-6">
+                                        <h6 class="mb-2 text-primary cursor-pointer">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-disc" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                            <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0M8 4a4 4 0 0 0-4 4 .5.5 0 0 1-1 0 5 5 0 0 1 5-5 .5.5 0 0 1 0 1m4.5 3.5a.5.5 0 0 1 .5.5 5 5 0 0 1-5 5 .5.5 0 0 1 0-1 4 4 0 0 0 4-4 .5.5 0 0 1 .5-.5"/>
+                                          </svg> &nbsp;
+                                         Tender Attachments
+                                        </h6>
+                                      </div>
+                    
+                                      <div class="col-md-6">
+                                        <div class="float-right" title="Show/Hide Details">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                          </svg>
+                    
+                                        </div>
+                                      </div>
+                                    </div>
+                    
+                                    <div class="container-fluid mt-1" *ngIf="tendattachmentDataShow && (rowData?.indirectCost.length > 0)">
+                                      <div class="row">
+                                        <div class="col-md-12 p-0">
+                                          <div class="container-fluid">
+                                            <div class="row">
+                                              <div class="col-md-12 p-0">
+                                                <div class="table-responsive">
+                                                  
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                    
+                                    <div class="d-flex justify-content-center" *ngIf="tendattachmentDataShow && (rowData?.indirectCost.length == 0)">
+                                      <div class="text-warning fw-semibold text-small">Looks like no attachments available! </div>
+                                    </div>
+                    
+                                  </div>
+
                                 </div>
                               </div>
                             </div>
@@ -1203,7 +1299,7 @@
                   <!-- tender attachment details stop -->
   
                 <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
-                  <div class="row mt-3" *ngIf="rowData?.directCost.length > 0 && rowData?.indirectCost.length > 0">
+                  <div class="row mt-3">
                    
                     
                       <div class="col-md-3">
@@ -1219,7 +1315,23 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-9">
+
+                      
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label fl-10"> Submitted On<span
+                                    class="required-asterisk">*</span></label>
+                            <input formControlName="securitysubmission_date" type="date"
+                                class="form-control form-control-sm">
+                            <div
+                                *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
+                            </div>
+                            <small class="text-danger"
+                                *ngIf="f['securitysubmission_date'].errors?.['required']">*Required</small>
+                        </div>
+                    </div>
+
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label class="form-label fl-10">Remarks<span class="required-asterisk">*</span></label>
                           <input formControlName="working_notes" type="text" class="form-control form-control-sm">
@@ -1239,7 +1351,7 @@
                             class="bi bi-send" viewBox="0 0 16 16">
                             <path
                               d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                          </svg> &nbsp;Send Approval For Costing
+                          </svg> &nbsp;Send for final Approval
                         </button>
                       </div>
   
@@ -1269,9 +1381,9 @@
                     </div>
   
                   </div>
-                  <div class="d-flex mt-3" *ngIf="rowData?.directCost.length == 0 && rowData?.indirectCost.length == 0">
-                    <div class="text-warning fw-semibold text-small">*Note: Direct or Indirect Costing data is not available. Therefore, Final Approval is not possible.</div>
-                  </div>
+                  <!-- <div class="d-flex mt-3" *ngIf="rowData?.directCost.length == 0 && rowData?.indirectCost.length == 0">
+                    <div class="text-warning fw-semibold text-small">*Note: Qualifications, Costing, or Attachments are not available. Therefore, final approval is not possible.</div>
+                  </div> -->
 
                 </form>
                 <!-- tender status modal end-->

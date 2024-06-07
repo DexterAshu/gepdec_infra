@@ -42,6 +42,9 @@ export class TenderFinalApprovalComponent {
   tendStatus: any = [];
   showWorkingDetails: boolean = false;
   attachmentDataShow: boolean =false;
+  compattachmentDataShow: boolean = false;
+  tendattachmentDataShow: boolean = false;
+
   showPreNotes: boolean = false;
   techDataShow: boolean = false;
   directDataShow: boolean = false;
@@ -67,6 +70,7 @@ export class TenderFinalApprovalComponent {
   totalProfit: number = 0;
   profitPer: number = 0;
   tenderID: any;
+  attachListData: string | Event | undefined;
 
 
   constructor(
@@ -156,6 +160,16 @@ export class TenderFinalApprovalComponent {
 
   }
 
+  attachmentDetails(){
+    const tender_id = event?.target ? (event.target as HTMLInputElement).value : event;
+    this.attachListData = tender_id;
+    this.apiService.getAttachmentDetails(this.attachListData).subscribe((res: any) => {
+    // this.tenderDetailsData = res.result;
+    console.log(res);
+    
+    });
+  }
+
 
   get f() { return this.form.controls; }
 
@@ -203,9 +217,6 @@ export class TenderFinalApprovalComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      // if(this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager'){
-      //   this.form.value.requeststatus_id = this.reqList.requeststatus_id;
-      // }
       this.isSubmitted = true;
       this.loading = true;
       this.sendApproval();

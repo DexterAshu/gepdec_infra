@@ -1,0 +1,439 @@
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="d-flex align-items-end flex-wrap">
+          <div class="mr-md-3 mr-xl-5">
+            <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i> Master Drawing List
+            </h4>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex my-10">
+            <div class="col-lg-5">
+              <input type="search" class="form-control form-control-sm" placeholder="Search..."
+                [(ngModel)]="searchText">
+            </div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-4">
+              <div class="float-right">
+                <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel"
+                  (click)="download()"><span class="mdi mdi-upload"></span>Export</button>
+                <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                  data-bs-target="#createBulkModal" title="Upload bulk Data"> <span
+                    class="mdi mdi-download"></span>Import</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                  class="btn btn-primary btn-fw btn-sm s" (click)="getClient()">+ Create</button>
+              </div>
+            </div>
+          </div>
+          <app-responsive-table id="export">
+            <thead class="table-primary text-nowrap">
+              <tr>
+                <th>S No</th>
+                <th>DRG No</th>
+                <th>Client</th>
+                <th>Tender Title</th>
+                <th>NIT No</th>
+                <th>Publish Date</th>
+                <th>Category</th>
+                <th>Sub-Category</th>
+                <th>Capacity</th>
+                <th>Execution Location</th>
+                <th>Status</th>
+                <th>Version</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="text-nowrap">
+              <tr
+                *ngFor="let a of mdlData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                <td>{{limit*(p-1)+i+1}}</td>
+                <td>{{a.mdl_no}}</td>
+                <td>{{a.company_name}}</td>
+                <td>
+                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.tender_title }}"> {{a?.tender_title | slice:0:30}} <span
+                      *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <ng-template #elseBlock1>{{a?.tender_title}}</ng-template>
+                </td>
+                <td>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span
+                      *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
+                </td>
+                <td>{{a.publish_date | date:'dd/MM/yyyy' : 'GMT'}}</td>
+                <td>{{a.qacatagory}}</td>
+                <td>{{a.subqacatagory}}</td>
+                <td>{{a.capacity}}</td>
+                <td>{{a.tender_location}}</td>
+                <td>{{a.status}}</td>
+                <td>{{a.version}}</td>
+                <td>
+                  <a class="ms-2" (click)="getMDLRow(a)" data-bs-toggle="modal" data-bs-target="#detailModal"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <a class="ms-2" *ngIf="a?.approved_file" href="{{apiURL}}/{{a?.approved_file}}" download target="_blank"><span class="mdi mdi-download text-success cursor-pointer mdi-18px"></span></a>
+                </td>
+              </tr>
+              <tr *ngIf="mdlData?.length == 0">
+                <td colspan="15" class="text-center">
+                  <div class="spinner-border"></div>
+                </td>
+              </tr>
+              <tr *ngIf="isNotFound == true">
+                <td colspan="9" class="text-center">
+                  <div class="text-warning fw-semibold">Looks like no data available!</div>
+                </td>
+              </tr>
+            </tbody>
+          </app-responsive-table>
+          <div class="pagination-sec text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Master Drawing List Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="table-responsive" style="min-height: 300px">
+            <div class="row px-2">
+              <table class="table table-hover table-striped custom-table table-bordered">
+                <thead class="table-primary text-nowrap">
+                  <tr>
+                    <th colspan="6" class="text-center">Tender Detail</th>
+                  </tr>
+                </thead>
+                <tbody class="text-nowrap">
+                  <tr>
+                    <th>Client</th>
+                    <td>{{ selectMDLRow?.company_name }}</td>
+                    <th> NIT No</th>
+                    <td>
+                      <div *ngIf="!!selectMDLRow?.tender_ref_no; else elseBlock6" data-toggle="tooltip"
+                        data-placement="bottom" title="{{ selectMDLRow?.tender_ref_no }}"> {{selectMDLRow?.tender_ref_no
+                        | slice:0:30}} <span *ngIf="selectMDLRow?.tender_ref_no.length > 30">...<i
+                            class="mdi mdi-information"></i></span></div>
+                      <ng-template #elseBlock6>{{selectMDLRow?.tender_ref_no}}</ng-template>
+                    </td>
+                    <th>Tender Title</th>
+                    <td>
+                      <div *ngIf="!!selectMDLRow?.tender_title; else elseBlock4" data-toggle="tooltip"
+                        data-placement="bottom" title="{{ selectMDLRow?.tender_title }}">{{selectMDLRow?.tender_title |
+                        slice:0:30}} <span *ngIf="selectMDLRow?.tender_title.length > 30">...<i
+                            class="mdi mdi-information"></i></span></div>
+                      <ng-template #elseBlock4>{{selectMDLRow?.tender_title}}</ng-template>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Publish Date</th>
+                    <td>{{ selectMDLRow?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                    <th>Category</th>
+                    <td>{{ selectMDLRow?.qacatagory }}</td>
+                    <th>Sub-Category</th>
+                    <td>{{ selectMDLRow?.subqacatagory }}</td>
+                  </tr>
+                  <tr>
+                    <th>Capacity</th>
+                    <td>{{ selectMDLRow?.capacity }}</td>
+                    <th>Execution Location</th>
+                    <td colspan="3">{{ selectMDLRow?.tender_location }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h6 class="mt-2 mb-2 text-secondary">Master Drawing Detail</h6>
+            <table class="table table-hover table-striped custom-table">
+              <thead class="hidden-thead"></thead>
+              <tbody>
+                <tr>
+                  <th>DRG No</th>
+                  <td>{{ selectMDLRow?.mdl_no }}</td>
+                  <th>Created Date</th>
+                  <td>{{ selectMDLRow?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                  <th>Created By</th>
+                  <td>{{ selectMDLRow?.createdby }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h6 class="mt-3 mb-2 text-secondary">Drawing/Document List</h6>
+            <app-responsive-table>
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>Drawing/Document Title</th>
+                  <th>Project Drawing No</th>
+                  <th>Discipline</th>
+                  <th>Stage</th>
+                  <th>Category</th>
+                  <th>Planned Submission</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr *ngFor="let a of selectMDLRow?.drawing; index as i">
+                  <td>{{i+1}}</td>
+                  <td>
+                    <div *ngIf="!!a.drawing_title; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ a.drawing_title }}"> {{a.drawing_title | slice:0:30}} <span
+                        *ngIf="a.drawing_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <ng-template #elseBlock3>{{a.drawing_title}}</ng-template>
+                  </td>
+                  <td>{{a.drawing_no}}</td>
+                  <td>{{a.discipline}}</td>
+                  <td>{{a.stage}}</td>
+                  <td>{{a.category}}</td>
+                  <td>{{a.planned_submission_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+                  <td>{{a.remarks}}</td>
+                </tr>
+              </tbody>
+            </app-responsive-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Master Drawing List Creation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row" [formGroup]="form">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <h6 class="mb-2 text-secondary">Tender Detail</h6>
+              <div class="form-row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
+                    <select formControlName="client" class="form-select form-select-sm"
+                      (ngModelChange)="getTenderList()">
+                      <option [selected]="true" [disabled]="true" [value]="null">Select </option>
+                      <option *ngFor="let c of companyData" [value]=c.company_id>{{ c.company_name }}</option>
+                    </select>
+                    <div *ngIf="f['client'].touched && f['client'].invalid">
+                      <small class="text-danger" *ngIf="f['client'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Tender Title<span class="required-asterisk">*</span></label>
+                    <select formControlName="tender_id" class="form-select form-select-sm"
+                      (ngModelChange)="selectTender()">
+                      <option [selected]="true" [disabled]="true" [value]="null">Select Project</option>
+                      <option *ngFor="let c of tenderList" value="{{c.tender_id}}">{{ c.tender_title }}</option>
+                    </select>
+                    <div *ngIf="f['tender_id'].touched && f['tender_id'].invalid">
+                      <small class="text-danger" *ngIf="f['tender_id'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">NIT No<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control form-control-sm" [value]="selectedTender?.tender_ref_no"
+                      readonly>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control form-control-sm"
+                      [value]="selectedTender?.publish_date | date: 'dd/MM/yyyy' : 'GMT'" readonly>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Category</label>
+                    <input class="form-control form-control-sm" readonly [value]="selectedTender?.qacatagory">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Sub-Category</label>
+                    <input class="form-control form-control-sm" readonly [value]="selectedTender?.subqacatagory">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Capacity</label>
+                    <input class="form-control form-control-sm" readonly [value]="selectedTender?.capacity">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Execution Location</label>
+                    <input class="form-control form-control-sm" readonly [value]="selectedTender?.tender_location">
+                  </div>
+                </div>
+              </div>
+              <h6 class="mb-2 text-secondary mt-3">Drawing/Document Form</h6>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label fl-10">DRG No<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control form-control-sm" formControlName="mdl_no">
+                    <div *ngIf="f['mdl_no'].touched && f['mdl_no'].invalid">
+                      <small class="text-danger" *ngIf="f['mdl_no'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h6 class="mb-2 text-secondary mt-3">Drawing/Document Form</h6>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Drawing/Document Title<span
+                        class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control form-control-sm" formControlName="drawing_title"
+                      appWordCapitalize>
+                    <div *ngIf="f['drawing_title'].touched && f['drawing_title'].invalid">
+                      <small class="text-danger" *ngIf="f['drawing_title'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Project Drawing No<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control form-control-sm" formControlName="drawing_no">
+                    <div *ngIf="f['drawing_no'].touched && f['drawing_no'].invalid">
+                      <small class="text-danger" *ngIf="f['drawing_no'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Discipline<span class="required-asterisk">*</span></label>
+                    <select class="form-select form-select-sm" formControlName="discipline">
+                      <option value=null disabled selected>Select Discipline</option>
+                      <option value="G-General">G - General</option>
+                      <option value="E-Electrical">E - Electrical</option>
+                      <option value="C-Civil">C - Civil</option>
+                      <option value="M-Mechanical">M - Mechanical</option>
+                      <option value="S-Structure">S - Structure</option>
+                      <option value="U-Utility">U - Utility</option>
+                      <option value="I-Instrumentation">I - Instrumentation</option>
+                      <option value="E-Equipment">E - Equipment</option>
+                      <option value="O-Other">O - Other</option>
+                    </select>
+                    <div *ngIf="f['discipline'].touched && f['discipline'].invalid">
+                      <small class="text-danger" *ngIf="f['discipline'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Stage<span class="required-asterisk">*</span></label>
+                    <select class="form-select form-select-sm" formControlName="stage">
+                      <option value=null disabled selected>Select Stage</option>
+                      <option value=BE>Basic Engineering</option>
+                      <option value=DE>Detailed Engineering</option>
+                    </select>
+                    <div *ngIf="f['stage'].touched && f['stage'].invalid">
+                      <small class="text-danger" *ngIf="f['stage'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
+                    <select class="form-select form-select-sm" formControlName="category">
+                      <option value=null disabled selected>Select Category</option>
+                      <option value="Approval">Approval</option>
+                      <option value="Reference">Reference</option>
+                    </select>
+                    <div *ngIf="f['category'].touched && f['category'].invalid">
+                      <small class="text-danger" *ngIf="f['category'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Planned Submission</label>
+                    <input type="date" class="form-control form-control-sm" formControlName="planned_submission_date">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="form-label fl-10">Remarks</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="remarks">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row float-right mt-4 pe-2">
+                    <button type="button" class="btn btn-primary btn-fw btn-sm" (click)="addDrawingList()"><span
+                        class="mdi mdi-format-list-checks mdi-18px"></span></button>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <app-responsive-table>
+                    <thead class="table-primary text-nowrap">
+                      <tr>
+                        <th>S No</th>
+                        <th>Drawing/Document Title</th>
+                        <th>Project Drawing No</th>
+                        <th>Discipline</th>
+                        <th>Stage</th>
+                        <th>Category</th>
+                        <th>Planned Submission</th>
+                        <th>Remarks</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                      <tr *ngFor="let a of form?.value?.drawingList; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{a.drawing_title}}</td>
+                        <td>{{a.drawing_no}}</td>
+                        <td>{{a.discipline}}</td>
+                        <td>{{a.stage}}</td>
+                        <td>{{a.category}}</td>
+                        <td>{{a.planned_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                        <td>{{a.remarks}}</td>
+                        <td>
+                          <a><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                          <a (click)="deleteDrawingList(i)"><span
+                              class="mdi mdi-trash-can-outline text-danger cursor-pointer mdi-18px"></span></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </app-responsive-table>
+                </div>
+              </div>
+              <div class="float-right pt-3">
+                <button type="submit" class="btn btn-primary btn-fw btn-sm me-2">Submit</button>
+                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
+                  data-bs-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

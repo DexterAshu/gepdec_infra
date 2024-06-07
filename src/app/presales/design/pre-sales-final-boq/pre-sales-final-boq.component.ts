@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ApiService, AlertService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-final-boq',
-  templateUrl: './final-boq.component.html',
-  styleUrls: ['./final-boq.component.css']
+  templateUrl: './pre-sales-final-boq.component.html',
+  styleUrls: ['./pre-sales-final-boq.component.css']
 })
-export class FinalBOQComponent {
-  searchText: any;
+export class PreSalesFinalBOQComponent {
+    searchText: any
   docListData: any = [];
   p: number = 1;
   limit = environment.pageLimit;
@@ -24,7 +23,7 @@ export class FinalBOQComponent {
   isSubmitted: boolean = false;
   isNoDataFound: boolean = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private router: Router) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -42,12 +41,6 @@ export class FinalBOQComponent {
   }
 
   get f() { return this.form.controls }
-
-  redirect(route: any) {
-    if (route) {
-      this.router.navigateByUrl(route.target.value);
-    }
-  }
 
   getClient(): void {
     this.companyData = [];
