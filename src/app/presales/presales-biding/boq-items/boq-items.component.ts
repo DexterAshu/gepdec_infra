@@ -1,8 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 import { AlertService, ApiService, SharedService } from 'src/app/_services';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-boq-items',
@@ -10,7 +11,8 @@ import { AlertService, ApiService, SharedService } from 'src/app/_services';
   styleUrls: ['./boq-items.component.css']
 })
 
-export class BoqItemsComponent {
+export class BoqItemsComponent implements OnDestroy {
+  private destroy$ = new Subject<void>();
   form!: FormGroup;
   form1!: FormGroup;
   editParentItemForm!: FormGroup;
@@ -42,7 +44,7 @@ export class BoqItemsComponent {
   errorItemList: any = [];
   selectedItemsListForUpdate: any = [];
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService:SharedService, private elementRef:ElementRef) { }
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef) { }
 
   ngOnInit() {
     this.formInit();
@@ -58,11 +60,12 @@ export class BoqItemsComponent {
       childItem: this.formBuilder.array([]),
     });
     this.form1 = this.formBuilder.group({
-      tender_id: ['', Validators.required],
-      utility_id: ['', Validators.required],
-      itemCategory: ['', Validators.required],
-      itemSubCategory: ['', Validators.required],
-      attachment: ['', Validators.required]
+      tender_id: [null, Validators.required],
+      utility_id: [null, Validators.required],
+      itemCategory: [null, Validators.required],
+      itemSubCategory: [null, Validators.required],
+      attachment: [null, Validators.required],
+      remarks: [null, Validators.required]
     });
     this.addParentItemForm = this.formBuilder.group({
       boq_id: [null, Validators.required],
@@ -114,10 +117,10 @@ export class BoqItemsComponent {
         this.alertService.warning("Looks like no data available in type!");
       }
     }),
-    (error: any) => {
-      console.error(error);
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        console.error(error);
+        this.alertService.error("Error: Unknown Error!");
+      }
   }
 
   getDropdownList() {
@@ -143,7 +146,7 @@ export class BoqItemsComponent {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     const apiLink = `/biding/api/v1/getTenderlist?company_id=${company_id}`
     this.apiService.getData(apiLink).subscribe((res: any) => {
-      if(res.status == 200){
+      if (res.status == 200) {
         this.tenderDetailsData = res.result;
         this.getDropdownList();
       } else {
@@ -151,11 +154,11 @@ export class BoqItemsComponent {
         this.alertService.warning("Looks like no data available in type!");
       }
     }),
-    (error: any) => {
-      this.tenderDetailsData = undefined;
-      console.error(error);
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        this.tenderDetailsData = undefined;
+        console.error(error);
+        this.alertService.error("Error: Unknown Error!");
+      }
   }
 
   getrefData(tender_id: any) {
@@ -198,19 +201,31 @@ export class BoqItemsComponent {
     });
   }
 
+  getLocationList(tender_id: any) {
+    console.log(tender_id);
+    this.apiService.getLocationForBoq(tender_id).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        console.log(res);
+      }, error: (error: any) => {
+        console.log(error);
+      }
+    })
+  }
+
   getBOQItemList(data: any) {
     this.itemList = data;
   }
 
   getEditBOQList(data: any): void {
-    this.itemList =  [];
+    this.itemList = [];
     this.update = true;
     this.button = 'Update';
     this.boqList = data;
+    this.getLocationList(data.tender_id);
   }
 
   getBOQList(data: any) {
-    this.itemList =  [];
+    this.itemList = [];
     this.update = false;
     this.button = 'Create';
     this.boqList = data;
@@ -357,6 +372,7 @@ export class BoqItemsComponent {
     formData.append('tender_id', this.form1.value.tender_id);
     formData.append('itemcategory_id', this.form1.value.itemCategory);
     formData.append('subcategory_id', this.form1.value.itemSubCategory);
+    formData.append('remarks', this.form1.value.remarks);
     this.apiService.BOQbulkData(formData).subscribe((res: any) => {
       if (res.status == 200) {
         this.form1.reset();
@@ -378,7 +394,7 @@ export class BoqItemsComponent {
 
   selectItemForUpdate(item: any): void {
     let data = this.selectedItemsListForUpdate.filter((x: any) => x.item_id == item.item_id);
-    if(data.length > 0) {
+    if (data.length > 0) {
       this.selectedItemsListForUpdate = this.selectedItemsListForUpdate.filter((x: any) => x.item_id != item.item_id);
     } else {
       this.selectedItemsListForUpdate.push(item);
@@ -393,5 +409,10 @@ export class BoqItemsComponent {
   download(): void {
     let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

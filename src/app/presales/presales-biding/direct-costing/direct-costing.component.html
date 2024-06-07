@@ -183,16 +183,12 @@
                   <td>{{ selectedBOQRow?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!selectedBOQRow?.tender_ref_no; else elseBlock6" data-toggle="tooltip" data-placement="bottom"
-                      title="{{ selectedBOQRow?.tender_ref_no }}"> {{selectedBOQRow?.tender_ref_no | slice:0:30}} <span
-                        *ngIf="selectedBOQRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!selectedBOQRow?.tender_ref_no; else elseBlock6" data-toggle="tooltip" data-placement="bottom" title="{{ selectedBOQRow?.tender_ref_no }}"> {{selectedBOQRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectedBOQRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock6>{{selectedBOQRow?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!selectedBOQRow?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
-                      title="{{ selectedBOQRow?.tender_title }}">{{selectedBOQRow?.tender_title | slice:0:30}} <span
-                        *ngIf="selectedBOQRow?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!selectedBOQRow?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ selectedBOQRow?.tender_title }}">{{selectedBOQRow?.tender_title | slice:0:30}} <span *ngIf="selectedBOQRow?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock4>{{selectedBOQRow?.tender_title}}</ng-template>
                   </td>
                 </tr>
@@ -264,6 +260,7 @@
                       <th>GST (%)</th>
                       <th>Freight</th>
                       <th class="text-end">Total Price</th>
+                      <th><input type="checkbox" (click)="selectAllItems();">&nbsp;Select</th>
                     </tr>
                   </thead>
                   <tbody class="text-nowrap">
@@ -279,11 +276,12 @@
                         <td>{{ item?.itemcategory }}</td>
                         <td>{{ item?.subcategory }}</td>
                         <td>{{ item?.hsn_code }}</td>
-                        <td> <input type="text" class="form-control form-control-sm" [value]="item?.unit_price" (ngModel)="item?.unit_price"> </td>
+                        <td> <input type="number" class="form-control form-control-sm" style="width: 75px;" [disabled]="item?.isDisabled" [value]="item?.unit_price" [(ngModel)]="item.unit_price"> </td>
                         <td>{{ item?.qty }}</td>
-                        <td><input type="text" class="form-control form-control-sm" [value]="item?.gst" readonly></td>
-                        <td><input type="text" class="form-control form-control-sm" [value]="item?.freight_charges"></td>
+                        <td>{{ item?.gst }}</td>
+                        <td><input type="number" class="form-control form-control-sm" style="width: 75px;" [disabled]="item?.isDisabled" [value]="item?.freight_charges"></td>
                         <td class="text-end">{{ item?.unit_price * item?.qty | currency: 'INR': '' : '1.0-2' }}</td>
+                        <td class="text-center"><input type="checkbox" [checked]="item?.isDisabled" (click)="onItemSelect(item);disableRow(item)"></td>
                       </tr>
                       <ng-container *ngIf="item?.childItemList?.length > 0">
                         <tr *ngFor="let childItem of item?.childItemList; index as ci">
@@ -297,17 +295,19 @@
                           <td>{{ childItem?.itemcategory }}</td>
                           <td>{{ childItem?.subcategory }}</td>
                           <td>{{ childItem?.hsn_code }}</td>
-                          <td><input type="text" class="form-control form-control-sm" [value]="childItem?.unit_price"></td>
+                          <td><input type="number" class="form-control form-control-sm" style="width: 75px;" [disabled]="childItem?.isDisabled" [(ngModel)]="childItem.unit_price"></td>
                           <td>{{ childItem?.qty }}</td>
-                          <td><input type="text" class="form-control form-control-sm" [value]="childItem?.gst" readonly></td>
-                          <td><input type="text" class="form-control form-control-sm" [value]="childItem?.freight_charges"></td>
+                          <td>{{ childItem?.gst }}</td>
+                          <td><input type="number" class="form-control form-control-sm" style="width: 75px;" [disabled]="childItem?.isDisabled" [value]="childItem?.freight_charges"></td>
                           <td class="text-end">{{ childItem?.unit_price * childItem?.qty | currency: 'INR': '' : '1.0-2' }}</td>
+                          <td class="text-center"><input type="checkbox" [checked]="childItem?.isDisabled" (click)="onItemSelect(childItem);disableChildRow(item, childItem)"></td>
                         </tr>
                       </ng-container>
                     </ng-container>
                     <tr class="table-footer fw-bold">
                       <td colspan="11">Total Cost</td>
                       <td class="text-end">{{ itemList?.purchaseCost | currency: 'INR': '' : '1.0-2' }}</td>
+                      <td colspan="2"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -319,8 +319,8 @@
       <div class="modal-footer py-0">
         <div class="row float-right mt-2">
           <div class="my-1">
-            <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2">Update</button>
-            <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#detailModal">Close</button>
+            <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" (click)="onSubmit()">Update</button>
+            <button type="button" id="editItemCostingData" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#detailModal">Close</button>
           </div>
         </div>
       </div>
