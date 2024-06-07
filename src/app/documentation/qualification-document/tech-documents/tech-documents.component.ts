@@ -40,7 +40,10 @@ export class TechDocumentsComponent {
   apiLink: any;
   clientData: any;
   itemList: any = [];
-  showAsPdf: SafeResourceUrl | undefined
+  showAsPdf: SafeResourceUrl | undefined;
+  imageLink: SafeResourceUrl = '';
+  pdfFile: SafeResourceUrl = '';
+  excelFile: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -101,6 +104,22 @@ export class TechDocumentsComponent {
       if (res.status === 200) {
         this.isNotFound = false;
         this.docListData = res.result;
+        this.docListData.forEach((doc: any) => {
+          doc.images = [];
+          doc.pdfs = [];
+          doc.excels = [];
+          const documents = doc.document ? doc.document.split(',') : [];
+          documents.forEach((file: string) => {
+            const lowerCaseFile = file.toLowerCase();
+            if (lowerCaseFile.endsWith('.jpg') || lowerCaseFile.endsWith('.png')) {
+              doc.images.push(file);
+            } else if (lowerCaseFile.endsWith('.pdf')) {
+              doc.pdfs.push(file);
+            } else if (lowerCaseFile.endsWith('.xlsx')) {
+              doc.excels.push(file);
+            }
+          });
+        });
       } else {
         this.isNotFound = true;
         this.docListData = undefined;
@@ -111,6 +130,32 @@ export class TechDocumentsComponent {
         this.docListData = undefined;
         this.alertService.error("Error: Unknown Error!");
     });
+  }
+
+  showImage(data: string) {
+    console.log(data);
+    // this.imageLink = `${environment.apiUrl}/${data}`;
+    this.imageLink = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.apiUrl}/${data}`);
+    console.log(this.imageLink);
+  }
+
+  showPdf2(data: string) {
+    console.log('pdf file-->', data);
+    this.pdfFile = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.apiUrl}/${data}`);
+  }
+
+  downloadExcel(data: string) {
+    console.log('excel file-->', data);
+    this.excelFile = `${environment.apiUrl}/${data}`;
+    console.log('this.excelFile -->', this.excelFile);
+    
+    const link = document.createElement('a');
+    link.href = this.excelFile;
+    const fileName = data.split('/').pop();
+    link.download = fileName ? fileName : 'download.xlsx';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   getClientData() {

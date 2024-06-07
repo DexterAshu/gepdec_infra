@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
   p: number = 1;
   limit = environment.pageLimit;
   p2: number = 1;
+  p3: number = 1;
   limit2 = environment.pageLimit;
   shoDataLabel: boolean = true;
   animations: boolean = true;
@@ -70,9 +71,7 @@ export class DashboardComponent implements OnInit {
   xAxisLabelf: string = '';
   yAxisLabelf: string = 'Amount (Cr)';
   //  timelinef: boolean = true;
-  helloData:any=[19, 80, 30, 20, 70, 90, 80, 30, 20, 40]
-  // yAxisLabel2 = 'Data Value';
-  arrayData=['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida']
+
 
 
 
@@ -718,10 +717,12 @@ export class DashboardComponent implements OnInit {
 
       ]
     },
-
-
-
   ];
+  
+  totalOccupied: number = 1000;
+  isPercentageSeries(seriesName: string): boolean {
+    return seriesName === 'Rev' || seriesName === 'EBITDA';
+  }
   lineChart = [
     {
       "name": "Bid",
@@ -1387,7 +1388,6 @@ export class DashboardComponent implements OnInit {
 
     // this.getCompanyData();
 
-
     this.form = this.formBuilder.group({
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
@@ -1396,6 +1396,7 @@ export class DashboardComponent implements OnInit {
       company: [null, Validators.required],
       project: [null, Validators.required],
     })
+    this.getCountryData();
   }
 
   ngAfterViewInit() {
@@ -1410,15 +1411,19 @@ export class DashboardComponent implements OnInit {
   }
 
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res: any) => {
+    this.apiService.getCountryDataList().subscribe((res:any) => {
       if (res.status === 200) {
         this.countryData = res.result;
+        const india = this.countryData.find((country: { name: string; }) => country.name === 'India');
+        if (india) {
+          this.form.patchValue({ country_id: india.country_id });
+        }
       } else {
         this.alertService.warning("Looks like no data available in country data.");
       }
     });
   }
-
+  
   StateData() {
     console.log(this.form.value.country_id);
 
