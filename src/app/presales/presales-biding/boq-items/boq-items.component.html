@@ -204,12 +204,15 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-12 mt-1">
-                <label class="form-label fl-10">Please ensure your file is named 'BOQ_sample_template' <span
-                    class="required-asterisk">*</span>
-                </label><br>
-                <input class="mt-2" type="file" class="form-control form-control-sm" formControlName="attachment"
-                  (change)="onFileChanged($event)" accept=".xlsx, .xls" />
+              <div class="col-md-6">
+                <label class="form-label fl-10">BOQ Item template file<span class="required-asterisk">*</span></label>
+                <input class="mt-2" type="file" class="form-control form-control-sm" formControlName="attachment" (change)="onFileChanged($event)" accept=".xlsx, .xls" />
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Remarks<span class="required-asterisk">*</span></label>
+                  <textarea formControlName="remarks" class="form-control form-control-sm"></textarea>
+                </div>
               </div>
             </div>
             <div class="row px-2 my-2" *ngIf="errorItemList.length > 0">
@@ -296,6 +299,7 @@
                   <th>BOQ Code</th>
                   <th>BOQ Category</th>
                   <th>BOQ Sub Category</th>
+                  <th>Remarks</th>
                   <th>Created By</th>
                   <th>Created Date</th>
                   <th>Status</th>
@@ -308,6 +312,7 @@
                   <td>{{ boq?.boq_code }}</td>
                   <td>{{ boq?.itemcategory }}</td>
                   <td>{{ boq?.subcategory }}</td>
+                  <td>{{ boq?.remarks }}</td>
                   <td>{{ boq?.createdby_name }}</td>
                   <td>{{ boq?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <td>{{ boq?.status }}</td>

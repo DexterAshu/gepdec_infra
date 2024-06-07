@@ -88,14 +88,14 @@
                       class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
-              <tr *ngIf="isNotFound == true">
-                <td colspan="15" class="text-center">
-                  <div class="spinner-border"></div>
+              <tr *ngIf="poData?.length == 0">
+              <td colspan="15" class="text-center">
+                <div class="spinner-border"></div>
                 </td>
               </tr>
-              <tr *ngIf="poData?.length == 0">
+              <tr *ngIf="isNotFound == true">
                 <td colspan="15" class="text-center">
-                  <div class="text-warning fw-semibold">No purchase orders available.</div>
+                  <div class="text-warning fw-semibold">No data available.</div>
                 </td>
               </tr>
             </tbody>

@@ -58,11 +58,12 @@ export class BoqItemsComponent {
       childItem: this.formBuilder.array([]),
     });
     this.form1 = this.formBuilder.group({
-      tender_id: ['', Validators.required],
-      utility_id: ['', Validators.required],
-      itemCategory: ['', Validators.required],
-      itemSubCategory: ['', Validators.required],
-      attachment: ['', Validators.required]
+      tender_id: [null, Validators.required],
+      utility_id: [null, Validators.required],
+      itemCategory: [null, Validators.required],
+      itemSubCategory: [null, Validators.required],
+      attachment: [null, Validators.required],
+      remarks: [null, Validators.required]
     });
     this.addParentItemForm = this.formBuilder.group({
       boq_id: [null, Validators.required],
@@ -357,6 +358,7 @@ export class BoqItemsComponent {
     formData.append('tender_id', this.form1.value.tender_id);
     formData.append('itemcategory_id', this.form1.value.itemCategory);
     formData.append('subcategory_id', this.form1.value.itemSubCategory);
+    formData.append('remarks', this.form1.value.remarks);
     this.apiService.BOQbulkData(formData).subscribe((res: any) => {
       if (res.status == 200) {
         this.form1.reset();
