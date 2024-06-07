@@ -103,7 +103,7 @@
 
                 <td>{{ a.ecv | currency: 'INR': '' : '1.0-2'}}</td>
                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
-                <td>{{ a?.reqTenderStatus}}</td>
+                <td>{{ a?.tender_status}}</td>
                 <td>
 
                   <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data"
@@ -137,45 +137,47 @@
 <!-- list location details -->
 <div class="modal fade" id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Location Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Location Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
 
-      <table class="table table-hover table-striped custom-table table-bordered">
-        <thead class="table-primary text-nowrap">
-          <tr>
-            <th>S No</th>
-            <th>Execution Location</th>
+          <table class="table table-hover table-striped custom-table table-bordered">
+                  <thead class="table-primary text-nowrap">
+                      <tr>
+                          <th>S No</th>
+                          <th>Execution Location</th>
+                         
+                      </tr>
+                  </thead>
+                  <tbody class="text-nowrap">
+                      <tr *ngFor="let location of locationArray; index as i">
+                          <td>{{limit*(p-1)+i+1}}</td>
+                          <td>
+                              <div *ngIf="!!location; else elseBlock4"
+                                  data-toggle="tooltip" data-placement="bottom"
+                                  title="{{ location }}">
+                                  {{location | slice:0:30}} <span
+                                      *ngIf="location.length > 30">...<i
+                                          class="mdi mdi-information"></i></span>
+                              </div>
+                              <ng-template #elseBlock4>
+                                  {{location}}
+                              </ng-template>
+                          </td>
 
-          </tr>
-        </thead>
-        <tbody class="text-nowrap">
-          <tr *ngFor="let location of locationArray; index as i">
-            <td>{{limit*(p-1)+i+1}}</td>
-            <td>
-              <div *ngIf="!!location; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
-                title="{{ location }}">
-                {{location | slice:0:30}} <span *ngIf="location.length > 30">...<i
-                    class="mdi mdi-information"></i></span>
-              </div>
-              <ng-template #elseBlock4>
-                {{location}}
-              </ng-template>
-            </td>
+                      </tr>
+                  </tbody>
+           
+          </table>
 
-          </tr>
-        </tbody>
-
-      </table>
-
-      <!-- <div class="modal-body">
+          <!-- <div class="modal-body">
                   <span *ngFor="let location of locationArray; let i = index">
                       {{ i + 1 }}. {{ location }}
                   </span>
           </div> -->
-    </div>
+      </div>
   </div>
 </div>
 
@@ -524,7 +526,7 @@
 
               <h6 class="my-3 text-secondary">Previous Notes</h6>
               <div class="card p-2 text-small" [innerHTML]="rowData?.remarks.join('<br>')"></div>
-
+            
               <!-- <div class="col-md-12 mt-2" >
                   <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

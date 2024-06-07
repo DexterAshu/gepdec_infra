@@ -71,7 +71,9 @@ export class DashboardComponent implements OnInit {
   xAxisLabelf: string = '';
   yAxisLabelf: string = 'Amount (Cr)';
   //  timelinef: boolean = true;
-
+  helloData:any=[19, 80, 30, 20, 70, 90, 80, 30, 20, 40]
+  // yAxisLabel2 = 'Data Value';
+  arrayData=['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida']  // totalOccupied:any;
 
 
 
