@@ -341,6 +341,7 @@ export class DataCapturingComponent implements OnDestroy {
         this.custDetails = res.result[0];
         this.tendContDetails = res.result[0].tendercontact;
         console.log(this.tendContDetails);
+        this.multiLocation = this.custDetails.tender_location;
        
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
@@ -443,7 +444,15 @@ export class DataCapturingComponent implements OnDestroy {
       next: (res: any) => {
         if (res.status === 200) {
           this.custDetails = res.result;
-          this.contactDetails = res.result[0].contact;
+          const arr = this.custDetails[0].contact;
+          console.log(this.custDetails[0].contact);
+           arr.forEach((data:any) => {
+           data.isChecked = true;
+          });
+          this.contactDetails = arr;
+          console.log( this.contactDetails);
+          
+          // this.contactDetails = res.result[0].contact;
           this.addressDetails = res.result[0].adderss;
           this.isContactFound = false;
         } else {
@@ -650,6 +659,7 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   updateTender(): void {
+   
     this.form.value.tender_id = this.tenderData.id;
     this.apiService.tenderUpdation(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {

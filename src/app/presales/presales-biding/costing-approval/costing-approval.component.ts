@@ -66,6 +66,7 @@ export class CostingApprovalComponent {
   totalProfit: number = 0;
   profitPer: number = 0;
   tenderID: any;
+  locationArray: any = [];
 
 
   constructor(
@@ -99,8 +100,13 @@ export class CostingApprovalComponent {
     this.sharedService.initializeTooltips(this.elementRef);
   }
 
+  rowLocation(row:any) {
+  
+    this.locationArray = row.tender_location;
+  }
+
   validateInput() {
-    debugger
+   
     if (this.marginPer === null || this.marginPer === undefined) {
       this.marginPer = 0;
     }  else if(this.marginPer < 0) {

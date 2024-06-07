@@ -53,7 +53,7 @@ export class SynopsisComponent {
   reqList: any = [];
   reqStatus: any=''
   tenderID: any
-
+  locationArray: any = [];
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -79,6 +79,10 @@ export class SynopsisComponent {
     });
 
     this.getTenderData();
+  }
+
+  rowLocation(row:any) {
+    this.locationArray = row.tender_location;
   }
 
   ngAfterViewInit() {

@@ -128,11 +128,21 @@
                                 <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
-                                <td>{{a.capacity}}</td>
-                                <td>{{ a.tender_location }}</td>
+                                <td>{{a.capacity}} </td>
+                                <td>
+                                    <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
+                                        <span *ngIf="i+1 == 1">{{loc}}</span>
+                                    </span>...
+                                  <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:25px; height:25px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="{{a.tender_location}}">
+                                 
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="Location Details"> <span class="mdi mdi-google-maps text-warning cursor-pointer mdi-18px"></span>
+                                    </a> -->
+                                </td>
+                               
+
                                 <td>{{ a.ecv | currency :'INR':'':'1.0-2'}}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                                <td>{{ a?.reqTenderStatus}}</td>
+                                <td>{{ a?.tender_status}}</td>
                                 <td>
                                     <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal"
                                         data-bs-target="#createModal"
@@ -166,6 +176,53 @@
         </div>
     </div>
 </div>
+
+<!-- list location details -->
+    <div class="modal fade" id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Location Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <table class="table table-hover table-striped custom-table table-bordered">
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Execution Location</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                            <tr *ngFor="let location of locationArray; index as i">
+                                <td>{{limit*(p-1)+i+1}}</td>
+                                <td>
+                                    <div *ngIf="!!location; else elseBlock4"
+                                        data-toggle="tooltip" data-placement="bottom"
+                                        title="{{ location }}">
+                                        {{location | slice:0:30}} <span
+                                            *ngIf="location.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseBlock4>
+                                        {{location}}
+                                    </ng-template>
+                                </td>
+    
+                            </tr>
+                        </tbody>
+                 
+                </table>
+
+                <!-- <div class="modal-body">
+                        <span *ngFor="let location of locationArray; let i = index">
+                            {{ i + 1 }}. {{ location }}
+                        </span>
+                </div> -->
+            </div>
+        </div>
+    </div>
 
 <!-- detail modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -219,7 +276,9 @@
                                             <th>Financial Year</th>
                                             <td> {{rowData?.financialyear}}</td>
                                             <th>Execution Location</th>
+                                            
                                             <td>
+                                                 
                                                 <div *ngIf="!!rowData?.tender_location; else elseBlock4"
                                                     data-toggle="tooltip" data-placement="bottom"
                                                     title="{{ rowData?.tender_location }}">
@@ -314,8 +373,7 @@
                                             <th>Hard Copy Submission Date </th>
                                             <td>
                                                 <span *ngIf="!!rowData?.tenderhardcopysubmission_date; else elseBlock7">
-                                                    {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy hh:mm
-                                                    a' : 'GMT' }}
+                                                    {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}
                                                 </span>
                                                 <ng-template #elseBlock7>
                                                     --
@@ -868,43 +926,27 @@
                                 </div>
                             </div>
                             </div> -->
-                            <!-- 
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <div class="text-primary cursor-pointer" (click)="showPreNotes=!showPreNotes">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
-                                            <path
-                                                d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
-                                        </svg> &nbsp;
-                                        Previous Notes
-                                    </div>
-                                    <div class="form-group mt-2" *ngIf="showPreNotes">
-                                        <div class="card p-1 text-small">{{rowData?.remarks}}</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="text-primary cursor-pointer"
-                                        (click)="showWorkingDetails=!showWorkingDetails">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-layer-backward" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
-                                            <path
-                                                d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
-                                        </svg> &nbsp;
-                                        Audit Trail
-                                    </div>
-                                    <div class="form-group mt-2" *ngIf="showWorkingDetails">
-                                        <div class="card p-1 text-small">{{rowData?.audit_trail}}</div>
 
 
-                                    </div>
-                                </div>
-                            </div> -->
-
+                   <h6 class="my-3 text-secondary">Previous Notes</h6>
+                   <div class="card p-2 text-small" [innerHTML]="rowData?.remarks.join('<br>')"></div>
+                   
+                    <div class="col-md-12 mt-2" >
+                        <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-layer-backward" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
+                                <path
+                                    d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
+                            </svg> &nbsp;
+                            Audit Trail
+                        </div>
+                        <div class="form-group mt-2" *ngIf="showWorkingDetails">
+                            <div class="card p-2 text-small" [innerHTML]="rowData?.audit_trail.join('<br>')"></div>
+                        </div>
+                    </div>
+                            
                             <!-- tender status modal start-->
                             <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
                                 <div class="row mt-3" *ngIf="rowData?.prequalification?.length !== 0 && rowData?.tenderfinancials.length !== 0" >
