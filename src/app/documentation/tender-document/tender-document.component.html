@@ -119,8 +119,8 @@
                                             <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
                                         </a>
                                     </span>
-                                    <span *ngIf="a.excels.length > 0" class="me-1">
-                                        <a (click)="downloadExcel(a.excels[0])" title="Excel Download">
+                                    <span *ngFor="let excel of a.excels; index as i" class="me-1">
+                                        <a (click)="downloadExcel(excel)" title="Excel Download">
                                             <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
                                         </a>
                                     </span>                                    
@@ -356,7 +356,7 @@
 <!-- create modal end-->
 
 <!-- image view modal start-->
-<div class="modal fade" id="viewImageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<div class="modal fade" id="viewImageModal" tabindex="-1" aria-labelledby="imgModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
@@ -381,7 +381,7 @@
 
 <!-- image view modal end-->
 <!-- pdf view modal start-->
-<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">

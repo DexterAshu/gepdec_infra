@@ -1414,10 +1414,6 @@ export class DashboardComponent implements OnInit {
     this.sharedService.initializeTooltips(this.elementRef);
   }
 
-  ngAfterViewInit() {
-    this.sharedService.initializeTooltips(this.elementRef);
-  }
-
   // Method to calculate completion percentage
   calculateCompletionPercentage(series: any[]): number {
     const completedValue = series.find(s => s.name === 'Completed').value;
@@ -1426,7 +1422,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res: any) => {
+    this.apiService.getCountryDataList().subscribe((res:any) => {
       if (res.status === 200) {
         this.countryData = res.result;
         const india = this.countryData.find((country: { name: string; }) => country.name === 'India');
@@ -1439,7 +1435,7 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
+  
   StateData() {
     console.log(this.form.value.country_id);
 
