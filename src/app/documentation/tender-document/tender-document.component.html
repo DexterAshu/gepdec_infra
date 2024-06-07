@@ -110,21 +110,27 @@
                                 <td>{{a.completion_period}}</td>
                                 <td>({{a.filecount}}) 
                                     <!-- {{a.filename.slice(13)}} -->
-                                    <span class="me-1" *ngFor="let img of a.images; index as i">
+                                    <!-- <span class="me-1" *ngFor="let img of a.images; index as i">
                                         <span style="cursor: pointer;" title="Image" class="anchor-link text-primary" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(img)">
                                           Photo{{ i + 1 }}
                                         </span>
-                                      </span>
-                                      <span *ngIf="a.pdfs.length > 0" class="me-1">
+                                    </span> -->
+                                    <span class="me-1" *ngFor="let img of a.images; index as i">
+                                        <a title="Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(img)">
+                                          <!-- Photo{{ i + 1 }} -->
+                                          <span style="color: #17a2b8;" class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
+                                        </a>
+                                    </span>
+                                    <span *ngIf="a.pdfs.length > 0" class="me-1">
                                         <a (click)="showPdf(a.pdfs[0])" title="PDF" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="PDF" data-bs-toggle="modal" data-bs-target="#pdfModal">
-                                          <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
+                                            <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
                                         </a>
-                                      </span>
-                                      <span *ngIf="a.excels.length > 0" class="me-1">
+                                    </span>
+                                    <span *ngIf="a.excels.length > 0" class="me-1">
                                         <a (click)="downloadExcel(a.excels[0])" title="Excel Download">
-                                          <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
+                                            <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
                                         </a>
-                                      </span>                                    
+                                    </span>                                    
                                 </td>
 
                                 <td>
@@ -325,7 +331,7 @@
 
                         <!-- Attachment Documents -->
                         <div class="row">
-                            <div class="col-lg-12 col-sm-6 mb-3">
+                            <div class="col-lg-12 col-sm-12 mb-3">
                                 <label id="label1"> Upload Documents <span
                                         class="required-asterisk">*</span></label><br>
                                 <input type="file" class="form-control form-control-sm" formControlName="attachment"
