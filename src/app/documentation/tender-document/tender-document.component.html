@@ -108,7 +108,24 @@
                                 <td>{{a.tender_location}}</td>
                                 <td>{{a.bid_validity}}</td>
                                 <td>{{a.completion_period}}</td>
-                                <td>{{a.filename.slice(13)}}</td>
+                                <td>({{a.filecount}}) 
+                                    <!-- {{a.filename.slice(13)}} -->
+                                    <span class="me-1" *ngFor="let img of a.images; index as i">
+                                        <span style="cursor: pointer;" title="Image" class="anchor-link text-primary" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(img)">
+                                          Photo{{ i + 1 }}
+                                        </span>
+                                      </span>
+                                      <span *ngIf="a.pdfs.length > 0" class="me-1">
+                                        <a (click)="showPdf(a.pdfs[0])" title="PDF" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="PDF" data-bs-toggle="modal" data-bs-target="#pdfModal">
+                                          <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
+                                        </a>
+                                      </span>
+                                      <span *ngIf="a.excels.length > 0" class="me-1">
+                                        <a (click)="downloadExcel(a.excels[0])" title="Excel Download">
+                                          <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
+                                        </a>
+                                      </span>                                    
+                                </td>
 
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal"><span
@@ -308,11 +325,12 @@
 
                         <!-- Attachment Documents -->
                         <div class="row">
-                            <div class="col-lg-12 col-sm-6">
+                            <div class="col-lg-12 col-sm-6 mb-3">
                                 <label id="label1"> Upload Documents <span
                                         class="required-asterisk">*</span></label><br>
                                 <input type="file" class="form-control form-control-sm" formControlName="attachment"
-                                    (change)="onFileChanged($event)" multiple="true" />
+                                    (change)="onFileChanged($event)" multiple="true" accept=".jpg,.jpeg,.png,.xls,.xlsx,.pdf"/>
+                                    <!-- multiple="true" -->
 
                             </div>
 
@@ -337,3 +355,45 @@
     </div>
 </div>
 <!-- create modal end-->
+
+<!-- image view modal start-->
+<div class="modal fade" id="viewImageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Images</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselExampleIndicators" data-bs-interval="false" class="carousel slide carousel-fade"
+                    data-bs-touch="false">
+                    <div class="carousel-inner text-center">
+                        <div ngClass="carousel-item active">
+                            <!-- <img [src]="imageLink" class="d-block w-100" height="400px" alt="..."> -->
+                            <img class="img-fluid prod-img" [src]="imageLink" alt="Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- image view modal end-->
+<!-- pdf view modal start-->
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pdfModalLabel">View PDF</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <iframe [src]="pdfFile" width="100%" height="600px"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- pdf view modal end-->

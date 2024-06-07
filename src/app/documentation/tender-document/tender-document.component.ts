@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ApiService, AlertService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tender-document',
@@ -34,7 +35,15 @@ export class TenderDocumentComponent {
   showTypeField: boolean = true;
   clientListData: any;
   tenderDetailsData: any;
-    comData: any;
+  comData: any;
+  imgData: any;
+  imgUrl = environment.apiUrl;
+  pdfSrc: string ='';
+  // imageLink:string='';
+  // pdfFile: string = '';
+  imageLink: SafeResourceUrl = '';
+  pdfFile: SafeResourceUrl = '';
+  excelFile: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,7 +51,8 @@ export class TenderDocumentComponent {
     private alertService: AlertService,
     private router: Router,
     private sharedService: SharedService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -84,13 +94,29 @@ export class TenderDocumentComponent {
 
   }
 
-  listAPIData(data:any){
+  listAPIData(data: any) {
     this.docListData = [];
     this.isNotFound = false;
-    this.apiService.getTendListData(data).subscribe((res:any) => {
+    this.apiService.getTendListData(data).subscribe((res: any) => {
       if (res.status === 200) {
         this.isNotFound = false;
         this.docListData = res.result;
+        this.docListData.forEach((doc: any) => {
+          doc.images = [];
+          doc.pdfs = [];
+          doc.excels = [];
+          const documents = doc.document ? doc.document.split(',') : [];
+          documents.forEach((file: string) => {
+            const lowerCaseFile = file.toLowerCase();
+            if (lowerCaseFile.endsWith('.jpg') || lowerCaseFile.endsWith('.png')) {
+              doc.images.push(file);
+            } else if (lowerCaseFile.endsWith('.pdf')) {
+              doc.pdfs.push(file);
+            } else if (lowerCaseFile.endsWith('.xlsx')) {
+              doc.excels.push(file);
+            }
+          });
+        });
       } else {
         this.docListData = undefined;
         this.isNotFound = true;
@@ -99,8 +125,34 @@ export class TenderDocumentComponent {
     }, (error: any) => {
       this.docListData = undefined;
       this.isNotFound = true;
-      this.alertService.error("Error: Unknown Error!")
+      this.alertService.error("Error: Unknown Error!");
     });
+  }
+
+  showImage(data: string) {
+    console.log(data);
+    // this.imageLink = `${environment.apiUrl}/${data}`;
+    this.imageLink = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.apiUrl}/${data}`);
+    console.log(this.imageLink);
+  }
+
+  showPdf(data: string) {
+    console.log('pdf file-->', data);
+    this.pdfFile = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.apiUrl}/${data}`);
+  }
+
+  downloadExcel(data: string) {
+    console.log('excel file-->', data);
+    this.excelFile = `${environment.apiUrl}/${data}`;
+    console.log('this.excelFile -->', this.excelFile);
+    
+    const link = document.createElement('a');
+    link.href = this.excelFile;
+    const fileName = data.split('/').pop();
+    link.download = fileName ? fileName : 'download.xlsx';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   onFileChanged(event: any) {
@@ -146,8 +198,7 @@ export class TenderDocumentComponent {
   getrefData(tender_id: any){
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
-
-
+  
   onSubmit() {
     this.isSubmitted = true;
     if (this.documentForm.invalid) {
