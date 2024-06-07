@@ -117,17 +117,16 @@
                                     </span> -->
                                     <span class="me-1" *ngFor="let img of a.images; index as i">
                                         <a title="Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(img)">
-                                          <!-- Photo{{ i + 1 }} -->
                                           <span style="color: #17a2b8;" class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
                                         </a>
                                     </span>
-                                    <span *ngIf="a.pdfs.length > 0" class="me-1">
-                                        <a (click)="showPdf(a.pdfs[0])" title="PDF" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="PDF" data-bs-toggle="modal" data-bs-target="#pdfModal">
+                                    <span *ngFor="let pdf of a.pdfs; index as i" class="me-1">
+                                        <a (click)="showPdf(pdf)" title="PDF" data-bs-toggle="modal" data-bs-target="#pdfModal">
                                             <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
                                         </a>
                                     </span>
-                                    <span *ngIf="a.excels.length > 0" class="me-1">
-                                        <a (click)="downloadExcel(a.excels[0])" title="Excel Download">
+                                    <span *ngFor="let excel of a.excels; index as i" class="me-1">
+                                        <a (click)="downloadExcel(excel)" title="Excel Download">
                                             <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
                                         </a>
                                     </span>                                    
@@ -363,12 +362,12 @@
 <!-- create modal end-->
 
 <!-- image view modal start-->
-<div class="modal fade" id="viewImageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<div class="modal fade" id="viewImageModal" tabindex="-1" aria-labelledby="imgModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Images</h5>
+                <h5 class="modal-title" id="imgModalLabel">View Image</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -388,7 +387,7 @@
 
 <!-- image view modal end-->
 <!-- pdf view modal start-->
-<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">

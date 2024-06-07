@@ -22,7 +22,7 @@
               <label class="col-sm-4 col-form-label">Country</label>
               <div class="col-sm-8">
                 <select class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
-                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                  <option [value]="null" [disabled]="true" [value]="null">Select</option>
                   <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
                 </select>
 
@@ -330,6 +330,16 @@
               [legend]="false" [gradient]="true" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
               [xAxis]="xAxisf" [yAxis]="yAxisf" [xAxisLabel]="xAxisLabelf" [yAxisLabel]="yAxisLabelf"
               [results]="lineChartFinance" (select)="onSelect($event)">
+              <ng-template #tooltipTemplate let-model="model">
+                <p class="p-0 m-0">{{ model.series }}</p>
+                <p *ngIf="isPercentageSeries(model.series)">
+                  {{ model.name }}: {{ model.value }}%
+                </p>
+                <p *ngIf="!isPercentageSeries(model.series)">
+                  {{ model.name }}: {{ model.value }}
+                </p>
+              </ng-template>
+
             </ngx-charts-area-chart>
 
           </div>
@@ -584,7 +594,7 @@
             <div *ngIf="loading" class="text-center">
               <div class="spinner-border"> </div>
             </div>
-            <ngx-charts-bar-horizontal [view]="[progressBarchart.offsetWidth, 370]" [scheme]="colorScheme"
+            <ngx-charts-bar-horizontal [view]="[progressBarchart.offsetWidth, 250]" [scheme]="colorScheme"
               [results]="progressBar" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
               [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
               [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
@@ -791,7 +801,7 @@
           <ngx-charts-bar-horizontal [view]="[modalProgressBarchart.offsetWidth, 370]" [scheme]="colorScheme"
             [results]="allProgressBar" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
             [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabel3" [yAxisLabel]="yAxisLabel3" (select)="onBarClick($event)">
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onBarClick($event)">
           </ngx-charts-bar-horizontal>
         </div>
       </div>
