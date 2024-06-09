@@ -378,6 +378,11 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post(`${environment.apiUrl}${apiLink}`, data, httpOptions);
   }
+  
+  putData(apiLink: any, data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token}) };
+    return this.http.put(`${environment.apiUrl}${apiLink}`, data, httpOptions);
+  }
 
   postDataFD(apiLink: any, data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };

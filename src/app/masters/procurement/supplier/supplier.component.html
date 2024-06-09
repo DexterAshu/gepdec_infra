@@ -44,7 +44,16 @@
               <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.suppliercode }}</td>
-                <td>{{ a.suppliername }}</td>
+                <td>
+                    <div *ngIf="!!a?.suppliername; else elseName" data-toggle="tooltip" data-placement="bottom"
+                        title="{{ a?.suppliername }}">
+                        {{a?.suppliername | slice:0:30}} <span *ngIf="a?.suppliername.length > 30">...<i
+                                class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseName>
+                        {{a?.suppliername}}
+                    </ng-template>
+                </td>
                 <td>{{ a?.category }}</td>
                 <!-- <td>{{ a?.category_no }}</td> -->
                 <td>{{ a?.contact[0]?.contactno }}</td>
@@ -721,7 +730,16 @@
                                             <th>Vendor Code</th>
                                             <td>{{ rowData?.suppliercode }}</td>
                                             <th>Vendor Name</th>
-                                            <td>{{ rowData?.suppliername }}</td>
+                                            <td>
+                                                <div *ngIf="!!rowData?.suppliername; else elseName2" data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ rowData?.suppliername }}">
+                                                    {{rowData?.suppliername | slice:0:30}} <span *ngIf="rowData?.suppliername.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseName2>
+                                                    {{rowData?.suppliername}}
+                                                </ng-template>
+                                            </td>
                                             <th>Reg Type</th>
                                             <td>{{ rowData?.category }}</td>
                                         </tr>
