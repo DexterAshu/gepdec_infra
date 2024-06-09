@@ -462,4 +462,10 @@ export class ApiService {
     return this.http.get<any[]>(`${environment.apiUrl}/biding/api/v1/getTenderSiteAddress/${tender_id}`, httpOptions);
   }
 
+  //link location for boq
+  linkLocationForBoq(data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put(`${environment.apiUrl}/boq/api/v1/updateBOQLocation`, data, httpOptions);
+  }
+
 }
