@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { MasterService, AlertService, ApiService, SharedService } from 'src/app/_services';
 
 @Component({
   selector: 'app-supplier',
@@ -33,6 +33,8 @@ export class SupplierComponent {
     private formBuilder: FormBuilder,
     private alertService: AlertService,
     private apiService: ApiService,
+    private sharedService: SharedService,
+    private elementRef: ElementRef
   ) { }
 
  ngOnInit(){
@@ -78,6 +80,10 @@ export class SupplierComponent {
   }
 
   get f() { return this.form.controls; }
+
+  ngAfterViewInit() {
+    this.sharedService.initializeTooltips(this.elementRef);
+  }
 
   bank() : FormArray {  
     return this.form.get("bankDetails") as FormArray  

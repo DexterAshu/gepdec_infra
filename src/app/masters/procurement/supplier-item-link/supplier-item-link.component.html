@@ -47,7 +47,16 @@
                                 *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a?.suppliercode }}</td>
-                                <td>{{ a?.suppliername }}</td>
+                                <td>
+                                    <div *ngIf="!!a?.suppliername; else elseName" data-toggle="tooltip" data-placement="bottom"
+                                        title="{{ a?.suppliername }}">
+                                        {{a?.suppliername | slice:0:30}} <span *ngIf="a?.suppliername.length > 30">...<i
+                                                class="mdi mdi-information"></i></span>
+                                    </div>
+                                    <ng-template #elseName>
+                                        {{a?.suppliername}}
+                                    </ng-template>
+                                </td>
                                 <td>{{ a?.category }}</td>
                                 <td>{{ a?.contact[0]?.contactno }}</td>
                                 <td>{{ a?.contact[0]?.emailid }}</td>

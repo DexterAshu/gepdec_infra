@@ -19,6 +19,7 @@ export class BoqItemsComponent implements OnDestroy {
   editChildItemForm!: FormGroup;
   addParentItemForm!: FormGroup;
   addChildItemForm!: FormGroup;
+  formLocationLink!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -43,6 +44,9 @@ export class BoqItemsComponent implements OnDestroy {
   itemListData: any = [];
   errorItemList: any = [];
   selectedItemsListForUpdate: any = [];
+  locationList: any = [];
+  boqId: any;
+  locationArray: any;
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef) { }
 
@@ -103,6 +107,10 @@ export class BoqItemsComponent implements OnDestroy {
       qty: [null, Validators.required],
       unit_price: [null, Validators.required],
       freight_charges: [null, Validators.required],
+    });
+    this.formLocationLink = this.formBuilder.group({
+      boq_id: [null, Validators.required],
+      site_id: [null, Validators.required]
     });
     this.getCompanyData();
   }
@@ -202,14 +210,27 @@ export class BoqItemsComponent implements OnDestroy {
   }
 
   getLocationList(tender_id: any) {
-    console.log(tender_id);
     this.apiService.getLocationForBoq(tender_id).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
-        console.log(res);
+        this.locationList = res.result;
       }, error: (error: any) => {
-        console.log(error);
+        console.log(error.error);
+        this.alertService.error("Error: Unknown Error!")
       }
     })
+  }
+
+  linkLocation(data: any) {
+    this.boqId = '';
+    this.formLocationLink.patchValue({
+      boq_id: data.boq_code,
+      site_id: data.site_id ? data.site_id : ''
+    })
+    this.boqId = data.boq_id;
+  }
+
+  rowLocation(row: any) {
+    this.locationArray = row.tender_location;
   }
 
   getBOQItemList(data: any) {
@@ -350,6 +371,7 @@ export class BoqItemsComponent implements OnDestroy {
 
   get f() { return this.form.controls; }
   get fb() { return this.form1.controls; }
+  get fl() { return this.formLocationLink.controls; }
 
   onFileChanged(event: any) {
     this.listOfFiles = [];
@@ -390,6 +412,37 @@ export class BoqItemsComponent implements OnDestroy {
       this.isSubmitted = false;
       this.alertService.error("Error: Unknown Error!");
     });
+  }
+
+  onSubmitLocationLink() {
+    if (this.formLocationLink.valid) {
+      this.isSubmitted = true;
+      let data: any = {
+        boq_id: this.boqId,
+        site_id: this.formLocationLink.value.site_id,
+      };
+      this.apiService.linkLocationForBoq(data).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (res: any) => {
+          let response: any = res;
+          document.getElementById('cancellinkmodal')?.click();
+          this.isSubmitted = false;
+          if (response.status == 200) {
+            this.formLocationLink.reset();
+            this.getBoqListData();
+            this.alertService.success(response.message);
+          } else {
+            this.alertService.warning(response.message);
+          }
+        }, error: (error) => {
+          console.log(error);
+          this.isSubmitted = false;
+          document.getElementById('cancellinkmodal')?.click();
+          this.alertService.error("Error: Unknown Error!");
+        }
+      })
+    } else {
+      this.alertService.warning("Form is invalid, Please fill the form correctly.");
+    }
   }
 
   selectItemForUpdate(item: any): void {
