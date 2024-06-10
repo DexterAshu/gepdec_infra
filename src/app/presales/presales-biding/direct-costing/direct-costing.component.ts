@@ -24,7 +24,7 @@ export class DirectCostingComponent {
   itemList: any;
   checkedDataList: any = [];
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef) { }
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService:SharedService, private elementRef:ElementRef) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({

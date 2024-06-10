@@ -65,12 +65,28 @@
                                 <td>{{a.financialyear}}</td>
                                 <td class="text-end">{{a.annual_turnover | currency:'INR':'':'1.0-2'}}</td>
                                 <td>
-                                    <div *ngIf="!!a.filename; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
+                                    <!-- <div *ngIf="!!a.filename; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.filename }}">
                                         {{a.filename | slice:0:30}} <span *ngIf="a.filename.length > 30">...<i class="mdi mdi-information"></i></span>
                                     </div>
                                     <ng-template #elseBlock1>
                                         {{a.filename}}
-                                    </ng-template>
+                                    </ng-template> -->
+                                    ({{a.filecount}})
+                                    <span class="me-1" *ngFor="let img of a.images; index as i">
+                                        <a title="Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(img)">
+                                          <span style="color: #17a2b8;" class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
+                                        </a>
+                                    </span>
+                                    <span *ngFor="let pdf of a.pdfs; index as i" class="me-1">
+                                        <a (click)="showPdf(pdf)" title="PDF" data-bs-toggle="modal" data-bs-target="#pdfModal">
+                                            <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
+                                        </a>
+                                    </span>
+                                    <span *ngFor="let excel of a.excels; index as i" class="me-1">
+                                        <a (click)="downloadExcel(excel)" title="Excel Download">
+                                            <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
+                                        </a>
+                                    </span> 
                                 </td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal" (click)="getPatchDetails(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp;
@@ -353,3 +369,44 @@
     </div>
 </div>
 <!-- details modal end-->
+<!-- image view modal start-->
+<div class="modal fade" id="viewImageModal" tabindex="-1" aria-labelledby="imgModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imgModalLabel">View Image</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselExampleIndicators" data-bs-interval="false" class="carousel slide carousel-fade"
+                    data-bs-touch="false">
+                    <div class="carousel-inner text-center">
+                        <div ngClass="carousel-item active">
+                            <!-- <img [src]="imageLink" class="d-block w-100" height="400px" alt="..."> -->
+                            <img class="img-fluid prod-img" [src]="imageLink" alt="Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- image view modal end-->
+<!-- pdf view modal start-->
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pdfModalLabel">View PDF</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <iframe [src]="pdfFile" width="100%" height="600px"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- pdf view modal end-->

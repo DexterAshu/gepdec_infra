@@ -60,10 +60,12 @@
                 <div class="form-group row">
                   <label class="col-sm-5 col-form-label">Company</label>
                   <div class="col-sm-7">
-                    <select class="form-select form-select-sm">
-                      <option>All</option>
+                    <select class="form-select form-select-sm" formControlName="company">
+                      <!-- <option>All</option>
                       <option>GEPDEC Energy Project</option>
-                      <option>GEPDEC Infra Project</option>
+                      <option>GEPDEC Infra Project</option> -->
+                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option *ngFor="let c of companyData" value="{{c.bidder_id}}">{{c.bidder_name}}</option>
                     </select>
                   </div>
                 </div>

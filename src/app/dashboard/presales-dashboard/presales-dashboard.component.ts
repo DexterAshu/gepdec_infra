@@ -66,6 +66,7 @@ export class PresalesDashboardComponent {
   ];
   countryData: any;
   stateData: any;
+  companyData: any;
   
   onSelect(event:any) {
   
@@ -550,7 +551,11 @@ export class PresalesDashboardComponent {
   this.form = this.formBuilder.group({
     country_id: [null, Validators.required],
     state_id: [null, Validators.required],
-  })
+    company: [null, Validators.required],
+  });
+  // Fetch country data and set default value to India
+  this.getCountryData();
+  this.getCompanyData();
   }
 
   ngAfterViewInit() {
@@ -565,6 +570,10 @@ export class PresalesDashboardComponent {
     this.apiService.getCountryDataList().subscribe((res:any) => {
       if (res.status === 200) {
         this.countryData = res.result;
+        const india = this.countryData.find((country: { name: string; }) => country.name === 'India');
+        if (india) {
+          this.form.patchValue({ country_id: india.country_id });
+        }
       } else {
         this.alertService.warning("Looks like no data available in country data.");
       }
@@ -581,6 +590,22 @@ export class PresalesDashboardComponent {
         this.stateData = res.result;
       } else {
         this.alertService.warning(`Looks like no state available related to the selected country.`);
+      }
+    });
+  }
+
+  getCompanyData() {
+    this.companyData = [];
+    const apiLink = `/mycompany/api/v1/getMyComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res:any) => {
+      if (res.status === 200) {
+        this.companyData = res.result;
+        const company = this.companyData.find((company: any) => company.bidder_name === 'Gepdec Infratech Limited');
+        if (company) {
+          this.form.patchValue({ company: company.bidder_id });
+        }
+      } else {
+        this.alertService.warning("Looks like no data available in company data.");
       }
     });
   }

@@ -105,6 +105,8 @@ export class CostingApprovalComponent {
     this.getTenderData();
   }
 
+  get f() { return this.form.controls; }
+
   ngAfterViewInit() {
     this.sharedService.initializeTooltips(this.elementRef);
   }
@@ -114,7 +116,6 @@ export class CostingApprovalComponent {
     this.locationArray = row.tender_location;
   }
 
-  get f() { return this.form.controls; }
 
   getBOQItemList(data: any) {
     this.totalDirectCost = 0;
@@ -144,7 +145,6 @@ export class CostingApprovalComponent {
     if (this.rowData.directCost.length > 0 && this.rowData?.indirectCost.length > 0) {
 
       this.rowData.directCost[0]?.boq?.forEach((el: any) => {
-        // this.overallDirectCost += +el?.total_freight_with_GST_value;
         el?.items?.forEach((data: any) => {
 
           if (data.margin_direct == "0.00") {
@@ -188,8 +188,6 @@ export class CostingApprovalComponent {
 
       this.rowData.indirectCost?.forEach((el: any) => {
         this.overallInDirectCost += +el?.all_total;
-        // let tMargin = 0;
-        // let tAmtWithMargin = 0;
         el?.records?.forEach((data: any) => {
           if (data.margin_indirect == "0.00") {
             this.isIndirectAvl = false;
@@ -201,11 +199,7 @@ export class CostingApprovalComponent {
             data.marginAmt = +data?.total * (data?.margin_indirect / 100);
             data.afterMarginAmt = +data?.total + +data?.margin_indirect;
           }
-          // tMargin += +data?.marginAmt
-          // tAmtWithMargin += +data?.afterMarginAmt
         });
-        // el.totalMargin += +tMargin
-        // el.totalAfterMarginAmt += +tAmtWithMargin
       });
     }
 

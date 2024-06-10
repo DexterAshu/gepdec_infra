@@ -36,9 +36,6 @@ export class TenderDocumentComponent {
   clientListData: any;
   tenderDetailsData: any;
   comData: any;
-  imgData: any;
-  imgUrl = environment.apiUrl;
-  pdfSrc: string ='';
   // imageLink:string='';
   // pdfFile: string = '';
   imageLink: SafeResourceUrl = '';
@@ -198,7 +195,7 @@ export class TenderDocumentComponent {
   getrefData(tender_id: any){
     this.filterTenderDetailsData = this.tenderDetailsData.filter((x:any) => x.tender_id == tender_id);
   }
-  
+
   onSubmit() {
     this.isSubmitted = true;
     if (this.documentForm.invalid) {
