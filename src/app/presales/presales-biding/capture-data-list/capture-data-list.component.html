@@ -92,6 +92,8 @@
                                 <th>Category</th>
                                 <th>Sub-Category</th>
                                 <th>Capacity</th>
+                                <th>State</th>
+                                <th>District</th>
                                 <th>Execution Location</th>
                                 <th>ECV (INR)</th>
                                 <th>Submission Date</th>
@@ -129,6 +131,8 @@
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}} </td>
+                                <td>{{a.state_name}} </td>
+                                <td>{{a.district_name}} </td>
                                 <td>
                                     <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
                                         <span *ngIf="i+1 == 1">{{loc}}</span>
@@ -179,14 +183,48 @@
 
 <!-- list location details -->
     <div class="modal fade" id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Location Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <table class="table table-hover table-striped custom-table table-bordered">
+
+                <div class="table-responsive tab-hei">
+                    <table class="table table-hover table-striped custom-table table-bordered table-styled" >
+                        <thead class="table-primary text-nowrap">
+                            <tr>
+                                <th>S No</th>
+                                <th>Execution Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let location of locationArray; index as i">
+                                <td class="sn-col">{{ limit * (p - 1) + i + 1 }}</td>
+                                <td>
+                                    <div class="loc-col" *ngIf="!!location; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ location }}">
+                                        {{ location | slice: 0: 30 }}
+                                        <span *ngIf="location.length > 30">...
+                                            <i class="mdi mdi-information"></i>
+                                        </span>
+                                    </div>
+                                    <ng-template #elseBlock4>
+                                        {{ location }}
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                
+
+
+
+
+
+                <!-- <table class="table table-hover table-striped custom-table table-bordered">
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
@@ -213,13 +251,8 @@
                             </tr>
                         </tbody>
                  
-                </table>
+                </table> -->
 
-                <!-- <div class="modal-body">
-                        <span *ngFor="let location of locationArray; let i = index">
-                            {{ i + 1 }}. {{ location }}
-                        </span>
-                </div> -->
             </div>
         </div>
     </div>
@@ -276,8 +309,14 @@
                                             <th>Financial Year</th>
                                             <td> {{rowData?.financialyear}}</td>
                                             <th>Execution Location</th>
-                                            
                                             <td>
+                                                <span *ngFor="let loc of rowData?.tender_location; let i = index" title="{{rowData?.tender_location}}">
+                                                    <span *ngIf="i+1 == 1">{{loc}}</span>
+                                                </span>...
+                                              <img *ngIf="rowData?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(rowData)" title="{{rowData?.tender_location}}">
+                                            </td>
+                                            
+                                            <!-- <td>
                                                  
                                                 <div *ngIf="!!rowData?.tender_location; else elseBlock4"
                                                     data-toggle="tooltip" data-placement="bottom"
@@ -289,7 +328,7 @@
                                                 <ng-template #elseBlock4>
                                                     {{rowData?.tender_location}}
                                                 </ng-template>
-                                            </td>
+                                            </td> -->
 
                                             <th>Tender Title</th>
                                             <td>
@@ -522,7 +561,7 @@
                                         </tr>
                                         <tr>
                                             <th>Payment Terms</th>
-                                            <td colspan="7">
+                                            <td colspan="9">
                                                 <span
                                                     *ngFor="let ph of (rowData?.tenderpayment_terms != null ? (rowData?.tenderpayment_terms.slice(0, -1)).split('\n') : rowData?.tenderpayment_terms.slice(0, -1)), index as i">
                                                     {{ ph }} <br>
@@ -536,7 +575,7 @@
                                         <tr>
 
                                             <th>Created On</th>
-                                            <td>{{ rowData?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                                            <td>{{ rowData?.created | date: 'dd/MM/yyyy hh:mm a' }}</td>
                                             <th>Created By</th>
                                             <td>{{ rowData?.createdby_name }}</td>
                                             <th></th>
