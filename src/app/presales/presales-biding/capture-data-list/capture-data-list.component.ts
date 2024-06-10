@@ -51,6 +51,7 @@ export class CaptureDataListComponent {
   statusList: any = [];
   approval: any;
   reqList: any = [];
+  locationArray: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -116,6 +117,10 @@ export class CaptureDataListComponent {
   return res.tender_id == this.rowData.tender_id;
 })
 this.statusList=roleD[0].roleStatus
+  }
+
+  rowLocation(row:any) {
+    this.locationArray = row.tender_location;
   }
 
  

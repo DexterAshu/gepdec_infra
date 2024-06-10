@@ -80,10 +80,20 @@
                 <td>{{ a.qacatagory }}</td>
                 <td>{{ a.subqacatagory }}</td>
                 <td>{{ a.capacity }}</td>
-                <td>{{ a.tender_location }}</td>
+                <!-- <td>{{ a.tender_location }}</td> -->
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getBOQList(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                  <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
+                    <span *ngIf="i+1 == 1">{{loc}}</span>
+                  </span>...
+                  <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png"
+                    style="width:25px; height:25px;" data-bs-toggle="modal" data-bs-target="#lokModal"
+                    (click)="rowLocation(a)" title="{{a.tender_location}}">
+                </td>
+                <td>
+                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)"><span
+                      class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                  <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getBOQList(a)"><span
+                      class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                 </td>
               </tr>
               <tr *ngIf="isNotFound == true">
@@ -204,12 +214,16 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-12 mt-1">
-                <label class="form-label fl-10">Please ensure your file is named 'BOQ_sample_template' <span
-                    class="required-asterisk">*</span>
-                </label><br>
+              <div class="col-md-6">
+                <label class="form-label fl-10">BOQ Item template file<span class="required-asterisk">*</span></label>
                 <input class="mt-2" type="file" class="form-control form-control-sm" formControlName="attachment"
                   (change)="onFileChanged($event)" accept=".xlsx, .xls" />
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Remarks<span class="required-asterisk">*</span></label>
+                  <textarea formControlName="remarks" class="form-control form-control-sm"></textarea>
+                </div>
               </div>
             </div>
             <div class="row px-2 my-2" *ngIf="errorItemList.length > 0">
@@ -296,9 +310,11 @@
                   <th>BOQ Code</th>
                   <th>BOQ Category</th>
                   <th>BOQ Sub Category</th>
+                  <th>Remarks</th>
                   <th>Created By</th>
                   <th>Created Date</th>
                   <th>Status</th>
+                  <th>Execution Location</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -308,10 +324,15 @@
                   <td>{{ boq?.boq_code }}</td>
                   <td>{{ boq?.itemcategory }}</td>
                   <td>{{ boq?.subcategory }}</td>
+                  <td>{{ boq?.remarks }}</td>
                   <td>{{ boq?.createdby_name }}</td>
                   <td>{{ boq?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <td>{{ boq?.status }}</td>
+                  <td>{{ boq?.site_location ? boq.site_location : '--' }}</td>
                   <td>
+                    <a *ngIf="update && locationList?.length" (click)="linkLocation(boq)" data-bs-toggle="modal"
+                      data-bs-target="#linkModal" title="Link location"><span
+                        class="mdi mdi-link-variant text-primary cursor-pointer mdi-18px"></span></a>&nbsp;
                     <a *ngIf="update" (click)="getBOQItemList(boq)" data-bs-toggle="modal"
                       data-bs-target="#itemListModel"><span
                         class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
@@ -751,9 +772,10 @@
                   <td>{{ boqList?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock10" data-toggle="tooltip" data-placement="bottom"
-                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
-                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock10" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no |
+                      slice:0:30}} <span *ngIf="boqList?.tender_ref_no.length > 30">...<i
+                          class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock10>{{boqList?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
@@ -968,3 +990,94 @@
     </div>
   </div>
 </div>
+
+<!-- link location modal -->
+<div class="modal fade" id="linkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">BOQ Location Linking</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal"
+          data-bs-target="#boqListModel"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="formLocationLink" (ngSubmit)="onSubmitLocationLink()">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">BOQ<span class="required-asterisk">*</span></label>
+                    <input formControlName="boq_id" type="text" class="form-control form-control-sm" readonly>
+                    <div *ngIf="fl['boq_id'].touched && fl['boq_id'].invalid">
+                      <small class="text-danger" *ngIf="fl['boq_id'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Execution Location<span class="required-asterisk">*</span></label>
+                    <ng-select formControlName="site_id" [items]="locationList" bindLabel="site_location"
+                      bindValue="site_id" [virtualScroll]="true" [bufferAmount]="10">
+                      <ng-option *ngFor="let location of locationList">{{location.site_location}}</ng-option>
+                    </ng-select>
+                    <div *ngIf="fl['site_id'].touched && fl['site_id'].invalid">
+                      <small class="text-danger" *ngIf="fl['site_id'].errors?.['required']">*Required</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-btns">
+                  <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
+                    class="btn btn-primary btn-fw btn-sm mr-2">Link</button>
+                  <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span
+                      class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    Linking...</button>
+                  <button type="button" id="cancellinkmodal" class="btn btn-secondary btn-fw btn-sm"
+                    data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- link location modal end-->
+
+<!--location list details modal-->
+<div class="modal fade" id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Location Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <table class="table table-hover table-striped custom-table table-bordered">
+        <thead class="table-primary text-nowrap">
+          <tr>
+            <th>S No</th>
+            <th>Execution Location</th>
+          </tr>
+        </thead>
+        <tbody class="text-nowrap">
+          <tr *ngFor="let location of locationArray; index as i">
+            <td>{{limit*(p-1)+i+1}}</td>
+            <td>
+              <div *ngIf="!!location; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                title="{{ location }}">
+                {{location | slice:0:30}} <span *ngIf="location.length > 30">...<i
+                    class="mdi mdi-information"></i></span>
+              </div>
+              <ng-template #elseBlock4>
+                {{location}}
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!--location list details modal-->

@@ -15,13 +15,14 @@ export class DirectCostingComponent {
   searchText: any;
   form!: FormGroup;
   isSubmitted: boolean = false;
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   dataList: any;
   file: any;
   dataDropdownList: any;
   selectedBOQRow: any;
   selectedRow: any;
   itemList: any;
+  checkedDataList: any = [];
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService:SharedService, private elementRef:ElementRef) { }
 
@@ -42,7 +43,6 @@ export class DirectCostingComponent {
       itemTolerance: [null, Validators.required],
       // specification: [null, Validators.required],
     });
-
     this.getDataList();
   }
 
@@ -51,7 +51,6 @@ export class DirectCostingComponent {
   }
 
   get f() { return this.form.controls; }
-
 
   getDataList() {
     this.dataList = [];
@@ -75,53 +74,85 @@ export class DirectCostingComponent {
   }
 
   getBOQList(data: any): void {
+    this.checkedDataList = [];
     this.selectedBOQRow = data;
   }
 
   getItemList(data: any) {
     this.itemList = [];
+    this.checkedDataList = [];
     this.itemList = data;
   }
 
+  disableRow(data: any): void {
+    this.itemList.items = this.itemList?.items.map((item: any) => {
+      item.isDisabled = (item.item_id == data.item_id) ? !item.isDisabled : item.isDisabled;
+      return item;
+    });
+  }
+
+  disableChildRow(parent: any, child: any): void {
+    parent.childItemList = parent.childItemList.map((item: any) => {
+      item.isDisabled = (item.item_id == child.item_id) ? !item.isDisabled : item.isDisabled;
+      return item;
+    });
+  }
+
+  selectAllItems(): void {
+    debugger;
+    this.itemList.items = this.itemList?.items.map((item: any) => {
+      item.isDisabled = !item.isDisabled;
+      if(item?.childItemList?.length > 0) {
+        item.childItemList = item.childItemList.map((child: any) => {
+          child.isDisabled = !child.isDisabled;
+          return child;
+        });
+      }
+      return item;
+    });
+  }
+
+  onItemSelect(data: any): void {
+    let match: any = {};
+    match.boqitem_id = data.boqitem_id;
+    match.boq_id = data.boq_id;
+    match.item_id = data.item_id;
+    match.itemcode = data.itemcode;
+    match.gst = data.gst;
+    match.freight_charges = data.freight_charges;
+    match.unit_price = data.unit_price;
+    let find = this.checkedDataList.find((item: any) => item.item_id == match.item_id);
+    if (find) {
+      this.checkedDataList = this.checkedDataList.filter((item: any) => item.item_id != match.item_id);
+    } else {
+      this.checkedDataList.push(match);
+    }
+    console.log(this.checkedDataList);
+  }
+  
   onSubmit() {
-    // if (this.form.valid) {
-    //   this.isSubmitted = true;
-
-    //   let data = {
-    //     unit_id: this.form.value.itemUOM,
-    //     description: this.form.value.description,
-    //     parameter: this.form.value.parameter,
-    //     itemcategory_id: this.form.value.itemCategory,
-    //     cost: this.form.value.cost,
-    //     hsn_code: this.form.value.hsnCode,
-    //     gst: this.form.value.gst,
-    //     parentitem: this.form.value.parentItem,
-    //     parentitem_id: this.form.value.parentItem_id,
-    //     materialclass_id: this.form.value.class,
-    //     tolerance_id: this.form.value.itemTolerance,
-    //     subcategory_id: this.form.value.itemSubCategory,
-    //   }
-
-    //   let apiLink = '/Item/api/v1/addItem';
-    //   this.apiService.postData(apiLink, data).subscribe(res => {
-    //     let response: any = res;
-    //     document.getElementById('cancel')?.click();
-    //     this.getDataList();
-    //     this.isSubmitted = false;
-    //     if (response.status == 200) {
-    //       this.form.reset();
-    //       this.alertService.success(response.message);
-    //     } else {
-    //       this.alertService.warning(response.message);
-    //     }
-    //   }, (error) => {
-    //     this.isSubmitted = false;
-    //     document.getElementById('cancel')?.click();
-    //     this.alertService.error("Error: Unknown Error!");
-    //   })
-    // } else {
-    //   this.alertService.warning("Form is invalid, Please fill the form correctly.");
-    // }
+    if(this.checkedDataList.length === 0) {
+      this.alertService.warning("Please select atleast one item");
+      return;
+    }
+    console.log(JSON.stringify(this.checkedDataList));
+    let apiLink = '/costing/api/v1/updatedTenderDirectCosting';
+    this.apiService.postData(apiLink, this.checkedDataList).subscribe(res => {
+      if (res.status == 200) {
+        this.getDataList();
+        this.checkedDataList = undefined;
+        this.selectedBOQRow = undefined;
+        this.itemList = undefined;
+        this.alertService.success(res.message);
+        document.getElementById('editItemCostingData')?.click();
+      } else {
+        this.alertService.warning(res.message);
+      }
+    }, (error) => {
+      this.isSubmitted = false;
+      console.error(error);
+      this.alertService.error("Error: Unknown Error!");
+    });
   }
 
 }

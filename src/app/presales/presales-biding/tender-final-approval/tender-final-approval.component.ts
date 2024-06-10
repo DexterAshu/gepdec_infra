@@ -1,17 +1,18 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService, AccountService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-tender-final-approval',
   templateUrl: './tender-final-approval.component.html',
   styleUrls: ['./tender-final-approval.component.css']
 })
-export class TenderFinalApprovalComponent {
+export class TenderFinalApprovalComponent implements OnDestroy{
   form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
@@ -70,8 +71,11 @@ export class TenderFinalApprovalComponent {
   totalProfit: number = 0;
   profitPer: number = 0;
   tenderID: any;
-  attachListData: string | Event | undefined;
-
+  attachListData: any = [];
+  attachementDetailsData: any = [];
+  attachementTendDetailsData:any = [];
+  locationArray: any = [];
+  private destroy$ = new Subject<void>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -94,6 +98,7 @@ export class TenderFinalApprovalComponent {
     this.form = this.formBuilder.group({
       tenderstatus_id: ['', Validators.required],
       working_notes: ['', Validators.required],
+      submitted_on: ['', Validators.required],
       audit_trail: [null],
     });
 
@@ -137,6 +142,10 @@ export class TenderFinalApprovalComponent {
     this.update = true;
   }
 
+  rowLocation(row:any) {
+    this.locationArray = row.tender_location;
+  }
+
   rowListData(row: any) {
     this.rowData = row;
     this.tenderID = row.tender_id;
@@ -161,12 +170,20 @@ export class TenderFinalApprovalComponent {
   }
 
   attachmentDetails(){
-    const tender_id = event?.target ? (event.target as HTMLInputElement).value : event;
-    this.attachListData = tender_id;
-    this.apiService.getAttachmentDetails(this.attachListData).subscribe((res: any) => {
-    // this.tenderDetailsData = res.result;
-    console.log(res);
-    
+    this.attachListData = this.rowData.tender_id;
+    this.apiService.getAttachmentDetails(this.attachListData).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        this.attachementDetailsData = res.myComapanyDocumentsData;
+        this.attachementTendDetailsData = res.tenderDocumentsData;
+        console.log(this.attachementDetailsData);
+        console.log(this.attachementTendDetailsData);
+     
+        
+        }, error: (error: any) => {
+          console.error(error);
+          this.isNotFound = true;
+          this.alertService.error("Error: Unknown Error!")
+        }
     });
   }
 
@@ -235,8 +252,8 @@ export class TenderFinalApprovalComponent {
     this.form.value.approval = this.approval;
     var reqTend = {
       requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
-      // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
       tender_id : this.tenderID,
+      submitted_on: this.form.value.submitted_on,
       working_notes: this.form.value.working_notes,
     };
     this.apiService.createApproval(reqTend).subscribe((res: any) => {
@@ -253,12 +270,14 @@ export class TenderFinalApprovalComponent {
       this.isNotFound = false;
       this.alertService.error("Error: " + error.message); // Updated error message
     });
+ 
   }
 
 
   sendApproval() {
     if (this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager') {
       var reqTend = {
+        submitted_on: this.form.value.submitted_on,
         working_notes: this.form.value.working_notes,
         requeststatus_id:this.form.value.tenderstatus_id,
         tender_id : this.tenderID,
@@ -301,6 +320,10 @@ export class TenderFinalApprovalComponent {
       })
 
     }
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
 

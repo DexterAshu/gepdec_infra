@@ -266,23 +266,21 @@
                                     </div>
                                 </div>
     
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label class="form-label fl-10">Total Experience (In years)</label>
-                                        <input formControlName="total_experience" type="text"
-                                            class="form-control form-control-sm" appNumWithDot>
-                                        <div *ngIf="f['total_experience'].touched && f['total_experience'].invalid">
-                                            <small class="text-danger"
-                                                *ngIf="f['total_experience'].errors?.['required']">*Required</small>
-                                        </div>
+                                        <label class="form-label fl-10">Req Experience (Years)</label>
+                                        <input formControlName="total_experience" type="text" class="form-control form-control-sm" appNumWithDot placeholder="Required Experience">
+                                        <!-- <div *ngIf="f['total_experience'].touched && f['total_experience'].invalid">
+                                            <small class="text-danger" *ngIf="f['total_experience'].errors?.['required']">*Required</small>
+                                        </div> -->
                                     </div>
                                 </div>
     
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label class="form-label fl-10">Completion Period (In Months)</label>
+                                        <label class="form-label fl-10">Req Compt Period(Months)</label>
                                         <input formControlName="completion_period" type="text"
-                                            class="form-control form-control-sm" appNumWithDot>
+                                            class="form-control form-control-sm" appNumWithDot placeholder="Required Completion Period">
                                         <div *ngIf="f['completion_period'].touched && f['completion_period'].invalid">
                                             <small class="text-danger"
                                                 *ngIf="f['completion_period'].errors?.['required']">*Required</small>
@@ -291,37 +289,29 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label class="form-label fl-10">Resource Used</label>
-                                        <input formControlName="resource_used" type="text"
-                                            class="form-control form-control-sm" appNumberOnly>
-                                        <div *ngIf="f['resource_used'].touched && f['resource_used'].invalid">
-                                            <small class="text-danger"
-                                                *ngIf="f['resource_used'].errors?.['required']">*Required</small>
-                                        </div>
+                                        <label class="form-label fl-10">Required Resource</label>
+                                        <input formControlName="resource_used" type="text" class="form-control form-control-sm" appNumberOnly>
+                                        <!-- <div *ngIf="f['resource_used'].touched && f['resource_used'].invalid">
+                                            <small class="text-danger" *ngIf="f['resource_used'].errors?.['required']">*Required</small>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label class="form-label fl-10">Completion Year</label>
-                                        <input formControlName="completion_year" type="text"
-                                            class="form-control form-control-sm" appNumberOnly>
-                                        <div *ngIf="f['completion_year'].touched && f['completion_year'].invalid">
-                                            <small class="text-danger"
-                                                *ngIf="f['completion_year'].errors?.['required']">*Required</small>
-                                        </div>
+                                        <label class="form-label fl-10">Condition Year</label>
+                                        <input formControlName="completion_year" type="text" class="form-control form-control-sm" appNumberOnly>
+                                        <!-- <div *ngIf="f['completion_year'].touched && f['completion_year'].invalid">
+                                            <small class="text-danger" *ngIf="f['completion_year'].errors?.['required']">*Required</small>
+                                        </div> -->
                                     </div>
                                 </div>
     
-                                <div class="col-md-9">
+                                <div class="col-md-7">
                                     <div class="form-group">
-                                        <label class="form-label fl-10">Technical Points<span
-                                                class="required-asterisk">*</span></label>
-                                        <input formControlName="technical_points" type="text"
-                                            class="form-control form-control-sm"
-                                            placeholder="eg: Put your bid points one by one">
+                                        <label class="form-label fl-10">Technical Remarks<span class="required-asterisk">*</span></label>
+                                        <input formControlName="technical_points" type="text" class="form-control form-control-sm" placeholder="eg: Put your bid points one by one">
                                         <div *ngIf="f['technical_points'].touched && f['technical_points'].invalid">
-                                            <small class="text-danger"
-                                                *ngIf="f['technical_points'].errors?.['required']">*Required</small>
+                                            <small class="text-danger" *ngIf="f['technical_points'].errors?.['required']">*Required</small>
                                         </div>
                                     </div>
                                 </div>
@@ -342,9 +332,7 @@
                                 </div>
                                 <div class="col-md-1">
                                     <div class="modal-btns">
-                                        <button type="button" class="btn btn-primary btn-fw btn-sm mt-4"
-                                            (click)="addMultiTechPoints()" title="Add technical points"
-                                            [disabled]="!form.valid">+ ADD</button>
+                                        <button type="button" class="btn btn-primary btn-fw btn-sm mt-4" (click)="addMultiTechPoints()" title="Add technical points" [disabled]="!form.valid">+ Add</button>
                                     </div>
                                 </div>
                             </div>

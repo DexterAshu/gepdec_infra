@@ -4,8 +4,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Technical
-                            Documents</h4>
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Technical Documents</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -23,13 +22,13 @@
                                 [(ngModel)]="searchText">
                         </div>
                         <div class="col-lg-4">
-                            <div class="float-right">
+                            <!-- <div class="float-right">
                                 <select class="form-select form-select-sm border-secondary pt-04 w-auto"
                                     (change)="redirect($event)">
                                     <option [disabled]="true" [value]="null">Select</option>
                                     <option [selected]="true"> Technical</option>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="col-lg-4">
@@ -148,6 +147,7 @@
             <div class="modal-body cardd">
                 <div class="container-fluid">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <h6 class="mb-1 mt-2 text-secondary">Qualification Detail</h6>
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
@@ -213,11 +213,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Total Experience (In years)</label>
-                                    <input formControlName="experience" type="text" class="form-control form-control-sm"
-                                        appNumWithDot>
+                                    <label class="form-label fl-10">Total Experience (Years)</label>
+                                    <input formControlName="experience" type="text" class="form-control form-control-sm" appNumWithDot>
                                     <div *ngIf="f['experience'].touched && f['experience'].invalid">
                                         <small class="text-danger"
                                             *ngIf="f['experience'].errors?.['required']">*Required</small>
@@ -225,9 +224,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Completion Period (In Months)</label>
+                                    <label class="form-label fl-10">Completion Period(Months)</label>
                                     <input formControlName="compPeriod" type="text" class="form-control form-control-sm"
                                         appNumWithDot>
                                     <div *ngIf="f['compPeriod'].touched && f['compPeriod'].invalid">
@@ -272,7 +271,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">Technical Points<span
+                                    <label class="form-label fl-10">Technical Remarks<span
                                             class="required-asterisk">*</span></label>
                                     <input formControlName="technical_points" type="text"
                                         class="form-control form-control-sm"
@@ -283,7 +282,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                        </div>
+                        <div class="row">
+                            <h6 class="mb-1 mt-2 text-secondary">Client Detail</h6>
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Client</label>
                                     <select formControlName="client_id" class="form-select form-select-sm"
@@ -321,35 +323,35 @@
                                         [value]="filterTenderDetailsData[0]?.tender_ref_no">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Publish Date</label>
                                     <input class="form-control form-control-sm" readonly
                                         [value]="filterTenderDetailsData[0]?.publish_date | date: 'dd/MM/yyyy' : 'GMT'">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Category</label>
                                     <input class="form-control form-control-sm" readonly
                                         [value]="filterTenderDetailsData[0]?.qacatagory">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Sub-Category</label>
                                     <input class="form-control form-control-sm" readonly
                                         [value]="filterTenderDetailsData[0]?.subqacatagory">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Capacity</label>
                                     <input class="form-control form-control-sm" readonly
                                         [value]="filterTenderDetailsData[0]?.capacity">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Execution Location</label>
                                     <input class="form-control form-control-sm" readonly
@@ -419,7 +421,7 @@
                                             <td>{{ itemList?.completion_year }}</td>
                                             <th>Resource Used</th>
                                             <td>{{ itemList?.resource_used }}</td>
-                                            <th>Technical Point</th>
+                                            <th>Technical Remarks</th>
                                             <td>{{ itemList?.technical_points }}</td>
                                         </tr>
                                         <tr>

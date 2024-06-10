@@ -90,10 +90,20 @@
                   <td>{{a.subqacatagory}}</td>
                   <td>{{a.capacity}}</td>
                   <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
-                  <td>{{ a.tender_location }}</td>
+                  <td>
+                    <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
+                        <span *ngIf="i+1 == 1">{{loc}}</span>
+                    </span>...
+                  <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="{{a?.tender_location}}">
+                 
+                    <!-- <a data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="Location Details"> <span class="mdi mdi-google-maps text-warning cursor-pointer mdi-18px"></span>
+                    </a> -->
+                </td>
+               
+                  <!-- <td>{{ a.tender_location }}</td> -->
                   <td>{{ a.ecv | currency: 'INR': '' : '1.0-2'}}</td>
                   <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
-                  <td>{{ a?.reqTenderStatus}}</td>
+                  <td>{{ a?.tender_status}}</td>
                   <td>
                   
                     <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data"
@@ -123,6 +133,55 @@
     </div>
   </div>
   
+
+  <!-- list location details -->
+  <div class="modal fade" id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Location Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <table class="table table-hover table-striped custom-table table-bordered">
+                    <thead class="table-primary text-nowrap">
+                        <tr>
+                            <th>S No</th>
+                            <th>Execution Location</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                        <tr *ngFor="let location of locationArray; index as i">
+                            <td>{{limit*(p-1)+i+1}}</td>
+                            <td>
+                                <div *ngIf="!!location; else elseBlock4"
+                                    data-toggle="tooltip" data-placement="bottom"
+                                    title="{{ location }}">
+                                    {{location | slice:0:30}} <span
+                                        *ngIf="location.length > 30">...<i
+                                            class="mdi mdi-information"></i></span>
+                                </div>
+                                <ng-template #elseBlock4>
+                                    {{location}}
+                                </ng-template>
+                            </td>
+
+                        </tr>
+                    </tbody>
+             
+            </table>
+
+            <!-- <div class="modal-body">
+                    <span *ngFor="let location of locationArray; let i = index">
+                        {{ i + 1 }}. {{ location }}
+                    </span>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+
   <!-- detail modal -->
   <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
@@ -466,8 +525,28 @@
   
                 </div>
   
+
+                <h6 class="my-3 text-secondary">Previous Notes</h6>
+                <div class="card p-2 text-small" [innerHTML]="rowData?.remarks.join('<br>')"></div>
+              
+                <!-- <div class="col-md-12 mt-2" >
+                    <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-layer-backward" viewBox="0 0 16 16">
+                            <path
+                                d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
+                            <path
+                                d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
+                        </svg> &nbsp;
+                        Audit Trail
+                    </div>
+                    <div class="form-group mt-2" *ngIf="showWorkingDetails">
+                        <div class="card p-2 text-small" [innerHTML]="rowData?.audit_trail.join('<br>')"></div>
+                    </div>
+                </div> -->
+
                 <!-- qualification details -->
-                <h6 class="mb-3 text-secondary">Qualification Detail</h6>
+                <h6 class="mb-3 text-secondary mt-2">Qualification Detail</h6>
                 <div class="card p-2" (click)="finDataShow =! finDataShow">
                   <div class="row p-1">
                     <div class="col-md-6">
@@ -1189,8 +1268,8 @@
                                 <div class="table-responsive">
                                   
                                   <!-- Company attachemnts -->
-                                  <div class="card p-2 mt-1" (click)="compattachmentDataShow = !compattachmentDataShow">
-                                    <div class="row p-1">
+                                  <div class="card p-2 mt-1">
+                                    <div class="row p-1"  (click)="compattachmentDataShow = !compattachmentDataShow">
                                       <div class="col-md-6">
                                         <h6 class="mb-2 text-primary cursor-pointer">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-buildings" viewBox="0 0 16 16">
@@ -1213,14 +1292,44 @@
                                       </div>
                                     </div>
                     
-                                    <div class="container-fluid mt-1" *ngIf="compattachmentDataShow && (rowData?.indirectCost.length > 0)">
+                                    <div class="container-fluid mt-1" *ngIf="compattachmentDataShow">
+                                    
                                       <div class="row">
                                         <div class="col-md-12 p-0">
                                           <div class="container-fluid">
                                             <div class="row">
                                               <div class="col-md-12 p-0">
                                                 <div class="table-responsive">
-                                                  
+                                                  <table class="table table-hover table-striped custom-table table-bordered">
+                                                    <thead class="table-primary text-nowrap">
+                                                        <tr>
+                                                            <th>S No</th>
+                                                            <th>Document Name</th>
+                                                            <th>Selection</th>
+                                                        </tr>
+                                                    </thead>
+                        
+                                        
+                                                    <tbody class="text-nowrap">
+                                                        <tr *ngFor="let a of attachementDetailsData; index as j">
+                                                            <td>{{ limit*(p-1)+j+1 }}</td>
+                                                            <td>{{ a?.PAN }}</td>
+                                                            <td>{{ a?.bidderFinancialsDocument }}</td>
+                                                            <td>{{a?.prequalificationDocument}}</td>
+                                                            <td>
+                                                              <input type="checkbox" name="selectdoc" id="select">
+                                                            </td>
+                                                        
+                                                        </tr>
+                                                        <tr *ngIf="attachementDetailsData?.length == 0">
+                                                            <td colspan="15" class="text-center">
+                                                                <div class="spinner-border"> </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                
+
                                                 </div>
                                               </div>
                                             </div>
@@ -1236,8 +1345,8 @@
                                   </div>
 
                                   <!-- tender attachments -->
-                                  <div class="card p-2 mt-1" (click)="tendattachmentDataShow = !tendattachmentDataShow">
-                                    <div class="row p-1">
+                                  <div class="card p-2 mt-1" >
+                                    <div class="row p-1" (click)="tendattachmentDataShow = !tendattachmentDataShow">
                                       <div class="col-md-6">
                                         <h6 class="mb-2 text-primary cursor-pointer">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-disc" viewBox="0 0 16 16">
@@ -1260,15 +1369,51 @@
                                       </div>
                                     </div>
                     
-                                    <div class="container-fluid mt-1" *ngIf="tendattachmentDataShow && (rowData?.indirectCost.length > 0)">
+                                    <div class="container-fluid mt-1" *ngIf="tendattachmentDataShow">
                                       <div class="row">
                                         <div class="col-md-12 p-0">
                                           <div class="container-fluid">
                                             <div class="row">
                                               <div class="col-md-12 p-0">
                                                 <div class="table-responsive">
-                                                  
+                                                  <table class="table table-hover table-striped custom-table table-bordered" *ngFor="let a of attachementTendDetailsData; index as j">
+                                                    <thead class="table-primary text-nowrap">
+                                                        <tr>
+                                                            <th>S No</th>
+                                                            <th>Document</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>Selection</th>
+                                                        </tr>
+                                                    </thead>
+                        
+                                        
+                                                    <tbody class="text-nowrap">
+                                                        <tr >
+                                                            <td>{{ limit*(p-1)+j+1 }}</td>
+                                                            <td>{{ a?.bgDocuments }}</td>
+                                                            <td>{{ a?.boqDocuments }}</td>
+                                                            <td>{{a?.drawingDocuments}}</td>
+                                                            <td>{{a?.financialsDocuments}}</td>
+                                                            <td>{{a?.prequalificationDocuments}}</td>
+                                                            <td>{{a?.scheduleDocuments}}</td>
+                                                            <td>
+                                                              <input type="checkbox" name="selectdoc" id="select">
+                                                            </td>
+                                                        
+                                                        </tr>
+                                                        <tr *ngIf="attachementTendDetailsData?.length == 0">
+                                                            <td colspan="15" class="text-center">
+                                                                <div class="spinner-border"> </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                                 </div>
+
                                               </div>
                                             </div>
                                           </div>
@@ -1321,13 +1466,13 @@
                         <div class="form-group">
                             <label class="form-label fl-10"> Submitted On<span
                                     class="required-asterisk">*</span></label>
-                            <input formControlName="securitysubmission_date" type="date"
+                            <input formControlName="submitted_on" type="date"
                                 class="form-control form-control-sm">
                             <div
-                                *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
+                                *ngIf="f['submitted_on'].touched && f['submitted_on'].invalid">
                             </div>
                             <small class="text-danger"
-                                *ngIf="f['securitysubmission_date'].errors?.['required']">*Required</small>
+                                *ngIf="f['submitted_on'].errors?.['required']">*Required</small>
                         </div>
                     </div>
 
