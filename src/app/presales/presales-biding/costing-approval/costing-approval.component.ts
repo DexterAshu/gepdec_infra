@@ -59,11 +59,8 @@ export class CostingApprovalComponent {
   totalDirectCost: number = 0;
   overallDirectCost: number = 0;
   overallInDirectCost: number = 0;
-  totalMargin: number = 0;
-  totalProjectCost: number = 0;
-  totalProjectCostWithMargin: number = 0;
-  totalProfit: number = 0;
-  profitPer: number = 0;
+  totalDirectMargin: number = 0;
+  totalIndirectMargin: number = 0;
   tenderID: any;
   locationArray: any = [];
   targetDirect: number = 5;
@@ -137,32 +134,51 @@ export class CostingApprovalComponent {
 
   rowListData(row: any) {
     debugger
-    this.directClicked = false;
-    this.indirectClicked = false;
     this.rowData = row;
     this.tenderID = row.tender_id;
 
+    this.overallDirectCost = 0;
+    this.overallInDirectCost = 0;
+    this.totalDirectMargin = 0;
+    this.totalIndirectMargin = 0;
+    this.directClicked = false;
+    this.indirectClicked = false;
+
     if (this.rowData.directCost.length > 0 && this.rowData?.indirectCost.length > 0) {
-
       this.rowData.directCost[0]?.boq?.forEach((el: any) => {
-        el?.items?.forEach((data: any) => {
+        
+        let boqMarginTotal = 0;
+        let boqAfterMarginTotal = 0;
+        let boqTargetTotal = 0;
+        let boqTargetWQtyTotal = 0;
 
+        el?.items?.forEach((data: any) => {
           if (data.margin_direct == "0.00") {
             this.isDirectAvl = false;
             data.marginDirect = this.marginDirect;
             data.marginAmt = +data?.totalWithFreightWithGST * (this.marginDirect / 100);
             data.afterMarginAmt = +data?.totalWithFreightWithGST + +data?.marginAmt;
+            boqMarginTotal += +data?.marginAmt;
+            boqAfterMarginTotal += +data?.afterMarginAmt;
           } else {
             this.isDirectAvl = true;
             data.marginAmt = +data?.totalWithFreightWithGST * (data?.margin_direct / 100);
             data.afterMarginAmt = +data?.totalWithFreightWithGST + +data?.margin_direct;
+            boqMarginTotal += +data?.marginAmt;
+            boqAfterMarginTotal += +data?.afterMarginAmt;
           }
 
           if (data.target_direct == "0.00") {
             data.targetDirect = this.targetDirect;
             data.targetUnitPrice = +data?.unit_price * (1 - (this.targetDirect / 100));
+            data.targetTotalPrice = +data?.targetUnitPrice * +data.qty;
+            boqTargetTotal += +data?.targetUnitPrice;
+            boqTargetWQtyTotal += +data?.targetTotalPrice;
           } else {
             data.targetUnitPrice = +data?.unit_price * (1 - (data?.target_direct / 100));
+            data.targetTotalPrice = +data?.targetUnitPrice * +data.qty;
+            boqTargetTotal += +data?.targetUnitPrice;
+            boqTargetWQtyTotal += +data?.targetTotalPrice;
           }
           
           data?.childItemList?.forEach((child: any) => {
@@ -170,36 +186,64 @@ export class CostingApprovalComponent {
               child.marginDirect = this.marginDirect;
               child.marginAmt = +child?.totalWithFreightWithGST * (this.marginDirect / 100);
               child.afterMarginAmt = +child?.totalWithFreightWithGST + +child?.marginAmt;
+              boqMarginTotal += +child?.marginAmt;
+              boqAfterMarginTotal += +child?.afterMarginAmt;
             } else {
               child.marginAmt = +child?.totalWithFreightWithGST * (child?.margin_direct / 100);
               child.afterMarginAmt = +child?.totalWithFreightWithGST + +child?.margin_direct;
+              boqMarginTotal += +child?.marginAmt;
+              boqAfterMarginTotal += +child?.afterMarginAmt;
             }
 
             if (child.target_direct == "0.00") {
               child.targetDirect = this.targetDirect;
               child.targetUnitPrice = +child?.unit_price * (1 - (this.targetDirect / 100));
+              child.targetTotalPrice = +child?.targetUnitPrice * +child.qty;
+              boqTargetTotal += +child?.targetUnitPrice;
+              boqTargetWQtyTotal += +child?.targetTotalPrice;
             } else {
               child.targetUnitPrice = +child?.unit_price * (1 - (child?.target_direct / 100));
+              child.targetTotalPrice = +child?.targetUnitPrice * +child.qty;
+              boqTargetTotal += +child?.targetUnitPrice;
+              boqTargetWQtyTotal += +child?.targetTotalPrice;
             }
           });
 
         });
+
+        el.totalMargin = boqMarginTotal;
+        el.afterTotalMargin = boqAfterMarginTotal;
+        el.totalTarget = boqTargetTotal;
+        el.totalTargetWQty = boqTargetWQtyTotal;
+        this.overallDirectCost += +el?.totalPurchaseAmount;
+        this.totalDirectMargin += +el?.totalMargin;
       });
 
       this.rowData.indirectCost?.forEach((el: any) => {
-        this.overallInDirectCost += +el?.all_total;
+        let marginTotal = 0;
+        let postMarginTotal = 0;
+
         el?.records?.forEach((data: any) => {
           if (data.margin_indirect == "0.00") {
             this.isIndirectAvl = false;
             data.marginIndirect = this.marginIndirect;
             data.marginAmt = +data?.total * (this.marginIndirect / 100);
             data.afterMarginAmt = +data?.total + +data?.marginAmt;
+            marginTotal += +data?.marginAmt;
+            postMarginTotal += +data?.afterMarginAmt;
           } else {
             this.isIndirectAvl = true;
             data.marginAmt = +data?.total * (data?.margin_indirect / 100);
-            data.afterMarginAmt = +data?.total + +data?.margin_indirect;
+            data.afterMarginAmt = +data?.total + +data?.marginAmt;
+            marginTotal += +data?.marginAmt;
+            postMarginTotal += +data?.afterMarginAmt;
           }
         });
+
+        el.totalMargin = marginTotal;
+        el.totalAfterMarginAmt = postMarginTotal;
+        this.overallInDirectCost += +el?.all_total;
+        this.totalIndirectMargin += +el?.totalMargin;
       });
     }
 
@@ -208,7 +252,6 @@ export class CostingApprovalComponent {
       return res.tender_id == this.rowData.tender_id;
     })
     this.statusList = roleD[0].roleStatus
-
   }
 
   validateInput() {
@@ -231,12 +274,6 @@ export class CostingApprovalComponent {
         data.marginIndirect = this.marginIndirect;
       });
     });
-
-    // this.totalProjectCost = this.overallDirectCost + this.overallInDirectCost;
-    // this.totalMargin = (this.totalProjectCost * this.marginPer) / 100;
-    // this.totalProjectCostWithMargin = this.totalProjectCost + this.totalMargin;
-    // this.totalProfit = +this.rowData?.ecv - this.totalProjectCostWithMargin;
-    // this.profitPer = (this.totalProfit / +this.rowData?.ecv) * 100;
   }
   
   validateInputDirect(val:string) {
@@ -250,20 +287,34 @@ export class CostingApprovalComponent {
       } else if (this.marginDirect > 100) {
         this.marginDirect = 100;
       }
-  
+      this.totalDirectMargin = 0;
+
       this.rowData.directCost[0].boq?.forEach((el: any) => {
+
+        let boqMarginTotal = 0;
+        let boqAfterMarginTotal = 0;
+
         el?.items?.forEach((data: any) => {
           data.marginDirect = this.marginDirect;
           data.marginAmt = +data?.totalWithFreightWithGST * (data?.marginDirect / 100);
           data.afterMarginAmt = +data?.totalWithFreightWithGST + +data?.marginAmt;
+          boqMarginTotal += +data?.marginAmt;
+          boqAfterMarginTotal += +data?.afterMarginAmt;
   
           data?.childItemList?.forEach((child: any) => {
             child.marginDirect = this.marginDirect;
             child.marginAmt = +child?.totalWithFreightWithGST * (child?.marginDirect / 100);
             child.afterMarginAmt = +child?.totalWithFreightWithGST + +child?.marginAmt;
+            boqMarginTotal += +child?.marginAmt;
+            boqAfterMarginTotal += +child?.afterMarginAmt;
           });
-  
         });
+
+        el.totalMargin = boqMarginTotal;
+        el.afterTotalMargin = boqAfterMarginTotal;
+        // el.totalTarget = boqTargetTotal;
+        // el.totalTargetWQty = boqTargetWQtyTotal;
+        this.totalDirectMargin += +el?.totalMargin;
       });
     } else {
       if (this.targetDirect === null || this.targetDirect === undefined) {
@@ -275,29 +326,36 @@ export class CostingApprovalComponent {
       }
   
       this.rowData.directCost[0].boq?.forEach((el: any) => {
+        let boqTargetTotal = 0;
+        let boqTargetWQtyTotal = 0;
+
         el?.items?.forEach((data: any) => {
           data.targetDirect = this.targetDirect;
           data.targetUnitPrice = +data?.unit_price * (1 - (data?.targetDirect / 100));
+          data.targetTotalPrice = +data?.targetUnitPrice * +data.qty;
+          boqTargetTotal += +data?.targetUnitPrice;
+          boqTargetWQtyTotal += +data?.targetTotalPrice;
   
           data?.childItemList?.forEach((child: any) => {
             child.targetDirect = this.targetDirect;
             child.targetUnitPrice = +child?.unit_price * (1 - (child?.targetDirect / 100));
+            child.targetTotalPrice = +child?.targetUnitPrice * +child.qty;
+            boqTargetTotal += +child?.targetUnitPrice;
+            boqTargetWQtyTotal += +child?.targetTotalPrice;
           });
-  
         });
+
+        el.totalTarget = boqTargetTotal;
+        el.totalTargetWQty = boqTargetWQtyTotal;
       });
     }
-
-    // this.totalProjectCost = this.overallDirectCost + this.overallInDirectCost;
-    // this.totalMargin = (this.totalProjectCost * this.marginPer) / 100;
-    // this.totalProjectCostWithMargin = this.totalProjectCost + this.totalMargin;
-    // this.totalProfit = +this.rowData?.ecv - this.totalProjectCostWithMargin;
-    // this.profitPer = (this.totalProfit / +this.rowData?.ecv) * 100;
   }
 
   recalculatePrices(item: any, val:string) {
     debugger
     if(val == 'direct') {
+      this.totalDirectMargin = 0;
+
       if (item.marginDirect === null || item.marginDirect === undefined) {
         item.marginDirect = 0;
       } else if (item.marginDirect < 0) {
@@ -305,11 +363,67 @@ export class CostingApprovalComponent {
       } else if (item.marginDirect > 100) {
         item.marginDirect = 100;
       }
+
       item.marginAmt = (+item.totalWithFreightWithGST * item.marginDirect) / 100;
       item.afterMarginAmt = +item.totalWithFreightWithGST + +item.marginAmt;
       item.targetUnitPrice = +item?.unit_price * (1 - (item?.targetDirect / 100));
+      item.targetTotalPrice = +item?.targetUnitPrice * +item.qty;
+
+      this.rowData.directCost[0]?.boq?.forEach((el: any) => {
+
+        let boqMarginTotal = 0;
+        let boqAfterMarginTotal = 0;
+        let boqTargetTotal = 0;
+        let boqTargetWQtyTotal = 0;
+
+        el?.items?.forEach((data: any) => {
+          if (data.margin_direct == "0.00") {
+            boqMarginTotal += +data?.marginAmt;
+            boqAfterMarginTotal += +data?.afterMarginAmt;
+          } else {
+            boqMarginTotal += +data?.marginAmt;
+            boqAfterMarginTotal += +data?.afterMarginAmt;
+          }
+
+          if (data.target_direct == "0.00") {
+            boqTargetTotal += +data?.targetUnitPrice;
+            boqTargetWQtyTotal += +data?.targetTotalPrice;
+          } else {
+            boqTargetTotal += +data?.targetUnitPrice;
+            boqTargetWQtyTotal += +data?.targetTotalPrice;
+          }
+
+          data?.childItemList?.forEach((child: any) => {
+            if (child.margin_direct == "0.00") {
+              boqMarginTotal += +child?.marginAmt;
+              boqAfterMarginTotal += +child?.afterMarginAmt;
+            } else {
+              boqMarginTotal += +child?.marginAmt;
+              boqAfterMarginTotal += +child?.afterMarginAmt;
+            }
+
+            if (child.target_direct == "0.00") {
+              boqTargetTotal += +child?.targetUnitPrice;
+              boqTargetWQtyTotal += +child?.targetTotalPrice;
+            } else {
+              boqTargetTotal += +child?.targetUnitPrice;
+              boqTargetWQtyTotal += +child?.targetTotalPrice;
+            }
+          });
+
+        });
+
+        el.totalMargin = boqMarginTotal;
+        el.afterTotalMargin = boqAfterMarginTotal;
+        el.totalTarget = boqTargetTotal;
+        el.totalTargetWQty = boqTargetWQtyTotal;
+        this.totalDirectMargin += +el?.totalMargin;
+      });
       
     } else {
+
+      this.totalIndirectMargin = 0;
+
       if (item.marginIndirect === null || item.marginIndirect === undefined) {
         item.marginIndirect = 0;
       } else if (item.marginIndirect < 0) {
@@ -317,8 +431,29 @@ export class CostingApprovalComponent {
       } else if (item.marginIndirect > 100) {
         item.marginIndirect = 100;
       }
+      
       item.marginAmt = (+item.total * item.marginIndirect) / 100;
       item.afterMarginAmt = +item.total + +item.marginAmt;
+      
+      this.rowData.indirectCost?.forEach((el: any) => {
+        let marginTotal = 0;
+        let postMarginTotal = 0;
+
+        el?.records?.forEach((data: any) => {
+          if (data.margin_indirect == "0.00") {
+            marginTotal += +data?.marginAmt;
+            postMarginTotal += +data?.afterMarginAmt;
+          } else {
+            marginTotal += +data?.marginAmt;
+            postMarginTotal += +data?.afterMarginAmt;
+          }
+        });
+
+        el.totalMargin = marginTotal;
+        el.totalAfterMarginAmt = postMarginTotal;
+        this.totalIndirectMargin += +el?.totalMargin;
+      });
+
     }
 
   }
