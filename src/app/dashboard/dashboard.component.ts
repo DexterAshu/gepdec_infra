@@ -1230,11 +1230,15 @@ export class DashboardComponent implements OnInit {
   selectedDuration: number | null = null;
   selectedCategory: number | null = null;
   selectedCompany: number | null = null;
+  selectedProject: number | null = null;
   dashboardData: any;
   performaceBar: any = [];
   // progressBar: any = [];
   progressBar: ProgressBarItem[] = [];
   allProgressBar: ProgressBarItem[] = [];
+  pagedProgressBar: ProgressBarItem[] = [];
+  itemsPerPage: number = 10;
+  currentPage: number = 1;
   yAxisLabel = 'Tender Title';
   xAxisLabel3 = '';
   yAxisLabel3 = 'Amount (Cr)';
@@ -1387,8 +1391,11 @@ export class DashboardComponent implements OnInit {
     // this.getCategoryData();
     this.getCatgData();
     this.getStatusData();
-    this.getDashboardData();
-
+//     const defaultDuration: number | null = null;
+// const defaultCategory: number | null = null;
+// const defaultCompany: number | null = null;
+    // this.getDashboardData(defaultDuration, defaultCategory, defaultCompany, null);
+    this.getDashboardData(null, null, null, null, null, null);
     // this.getCompanyData();
 
     this.form = this.formBuilder.group({
@@ -1399,7 +1406,6 @@ export class DashboardComponent implements OnInit {
       company: [null, Validators.required],
       project: [null, Validators.required],
     })
-    this.getCountryData();
     this.getCountryData();
   }
 
@@ -1421,6 +1427,7 @@ export class DashboardComponent implements OnInit {
         const india = this.countryData.find((country: { name: string; }) => country.name === 'India');
         if (india) {
           this.form.patchValue({ country_id: india.country_id });
+          this.StateData(); // Automatically fetch state data for India
         }
       } else {
         this.alertService.warning("Looks like no data available in country data.");
@@ -1433,8 +1440,8 @@ export class DashboardComponent implements OnInit {
     console.log(this.form.value.country_id);
 
     let countrydata = this.form.value.country_id;
-    let statedata = null;
-    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
+    // let statedata = null;
+    this.apiService.getStateData(countrydata, null).subscribe((res: any) => {
       if (res.status === 200) {
         this.stateData = res.result;
       } else {
@@ -1480,7 +1487,7 @@ export class DashboardComponent implements OnInit {
     this.masterService.getCompData().subscribe((res: any) => {
       this.isNotFound = false;
       if (res.status == 200) {
-        this.companyData = res.result;
+        this.companyData = res.result.reverse();
       } else {
         this.alertService.warning("Looks like no company data available!");
       }
@@ -1506,11 +1513,37 @@ export class DashboardComponent implements OnInit {
     this.callProjectApiIfReady();
   }
 
+  onProjectChange(event: any) {
+    this.selectedProject = event.target.value;
+    if (this.selectedProject) {
+      this.getDashboardData(
+        this.selectedDuration, 
+        this.selectedCategory, 
+        this.selectedCompany, 
+        this.selectedProject, 
+        this.form.value.state_id, 
+        this.form.value.country_id
+      );
+    }
+  }
+
   callProjectApiIfReady() {
     if (this.selectedDuration !== null && this.selectedCategory !== null && this.selectedCompany !== null) {
       this.getProjData(this.selectedDuration, this.selectedCategory, this.selectedCompany);
     }
   }
+
+  // callProjectApiIfReady() {
+  //   if (this.selectedDuration === null) {
+  //     this.alertService.warning("Please select a duration first.");
+  //   } else if (this.selectedCompany === null) {
+  //     this.alertService.warning("Please select a company.");
+  //   } else if (this.selectedCategory === null) {
+  //     this.alertService.warning("Please select a category.");
+  //   } else {
+  //     this.getProjData(this.selectedDuration, this.selectedCategory, this.selectedCompany);
+  //   }
+  // }
 
   getProjData(financialyearId: number, categoryId: number, companyId: number) {
     this.isNotFound = true;
@@ -1616,14 +1649,25 @@ export class DashboardComponent implements OnInit {
   //     });
   // }
 
-  getDashboardData() {
+  getDashboardData( duration: number | null, category: number | null, company: number | null, project: number | null, stateId: number | null, countryId: number | null) {
+    // Construct URL with query parameters
+    let apiUrl = `${environment.apiUrl}/dashboard/api/v1/getLandingDashboard`; // Change this to your actual API endpoint
+    const queryParams: string[] = [];
+    if (duration !== null) queryParams.push(`financialyear_id=${duration}`);
+    if (category !== null) queryParams.push(`qacatagory_id=${category}`);
+    if (company !== null) queryParams.push(`bidder_id=${company}`);
+    if (project !== null) queryParams.push(`tender_id=${project}`);
+    if (stateId !== null) queryParams.push(`state_id=${stateId}`);
+    if (countryId !== null) queryParams.push(`country_id=${countryId}`);
+    if (queryParams.length > 0) apiUrl += '?' + queryParams.join('&');
     this.isNotFound = true;
     this.loading = true;
-    this.masterService.getDashboard().subscribe((res: any) => {
+    this.masterService.getDashboard(apiUrl).subscribe((res: any) => {
       this.isNotFound = false;
+      this.loading = false;
       this.dashboardData = [];
       if (res.status === 200) {
-        this.loading = false;
+        // this.loading = false;
         this.dashboardData = res;
 
         // Ensure topFiveTender is not null before using it
@@ -1686,7 +1730,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // onPageChange(page: number) {
+  //   this.currentPage = page;
+  //   this.updatePagedData();
+  // }
 
+  // updatePagedData() {
+  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  //   const endIndex = startIndex + this.itemsPerPage;
+  //   this.pagedProgressBar = this.allProgressBar.slice(startIndex, endIndex);
+  // }
+  
   onBarClick(event: any) {
     const clickedBar = this.allProgressBar.find(bar => bar.name === event.name);
     console.log('clickedBar', clickedBar)

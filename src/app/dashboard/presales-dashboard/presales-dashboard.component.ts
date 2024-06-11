@@ -67,7 +67,9 @@ export class PresalesDashboardComponent {
   countryData: any;
   stateData: any;
   companyData: any;
-  
+  financialData: any;
+  categoryData: any;
+
   onSelect(event:any) {
   
   }
@@ -522,6 +524,11 @@ export class PresalesDashboardComponent {
   isNotFound: boolean = false;
   loading: boolean = false;
   preSalesDashData: any;
+  selectedDuration: number | null = null;
+  selectedCategory: number | null = null;
+  selectedCompany: number | null = null;
+  selectedProject: number | null = null;
+  projectData: any;
   pieChartData: any = [];
   topFiveOrder: any[] = [];
   barChartData: any = [];
@@ -546,16 +553,21 @@ export class PresalesDashboardComponent {
   this.fiveYear = this.sharedService.lastFiveYears();
   this.getCountryData();
   this.getSegmentData();
-  this.getPresalesDashData();
+  this.finYearData();
+  this.getCompanyData();
+  this.getCatgData();
+  this.getPresalesDashData(null, null, null, null, null, null);
 
   this.form = this.formBuilder.group({
     country_id: [null, Validators.required],
     state_id: [null, Validators.required],
+    duration: [null, Validators.required],
+    category: [null, Validators.required],
     company: [null, Validators.required],
+    project: [null, Validators.required],
   });
   // Fetch country data and set default value to India
   this.getCountryData();
-  this.getCompanyData();
   }
 
   ngAfterViewInit() {
@@ -594,19 +606,102 @@ export class PresalesDashboardComponent {
     });
   }
 
+  finYearData() {
+    this.isNotFound = true;
+    this.masterService.getFinData().subscribe((res: any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+        this.financialData = res.result;
+      } else {
+        this.alertService.warning("Looks like no financial year data available!");
+      }
+    }, (error: any) => {
+      console.error(error);
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText);
+    });
+  }
+
+  getCatgData() {
+    this.isNotFound = true;
+    this.masterService.getCategoryData().subscribe((res: any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+        this.categoryData = res.catagory;
+      } else {
+        this.alertService.warning("Looks like no category data available!");
+      }
+    }, (error: any) => {
+      console.error(error);
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText);
+    });
+  }
+
   getCompanyData() {
     this.companyData = [];
     const apiLink = `/mycompany/api/v1/getMyComapanyList`;
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
-        this.companyData = res.result;
-        const company = this.companyData.find((company: any) => company.bidder_name === 'Gepdec Infratech Limited');
-        if (company) {
-          this.form.patchValue({ company: company.bidder_id });
-        }
+        this.companyData = res.result.reverse();
+        // const company = this.companyData.find((company: any) => company.bidder_name === 'Gepdec Infratech Limited');
+        // if (company) {
+        //   this.form.patchValue({ company: company.bidder_id });
+        // }
       } else {
         this.alertService.warning("Looks like no data available in company data.");
       }
+    });
+  }
+
+  onDurationChange(event: any) {
+    this.selectedDuration = event.target.value;
+    this.callProjectApiIfReady();
+  }
+
+  onCategoryChange(event: any) {
+    this.selectedCategory = event.target.value;
+    this.callProjectApiIfReady();
+  }
+
+  onCompanyChange(event: any) {
+    this.selectedCompany = event.target.value;
+    this.callProjectApiIfReady();
+  }
+
+  onProjectChange(event: any) {
+    this.selectedProject = event.target.value;
+    if (this.selectedProject) {
+      this.getPresalesDashData(
+        this.selectedDuration, 
+        this.selectedCategory, 
+        this.selectedCompany, 
+        this.selectedProject, 
+        this.form.value.state_id, 
+        this.form.value.country_id
+      );
+    }
+  }
+
+  callProjectApiIfReady() {
+    if (this.selectedDuration !== null && this.selectedCategory !== null && this.selectedCompany !== null) {
+      this.getProjData(this.selectedDuration, this.selectedCategory, this.selectedCompany);
+    }
+  }
+
+  getProjData(financialyearId: number, categoryId: number, companyId: number) {
+    this.isNotFound = true;
+    this.masterService.getProjectData(financialyearId, categoryId, companyId).subscribe((res: any) => {
+      this.isNotFound = false;
+      if (res.status == 200) {
+        this.projectData = res.result;
+      } else {
+        this.alertService.warning("Looks like no project data available!");
+      }
+    }, (error: any) => {
+      console.error(error);
+      this.isNotFound = false;
+      this.alertService.error("Error: " + error.statusText);
     });
   }
 
@@ -665,14 +760,24 @@ export class PresalesDashboardComponent {
     
   });
   
-  getPresalesDashData() {
+  getPresalesDashData(duration: number | null, category: number | null, company: number | null, project: number | null, stateId: number | null, countryId: number | null) {
+    let apiUrl = `${environment.apiUrl}/dashboard/api/v1/getPreSalesDashboard`; // Change this to your actual API endpoint
+    const queryParams: string[] = [];
+    if (duration !== null) queryParams.push(`financialyear_id=${duration}`);
+    if (category !== null) queryParams.push(`qacatagory_id=${category}`);
+    if (company !== null) queryParams.push(`bidder_id=${company}`);
+    if (project !== null) queryParams.push(`tender_id=${project}`);
+    if (stateId !== null) queryParams.push(`state_id=${stateId}`);
+    if (countryId !== null) queryParams.push(`country_id=${countryId}`);
+    if (queryParams.length > 0) apiUrl += '?' + queryParams.join('&');
     this.isNotFound = true;
     this.loading = true;
-    this.masterService.getPreSaleDashboard().subscribe((res: any) => {
+    this.masterService.getPreSaleDashboard(apiUrl).subscribe((res: any) => {
         this.isNotFound = false;
+        this.loading = false;
         this.preSalesDashData = [];
         if (res.status === 200) {
-            this.loading = false;
+            // this.loading = false;
             this.preSalesDashData = res;
             console.log( this.preSalesDashData);
 

@@ -85,7 +85,7 @@
             <div class="form-group row">
               <label class="col-sm-4 col-form-label">Project</label>
               <div class="col-sm-8">
-                <select formControlName="project" class="form-select form-select-sm">
+                <select formControlName="project" class="form-select form-select-sm" (change)="onProjectChange($event)">
                   <!-- <option>All</option>
                           <option>Jaunpur Project</option>
                           <option>Noida project</option> -->
@@ -408,10 +408,10 @@
             <div class="col-md-12">
               <form [formGroup]="form">
                 <div class="d-flex">
-                  <div class="col-md-4">
+                  <div class="col-md-9">
                     <p class="card-title mb-2">Budget | Expense</p>
                   </div>
-                  <div class="col-md-3">
+                  <!-- <div class="col-md-3">
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Duration</label>
                       <div class="col-sm-8">
@@ -422,22 +422,19 @@
                         </select>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-2">
+                  </div> -->
+                  <!-- <div class="col-md-2">
                     <div class="form-group row">
                       <label class="col-sm-5 col-form-label">Status</label>
                       <div class="col-sm-7">
                         <select class="form-select form-select-sm" (change)="onStatusChange($event)">
-                          <!-- <option>All</option>
-                            <option value="open">Open</option>
-                            <option value="closed">Closed</option> -->
                           <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                           <option *ngFor="let c of statusData" value="{{c.tenderstatus_id}}">{{ c.tender_status }}
                           </option>
                         </select>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="col-md-3">
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Projects</label>
@@ -602,6 +599,9 @@
             <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
               data-bs-target="#progressBarModal">More Detail</button>
           </div>
+          <!-- <div class="pagination-sec text-center">
+            <pagination-controls id="pagination1" (pageChange)="onPageChange($event)" [autoHide]="true"></pagination-controls>
+          </div> -->
         </div>
       </div>
     </div>

@@ -167,19 +167,31 @@ getProjectData2(tenderstatusId: number): Observable<any> {
   const url = `${environment.apiUrl}/biding/api/v1/getTenderlist?tenderstatus_id=${tenderstatusId}`;
   return this.http.get<any>(url, httpOptions);
 }
-getDashboard(): Observable<any> {
-  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-  return this.http.get<any>(`${environment.apiUrl}/dashboard/api/v1/getLandingDashboard`, httpOptions);
+// Dashboard
+getDashboard(apiUrl: string): Observable<any> {
+  const httpOptions = { 
+    headers: new HttpHeaders({ 
+      'Content-Type': 'application/json', 
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token 
+    })
+  };
+  // Make the HTTP GET request with the provided apiUrl
+  return this.http.get<any>(apiUrl, httpOptions);
 }
 getTenderDetail(tenderId: any): Observable<any> {
   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
   return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getTenderDetail/${tenderId}`, httpOptions);
 }
 //Presales Dashboard
-getPreSaleDashboard(): Observable<any> {
-  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-  return this.http.get<any>(`${environment.apiUrl}/dashboard/api/v1/getPreSalesDashboard`, httpOptions);
+getPreSaleDashboard(apiUrl: string): Observable<any> {
+  const httpOptions = { 
+    headers: new HttpHeaders({ 
+      'Content-Type': 'application/json', 
+      'auth-token': JSON.parse(localStorage.getItem('user') || '').token 
+    })
+  };
+  // Make the HTTP GET request with the provided apiUrl
+  return this.http.get<any>(apiUrl, httpOptions);
 }
-
 
 }

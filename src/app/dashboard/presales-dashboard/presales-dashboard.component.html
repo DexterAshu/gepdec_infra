@@ -46,12 +46,18 @@
                 <div class="form-group row">
                   <label class="col-sm-5 col-form-label">Duration</label>
                   <div class="col-sm-7">
-                    <select class="form-select form-select-sm">
+                    <!-- <select class="form-select form-select-sm">
                       <option>All</option>
                       <option>April 22 - March 23</option>
                       <option>April 23 - March 24</option>
                       <option>April 24 - March 25</option>
                       <option>April 25 - March 26</option>
+                    </select> -->
+                    <select formControlName="duration" class="form-select form-select-sm"
+                    (change)="onDurationChange($event)">
+                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
+
                     </select>
                   </div>
                 </div>
@@ -60,7 +66,7 @@
                 <div class="form-group row">
                   <label class="col-sm-5 col-form-label">Company</label>
                   <div class="col-sm-7">
-                    <select class="form-select form-select-sm" formControlName="company">
+                    <select class="form-select form-select-sm" formControlName="company" (change)="onCompanyChange($event)">
                       <!-- <option>All</option>
                       <option>GEPDEC Energy Project</option>
                       <option>GEPDEC Infra Project</option> -->
@@ -74,10 +80,18 @@
                 <div class="form-group row">
                   <label class="col-sm-5 col-form-label"> Category</label>
                   <div class="col-sm-7">
-                    <select class="form-select form-select-sm">
+                    <!-- <select class="form-select form-select-sm">
                       <option>All</option>
                       <option>Meter</option>
                       <option>220/33kV, 80MVA Power Transformer</option>
+                    </select> -->
+                    <select formControlName="category" class="form-select form-select-sm"
+                      (change)="onCategoryChange($event)">
+                      <!-- <option>All</option>
+                              <option>Meter</option>
+                              <option>220/33kV, 80MVA Power Transformer</option> -->
+                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">{{ c.qacatagory }}</option>
                     </select>
                   </div>
                 </div>
@@ -86,10 +100,17 @@
                 <div class="form-group row">
                   <label class="col-sm-4 col-form-label">Project</label>
                   <div class="col-sm-8">
-                    <select class="form-select form-select-sm">
+                    <!-- <select class="form-select form-select-sm">
                       <option>All</option>
                       <option>Jaunpur Project</option>
                       <option>Noida project</option>
+                    </select> -->
+                    <select formControlName="project" class="form-select form-select-sm" (change)="onProjectChange($event)">
+                      <!-- <option>All</option>
+                              <option>Jaunpur Project</option>
+                              <option>Noida project</option> -->
+                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option *ngFor="let c of projectData" value="{{c.tender_id}}">{{ c.tender_title }}</option>
                     </select>
                   </div>
                 </div>
@@ -578,7 +599,7 @@
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
-                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i
+                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms && t.tenderpayment_terms.length > 30">...<i
                         class="mdi mdi-information"></i></span>
                   </div>
                 </td>
@@ -651,7 +672,7 @@
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
-                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i
+                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms && t.tenderpayment_terms.length > 30">...<i
                         class="mdi mdi-information"></i></span>
                   </div>
                 </td>
@@ -722,7 +743,7 @@
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
-                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i
+                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms && t.tenderpayment_terms.length > 30">...<i
                         class="mdi mdi-information"></i></span>
                   </div>
                 </td>
@@ -795,7 +816,7 @@
                 <td>{{t.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>
                   <div data-toggle="tooltip" data-placement="bottom" title="{{ t?.tenderpayment_terms }}">
-                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms.length > 30">...<i
+                    {{t?.tenderpayment_terms | slice:0:30}} <span *ngIf="t?.tenderpayment_terms && t.tenderpayment_terms.length > 30">...<i
                         class="mdi mdi-information"></i></span>
                   </div>
                 </td>
