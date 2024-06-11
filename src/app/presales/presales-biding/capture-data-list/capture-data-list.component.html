@@ -144,7 +144,7 @@
                                 </td>
                                
 
-                                <td>{{ a.ecv | currency :'INR':'':'1.0-2'}}</td>
+                                <td class="text-end">{{ a.ecv | currency :'INR':'':'1.0-2'}}</td>
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{ a?.tender_status}}</td>
                                 <td>
@@ -182,7 +182,7 @@
 </div>
 
 <!-- list location details -->
-    <div class="modal fade" id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true" appDraggableModal>
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -197,6 +197,8 @@
                             <tr>
                                 <th>S No</th>
                                 <th>Execution Location</th>
+                                <!-- <th>District</th>
+                                <th>State</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -213,7 +215,11 @@
                                         {{ location }}
                                     </ng-template>
                                 </td>
+                                <!-- <td>{{ rowData?.district_name}}</td>
+                                <td>{{ rowData?.state_name }}</td> -->
                             </tr>
+                        
+                         
                         </tbody>
                     </table>
                 </div>
