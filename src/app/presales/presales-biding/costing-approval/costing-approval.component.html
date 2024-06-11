@@ -525,7 +525,7 @@
               </div>
 
               <h6 class="my-3 text-secondary">Previous Notes</h6>
-              <div class="card p-2 text-small" [innerHTML]="rowData?.remarks.join('<br>')"></div>
+              <div class="card p-2 text-small" [innerHTML]="rowData?.remarks?.join('<br>')"></div>
             
               <!-- <div class="col-md-12 mt-2" >
                   <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
@@ -993,6 +993,7 @@
                                           <th>Post Margin</th>
                                           <th>Target %</th>
                                           <th>Target Unit Pr</th>
+                                          <th>Target Total Pr</th>
                                         </tr>
                                       </thead>
                                       <tbody class="text-nowrap">
@@ -1050,8 +1051,8 @@
                                                 {{ item?.target_direct | currency: 'INR': '' : '1.0-2' }}
                                               </ng-template>
                                             </td>
-                                            <td class="text-end">{{ item?.targetUnitPrice | currency: 'INR': '' :
-                                              '1.0-2' }} </td>
+                                            <td class="text-end">{{ item?.targetUnitPrice | currency: 'INR': '' : '1.0-2' }} </td>
+                                            <td class="text-end">{{ item?.targetTotalPrice | currency: 'INR': '' : '1.0-2' }} </td>
                                           </tr>
 
                                           <ng-container *ngIf="item?.childItemList?.length > 0">
@@ -1111,8 +1112,8 @@
                                                   {{ childItem?.target_direct | currency: 'INR': '' : '1.0-2' }}
                                                 </ng-template>
                                               </td>
-                                              <td class="text-end">{{ childItem?.targetUnitPrice | currency: 'INR': '' :
-                                                '1.0-2' }} </td>
+                                              <td class="text-end">{{ childItem?.targetUnitPrice | currency: 'INR': '' : '1.0-2' }} </td>
+                                              <td class="text-end">{{ childItem?.targetTotalPrice | currency: 'INR': '' : '1.0-2' }} </td>
                                             </tr>
                                           </ng-container>
                                         </ng-container>
@@ -1122,16 +1123,17 @@
                                           <td class="text-end">{{ main?.purchaseCost | currency: 'INR': '' : '1.0-2' }}
                                           </td>
                                           <td colspan="2"></td>
-                                          <td class="text-end">{{ main?.purchaseCostWithGST | currency: 'INR': '' :
-                                            '1.0-2' }}</td>
+                                          <td class="text-end">{{ main?.purchaseCostWithGST | currency: 'INR': '' : '1.0-2' }}</td>
                                           <td></td>
-                                          <td class="text-end">{{ main?.purchaseCostWithFreight | currency: 'INR': '' :
-                                            '1.0-2' }}</td>
-                                          <td class="text-end">{{ main?.totalPurchaseAmount | currency: 'INR': '' :
-                                            '1.0-2' }} </td>
+                                          <td class="text-end">{{ main?.purchaseCostWithFreight | currency: 'INR': '' : '1.0-2' }}</td>
+                                          <td class="text-end">{{ main?.totalPurchaseAmount | currency: 'INR': '' : '1.0-2' }} </td>
 
                                           <td></td>
-                                          <td colspan="4"></td>
+                                          <td class="text-end">{{ main?.totalMargin | currency: 'INR': '' : '1.0-2' }}</td>
+                                          <td class="text-end">{{ main?.afterTotalMargin | currency: 'INR': '' : '1.0-2' }}</td>
+                                          <td></td>
+                                          <td class="text-end">{{ main?.totalTarget | currency: 'INR': '' : '1.0-2' }}</td>
+                                          <td class="text-end">{{ main?.totalTargetWQty | currency: 'INR': '' : '1.0-2' }}</td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -1320,7 +1322,7 @@
               <!-- Indirect Costing End -->
 
               <!-- Costing Summary -->
-              <!-- <div class="mt-3" *ngIf="rowData?.directCost.length > 0 && rowData?.indirectCost.length > 0">
+              <div class="mt-3" *ngIf="rowData?.directCost.length > 0 && rowData?.indirectCost.length > 0">
                 <div class="col-md-12 p-0">
                   <div class="table-responsive tableStyle" style="min-height: auto;">
                     <h6 class="mb-2 text-secondary">Costing Summary</h6>
@@ -1329,8 +1331,8 @@
                         <tr>
                           <th>Direct Costing (A)</th>
                           <th>InDirect Costing (B)</th>
-                          <th>Margin % (C)</th>
-                          <th>Margin Cost (D=((A+B)*C)/100)</th>
+                          <!-- <th>Margin % (C)</th> -->
+                          <th>Margin Cost (D=((A+B)*m%)/100)</th>
                           <th>Total Cost (E=A+B+D)</th>
                           <th>ECV (F)</th>
                           <th>Project Profit (G=F-E)</th>
@@ -1338,21 +1340,21 @@
                         </tr>
                       </thead>
                       <tbody class="text-nowrap">
-                        <tr>
-                          <td>{{ overallDirectCost | currency:'INR':'':'1.0-2' }}</td>
+                        <tr class="fw-bold">
+                          <td>{{ overallDirectCost | currency: 'INR': '' : '1.0-2' }}</td>
                           <td>{{ overallInDirectCost | currency:'INR':'':'1.0-2' }}</td>
-                          <td>{{ marginPer }}</td>
-                          <td>{{ totalMargin | currency:'INR':'':'1.0-2' }}</td>
-                          <td>{{ totalProjectCostWithMargin | currency:'INR':'':'1.0-2' }}</td>
+                          <!-- <td>{{ marginPer }}</td> -->
+                          <td>{{ (totalDirectMargin + totalIndirectMargin) | currency:'INR':'':'1.0-2' }}</td>
+                          <td>{{ (totalDirectMargin + totalIndirectMargin + overallDirectCost + overallInDirectCost) | currency:'INR':'':'1.0-2' }}</td>
                           <td>{{ rowData?.ecv | currency: 'INR': '' : '1.0-2' }}</td>
-                          <td>{{ totalProfit | currency:'INR':'':'1.0-2' }}</td>
-                          <td>{{ profitPer   | currency:'INR':'':'1.0-2' }} %</td>
+                          <td>{{ +rowData?.ecv - +(totalDirectMargin + totalIndirectMargin + overallDirectCost + overallInDirectCost) | currency:'INR':'':'1.0-2' }}</td>
+                          <td>{{ ((+rowData?.ecv - +(totalDirectMargin + totalIndirectMargin + overallDirectCost + overallInDirectCost)) / +rowData?.ecv) * 100  | currency:'INR':'':'1.0-2' }} %</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
-              </div> -->
+              </div>
               <!-- Costing Summary -->
 
 
