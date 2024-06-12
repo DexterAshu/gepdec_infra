@@ -836,36 +836,47 @@ export class PresalesDashboardComponent {
             this.participatedData = this.preSalesDashData.cardData[2].data;
             this.wonData = this.preSalesDashData.cardData[3].data;
             // // Pie chart 
-            if (this.preSalesDashData.cardData) {
-              this.pieChartData = this.preSalesDashData.cardData
-                .filter((item: any) => item.status !== 'Published') // Exclude 'Published' status
-                .map((item: any) => {
-                  // var wonPer = (item.won_count/ item.participatedCount)* 100;
-                  // console.log('wonPer-->', this.preSalesDashData.cardData);
-                  
-                  return {
-                    name: `${item.status}`,
-                    value: item.count,
-                  };
-                });
-            }
-            // Pie chart 
             // if (this.preSalesDashData.cardData) {
             //   this.pieChartData = this.preSalesDashData.cardData
             //     .filter((item: any) => item.status !== 'Published') // Exclude 'Published' status
             //     .map((item: any) => {
-            //       let label = item.status;
-            //       if (item.status === 'Won') {
-            //         label = `${item.status} (${item.count}%)`;
-            //       } else {
-            //         label = `${item.status} (${item.count})`;
-            //       }
+            //       // var wonPer = (item.won_count/ item.participatedCount)* 100;
+            //       console.log('wonPer-->', this.preSalesDashData.cardData);
+                  
             //       return {
-            //         name: label,
+            //         name: `${item.status}`,
             //         value: item.count,
             //       };
             //     });
             // }
+
+            // Find counts for 'Participated' and 'Won'
+            const participatedItem = this.preSalesDashData.cardData.find((item: { status: string; }) => item.status === 'Participated');
+            const wonItem = this.preSalesDashData.cardData.find((item: { status: string; }) => item.status === 'Won');
+
+            let wonPercentage = 0;
+
+            // Calculate the percentage if both 'Participated' and 'Won' items are found
+            if (participatedItem && wonItem) {
+              wonPercentage = (wonItem.count / participatedItem.count) * 100;
+            }
+
+            console.log('Won Percentage:', wonPercentage);
+            this.pieChartData = this.preSalesDashData.cardData
+            .filter((item: { status: string; }) => item.status !== 'Published') 
+            .map((item: { status: string; count: any; }) => {
+              let label;
+              if (item.status === 'Won') {
+                label = `Won (${Math.round(wonPercentage)}%)`; // Using Math.round to remove decimal places
+              } else {
+                label = `${item.status} (${item.count})`;
+              }
+
+              return {
+                name: label,
+                value: item.status === 'Won' ? Math.round(wonPercentage) : item.count, // Using rounded percentage for 'Won'
+              };
+            });
 
           //   //  vertical bar chart
           if (this.preSalesDashData.performanceData) {
