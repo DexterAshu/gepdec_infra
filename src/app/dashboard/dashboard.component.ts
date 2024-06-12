@@ -1457,16 +1457,16 @@ export class DashboardComponent implements OnInit {
       this.isNotFound = false;
       if (res.status == 200) {
         this.financialData = res.result;
-        const currentDate = new Date();
-        const currentFinYear = this.financialData.find((f: any) => {
-          const startDate = new Date(f.start_date);
-          const endDate = new Date(f.end_date);
-          return currentDate >= startDate && currentDate <= endDate;
-        });
+        // const currentDate = new Date();
+        // const currentFinYear = this.financialData.find((f: any) => {
+        //   const startDate = new Date(f.start_date);
+        //   const endDate = new Date(f.end_date);
+        //   return currentDate >= startDate && currentDate <= endDate;
+        // });
 
-        if (currentFinYear) {
-          this.form.patchValue({ duration: currentFinYear.financialyear_id });
-        }
+        // if (currentFinYear) {
+        //   this.form.patchValue({ duration: currentFinYear.financialyear_id });
+        // }
       } else {
         this.alertService.warning("Looks like no financial year data available!");
       }
@@ -1499,10 +1499,10 @@ export class DashboardComponent implements OnInit {
       this.isNotFound = false;
       if (res.status == 200) {
         this.companyData = res.result.reverse();
-        const company = this.companyData.find((company: any) => company.bidder_name === 'Gepdec Infratech Limited');
-        if (company) {
-          this.form.patchValue({ company: company.bidder_id });
-        }
+        // const company = this.companyData.find((company: any) => company.bidder_name === 'Gepdec Infratech Limited');
+        // if (company) {
+        //   this.form.patchValue({ company: company.bidder_id });
+        // }
       } else {
         this.alertService.warning("Looks like no company data available!");
       }
