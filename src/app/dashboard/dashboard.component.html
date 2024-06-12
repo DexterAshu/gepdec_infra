@@ -326,7 +326,7 @@
           <!-- <p class=" col-md-6 p-1 bg-warning text-center rounded">$000</p> -->
 
           <div class="chartBar" #containerRef5 routerLink="/dashboard/fin-dashboard">
-            <ngx-charts-area-chart [view]="[containerRef5.offsetWidth, 190]" [scheme]="lineColorSchemeFinance"
+            <!-- <ngx-charts-area-chart [view]="[containerRef5.offsetWidth, 190]" [scheme]="lineColorSchemeFinance"
               [legend]="false" [gradient]="true" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
               [xAxis]="xAxisf" [yAxis]="yAxisf" [xAxisLabel]="xAxisLabelf" [yAxisLabel]="yAxisLabelf"
               [results]="lineChartFinance" (select)="onSelect($event)">
@@ -340,13 +340,32 @@
                 </p>
               </ng-template>
 
+            </ngx-charts-area-chart> -->
+            <ngx-charts-area-chart 
+              [view]="[containerRef5.offsetWidth, 190]" 
+              [scheme]="lineColorSchemeFinance"
+              [legend]="false" 
+              [gradient]="true" 
+              [showXAxisLabel]="showXAxisLabel" 
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxis]="xAxisf" 
+              [yAxis]="yAxisf" 
+              [xAxisLabel]="xAxisLabelf" 
+              [yAxisLabel]="yAxisLabelf"
+              [results]="lineAreaChart">
+              <ng-template #tooltipTemplate let-model="model">
+                <p class="p-0 m-0">{{ model.series }}</p>
+                <!-- <p>{{ model.name }}: {{ model.value }}</p> -->
+                <p>{{ model.name }}: {{ model.formattedValue }}</p>
+              </ng-template>
             </ngx-charts-area-chart>
 
           </div>
           <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank per_box1"></i> Rev</li>
-            <li><i class="mdi mdi-checkbox-blank per_box2"></i> Exp</li>
-            <li><i class="mdi mdi-checkbox-blank per_box3"></i> EBITDA</li>
+            <!-- <li><i class="mdi mdi-checkbox-blank per_box2"></i> Exp</li> -->
+            <li><i class="mdi mdi-checkbox-blank per_box2"></i> EBITDA</li>
+            <!-- <li><i class="mdi mdi-checkbox-blank per_box3"></i> EBITDA</li> -->
           </ul>
         </div>
       </div>

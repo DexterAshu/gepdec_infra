@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService, ApiService, MasterService, SharedService } from 'src/app/_services';
 import { Chart } from 'angular-highcharts';
 import { environment } from 'src/environments/environment';
+import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-presales-dashboard',
@@ -69,6 +70,8 @@ export class PresalesDashboardComponent {
   companyData: any;
   financialData: any;
   categoryData: any;
+  totalCount: number = 0;
+  wonCountPer: string = '';
 
   onSelect(event:any) {
   
@@ -288,7 +291,7 @@ export class PresalesDashboardComponent {
         },
         {
           "name": "2022",
-          "value": 200
+          "value": 210
         },
         {
           "name": "2023",
@@ -308,7 +311,7 @@ export class PresalesDashboardComponent {
       
         {
           "name": "2020",
-          "value": 200,
+          "value": 150,
         },
         {
           "name": "2021",
@@ -316,7 +319,7 @@ export class PresalesDashboardComponent {
         },
         {
           "name": "2022",
-          "value": 170,
+          "value": 110,
         },
         {
           "name": "2023",
@@ -324,38 +327,65 @@ export class PresalesDashboardComponent {
         },
         {
           "name": "2024",
-          "value": 550,
+          "value": 450,
         },
       
       ]
     },
-    // {
-    //   "name": "Ebitda",
-    //   "series": [
+    {
+      "name": "Ebitda",
+      "series": [
        
-    //     {
-    //       "name": "2020",
-    //       "value": 100
-    //     },
-    //     {
-    //       "name": "2021",
-    //       "value": 100
-    //     },
-    //     {
-    //       "name": "2022",
-    //       "value": 100
-    //     },
-    //     {
-    //       "name": "2023",
-    //       "value": 50
-    //     },
-    //     {
-    //       "name": "2024",
-    //       "value": 50
-    //     },
+        {
+          "name": "2020",
+          "value": 50
+        },
+        {
+          "name": "2021",
+          "value": 150
+        },
+        {
+          "name": "2022",
+          "value": 270
+        },
+        {
+          "name": "2023",
+          "value": 50
+        },
+        {
+          "name": "2024",
+          "value": 80
+        },
       
-    //   ]
-    // },
+      ]
+    },
+    {
+      "name": "Revenue",
+      "series": [
+     
+        {
+          "name": "2020",
+          "value": 100
+        },
+        {
+          "name": "2021",
+          "value": 150
+        },
+        {
+          "name": "2022",
+          "value": 230
+        },
+        {
+          "name": "2023",
+          "value": 350
+        },
+        {
+          "name": "2024",
+          "value": 500
+        },
+       
+      ]
+    }
     ];
   
   pieData=[
@@ -427,7 +457,7 @@ export class PresalesDashboardComponent {
   domain: ['#fd4747', '#ffc100', '#71c016' , '#476fb0']
   }
   colorSchemeLoadQuarter:any ={
-    domain: ['#9775dc' , '#3eaf3e']
+    domain: ['#9775dc' , '#3eaf3e', '#7ccbfd', '#ff9900']
     }
   colorSchemeLoadQuarter1:any ={
     domain: ['#9775dc' , '#7ccbfd', '#5783d0','#fe926a']
@@ -536,6 +566,7 @@ export class PresalesDashboardComponent {
   qualifiedData: any;
   participatedData: any;
   wonData: any;
+  wonVal:any = 0;
   constructor(
     private sharedService: SharedService,
     private apiService: ApiService,
@@ -612,6 +643,16 @@ export class PresalesDashboardComponent {
       this.isNotFound = false;
       if (res.status == 200) {
         this.financialData = res.result;
+        const currentDate = new Date();
+        const currentFinYear = this.financialData.find((f: any) => {
+          const startDate = new Date(f.start_date);
+          const endDate = new Date(f.end_date);
+          return currentDate >= startDate && currentDate <= endDate;
+        });
+
+        if (currentFinYear) {
+          this.form.patchValue({ duration: currentFinYear.financialyear_id });
+        }
       } else {
         this.alertService.warning("Looks like no financial year data available!");
       }
@@ -644,10 +685,10 @@ export class PresalesDashboardComponent {
     this.apiService.getData(apiLink).subscribe((res:any) => {
       if (res.status === 200) {
         this.companyData = res.result.reverse();
-        // const company = this.companyData.find((company: any) => company.bidder_name === 'Gepdec Infratech Limited');
-        // if (company) {
-        //   this.form.patchValue({ company: company.bidder_id });
-        // }
+        const company = this.companyData.find((company: any) => company.bidder_name === 'Gepdec Infratech Limited');
+        if (company) {
+          this.form.patchValue({ company: company.bidder_id });
+        }
       } else {
         this.alertService.warning("Looks like no data available in company data.");
       }
@@ -759,7 +800,10 @@ export class PresalesDashboardComponent {
   
     
   });
-  
+  totalOccupied: number = 1000;
+  isPercentageSeries(seriesName: string): boolean {
+    return seriesName === 'Won';
+  }
   getPresalesDashData(duration: number | null, category: number | null, company: number | null, project: number | null, stateId: number | null, countryId: number | null) {
     let apiUrl = `${environment.apiUrl}/dashboard/api/v1/getPreSalesDashboard`; // Change this to your actual API endpoint
     const queryParams: string[] = [];
@@ -791,32 +835,67 @@ export class PresalesDashboardComponent {
             this.qualifiedData = this.preSalesDashData.cardData[1].data;
             this.participatedData = this.preSalesDashData.cardData[2].data;
             this.wonData = this.preSalesDashData.cardData[3].data;
-            // Pie chart 
+            // // Pie chart 
             if (this.preSalesDashData.cardData) {
               this.pieChartData = this.preSalesDashData.cardData
                 .filter((item: any) => item.status !== 'Published') // Exclude 'Published' status
                 .map((item: any) => {
+                  // var wonPer = (item.won_count/ item.participatedCount)* 100;
+                  // console.log('wonPer-->', this.preSalesDashData.cardData);
+                  
                   return {
-                    name: item.status,
+                    name: `${item.status}`,
                     value: item.count,
                   };
                 });
             }
+            // Pie chart 
+            // if (this.preSalesDashData.cardData) {
+            //   this.pieChartData = this.preSalesDashData.cardData
+            //     .filter((item: any) => item.status !== 'Published') // Exclude 'Published' status
+            //     .map((item: any) => {
+            //       let label = item.status;
+            //       if (item.status === 'Won') {
+            //         label = `${item.status} (${item.count}%)`;
+            //       } else {
+            //         label = `${item.status} (${item.count})`;
+            //       }
+            //       return {
+            //         name: label,
+            //         value: item.count,
+            //       };
+            //     });
+            // }
 
-            //  vertical bar chart
-            if (this.preSalesDashData.performanceData) {
-              this.barChartData = this.preSalesDashData.performanceData.map((item: any) => {
-                  return {
-                      name: item.year,
-                      series: [
-                          { name: 'Total', value: +item.published_count },
-                          { name: 'Qualified', value: +item.qualified_count },
-                          { name: 'Participated', value: +item.participated_count },
-                          { name: 'Won', value: +item.won_count }
-                      ]
-                  };
-              });
+          //   //  vertical bar chart
+          if (this.preSalesDashData.performanceData) {
+            this.barChartData = this.preSalesDashData.performanceData.map((item: any) => {
+
+              var publishedCount = parseInt(item.published_count);
+              var qualifiedCount = parseInt(item.qualified_count);
+              var participatedCount = parseInt(item.participated_count);
+              var wonCount = parseInt(item.won_count);
+              
+              var totalCount = publishedCount + qualifiedCount + participatedCount + wonCount;
+                      // var wonCountPer = ((item.won_count / totalCount) * 100).toFixed(2);
+                      var wonCountPer = Math.floor((item.won_count / totalCount) * 100);
+
+
+        console.log(totalCount+"= "+item.published_count+", "+item.participated_count+", "+item.qualified_count+", "+item.won_count)
+        console.log('wonCountPercentage', wonCountPer);
+              
+                return {
+                    name: item.year,
+                    series: [
+                        { name: 'Published', value: +item.published_count },
+                        { name: 'Qualified', value: +item.qualified_count },
+                        { name: 'Participated', value: +item.participated_count },
+                        { name: 'Won', value: wonCountPer }
+                    ]
+                };
+            });
           }
+
         } else {
             this.alertService.warning("Looks like no data available!");
         }
@@ -828,4 +907,5 @@ export class PresalesDashboardComponent {
         this.alertService.error("Error: " + error.statusText);
     });
   }
+  
 }

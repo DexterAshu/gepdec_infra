@@ -1370,6 +1370,7 @@ export class DashboardComponent implements OnInit {
   }
   // lineBar chart end
   tenderDetails: any[] = [];
+  lineAreaChart: any = [];
   constructor(
     private sharedService: SharedService,
     private apiService: ApiService,
@@ -1456,6 +1457,16 @@ export class DashboardComponent implements OnInit {
       this.isNotFound = false;
       if (res.status == 200) {
         this.financialData = res.result;
+        const currentDate = new Date();
+        const currentFinYear = this.financialData.find((f: any) => {
+          const startDate = new Date(f.start_date);
+          const endDate = new Date(f.end_date);
+          return currentDate >= startDate && currentDate <= endDate;
+        });
+
+        if (currentFinYear) {
+          this.form.patchValue({ duration: currentFinYear.financialyear_id });
+        }
       } else {
         this.alertService.warning("Looks like no financial year data available!");
       }
@@ -1488,6 +1499,10 @@ export class DashboardComponent implements OnInit {
       this.isNotFound = false;
       if (res.status == 200) {
         this.companyData = res.result.reverse();
+        const company = this.companyData.find((company: any) => company.bidder_name === 'Gepdec Infratech Limited');
+        if (company) {
+          this.form.patchValue({ company: company.bidder_id });
+        }
       } else {
         this.alertService.warning("Looks like no company data available!");
       }
@@ -1579,6 +1594,16 @@ export class DashboardComponent implements OnInit {
       return Math.floor(value / 100000) + ' Lakh';
     } else {
       return Math.floor(value).toString();
+    }
+  }
+
+  formatNumber(value: number): string {
+    if (value >= 10000000) {
+      return Math.floor(value / 10000000) + ' Cr';
+    } else if (value >= 100000) {
+      return Math.floor(value / 100000) + ' Lac';
+    } else {
+      return value.toString();
     }
   }
 
@@ -1690,11 +1715,34 @@ export class DashboardComponent implements OnInit {
           });
         }
 
+        
+      // Map revenueResult to lineChartFinance
+      if (this.dashboardData.revenueResult) {
+        this.lineAreaChart = [
+          {
+            name: "Rev",
+            series: this.dashboardData.revenueResult.map((item: any) => ({
+              name: item.year,
+              value: +item.revenue,
+              formattedValue: this.formatNumber(+item.revenue)
+            }))
+          },
+          {
+            name: "EBITDA",
+            series: this.dashboardData.revenueResult.map((item: any) => ({
+              name: item.year,
+              value: +item.ebidta,
+              formattedValue: this.formatNumber(+item.ebidta)
+            }))
+          }
+        ];
+      }
+
         // Pie chart data mapping with null checks
         if (this.dashboardData.topFiveLocationWise) {
           this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
             return {
-              name: item.state_name || 'Unknown',
+              name: item.state_name || 'Other',
               value: item.state_count ? +item.state_count : 0,
             };
           });
@@ -1729,7 +1777,7 @@ export class DashboardComponent implements OnInit {
       this.alertService.error("Error: " + error.statusText);
     });
   }
-
+  
   // onPageChange(page: number) {
   //   this.currentPage = page;
   //   this.updatePagedData();

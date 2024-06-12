@@ -374,13 +374,33 @@
             <!-- <a class="float-right col-md-2" routerLink="">Next <i class="mdi mdi-arrow-right-drop-circle-outline text-center"></i></a> -->
           </div>
 
-          <div class="chartBar" #containerRef4>
-            <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth,190]" [scheme]="colorSchemeLoadQuarter1"
-              [results]="barChartData" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
-              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
-              [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="5" [groupPadding]="7">
-            </ngx-charts-bar-vertical-2d>
-          </div>
+            <div class="chartBar" #containerRef4>
+              <!-- <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth,190]" [scheme]="colorSchemeLoadQuarter1"
+                [results]="barChartData" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
+                [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
+                [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="5" [groupPadding]="7">
+              </ngx-charts-bar-vertical-2d> -->
+              <ngx-charts-bar-vertical-2d 
+                [view]="[containerRef4.offsetWidth, 190]" 
+                [scheme]="colorSchemeLoadQuarter1"
+                [results]="barChartData" 
+                [xAxis]="showXAxis" 
+                [gradient]="true" 
+                [yAxis]="showYAxis"
+                [showXAxisLabel]="showXAxisLabel" 
+                [showYAxisLabel]="showYAxisLabel" 
+                [xAxisLabel]="xAxisLabelBarLoad"
+                [yAxisLabel]="yAxisLabelBarLoad" 
+                [barPadding]="5" 
+                [groupPadding]="7"
+              >
+                <ng-template #tooltipTemplate let-model="model">
+                  <p class="p-0 m-0">{{model.series}}</p>
+                  <p *ngIf="model.name === 'Won'">{{model.name}}: {{model.value}}%</p>
+                  <p *ngIf="model.name !== 'Won'">{{model.name}}: {{model.value}}</p>
+                </ng-template>
+              </ngx-charts-bar-vertical-2d>
+            </div>
           <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total</li>
             <li><i class="mdi mdi-checkbox-blank load_box2"></i> Qualified</li>
@@ -410,6 +430,22 @@
             <ngx-charts-pie-chart [view]="[containerRef6.offsetWidth - 35, 220]" [scheme]="lineColorScheme"
               [labels]="showLabelsPie" [gradient]="false" [doughnut]="true" [legend]="true" [results]="pieChartData">
             </ngx-charts-pie-chart>
+            <!-- <ngx-charts-pie-chart 
+    [view]="[containerRef6.offsetWidth - 35, 220]" 
+    [scheme]="lineColorScheme"
+    [labels]="showLabelsPie" 
+    [gradient]="false" 
+    [doughnut]="true" 
+    [legend]="true" 
+    [results]="pieChartData">
+    <ng-template #tooltipTemplate let-model="model">
+      <span style="padding: 8px; line-height: 1.8;">
+        {{ model.name.split(' (')[0] }}
+        <ng-container *ngIf="model.name.includes('Won')"> {{ model.value }}% </ng-container>
+        <ng-container *ngIf="!model.name.includes('Won')"> {{ model.value }} </ng-container>
+      </span>
+    </ng-template>
+  </ngx-charts-pie-chart> -->
           </div>
 
 
@@ -435,6 +471,8 @@
             <li><i class="mdi mdi-checkbox-blank l_box1"></i> Target</li>
             <!-- <li><i class="mdi mdi-checkbox-blank l_box2"></i> Participation</li> -->
             <li><i class="mdi mdi-checkbox-blank l_box3"></i> Achievement</li>
+            <li><i class="mdi mdi-checkbox-blank l_box2"></i> EBITDA</li>
+            <li><i class="mdi mdi-checkbox-blank l_box4"></i> Revenue</li>
           </ul>
 
         </div>
