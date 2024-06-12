@@ -143,6 +143,7 @@ import { CompFinanceComponent } from './masters/comp-finance/comp-finance.compon
 import { DirectCostingComponent } from './presales/presales-biding/direct-costing/direct-costing.component';
 import localeIn from '@angular/common/locales/en-IN';
 import { CommonModule, registerLocaleData } from '@angular/common';
+import { DraggableModalDirective } from './drag-directive';
 
 // Register the locale data for 'en-IN'
 registerLocaleData(localeIn, 'en-IN');
@@ -156,6 +157,7 @@ import { PreSalesMasterDrawingListComponent } from './presales/design/pre-sales-
 
 @NgModule({
   declarations: [
+    DraggableModalDirective,
     UsdOnlyDirective,
     AppComponent,
     HeaderComponent,

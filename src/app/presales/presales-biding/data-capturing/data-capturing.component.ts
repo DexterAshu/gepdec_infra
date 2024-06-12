@@ -134,7 +134,7 @@ export class DataCapturingComponent implements OnDestroy {
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
       city:[null],
-      financialyear_id: [null, Validators.required],
+      // financialyear_id: [null, Validators.required],
 
       //securitydeposit
       securitydeposit_id: [null, Validators.required],
@@ -389,7 +389,7 @@ export class DataCapturingComponent implements OnDestroy {
           country_id: this.custDetails.country_id,
           state_id: this.custDetails.state_id,
           district_id: this.custDetails.district_id,
-          financialyear_id: this.custDetails.financialyear_id,
+          // financialyear_id: this.custDetails.financialyear_id,
           remarks: this.custDetails.remarks ? this.custDetails.remarks.join('\n') : '',
           audit_trail: this.custDetails.audit_trail ? this.custDetails.audit_trail.join('\n') : '',
           contactperson_check: this.custDetails.contactperson_check,
