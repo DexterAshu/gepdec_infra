@@ -61,12 +61,13 @@
                                 <td>{{a?.bidder_name}}</td>
                                 <td>{{a?.bidderdocumenttype}}</td>
                                 <td>{{a?.issue_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-                                <td>{{a?.filename.slice(13)}}</td>
+                                <!-- <td>{{a?.filename.slice(13)}}</td> -->
+                                <td>{{ a?.filename ? formatFilename(a.filename) : '' }}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
-                                    <a  data-bs-toggle="modal" data-bs-target="#detailModal"
+                                    <a (click)="rowListData(a)"  data-bs-toggle="modal" data-bs-target="#detailModal"
                                        ><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
@@ -219,3 +220,55 @@
     </div>
 </div>
 <!-- create-bulk data form-model end -->
+<!-- detail modal -->
+
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <div class="table-responsive" style="min-height: auto;">
+                                <table class="table table-hover table-striped custom-table table-bordered">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th colspan="6" class="text-center">Tender Detail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Company</th>
+                                            <td>{{ rowData?.bidder_name }}</td>
+                                            <th>Document Name</th>
+                                            <td>{{ rowData?.bidderdocumenttype }}</td>
+                                            <th>Issued Date</th>
+                                            <td>{{ rowData?.issue_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Attachment</th>
+                                            <td>{{ rowData?.filename ? formatFilename(rowData.filename) : '' }}</td>
+                                            <th></th>
+                                            <td></td>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h6 class="mb-2 mt-3 text-secondary">Company Document</h6>
+                            <iframe [src]="pdfFile" width="100%" height="600px"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail modal end-->

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-our-company-finanace-data',
@@ -43,12 +44,14 @@ export class OurCompanyFinanaceDataComponent {
   listOfFiles: any[] = [];
   attachment: any[] = [];
   docData: any;
-
+  rowData: any;
+  pdfFile: SafeResourceUrl = '';
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
     private alertService: AlertService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
@@ -91,6 +94,18 @@ export class OurCompanyFinanaceDataComponent {
     })
   }
 
+  formatFilename(filename: string): string {
+    return filename.replace(/^\d+[-]?/, '');
+  }
+
+  rowListData(row: any) {
+    this.rowData = [];
+    this.rowData = row;
+    this.pdfFile = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.apiUrl}/${row.document}`);
+
+    console.log(this.rowData)
+  }
+  
   getCompanyType() {
     const apiLink = `/mycompany/api/v1/getMyComapanyDropdown`;
     this.apiService.getData(apiLink).subscribe((res: any) => {
