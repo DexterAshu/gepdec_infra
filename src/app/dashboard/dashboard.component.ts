@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
   // totalOccupied:any;
   helloData:any=[19, 80, 30, 20, 70, 90, 80, 30, 20, 40]
   // yAxisLabel2 = 'Data Value';
-  arrayData=['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida']  // totalOccupied:any;
+  arrayData = ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL', 'RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida']  // totalOccupied:any;
 
 
 
@@ -721,7 +721,7 @@ export class DashboardComponent implements OnInit {
       ]
     },
   ];
-  
+
   totalOccupied: number = 1000;
   isPercentageSeries(seriesName: string): boolean {
     return seriesName === 'Rev' || seriesName === 'EBITDA';
@@ -861,7 +861,7 @@ export class DashboardComponent implements OnInit {
     domain: ['#387df3', '#FFBF00', '#FF7F50']
   }
   lineColorSchemeFinance: any = {
-    domain: ['#4c8ce9', '#f59e35', '#75efb3']
+    domain: ['#9370DB', '#87CEFA', '#5e96f7']
   }
   mainColorScheme: any = {
     domain: ['#43e943', '#fad73c', '#9775dc']
@@ -1366,7 +1366,7 @@ export class DashboardComponent implements OnInit {
   lineBarColorScheme: any = {
     // domain: ['#cee27d', '#63830c']
     // domain: ['#d6a974', '#97daa7']
-    domain: ['#90EE90', '#FA8072']
+    domain: ['#90EE90', '#fcbe53']
   }
   // lineBar chart end
   tenderDetails: any[] = [];
@@ -1422,7 +1422,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
+    this.apiService.getCountryDataList().subscribe((res: any) => {
       if (res.status === 200) {
         this.countryData = res.result;
         const india = this.countryData.find((country: { name: string; }) => country.name === 'India');
@@ -1435,8 +1435,7 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-  
-  
+
   StateData() {
     console.log(this.form.value.country_id);
 
@@ -1899,7 +1898,7 @@ export class DashboardComponent implements OnInit {
       align: 'right'
     },
     xAxis: {
-      categories:this.arrayData ,
+      categories: this.arrayData,
       title: {
         text: null
       },
@@ -1907,8 +1906,8 @@ export class DashboardComponent implements OnInit {
       lineWidth: 0,
       labels: {
         useHTML: true,
-     
-    }
+
+      }
     },
     yAxis: {
       min: 0,
@@ -1927,7 +1926,7 @@ export class DashboardComponent implements OnInit {
     plotOptions: {
       bar: {
         borderRadius: '50%',
-        borderColor:'red',
+        borderColor: 'red',
         dataLabels: {
           enabled: true
         },
@@ -1953,43 +1952,39 @@ export class DashboardComponent implements OnInit {
     series: [{
       type: 'bar', // Specify the type of chart series
       name: 'Actual',
-     
-      data:this.helloData ,
-   
+
+      data: this.helloData,
+
       dataLabels: {
         enabled: true,
         useHTML: true,
         inside: true,
         align: 'right',
-        formatter: function() {
+        formatter: function () {
           // return this.data > 130 ? this.y + ' mm' : null;
- 
-        if((this as Point).y<=20)
-          {
-         return `<div style="width: 10px;
+
+          if ((this as Point).y <= 20) {
+            return `<div style="width: 10px;
                 height: 10px;
                  box-shadow: 2px 2px 3px #696969;
                  border-radius: 5px;
-                 background-color: green;"></div> `  
-          }else if((this as Point).y>20 && ((this as Point).y<50))
-            {
-              return `<div style="width:10px;height:10px;background-color:orange;
+                 background-color: green;"></div> `
+          } else if ((this as Point).y > 20 && ((this as Point).y < 50)) {
+            return `<div style="width:10px;height:10px;background-color:orange;
               box-shadow: 2px 2px 3px #696969;
-                 border-radius: 5px;"></div> `  
- 
-            }else if((this as Point).y>50)
-              {
-                return `<div style="width:10px;height:10px;background-color:red;
+                 border-radius: 5px;"></div> `
+
+          } else if ((this as Point).y > 50) {
+            return `<div style="width:10px;height:10px;background-color:red;
                 box-shadow: 2px 2px 3px #696969;
-                 border-radius: 5px;"></div> `  
- 
-              }else
-              {
-                return ''
- 
-              }
-  // return ''
-           
+                 border-radius: 5px;"></div> `
+
+          } else {
+            return ''
+
+          }
+          // return ''
+
           // if((this as Point).x<20)
           //   {
           //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
@@ -1998,17 +1993,17 @@ export class DashboardComponent implements OnInit {
           //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
           //   }
           // return ((this as Point).x<20?`<div style="width:10px;height:10px;background-color:red;" ></div>`:`<div style="width:10px;height:10px;background-color:red;" ></div>`)
-      }
+        }
         // formatter: function() {
         //  if(this.point.name=='')
-         
+
         // //   return this.colorIndex
         // // return `<div class="hii" style="width:10px;height:10px;background-color:red;"></div>`
         // //   // return `<img src="https://findicons.com/files/icons/2315/default_icon/256/arrow_down.png" style="width: 30px;margin-top:-10px"><img>`;
         // }
       }
     }],
- 
+
     colors: ['#49b59a', '#FF6067', '#f9d84a'] // Assign three different colors to the bars
   });
 
