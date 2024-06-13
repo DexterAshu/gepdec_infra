@@ -15,7 +15,7 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any[]>(`${environment.apiUrl}/state/api/v1/getCountry`, httpOptions);
   }
-
+  
   getStateData(data: any, state_id: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     const params = new HttpParams({ fromString: `country_id=${data}&state_id=${state_id}` });
@@ -414,6 +414,10 @@ export class ApiService {
     return this.http.put<any[]>(`${environment.apiUrl}/biding/api/v1/tenderApproval`, data, httpOptions);
   }
 
+  addAttachmentCod(data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.post(`${environment.apiUrl}/biding/api/v1/addFinalDocumentSubmission`, data, httpOptions);
+  }
   createInventoryIssuance(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post(`${environment.apiUrl}/inventory/api/v1/inventoryIssuance`, data, httpOptions);
