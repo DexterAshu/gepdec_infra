@@ -41,6 +41,7 @@ export class TenderDocumentComponent {
   imageLink: SafeResourceUrl = '';
   pdfFile: SafeResourceUrl = '';
   excelFile: string = '';
+  rowData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -126,13 +127,53 @@ export class TenderDocumentComponent {
     });
   }
 
+  // rowListData(row: any) {
+  //   this.rowData = [];
+  //   this.rowData = row;
+  //   console.log('this.rowData--->',this.rowData);
+    
+  //   // this.pdfFile = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.apiUrl}/${row.document}`);
+  // }
+//   extractFileNames(filePaths: string): string[] {
+//     const regex = /\/documents\/[\d-]*([a-zA-Z0-9_.-]+\.[a-zA-Z0-9]+)$/;
+//     return filePaths.split(',').map(path => {
+//         const match = path.match(regex);
+//         return match ? match[1] : path;
+//     });
+// }
+  // rowListData(row: any) {
+  //   this.rowData = [];  // Initialize as an empty array
+  //   this.rowData.push(row);  // Add the object to the array
+  //   console.log('this.rowData--->', this.rowData);
+  // }
+  // Example usage within a method
+  rowListData(row: any) {
+    this.rowData = [];
+    const processedRow = {
+        document: this.extractFileNames(row.document).join(', '), // Join filenames into a single string
+        filecount: row.filecount,
+        images: row.images,
+        pdfs: row.pdfs,
+        excels: row.excels
+    };
+    this.rowData.push(processedRow);
+    console.log('this.rowData--->', this.rowData);
+  }
+
+  extractFileNames(filePaths: string): string[] {
+      const regex = /\/documents\/[\d-]*([a-zA-Z0-9_.-]+\.[a-zA-Z0-9]+)$/;
+      return filePaths.split(',').map(path => {
+          const match = path.match(regex);
+          return match ? match[1] : path;
+      });
+  }
+
   showImage(data: string) {
     console.log(data);
     // this.imageLink = `${environment.apiUrl}/${data}`;
     this.imageLink = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.apiUrl}/${data}`);
     console.log(this.imageLink);
   }
-
   showPdf(data: string) {
     console.log('pdf file-->', data);
     this.pdfFile = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.apiUrl}/${data}`);

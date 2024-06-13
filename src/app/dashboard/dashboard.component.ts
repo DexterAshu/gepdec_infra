@@ -1889,7 +1889,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  
+  chartOptions: any;
   Highcharts = new Chart({
     chart: {
       type: 'bar'
