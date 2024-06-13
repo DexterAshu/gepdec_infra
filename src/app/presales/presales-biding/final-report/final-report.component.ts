@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'app-tender-final-approval',
-  templateUrl: './tender-final-approval.component.html',
-  styleUrls: ['./tender-final-approval.component.css']
+  selector: 'app-final-report',
+  templateUrl: './final-report.component.html',
+  styleUrls: ['./final-report.component.css']
 })
-export class TenderFinalApprovalComponent implements OnDestroy{
+export class FinalReportComponent {
   form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
@@ -308,4 +308,3 @@ export class TenderFinalApprovalComponent implements OnDestroy{
     this.destroy$.complete();
   }
 }
-

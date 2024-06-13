@@ -1,0 +1,7 @@
+<div *ngIf="!!text; else noTextBlock" class="tooltip-container" [attr.title]="text">
+    {{ displayText }}
+    <span *ngIf="text.length > maxLength">...<i class="mdi mdi-information"></i></span>
+</div>
+<ng-template #noTextBlock>
+    {{ text }}
+</ng-template>

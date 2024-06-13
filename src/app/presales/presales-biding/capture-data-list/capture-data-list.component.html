@@ -181,7 +181,7 @@
     </div>
 </div>
 
-<!-- list location details start-->
+<!-- list location details -->
     <div class="modal fade " id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true" appDraggableModal>
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -262,7 +262,6 @@
             </div>
         </div>
     </div>
-    <!-- list location details end-->
 
 <!-- detail modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -637,469 +636,66 @@
 
                             </div>
 
-                            <!-- qualification details -->
-                            <!-- <div class="card p-2" (click)="finDataShow =! finDataShow">
+                            <div class="col-md-12 mt-2 p-2 card" (click)="showPreviousDetails=!showPreviousDetails">
                                 <div class="row p-1">
-
                                     <div class="col-md-6">
-                                        <h6 class="mb-2 text-primary cursor-pointer" >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
-                                                <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z"/>
-                                              </svg> &nbsp;
-                                           Financial Qualification Details</h6>
-    
+                                      <h6 class="mb-2 text-primary cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
+                                            <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/>
+                                            <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
+                                            <path d="M9.979 5.356a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.926-.08L4.69 10H4.5a.5.5 0 0 0 0 1H5a.5.5 0 0 0 .447-.276l.936-1.873 1.138 3.793a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h.5a.5.5 0 0 0 0-1h-.128z"/>
+                                          </svg> &nbsp;
+                                          Historical Working Notes
+                                      </h6>
+                  
                                     </div>
-    
-                                        <div class="col-md-6">
-                                            <div class="float-right" title="Show/Hide Details">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd"
-                                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                                                </svg>
-                    
-                                            </div>
-                                        </div>
-                                </div>
-
-                                <div class="table-responsive tableStyle mt-2" *ngIf="finDataShow" style="min-height: auto !important;">
-                                    <div class="row p-2" style="background-color: #eceff7; border-radius: 5px;">
-                                        <div class="col-md-8 bg-darkblue">Data Required (As Per Tender)</div>
-                                        <div class="col-md-1"> | </div>
-                                        <div class="col-md-3 bg-darkblue text-center">Our Company Data</div>
+                  
+                                    <div class="col-md-6">
+                                      <div class="float-right" title="Show/Hide Details">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                          class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                          <path fill-rule="evenodd"
+                                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                        </svg>
+                  
+                                      </div>
                                     </div>
-                                    <table class="table table-hover table-striped mb-3" *ngFor="let a of rowData?.tenderfinancials">
-                                      
-                                        <thead class="table-primary text-nowrap">
-                                            <tr>
-                                                <th>Financial Parameters</th>
-                                                <th>Amounts (Cr)</th>
-                                                <th>Condition</th>
-                                                <th>Years</th>
-                                                <th>Fin Year</th>
-                                                <th>Our Values (Cr)</th>
-                                                <th>Result</th>
-                                            </tr>
-                                        </thead>
-                                       
-                                        <tbody class="text-nowrap">
-                                            <tr *ngIf=" a?.annual_turnover > 0">
-                                                <td>Annual Turnover</td>
-                                                <td>{{ a?.annual_turnover }}</td>
-                                                <td>
-                                                    <span *ngIf="!!a?.annual_turnover_check; else elseBlock11">
-                                                        {{ a?.annual_turnover_check }}
-                                                    </span>
-                                                    <ng-template #elseBlock11>
-                                                        --
-                                                    </ng-template>
-                                                </td>
-                                             
-                                                <td>{{ a?.annual_turnover_year }}</td>
-                                                <td>{{ a?.financialyear }}</td>
-                                                <td>{{ a?.our_annual_turnover}}</td>
-                                                <td>
-                                                    <div *ngIf=" a?.annual_turnover_status == true; else ifNot2">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot2>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr>
-    
-                                              
-                                               <tr *ngIf=" a?.net_profit > 0">
-                                             
-                                                <td>Net Profit</td>
-                                                <td>{{ a?.net_profit }}</td>
-                                                <td> -- </td>
-                                                <td>{{ a?.net_profit_year }}</td>
-                                                <td>{{ a?.net_profit_fin }}</td>
-                                                <td>{{ a?.our_net_profit}}</td>
-                                                <td>
-                                                    <div *ngIf=" a?.net_profit_status == true; else ifNot5">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot5>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr>
-                                             
-                                              <tr *ngIf=" a?.ebidta > 0">
-                                               
-                                                <td>EBIDTA</td>
-                                                <td>{{ a?.ebidta }}</td>
-                                                <td> -- </td>
-                                                <td>{{ a?.ebidta_year }}</td>
-                                                <td>{{ a?.ebidta_fin }}</td>
-                                                <td>{{ a?.our_ebidta}}</td>
-                                                <td>
-                                                    <div *ngIf=" a?.ebidta_status == true; else ifNot5">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot5>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr>
-    
-                                            <tr *ngIf=" a?.net_worth > 0">
-                                                <td>Net Worth</td>
-                                                <td>{{ a?.net_worth }}</td>
-                                                <td> -- </td>
-                                                <td>{{ a?.net_worth_year }}</td>
-                                                <td>{{ a?.net_worth_fin }}</td>
-                                                <td>{{ a?.our_net_worth}}</td>
-                                                <td>
-                                                    <div *ngIf=" a?.net_worth_status == true; else ifNot3">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot3>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr>
-                                            <tr *ngIf=" a?.net_working_capital > 0">
-                                                <td>Net Working Capital</td>
-                                                <td>{{ a?.net_working_capital }}</td>
-                                                <td> -- </td>
-                                                <td>{{ a?.net_working_capital_year }}</td>
-                                                <td>{{ a?.net_working_capital_fin }}</td>
-                                                <td>{{ a?.our_net_working_capital}}</td>
-                                                <td>
-                                                    <div *ngIf=" a?.net_working_status == true; else ifNot4">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot4>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr>
-                                     
-                                            <tr *ngIf=" a?.total_liabilities > 0">
-                                                <td>Total Liability</td>
-                                                <td>{{ a?.total_liabilities }}</td>
-                                                <td> -- </td>
-                                                <td>{{ a?.total_liabilities_year }}</td>
-                                                <td>{{ a?.total_liabilities_fin }}</td>
-                                                <td>{{ a?.our_total_liabilities}}</td>
-                                                <td>
-                                                    <div *ngIf=" a?.total_liabilities_status == true; else ifNot5">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot5>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr>
-                                            <tr *ngIf="a?.total_fixed_assets > 0">
-                                                <td>Total Fixed Asset</td>
-                                                <td>{{a?.total_fixed_assets }}</td>
-                                                <td> -- </td>
-                                                <td>{{a?.total_fixed_assets_year }}</td>
-                                                <td>{{a?.total_fixed_assets_fin }}</td>
-                                                <td>{{a?.our_total_fixed_assets}}</td>
-                                                <td>
-                                                    <div *ngIf="a?.total_fixed_assets_status == true; else ifNot5">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot5>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr>
-                                     
-                                            <tr *ngIf=" a?.reserve_surplus > 0">
-                                                <td>Reserve & Surplus</td>
-                                                <td>{{ a?.reserve_surplus }}</td>
-                                                <td> -- </td>
-                                                <td>{{ a?.reserve_surplus_year }}</td>
-                                                <td>{{ a?.reserve_surplus_fin }}</td>
-                                                <td>{{ a?.our_reserve_surplus}}</td>
-                                                <td>
-                                                    <div *ngIf=" a?.reserve_surplus_status == true; else ifNot5">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot5>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr>
-                                            <tr *ngIf=" a?.paid_upcapital > 0">
-                                                <td>Paid Up Capital</td>
-                                                <td>{{ a?.paid_upcapital }}</td>
-                                                <td> -- </td>
-                                                <td>{{ a?.paid_upcapital_year }}</td>
-                                                <td>{{ a?.paid_upcapital_fin }}</td>
-                                                <td>{{ a?.our_paid_upcapital}}</td>
-                                                <td>
-                                                    <div *ngIf=" a?.paid_upcapital_status == true; else ifNot5">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
-                                                            title="Qualified"></i>
-                                                    </div>
-                                                    <ng-template #ifNot5>
-                                                        <i class="mdi mdi-close-circle text-danger mdi-18px"
-                                                            title="Not-Qualified"></i>
-                                                    </ng-template>
-                                                </td>
-                                            </tr>
-                                      
-    
-                                            <tr *ngIf="rowData?.tenderfinancials.length == 0">
-                                                <td colspan="15" class="text-center">
-                                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                     
-                                    <table class="table table-hover table-striped mb-3" *ngIf="rowData?.tenderfinancials.length == 0">
-                                        <thead class="table-primary text-nowrap">
-                                            <tr>
-                                                <th>Financial Parameters</th>
-                                                <th>Amounts (Cr)</th>
-                                                <th>Condition</th>
-                                                <th>Years</th>
-                                                <th>Fin Year</th>
-                                                <th>Our Values (Cr)</th>
-                                                <th>Result</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-nowrap">
-                                            <tr>
-                                                <td colspan="15" class="text-center">
-                                                    <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                  </div>
+                               
+                                <div class="form-group" *ngIf="showPreviousDetails">
+                                    <p [innerHTML]="getFormattedRemarks()"></p>
                                 </div>
-
                             </div>
-                            <div class="card p-2 mt-1" (click)="techDataShow=!techDataShow">
-                                <div class="row p-1" >
-                                    <div class="col-md-6">
-                                        <h6 class="mb-2 text-primary cursor-pointer" >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-up" viewBox="0 0 16 16">
-                                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.854 1.5 1.5a.5.5 0 0 1-.708.708L13 11.707V14.5a.5.5 0 0 1-1 0v-2.793l-.646.647a.5.5 0 0 1-.708-.708l1.5-1.5a.5.5 0 0 1 .708 0"/>
-                                                <path d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4"/>
-                                              </svg> &nbsp;
-                                            Technical Qualification Details
-                                        </h6>
 
-                                    </div>
-        
+                            <div class="col-md-12 mt-2 p-2 card"  (click)="showWorkingDetails=!showWorkingDetails">
+                                <div class="row p-1">
                                     <div class="col-md-6">
-                                        <div class="float-right" title="Show/Hide Details">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd"
-                                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                                            </svg>
+                                    <h6 class="mb-2 text-primary cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cassette" viewBox="0 0 16 16">
+                                            <path d="M4 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2m9-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 6a1 1 0 0 0 0 2h2a1 1 0 1 0 0-2z"/>
+                                            <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zM1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-.691l-1.362-2.724A.5.5 0 0 0 12 10H4a.5.5 0 0 0-.447.276L2.19 13H1.5a.5.5 0 0 1-.5-.5zM11.691 11l1 2H3.309l1-2z"/>
+                                        </svg> &nbsp;
+                                        Activity Log Notes
+                                    </h6>
+                                    </div>
                 
-                                        </div>
+                                    <div class="col-md-6">
+                                    <div class="float-right" title="Show/Hide Details">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                        </svg>
+                
                                     </div>
-
+                                    </div>
                                 </div>
-
-                            <div class="container-fluid mt-1" *ngIf="techDataShow">
-                                <div class="row">
-                                    <div class="col-md-12 p-0">
-                                        <div class="table-responsive tableStyle" style="min-height: auto !important;">
-                                            <table class="table table-hover table-striped mb-3">
-                                                <thead class="table-primary text-nowrap">
-                                                    <tr>
-                                                        <th>S No</th>
-                                                        <th>Category</th>
-                                                        <th>Sub-Category</th>
-                                                        <th>Capacity</th>
-                                                        <th>Experience</th>
-                                                        <th>Completion Period</th>
-                                                        <th>Resource Used</th>
-                                                        <th>Completion Year</th>
-                                                        <th>Technical Point</th>
-                                                        <th>Result</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-nowrap">
-                                                    <tr *ngFor="let a of rowData?.prequalification; index as i">
-                                                        <td>{{ limit*(p-1)+i+1 }}</td>
-                                                        <td>{{ a?.qacatagory }}</td>
-                                                        <td>{{ a?.subqacatagory }}</td>
-                                                        <td>{{ a?.capacity }}</td>
-                                                        <td>{{ a?.total_experience}}</td>
-                                                        <td>{{ a?.completion_period}}</td>
-                                                        <td>{{ a?.resource_used}}</td>
-                                                        <td>{{ a?.completion_year}}</td>
-                                                        <td>{{ a?.technical_points}}</td>
-                                                        <td>
-                                                            <div *ngIf=" a?.qualified == true; else ifNot2">
-                                                                <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
-                                                            </div>
-                                                            <ng-template #ifNot2>
-                                                                <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
-                                                            </ng-template>
-                                                        </td>
-                                                    </tr>
-                                                 
-                                                    <tr *ngIf="rowData?.prequalification?.length == 0">
-                                                        <td colspan="15" class="text-center">
-                                                            <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                            
+                                <div class="form-group" *ngIf="showWorkingDetails">
+                                    <p [innerHTML]="getFormattedAuditTrail()"></p>
                                 </div>
                             </div>
-                            </div> -->
-
-
-                   <h6 class="my-3 text-secondary">Previous Notes</h6>
-                   <div class="card p-2 text-small" [innerHTML]="rowData?.remarks.join('<br>')"></div>
-                   
-                    <div class="col-md-12 mt-2" >
-                        <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-layer-backward" viewBox="0 0 16 16">
-                                <path
-                                    d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
-                                <path
-                                    d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
-                            </svg> &nbsp;
-                            Audit Trail
-                        </div>
-                        <div class="form-group mt-2" *ngIf="showWorkingDetails">
-                            <div class="card p-2 text-small" [innerHTML]="rowData?.audit_trail.join('<br>')"></div>
-                        </div>
-                    </div>
-                            
-                            <!-- tender status modal start-->
-                            <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.tender_status != 'Won'">
-                                <div class="row mt-3" *ngIf="rowData?.prequalification?.length !== 0 && rowData?.tenderfinancials.length !== 0" >
-                                        <div class="col-md-3" *ngIf="this.userData.rolename == 'Manager'">
-                                           
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Tender Status<span
-                                                        class="required-asterisk">*</span></label>
-                                                <select formControlName="tenderstatus_id"
-                                                    class="form-select form-select-sm">
-                                                    <option [value]="null" disabled selected>Select Status</option>
-                                                    <option *ngFor="let c of statusList" [value]="c.tenderstatus_id">{{
-                                                        c.tender_status }}</option>
-                                                </select>
-                                                <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
-                                                    <small class="text-danger"
-                                                        *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3" >
-                                          
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Request Status<span
-                                                        class="required-asterisk">*</span></label>
-                                                <select formControlName="tenderstatus_id"
-                                                    class="form-select form-select-sm">
-                                                    <option [value]="null" disabled selected>Select Status</option>
-                                                    <option *ngFor="let c of reqList" [value]="c.requeststatus_id">{{
-                                                        c.request_status }}</option>
-                                                </select>
-                                                <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
-                                                    <small class="text-danger"
-                                                        *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10">Remarks<span
-                                                        class="required-asterisk">*</span></label>
-                                                <input formControlName="working_notes" type="text"
-                                                    class="form-control form-control-sm">
-                                                <div *ngIf="f['working_notes'].touched && f['working_notes'].invalid">
-                                                    <small class="text-danger"
-                                                        *ngIf="f['working_notes'].errors?.['required']">*Required</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                 
-
-                                    <div class="col-md-12" >
-                                        <div class="presales" >
-                                            <button
-                                                *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'"
-                                                type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right"
-                                                [disabled]="form.invalid">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                                                </svg> &nbsp;Send For Approval
-                                            </button>
-                                        </div>
-
-                                        <ng-container *ngIf="this.userData.rolename === 'Administrator'">
-                                            <button
-                                                *ngIf="this.userData.rolename !== 'Manager' || this.userData.rolename !== 'PreSales'"
-                                                type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right"
-                                                [disabled]="form.invalid">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                                                </svg> &nbsp;Final Update
-                                            </button>
-                                        </ng-container>
-                                        <ng-container *ngIf="this.userData.rolename === 'Manager'">
-                                            <div class="float-right" >
-                                                <button (click)="sendBack()" type="text" *ngIf="!this.form.value.tenderstatus_id"
-                                                    class="btn btn-danger btn-fw btn-sm me-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-arrow-90deg-left"
-                                                        viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd"
-                                                            d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z" />
-                                                    </svg> &nbsp;Send Back
-                                                </button>
-                                                <button type="submit" class="btn btn-primary btn-fw btn-sm me-2 "
-                                                    [disabled]="form.invalid">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
-                                                    </svg> &nbsp;Approved
-                                                </button>
-
-                                            </div>
-                                        </ng-container>
-                                    </div>
-
-                                </div>
-
-                            </form> -->
-
-                            <!-- tender status modal end-->
-
+                         
                         </div>
                     </div>
                 </div>
