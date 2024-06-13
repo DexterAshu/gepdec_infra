@@ -154,7 +154,8 @@ import { UnderDevelopmentComponent } from './sharedComponent/under-development/u
 import { PreSalesDrawingComponent } from './presales/design/pre-sales-drawing/pre-sales-drawing.component';
 import { PreSalesFinalBOQComponent } from './presales/design/pre-sales-final-boq/pre-sales-final-boq.component';
 import { PreSalesMasterDrawingListComponent } from './presales/design/pre-sales-master-drawing-list/pre-sales-master-drawing-list.component';
-import { LocationModalComponent } from './sharedComponent/location-modal/location-modal.component';
+import { FinalReportComponent } from './presales/presales-biding/final-report/final-report.component';
+import { WonLossTenderComponent } from './presales/presales-biding/won-loss-tender/won-loss-tender.component';
 
 @NgModule({
   declarations: [
@@ -210,7 +211,7 @@ import { LocationModalComponent } from './sharedComponent/location-modal/locatio
     FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent,
     ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent, MaterialReceiptComponent, MaterialIssuanceComponent, BoqItemsComponent, SignInComponent, MasterDrawingListComponent, DrawingComponent, FinalBOQComponent, IndirectCostingComponent, SynopsisComponent,
     CompFinanceComponent, DirectCostingComponent, CostingApprovalComponent, TenderFinalApprovalComponent, UnderDevelopmentComponent,
-    PreSalesFinalBOQComponent, PreSalesDrawingComponent, PreSalesMasterDrawingListComponent, LocationModalComponent
+    PreSalesFinalBOQComponent, PreSalesDrawingComponent, PreSalesMasterDrawingListComponent, FinalReportComponent, WonLossTenderComponent
   ],
 
   imports: [

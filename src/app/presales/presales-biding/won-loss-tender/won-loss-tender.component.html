@@ -5,7 +5,7 @@
           <div class="d-flex align-items-end flex-wrap">
             <div class="mr-md-3 mr-xl-5">
               <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>
-                Synopsis with Attachments</h4>
+                Tender Final Result</h4>
             </div>
           </div>
           <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -188,7 +188,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tender/Bid - Costing & Attachment Details</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Tender/Bid - Final Result</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cancel"></button>
         </div>
         <div class="modal-body p-3">
@@ -1478,33 +1478,22 @@
 
                   <!-- tender attachment details stop -->
   
-                <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.approval_stage != 3">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.approval_stage != 4">
                   <div class="row mt-2">
-                      <!-- <div class="col-md-3">
+                      <div class="col-md-3">
                         <div class="form-group">
-                          <label class="form-label fl-10">Request Status<span class="required-asterisk">*</span></label>
+                          <label class="form-label fl-10">Tender Status<span class="required-asterisk">*</span></label>
                           <select formControlName="tenderstatus_id" class="form-select form-select-sm">
                             <option [value]="null" disabled selected>Select Status</option>
-                            <option *ngFor="let c of reqList" [value]="c.requeststatus_id">{{
-                              c.request_status }}</option>
+                            <option *ngFor="let c of rowData?.roleStatus" [value]="c.tenderstatus_id">{{
+                              c.tender_status }}</option>
                           </select>
                           <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
                             <small class="text-danger" *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
                           </div>
                         </div>
-                      </div> -->
+                      </div>
                       
-                      <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label fl-10"> Submitted On<span
-                                    class="required-asterisk">*</span></label>
-                            <input formControlName="submitted_on" type="date"
-                                class="form-control form-control-sm">
-                            <div
-                                *ngIf="f['submitted_on'].touched && f['submitted_on'].invalid">
-                            </div>
-                        </div>
-                    </div>
 
                       <div class="col-md-9">
                         <div class="form-group">
