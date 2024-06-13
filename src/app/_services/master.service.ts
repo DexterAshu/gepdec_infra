@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+
+interface ModalState {
+  isOpen: boolean;
+  locationArray?: any[];
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,34 +22,34 @@ export class MasterService {
 
   //user API
   getUserMaster(): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any>(`${environment.apiUrl}/user/api/v1/getUserMaster`, httpOptions);
   }
 
   userCreation(data: any): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.post<any[]>(`${environment.apiUrl}/user/api/v1/createuser`, data, httpOptions );
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.post<any[]>(`${environment.apiUrl}/user/api/v1/createuser`, data, httpOptions);
   }
 
   userUpdate(data: any): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.put<any[]>(`${environment.apiUrl}/user/api/v1/updateuser`, data, httpOptions );
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put<any[]>(`${environment.apiUrl}/user/api/v1/updateuser`, data, httpOptions);
   }
-  
+
   userByDepartment(id: any): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.get<any[]>(`${environment.apiUrl}/user/api/v1/getuser?usdt_id=${id}`, httpOptions );
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>(`${environment.apiUrl}/user/api/v1/getuser?usdt_id=${id}`, httpOptions);
   }
 
   //User-API
   getUserList(): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.get<any[]>( `${environment.apiUrl}/user/api/v1/getuser`, httpOptions );
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>(`${environment.apiUrl}/user/api/v1/getuser`, httpOptions);
   }
 
   getuserdetail(user_id: any): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.get<any[]>( `${environment.apiUrl}/user/api/v1/getUserDetails/${user_id}`, httpOptions );
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>(`${environment.apiUrl}/user/api/v1/getUserDetails/${user_id}`, httpOptions);
   }
 
   getCompanyData(): Observable<any> {
@@ -53,38 +58,38 @@ export class MasterService {
   }
 
   getStateData(): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any>(`${environment.apiUrl}/state/api/v1/getState`, httpOptions);
   }
   getDistrictData(): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any>(`${environment.apiUrl}/state/api/v1/getDistrict`, httpOptions);
   }
 
   getFinData(): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any>(`${environment.apiUrl}/financialyear/api/v1/getFinancialYear`, httpOptions);
   }
   //master-bank
   getBankData(): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any>(`${environment.apiUrl}/bank/api/v1/getBankDropdrown`, httpOptions);
   }
   getProjectList(): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get<any>(`${environment.apiUrl}/project/api/v1/projectList`, httpOptions);
   }
 
   //bulkload-L2 Schedule data
   bulkattach(data: any): Observable<any[]> {
-    const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.post<any[]>(`${environment.apiUrl}/bulkLoad/api/v1/assetBulkUpload`,data, httpOptions );
+    const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.post<any[]>(`${environment.apiUrl}/bulkLoad/api/v1/assetBulkUpload`, data, httpOptions);
   }
 
   //reset-password
   reset(user: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-    return this.http.put<any>(`${environment.apiUrl}/user/api/v1/updatepassword`, user, httpOptions );
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put<any>(`${environment.apiUrl}/user/api/v1/updatepassword`, user, httpOptions);
   }
 
   getECBData(): Observable<any> {
@@ -118,80 +123,93 @@ export class MasterService {
   }
 
   createWarehouse(data: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post(`${environment.apiUrl}/warehouse/api/v1/addWareHouse`, data, httpOptions);
   }
 
   updateWarehouse(data: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.put(`${environment.apiUrl}/warehouse/api/v1/updateWareHouse`, data, httpOptions);
   }
 
   getWHLocationData(): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.get(`${environment.apiUrl}/warehouse/api/v1/getLocationList`, httpOptions);
   }
 
   warehouseLocation(data: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post(`${environment.apiUrl}/warehouse/api/v1/addLocation`, data, httpOptions);
   }
 
-// *******************Dashboard******************************************
-//Dashboard Main- API's
-getCategoryData(): Observable<any> {
-  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-  return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getQualificationDropdown`, httpOptions);
-}
-getCompData(): Observable<any> {
-  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-  return this.http.get<any>(`${environment.apiUrl}/mycompany/api/v1/getMyComapanyList`, httpOptions);
-}
+  // *******************Dashboard******************************************
+  //Dashboard Main- API's
+  getCategoryData(): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getQualificationDropdown`, httpOptions);
+  }
+  getCompData(): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any>(`${environment.apiUrl}/mycompany/api/v1/getMyComapanyList`, httpOptions);
+  }
 
-getProjectData(financialyearId: number, categoryId: number, companyId: number): Observable<any> {
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })
-  };
-  const url = `${environment.apiUrl}/biding/api/v1/getTenderListByQaCatagory?financialyear_id=${financialyearId}&qacatagory_id=${categoryId}&bidder_id=${companyId}`;
-  return this.http.get<any>(url, httpOptions);
-}
+  getProjectData(financialyearId: number, categoryId: number, companyId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })
+    };
+    const url = `${environment.apiUrl}/biding/api/v1/getTenderListByQaCatagory?financialyear_id=${financialyearId}&qacatagory_id=${categoryId}&bidder_id=${companyId}`;
+    return this.http.get<any>(url, httpOptions);
+  }
 
-getStatusData(): Observable<any> {
-  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-  return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getTenderDropdown`, httpOptions);
-}
-getProjectData2(tenderstatusId: number): Observable<any> {
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })
-  };
-  const url = `${environment.apiUrl}/biding/api/v1/getTenderlist?tenderstatus_id=${tenderstatusId}`;
-  return this.http.get<any>(url, httpOptions);
-}
-// Dashboard
-getDashboard(apiUrl: string): Observable<any> {
-  const httpOptions = { 
-    headers: new HttpHeaders({ 
-      'Content-Type': 'application/json', 
-      'auth-token': JSON.parse(localStorage.getItem('user') || '').token 
-    })
-  };
-  // Make the HTTP GET request with the provided apiUrl
-  return this.http.get<any>(apiUrl, httpOptions);
-}
-getTenderDetail(tenderId: any): Observable<any> {
-  const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })};
-  return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getTenderDetail/${tenderId}`, httpOptions);
-}
-//Presales Dashboard
-getPreSaleDashboard(apiUrl: string): Observable<any> {
-  const httpOptions = { 
-    headers: new HttpHeaders({ 
-      'Content-Type': 'application/json', 
-      'auth-token': JSON.parse(localStorage.getItem('user') || '').token 
-    })
-  };
-  // Make the HTTP GET request with the provided apiUrl
-  return this.http.get<any>(apiUrl, httpOptions);
-}
+  getStatusData(): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getTenderDropdown`, httpOptions);
+  }
+  getProjectData2(tenderstatusId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token })
+    };
+    const url = `${environment.apiUrl}/biding/api/v1/getTenderlist?tenderstatus_id=${tenderstatusId}`;
+    return this.http.get<any>(url, httpOptions);
+  }
+  // Dashboard
+  getDashboard(apiUrl: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token
+      })
+    };
+    // Make the HTTP GET request with the provided apiUrl
+    return this.http.get<any>(apiUrl, httpOptions);
+  }
+  getTenderDetail(tenderId: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getTenderDetail/${tenderId}`, httpOptions);
+  }
+  //Presales Dashboard
+  getPreSaleDashboard(apiUrl: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-token': JSON.parse(localStorage.getItem('user') || '').token
+      })
+    };
+    // Make the HTTP GET request with the provided apiUrl
+    return this.http.get<any>(apiUrl, httpOptions);
+  }
+
+  // Common Modal Start
+  private modalStateSubject = new BehaviorSubject<ModalState>({ isOpen: false });
+  modalState$ = this.modalStateSubject.asObservable();
+
+  openModal(locationArray: any[]): void {
+    this.modalStateSubject.next({ isOpen: true, locationArray });
+  }
+
+  closeModal(): void {
+    this.modalStateSubject.next({ isOpen: false, locationArray: [] });
+  }
+  // Common Modal End
 
 }

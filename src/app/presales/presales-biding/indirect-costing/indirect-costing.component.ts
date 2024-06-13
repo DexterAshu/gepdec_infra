@@ -74,6 +74,10 @@ export class IndirectCostingComponent {
     });
   }
 
+  rowLocation(row: any) {
+    this.masterService.openModal(row?.tender_location);
+  }
+
   getTenderData() {
     this.tenderData = [];
     this.tenderDetailedData = [];
