@@ -49,14 +49,7 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock1>
-                                        {{a.tender_title}}
-                                    </ng-template>
+                                    <app-slice-with-tooltip [text]="a.tender_title"></app-slice-with-tooltip>
                                 </td>
 
                                 <td>
@@ -75,11 +68,10 @@
                                 <td>{{ a.subqacatagory }}</td>
                                 <td>{{ a.capacity }}</td>
                                 <td>
-                                    <span *ngFor="let loc of a?.tender_location; let i = index"
-                                        title="{{a?.tender_location}}">
-                                        <span *ngIf="i+1 == 1">{{loc}}</span>
+                                    <!-- <span>
+                                        {{ a?.tender_location.join(',') }}
                                     </span>...
-                                    <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;"  (click)="rowLocation(a)" title="{{a.tender_location}}">
+                                    <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;"  (click)="rowLocation(a)" title="{{a.tender_location}}"> -->
                                 </td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#detailModal"
