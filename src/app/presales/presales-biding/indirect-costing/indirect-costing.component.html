@@ -51,14 +51,7 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock1>
-                                        {{a.tender_title}}
-                                    </ng-template>
+                                    <app-slice-with-tooltip [text]="a.tender_title"></app-slice-with-tooltip>
                                 </td>
 
                                 <td>
@@ -78,8 +71,13 @@
                                 <td>{{ a.capacity }}</td>
                                 <td>{{ a.tender_location }}</td>
                                 <td>
-                                    <!-- <a data-bs-toggle="modal" data-bs-target="#createModal"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a> &nbsp; -->
-                                    <a  data-bs-toggle="modal" data-bs-target="#detailModal"
+                                    <!-- <span>
+                                        {{ a?.tender_location.join(',') }}
+                                    </span>...
+                                    <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;"  (click)="rowLocation(a)" title="{{a.tender_location}}"> -->
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#detailModal"
                                         (click)="rowListData(a)"><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->

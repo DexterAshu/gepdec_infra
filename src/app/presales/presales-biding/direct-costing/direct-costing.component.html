@@ -40,15 +40,20 @@
               </tr>
             </thead>
             <tbody class="text-nowrap">
-              <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+              <tr
+                *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.company_name}}</td>
                 <td>
-                  <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a.tender_title }}">{{a.tender_title | slice:0:30}} <span
+                      *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock1>{{a.tender_title}}</ng-template>
                 </td>
                 <td>
-                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span
+                      *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
                   <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
                 </td>
                 <td>{{ a.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
@@ -56,13 +61,18 @@
                 <td>{{ a.subqacatagory }}</td>
                 <td>{{ a.capacity }}</td>
                 <td>{{ a.tender_location }}</td>
-                <td><a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#detailModal" (click)="getBOQList(a)"><span class="mdi mdi-eye text-success mdi-18px"></span></a></td>
+                <td><a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#detailModal"
+                    (click)="getBOQList(a)"><span class="mdi mdi-eye text-success mdi-18px"></span></a></td>
               </tr>
               <tr *ngIf="isNotFound == true">
-                <td colspan="15" class="text-center"><div class="text-warning fw-semibold">Looks like no data available!</div></td>
+                <td colspan="15" class="text-center">
+                  <div class="text-warning fw-semibold">Looks like no data available!</div>
+                </td>
               </tr>
               <tr *ngIf="dataList?.length == 0">
-                <td colspan="15" class="text-center"><div class="spinner-border"></div></td>
+                <td colspan="15" class="text-center">
+                  <div class="spinner-border"></div>
+                </td>
               </tr>
             </tbody>
           </app-responsive-table>
@@ -75,7 +85,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -99,12 +110,20 @@
                       <td>{{ selectedBOQRow?.company_name }}</td>
                       <th> NIT No</th>
                       <td>
-                        <div *ngIf="!!selectedBOQRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectedBOQRow?.tender_ref_no }}">{{selectedBOQRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectedBOQRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                        <div *ngIf="!!selectedBOQRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip"
+                          data-placement="bottom" title="{{ selectedBOQRow?.tender_ref_no }}">
+                          {{selectedBOQRow?.tender_ref_no | slice:0:30}} <span
+                            *ngIf="selectedBOQRow?.tender_ref_no.length > 30">...<i
+                              class="mdi mdi-information"></i></span></div>
                         <ng-template #elseBlock3>{{selectedBOQRow?.tender_ref_no}}</ng-template>
                       </td>
                       <th>Tender Title</th>
                       <td>
-                        <div *ngIf="!!selectedBOQRow?.tender_title; else elseBlock9" data-toggle="tooltip" data-placement="bottom" title="{{ selectedBOQRow?.tender_title }}">{{selectedBOQRow?.tender_title | slice:0:30}} <span *ngIf="selectedBOQRow?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                        <div *ngIf="!!selectedBOQRow?.tender_title; else elseBlock9" data-toggle="tooltip"
+                          data-placement="bottom" title="{{ selectedBOQRow?.tender_title }}">
+                          {{selectedBOQRow?.tender_title | slice:0:30}} <span
+                            *ngIf="selectedBOQRow?.tender_title.length > 30">...<i
+                              class="mdi mdi-information"></i></span></div>
                         <ng-template #elseBlock9>{{selectedBOQRow?.tender_title}}</ng-template>
                       </td>
                     </tr>
@@ -143,9 +162,15 @@
                           <td>{{ boq?.itemcategory }}</td>
                           <td>{{ boq?.subcategory }}</td>
                           <td>
-                            <a (click)="getItemList(boq)" class="me-1" data-bs-toggle="modal" data-bs-target="#updateItemModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
-                            <a (click)="getItemList(boq)" class="me-1" data-bs-toggle="modal" data-bs-target="#itemListModel"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
-                            <a href="{{apiLink}}/{{ itemList?.path }}" class="cursor-pointer" download target="_blank"><span class="mdi mdi-download text-success cursor-pointer mdi-18px"></span></a>
+                            <a (click)="getItemList(boq)" class="me-1" data-bs-toggle="modal"
+                              data-bs-target="#updateItemModel"><span
+                                class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                            <a (click)="getItemList(boq)" class="me-1" data-bs-toggle="modal"
+                              data-bs-target="#itemListModel"><span
+                                class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                            <a href="{{apiLink}}/{{ itemList?.path }}" class="cursor-pointer" download
+                              target="_blank"><span
+                                class="mdi mdi-download text-success cursor-pointer mdi-18px"></span></a>
                           </td>
                         </tr>
                       </tbody>
@@ -161,12 +186,14 @@
   </div>
 </div>
 
-<div class="modal fade" id="updateItemModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="updateItemModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Update Direct Costing</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#detailModal"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal"
+          data-bs-target="#detailModal"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -183,12 +210,19 @@
                   <td>{{ selectedBOQRow?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!selectedBOQRow?.tender_ref_no; else elseBlock6" data-toggle="tooltip" data-placement="bottom" title="{{ selectedBOQRow?.tender_ref_no }}"> {{selectedBOQRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectedBOQRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!selectedBOQRow?.tender_ref_no; else elseBlock6" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ selectedBOQRow?.tender_ref_no }}">
+                      {{selectedBOQRow?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="selectedBOQRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
                     <ng-template #elseBlock6>{{selectedBOQRow?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!selectedBOQRow?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom" title="{{ selectedBOQRow?.tender_title }}">{{selectedBOQRow?.tender_title | slice:0:30}} <span *ngIf="selectedBOQRow?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!selectedBOQRow?.tender_title; else elseBlock4" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ selectedBOQRow?.tender_title }}">{{selectedBOQRow?.tender_title
+                      | slice:0:30}} <span *ngIf="selectedBOQRow?.tender_title.length > 30">...<i
+                          class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock4>{{selectedBOQRow?.tender_title}}</ng-template>
                   </td>
                 </tr>
@@ -257,10 +291,11 @@
                       <th>HSN Code</th>
                       <th>Unit Price</th>
                       <th>Quantity</th>
+                      <th class="text-end">Total Price</th>
                       <th>GST (%)</th>
                       <th>Freight</th>
-                      <th class="text-end">Total Price</th>
-                      <th><input type="checkbox" (click)="selectAllItems();">&nbsp;Select</th>
+                      <th><label for="selectall"><input type="checkbox" id="selectall"
+                            (click)="selectAllItems($event);">&nbsp;Select All</label></th>
                     </tr>
                   </thead>
                   <tbody class="text-nowrap">
@@ -269,45 +304,59 @@
                         <td>{{ i+1 }}</td>
                         <td>{{ item?.itemcode }}</td>
                         <td>
-                          <div *ngIf="!!item?.description; else elseBlock10" data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}"> {{item?.description | slice:0:30}} <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                          <div *ngIf="!!item?.description; else elseBlock10" data-toggle="tooltip"
+                            data-placement="bottom" title="{{ item?.description }}"> {{item?.description | slice:0:30}}
+                            <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
                           <ng-template #elseBlock10> {{item?.description}} </ng-template>
                         </td>
                         <td>{{ item?.uom }}</td>
                         <td>{{ item?.itemcategory }}</td>
                         <td>{{ item?.subcategory }}</td>
                         <td>{{ item?.hsn_code }}</td>
-                        <td> <input type="number" class="form-control form-control-sm" style="width: 75px;" [disabled]="item?.isDisabled" [value]="item?.unit_price" [(ngModel)]="item.unit_price"> </td>
+                        <td> <input type="number" class="form-control form-control-sm" style="width: 75px;"
+                            [disabled]="item?.isDisabled" [value]="item?.unit_price" [(ngModel)]="item.unit_price">
+                        </td>
                         <td>{{ item?.qty }}</td>
-                        <td>{{ item?.gst }}</td>
-                        <td><input type="number" class="form-control form-control-sm" style="width: 75px;" [disabled]="item?.isDisabled" [value]="item?.freight_charges"></td>
                         <td class="text-end">{{ item?.unit_price * item?.qty | currency: 'INR': '' : '1.0-2' }}</td>
-                        <td class="text-center"><input type="checkbox" [checked]="item?.isDisabled" (click)="onItemSelect(item);disableRow(item)"></td>
+                        <td class="text-end">{{ item?.gst }}</td>
+                        <td><input type="number" class="form-control form-control-sm" style="width: 75px;"
+                            [disabled]="item?.isDisabled" [value]="item?.freight_charges"></td>
+                        <td class="text-center"><input type="checkbox" [checked]="item?.isDisabled"
+                            (click)="onItemSelect(item);disableRow(item)"></td>
                       </tr>
                       <ng-container *ngIf="item?.childItemList?.length > 0">
                         <tr *ngFor="let childItem of item?.childItemList; index as ci">
                           <td class="ms-2">&nbsp; &nbsp; &nbsp;{{i+1}}.{{ci+1}}</td>
                           <td>{{ childItem?.itemcode }}</td>
                           <td>
-                            <div *ngIf="!!childItem?.description; else elseBlock11" data-toggle="tooltip" data-placement="bottom" title="{{ childItem?.description }}"> {{childItem?.description | slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                            <div *ngIf="!!childItem?.description; else elseBlock11" data-toggle="tooltip"
+                              data-placement="bottom" title="{{ childItem?.description }}"> {{childItem?.description |
+                              slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i
+                                  class="mdi mdi-information"></i></span></div>
                             <ng-template #elseBlock11> {{childItem?.description}} </ng-template>
                           </td>
                           <td>{{ childItem?.uom }}</td>
                           <td>{{ childItem?.itemcategory }}</td>
                           <td>{{ childItem?.subcategory }}</td>
                           <td>{{ childItem?.hsn_code }}</td>
-                          <td><input type="number" class="form-control form-control-sm" style="width: 75px;" [disabled]="childItem?.isDisabled" [(ngModel)]="childItem.unit_price"></td>
+                          <td><input type="number" class="form-control form-control-sm" style="width: 75px;"
+                              [disabled]="childItem?.isDisabled" [(ngModel)]="childItem.unit_price"></td>
                           <td>{{ childItem?.qty }}</td>
-                          <td>{{ childItem?.gst }}</td>
-                          <td><input type="number" class="form-control form-control-sm" style="width: 75px;" [disabled]="childItem?.isDisabled" [value]="childItem?.freight_charges"></td>
-                          <td class="text-end">{{ childItem?.unit_price * childItem?.qty | currency: 'INR': '' : '1.0-2' }}</td>
-                          <td class="text-center"><input type="checkbox" [checked]="childItem?.isDisabled" (click)="onItemSelect(childItem);disableChildRow(item, childItem)"></td>
+                          <td class="text-end">{{ childItem?.unit_price * childItem?.qty | currency: 'INR': '' : '1.0-2'
+                            }}</td>
+                          <td class="text-end">{{ childItem?.gst }}</td>
+                          <td><input type="number" class="form-control form-control-sm" style="width: 75px;"
+                              [disabled]="childItem?.isDisabled" [value]="childItem?.freight_charges"></td>
+                          <td class="text-center"><input type="checkbox" [checked]="childItem?.isDisabled"
+                              (click)="onItemSelect(childItem);disableChildRow(item, childItem)"></td>
                         </tr>
                       </ng-container>
                     </ng-container>
                     <tr class="table-footer fw-bold">
-                      <td colspan="11">Total Cost</td>
+                      <td colspan="9">Total Cost</td>
                       <td class="text-end">{{ itemList?.purchaseCost | currency: 'INR': '' : '1.0-2' }}</td>
-                      <td colspan="2"></td>
+                      <td colspan="4"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -320,7 +369,8 @@
         <div class="row float-right mt-2">
           <div class="my-1">
             <button type="submit" class="btn btn-primary btn-fw btn-sm mr-2" (click)="onSubmit()">Update</button>
-            <button type="button" id="editItemCostingData" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#detailModal">Close</button>
+            <button type="button" id="editItemCostingData" class="btn btn-secondary btn-fw btn-sm"
+              data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#detailModal">Close</button>
           </div>
         </div>
       </div>
@@ -328,12 +378,14 @@
   </div>
 </div>
 
-<div class="modal fade" id="itemListModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="itemListModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="true">
   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Direct Costing</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#detailModal"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal"
+          data-bs-target="#detailModal"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -350,16 +402,19 @@
                   <td>{{ selectedBOQRow?.company_name }}</td>
                   <th> NIT No</th>
                   <td>
-                    <div *ngIf="!!selectedBOQRow?.tender_ref_no; else elseBlock7" data-toggle="tooltip" data-placement="bottom"
-                      title="{{ selectedBOQRow?.tender_ref_no }}"> {{selectedBOQRow?.tender_ref_no | slice:0:30}} <span
-                        *ngIf="selectedBOQRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!selectedBOQRow?.tender_ref_no; else elseBlock7" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ selectedBOQRow?.tender_ref_no }}">
+                      {{selectedBOQRow?.tender_ref_no | slice:0:30}} <span
+                        *ngIf="selectedBOQRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                    </div>
                     <ng-template #elseBlock7>{{selectedBOQRow?.tender_ref_no}}</ng-template>
                   </td>
                   <th>Tender Title</th>
                   <td>
-                    <div *ngIf="!!selectedBOQRow?.tender_title; else elseBlock8" data-toggle="tooltip" data-placement="bottom"
-                      title="{{ selectedBOQRow?.tender_title }}">{{selectedBOQRow?.tender_title | slice:0:30}} <span
-                        *ngIf="selectedBOQRow?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!selectedBOQRow?.tender_title; else elseBlock8" data-toggle="tooltip"
+                      data-placement="bottom" title="{{ selectedBOQRow?.tender_title }}">{{selectedBOQRow?.tender_title
+                      | slice:0:30}} <span *ngIf="selectedBOQRow?.tender_title.length > 30">...<i
+                          class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock8>{{selectedBOQRow?.tender_title}}</ng-template>
                   </td>
                 </tr>
@@ -439,7 +494,9 @@
                   <td>{{ i+1 }}</td>
                   <td>{{ item?.itemcode }}</td>
                   <td>
-                    <div *ngIf="!!item?.description; else elseBlock12" data-toggle="tooltip" data-placement="bottom" title="{{ item?.description }}"> {{item?.description | slice:0:30}} <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                    <div *ngIf="!!item?.description; else elseBlock12" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ item?.description }}"> {{item?.description | slice:0:30}} <span
+                        *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
                     <ng-template #elseBlock12> {{item?.description}} </ng-template>
                   </td>
                   <td>{{ item?.uom }}</td>
@@ -461,7 +518,10 @@
                     <td class="ms-2">&nbsp; &nbsp; &nbsp;{{i+1}}.{{ci+1}}</td>
                     <td>{{ childItem?.itemcode }}</td>
                     <td>
-                      <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip" data-placement="bottom" title="{{ childItem?.description }}"> {{childItem?.description | slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
+                      <div *ngIf="!!childItem?.description; else elseBlock5" data-toggle="tooltip"
+                        data-placement="bottom" title="{{ childItem?.description }}"> {{childItem?.description |
+                        slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i
+                            class="mdi mdi-information"></i></span></div>
                       <ng-template #elseBlock5> {{childItem?.description}} </ng-template>
                     </td>
                     <td>{{ childItem?.uom }}</td>
@@ -499,7 +559,8 @@
       <div class="modal-footer py-0">
         <div class="row float-right mt-2">
           <div class="my-1">
-            <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#detailModal">Close</button>
+            <button type="button" class="btn btn-secondary btn-fw btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal"
+              data-bs-target="#detailModal">Close</button>
           </div>
         </div>
       </div>
