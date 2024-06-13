@@ -55,9 +55,9 @@ export class IndirectCostingComponent {
     this.getDropdownList();
   }
   
-  ngAfterViewInit() {
-    this.sharedService.initializeTooltips(this.elementRef);
-  }
+  // ngAfterViewInit() {
+  //   this.sharedService.initializeTooltips(this.elementRef);
+  // }
 
   get f() { return this.form.controls; }
 
