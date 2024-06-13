@@ -72,7 +72,7 @@ export class CostingApprovalComponent {
   directClicked: boolean = false;
   isDirectAvl: boolean = false;
   isIndirectAvl: boolean = false;
-
+  showPreviousDetails: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,11 +102,17 @@ export class CostingApprovalComponent {
     this.getTenderData();
   }
 
-  get f() { return this.form.controls; };
+  get f() { return this.form.controls; }
 
   ngAfterViewInit() {
     this.sharedService.initializeTooltips(this.elementRef);
   }
+
+  rowLocation(row:any) {
+  
+    this.locationArray = row.tender_location;
+  }
+
 
   getBOQItemList(data: any) {
     this.totalDirectCost = 0;
@@ -269,9 +275,18 @@ export class CostingApprovalComponent {
       });
     });
   }
+
+  getFormattedRemarks(): string {
+    return (this.rowData?.remarks && Array.isArray(this.rowData.remarks)) 
+        ? this.rowData.remarks.map((remark:any, index:any) => `${index + 1}. ${remark}`).join('<br>') 
+        : '';
+}
+  getFormattedAuditTrail(): string {
+    return (this.rowData?.audit_trail && Array.isArray(this.rowData.audit_trail)) ? this.rowData.audit_trail.map((audit_trail:any, index:any) => `${index + 1}. ${audit_trail}`).join('<br>') 
+    : '';
+  }
   
   validateInputDirect(val:string) {
-    debugger
 
     if(val == 'margin') {
       if (this.marginDirect === null || this.marginDirect === undefined) {

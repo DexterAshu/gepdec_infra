@@ -42,23 +42,24 @@ export class CaptureDataListComponent {
   tendStatus: any = [];
   showWorkingDetails: boolean = false;
   showPreNotes: boolean = false;
-  techDataShow: boolean = false;
+    techDataShow: boolean = false;
   finDataShow: boolean = false;
   tendStatusData: any;
   data: any;
-  sendForApprovalClicked: boolean = false;
+  sendForApprovalClicked: boolean =false;
   roleStatusData: any;
   statusList: any = [];
   approval: any;
   reqList: any = [];
   locationArray: any = [];
+  showPreviousDetails: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
-    private user: AccountService,
     private alertService: AlertService,
     private apiService: ApiService,
+    private user: AccountService,
     private router: Router,
     private sharedService: SharedService,
     private elementRef: ElementRef
@@ -110,20 +111,29 @@ export class CaptureDataListComponent {
 
   rowListData(row: any) {
     this.rowData = row;
-    this.reqList = this.rowData.requestStatus;
-    console.log(this.reqList);
-
-    var roleD = this.roleStatusData.filter((res: any) => {
-      return res.tender_id == this.rowData.tender_id;
-    })
-    this.statusList = roleD[0].roleStatus
+    this.reqList  = this.rowData.requestStatus;
+    console.log( this.reqList);
+    
+  var roleD = this.roleStatusData.filter((res:any)=>{
+  return res.tender_id == this.rowData.tender_id;
+})
+this.statusList=roleD[0].roleStatus
   }
 
-  rowLocation(row: any) {
+  rowLocation(row:any) {
     this.locationArray = row.tender_location;
   }
 
-
+  getFormattedRemarks(): string {
+    return (this.rowData?.remarks && Array.isArray(this.rowData.remarks)) 
+        ? this.rowData.remarks.map((remark:any, index:any) => `${index + 1}. ${remark}`).join('<br>') 
+        : '';
+}
+  getFormattedAuditTrail(): string {
+    return (this.rowData?.audit_trail && Array.isArray(this.rowData.audit_trail)) ? this.rowData.audit_trail.map((audit_trail:any, index:any) => `${index + 1}. ${audit_trail}`).join('<br>') 
+    : '';
+  }
+ 
   get f() { return this.form.controls; }
 
   getTenderData() {
@@ -135,7 +145,7 @@ export class CaptureDataListComponent {
     this.apiService.getTenderList().subscribe((res: any) => {
       if (res.status === 200) {
         this.tenderData = res.result;
-        this.roleStatusData = this.tenderData.filter((data: any) => data.roleStatus);
+        this.roleStatusData = this.tenderData.filter((data:any)=> data.roleStatus);
         this.statusData = res.counts;
         this.isNotFound = false;
       } else {
@@ -210,8 +220,8 @@ export class CaptureDataListComponent {
     // this.setDataSourceAttributes()
   }
 
-  download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
+   download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
@@ -242,43 +252,43 @@ export class CaptureDataListComponent {
     // else {
     //   this.form.controls['working_notes'].clearValidators();
     //   this.form.controls['working_notes'].reset();
-
+     
     // }
     if (this.form.value.tenderstatus_id !== '') {
-      this.form.value.tenderstatus_id = '';
+        this.form.value.tenderstatus_id = '';
     } else {
-      this.form.value.tenderstatus_id = null;
+        this.form.value.tenderstatus_id = null;
     }
     this.approval = 'Send Back';
     this.form.value.approval = this.approval;
     var reqTend = {
-      requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
-      // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
-      tender_id: this.tenderData[0].tender_id,
+        requeststatus_id: this.form.value.requeststatus_id = '7003', // Updated condition
+        // requeststatus_id: (this.reqList[0].requeststatus_id == '7003') ? '7003' : '', // Updated condition
+        tender_id: this.tenderData[0].tender_id,
     };
     this.apiService.createApproval(reqTend).subscribe((res: any) => {
-      let response: any = res;
-      document.getElementById('cancel')?.click();
-      this.isSubmitted = false;
-      if (response.status == 200) {
-        this.form.reset();
-        this.alertService.success(response.message);
-      } else {
-        this.alertService.warning(response.message);
-      }
+        let response: any = res;
+        document.getElementById('cancel')?.click();
+        this.isSubmitted = false;
+        if (response.status == 200) {
+            this.form.reset();
+            this.alertService.success(response.message);
+        } else {
+            this.alertService.warning(response.message);
+        }
     }, (error: any) => {
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.message); // Updated error message
+        this.isNotFound = false;
+        this.alertService.error("Error: " + error.message); // Updated error message
     });
-  }
+}
 
 
   sendApproval() {
 
-    if (this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager') {
+    if(this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager'){
       var reqTend = {
-        requeststatus_id: this.reqList[0].requeststatus_id,
-        tender_id: this.tenderData[0].tender_id,
+        requeststatus_id : this.reqList[0].requeststatus_id,
+        tender_id : this.tenderData[0].tender_id,
       }
       this.apiService.createApproval(reqTend).subscribe((res: any) => {
         let response: any = res;
@@ -295,9 +305,9 @@ export class CaptureDataListComponent {
         this.isNotFound = false;
         this.alertService.error("Error: Unknown Error!")
       })
-
+    
     }
-    else {
+    else{
       this.form.value.requeststatus_id = this.reqList[0].requeststatus_id;
       this.form.value.tender_id = this.tenderData[0].tender_id;
       this.apiService.createApproval(this.form.value).subscribe((res: any) => {
