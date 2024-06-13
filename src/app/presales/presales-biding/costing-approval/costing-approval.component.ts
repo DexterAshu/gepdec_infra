@@ -102,6 +102,8 @@ export class CostingApprovalComponent {
     this.getTenderData();
   }
 
+  get f() { return this.form.controls; };
+
   ngAfterViewInit() {
     this.sharedService.initializeTooltips(this.elementRef);
   }

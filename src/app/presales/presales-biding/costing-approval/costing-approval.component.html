@@ -95,7 +95,7 @@
                   <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
                     <span *ngIf="i+1 == 1">{{loc}}</span>
                   </span>...
-                <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="{{a.tender_location}}">
+                <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" title="{{a.tender_location}}">
                
                   <!-- <a data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="Location Details"> <span class="mdi mdi-google-maps text-warning cursor-pointer mdi-18px"></span>
                   </a> -->
