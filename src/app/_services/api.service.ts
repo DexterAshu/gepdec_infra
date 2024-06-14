@@ -378,9 +378,9 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post(`${environment.apiUrl}${apiLink}`, data, httpOptions);
   }
-  
+
   putData(apiLink: any, data: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token}) };
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.put(`${environment.apiUrl}${apiLink}`, data, httpOptions);
   }
 
@@ -418,6 +418,7 @@ export class ApiService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post(`${environment.apiUrl}/biding/api/v1/addFinalDocumentSubmission`, data, httpOptions);
   }
+  
   createInventoryIssuance(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post(`${environment.apiUrl}/inventory/api/v1/inventoryIssuance`, data, httpOptions);
@@ -465,6 +466,14 @@ export class ApiService {
     return this.http.get<any[]>(`${environment.apiUrl}/biding/api/v1/getTenderAllDocumentList?${params}`, httpOptions);
 
   }
+
+  //get vendorlist based on item for rfq
+  getVendorListByItem(item_id: any): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    // const params = new HttpParams({ fromString: `item_id=${item_id}` });
+    return this.http.get<any[]>(`${environment.apiUrl}/supplier/api/v1/getSupplierByItem/${item_id}`, httpOptions);
+  }
+
   // location for boq
   getLocationForBoq(tender_id: any): Observable<any[]> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
