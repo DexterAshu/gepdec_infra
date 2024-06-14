@@ -1673,48 +1673,48 @@ export class DashboardComponent implements OnInit {
   //     });
   // }
 
-  getDashboardData(duration: number | null, category: number | null, company: number | null, project: number | null, stateId: number | null, countryId: number | null) {
-    // Construct URL with query parameters
-    let apiUrl = `${environment.apiUrl}/dashboard/api/v1/getLandingDashboard`; // Change this to your actual API endpoint
-    const queryParams: string[] = [];
-    if (duration !== null) queryParams.push(`financialyear_id=${duration}`);
-    if (category !== null) queryParams.push(`qacatagory_id=${category}`);
-    if (company !== null) queryParams.push(`bidder_id=${company}`);
-    if (project !== null) queryParams.push(`tender_id=${project}`);
-    if (stateId !== null) queryParams.push(`state_id=${stateId}`);
-    if (countryId !== null) queryParams.push(`country_id=${countryId}`);
-    if (queryParams.length > 0) apiUrl += '?' + queryParams.join('&');
-    this.isNotFound = true;
-    this.loading = true;
-    this.masterService.getDashboard(apiUrl).subscribe((res: any) => {
-      this.isNotFound = false;
-      this.loading = false;
-      this.dashboardData = [];
-      if (res.status === 200) {
-        // this.loading = false;
-        this.dashboardData = res;
+    getDashboardData( duration: number | null, category: number | null, company: number | null, project: number | null, stateId: number | null, countryId: number | null) {
+      // Construct URL with query parameters
+      let apiUrl = `${environment.apiUrl}/dashboard/api/v1/getLandingDashboard`; // Change this to your actual API endpoint
+      const queryParams: string[] = [];
+      if (duration !== null) queryParams.push(`financialyear_id=${duration}`);
+      if (category !== null) queryParams.push(`qacatagory_id=${category}`);
+      if (company !== null) queryParams.push(`bidder_id=${company}`);
+      if (project !== null) queryParams.push(`tender_id=${project}`);
+      if (stateId !== null) queryParams.push(`state_id=${stateId}`);
+      if (countryId !== null) queryParams.push(`country_id=${countryId}`);
+      if (queryParams.length > 0) apiUrl += '?' + queryParams.join('&');
+      this.isNotFound = true;
+      this.loading = true;
+      this.masterService.getDashboard(apiUrl).subscribe((res: any) => {
+        this.isNotFound = false;
+        this.loading = false;
+        this.dashboardData = [];
+        if (res.status === 200) {
+          // this.loading = false;
+          this.dashboardData = res;
 
-        // Ensure topFiveTender is not null before using it
-        if (res.topFiveTender) {
-          this.topFiveOrder = res.topFiveTender;
-          console.log(this.topFiveOrder);
+          // Ensure topFiveTender is not null before using it
+          if (res.topFiveTender) {
+            this.topFiveOrder = res.topFiveTender;
+            console.log(this.topFiveOrder);
 
-        }
+          }
 
-        // Performance bar data mapping with null checks
-        if (this.dashboardData.presalesData) {
-          this.performaceBar = this.dashboardData.presalesData.map((item: any) => {
-            return {
-              name: item.name,
-              series: item.series ? [
-                { name: item.series[0]?.name, value: item.series[0]?.value ? +item.series[0].value : 0 },
-                { name: item.series[1]?.name, value: item.series[1]?.value ? +item.series[1].value : 0 }
-              ] : []
-            };
-          });
-        }
+          // Performance bar data mapping with null checks
+          if (this.dashboardData.presalesData) {
+            this.performaceBar = this.dashboardData.presalesData.map((item: any) => {
+              return {
+                name: item.name,
+                series: item.series ? [
+                  { name: item.series[0]?.name, value: item.series[0]?.value ? +item.series[0].value : 0 },
+                  { name: item.series[1]?.name, value: item.series[1]?.value ? +item.series[1].value : 0 }
+                ] : []
+              };
+            });
+          }
 
-
+          
         // Map revenueResult to lineChartFinance
         if (this.dashboardData.revenueResult) {
           this.lineAreaChart = [
@@ -1737,52 +1737,47 @@ export class DashboardComponent implements OnInit {
           ];
         }
 
-        // Pie chart data mapping with null checks
-        if (this.dashboardData.topFiveLocationWise) {
-          this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
-            return {
-              name: item.state_name || 'Other',
-              value: item.state_count ? +item.state_count : 0,
-            };
-          });
+          // Pie chart data mapping with null checks
+          if (this.dashboardData.topFiveLocationWise) {
+            this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
+              return {
+                name: item.state_name || 'Other',
+                value: item.state_count ? +item.state_count : 0,
+              };
+            });
+          }
+
+          // Progress bar data mapping with null checks
+          if (this.dashboardData.statusProgress) {
+            // All data
+            this.allProgressBar = this.dashboardData.statusProgress.map((item: any) => {
+              return {
+                name: item.tender_title,
+                value: item.progress,
+                // value: [0, 20, 40, 60, 80, 100],
+                tender_id: item.tender_id
+              };
+            });
+
+            // Top 10 data
+            this.progressBar = this.allProgressBar.slice(0, 10);
+
+            this.progressBar2 = this.dashboardData.statusProgress; // Keeping original data for logging
+            console.log('progressBar2-->', this.progressBar2);
+          }
+        } else {
+          this.alertService.warning("Looks like no data available!");
         }
-
-        // Progress bar data mapping with null checks
-        if (this.dashboardData.statusProgress) {
-          // All data
-          this.allProgressBar = this.dashboardData.statusProgress.map((item: any) => {
-            return {
-              name: item.tender_title,
-              value: item.progress,
-              // value: [0, 20, 40, 60, 80, 100],
-              tender_id: item.tender_id
-            };
-          });
-
-          // Top 10 data
-          // this.progressBar = this.allProgressBar.slice(0, 10);
-
-          // this.progressBar2 = this.dashboardData.statusProgress; // Keeping original data for logging
-          // console.log('progressBar2-->', this.progressBar2);
-          // if (this.dashboardData.statusProgress) {
-          //   this.progressBar = this.dashboardData.statusProgress.map((item: any) => {
-          //     return { name: item.tender_title, value: item.progress };
-          //   });
-          //   this.setChartOptions();
-          // }
-        }
-      } else {
-        this.alertService.warning("Looks like no data available!");
-      }
-    }, (error: any) => {
-      console.error(error);
-      this.dashboardData = [];
-      this.isNotFound = false;
-      this.loading = false;
-      this.alertService.error("Error: " + error.statusText);
-    });
-  }
-
+      }, (error: any) => {
+        console.error(error);
+        this.dashboardData = [];
+        this.isNotFound = false;
+        this.loading = false;
+        this.alertService.error("Error: " + error.statusText);
+      });
+    }
+  
+  
   // onPageChange(page: number) {
   //   this.currentPage = page;
   //   this.updatePagedData();
