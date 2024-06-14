@@ -62,10 +62,8 @@
                                 <td>{{ a.subqacatagory }}</td>
                                 <td>{{ a.capacity }}</td>
                                 <td>
-                                    <span>
-                                        {{ a?.tender_location?.join(',') }}...
-                                    </span>
-                                    <img src="../../../../assets/images/lo.png" style="width:15px; height:15px;"  (click)="rowLocation(a)">
+                                    <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                                    </app-location-section-shared>
                                 </td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#detailModal" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
@@ -349,7 +347,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">In-direct Cost Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Indirect Cost Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
@@ -357,61 +355,8 @@
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped custom-table mb-3 table-bordered">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th colspan="6" class="text-center">Tender Detail</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <tr>
-                                            <th>Client</th>
-                                            <td>{{ itemList?.company_name }}</td>
-                                            <th>Tender Title</th>
-                                            <td>
-                                                <div *ngIf="!!itemList?.tender_title; else elseBlock4"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="{{ itemList?.tender_title }}">
-                                                    {{itemList?.tender_title | slice:0:30}} <span
-                                                        *ngIf="itemList?.tender_title.length > 30">...<i
-                                                            class="mdi mdi-information"></i></span>
-                                                </div>
-                                                <ng-template #elseBlock4>
-                                                    {{itemList?.tender_title}}
-                                                </ng-template>
-                                            </td>
-                                            <th>NIT No</th>
-                                            <td>
-                                                <div *ngIf="!!itemList?.tender_ref_no; else elseBlock3"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="{{ itemList?.tender_ref_no }}"> {{itemList?.tender_ref_no |
-                                                    slice:0:30}}
-                                                    <span *ngIf="itemList?.tender_ref_no.length > 30">...<i
-                                                            class="mdi mdi-information"></i></span>
-                                                </div>
-                                                <ng-template #elseBlock3>
-                                                    {{itemList?.tender_ref_no}}
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Publish Date</th>
-                                            <td>{{ itemList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                                            <th>Category</th>
-                                            <td>{{ itemList?.qacatagory }}</td>
-                                            <th>Sub-Category</th>
-                                            <td>{{ itemList?.subqacatagory }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Capacity</th>
-                                            <td>{{ itemList?.capacity }}</td>
-                                            <th>Execution Location</th>
-                                            <td>{{ itemList?.tender_location }}</td>
-                                            <th>Total In-direct Cost</th>
-                                            <td colspan="3">{{ indirectCostTotal | currency: 'INR': '' : '1.0-2' }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <!-- Use the TenderDetailTable component -->
+                                <app-tender-detail [itemList]="itemList"></app-tender-detail>
 
                                 <ng-container class="mt-1" *ngFor="let main of itemList?.indirectCost">
                                     <h6 class="mt-3 mb-2 text-secondary" *ngIf="main?.deptname != null; else elseBlock10">{{main?.costtype}} - {{main?.deptname}}</h6>
