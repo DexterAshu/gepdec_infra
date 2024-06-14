@@ -1,7 +1,7 @@
-<div *ngIf="!!text; else noTextBlock" class="tooltip-container" [attr.title]="text">
-    {{ displayText }}
-    <span *ngIf="text.length > maxLength">...<i class="mdi mdi-information"></i></span>
+<div class="tooltip-container cursor-pointer" [attr.data-tooltip]="text" *ngIf="text.length > 10">
+    {{ text | slice: 0: 10 }}...
+    <i class="mdi mdi-information" (click)="copyToClipboard(text)" title="Copy full text"></i>
 </div>
-<ng-template #noTextBlock>
+<div *ngIf="text.length <= 10">
     {{ text }}
-</ng-template>
+</div>

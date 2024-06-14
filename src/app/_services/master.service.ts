@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LocationModalComponent } from '../sharedComponent/location-modal/location-modal.component';
 
 interface ModalState {
   isOpen: boolean;
@@ -13,7 +15,7 @@ interface ModalState {
 })
 export class MasterService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private modalService: NgbModal) { }
 
   getLocalStorage(): any {
     const item = localStorage.getItem("user");
@@ -203,12 +205,19 @@ export class MasterService {
   private modalStateSubject = new BehaviorSubject<ModalState>({ isOpen: false });
   modalState$ = this.modalStateSubject.asObservable();
 
-  openModal(locationArray: any[]): void {
-    this.modalStateSubject.next({ isOpen: true, locationArray });
+  openModal(tenderId: string): void {
+    this.fetchLocations(tenderId).subscribe(locations => {
+      this.modalStateSubject.next({ isOpen: true, locationArray: locations });
+    });
   }
 
   closeModal(): void {
     this.modalStateSubject.next({ isOpen: false, locationArray: [] });
+  }
+
+  private fetchLocations(tenderId: string): Observable<any[]> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any>(`${environment.apiUrl}/biding/api/v1/getTenderSiteAddress/${tenderId}`, httpOptions);
   }
   // Common Modal End
 

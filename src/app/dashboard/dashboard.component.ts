@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
   // totalOccupied:any;
   helloData: any = [19, 80, 30, 20, 70, 90, 80, 30, 20, 40]
   // yAxisLabel2 = 'Data Value';
-  arrayData = ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL', 'RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida']  // totalOccupied:any;
+  arrayData=['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida']  // totalOccupied:any;
 
 
 
@@ -721,7 +721,7 @@ export class DashboardComponent implements OnInit {
       ]
     },
   ];
-
+  
   totalOccupied: number = 1000;
   isPercentageSeries(seriesName: string): boolean {
     return seriesName === 'Rev' || seriesName === 'EBITDA';
@@ -1366,7 +1366,7 @@ export class DashboardComponent implements OnInit {
   lineBarColorScheme: any = {
     // domain: ['#cee27d', '#63830c']
     // domain: ['#d6a974', '#97daa7']
-    domain: ['#90EE90', '#fcbe53']
+    domain: ['#90EE90', '#FA8072']
   }
   // lineBar chart end
   tenderDetails: any[] = [];
@@ -1760,10 +1760,16 @@ export class DashboardComponent implements OnInit {
           });
 
           // Top 10 data
-          this.progressBar = this.allProgressBar.slice(0, 10);
+          // this.progressBar = this.allProgressBar.slice(0, 10);
 
-          this.progressBar2 = this.dashboardData.statusProgress; // Keeping original data for logging
-          console.log('progressBar2-->', this.progressBar2);
+          // this.progressBar2 = this.dashboardData.statusProgress; // Keeping original data for logging
+          // console.log('progressBar2-->', this.progressBar2);
+          // if (this.dashboardData.statusProgress) {
+          //   this.progressBar = this.dashboardData.statusProgress.map((item: any) => {
+          //     return { name: item.tender_title, value: item.progress };
+          //   });
+          //   this.setChartOptions();
+          // }
         }
       } else {
         this.alertService.warning("Looks like no data available!");
@@ -1889,6 +1895,128 @@ export class DashboardComponent implements OnInit {
   }
 
   chartOptions: any;
+  // Highcharts = new Chart({
+  //   chart: {
+  //     type: 'bar'
+  //   },
+  //   title: {
+  //     text: '',
+  //     align: 'right'
+  //   },
+  //   xAxis: {
+  //     categories:this.arrayData ,
+  //     title: {
+  //       text: null
+  //     },
+  //     gridLineWidth: 1,
+  //     lineWidth: 0,
+  //     labels: {
+  //       useHTML: true,
+     
+  //   }
+  //   },
+  //   yAxis: {
+  //     min: 0,
+  //     title: {
+  //       text: ""
+  //     },
+  //     labels: {
+  //       enabled: true, // Disable numeric labels on the y-axis
+  //       overflow: 'justify'
+  //     },
+  //     gridLineWidth: 0,
+  //   },
+  //   tooltip: {
+  //     valueSuffix: ''
+  //   },
+  //   plotOptions: {
+  //     bar: {
+  //       borderRadius: '50%',
+  //       borderColor:'red',
+  //       dataLabels: {
+  //         enabled: true
+  //       },
+  //       groupPadding: 0.1,
+  //       colorByPoint: true, // Assign different colors to each point
+  //       colors: ['#c0fec2', '#fd8383bd', '#fdda9b'] // Define three colors for the gradient
+  //     }
+  //   },
+  //   legend: {
+  //     layout: 'vertical',
+  //     align: 'right',
+  //     verticalAlign: 'top',
+  //     x: 10,
+  //     y: -10,
+  //     floating: true,
+  //     borderWidth: 1,
+  //     backgroundColor: Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
+  //     shadow: true
+  //   },
+  //   credits: {
+  //     enabled: false
+  //   },
+  //   series: [{
+  //     type: 'bar', // Specify the type of chart series
+  //     name: 'Actual',
+     
+  //     data:this.helloData ,
+   
+  //     dataLabels: {
+  //       enabled: true,
+  //       useHTML: true,
+  //       inside: true,
+  //       align: 'right',
+  //       formatter: function() {
+  //         // return this.data > 130 ? this.y + ' mm' : null;
+ 
+  //       if((this as Point).y<=20)
+  //         {
+  //        return `<div style="width: 10px;
+  //               height: 10px;
+  //                box-shadow: 2px 2px 3px #696969;
+  //                border-radius: 5px;
+  //                background-color: green;"></div> `  
+  //         }else if((this as Point).y>20 && ((this as Point).y<50))
+  //           {
+  //             return `<div style="width:10px;height:10px;background-color:orange;
+  //             box-shadow: 2px 2px 3px #696969;
+  //                border-radius: 5px;"></div> `  
+ 
+  //           }else if((this as Point).y>50)
+  //             {
+  //               return `<div style="width:10px;height:10px;background-color:red;
+  //               box-shadow: 2px 2px 3px #696969;
+  //                border-radius: 5px;"></div> `  
+ 
+  //             }else
+  //             {
+  //               return ''
+ 
+  //             }
+  // // return ''
+           
+  //         // if((this as Point).x<20)
+  //         //   {
+  //         //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
+  //         //   }else if((this as Point).x>20)
+  //         //   {
+  //         //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
+  //         //   }
+  //         // return ((this as Point).x<20?`<div style="width:10px;height:10px;background-color:red;" ></div>`:`<div style="width:10px;height:10px;background-color:red;" ></div>`)
+  //     }
+  //       // formatter: function() {
+  //       //  if(this.point.name=='')
+         
+  //       // //   return this.colorIndex
+  //       // // return `<div class="hii" style="width:10px;height:10px;background-color:red;"></div>`
+  //       // //   // return `<img src="https://findicons.com/files/icons/2315/default_icon/256/arrow_down.png" style="width: 30px;margin-top:-10px"><img>`;
+  //       // }
+  //     }
+  //   }],
+ 
+  //   colors: ['#49b59a', '#FF6067', '#f9d84a'] // Assign three different colors to the bars
+  // });
+
   Highcharts = new Chart({
     chart: {
       type: 'bar'
@@ -1898,7 +2026,7 @@ export class DashboardComponent implements OnInit {
       align: 'right'
     },
     xAxis: {
-      categories: this.arrayData,
+      categories:this.arrayData ,
       title: {
         text: null
       },
@@ -1906,8 +2034,8 @@ export class DashboardComponent implements OnInit {
       lineWidth: 0,
       labels: {
         useHTML: true,
-
-      }
+     
+    }
     },
     yAxis: {
       min: 0,
@@ -1926,7 +2054,7 @@ export class DashboardComponent implements OnInit {
     plotOptions: {
       bar: {
         borderRadius: '50%',
-        borderColor: 'red',
+        borderColor:'red',
         dataLabels: {
           enabled: true
         },
@@ -1952,39 +2080,37 @@ export class DashboardComponent implements OnInit {
     series: [{
       type: 'bar', // Specify the type of chart series
       name: 'Actual',
-
-      data: this.helloData,
-
+     
+      data:this.helloData ,
+   
       dataLabels: {
         enabled: true,
         useHTML: true,
         inside: true,
         align: 'right',
-        formatter: function () {
+        formatter: function() {
           // return this.data > 130 ? this.y + ' mm' : null;
-
-          if ((this as Point).y <= 20) {
-            return `<div style="width: 10px;
-                height: 10px;
-                 box-shadow: 2px 2px 3px #696969;
-                 border-radius: 5px;
-                 background-color: green;"></div> `
-          } else if ((this as Point).y > 20 && ((this as Point).y < 50)) {
-            return `<div style="width:10px;height:10px;background-color:orange;
-              box-shadow: 2px 2px 3px #696969;
-                 border-radius: 5px;"></div> `
-
-          } else if ((this as Point).y > 50) {
-            return `<div style="width:10px;height:10px;background-color:red;
-                box-shadow: 2px 2px 3px #696969;
-                 border-radius: 5px;"></div> `
-
-          } else {
-            return ''
-
-          }
-          // return ''
-
+ 
+        if((this as Point).y<=20)
+          {
+         return `<div style="width:10px;height:10px;background-color:red;position:absolute;left:10px;top:-4px"></div>
+          `  
+          }else if((this as Point).y>20 && ((this as Point).y<50))
+            {
+              return `<div style="width:10px;height:10px;background-color:blue;position:absolute;left:10px;top:-4px"></div>
+               `  
+ 
+            }else if((this as Point).y>50)
+              {
+                return `<div style="width:10px;height:10px;background-color:yellow;position:absolute;left:10px;top:-4px"></div> `  
+ 
+              }else
+              {
+                return ''
+ 
+              }
+  // return ''
+           
           // if((this as Point).x<20)
           //   {
           //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
@@ -1993,21 +2119,19 @@ export class DashboardComponent implements OnInit {
           //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
           //   }
           // return ((this as Point).x<20?`<div style="width:10px;height:10px;background-color:red;" ></div>`:`<div style="width:10px;height:10px;background-color:red;" ></div>`)
-        }
+      }
         // formatter: function() {
         //  if(this.point.name=='')
-
+         
         // //   return this.colorIndex
         // // return `<div class="hii" style="width:10px;height:10px;background-color:red;"></div>`
         // //   // return `<img src="https://findicons.com/files/icons/2315/default_icon/256/arrow_down.png" style="width: 30px;margin-top:-10px"><img>`;
         // }
       }
     }],
-
+ 
     colors: ['#49b59a', '#FF6067', '#f9d84a'] // Assign three different colors to the bars
   });
-
-
 
 
 
@@ -2144,21 +2268,6 @@ export class DashboardComponent implements OnInit {
         }
       }, 105, 80, 100, 95, 100, 90, 110, 105, 95, 95, 110]
     },
-      //   {
-      //     type: 'spline',
-      //      name: 'Comparison',
-      //      marker: {
-      //          symbol: 'circle'
-      //      },
-
-      //      data: [{
-      //          y: 5,
-
-      //          accessibility: {
-      //              description: ''
-      //          }
-      //      }, 20, 0, 50, 5, 50, 20, 30, 40, 20, 25, 70]
-      //  }
     ],
     colors: [
       '#d6a974', '#97daa7'
