@@ -158,6 +158,8 @@ import { FinalReportComponent } from './presales/presales-biding/final-report/fi
 import { WonLossTenderComponent } from './presales/presales-biding/won-loss-tender/won-loss-tender.component';
 import { LocationModalComponent } from './sharedComponent/location-modal/location-modal.component';
 import { SliceWithTooltipComponent } from './sharedComponent/slice-with-tooltip/slice-with-tooltip.component';
+import { TenderDetailComponent } from './sharedComponent/tender-detail/tender-detail.component';
+import { LocationSectionSharedComponent } from './sharedComponent/location-section-shared/location-section-shared.component';
 
 @NgModule({
   declarations: [
@@ -213,7 +215,7 @@ import { SliceWithTooltipComponent } from './sharedComponent/slice-with-tooltip/
     FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent,
     ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent, MaterialReceiptComponent, MaterialIssuanceComponent, BoqItemsComponent, SignInComponent, MasterDrawingListComponent, DrawingComponent, FinalBOQComponent, IndirectCostingComponent, SynopsisComponent,
     CompFinanceComponent, DirectCostingComponent, CostingApprovalComponent, TenderFinalApprovalComponent, UnderDevelopmentComponent,
-    PreSalesFinalBOQComponent, PreSalesDrawingComponent, PreSalesMasterDrawingListComponent,FinalReportComponent, WonLossTenderComponent, LocationModalComponent, SliceWithTooltipComponent
+    PreSalesFinalBOQComponent, PreSalesDrawingComponent, PreSalesMasterDrawingListComponent, FinalReportComponent, WonLossTenderComponent, LocationModalComponent, SliceWithTooltipComponent, TenderDetailComponent, LocationSectionSharedComponent
   ],
 
   imports: [
@@ -229,7 +231,8 @@ import { SliceWithTooltipComponent } from './sharedComponent/slice-with-tooltip/
     NgSelectModule,
     NgMultiSelectDropDownModule,
     ChartModule,
-    AppRoutingModule
+    AppRoutingModule,
+    // SharedModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-IN' },
