@@ -47,6 +47,11 @@
                                 <th>Company</th>
                                 <th>Financial Year</th>
                                 <th class="text-end">Annual Turnover (INR)</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -56,7 +61,14 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.bidder_name}}</td>
                                 <td>{{a.financialyear}}</td>
-                                <td class="text-end">{{a.annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
+                                <td class="text-end">
+                                    {{a.annual_turnover | currency: 'INR': '' : '1.0-2'}}
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal"
                                         (click)="getPatchDetails(a)"><span
@@ -252,7 +264,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label fl-10">EBIDTA (INR)</label>
+                                    <label class="form-label fl-10">EBITDA (INR)</label>
                                     <input formControlName="ebidta" type="text" class="form-control form-control-sm"
                                         appNumberOnly>
                                     <div *ngIf="f['ebidta'].touched && f['ebidta'].invalid">
@@ -299,7 +311,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Finance Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -309,51 +321,47 @@
                     <tbody class="text-nowrap">
                         <tr>
                             <th>Company</th>
-                            <td>{{ rowData?.bidder_name }}</td>
+                            <td colspan="8">{{ rowData?.bidder_name }}</td>
+                        </tr>
+                        <tr>
                             <th>Financial Year</th>
                             <td>{{ rowData?.financialyear }}</td>
-
-                        </tr>
-                        <tr>
                             <th>Total Liability (INR)</th>
                             <td>{{ rowData?.total_liabilities | currency: 'INR': '' : '1.0-2' }}</td>
+                          
+                        </tr>
+                        <tr>
                             <th>Total Fixed Asset (INR)</th>
                             <td>{{ rowData?.total_fixed_assets | currency: 'INR': '' : '1.0-2' }}</td>
-                        </tr>
-                        <tr>
-
                             <th>Net Profit (INR)</th>
                             <td>{{ rowData?.net_profit | currency: 'INR': '' : '1.0-2' }}</td>
-                            <th>Net Worth (INR)</th>
-                            <td>{{ rowData?.net_worth | currency: 'INR': '' : '1.0-2' }}</td>
+                           
                         </tr>
                         <tr>
-<!-- 
-                            <th>Net Capital</th>
-                            <td>{{ rowData?.net_capital }}</td> -->
+                            <th>Net Worth (INR)</th>
+                            <td>{{ rowData?.net_worth | currency: 'INR': '' : '1.0-2' }}</td>
                             <th>Reserve & Surplus (INR)</th>
                             <td>{{ rowData?.reserve_surplus | currency: 'INR': '' : '1.0-2' }}</td>
-                            <th></th>
-                            <td></td>
+                           
                         </tr>
                         <tr>
 
                             <th>Paid up Capital (INR)</th>
                             <td>{{ rowData?.paid_upcapital | currency: 'INR': '' : '1.0-2' }}</td>
-                            <th>Annual TUrnover (INR)</th>
+                            <th>Annual Turnover (INR)</th>
                             <td>{{ rowData?.annual_turnover | currency: 'INR': '' : '1.0-2' }}</td>
                         </tr>
                         <tr>
 
                             <th>Networking Capital (INR)</th>
                             <td>{{ rowData?.net_working_capital | currency: 'INR': '' : '1.0-2' }}</td>
-                            <th>Ebidta (INR)</th>
+                            <th>EBITDA (INR)</th>
                             <td>{{ rowData?.ebidta | currency: 'INR': '' : '1.0-2' }}</td>
                         </tr>
 
                         <tr>
                             <th>Description</th>
-                            <td>
+                            <td colspan="7">
                                 <div *ngIf="!!rowData?.description; else elseBlock1" data-toggle="tooltip"
                                     data-placement="bottom" title="{{ rowData?.description }}">
                                     {{rowData?.description | slice:0:30}} <span
@@ -364,8 +372,7 @@
                                     {{rowData?.description}}
                                 </ng-template>
                             </td>
-                            <th></th>
-                            <td></td>
+                          
                         </tr>
 
                         <tr>
