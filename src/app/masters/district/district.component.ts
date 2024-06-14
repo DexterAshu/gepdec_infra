@@ -37,13 +37,14 @@ export class DistrictComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
+      country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       district_name: [null, Validators.required],
     });
 
     this.getDistrictData();
     this.getStateData();
-    // this.getCountryData();
+    this.getCountryData();
   }
 
   get f() { return this.form.controls; }
@@ -62,19 +63,42 @@ export class DistrictComponent implements OnInit {
         this.form.patchValue({
           state_id: this.districtDetails.state_id,
           district_name: this.districtDetails.district_name,
+          country_id: this.districtDetails.country_id
 
         });
  
   }
-  getStateData() {
-    this.masterService.getStateData().subscribe((res: any) => {
+
+  getCountryData() {
+    this.apiService.getCountryDataList().subscribe((res:any) => {
       if (res.status === 200) {
-        this.stateData = res.result;
+        this.countryData = res.result;
       } else {
-        this.alertService.warning(`Looks like no state available related to the selected state.`);
+        this.alertService.warning("Looks like no data available in country data.");
       }
     });
   }
+  getStateData() {
+    let countrydata = this.form.value.country_id;
+    let statedata = null;
+    this.apiService.getStateData(countrydata, statedata).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.stateData = res.result;
+      } else {
+        this.alertService.warning(`Looks like no state available related to the selected country.`);
+      }
+    });
+  }
+
+  // getStateData() {
+  //   this.masterService.getStateData().subscribe((res: any) => {
+  //     if (res.status === 200) {
+  //       this.stateData = res.result;
+  //     } else {
+  //       this.alertService.warning(`Looks like no state available related to the selected state.`);
+  //     }
+  //   });
+  // }
  
 
   getDistrictData() {
@@ -135,6 +159,7 @@ export class DistrictComponent implements OnInit {
 
   createDistrict() {
     let params = {
+        country_id: this.form.value.country_id,
         state_id: this.form.value.state_id,
         district_name: this.form.value.district_name,
     };

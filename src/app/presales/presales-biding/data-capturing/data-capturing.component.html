@@ -112,7 +112,7 @@
                     </div>
                     <div class="col-md-4" *ngIf="cat.value == '1002' || cat.value == '1003'">
                         <div class="form-group">
-                            <label class="form-label fl-10">Sub-Category<span class="required-asterisk">*</span></label>
+                            <label class="form-label fl-10">Sub-Category<span class="required-asterisk">*</span> </label>
                             <select formControlName="subqacatagory_id" class="form-select form-select-sm" #sub
                                 (change)="getCapacityData(sub.value)">
                                 <option [selected]="true" [disabled]="true">Select Sub-Category</option>
