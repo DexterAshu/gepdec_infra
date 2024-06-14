@@ -51,35 +51,24 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
                                 <td>
-                                    <app-slice-with-tooltip [text]="a.tender_title"></app-slice-with-tooltip>
+                                    <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
                                 </td>
 
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span
-                                            *ngIf="a?.tender_ref_no.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock2>
-                                        {{a?.tender_ref_no}}
-                                    </ng-template>
+                                    <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                                 </td>
                                 <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
                                 <td>{{ a.qacatagory }}</td>
                                 <td>{{ a.subqacatagory }}</td>
                                 <td>{{ a.capacity }}</td>
-                                <td>{{ a.tender_location }}</td>
                                 <td>
-                                    <!-- <span>
-                                        {{ a?.tender_location.join(',') }}
-                                    </span>...
-                                    <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;"  (click)="rowLocation(a)" title="{{a.tender_location}}"> -->
+                                    <span>
+                                        {{ a?.tender_location?.join(',') }}...
+                                    </span>
+                                    <img src="../../../../assets/images/lo.png" style="width:15px; height:15px;"  (click)="rowLocation(a)">
                                 </td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        (click)="rowListData(a)"><span
-                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
