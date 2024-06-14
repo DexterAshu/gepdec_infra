@@ -1366,7 +1366,7 @@ export class DashboardComponent implements OnInit {
   lineBarColorScheme: any = {
     // domain: ['#cee27d', '#63830c']
     // domain: ['#d6a974', '#97daa7']
-    domain: ['#90EE90', '#FA8072']
+    domain: ['#90EE90', '#ff7f3e']
   }
   // lineBar chart end
   tenderDetails: any[] = [];
