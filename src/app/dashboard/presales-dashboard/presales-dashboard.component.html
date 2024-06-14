@@ -36,7 +36,7 @@
                   <label class="col-sm-3 col-form-label">State</label>
                   <div class="col-sm-9">
                     <select formControlName="state_id" class="form-select form-select-sm">
-                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">All</option>
                       <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
                     </select>
                   </div>
@@ -55,7 +55,7 @@
                     </select> -->
                     <select formControlName="duration" class="form-select form-select-sm"
                     (change)="onDurationChange($event)">
-                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">All</option>
                       <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
 
                     </select>
@@ -70,7 +70,7 @@
                       <!-- <option>All</option>
                       <option>GEPDEC Energy Project</option>
                       <option>GEPDEC Infra Project</option> -->
-                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">All</option>
                       <option *ngFor="let c of companyData" value="{{c.bidder_id}}">{{c.bidder_name}}</option>
                     </select>
                   </div>
@@ -90,7 +90,7 @@
                       <!-- <option>All</option>
                               <option>Meter</option>
                               <option>220/33kV, 80MVA Power Transformer</option> -->
-                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">All</option>
                       <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">{{ c.qacatagory }}</option>
                     </select>
                   </div>
@@ -109,7 +109,7 @@
                       <!-- <option>All</option>
                               <option>Jaunpur Project</option>
                               <option>Noida project</option> -->
-                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">All</option>
                       <option *ngFor="let c of projectData" value="{{c.tender_id}}">{{ c.tender_title }}</option>
                     </select>
                   </div>
@@ -375,12 +375,18 @@
           </div>
 
             <div class="chartBar" #containerRef4>
-              <!-- <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth,190]" [scheme]="colorSchemeLoadQuarter1"
+              <div *ngIf="loading" class="text-center">
+                <div class="spinner-border"> </div>
+              </div>
+              <div *ngIf="!loading && barChartData.length === 0" class="text-center">
+                <p class="text-warning">Looks like no data available!</p>
+              </div>
+              <ngx-charts-bar-vertical-2d [view]="[containerRef4.offsetWidth,190]" [scheme]="colorSchemeLoadQuarter1"
                 [results]="barChartData" [xAxis]="showXAxis" [gradient]="true" [yAxis]="showYAxis"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
                 [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="5" [groupPadding]="7">
-              </ngx-charts-bar-vertical-2d> -->
-              <ngx-charts-bar-vertical-2d 
+              </ngx-charts-bar-vertical-2d>
+              <!-- <ngx-charts-bar-vertical-2d 
                 [view]="[containerRef4.offsetWidth, 190]" 
                 [scheme]="colorSchemeLoadQuarter1"
                 [results]="barChartData" 
@@ -399,7 +405,7 @@
                   <p *ngIf="model.name === 'Won'">{{model.name}}: {{model.value}}%</p>
                   <p *ngIf="model.name !== 'Won'">{{model.name}}: {{model.value}}</p>
                 </ng-template>
-              </ngx-charts-bar-vertical-2d>
+              </ngx-charts-bar-vertical-2d> -->
             </div>
           <ul class="cust-legend">
             <li><i class="mdi mdi-checkbox-blank load_box1"></i> Total</li>
@@ -424,9 +430,15 @@
     <div class="col-md-6 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <p class="card-title">PreSales: Values</p>
+          <p class="card-title mb-2">PreSales: Values</p>
 
           <div class="chartBar" #containerRef6>
+            <div *ngIf="loading" class="text-center">
+              <div class="spinner-border"> </div>
+            </div>
+            <div *ngIf="!loading && pieChartData.length === 0" class="text-center">
+              <p class="text-warning">Looks like no data available!</p>
+            </div>
             <!-- <ngx-charts-pie-chart [view]="[containerRef6.offsetWidth - 35, 220]" [scheme]="lineColorScheme"
               [labels]="showLabelsPie" [gradient]="false" [doughnut]="true" [legend]="true" [results]="pieChartData">
             </ngx-charts-pie-chart> -->
@@ -499,6 +511,9 @@
           <div class="table-wrap">
             <div *ngIf="loading" class="text-center mt-3">
               <div class="spinner-border"> </div>
+            </div>
+            <div *ngIf="!loading && topFiveOrder.length === 0" class="text-center mt-3">
+              <p class="text-warning">Looks like no data available!</p>
             </div>
             <div class="card1 mt-1" *ngFor="let tender of topFiveOrder; let i = index">
               <div class="row d-flex">

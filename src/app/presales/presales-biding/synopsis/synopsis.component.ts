@@ -82,8 +82,8 @@ export class SynopsisComponent {
     this.getTenderData();
   }
 
-  rowLocation(row:any) {
-    this.locationArray = row.tender_location;
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   ngAfterViewInit() {

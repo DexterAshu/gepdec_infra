@@ -1740,8 +1740,12 @@ export class DashboardComponent implements OnInit {
           // Pie chart data mapping with null checks
           if (this.dashboardData.topFiveLocationWise) {
             this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
+              // Handle null or undefined state_name and default to 'Other'
+              const stateName = item.state_name ? item.state_name : 'Other';
+              const label = `${stateName} (${item.state_count})`;
               return {
-                name: item.state_name || 'Other',
+                // name: item.state_name || 'Other',
+                name: label,
                 value: item.state_count ? +item.state_count : 0,
               };
             });
