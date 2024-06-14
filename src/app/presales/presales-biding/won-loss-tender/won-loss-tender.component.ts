@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'app-tender-final-approval',
-  templateUrl: './tender-final-approval.component.html',
-  styleUrls: ['./tender-final-approval.component.css']
+  selector: 'app-won-loss-tender',
+  templateUrl: './won-loss-tender.component.html',
+  styleUrls: ['./won-loss-tender.component.css']
 })
-export class TenderFinalApprovalComponent implements OnDestroy{
+export class WonLossTenderComponent {
   form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
@@ -98,9 +98,8 @@ export class TenderFinalApprovalComponent implements OnDestroy{
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      // tenderstatus_id: ['', Validators.required],
+      tenderstatus_id: ['', Validators.required],
       working_notes: ['', Validators.required],
-      submitted_on: ['', Validators.required],
       audit_trail: [null],
     });
 
@@ -274,16 +273,14 @@ export class TenderFinalApprovalComponent implements OnDestroy{
   }
 
  
-
   sendApproval() {
     if (this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager') {
       var reqTend = {
-        submitted_on: this.form.value.submitted_on,
         working_notes: this.form.value.working_notes,
-        tender_id : this.tenderID,
-        document: this.docArray
+        tenderstatus_id: this.form.value.tenderstatus_id,
+        tender_id: this.tenderID,
       }
-      this.apiService.addAttachmentCod(reqTend).pipe(takeUntil(this.destroy$)).subscribe(
+      this.apiService.createApproval(reqTend).pipe(takeUntil(this.destroy$)).subscribe(
         {next: (res: any) => {
           let response: any = res;
           document.getElementById('cancel')?.click();
@@ -301,11 +298,30 @@ export class TenderFinalApprovalComponent implements OnDestroy{
         }})
 
     }
-  
+    else {
+      this.form.value.tenderstatus_id = this.reqList[0].tenderstatus_id;
+      this.form.value.tender_id = this.tenderID;
+      this.apiService.createApproval(this.form.value).subscribe((res: any) => {
+        let response: any = res;
+        document.getElementById('cancel')?.click();
+        this.isSubmitted = false;
+        if (response.status == 200) {
+          this.userData.rolename === 'Manager' && this.sendForApprovalClicked == true;
+          this.form.reset();
+          this.getTenderData();
+          this.alertService.success(response.message);
+        } else {
+          this.alertService.warning(response.message);
+        }
+      }, (error: any) => {
+        this.isNotFound = false;
+        this.alertService.error("Error: Unknown Error!")
+      })
+
+    }
   }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 }
-

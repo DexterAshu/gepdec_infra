@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
   yAxisLabelf: string = 'Amount (Cr)';
   //  timelinef: boolean = true;
   // totalOccupied:any;
-  helloData:any=[19, 80, 30, 20, 70, 90, 80, 30, 20, 40]
+  helloData: any = [19, 80, 30, 20, 70, 90, 80, 30, 20, 40]
   // yAxisLabel2 = 'Data Value';
   arrayData=['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida']  // totalOccupied:any;
 
@@ -861,7 +861,7 @@ export class DashboardComponent implements OnInit {
     domain: ['#387df3', '#FFBF00', '#FF7F50']
   }
   lineColorSchemeFinance: any = {
-    domain: ['#4c8ce9', '#f59e35', '#75efb3']
+    domain: ['#5e96f7', '#fcbe53', '#90EE90']
   }
   mainColorScheme: any = {
     domain: ['#43e943', '#fad73c', '#9775dc']
@@ -1392,9 +1392,9 @@ export class DashboardComponent implements OnInit {
     // this.getCategoryData();
     this.getCatgData();
     this.getStatusData();
-//     const defaultDuration: number | null = null;
-// const defaultCategory: number | null = null;
-// const defaultCompany: number | null = null;
+    //     const defaultDuration: number | null = null;
+    // const defaultCategory: number | null = null;
+    // const defaultCompany: number | null = null;
     // this.getDashboardData(defaultDuration, defaultCategory, defaultCompany, null);
     this.getDashboardData(null, null, null, null, null, null);
     // this.getCompanyData();
@@ -1422,7 +1422,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
+    this.apiService.getCountryDataList().subscribe((res: any) => {
       if (res.status === 200) {
         this.countryData = res.result;
         const india = this.countryData.find((country: { name: string; }) => country.name === 'India');
@@ -1435,8 +1435,7 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-  
-  
+
   StateData() {
     console.log(this.form.value.country_id);
 
@@ -1532,11 +1531,11 @@ export class DashboardComponent implements OnInit {
     this.selectedProject = event.target.value;
     if (this.selectedProject) {
       this.getDashboardData(
-        this.selectedDuration, 
-        this.selectedCategory, 
-        this.selectedCompany, 
-        this.selectedProject, 
-        this.form.value.state_id, 
+        this.selectedDuration,
+        this.selectedCategory,
+        this.selectedCompany,
+        this.selectedProject,
+        this.form.value.state_id,
         this.form.value.country_id
       );
     }
@@ -1789,7 +1788,7 @@ export class DashboardComponent implements OnInit {
   //   const endIndex = startIndex + this.itemsPerPage;
   //   this.pagedProgressBar = this.allProgressBar.slice(startIndex, endIndex);
   // }
-  
+
   onBarClick(event: any) {
     const clickedBar = this.allProgressBar.find(bar => bar.name === event.name);
     console.log('clickedBar', clickedBar)

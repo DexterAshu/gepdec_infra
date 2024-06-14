@@ -82,10 +82,14 @@ import { IndirectCostingComponent } from './presales/presales-biding/indirect-co
 import { DirectCostingComponent } from './presales/presales-biding/direct-costing/direct-costing.component';
 import { CostingApprovalComponent } from './presales/presales-biding/costing-approval/costing-approval.component';
 import { TenderFinalApprovalComponent } from './presales/presales-biding/tender-final-approval/tender-final-approval.component';
+import { FinalReportComponent } from './presales/presales-biding/final-report/final-report.component';
+import { WonLossTenderComponent } from './presales/presales-biding/won-loss-tender/won-loss-tender.component';
 import { UnderDevelopmentComponent } from './sharedComponent/under-development/under-development.component';
 import { PreSalesDrawingComponent } from './presales/design/pre-sales-drawing/pre-sales-drawing.component';
 import { PreSalesFinalBOQComponent } from './presales/design/pre-sales-final-boq/pre-sales-final-boq.component';
 import { PreSalesMasterDrawingListComponent } from './presales/design/pre-sales-master-drawing-list/pre-sales-master-drawing-list.component';
+
+
 
 const routes: Routes = [
   // {path: 'login', component: LoginComponent},
@@ -182,6 +186,8 @@ const routes: Routes = [
   {path: 'presales/presales-biding/banking-details', component:BankingDetailsComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/boq-item', component:BoqItemsComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/indirect-cost', component:IndirectCostingComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/final-report', component:FinalReportComponent, canActivate:[AuthGuard]},
+  {path: 'presales/presales-biding/won-loss-tender', component:WonLossTenderComponent, canActivate:[AuthGuard]},
   {path: 'presales/presales-biding/direct-cost', component:DirectCostingComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory', component:InventoryComponent, canActivate:[AuthGuard]},
   {path: 'presales/inventory/audit-request', component: AuditRequestComponent, canActivate:[AuthGuard]},

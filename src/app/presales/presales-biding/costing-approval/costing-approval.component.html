@@ -95,13 +95,13 @@
                   <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
                     <span *ngIf="i+1 == 1">{{loc}}</span>
                   </span>...
-                <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" title="{{a.tender_location}}">
+                <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="{{a.tender_location}}">
                
                   <!-- <a data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="Location Details"> <span class="mdi mdi-google-maps text-warning cursor-pointer mdi-18px"></span>
                   </a> -->
                 </td>
 
-                <td>{{ a.ecv | currency: 'INR': '' : '1.0-2'}}</td>
+                <td class="text-end">{{ a.ecv | currency: 'INR': '' : '1.0-2'}}</td>
                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
                 <td>{{ a?.tender_status}}</td>
                 <td>
@@ -524,27 +524,68 @@
 
               </div>
 
-              <h6 class="my-3 text-secondary">Previous Notes</h6>
-              <div class="card p-2 text-small" [innerHTML]="rowData?.remarks?.join('<br>')"></div>
+              <div class="col-md-12 p-2 card" (click)="showPreviousDetails=!showPreviousDetails">
+                <div class="row p-1">
+                    <div class="col-md-6">
+                      <h6 class="mb-2 text-primary cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
+                            <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/>
+                            <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
+                            <path d="M9.979 5.356a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.926-.08L4.69 10H4.5a.5.5 0 0 0 0 1H5a.5.5 0 0 0 .447-.276l.936-1.873 1.138 3.793a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h.5a.5.5 0 0 0 0-1h-.128z"/>
+                          </svg> &nbsp;
+                          Historical Working Notes
+                      </h6>
+  
+                    </div>
+  
+                    <div class="col-md-6">
+                      <div class="float-right" title="Show/Hide Details">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-chevron-down" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                        </svg>
+  
+                      </div>
+                    </div>
+                  </div>
+               
+                <div class="form-group" *ngIf="showPreviousDetails">
+                    <p [innerHTML]="getFormattedRemarks()"></p>
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-1 p-2 card"  (click)="showWorkingDetails=!showWorkingDetails">
+                <div class="row p-1">
+                    <div class="col-md-6">
+                    <h6 class="mb-2 text-primary cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cassette" viewBox="0 0 16 16">
+                            <path d="M4 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2m9-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 6a1 1 0 0 0 0 2h2a1 1 0 1 0 0-2z"/>
+                            <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zM1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-.691l-1.362-2.724A.5.5 0 0 0 12 10H4a.5.5 0 0 0-.447.276L2.19 13H1.5a.5.5 0 0 1-.5-.5zM11.691 11l1 2H3.309l1-2z"/>
+                        </svg> &nbsp;
+                        Activity Log Notes
+                    </h6>
+                    </div>
+
+                    <div class="col-md-6">
+                    <div class="float-right" title="Show/Hide Details">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                        </svg>
+
+                    </div>
+                    </div>
+                </div>
             
-              <!-- <div class="col-md-12 mt-2" >
-                  <div class="text-primary cursor-pointer" (click)="showWorkingDetails=!showWorkingDetails">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-layer-backward" viewBox="0 0 16 16">
-                          <path
-                              d="M8.354 15.854a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l1-1a.5.5 0 0 1 .708 0l.646.647V4H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v7.793l.646-.647a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708z" />
-                          <path
-                              d="M1 9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4.5a.5.5 0 0 1 0 1H1v2h4.5a.5.5 0 0 1 0 1zm9.5 0a.5.5 0 0 1 0-1H15V6h-4.5a.5.5 0 0 1 0-1H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z" />
-                      </svg> &nbsp;
-                      Audit Trail
-                  </div>
-                  <div class="form-group mt-2" *ngIf="showWorkingDetails">
-                      <div class="card p-2 text-small" [innerHTML]="rowData?.audit_trail.join('<br>')"></div>
-                  </div>
-              </div> -->
+                <div class="form-group" *ngIf="showWorkingDetails">
+                    <p [innerHTML]="getFormattedAuditTrail()"></p>
+                </div>
+            </div>
 
               <!-- qualification details -->
-              <h6 class="mt-3 mb-2 text-secondary mt-2">Qualification Detail</h6>
+              <h6 class="mt-3 mb-2 text-secondary mt-2">Qualification Details</h6>
               <div class="card p-2" (click)="finDataShow =! finDataShow">
                 <div class="row p-1">
                   <div class="col-md-6">
@@ -554,7 +595,7 @@
                         <path
                           d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z" />
                       </svg> &nbsp;
-                      Financial Qualification Detail
+                      Financial Qualification
                     </h6>
 
                   </div>
@@ -829,7 +870,7 @@
                         <path
                           d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4" />
                       </svg> &nbsp;
-                      Technical Qualification Details
+                      Technical Qualification
                     </h6>
 
                   </div>
@@ -913,7 +954,7 @@
 
               <div class="row align-items-center mt-3">
                 <div class="col-md-6">
-                  <h6 class="mt-3 mb-2 text-secondary">Costing Detail</h6>
+                  <h6 class="mt-3 mb-2 text-secondary">Costing Details</h6>
                 </div>
               </div>
 
@@ -944,7 +985,7 @@
                         <path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5" />
                         <path d="M3 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
                       </svg> &nbsp;
-                      Direct Costing Details
+                      Direct Costing
                     </h6>
                   </div>
                   <div class="col-md-6">
@@ -1183,7 +1224,7 @@
                         <path fill-rule="evenodd"
                           d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2" />
                       </svg> &nbsp;
-                      Indirect Costing Details
+                      Indirect Costing
                     </h6>
                   </div>
 
