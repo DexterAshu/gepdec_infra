@@ -131,7 +131,7 @@
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
                                     <a (click)="rowListData(a)" data-bs-toggle="modal" data-bs-target="#detailModal">
-                                        <span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span>
+                                        <span style="color: #2196f3;" class="mdi mdi-format-list-bulleted cursor-pointer mdi-18px"></span>
                                     </a>
                                     <!-- &nbsp; -->
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
@@ -416,26 +416,26 @@
                                 <tr>
                                 <th>S No</th>
                                 <th>File Name</th>
-                                <th>Document Attachments</th>
+                                <th>Document Attachment</th>
                                 </tr>
                             </thead>
                             <tbody class="text-nowrap">
-                                <tr *ngFor="let a of rowData; index as i">
-                                <td>{{i+1}}</td>
-                                <td>{{a.document}}</td>
-                                <td>({{a.filecount}}) 
-                                    <span class="me-1" *ngFor="let img of a.images; index as i">
-                                        <a title="Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(img)">
+                                <tr *ngFor="let doc of processedDocuments; index as i">
+                                <td>{{doc.index}}</td>
+                                <td>{{doc.document}}</td>
+                                <td> 
+                                    <span *ngIf="doc.type === 'image'">
+                                        <a title="View Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(doc.fullPath)">
                                           <span style="color: #17a2b8;" class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
                                         </a>
                                     </span>
-                                    <span *ngFor="let pdf of a.pdfs; index as i" class="me-1">
-                                        <a (click)="showPdf(pdf)" title="PDF" data-bs-toggle="modal" data-bs-target="#pdfModal">
+                                    <span *ngIf="doc.type === 'pdf'">
+                                        <a title="View PDF" data-bs-toggle="modal" data-bs-target="#pdfModal" (click)="showPdf(doc.fullPath)">
                                             <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
                                         </a>
                                     </span>
-                                    <span *ngFor="let excel of a.excels; index as i" class="me-1">
-                                        <a (click)="downloadExcel(excel)" title="Excel Download">
+                                    <span *ngIf="doc.type === 'excel'">
+                                        <a title="Excel Download" (click)="downloadExcel(doc.fullPath)">
                                             <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
                                         </a>
                                     </span>                                    
