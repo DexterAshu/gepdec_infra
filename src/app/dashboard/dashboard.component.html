@@ -279,7 +279,7 @@
               [results]="performaceBar" [xAxis]="showXAxis" [yAxis]="showYAxis" [gradient]="true"
               [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabelBarLoad"
               [yAxisLabel]="yAxisLabelBarLoad" [barPadding]="2" [groupPadding]="1" (select)="onChartSelect($event)">
-
+              
               <!-- <ng-template #tooltipTemplate let-model="model">
               <div class="custom-tooltip">
                 <p>{{ model.name }}</p>
@@ -603,13 +603,13 @@
             </div>
 
           </div>
-          <div class="Highcharts " [chart]="Highcharts"></div>
+          <!-- <div class="Highcharts " [chart]="Highcharts"></div> -->
           <div #progressBarchart>
             <div *ngIf="loading" class="text-center">
               <div class="spinner-border"> </div>
             </div>
             <div *ngIf="!loading && progressBar.length === 0" class="text-center">
-              <p class="fw-semibold text-warning">No data available!</p>
+              <p class="text-warning">Looks like no data available!</p>
             </div>
             <ngx-charts-bar-horizontal [view]="[progressBarchart.offsetWidth, 250]" [scheme]="colorScheme"
               [results]="progressBar" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
