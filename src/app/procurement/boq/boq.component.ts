@@ -22,6 +22,7 @@ export class BoqComponent implements OnInit, OnDestroy {
   rowData: any;
   vendorList: any = [];
   selectedVendors: any = [];
+  boqList: any;
 
   constructor(
     private alertService: AlertService,
@@ -55,21 +56,9 @@ export class BoqComponent implements OnInit, OnDestroy {
     );
   }
 
-  getVendorList() {
-    const apiLink = `/supplier/api/v1/getSupplierList`;
-    this.apiService.getData(apiLink).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (res: any) => {
-        if (res.status === 200) {
-          this.vendorList = res.result;
-        } else {
-          this.vendorList = undefined;
-        }
-      }, error: (error: any) => {
-        console.error(error);
-        this.alertService.error("Error: Unknown Error!")
-      }
-    }
-    );
+  getBOQList(data: any) {
+    this.rowData = [];
+    this.boqList = data;
   }
 
   getBoqItemsList(item: any) {
@@ -84,8 +73,33 @@ export class BoqComponent implements OnInit, OnDestroy {
         isChecked: false
       })) : []
     })) || [];
-    // console.log(JSON.stringify(this.rowData));
-    this.getVendorList();
+    this.initializeVendorLists(this.rowData);
+  }
+
+  initializeVendorLists(items: any[]) {
+    items.forEach(item => {
+      this.getVendorList(item.item_id);
+      if (item.childItemList) {
+        this.initializeVendorLists(item.childItemList);
+      }
+    });
+  }
+
+  getVendorList(item_id: any) {
+    this.apiService.getVendorListByItem(item_id).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.vendorList[item_id] = res.result;
+        } else {
+          this.vendorList[item_id] = undefined;
+        }
+      }, error: (error: any) => {
+        console.error(error);
+        this.vendorList[item_id] = [];
+        this.alertService.error("Error: Unknown Error!")
+      }
+    }
+    );
   }
 
   onVendorSelect(item: any, event: any) {

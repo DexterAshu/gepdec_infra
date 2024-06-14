@@ -169,95 +169,6 @@ export class DirectCostingComponent {
     selectAllCheckbox.checked = allSelected;
   }
 
-
-  // new1
-  // selectAllItems(event: any): void {
-  //   const isChecked = event.target.checked;
-  //   this.itemList.items = this.itemList.items.map((item: any) => {
-  //     item.isDisabled = isChecked;
-  //     if (item.childItemList && item.childItemList.length > 0) {
-  //       item.childItemList = item.childItemList.map((child: any) => {
-  //         child.isDisabled = isChecked;
-  //         return child;
-  //       });
-  //     }
-  //     return item;
-  //   });
-
-  //   // Update checkedDataList based on the isChecked value
-  //   if (isChecked) {
-  //     // Add all items to checkedDataList
-  //     this.checkedDataList = [];
-  //     this.itemList.items.forEach((item: any) => {
-  //       this.checkedDataList.push(this.createMatchObject(item));
-  //       if (item.childItemList && item.childItemList.length > 0) {
-  //         item.childItemList.forEach((child: any) => {
-  //           this.checkedDataList.push(this.createMatchObject(child));
-  //         });
-  //       }
-  //     });
-  //   } else {
-  //     // Clear the checkedDataList
-  //     this.checkedDataList = [];
-  //   }
-  // }
-
-  // onItemSelect(data: any): void {
-  //   const match = this.createMatchObject(data);
-  //   const find = this.checkedDataList.find((item: any) => item.item_id === match.item_id);
-  //   if (find) {
-  //     this.checkedDataList = this.checkedDataList.filter((item: any) => item.item_id !== match.item_id);
-  //   } else {
-  //     this.checkedDataList.push(match);
-  //   }
-  //   console.log(this.checkedDataList);
-  // }
-
-  // createMatchObject(item: any): any {
-  //   return {
-  //     boqitem_id: item.boqitem_id,
-  //     boq_id: item.boq_id,
-  //     item_id: item.item_id,
-  //     itemcode: item.itemcode,
-  //     gst: item.gst,
-  //     freight_charges: item.freight_charges,
-  //     unit_price: item.unit_price,
-  //   };
-  // }
-
-  //old
-  // selectAllItems(): void {
-  //   debugger;
-  //   this.itemList.items = this.itemList?.items.map((item: any) => {
-  //     item.isDisabled = !item.isDisabled;
-  //     if (item?.childItemList?.length > 0) {
-  //       item.childItemList = item.childItemList.map((child: any) => {
-  //         child.isDisabled = !child.isDisabled;
-  //         return child;
-  //       });
-  //     }
-  //     return item;
-  //   });
-  // }
-
-  // onItemSelect(data: any): void {
-  //   let match: any = {};
-  //   match.boqitem_id = data.boqitem_id;
-  //   match.boq_id = data.boq_id;
-  //   match.item_id = data.item_id;
-  //   match.itemcode = data.itemcode;
-  //   match.gst = data.gst;
-  //   match.freight_charges = data.freight_charges;
-  //   match.unit_price = data.unit_price;
-  //   let find = this.checkedDataList.find((item: any) => item.item_id == match.item_id);
-  //   if (find) {
-  //     this.checkedDataList = this.checkedDataList.filter((item: any) => item.item_id != match.item_id);
-  //   } else {
-  //     this.checkedDataList.push(match);
-  //   }
-  //   console.log(this.checkedDataList);
-  // }
-
   onSubmit() {
     if (this.checkedDataList.length === 0) {
       this.alertService.warning("Please select atleast one item");
@@ -265,7 +176,7 @@ export class DirectCostingComponent {
     }
     console.log(JSON.stringify(this.checkedDataList));
     let apiLink = '/costing/api/v1/updatedTenderDirectCosting';
-    this.apiService.postData(apiLink, this.checkedDataList).subscribe(res => {
+    this.apiService.putData(apiLink, this.checkedDataList).subscribe(res => {
       if (res.status == 200) {
         this.getDataList();
         this.checkedDataList = undefined;
