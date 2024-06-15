@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, MasterService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
@@ -26,10 +26,14 @@ export class PreSalesDrawingComponent {
   isNotFound: boolean = false;
   selectRow: any;
 
-  constructor(private apiService: ApiService, private alertService: AlertService) {}
+  constructor(private apiService: ApiService, private alertService: AlertService, private masterService: MasterService) {}
 
   ngOnInit(): void {
     this.getMDLList();
+  }
+
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   getMDLList(): void {

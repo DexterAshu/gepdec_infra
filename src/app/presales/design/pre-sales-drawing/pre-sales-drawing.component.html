@@ -31,14 +31,14 @@
             <thead class="table-primary text-nowrap">
               <tr>
                 <th>S No</th>
-                <th>DRG No</th>
-                <th>NIT No</th>
                 <th>Tender Title</th>
+                <th>NIT No</th>
                 <th>Publish Date</th>
                 <th>Category</th>
                 <th>Sub-Category</th>
                 <th>Capacity</th>
                 <th>Execution Location</th>
+                <th>DRG No</th>
                 <th>Version</th>
                 <th>Action</th>
               </tr>
@@ -47,21 +47,21 @@
               <tr
                 *ngFor="let a of mdlData | filter:searchText | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{limit*(p-1)+i+1}}</td>
-                <td>{{a.mdl_no}}</td>
-                <td>{{a.tender_ref_no}}</td>
                 <td>
-                  <div *ngIf="!!a?.tender_title elseBlock" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">
-                      {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
-                  </div>
-                  <ng-template #elseBlock>
-                      {{a?.tender_title}}
-                  </ng-template>
+                  <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
+               </td>
+               <td>
+                <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                </td>
                 <td>{{a.publish_date | date:'dd/MM/yyyy' : 'GMT'}}</td>
                 <td>{{a.qacatagory}}</td>
                 <td>{{a.subqacatagory}}</td>
                 <td>{{a.capacity}}</td>
-                <td>{{a.tender_location}}</td>
+                <td>
+                  <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                  </app-location-section-shared>
+                </td>
+                <td>{{a.mdl_no}}</td>
                 <td>{{a.version}}</td>
                 <td>
                   <a class="ms-2" (click)="getDrawingList(a)" data-bs-toggle="modal" data-bs-target="#detailModal"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
@@ -97,48 +97,8 @@
         <div class="container-fluid">
           <div class="row">
             <div class="table-responsive" style="min-height: 300px">
-              <div class="row px-2">
-                <table class="table table-hover table-striped custom-table table-bordered">
-                  <thead class="table-primary text-nowrap">
-                    <tr>
-                      <th colspan="6" class="text-center">Tender Detail</th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-nowrap">
-                    <tr>
-                      <th>Client</th>
-                      <td>{{ selectRow?.company_name }}</td>
-                      <th> NIT No</th>
-                      <td>
-                        <div *ngIf="!!selectRow?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom" title="{{ selectRow?.tender_ref_no }}"> {{selectRow?.tender_ref_no | slice:0:30}} <span *ngIf="selectRow?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                        <ng-template #elseBlock3>{{selectRow?.tender_ref_no}}</ng-template>
-                      </td>
-                      <th>Tender Title</th>
-                      <td>
-                        <div *ngIf="!!selectRow?.tender_title; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
-                          title="{{ selectRow?.tender_title }}">{{selectRow?.tender_title | slice:0:30}} <span
-                            *ngIf="selectRow?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                        <ng-template #elseBlock2>{{selectRow?.tender_title}}</ng-template>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Publish Date</th>
-                      <td>{{ selectRow?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                      <th>Category</th>
-                      <td>{{ selectRow?.qacatagory }}</td>
-                      <th>Sub-Category</th>
-                      <td>{{ selectRow?.subqacatagory }}</td>
-                    </tr>
-                    <tr>
-                      <th>Capacity</th>
-                      <td>{{ selectRow?.capacity }}</td>
-                      <th>Execution Location</th>
-                      <td colspan="3">{{ selectRow?.tender_location }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <h6 class="mt-2 mb-2 text-secondary">Master Drawing Details</h6>
+              <app-tender-detail [itemList]="selectRow"></app-tender-detail>
+              <h6 class="mt-2 mb-3 text-secondary">Master Drawing Details</h6>
               <table class="table table-hover table-striped custom-table">
                 <thead class="hidden-thead"></thead>
                 <tbody>
