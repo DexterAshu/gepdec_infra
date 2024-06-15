@@ -55,7 +55,7 @@
                     </select> -->
                     <select formControlName="duration" class="form-select form-select-sm"
                     (change)="onDurationChange($event)">
-                      <option [selected]="true" [disabled]="true" [value]="null">All</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                       <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
 
                     </select>
@@ -70,7 +70,7 @@
                       <!-- <option>All</option>
                       <option>GEPDEC Energy Project</option>
                       <option>GEPDEC Infra Project</option> -->
-                      <option [selected]="true" [disabled]="true" [value]="null">All</option>
+                      <option [selected]="true" [disabled]="true" [value]="null">Select</option>
                       <option *ngFor="let c of companyData" value="{{c.bidder_id}}">{{c.bidder_name}}</option>
                     </select>
                   </div>
@@ -471,7 +471,7 @@
     <div class="col-md-6 grid-margin stretch-card pe-0">
       <div class="card">
         <div class="card-body">
-          <p class="card-title mb-2">PreSales Target | Achievement</p>
+          <p class="card-title mb-2">PreSales Target | Achievement <span class="fw-normal text-capitalize">(Part of Execution module)</span></p>
           <div class="chartBar" #containerRef5>
             <ngx-charts-line-chart [view]="[containerRef5.offsetWidth, 210]" [scheme]="colorSchemeLoadQuarter"
               [results]="lineChart" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showYAxisLabelLine"

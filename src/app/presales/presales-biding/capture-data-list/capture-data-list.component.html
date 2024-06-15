@@ -165,7 +165,7 @@
 </div>
 
 <!-- list location details -->
-    <div class="modal fade " id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true" appDraggableModal>
+    <!-- <div class="modal fade " id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true" appDraggableModal>
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -204,40 +204,9 @@
                         </tbody>
                     </table>
                 </div>
-                
-
-                <!-- <table class="table table-hover table-striped custom-table table-bordered">
-                        <thead class="table-primary text-nowrap">
-                            <tr>
-                                <th>S No</th>
-                                <th>Execution Location</th>
-                               
-                            </tr>
-                        </thead>
-                        <tbody class="text-nowrap">
-                            <tr *ngFor="let location of locationArray; index as i">
-                                <td>{{limit*(p-1)+i+1}}</td>
-                                <td>
-                                    <div *ngIf="!!location; else elseBlock4"
-                                        data-toggle="tooltip" data-placement="bottom"
-                                        title="{{ location }}">
-                                        {{location | slice:0:30}} <span
-                                            *ngIf="location.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock4>
-                                        {{location}}
-                                    </ng-template>
-                                </td>
-    
-                            </tr>
-                        </tbody>
-                 
-                </table> -->
-
             </div>
         </div>
-    </div>
+    </div> -->
 
 <!-- detail modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -292,10 +261,14 @@
                                             <td> {{rowData?.financialyear}}</td>
                                             <th>Execution Location</th>
                                             <td>
-                                                <span *ngFor="let loc of rowData?.tender_location; let i = index" title="{{rowData?.tender_location}}">
+                                                <!-- <span *ngFor="let loc of rowData?.tender_location; let i = index" title="{{rowData?.tender_location}}">
                                                     <span *ngIf="i+1 == 1">{{loc}}</span>
                                                 </span>...
-                                              <img *ngIf="rowData?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(rowData)" title="{{rowData?.tender_location}}">
+                                              <img *ngIf="rowData?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(rowData)" title="{{rowData?.tender_location}}"> -->
+
+                                              <app-location-section-shared [tenderLocation]="rowData?.tender_location" [rowData]="rowData" (locationClick)="rowLocation($event)">
+                                            </app-location-section-shared>
+
                                             </td>
                                             
                                             <!-- <td>

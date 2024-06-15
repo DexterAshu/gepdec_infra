@@ -1586,15 +1586,30 @@ export class DashboardComponent implements OnInit {
   // }
 
 
+  // ShortNumber(value: number, includeCr: boolean = true): string {
+  //   if (value >= 10000000) {
+  //     return Math.floor(value / 10000000) + (includeCr ? ' Cr' : '');
+  //   } else if (value >= 100000) {
+  //     return Math.floor(value / 100000) + ' Lakh';
+  //   } else {
+  //     return Math.floor(value).toString();
+  //   }
+  // }
+
   ShortNumber(value: number, includeCr: boolean = true): string {
     if (value >= 10000000) {
-      return Math.floor(value / 10000000) + (includeCr ? ' Cr' : '');
+        if (includeCr) {
+            return Math.floor(value / 10000000) + ' Cr';
+        } else {
+            return Math.floor(value / 1000000) + ' M';
+        }
     } else if (value >= 100000) {
-      return Math.floor(value / 100000) + ' Lakh';
+        return Math.floor(value / 100000) + ' Lakh';
     } else {
-      return Math.floor(value).toString();
+        return Math.floor(value).toString();
     }
-  }
+}
+
 
   formatNumber(value: number): string {
     if (value >= 10000000) {
@@ -1723,7 +1738,7 @@ export class DashboardComponent implements OnInit {
               series: this.dashboardData.revenueResult.map((item: any) => ({
                 name: item.year,
                 value: +item.revenue,
-                formattedValue: this.formatNumber(+item.revenue)
+                formattedValue: this.ShortNumber(+item.revenue)
               }))
             },
             {
@@ -1731,12 +1746,11 @@ export class DashboardComponent implements OnInit {
               series: this.dashboardData.revenueResult.map((item: any) => ({
                 name: item.year,
                 value: +item.ebidta,
-                formattedValue: this.formatNumber(+item.ebidta)
+                formattedValue: this.ShortNumber(+item.ebidta)
               }))
             }
           ];
         }
-
           // Pie chart data mapping with null checks
           if (this.dashboardData.topFiveLocationWise) {
             this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
