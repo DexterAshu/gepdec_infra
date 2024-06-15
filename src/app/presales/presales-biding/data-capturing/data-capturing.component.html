@@ -199,8 +199,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">City</label>
-                            <input type="text" formControlName="city" class="form-control form-control-sm"
-                                placeholder="Enter Your City">
+                            <input type="text" formControlName="city" class="form-control form-control-sm">
                         </div>
                     </div>
 
@@ -501,8 +500,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Registration Fees<span
-                                    class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee"
+                                    class="required-asterisk">*</span> <span *ngIf="form.value.tender_fee" class="p-1 bg-light rounded-pill">{{regFeeData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee" [(ngModel)]="regFeeData"
                                 placeholder="Enter '0' if not applicable" appNumberOnly>
                             <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
                                 <small class="text-danger"
@@ -514,8 +513,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Document Cost<span
-                                    class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost"
+                                    class="required-asterisk">*</span> <span *ngIf="form.value.tender_doc_cost" class="p-1 bg-light rounded-pill">{{docCostData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost" [(ngModel)]="docCostData"
                                 placeholder="Enter '0' if not applicable" appNumberOnly>
                             <div *ngIf="f['tender_doc_cost'].touched && f['tender_doc_cost'].invalid">
                                 <small class="text-danger"
@@ -547,8 +546,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">Security Amount<span
-                                        class="required-asterisk">*</span></label>
-                                <input formControlName="security_amount" type="text"
+                                        class="required-asterisk">*</span> <span *ngIf="form.value.security_amount" class="p-1 bg-light rounded-pill">{{securityData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                <input formControlName="security_amount" type="text" [(ngModel)]="securityData"
                                     class="form-control form-control-sm" appNumberOnly>
                                 <div *ngIf="f['security_amount'].touched && f['security_amount'].invalid">
                                     <small class="text-danger"
@@ -638,8 +637,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">EMD Amount<span
-                                        class="required-asterisk">*</span></label>
-                                <input formControlName="emd_ammount" type="text" class="form-control form-control-sm"
+                                        class="required-asterisk">*</span> <span *ngIf="form.value.emd_ammount" class="p-1 bg-light rounded-pill">{{emdData | currency: 'INR': '' : '1.0-2'}}</span> </label>
+                                <input formControlName="emd_ammount" type="text" class="form-control form-control-sm" [(ngModel)]="emdData"
                                     appNumberOnly>
                                 <div *ngIf="f['emd_ammount'].touched && f['emd_ammount'].invalid">
                                     <small class="text-danger"
