@@ -74,6 +74,10 @@ export class DataCapturingComponent implements OnDestroy {
   ecvData:any
   private destroy$ = new Subject<void>();
   stateListData: any;
+  emdData:any;
+  regFeeData:any;
+  docCostData:any;
+  securityData:any;
 
   constructor(
     private formBuilder: FormBuilder,
