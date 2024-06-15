@@ -69,35 +69,18 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.company_name }}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock1>
-                                        {{a.tender_title}}
-                                    </ng-template>
+                                  <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
                                 </td>
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span
-                                            *ngIf="a?.tender_ref_no.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock2>
-                                        {{a?.tender_ref_no}}
-                                    </ng-template>
+                                  <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                                 </td>
                                 <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
                                 <td>
-                                    <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
-                                        <span *ngIf="i+1 == 1">{{loc}}</span>
-                                    </span>...
-                                  <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="{{a.tender_location}}">
+                                  <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                                  </app-location-section-shared>
                                  
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="Location Details"> <span class="mdi mdi-google-maps text-warning cursor-pointer mdi-18px"></span>
                                     </a> -->
@@ -198,6 +181,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12 p-0">
+
                           <div class="table-responsive pt-2" style="min-height: auto;">
                             <table class="table table-hover table-striped custom-table table-bordered">
                                 <thead class="table-primary text-nowrap">

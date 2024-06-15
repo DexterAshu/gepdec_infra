@@ -74,32 +74,20 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock1>
-                                        {{a.tender_title}}
-                                    </ng-template>
+                                    <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
                                 </td>
 
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span
-                                            *ngIf="a?.tender_ref_no.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock2>
-                                        {{a?.tender_ref_no}}
-                                    </ng-template>
+                                    <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                                 </td>
                                 <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
                                 <td>{{ a.qacatagory }}</td>
                                 <td>{{ a.subqacatagory }}</td>
                                 <td>{{ a.capacity }}</td>
-                                <td>{{ a.tender_location }}</td>
+                                <td>
+                                    <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                                    </app-location-section-shared>
+                                </td>
                                 <td>{{a.financialyear}}</td>
                                 <!-- <td>{{a.status}}</td> -->
                                 <td>
@@ -1065,72 +1053,7 @@
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="table-responsive pt-2" style="min-height: auto;">
-                                <table class="table table-hover table-striped custom-table table-bordered">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th colspan="6" class="text-center">Tender Detail</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <tr>
-                                            <th>Client</th>
-                                            <td>{{ rowData?.company_name }}</td>
-                                            <th>Tender Title</th>
-                                            <td>
-                                                <div *ngIf="!!rowData?.tender_title; else elseBlock5"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="{{ rowData?.tender_title }}">
-                                                    {{rowData?.tender_title | slice:0:30}} <span
-                                                        *ngIf="rowData?.tender_title.length > 30">...<i
-                                                            class="mdi mdi-information"></i></span>
-                                                </div>
-                                                <ng-template #elseBlock5>
-                                                    {{rowData?.tender_title}}
-                                                </ng-template>
-                                            </td>
-                                            <th>NIT No</th>
-                                            <td>
-                                                <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="{{ rowData?.tender_ref_no }}">
-                                                    {{rowData?.tender_ref_no | slice:0:30}} <span
-                                                        *ngIf="rowData?.tender_ref_no.length > 30">...<i
-                                                            class="mdi mdi-information"></i></span>
-                                                </div>
-                                                <ng-template #elseBlock3>
-                                                    {{rowData?.tender_ref_no}}
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Publish Date</th>
-                                            <td>{{rowData?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                                            <th>Category</th>
-                                            <td>{{rowData?.qacatagory}}</td>
-                                            <th>Sub-Category</th>
-                                            <td>{{rowData?.subqacatagory}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Capacity</th>
-                                            <td>{{rowData?.capacity}}</td>
-                                            <th>Execution Location</th>
-                                            <td>
-                                                <div *ngIf="!!rowData?.tender_location; else elseBlock4"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="{{ rowData?.tender_location }}"> {{rowData?.tender_location |
-                                                    slice:0:30}} <span
-                                                        *ngIf="rowData?.tender_location.length > 30">...<i
-                                                            class="mdi mdi-information"></i></span>
-                                                </div>
-                                                <ng-template #elseBlock4>
-                                                    {{rowData?.tender_location}}
-                                                </ng-template>
-                                            </td>
-                                            <th>Financial Year</th>
-                                            <td> {{rowData?.financialyear}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <app-tender-detail [itemList]="rowData"></app-tender-detail>
                             </div>
                             <div class="table-responsive tableStyle mt-2">
                                 <div class="row p-2" style="background-color: #eceff7; border-radius: 5px;">
