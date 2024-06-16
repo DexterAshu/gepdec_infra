@@ -364,7 +364,7 @@
               [results]="lineAreaChart">
               <ng-template #tooltipTemplate let-model="model">
                 <p class="p-0 m-0">{{ model.series }}</p>
-                <p>{{ model.name }}: {{ model.formattedValue }}</p>
+                <p>{{ model.name }}: {{ model.value }}</p>
               </ng-template>
             </ngx-charts-area-chart>
 

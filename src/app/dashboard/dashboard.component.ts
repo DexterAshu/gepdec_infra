@@ -1738,7 +1738,7 @@ export class DashboardComponent implements OnInit {
               series: this.dashboardData.revenueResult.map((item: any) => ({
                 name: item.year,
                 value: +item.revenue,
-                formattedValue: this.ShortNumber(+item.revenue)
+                // formattedValue: this.ShortNumber(+item.revenue)
               }))
             },
             {
@@ -1746,7 +1746,7 @@ export class DashboardComponent implements OnInit {
               series: this.dashboardData.revenueResult.map((item: any) => ({
                 name: item.year,
                 value: +item.ebidta,
-                formattedValue: this.ShortNumber(+item.ebidta)
+                // formattedValue: this.ShortNumber(+item.ebidta)
               }))
             }
           ];
