@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService, MasterService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -27,10 +27,15 @@ export class BoqComponent implements OnInit, OnDestroy {
   constructor(
     private alertService: AlertService,
     private apiService: ApiService,
+    private masterService: MasterService
   ) { }
 
   ngOnInit() {
     this.getDataList();
+  }
+
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   getDataList() {

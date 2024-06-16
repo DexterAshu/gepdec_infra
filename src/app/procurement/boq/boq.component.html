@@ -49,24 +49,20 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.company_name}}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a.tender_title }}">{{a.tender_title |
-                                        slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
-                                                class="mdi mdi-information"></i></span></div>
-                                    <ng-template #elseBlock1>{{a.tender_title}}</ng-template>
+                                    <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
                                 </td>
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no |
-                                        slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i
-                                                class="mdi mdi-information"></i></span></div>
-                                    <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
+                                    <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                                 </td>
                                 <td>{{ a.publish_date ? (a.publish_date | date:'dd/MM/yyyy' : 'GMT') : '--' }}</td>
                                 <td>{{ a.qacatagory ? a.qacatagory : '--' }}</td>
                                 <td>{{ a.subqacatagory ? a.subqacatagory : '--' }}</td>
                                 <td>{{ a.capacity ? a.capacity : '--' }}</td>
-                                <td>{{ a.tender_location ? a.tender_location : '--' }}</td>
+                                <td>
+                                    <!-- {{ a.tender_location ? a.tender_location : '--' }} -->
+                                    <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                                    </app-location-section-shared>
+                                </td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details"
                                         (click)="getBOQList(a)"><span
@@ -256,55 +252,11 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row px-2">
-                        <table class="table table-hover table-striped custom-table table-bordered">
-                            <thead class="table-primary text-nowrap">
-                                <tr>
-                                    <th colspan="6" class="text-center">Tender Detail</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-nowrap">
-                                <tr>
-                                    <th>Client</th>
-                                    <td>{{ boqList?.company_name }}</td>
-                                    <th> NIT No</th>
-                                    <td>
-                                        <div *ngIf="!!boqList?.tender_ref_no; else elseBlock6" data-toggle="tooltip"
-                                            data-placement="bottom" title="{{ boqList?.tender_ref_no }}">
-                                            {{boqList?.tender_ref_no | slice:0:30}} <span
-                                                *ngIf="boqList?.tender_ref_no.length > 30">...<i
-                                                    class="mdi mdi-information"></i></span></div>
-                                        <ng-template #elseBlock6>{{boqList?.tender_ref_no}}</ng-template>
-                                    </td>
-                                    <th>Tender Title</th>
-                                    <td>
-                                        <div *ngIf="!!boqList?.tender_title; else elseBlock13" data-toggle="tooltip"
-                                            data-placement="bottom" title="{{ boqList?.tender_title }}">
-                                            {{boqList?.tender_title | slice:0:30}} <span
-                                                *ngIf="boqList?.tender_title.length > 30">...<i
-                                                    class="mdi mdi-information"></i></span></div>
-                                        <ng-template #elseBlock13>{{boqList?.tender_title}}</ng-template>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Publish Date</th>
-                                    <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                                    <th>Category</th>
-                                    <td>{{ boqList?.qacatagory }}</td>
-                                    <th>Sub-Category</th>
-                                    <td>{{ boqList?.subqacatagory }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Capacity</th>
-                                    <td>{{ boqList?.capacity }}</td>
-                                    <th>Execution Location</th>
-                                    <td colspan="3">{{ boqList?.tender_location }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <app-tender-detail [itemList]="boqList"></app-tender-detail>
                     </div>
                     <div class="row">
-                        <app-responsive-table class="mt-2 px-2">
+                        <app-responsive-table class="">
                             <thead class="table-primary text-nowrap">
                                 <tr>
                                     <th>S No</th>

@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { ApiService, AlertService, SharedService } from 'src/app/_services';
+import { ApiService, AlertService, SharedService, MasterService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -51,7 +51,8 @@ export class TenderDocumentComponent {
     private router: Router,
     private sharedService: SharedService,
     private elementRef: ElementRef,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private masterService: MasterService
   ) {}
 
   ngOnInit() {
@@ -74,6 +75,10 @@ export class TenderDocumentComponent {
     if (route) {
       this.router.navigateByUrl(route.target.value);
     }
+  }
+
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   getData() {
