@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService, AlertService } from 'src/app/_services';
+import { ApiService, AlertService, MasterService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
@@ -23,7 +23,7 @@ export class PreSalesFinalBOQComponent {
   isSubmitted: boolean = false;
   isNoDataFound: boolean = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private masterService: MasterService) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -58,6 +58,9 @@ export class PreSalesFinalBOQComponent {
     }
   }
 
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
+  }
   getTenderList(): void {
     this.tenderList = [];
     const apiLink = `/biding/api/v1/getTenderlist?company_id=${this.form.value.client}`;
