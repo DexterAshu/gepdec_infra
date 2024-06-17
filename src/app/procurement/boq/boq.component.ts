@@ -26,7 +26,7 @@ export class BoqComponent implements OnInit, OnDestroy {
 
   constructor(
     private alertService: AlertService,
-    private apiService: ApiService,
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {
@@ -117,6 +117,12 @@ export class BoqComponent implements OnInit, OnDestroy {
         const selectedItem: any = {
           item_id: item.item_id,
           boq_id: item.boq_id,
+          boqitem_id: item.boqitem_id,
+          description: item.description,
+          itemcode: item.itemcode,
+          unit_id: item.unit_id,
+          uom: item.uom,
+          quantity: item.qty,
           selected_vendors: item.selectedVendor.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
         };
 
@@ -124,8 +130,14 @@ export class BoqComponent implements OnInit, OnDestroy {
           selectedItem['childItems'] = item.childItemList.reduce((childAcc: any, childItem: any) => {
             if (childItem.isChecked) {
               childAcc.push({
-                boq_id: childItem.boq_id,
                 item_id: childItem.item_id,
+                boq_id: childItem.boq_id,
+                boqitem_id: childItem.boqitem_id,
+                description: childItem.description,
+                itemcode: childItem.itemcode,
+                unit_id: childItem.unit_id,
+                uom: childItem.uom,
+                quantity: childItem.qty,
                 selected_vendors: childItem.selectedVendor.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
               });
             }
@@ -137,7 +149,25 @@ export class BoqComponent implements OnInit, OnDestroy {
       }
       return acc;
     }, []);
+    if (selectedItems.length == 0) {
+      this.alertService.error("Please select items!")
+      return;
+    }
     console.log(selectedItems);
+    // console.log(JSON.stringify(selectedItems));
+    this.apiService.sendRfq(selectedItems).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.alertService.success(res.message);
+          document.getElementById('cancelitemmodal')?.click();
+          this.getDataList();
+        } else {
+          this.alertService.error(res.message);
+        }
+      }, error: (error: any) => {
+        this.alertService.error(error.error.message);
+      }
+    })
   }
 
   ngOnDestroy(): void {
