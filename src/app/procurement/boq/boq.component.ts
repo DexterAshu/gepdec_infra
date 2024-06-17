@@ -26,7 +26,8 @@ export class BoqComponent implements OnInit, OnDestroy {
 
   constructor(
     private alertService: AlertService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private masterService: MasterService
   ) { }
 
   ngOnInit() {
