@@ -297,7 +297,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Name</label>
+                                    <label class="form-label">Name <span class="required-asterisk">*</span></label>
                                     <input formControlName="name" type="text" class="form-control form-control-sm"
                                         appWordCapitalize>
                                     <div *ngIf="f['name'].touched && f['name'].invalid">
@@ -341,7 +341,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Primary No</label>
+                                    <label class="form-label">Primary No <span class="required-asterisk">*</span></label>
                                     <input formControlName="contactno1" minlength="10" maxlength="10" type="text"
                                         class="form-control form-control-sm" appNumberOnly>
                                     <div *ngIf="f['contactno1'].touched && f['contactno1'].invalid">

@@ -1,6 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService, ApiService, SharedService } from 'src/app/_services';
+import { AlertService, ApiService, MasterService, SharedService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -24,7 +24,7 @@ export class DirectCostingComponent {
   itemList: any;
   checkedDataList: any = [];
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef) { }
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef, private masterService: MasterService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -51,6 +51,10 @@ export class DirectCostingComponent {
   }
 
   get f() { return this.form.controls; }
+
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
+  }
 
   getDataList() {
     this.dataList = [];

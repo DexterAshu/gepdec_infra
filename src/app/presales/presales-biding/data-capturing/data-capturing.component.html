@@ -94,52 +94,79 @@
                         </div>
                     </div>
 
+                    <ng-container *ngIf ="update">
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
-                            <select formControlName="qacatagory_id" class="form-select form-select-sm" #cat
-                                (change)="getSubData(cat.value)">
-                                <option [selected]="true" [disabled]="true">Select Category</option>
-                                <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">
-                                    {{c.qacatagory}}</option>
-                            </select>
-                            <div *ngIf="f['qacatagory_id'].touched && f['qacatagory_id'].invalid">
-                                <small class="text-danger"
-                                    *ngIf="f['qacatagory_id'].errors?.['required']">*Required</small>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Category</label>
+                                <input formControlName="qacatagory_id" class=" form-control form-control-sm" #cat
+                                    readonly>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4" *ngIf="cat.value == '1002' || cat.value == '1003'">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Sub-Category<span class="required-asterisk">*</span></label>
-                            <select formControlName="subqacatagory_id" class="form-select form-select-sm" #sub
-                                (change)="getCapacityData(sub.value)">
-                                <option [selected]="true" [disabled]="true">Select Sub-Category</option>
-                                <option *ngFor="let c of subCategoryData" value="{{c.subqacatagory_id}}">
-                                    {{c.subqacatagory}}</option>
-                            </select>
-                            <div *ngIf="f['subqacatagory_id'].touched && f['subqacatagory_id'].invalid">
-                                <small class="text-danger"
-                                    *ngIf="f['subqacatagory_id'].errors?.['required']">*Required</small>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Sub-Category {{custDetails?.subqacatagory}}</label>
+                                <input formControlName="subqacatagory_id" class=" form-control form-control-sm" #sub
+                                   readonly>
                             </div>
                         </div>
-                    </div>
+    
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Capacity</label>
+                                <input formControlName="capacity_id" class="form-control form-control-sm" readonly>
+                                   
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf ="!update">
 
-                    <div class="col-md-4" *ngIf="cat.value == '1001' || cat.value == '1002'">
-                        <div class="form-group">
-                            <label class="form-label fl-10">Capacity<span class="required-asterisk">*</span></label>
-                            <select formControlName="capacity_id" class="form-select form-select-sm">
-                                <option [selected]="true" [disabled]="true">Select Capacity</option>
-                                <option *ngFor="let c of capacityData" value="{{c.capacity_id}}">
-                                    {{c.capacity}}</option>
-                            </select>
-                            <div *ngIf="f['capacity_id'].touched && f['capacity_id'].invalid">
-                                <small class="text-danger"
-                                    *ngIf="f['capacity_id'].errors?.['required']">*Required</small>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
+                                <select formControlName="qacatagory_id" class="form-select form-select-sm" #cat
+                                    (change)="getSubData(cat.value)">
+                                    <option [selected]="true" [disabled]="true">Select Category</option>
+                                    <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">
+                                        {{c.qacatagory}}</option>
+                                </select>
+                                <div *ngIf="f['qacatagory_id'].touched && f['qacatagory_id'].invalid">
+                                    <small class="text-danger"
+                                        *ngIf="f['qacatagory_id'].errors?.['required']">*Required</small>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-md-4" *ngIf="cat.value == '1002' || cat.value == '1003'">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Sub-Category<span class="required-asterisk">*</span> </label>
+                                <select formControlName="subqacatagory_id" class="form-select form-select-sm" #sub
+                                    (change)="getCapacityData(sub.value)">
+                                    <option [selected]="true" [disabled]="true">Select Sub-Category</option>
+                                    <option *ngFor="let c of subCategoryData" value="{{c.subqacatagory_id}}">
+                                        {{c.subqacatagory}}</option>
+                                </select>
+                                <div *ngIf="f['subqacatagory_id'].touched && f['subqacatagory_id'].invalid">
+                                    <small class="text-danger"
+                                        *ngIf="f['subqacatagory_id'].errors?.['required']">*Required</small>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-4" *ngIf="cat.value == '1001' || cat.value == '1002'">
+                            <div class="form-group">
+                                <label class="form-label fl-10">Capacity<span class="required-asterisk">*</span></label>
+                                <select formControlName="capacity_id" class="form-select form-select-sm">
+                                    <option [selected]="true" [disabled]="true">Select Capacity</option>
+                                    <option *ngFor="let c of capacityData" value="{{c.capacity_id}}">
+                                        {{c.capacity}}</option>
+                                </select>
+                                <div *ngIf="f['capacity_id'].touched && f['capacity_id'].invalid">
+                                    <small class="text-danger"
+                                        *ngIf="f['capacity_id'].errors?.['required']">*Required</small>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
 
                     <div class="col-md-4">
                         <div class="form-group">
@@ -199,8 +226,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">City</label>
-                            <input type="text" formControlName="city" class="form-control form-control-sm"
-                                placeholder="Enter Your City">
+                            <input type="text" formControlName="city" class="form-control form-control-sm" appWordCapitalize>
                         </div>
                     </div>
 
@@ -241,14 +267,14 @@
                                         <div class="row" *ngFor="let quantity of loc().controls; let i=index" [formGroupName]="i">
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">Location Name</label>
-                                                    <input type="text" formControlName="site_location" class="form-control form-control-sm">
+                                                    <label class="form-label">Location Name <span class="required-asterisk">*</span></label>
+                                                    <input type="text" formControlName="site_location" class="form-control form-control-sm" appWordCapitalize>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">Location Address</label>
-                                                    <input type="text" formControlName="location_address" class="form-control form-control-sm">
+                                                    <label class="form-label">Location Address <span class="required-asterisk">*</span></label>
+                                                    <input type="text" formControlName="location_address" class="form-control form-control-sm" appWordCapitalize>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -273,7 +299,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">City</label>
-                                                    <input type="text" formControlName="city" class="form-control form-control-sm">
+                                                    <input type="text" formControlName="city" class="form-control form-control-sm" appWordCapitalize>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -501,8 +527,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Registration Fees<span
-                                    class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee"
+                                    class="required-asterisk">*</span> <span *ngIf="form.value.tender_fee" class="p-1 bg-light rounded-pill">{{regFeeData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="tender_fee" [(ngModel)]="regFeeData"
                                 placeholder="Enter '0' if not applicable" appNumberOnly>
                             <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
                                 <small class="text-danger"
@@ -514,8 +540,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Document Cost<span
-                                    class="required-asterisk">*</span></label>
-                            <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost"
+                                    class="required-asterisk">*</span> <span *ngIf="form.value.tender_doc_cost" class="p-1 bg-light rounded-pill">{{docCostData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                            <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost" [(ngModel)]="docCostData"
                                 placeholder="Enter '0' if not applicable" appNumberOnly>
                             <div *ngIf="f['tender_doc_cost'].touched && f['tender_doc_cost'].invalid">
                                 <small class="text-danger"
@@ -547,8 +573,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">Security Amount<span
-                                        class="required-asterisk">*</span></label>
-                                <input formControlName="security_amount" type="text"
+                                        class="required-asterisk">*</span> <span *ngIf="form.value.security_amount" class="p-1 bg-light rounded-pill">{{securityData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                <input formControlName="security_amount" type="text" [(ngModel)]="securityData"
                                     class="form-control form-control-sm" appNumberOnly>
                                 <div *ngIf="f['security_amount'].touched && f['security_amount'].invalid">
                                     <small class="text-danger"
@@ -638,8 +664,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label fl-10">EMD Amount<span
-                                        class="required-asterisk">*</span></label>
-                                <input formControlName="emd_ammount" type="text" class="form-control form-control-sm"
+                                        class="required-asterisk">*</span> <span *ngIf="form.value.emd_ammount" class="p-1 bg-light rounded-pill">{{emdData | currency: 'INR': '' : '1.0-2'}}</span> </label>
+                                <input formControlName="emd_ammount" type="text" class="form-control form-control-sm" [(ngModel)]="emdData"
                                     appNumberOnly>
                                 <div *ngIf="f['emd_ammount'].touched && f['emd_ammount'].invalid">
                                     <small class="text-danger"
@@ -706,61 +732,64 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="row mt-2">
-                            <div class="col-md-9">
-                                <h6 class="mt-2">Contact Detail</h6>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="float-right">
-                                    <button class="btn btn-fw btn-sm fl-10 text-primary" (click)="patchClient()"
-                                        data-bs-toggle="modal" data-bs-target="#createContact"
-                                        [disabled]="contactDetails?.length == 0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-telephone-forward" viewBox="0 0 16 16">
-                                            <path
-                                                d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zm10.762.135a.5.5 0 0 1 .708 0l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5a.5.5 0 0 1-.708-.708L14.293 4H9.5a.5.5 0 0 1 0-1h4.793l-1.647-1.646a.5.5 0 0 1 0-.708" />
-                                        </svg> &nbsp;<u>Add New Contacts</u>
-                                    </button>
+                    <div class="col-md-12">
+                        <div class="card p-1">
+                            <div class="row mt-2">
+                                <div class="col-md-9">
+                                    <h6 class="mt-2">Contact Detail</h6>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="float-right">
+                                        <button class="btn btn-fw btn-sm fl-10 text-primary" (click)="patchClient()"
+                                            data-bs-toggle="modal" data-bs-target="#createContact"
+                                            [disabled]="contactDetails?.length == 0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-telephone-forward" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zm10.762.135a.5.5 0 0 1 .708 0l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5a.5.5 0 0 1-.708-.708L14.293 4H9.5a.5.5 0 0 1 0-1h4.793l-1.647-1.646a.5.5 0 0 1 0-.708" />
+                                            </svg> &nbsp;<u>Add New Contacts</u>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-
-                        <div class="table-responsive" style="min-height: auto;">
-                            <table class="table table-hover table-striped custom-table mt-1">
-                                <thead class="table-primary text-nowrap">
-                                    <tr>
-                                        <th>S No</th>
-                                        <th>Contact Person</th>
-                                        <th>Designation</th>
-                                        <th>Department</th>
-                                        <th>Contact No</th>
-                                        <th>Email ID</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-nowrap">
-                                    <tr
-                                        *ngFor="let a of contactDetails | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
-                                        <td>{{limit*(p-1)+i+1}}</td>
-                                        <td>{{a.name}}</td>
-                                        <td>{{a.designationname}}</td>
-                                        <td>{{a.deptname}}</td>
-                                        <td>{{a.contactno1}}</td>
-                                        <td>{{a.email}}</td>
-                                        <td>
-                                            <input formControlName="contactperson_check" type="checkbox" [checked]="a.isChecked == true"
-                                                (click)="handleCheckboxChange($event, a)">
-                                        </td>
-                                    </tr>
-                                    <tr *ngIf="isContactFound == true">
-                                        <td colspan="15" class="text-center">
-                                            <div class="text-warning fw-semibold">Please select client first!</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+    
+    
+                            <div class="table-responsive" style="min-height: auto;">
+                                <table class="table table-hover table-striped custom-table mt-1">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                            <th>S No</th>
+                                            <th>Contact Person</th>
+                                            <th>Designation</th>
+                                            <th>Department</th>
+                                            <th>Contact No</th>
+                                            <th>Email ID</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr
+                                            *ngFor="let a of contactDetails | paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                            <td>{{limit*(p-1)+i+1}}</td>
+                                            <td>{{a.name}}</td>
+                                            <td>{{a.designationname}}</td>
+                                            <td>{{a.deptname}}</td>
+                                            <td>{{a.contactno1}}</td>
+                                            <td>{{a.email}}</td>
+                                            <td>
+                                                <input formControlName="contactperson_check" type="checkbox" [checked]="a.isChecked == true"
+                                                    (click)="handleCheckboxChange($event, a)">
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="isContactFound == true">
+                                            <td colspan="15" class="text-center">
+                                                <div class="text-warning fw-semibold">Please select client first!</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
                         </div>
 
                     </div>
@@ -794,9 +823,7 @@
                             <textarea formControlName="remarks" type="text" rows="4"
                                 class="form-control form-control-sm" readonly>
                             </textarea>
-                            <!-- <span *ngFor="let ph of (a?.remarks != null ? (a?.remarks.slice(0, -1)).split('\n') : a?.remarks.slice(0, -1)), index as i">
-                                            {{ ph }} <br>
-                                         </span> -->
+                        
                         </div>
                     </div>
 
@@ -820,30 +847,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col-md-4" *ngIf="update">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Sub Status<span class="required-asterisk">*</span></label>
-                                            <select formControlName="exemption_id" class="form-select form-select-sm" (change)="toggleEmdField($event)">
-                                                <option [value]="null" disabled selected>Select Mode</option>
-                                                <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
-                                            </select>
-                                            <div *ngIf="f['exemption_id'].touched && f['exemption_id'].invalid">
-                                                <small class="text-danger" *ngIf="f['exemption_id'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group" *ngIf="update">
-                                            <label class="form-label fl-10">Tender Commercially<span class="required-asterisk">*</span></label>
-                                            <select formControlName="exemption_id" class="form-select form-select-sm" (change)="toggleEmdField($event)">
-                                                <option [value]="null" disabled selected>Select Mode</option>
-                                                <option *ngFor="let c of emdExp" [value]="c.exemption_id">{{ c.emdexemption }}</option>
-                                            </select>
-                                            <div *ngIf="f['exemption_id'].touched && f['exemption_id'].invalid">
-                                                <small class="text-danger" *ngIf="f['exemption_id'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div> -->
+              
 
                     <div class="col-md-12 mt-2">
                         <div class="form-group">

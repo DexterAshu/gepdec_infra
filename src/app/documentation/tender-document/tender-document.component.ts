@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { ApiService, AlertService, SharedService } from 'src/app/_services';
+import { ApiService, AlertService, SharedService, MasterService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -42,6 +42,7 @@ export class TenderDocumentComponent {
   pdfFile: SafeResourceUrl = '';
   excelFile: string = '';
   rowData: any;
+  processedDocuments: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,7 +51,8 @@ export class TenderDocumentComponent {
     private router: Router,
     private sharedService: SharedService,
     private elementRef: ElementRef,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private masterService: MasterService
   ) {}
 
   ngOnInit() {
@@ -75,6 +77,10 @@ export class TenderDocumentComponent {
     }
   }
 
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
+  }
+
   getData() {
     this.apiService.getCompanyList().subscribe((res: any) => {
       this.comData = res.result;
@@ -91,6 +97,41 @@ export class TenderDocumentComponent {
 
 
   }
+
+  // listAPIData(data: any) {
+  //   this.docListData = [];
+  //   this.isNotFound = false;
+  //   this.apiService.getTendListData(data).subscribe((res: any) => {
+  //     if (res.status === 200) {
+  //       this.isNotFound = false;
+  //       this.docListData = res.result;
+  //       this.docListData.forEach((doc: any) => {
+  //         doc.images = [];
+  //         doc.pdfs = [];
+  //         doc.excels = [];
+  //         const documents = doc.document ? doc.document.split(',') : [];
+  //         documents.forEach((file: string) => {
+  //           const lowerCaseFile = file.toLowerCase();
+  //           if (lowerCaseFile.endsWith('.jpg') || lowerCaseFile.endsWith('.png')) {
+  //             doc.images.push(file);
+  //           } else if (lowerCaseFile.endsWith('.pdf')) {
+  //             doc.pdfs.push(file);
+  //           } else if (lowerCaseFile.endsWith('.xlsx')) {
+  //             doc.excels.push(file);
+  //           }
+  //         });
+  //       });
+  //     } else {
+  //       this.docListData = undefined;
+  //       this.isNotFound = true;
+  //       this.alertService.warning(res.message);
+  //     }
+  //   }, (error: any) => {
+  //     this.docListData = undefined;
+  //     this.isNotFound = true;
+  //     this.alertService.error("Error: Unknown Error!");
+  //   });
+  // }
 
   listAPIData(data: any) {
     this.docListData = [];
@@ -129,43 +170,74 @@ export class TenderDocumentComponent {
 
   // rowListData(row: any) {
   //   this.rowData = [];
-  //   this.rowData = row;
-  //   console.log('this.rowData--->',this.rowData);
-    
-  //   // this.pdfFile = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.apiUrl}/${row.document}`);
+  //   this.processedDocuments = [];
+  //   const documentList = this.extractFileNames(row.document);
+  //   documentList.forEach((doc, index) => {
+  //     this.processedDocuments.push({
+  //       index: index + 1,
+  //       document: doc,
+  //       images: row.images,
+  //       pdfs: row.pdfs,
+  //       excels: row.excels
+  //     });
+  //   });
+  //   console.log('processedDocuments--->', this.processedDocuments);
   // }
-//   extractFileNames(filePaths: string): string[] {
-//     const regex = /\/documents\/[\d-]*([a-zA-Z0-9_.-]+\.[a-zA-Z0-9]+)$/;
-//     return filePaths.split(',').map(path => {
-//         const match = path.match(regex);
-//         return match ? match[1] : path;
-//     });
-// }
+
   // rowListData(row: any) {
-  //   this.rowData = [];  // Initialize as an empty array
-  //   this.rowData.push(row);  // Add the object to the array
-  //   console.log('this.rowData--->', this.rowData);
+  //   this.processedDocuments = [];
+  //   const documentList = this.extractFileNames(row.document);
+  //   documentList.forEach((doc, index) => {
+  //     const type = this.getDocumentType(doc);
+  //     this.processedDocuments.push({
+  //       index: index + 1,
+  //       document: doc,
+  //       type: type
+  //     });
+  //   });
   // }
-  // Example usage within a method
+
   rowListData(row: any) {
-    this.rowData = [];
-    const processedRow = {
-        document: this.extractFileNames(row.document).join(', '), // Join filenames into a single string
-        filecount: row.filecount,
-        images: row.images,
-        pdfs: row.pdfs,
-        excels: row.excels
-    };
-    this.rowData.push(processedRow);
-    console.log('this.rowData--->', this.rowData);
+    this.processedDocuments = [];
+    const documentList = this.extractFileDetails(row.document);
+    documentList.forEach((doc, index) => {
+      const type = this.getDocumentType(doc.name);
+      this.processedDocuments.push({
+        index: index + 1,
+        document: doc.name,
+        fullPath: doc.path,
+        type: type
+      });
+    });
   }
 
-  extractFileNames(filePaths: string): string[] {
-      const regex = /\/documents\/[\d-]*([a-zA-Z0-9_.-]+\.[a-zA-Z0-9]+)$/;
-      return filePaths.split(',').map(path => {
-          const match = path.match(regex);
-          return match ? match[1] : path;
-      });
+  // extractFileNames(filePaths: string): string[] {
+  //     const regex = /\/documents\/[\d-]*([a-zA-Z0-9_.-]+\.[a-zA-Z0-9]+)$/;
+  //     return filePaths.split(',').map(path => {
+  //         const match = path.match(regex);
+  //         return match ? match[1] : path;
+  //     });
+  // }
+
+  extractFileDetails(filePaths: string): { name: string, path: string }[] {
+    const regex = /\/documents\/[\d-]*([a-zA-Z0-9_.-]+\.[a-zA-Z0-9]+)$/;
+    return filePaths.split(',').map(path => {
+      const match = path.match(regex);
+      const fileName = match ? match[1] : path;
+      return { name: fileName, path: path };
+    });
+  }
+
+  getDocumentType(fileName: string): string {
+    const lowerCaseFile = fileName.toLowerCase();
+    if (lowerCaseFile.endsWith('.jpg') || lowerCaseFile.endsWith('.png')) {
+      return 'image';
+    } else if (lowerCaseFile.endsWith('.pdf')) {
+      return 'pdf';
+    } else if (lowerCaseFile.endsWith('.xlsx')) {
+      return 'excel';
+    }
+    return 'unknown';
   }
 
   showImage(data: string) {

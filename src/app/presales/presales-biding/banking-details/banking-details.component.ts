@@ -85,6 +85,10 @@ export class BankingDetailsComponent {
     this.rowData = data;
   }
 
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
+  }
+  
   getPatchDetails(data:any){
     this.documentForm.reset();
     this.button = 'Update';

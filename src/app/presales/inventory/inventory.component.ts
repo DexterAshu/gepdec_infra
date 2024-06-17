@@ -18,7 +18,7 @@ export class InventoryComponent {
   form!: FormGroup;
   wareHouseData: any = [];
 
-  constructor(private formBuilder: FormBuilder, private sharedService: SharedService, private elementRef: ElementRef, private alertService: AlertService, private apiService: ApiService) { }
+  constructor(private formBuilder: FormBuilder, private sharedService: SharedService, private elementRef: ElementRef, private alertService: AlertService, private apiService: ApiService, private masterService: MasterService) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -35,6 +35,10 @@ export class InventoryComponent {
       meterCode: [null, Validators.required],
       type: [null, Validators.required],
     });
+  }
+
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   getData(): void {

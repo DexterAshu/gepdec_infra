@@ -882,18 +882,18 @@ export class PresalesDashboardComponent {
           if (this.preSalesDashData.performanceData) {
             this.barChartData = this.preSalesDashData.performanceData.map((item: any) => {
 
-              var publishedCount = parseInt(item.published_count);
-              var qualifiedCount = parseInt(item.qualified_count);
-              var participatedCount = parseInt(item.participated_count);
-              var wonCount = parseInt(item.won_count);
+        //       var publishedCount = parseInt(item.published_count);
+        //       var qualifiedCount = parseInt(item.qualified_count);
+        //       var participatedCount = parseInt(item.participated_count);
+        //       var wonCount = parseInt(item.won_count);
               
-              var totalCount = publishedCount + qualifiedCount + participatedCount + wonCount;
-                      // var wonCountPer = ((item.won_count / totalCount) * 100).toFixed(2);
-                      var wonCountPer = Math.floor((item.won_count / totalCount) * 100);
+        //       var totalCount = publishedCount + qualifiedCount + participatedCount + wonCount;
+        //               // var wonCountPer = ((item.won_count / totalCount) * 100).toFixed(2);
+        //               var wonCountPer = Math.floor((item.won_count / totalCount) * 100);
 
 
-        console.log(totalCount+"= "+item.published_count+", "+item.participated_count+", "+item.qualified_count+", "+item.won_count)
-        console.log('wonCountPercentage', wonCountPer);
+        // console.log(totalCount+"= "+item.published_count+", "+item.participated_count+", "+item.qualified_count+", "+item.won_count)
+        // console.log('wonCountPercentage', wonCountPer);
               
                 return {
                     name: item.year,
@@ -901,7 +901,8 @@ export class PresalesDashboardComponent {
                         { name: 'Published', value: +item.published_count },
                         { name: 'Qualified', value: +item.qualified_count },
                         { name: 'Participated', value: +item.participated_count },
-                        { name: 'Won', value: wonCountPer }
+                        // { name: 'Won', value: wonCountPer }
+                        { name: 'Won', value: +item.won_count }
                     ]
                 };
             });

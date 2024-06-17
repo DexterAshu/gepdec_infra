@@ -107,25 +107,10 @@
                                 <td>{{ limit*(p-1)+i+1 }}</td>
                                 <td>{{ a.company_name }}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock1>
-                                        {{a.tender_title}}
-                                    </ng-template>
+                                    <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
                                 </td>
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span
-                                            *ngIf="a?.tender_ref_no.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock2>
-                                        {{a?.tender_ref_no}}
-                                    </ng-template>
+                                    <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                                 </td>
                                 <td>{{ a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
                                 <td>{{a.qacatagory}}</td>
@@ -133,11 +118,9 @@
                                 <td>{{a.capacity}} </td>
                                 <td>{{a.state_name}} </td>
                                 <td>{{a.district_name}} </td>
-                                <td>
-                                    <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
-                                        <span *ngIf="i+1 == 1">{{loc}}</span>
-                                    </span>...
-                                  <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="{{a.tender_location}}">
+                                <td >
+                                  <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                                </app-location-section-shared>
                                  
                                     <!-- <a data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="Location Details"> <span class="mdi mdi-google-maps text-warning cursor-pointer mdi-18px"></span>
                                     </a> -->
@@ -182,7 +165,7 @@
 </div>
 
 <!-- list location details -->
-    <div class="modal fade " id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true" appDraggableModal>
+    <!-- <div class="modal fade " id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true" appDraggableModal>
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -197,8 +180,7 @@
                             <tr>
                                 <th>S No</th>
                                 <th>Execution Location</th>
-                                <!-- <th>District</th>
-                                <th>State</th> -->
+                              
                             </tr>
                         </thead>
                         <tbody>
@@ -215,53 +197,16 @@
                                         {{ location }}
                                     </ng-template>
                                 </td>
-                                <!-- <td>{{ rowData?.district_name}}</td>
-                                <td>{{ rowData?.state_name }}</td> -->
+                              
                             </tr>
                         
                          
                         </tbody>
                     </table>
                 </div>
-                
-                
-
-
-
-
-
-                <!-- <table class="table table-hover table-striped custom-table table-bordered">
-                        <thead class="table-primary text-nowrap">
-                            <tr>
-                                <th>S No</th>
-                                <th>Execution Location</th>
-                               
-                            </tr>
-                        </thead>
-                        <tbody class="text-nowrap">
-                            <tr *ngFor="let location of locationArray; index as i">
-                                <td>{{limit*(p-1)+i+1}}</td>
-                                <td>
-                                    <div *ngIf="!!location; else elseBlock4"
-                                        data-toggle="tooltip" data-placement="bottom"
-                                        title="{{ location }}">
-                                        {{location | slice:0:30}} <span
-                                            *ngIf="location.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock4>
-                                        {{location}}
-                                    </ng-template>
-                                </td>
-    
-                            </tr>
-                        </tbody>
-                 
-                </table> -->
-
             </div>
         </div>
-    </div>
+    </div> -->
 
 <!-- detail modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -316,10 +261,14 @@
                                             <td> {{rowData?.financialyear}}</td>
                                             <th>Execution Location</th>
                                             <td>
-                                                <span *ngFor="let loc of rowData?.tender_location; let i = index" title="{{rowData?.tender_location}}">
+                                                <!-- <span *ngFor="let loc of rowData?.tender_location; let i = index" title="{{rowData?.tender_location}}">
                                                     <span *ngIf="i+1 == 1">{{loc}}</span>
                                                 </span>...
-                                              <img *ngIf="rowData?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(rowData)" title="{{rowData?.tender_location}}">
+                                              <img *ngIf="rowData?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(rowData)" title="{{rowData?.tender_location}}"> -->
+
+                                              <app-location-section-shared [tenderLocation]="rowData?.tender_location" [rowData]="rowData" (locationClick)="rowLocation($event)">
+                                            </app-location-section-shared>
+
                                             </td>
                                             
                                             <!-- <td>
@@ -335,7 +284,7 @@
                                                     {{rowData?.tender_location}}
                                                 </ng-template>
                                             </td> -->
-
+    
                                             <th>Tender Title</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.tender_title; else elseBlock5"
@@ -352,8 +301,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <!-- Use the TenderDetailTable component -->
+                                <!-- <app-tender-detail [itemList]="rowData"></app-tender-detail> -->
                             </div>
-                            <h6 class="mt-3 mb-2 text-secondary">Bid Detail</h6>
+                            <h6 class="mt-1 mb-2 text-secondary">Bid Detail</h6>
                             <div class="table-responsive mt-2">
                                 <table class="table table-hover table-striped custom-table mt-2 table-bordered">
                                     <!-- <thead class="table-primary text-nowrap">
@@ -361,7 +312,7 @@
                                             <th colspan="8" class="text-center">Bid Detail</th>
                                         </tr>
                                     </thead> -->
-                                    <tbody>
+                                    <tbody style=" text-wrap: nowrap;">
                                         <tr>
                                             <th>Tender Description</th>
                                             <td colspan="7">{{rowData?.tender_description}}</td>
@@ -373,6 +324,10 @@
                                             <td>{{ rowData?.state_name }}</td>
                                             <th>District</th>
                                             <td>{{ rowData?.district_name}}</td>
+                                           
+                                        </tr>
+
+                                        <tr>
                                             <th>City</th>
                                             <td>
                                                 <div *ngIf="!!rowData?.city; else elseCity" data-toggle="tooltip"
@@ -384,13 +339,14 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                        </tr>
-
-                                        <tr>
                                             <th>Bidder Company</th>
                                             <td>{{ rowData?.bidder_name }}</td>
                                             <th>Tender Type</th>
                                             <td>{{ rowData?.bidtype }}</td>
+                                           
+                                           
+                                        </tr>
+                                        <tr>
                                             <th>Tender Closing Date</th>
                                             <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                                             <th>Tender Available Link</th>
@@ -408,12 +364,14 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                        </tr>
-                                        <tr>
-
                                             <th>Soft Copy Submission Date </th>
                                             <td>{{ rowData?.tender_submission_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT'
                                                 }}</td>
+                                           
+                                          
+                                        </tr>
+
+                                        <tr>
                                             <th>Hard Copy Submission Date </th>
                                             <td>
                                                 <span *ngIf="!!rowData?.tenderhardcopysubmission_date; else elseBlock7">
@@ -436,6 +394,7 @@
                                                     --
                                                 </ng-template>
                                             </td>
+                                           
                                         </tr>
 
                                         <tr>
@@ -460,22 +419,29 @@
                                                     --
                                                 </ng-template>
                                             </td>
-                                            <th>ECV (INR)</th>
-                                            <td>{{ rowData?.ecv | currency: 'INR': '' : '1.0-2' }}</td>
+                                          
                                         </tr>
                                         <tr>
+                                            <th>ECV (INR)</th>
+                                            <td>{{ rowData?.ecv | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Registration Fees</th>
                                             <td>{{ rowData?.tender_fee | currency: 'INR': '' : '1.0-2' }}</td>
                                             <th>Document Cost</th>
                                             <td>{{ rowData?.tender_doc_cost | currency: 'INR': '' : '1.0-2' }}</td>
+                                           
+                                          
+                                        </tr>
+                                        <tr>
                                             <th>Bid Validity (Days)</th>
                                             <td>{{ rowData?.bid_validity }}</td>
                                             <th>Completion period (Months)</th>
                                             <td>{{ rowData?.completion_period }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Security Deposit</th>
                                             <td>{{ rowData?.securitydeposit }}</td>
+                                           
+                                          
+                                        </tr>
+                                        <tr>
                                             <th>Security Amount</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.security_amount; else elseBlock11">
@@ -497,6 +463,7 @@
                                             </td>
                                             <th>Performance Guarantee</th>
                                             <td>{{ rowData?.performanceguarantee }}</td>
+                                           
                                         </tr>
                                         <tr>
                                             <th>Performance Amount (%)</th>
@@ -519,6 +486,11 @@
                                                     --
                                                 </ng-template>
                                             </td>
+                                           
+
+                                        </tr>
+
+                                        <tr>
                                             <th>EMD Payment Mode</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.paymentmethod; else elseBlock15">
@@ -528,10 +500,6 @@
                                                     --
                                                 </ng-template>
                                             </td>
-
-                                        </tr>
-
-                                        <tr>
                                             <th>EMD Sub Date</th>
                                             <td>
                                                 <span *ngIf="!!rowData?.emd_submission_date; else elseBlock16">
@@ -557,12 +525,18 @@
                                                 </ng-template>
                                             </td>
 
+                                            
+                                           
+
+                                        </tr>
+                                        <tr>
                                             <th>Reverse Auction</th>
                                             <td>{{ rowData?.reserve_auction }}</td>
                                             <th>Current Status</th>
                                             <!-- <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td> -->
-                                            <td class="badge badge-primary mt-2">{{ rowData?.reqTenderStatus }}</td>
-
+                                            <td colspan="7">
+                                                <span style="color:#355db3; font-weight:600" class="fa-fade">{{ rowData?.reqTenderStatus }}</span>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Payment Terms</th>
@@ -582,16 +556,15 @@
                                             <th>Created On</th>
                                             <td>{{ rowData?.created | date: 'dd/MM/yyyy hh:mm a' }}</td>
                                             <th>Created By</th>
-                                            <td>{{ rowData?.createdby_name }}</td>
-                                            <th></th>
-                                            <td></td>
-                                            <th></th>
-                                            <td></td>
+                                            <td colspan="9">{{ rowData?.createdby_name }}</td>
+                                           
                                         </tr>
 
                                     </tbody>
                                 </table>
 
+                                
+                                </div>
                                 <h6 class="my-3 text-secondary">Contact Detail</h6>
                                 <div class="container-fluid mt-2">
                                     <div class="row">
@@ -607,6 +580,7 @@
                                                             <th>Department</th>
                                                             <th>Contact No</th>
                                                             <th>Email ID</th>
+                                                           
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-nowrap">
@@ -617,6 +591,7 @@
                                                             <td>{{ a?.deptname }}</td>
                                                             <td>{{ a?.contactno1}}</td>
                                                             <td>{{ a?.email}}</td>
+                                                          
 
                                                         </tr>
 
@@ -633,67 +608,67 @@
                                     </div>
                                 </div>
 
-                            </div>
+          <!-- Audit details -->
+          <h6 class=" mb-2 text-secondary mt-2">Audit Details</h6>
+          <div class="col-md-12 p-2 card" (click)="showPreviousDetails=!showPreviousDetails">
+ <div class="row p-1">
+     <div class="col-md-6">
+       <h6 class="mb-2 text-primary cursor-pointer">
+         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
+             <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/>
+             <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
+             <path d="M9.979 5.356a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.926-.08L4.69 10H4.5a.5.5 0 0 0 0 1H5a.5.5 0 0 0 .447-.276l.936-1.873 1.138 3.793a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h.5a.5.5 0 0 0 0-1h-.128z"/>
+           </svg> &nbsp;
+           Historical Working Notes
+       </h6>
 
-                            <div class="col-md-12 mt-2 p-2 card" (click)="showPreviousDetails=!showPreviousDetails">
-                                <div class="row p-1">
-                                    <div class="col-md-6">
-                                      <h6 class="mb-2 text-primary cursor-pointer">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
-                                            <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/>
-                                            <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
-                                            <path d="M9.979 5.356a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.926-.08L4.69 10H4.5a.5.5 0 0 0 0 1H5a.5.5 0 0 0 .447-.276l.936-1.873 1.138 3.793a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h.5a.5.5 0 0 0 0-1h-.128z"/>
-                                          </svg> &nbsp;
-                                          Historical Working Notes
-                                      </h6>
-                  
-                                    </div>
-                  
-                                    <div class="col-md-6">
-                                      <div class="float-right" title="Show/Hide Details">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                          class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                          <path fill-rule="evenodd"
-                                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                                        </svg>
-                  
-                                      </div>
-                                    </div>
-                                  </div>
-                               
-                                <div class="form-group" *ngIf="showPreviousDetails">
-                                    <p [innerHTML]="getFormattedRemarks()"></p>
-                                </div>
-                            </div>
+     </div>
 
-                            <div class="col-md-12 mt-2 p-2 card"  (click)="showWorkingDetails=!showWorkingDetails">
-                                <div class="row p-1">
-                                    <div class="col-md-6">
-                                    <h6 class="mb-2 text-primary cursor-pointer">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cassette" viewBox="0 0 16 16">
-                                            <path d="M4 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2m9-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 6a1 1 0 0 0 0 2h2a1 1 0 1 0 0-2z"/>
-                                            <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zM1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-.691l-1.362-2.724A.5.5 0 0 0 12 10H4a.5.5 0 0 0-.447.276L2.19 13H1.5a.5.5 0 0 1-.5-.5zM11.691 11l1 2H3.309l1-2z"/>
-                                        </svg> &nbsp;
-                                        Activity Log Notes
-                                    </h6>
-                                    </div>
-                
-                                    <div class="col-md-6">
-                                    <div class="float-right" title="Show/Hide Details">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                                        </svg>
-                
-                                    </div>
-                                    </div>
-                                </div>
-                            
-                                <div class="form-group" *ngIf="showWorkingDetails">
-                                    <p [innerHTML]="getFormattedAuditTrail()"></p>
-                                </div>
-                            </div>
+     <div class="col-md-6">
+       <div class="float-right" title="Show/Hide Details">
+         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+           class="bi bi-chevron-down" viewBox="0 0 16 16">
+           <path fill-rule="evenodd"
+             d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+         </svg>
+
+       </div>
+     </div>
+   </div>
+
+ <div class="form-group" *ngIf="showPreviousDetails">
+     <p [innerHTML]="getFormattedRemarks()"></p>
+ </div>
+           </div>
+
+         <div class="col-md-12 mt-1 p-2 card"  (click)="showWorkingDetails=!showWorkingDetails">
+             <div class="row p-1">
+                 <div class="col-md-6">
+                 <h6 class="mb-2 text-primary cursor-pointer">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cassette" viewBox="0 0 16 16">
+                         <path d="M4 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2m9-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 6a1 1 0 0 0 0 2h2a1 1 0 1 0 0-2z"/>
+                         <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zM1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-.691l-1.362-2.724A.5.5 0 0 0 12 10H4a.5.5 0 0 0-.447.276L2.19 13H1.5a.5.5 0 0 1-.5-.5zM11.691 11l1 2H3.309l1-2z"/>
+                     </svg> &nbsp;
+                     Activity Log Notes
+                 </h6>
+                 </div>
+
+                 <div class="col-md-6">
+                 <div class="float-right" title="Show/Hide Details">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-chevron-down" viewBox="0 0 16 16">
+                     <path fill-rule="evenodd"
+                         d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                     </svg>
+
+                 </div>
+                 </div>
+             </div>
+         
+             <div class="form-group" *ngIf="showWorkingDetails">
+                 <p [innerHTML]="getFormattedAuditTrail()"></p>
+             </div>
+         </div>
                          
                         </div>
                     </div>

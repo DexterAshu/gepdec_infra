@@ -79,6 +79,10 @@ export class BgDocumentComponent {
     this.sharedService.initializeTooltips(this.elementRef);
   }
 
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
+  }
+  
   updateDoc(){
     this.documentForm.get('bank_id')!.setValidators([Validators.required]);
     this.documentForm.controls['bank_id'].clearValidators();

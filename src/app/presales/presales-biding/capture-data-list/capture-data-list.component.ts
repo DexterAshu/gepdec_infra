@@ -120,8 +120,11 @@ export class CaptureDataListComponent {
 this.statusList=roleD[0].roleStatus
   }
 
-  rowLocation(row:any) {
-    this.locationArray = row.tender_location;
+  // rowLocation(row:any) {
+  //   this.locationArray = row.tender_location;
+  // }
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   getFormattedRemarks(): string {
