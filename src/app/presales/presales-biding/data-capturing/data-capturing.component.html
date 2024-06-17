@@ -187,7 +187,7 @@
                             <label class="form-label">Country<span class="required-asterisk">*</span></label>
                             <select formControlName="country_id" class="form-select form-select-sm"
                                 (ngModelChange)="getStateData1($event)">
-                                <option [selected]="true" [disabled]="true" [value]="null">Select Country</option>
+                                <!-- <option [selected]="true" [disabled]="true" [value]="null">Select Country</option> -->
                                 <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
                             </select>
                             <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
@@ -226,7 +226,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">City</label>
-                            <input type="text" formControlName="city" class="form-control form-control-sm">
+                            <input type="text" formControlName="city" class="form-control form-control-sm" appWordCapitalize>
                         </div>
                     </div>
 
@@ -267,14 +267,14 @@
                                         <div class="row" *ngFor="let quantity of loc().controls; let i=index" [formGroupName]="i">
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">Location Name</label>
-                                                    <input type="text" formControlName="site_location" class="form-control form-control-sm">
+                                                    <label class="form-label">Location Name <span class="required-asterisk">*</span></label>
+                                                    <input type="text" formControlName="site_location" class="form-control form-control-sm" appWordCapitalize>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="form-label">Location Address</label>
-                                                    <input type="text" formControlName="location_address" class="form-control form-control-sm">
+                                                    <label class="form-label">Location Address <span class="required-asterisk">*</span></label>
+                                                    <input type="text" formControlName="location_address" class="form-control form-control-sm" appWordCapitalize>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -299,7 +299,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="form-label">City</label>
-                                                    <input type="text" formControlName="city" class="form-control form-control-sm">
+                                                    <input type="text" formControlName="city" class="form-control form-control-sm" appWordCapitalize>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
