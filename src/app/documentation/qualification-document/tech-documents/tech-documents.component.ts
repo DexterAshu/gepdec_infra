@@ -44,6 +44,7 @@ export class TechDocumentsComponent {
   imageLink: SafeResourceUrl = '';
   pdfFile: SafeResourceUrl = '';
   excelFile: string = '';
+  processedDocuments: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -130,6 +131,44 @@ export class TechDocumentsComponent {
         this.docListData = undefined;
         this.alertService.error("Error: Unknown Error!");
     });
+  }
+  
+  rowListData(row: any) {
+    this.processedDocuments = [];
+    const documentList = this.extractFileDetails(row.document);
+    documentList.forEach((doc, index) => {
+      const type = this.getDocumentType(doc.name);
+      this.processedDocuments.push({
+        index: index + 1,
+        document: doc.name,
+        fullPath: doc.path,
+        type: type
+      });
+      console.log('processedDocuments -->', this.processedDocuments);
+      
+    });
+  }
+
+  extractFileDetails(filePaths: string): { name: string, path: string }[] {
+    return filePaths.split(',').map(path => {
+        const parts = path.split('/');
+        const fullFileName = parts[parts.length - 1];
+        // Remove leading numbers and dashes
+        const fileName = fullFileName.replace(/^\d+-*/, '');
+        return { name: fileName, path: path };
+    });
+  }
+
+  getDocumentType(fileName: string): string {
+    const lowerCaseFile = fileName.toLowerCase();
+    if (lowerCaseFile.endsWith('.jpg') || lowerCaseFile.endsWith('.png')) {
+      return 'image';
+    } else if (lowerCaseFile.endsWith('.pdf')) {
+      return 'pdf';
+    } else if (lowerCaseFile.endsWith('.xlsx')) {
+      return 'excel';
+    }
+    return 'unknown';
   }
 
   showImage(data: string) {

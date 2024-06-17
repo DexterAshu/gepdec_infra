@@ -184,19 +184,6 @@ export class TenderDocumentComponent {
   //   console.log('processedDocuments--->', this.processedDocuments);
   // }
 
-  // rowListData(row: any) {
-  //   this.processedDocuments = [];
-  //   const documentList = this.extractFileNames(row.document);
-  //   documentList.forEach((doc, index) => {
-  //     const type = this.getDocumentType(doc);
-  //     this.processedDocuments.push({
-  //       index: index + 1,
-  //       document: doc,
-  //       type: type
-  //     });
-  //   });
-  // }
-
   rowListData(row: any) {
     this.processedDocuments = [];
     const documentList = this.extractFileDetails(row.document);
@@ -210,14 +197,6 @@ export class TenderDocumentComponent {
       });
     });
   }
-
-  // extractFileNames(filePaths: string): string[] {
-  //     const regex = /\/documents\/[\d-]*([a-zA-Z0-9_.-]+\.[a-zA-Z0-9]+)$/;
-  //     return filePaths.split(',').map(path => {
-  //         const match = path.match(regex);
-  //         return match ? match[1] : path;
-  //     });
-  // }
 
   extractFileDetails(filePaths: string): { name: string, path: string }[] {
     const regex = /\/documents\/[\d-]*([a-zA-Z0-9_.-]+\.[a-zA-Z0-9]+)$/;
