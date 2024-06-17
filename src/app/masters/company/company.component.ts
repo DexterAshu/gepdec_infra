@@ -48,10 +48,10 @@ export class CompanyComponent implements OnInit {
 
  ngOnInit(){
     this.form = this.formBuilder.group({
-      name: [null],
+      name: [null, Validators.required],
       company_name: [null, Validators.required],
       company_type: [null, Validators.required],
-      contactno1: [null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       contactno2: [null, [ Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       email: [null, [Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       gst: [null] ,

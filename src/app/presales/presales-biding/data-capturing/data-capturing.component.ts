@@ -445,9 +445,9 @@ removeRow(i: number) {
           tenderpayment_terms: this.custDetails.tenderpayment_terms,
           tender_location: this.custDetails.tender_location,
           tender_ref_no: this.custDetails.tender_ref_no,
-          qacatagory_id: this.custDetails.qacatagory_id,
-          subqacatagory_id: this.custDetails.subqacatagory_id,
-          capacity_id: this.custDetails.capacity_id,
+          qacatagory_id: this.custDetails.qacatagory,
+          subqacatagory_id: this.custDetails.subqacatagory,
+          capacity_id: this.custDetails.capacity,
           tender_status: this.custDetails.tender_status,
           tender_submission_date: this.custDetails.tender_submission_date ? new Date(this.custDetails.tender_submission_date).toISOString().split('T')[0] : null,
           tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date ? new Date(this.custDetails.tenderhardcopysubmission_date).toISOString().split('T')[0] : null,
@@ -489,6 +489,7 @@ removeRow(i: number) {
       })
     }
   }
+
 
   fileList: File[] = [];
   listOfFiles: any[] = [];
