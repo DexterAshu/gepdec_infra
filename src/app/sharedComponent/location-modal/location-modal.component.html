@@ -1,5 +1,6 @@
 <!-- centralized-modal.component.html -->
-<div class="modal fade" [class.show]="isOpen" [style.display]="isOpen ? 'block' : 'none'" [style.background-color]="isOpen ? '#000000ab' : ''" id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div appDraggableModal class="modal fade" [class.show]="isOpen" [style.display]="isOpen ? 'block' : 'none'"
+    id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -37,3 +38,4 @@
         </div>
     </div>
 </div>
+<div class="modal-backdrop" [ngClass]="{'show': isOpen}" *ngIf="isOpen"></div>

@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AlertService, ApiService, MasterService } from 'src/app/_services';
+import { ConfirmModalComponent } from 'src/app/sharedComponent/confirm-modal/confirm-modal.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,6 +12,7 @@ import { environment } from 'src/environments/environment';
 export class BoqComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
+  @ViewChild('confirmPopup') confirmPopup!: ConfirmModalComponent;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -23,6 +25,10 @@ export class BoqComponent implements OnInit, OnDestroy {
   vendorList: any = [];
   selectedVendors: any = [];
   boqList: any;
+  selectedItems: any = [];
+  modalTitle!: string;
+  modalMessage!: string;
+  buttonText!: string;
 
   constructor(
     private alertService: AlertService,
@@ -117,6 +123,9 @@ export class BoqComponent implements OnInit, OnDestroy {
   }
 
   sendSelectedItems() {
+    this.modalTitle = 'Confirmation!';
+    this.modalMessage = 'Are you sure you want to confirm and send mail?';
+    this.buttonText = 'Confirm';
     const selectedItems: any = this.rowData.reduce((acc: any, item: any) => {
       if (item.isChecked) {
         const selectedItem: any = {
@@ -158,21 +167,33 @@ export class BoqComponent implements OnInit, OnDestroy {
       this.alertService.error("Please select items!")
       return;
     }
-    console.log(selectedItems);
-    // console.log(JSON.stringify(selectedItems));
-    this.apiService.sendRfq(selectedItems).pipe(takeUntil(this.destroy$)).subscribe({
+    this.selectedItems = selectedItems;
+    this.confirmPopup.show();
+  }
+
+  onConfirm() {
+    this.apiService.sendRfq(this.selectedItems).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         if (res.status === 200) {
           this.alertService.success(res.message);
+          this.confirmPopup.hide();
           document.getElementById('cancelitemmodal')?.click();
           this.getDataList();
         } else {
           this.alertService.error(res.message);
+          this.confirmPopup.hide();
         }
       }, error: (error: any) => {
         this.alertService.error(error.error.message);
+        this.confirmPopup.hide();
       }
     })
+    console.log('Form submitted!');
+  }
+
+  onCancel() {
+    this.confirmPopup.hide();
+    console.log('Form submission cancelled');
   }
 
   ngOnDestroy(): void {
