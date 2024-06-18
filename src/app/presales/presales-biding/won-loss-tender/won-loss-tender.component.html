@@ -1549,7 +1549,7 @@
   
                     <div class="col-md-12">
                       <div class="presales" >
-                        <button *ngIf="this.userData.rolename !== 'Manager'"
+                        <button *ngIf="this.userData.rolename !== 'Manager' || this.userData.rolename !== 'Administrator'"
                           type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right" [disabled]="form.invalid">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-send" viewBox="0 0 16 16">
@@ -1569,7 +1569,7 @@
                           </svg> &nbsp;Final Update
                         </button>
                       </ng-container> -->
-                      <ng-container *ngIf="this.userData.rolename === 'Manager'">
+                      <ng-container *ngIf="this.userData.rolename === 'Manager' || this.userData.rolename === 'Administrator'">
                         <div class="float-right">
                         
                           <button type="submit" class="btn btn-primary btn-fw btn-sm me-2 " [disabled]="form.invalid">
