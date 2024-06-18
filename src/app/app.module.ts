@@ -145,6 +145,7 @@ import localeIn from '@angular/common/locales/en-IN';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { DraggableModalDirective } from './drag-directive';
 
+
 // Register the locale data for 'en-IN'
 registerLocaleData(localeIn, 'en-IN');
 import { LOCALE_ID } from '@angular/core';
@@ -161,9 +162,11 @@ import { SliceWithTooltipComponent } from './sharedComponent/slice-with-tooltip/
 import { TenderDetailComponent } from './sharedComponent/tender-detail/tender-detail.component';
 import { LocationSectionSharedComponent } from './sharedComponent/location-section-shared/location-section-shared.component';
 
+
 @NgModule({
   declarations: [
     DraggableModalDirective,
+   
     UsdOnlyDirective,
     AppComponent,
     HeaderComponent,

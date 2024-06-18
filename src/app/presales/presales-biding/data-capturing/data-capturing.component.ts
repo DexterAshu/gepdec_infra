@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -78,6 +78,7 @@ export class DataCapturingComponent implements OnDestroy {
   regFeeData:any;
   docCostData:any;
   securityData:any;
+  minClosingDate: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -163,7 +164,7 @@ export class DataCapturingComponent implements OnDestroy {
       audit_trail: [null],
       remarks: [null],
       tender_location: this.formBuilder.array([]),
-    });
+    }, { validator: this.dateLessThan('publish_date', 'closing_date') });
 
     this.form1 = this.formBuilder.group({
       company_id: [null],
@@ -180,7 +181,30 @@ export class DataCapturingComponent implements OnDestroy {
     this.getDesignDeptData();
     this.finYearData();
     this.getCategoryData();
+    this.onPublishDateChange();
     
+  }
+
+  dateLessThan(startDate: string, endDate: string): ValidatorFn {
+    return (group: AbstractControl): { [key: string]: any } | null => {
+      let start = group.get(startDate)!.value;
+      let end = group.get(endDate)!.value;
+      if (start && end && start > end) {
+        return { 'dateInvalid': true };
+      }
+      return null;
+    };
+  }
+  onPublishDateChange() {
+    const publishDateValue = this.form.get('publish_date')!.value;
+    console.log(this.form.value.closing_date);
+    
+    if(this.form.value.closing_date != null) {
+      this.form.patchValue({
+        closing_date: null
+      })
+    }
+    this.minClosingDate = publishDateValue ? new Date(publishDateValue).toISOString().split('T')[0] : null;
   }
   patchClient() {
     console.log(this.custDetails)
