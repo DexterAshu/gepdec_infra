@@ -85,7 +85,7 @@
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
                                 <td>
-                                    <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                                    <app-location-section-shared [tenderLocation]="a?.tender_location?.[0] || ''" [rowData]="a" (locationClick)="rowLocation($event)">
                                     </app-location-section-shared>
                                 </td>
                                 <td>{{a.bankname}}</td>

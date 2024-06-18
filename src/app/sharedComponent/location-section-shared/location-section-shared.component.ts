@@ -6,7 +6,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./location-section-shared.component.css']
 })
 export class LocationSectionSharedComponent {
-  @Input() tenderLocation:any = [];
+  // @Input() tenderLocation:any = [];
+  @Input() tenderLocation: string = '';
   @Input() rowData: any;
   @Output() locationClick = new EventEmitter<any>();
 

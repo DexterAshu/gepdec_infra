@@ -90,8 +90,9 @@
                                 <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
-                                <td>                                   
-                                    <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                                <td>
+                                    <!-- [tenderLocation]="a?.tender_location"                                    -->
+                                    <app-location-section-shared [tenderLocation]="a?.tender_location?.[0] || ''" [rowData]="a" (locationClick)="rowLocation($event)">
                                     </app-location-section-shared>
                                 </td>
                                 <td>{{a.bid_validity}}</td>
@@ -371,7 +372,7 @@
 <!-- image view modal end-->
 <!-- pdf view modal start-->
 <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="pdfModalLabel">View PDF</h5>
@@ -389,7 +390,7 @@
 <!-- doc modal -->
 <div class="modal fade" id="docModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tender Documents</h5>
@@ -400,41 +401,46 @@
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <h6 class="mb-2 text-secondary">Document List</h6>
-                            <app-responsive-table>
-                            <thead class="table-primary text-nowrap">
-                                <tr>
-                                <th>S No</th>
-                                <th>File Name</th>
-                                <th>Document Attachment</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-nowrap">
-                                <tr *ngFor="let doc of processedDocuments; index as i">
-                                <td>{{doc.index}}</td>
-                                <td>{{doc.document}}</td>
-                                <td> 
-                                    <span *ngIf="doc.type === 'image'">
-                                        <a title="View Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(doc.fullPath)">
-                                          <span style="color: #17a2b8;" class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
-                                        </a>
-                                    </span>
-                                    <span *ngIf="doc.type === 'pdf'">
-                                        <a title="View PDF" data-bs-toggle="modal" data-bs-target="#pdfModal" (click)="showPdf(doc.fullPath)">
-                                            <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
-                                        </a>
-                                    </span>
-                                    <span *ngIf="doc.type === 'excel'">
-                                        <a title="Excel Download" (click)="downloadExcel(doc.fullPath)">
-                                            <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
-                                        </a>
-                                    </span>                                    
-                                </td>
-                                </tr>
-                                <tr *ngIf="processedDocuments.length === 0" class="text-center">
-                                    <td colspan="5" class="text-warning">Looks like no data available!</td>
-                                </tr>
-                            </tbody>
-                            </app-responsive-table>
+                            <div class="table-responsive table-height-auto pt-2">
+                                <table class="table table-hover table-striped">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                        <th>S No</th>
+                                        <th>File Name</th>
+                                        <th>Document Attachment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr *ngFor="let doc of processedDocuments; index as i">
+                                        <td>{{doc.index}}</td>
+                                        <td>{{doc.document}}</td>
+                                        <td> 
+                                            <span *ngIf="doc.type === 'image'">
+                                                <a title="View Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(doc.fullPath)">
+                                                    <span style="color: #17a2b8;" class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
+                                                </a>
+                                            </span>
+                                            <span *ngIf="doc.type === 'pdf'">
+                                                <a title="View PDF" data-bs-toggle="modal" data-bs-target="#pdfModal" (click)="showPdf(doc.fullPath)">
+                                                    <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
+                                                </a>
+                                            </span>
+                                            <span *ngIf="doc.type === 'excel'">
+                                                <a title="Excel Download" (click)="downloadExcel(doc.fullPath)">
+                                                    <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
+                                                </a>
+                                            </span>                                    
+                                        </td>
+                                        </tr>
+                                        <tr *ngIf="processedDocuments.length === 0" class="text-center">
+                                            <td colspan="5" class="text-warning">Looks like no data available!</td>
+                                        </tr>
+                                    </tbody>
+                                        
+                                </table>
+                                
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

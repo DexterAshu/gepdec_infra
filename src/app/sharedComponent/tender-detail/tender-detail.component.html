@@ -44,7 +44,9 @@
             <td>{{ itemList?.capacity }}</td>
             <th>Execution Location</th>
             <td colspan="3">
-                <app-location-section-shared [tenderLocation]="itemList?.tender_location" [rowData]="itemList" (locationClick)="rowLocation($event)"></app-location-section-shared>
+                <!-- <app-location-section-shared [tenderLocation]="itemList?.tender_location" [rowData]="itemList" (locationClick)="rowLocation($event)"></app-location-section-shared> -->
+                <app-location-section-shared [tenderLocation]="itemList?.tender_location?.[0] || ''" [rowData]="itemList" (locationClick)="rowLocation($event)">
+                </app-location-section-shared>
             </td>
         </tr>
     </tbody>
