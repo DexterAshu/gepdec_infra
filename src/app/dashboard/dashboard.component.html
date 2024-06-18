@@ -112,7 +112,7 @@
 
 
           <div class="col-md-9">
-            <h3> {{ ShortNumber(dashboardData?.revenueData?.current_revenue ?? '0') }} </h3>
+            <h3> {{ currentRevenue ?? '0' }} Cr</h3>
             <hr>
             <h6> Revenue </h6>
           </div>
@@ -140,7 +140,8 @@
             <i class="mdi mdi-chart-line text-center" style="font-size: 36px;"></i>
           </div>
           <div class="col-md-9">
-            <h3>{{ ShortNumber(dashboardData?.ebitdaData?.current_ebidta ?? 0, false) }}</h3>
+            <!-- <h3>{{ ShortNumber(dashboardData?.ebitdaData?.current_ebidta ?? 0, false) }}</h3> -->
+            <h3>{{ currentEbidta ?? '0' }} Cr</h3>
             <hr>
             <h6> EBITDA (%) </h6>
           </div>
@@ -172,7 +173,8 @@
       <div class="business-card p-2">
         <div class="row">
           <div class="col-md-5 ">
-            <h6> {{ ShortNumber(dashboardData?.revenueData?.last_revenue ?? '0') }} </h6>
+            <!-- <h6> {{ formatIndianNumber(dashboardData?.revenueData?.last_revenue ?? '0') }} </h6> -->
+            <h6> {{ lastRevenue ?? '0' }} </h6>
             <hr>
             <small>Previous yr</small>
           </div>
@@ -219,7 +221,8 @@
       <div class="Profit-card p-2">
         <div class="row">
           <div class="col-md-5">
-            <h6> {{ShortNumber(dashboardData?.ebitdaData?.last_ebidta ?? 0, false)}} </h6>
+            <!-- <h6> {{ShortNumber(dashboardData?.ebitdaData?.last_ebidta ?? 0, false)}} </h6> -->
+            <h6> {{lastEbidta ?? '0'}} </h6>
             <hr>
             <small>Previous Yr</small>
           </div>
@@ -364,7 +367,8 @@
               [results]="lineAreaChart">
               <ng-template #tooltipTemplate let-model="model">
                 <p class="p-0 m-0">{{ model.series }}</p>
-                <p>{{ model.name }}: {{ model.value }}</p>
+                <!-- <p>{{ model.name }}: {{ model.value }}</p> -->
+                <p>{{ model.name }}: {{ model.value }} ({{ model.formattedValue }})</p>
               </ng-template>
             </ngx-charts-area-chart>
 
@@ -619,16 +623,17 @@
             <div *ngIf="!loading && progressBar.length === 0" class="text-center">
               <p class="text-warning">Looks like no data available!</p>
             </div>
-            <ngx-charts-bar-horizontal [view]="[progressBarchart.offsetWidth, 250]" [scheme]="colorScheme"
+            <div *ngIf="valueData.length!=0" style="padding: 10px;" class="Highcharts " [chart]="Highcharts"></div>
+            <!-- <ngx-charts-bar-horizontal [view]="[progressBarchart.offsetWidth, 250]" [scheme]="colorScheme"
               [results]="progressBar" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
               [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
               [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-horizontal>
+            </ngx-charts-bar-horizontal> -->
           </div>
-          <div class="btnMain text-center">
+          <!-- <div class="btnMain text-center">
             <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
               data-bs-target="#progressBarModal">More Detail</button>
-          </div>
+          </div> -->
 
           <!-- <highcharts-chart 
             [Highcharts]="Highcharts"
