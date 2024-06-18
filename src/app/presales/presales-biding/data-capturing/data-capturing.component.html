@@ -344,7 +344,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label fl-10">Publish Date<span class="required-asterisk">*</span></label>
-                            <input formControlName="publish_date" type="date" class="form-control form-control-sm">
+                            <input formControlName="publish_date" type="date" class="form-control form-control-sm" (change)="onPublishDateChange()">
                             <div *ngIf="f['publish_date'].touched && f['publish_date'].invalid">
                                 <small class="text-danger"
                                     *ngIf="f['publish_date'].errors?.['required']">*Required</small>
@@ -378,11 +378,12 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Tender Closing Date<span
                                     class="required-asterisk">*</span></label>
-                            <input formControlName="closing_date" type="date" class="form-control form-control-sm">
+                            <input formControlName="closing_date" type="date" class="form-control form-control-sm" [min]="minClosingDate">
                             <div *ngIf="f['closing_date'].touched && f['closing_date'].invalid">
                                 <small class="text-danger"
                                     *ngIf="f['closing_date'].errors?.['required']">*Required</small>
-                            </div>
+                                    </div>
+                                <small class="text-danger" *ngIf="form.errors?.['dateInvalid'] && f['closing_date'].touched">Closing date cannot be earlier than publish date</small>
                         </div>
                     </div>
 
@@ -391,7 +392,7 @@
                             <label class="form-label fl-10">Soft Copy Submission Date<span
                                     class="required-asterisk">*</span></label>
                             <input formControlName="tender_submission_date" type="date"
-                                class="form-control form-control-sm">
+                                class="form-control form-control-sm" [min]="minClosingDate">
                             <div *ngIf="f['tender_submission_date'].touched && f['tender_submission_date'].invalid">
                                 <small class="text-danger"
                                     *ngIf="f['tender_submission_date'].errors?.['required']">*Required</small>
@@ -402,7 +403,7 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Hard Copy Submission Date</label>
                             <input formControlName="tenderhardcopysubmission_date" type="date"
-                                class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
+                                class="form-control form-control-sm" min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}" [min]="minClosingDate">
 
                         </div>
                     </div>
@@ -494,7 +495,7 @@
                             <label class="form-label fl-10">Technical Bid Opening Date<span
                                     class="required-asterisk">*</span></label>
                             <input formControlName="tech_bid_date" type="date" class="form-control form-control-sm"
-                                min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}">
+                                min="{{today | date: 'yyyy-MM-dd HH:mm:ss'}}" [min]="minClosingDate">
                             <div *ngIf="f['tech_bid_date'].touched && f['tech_bid_date'].invalid">
                                 <small class="text-danger"
                                     *ngIf="f['tech_bid_date'].errors?.['required']">*Required</small>
@@ -506,7 +507,7 @@
                         <div class="form-group">
                             <label class="form-label fl-10">Financial Bid Opening Date</label>
                             <input formControlName="fin_bid_opening_date" type="date"
-                                class="form-control form-control-sm">
+                                class="form-control form-control-sm" [min]="minClosingDate">
                             <!-- <div *ngIf="f['fin_bid_opening_date'].touched && f['fin_bid_opening_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['fin_bid_opening_date'].errors?.['required']">*Required</small>
                                             </div> -->
@@ -588,7 +589,7 @@
                                 <label class="form-label fl-10"> Security Submission Date<span
                                         class="required-asterisk">*</span></label>
                                 <input formControlName="securitysubmission_date" type="date"
-                                    class="form-control form-control-sm">
+                                    class="form-control form-control-sm" [min]="minClosingDate">
                                 <div
                                     *ngIf="f['securitysubmission_date'].touched && f['securitysubmission_date'].invalid">
                                 </div>
@@ -700,7 +701,7 @@
                                 <label class="form-label fl-10">EMD Submission Date<span
                                         class="required-asterisk">*</span></label>
                                 <input formControlName="emd_submission_date" type="date"
-                                    class="form-control form-control-sm">
+                                    class="form-control form-control-sm" [min]="minClosingDate">
                                 <div *ngIf="f['emd_submission_date'].touched && f['emd_submission_date'].invalid">
                                     <small class="text-danger"
                                         *ngIf="f['emd_submission_date'].errors?.['required']">*Required</small>
