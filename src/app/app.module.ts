@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule} from '@angular/core';
-import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
@@ -160,6 +160,7 @@ import { LocationModalComponent } from './sharedComponent/location-modal/locatio
 import { SliceWithTooltipComponent } from './sharedComponent/slice-with-tooltip/slice-with-tooltip.component';
 import { TenderDetailComponent } from './sharedComponent/tender-detail/tender-detail.component';
 import { LocationSectionSharedComponent } from './sharedComponent/location-section-shared/location-section-shared.component';
+import { ConfirmModalComponent } from './sharedComponent/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -208,14 +209,14 @@ import { LocationSectionSharedComponent } from './sharedComponent/location-secti
     L2ScheduleBulkdataComponent,
     WarehouseMasterComponent,
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, DepartmentMasterComponent, DesignationMasterComponent, SpareMasterComponent,
-    TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
+    TitleMasterComponent, RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
     CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent,
     AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent,
     FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent,
     ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent, MaterialReceiptComponent, MaterialIssuanceComponent, BoqItemsComponent, SignInComponent, MasterDrawingListComponent, DrawingComponent, FinalBOQComponent, IndirectCostingComponent, SynopsisComponent,
     CompFinanceComponent, DirectCostingComponent, CostingApprovalComponent, TenderFinalApprovalComponent, UnderDevelopmentComponent,
-    PreSalesFinalBOQComponent, PreSalesDrawingComponent, PreSalesMasterDrawingListComponent, FinalReportComponent, WonLossTenderComponent, LocationModalComponent, SliceWithTooltipComponent, TenderDetailComponent, LocationSectionSharedComponent
+    PreSalesFinalBOQComponent, PreSalesDrawingComponent, PreSalesMasterDrawingListComponent, FinalReportComponent, WonLossTenderComponent, LocationModalComponent, SliceWithTooltipComponent, TenderDetailComponent, LocationSectionSharedComponent, ConfirmModalComponent
   ],
 
   imports: [

@@ -60,7 +60,8 @@
                                 <td>{{ a.capacity ? a.capacity : '--' }}</td>
                                 <td>
                                     <!-- {{ a.tender_location ? a.tender_location : '--' }} -->
-                                    <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                                    <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a"
+                                        (locationClick)="rowLocation($event)">
                                     </app-location-section-shared>
                                 </td>
                                 <td>
@@ -475,3 +476,5 @@
     </div>
 </div>
 <!-- detail modal end-->
+<app-confirm-modal [title]="modalTitle" [message]="modalMessage" [buttonText]="buttonText" (confirm)="onConfirm()"
+    (cancel)="onCancel()" #confirmPopup></app-confirm-modal>
