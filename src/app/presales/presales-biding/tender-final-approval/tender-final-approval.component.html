@@ -77,7 +77,7 @@
                   <td>{{a.capacity}}</td>
                   <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
                   <td>
-                    <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                    <app-location-section-shared [tenderLocation]="a?.tender_location?.[0] || ''" [rowData]="a" (locationClick)="rowLocation($event)">
                     </app-location-section-shared>
                  
                     <!-- <a data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="Location Details"> <span class="mdi mdi-google-maps text-warning cursor-pointer mdi-18px"></span>
@@ -219,7 +219,7 @@
                               <td> {{rowData?.financialyear}}</td>
                               <th>Execution Location</th>
                               <td>
-                                <app-location-section-shared [tenderLocation]="rowData?.tender_location" [rowData]="rowData" (locationClick)="rowLocation($event)">
+                                <app-location-section-shared [tenderLocation]="rowData?.tender_location?.[0] || ''" [rowData]="rowData" (locationClick)="rowLocation($event)">
                                 </app-location-section-shared>
                               </td>
                               

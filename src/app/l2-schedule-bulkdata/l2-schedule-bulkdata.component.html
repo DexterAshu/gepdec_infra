@@ -73,7 +73,7 @@
                 <td>{{ a.subqacatagory}}</td>
                 <td>{{ a.capacity }}</td>
                 <td>
-                  <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                  <app-location-section-shared [tenderLocation]="a?.tender_location?.[0] || ''" [rowData]="a" (locationClick)="rowLocation($event)">
                   </app-location-section-shared>
                 </td>
                 <td>{{ a.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
@@ -1076,7 +1076,7 @@
                 <tr>
                   <th>Execution Location</th>
                   <td>
-                    <app-location-section-shared [tenderLocation]="selectedRowData?.tender_location" [rowData]="selectedRowData" (locationClick)="rowLocation($event)">
+                    <app-location-section-shared [tenderLocation]="selectedRowData?.tender_location?.[0] || ''" [rowData]="selectedRowData" (locationClick)="rowLocation($event)">
                     </app-location-section-shared>
                   </td>
                   <th>L2 Start Date</th>
