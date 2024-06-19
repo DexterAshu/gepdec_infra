@@ -141,7 +141,7 @@
           </div>
           <div class="col-md-9">
             <!-- <h3>{{ ShortNumber(dashboardData?.ebitdaData?.current_ebidta ?? 0, false) }}</h3> -->
-            <h3>{{ currentEbidta ?? '0' }} Cr</h3>
+            <h3>{{ currentEbidta ?? '0' }}</h3>
             <hr>
             <h6> EBITDA (%) </h6>
           </div>
@@ -174,7 +174,7 @@
         <div class="row">
           <div class="col-md-5 ">
             <!-- <h6> {{ formatIndianNumber(dashboardData?.revenueData?.last_revenue ?? '0') }} </h6> -->
-            <h6> {{ lastRevenue ?? '0' }} </h6>
+            <h6> {{ lastRevenue ?? '0' }} Cr</h6>
             <hr>
             <small>Previous yr</small>
           </div>
@@ -620,7 +620,7 @@
             <div *ngIf="loading" class="text-center">
               <div class="spinner-border"> </div>
             </div>
-            <div *ngIf="!loading && progressBar.length === 0" class="text-center">
+            <div *ngIf="!loading && valueData.length === 0" class="text-center">
               <p class="text-warning">Looks like no data available!</p>
             </div>
             <div *ngIf="valueData.length!=0" style="padding: 10px;" class="Highcharts " [chart]="Highcharts"></div>

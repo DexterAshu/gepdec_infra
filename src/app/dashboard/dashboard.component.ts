@@ -1877,11 +1877,19 @@ export class DashboardComponent implements OnInit {
                       y:this.myData[i].progress
                     })
                 }
-                var Progressdata  = this.dashboardData.statusProgress.map((item: any) => {
+                // var Progressdata  = this.dashboardData.statusProgress.map((item: any) => {
+                //   return {
+                //     check:item.check ,
+                //     value: item.progress,
+                //     tender_title: item.tender_title
+                //   };
+                // });
+                var Progressdata = this.dashboardData.statusProgress.map((item: any) => {
+                  let truncatedTitle = item.tender_title.length > 20 ? item.tender_title.substring(0, 20) + '...' : item.tender_title;
                   return {
-                    check:item.check ,
+                    check: item.check,
                     value: item.progress,
-                    tender_title: item.tender_title
+                    tender_title: truncatedTitle
                   };
                 });
 
@@ -2165,148 +2173,130 @@ export class DashboardComponent implements OnInit {
   // });
 
   Highcharts = new Chart({
-    chart: {
-      type: 'bar'
-    },
+  chart: {
+    type: 'bar'
+  },
+  title: {
+    text: '',
+    align: 'right'
+  },
+  xAxis: {
+    categories: this.titleData,
     title: {
-      text: '',
-      align: 'right'
+      text: null
     },
-    xAxis: {
-      categories:this.titleData ,
-      title: {
-        text: null
-      },
-      gridLineWidth: 1,
-      lineWidth: 0,
-      labels: {
-        useHTML: true,
-     
+    gridLineWidth: 1,
+    lineWidth: 0,
+    labels: {
+      useHTML: true,
     }
+  },
+  yAxis: {
+    min: 0,
+    max: 100,
+    title: {
+      text: ""
     },
-    yAxis: {
-      min: 0,
-      max:100,
-      title: {
-        text: ""
-      },
-      labels: {
-        enabled: true, // Disable numeric labels on the y-axis
-        overflow: 'justify'
-      },
-      gridLineWidth: 0,
+    labels: {
+      enabled: false,
+      overflow: 'justify'
     },
-    tooltip: {
-      valueSuffix: ''
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: '10%',
-        borderColor:'',
-        dataLabels: {
-          enabled: true
-        },
-        groupPadding: 0.1,
-        colorByPoint: true, // Assign different colors to each point
-        colors: [   '#bb9ff5', '#b5d0ff',
-          '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define three colors for the gradient
+    gridLineWidth: 0,
+  },
+  tooltip: {
+    valueSuffix: '',
+    useHTML: true,
+    positioner: function (labelWidth, labelHeight, point) {
+      var chart = this.chart,
+        pointX = point.plotX + chart.plotLeft,
+        pointY = point.plotY + chart.plotTop;
+
+      if (point.shapeArgs) {
+        pointX += point.shapeArgs['width'];
       }
+
+      if (pointX + labelWidth > chart.chartWidth) {
+        pointX = chart.chartWidth - labelWidth;
+      }
+
+      if (pointY - labelHeight / 2 < 0) {
+        pointY = labelHeight / 2;
+      } else if (pointY + labelHeight / 2 > chart.chartHeight) {
+        pointY = chart.chartHeight - labelHeight / 2;
+      }
+
+      return {
+        x: pointX,
+        y: pointY - labelHeight / 2
+      };
     },
-    legend: {
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'top',
-      x: 10,
-      y: -10,
-      floating: true,
-      borderWidth: 1,
-      backgroundColor: Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
-      shadow: true
-    },
-    credits: {
-      enabled: false
-    },
-    series: [{
-      type: 'bar', // Specify the type of chart series
-      name: 'Actual',
-     
-      data:this.valueData,
-   
+    shadow: true,
+    borderWidth: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    style: {
+      color: '#FFFFFF',
+      padding: '8px',
+      zIndex: 1000 // Ensure tooltip is above other elements
+    }
+  },
+  plotOptions: {
+    bar: {
+      borderRadius: '10%',
+      borderColor: '',
       dataLabels: {
         enabled: true,
         useHTML: true,
         inside: true,
         align: 'right',
-        formatter: function() {
-          // return this.data > 130 ? this.y + ' mm' : null;
-          let data:any=this as Point
-          console.log(data);
-         
-          if(data.key<0)
-            {
-              if(data.y==100)
-                {
-                  return `<div style="width:10px;height:10px;z-index:999;
-                  background-color:green;position:absolute;left:6px;top:-4px"></div>`  
-                }else
-                {
-                  return `<div style="width:10px;height:10px;z-index:999;
-                  background-color:green;position:absolute;left:10px;top:-4px"></div>`  
-                }
-           
-            }
-            else if(data.key>0 && data.key<=30)
-              {
-                if(data.y==100)
-                  {
-                    return `<div style="width:10px;height:10px;z-index:999;
-                    background-color:yellow;position:absolute;left:5px;top:-4px"></div>`  
-                  }else
-                  {
-                    return `<div style="width:10px;height:10px;z-index:999;
-                    background-color:yellow;position:absolute;left:10px;top:-4px"></div>`  
-                  }
-              }else if(data.key>30)
-              {
-                if(data.y==100)
-                  {
-                    return `<div style="width:10px;height:10px;z-index:999;
-                    background-color:red;position:absolute;left:5px;top:-4px"></div>`  
-                  }else
-                  {
-                    return `<div style="width:10px;height:10px;z-index:999;
-                    background-color:red;position:absolute;left:10px;top:-4px"></div>`  
-                  }
-              }else
-              {
-                return ''
-              }
-  // return ''
-           
-          // if((this as Point).x<20)
-          //   {
-          //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
-          //   }else if((this as Point).x>20)
-          //   {
-          //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
-          //   }
-          // return ((this as Point).x<20?`<div style="width:10px;height:10px;background-color:red;" ></div>`:`<div style="width:10px;height:10px;background-color:red;" ></div>`)
-      }
-        // formatter: function() {
-        //  if(this.point.name=='')
-         
-        // //   return this.colorIndex
-        // // return `<div class="hii" style="width:10px;height:10px;background-color:red;"></div>`
-        // //   // return `<img src="https://findicons.com/files/icons/2315/default_icon/256/arrow_down.png" style="width: 30px;margin-top:-10px"><img>`;
-        // }
-      }
-    }],
- 
-    colors: [   '#bb9ff5', '#b5d0ff',
-      '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Assign three different colors to the bars
-  });
+        formatter: function () {
+          let data: any = this as Point;
+          let color = '';
+          let leftPosition = 10;
 
+          if (data.key < 0) {
+            color = 'green';
+          } else if (data.key > 0 && data.key <= 30) {
+            color = 'yellow';
+          } else if (data.key > 30) {
+            color = 'red';
+          }
 
+          if (data.y == 100) {
+            leftPosition = 5;
+          }
+
+          // Adjust z-index and positioning to ensure the colored squares do not overlap with the tooltip
+          let style = `width:10px;height:10px;background-color:${color};position:absolute;left:${leftPosition}px;top:-4px;pointer-events:none;z-index: 999;`;
+
+          return `<div style="${style}"></div>`;
+        }
+      },
+      groupPadding: 0.1, // Apply groupPadding for bar plotOptions
+      colorByPoint: true, // Assign different colors to each point
+      colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define colors for bars
+    }
+  },
+  legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'top',
+    x: 10,
+    y: -10,
+    floating: true,
+    borderWidth: 1,
+    backgroundColor: Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
+    shadow: true
+  },
+  credits: {
+    enabled: false
+  },
+  series: [{
+    type: 'bar',
+    name: 'Actual',
+    data: this.valueData,
+  }],
+  colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define colors for bars
+});
 
 
 
