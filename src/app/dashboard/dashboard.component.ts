@@ -1370,7 +1370,8 @@ export class DashboardComponent implements OnInit {
   lineBarColorScheme: any = {
     // domain: ['#cee27d', '#63830c']
     // domain: ['#d6a974', '#97daa7']
-    domain: ['#90EE90', '#ff7f3e']
+    // domain: ['#90EE90', '#ff7f3e']
+    domain: ['#90EE90', '#ffaa80']
   }
   // lineBar chart end
   tenderDetails: any[] = [];
@@ -1839,7 +1840,8 @@ export class DashboardComponent implements OnInit {
               series: this.dashboardData.revenueResult.map((item: any) => ({
                 name: item.year,
                 value: +item.revenue / 1e7,
-                formattedValue: this.formatIndianNumber(+item.revenue)
+                formattedValue: this.formatIndianNumber(+item.revenue),
+                isEbidta: false // Identifies this as a revenue value
               }))
             },
             {
@@ -1847,7 +1849,8 @@ export class DashboardComponent implements OnInit {
               series: this.dashboardData.revenueResult.map((item: any) => ({
                 name: item.year,
                 value: +item.ebidta / 1e7,
-                formattedValue: this.formatIndianNumber(+item.ebidta)
+                formattedValue: this.formatIndianNumber(+item.ebidta),
+                isEbidta: true // Identifies this as an EBITDA value
               }))
             }
           ];

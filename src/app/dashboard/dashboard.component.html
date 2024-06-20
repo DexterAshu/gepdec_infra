@@ -15,7 +15,7 @@
         </div> -->
     <div class="col-md-12" style="font-family:'Times New Roman', Times, serif">
       <form [formGroup]="form">
-        <div class="d-flex">
+        <div class="row">
           <div class="col-md-2">
             <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
             <div class="form-group row">
@@ -320,14 +320,14 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <p class="card-title mb-2 col-md-9">Revenue | Expense</p>
-            <div class="float-right col-md-3">
-              <!-- <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
+            <p class="card-title mb-2 col-md-12">Revenue | Expense <span class="fw-normal text-capitalize">(Expense data part of execution module)</span></p>
+            <!-- <div class="float-right col-md-3">
+              <select  class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
                     <option selected value="year">Yearly</option>
                     <option value="quarter">Quarterly</option>
                     <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
-                </select> -->
-            </div>
+                </select>
+            </div> -->
           </div>
           <!-- <p class=" col-md-6 p-1 bg-warning text-center rounded">$000</p> -->
 
@@ -368,7 +368,8 @@
               <ng-template #tooltipTemplate let-model="model">
                 <p class="p-0 m-0">{{ model.series }}</p>
                 <!-- <p>{{ model.name }}: {{ model.value }}</p> -->
-                <p>{{ model.name }}: {{ model.value }} ({{ model.formattedValue }})</p>
+                <!-- <p>{{ model.name }}: {{ model.value }} ({{ model.formattedValue }})</p> -->
+                <p>{{ model.name }}: {{ model.value }}{{ model.isEbidta ? '%' : '' }} ({{ model.formattedValue }})</p>
               </ng-template>
             </ngx-charts-area-chart>
 
