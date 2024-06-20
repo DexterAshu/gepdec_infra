@@ -79,6 +79,7 @@ export class DataCapturingComponent implements OnDestroy {
   docCostData:any;
   securityData:any;
   minClosingDate: any;
+  minAfterDate: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,8 +103,10 @@ export class DataCapturingComponent implements OnDestroy {
       this.userData = JSON.parse(userDataString);
     }
   }
+
   get f() { return this.form.controls; }
-  get f1() { return this.form1.controls }
+  get f1() { return this.form1.controls; }
+  
   ngOnInit() {
     this.addAnotherRow();
     this.form = this.formBuilder.group({
@@ -145,7 +148,7 @@ export class DataCapturingComponent implements OnDestroy {
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
-      city:[null],
+      city:[null, Validators.required],
       // financialyear_id: [null, Validators.required],
 
       //securitydeposit
@@ -182,6 +185,7 @@ export class DataCapturingComponent implements OnDestroy {
     this.finYearData();
     this.getCategoryData();
     this.onPublishDateChange();
+    this.onClosingDateChange();
     
   }
 
@@ -196,16 +200,21 @@ export class DataCapturingComponent implements OnDestroy {
     };
   }
   onPublishDateChange() {
-    const publishDateValue = this.form.get('publish_date')!.value;
-    console.log(this.form.value.closing_date);
-    
-    if(this.form.value.closing_date != null) {
-      this.form.patchValue({
-        closing_date: null
-      })
-    }
-    this.minClosingDate = publishDateValue ? new Date(publishDateValue).toISOString().split('T')[0] : null;
+    this.form.controls['closing_date'].reset();
   }
+
+  onClosingDateChange(){
+    this.form.controls['tender_submission_date'].reset();
+    this.form.controls['tenderhardcopysubmission_date'].reset();
+    this.form.controls['tech_bid_date'].reset();
+    this.form.controls['fin_bid_opening_date'].reset();
+    this.form.controls['securitysubmission_date'].reset();
+    this.form.controls['emd_submission_date'].reset();
+    this.form.controls['prebid_date'].reset();
+    this.form.controls['securitysubmission_date'].reset();
+  }
+
+
   patchClient() {
     console.log(this.custDetails)
     this.form1.patchValue({

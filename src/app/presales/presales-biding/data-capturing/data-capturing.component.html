@@ -185,7 +185,7 @@
 
             <div class="col-md-4">
               <div class="form-group">
-                <label class="form-label fl-10">Capacity</label>
+                <label class="form-label fl-10">Capacity </label>
                 <input
                   formControlName="capacity_id"
                   class="form-control form-control-sm"
@@ -414,13 +414,20 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label class="form-label">City</label>
+              <label class="form-label">City <span class="required-asterisk">*</span></label>
               <input
                 type="text"
                 formControlName="city"
                 class="form-control form-control-sm"
                 appWordCapitalize
               />
+            </div>
+            <div *ngIf="f['city'].touched && f['city'].invalid">
+              <small
+                class="text-danger"
+                *ngIf="f['city'].errors?.['required']"
+                >*Required</small
+              >
             </div>
           </div>
 
@@ -550,7 +557,7 @@
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label class="form-label">City</label>
+                          <label class="form-label">City <span class="required-asterisk">*</span></label>
                           <input
                             type="text"
                             formControlName="city"
@@ -678,15 +685,8 @@
                   >*</span
                 ></label
               >
-              <input
-                formControlName="closing_date"
-                type="date"
-                class="form-control form-control-sm"
-                [min]="minClosingDate"
-              />
-              <div
-                *ngIf="f['closing_date'].touched && f['closing_date'].invalid"
-              >
+              <input formControlName="closing_date" type="date" class="form-control form-control-sm" [min]="form.value.publish_date" (change)="onClosingDateChange()"/>
+              <div *ngIf="f['closing_date'].touched && f['closing_date'].invalid">
                 <small
                   class="text-danger"
                   *ngIf="f['closing_date'].errors?.['required']"
@@ -703,11 +703,7 @@
                   >*</span
                 ></label
               >
-              <input
-                formControlName="tender_submission_date"
-                type="date"
-                class="form-control form-control-sm"
-                [min]="minClosingDate"
+              <input formControlName="tender_submission_date" type="date" class="form-control form-control-sm" [min]="form.value.publish_date" [max]="form.value.closing_date"
               />
               <div
                 *ngIf="
@@ -729,9 +725,7 @@
               <input
                 formControlName="tenderhardcopysubmission_date"
                 type="date"
-                class="form-control form-control-sm"
-                min="{{ today | date : 'yyyy-MM-dd HH:mm:ss' }}"
-                [min]="minClosingDate"
+                class="form-control form-control-sm" [min]="form.value.publish_date" [max]="form.value.closing_date"
               />
             </div>
           </div>
@@ -878,7 +872,7 @@
               <input
                 formControlName="prebid_date"
                 type="date"
-                class="form-control form-control-sm"
+                class="form-control form-control-sm" [min]="form.value.publish_date" [max]="form.value.closing_date"
               />
               <div *ngIf="f['prebid_date'].touched && f['prebid_date'].invalid">
                 <small
@@ -900,9 +894,7 @@
               <input
                 formControlName="tech_bid_date"
                 type="date"
-                class="form-control form-control-sm"
-                min="{{ today | date : 'yyyy-MM-dd HH:mm:ss' }}"
-                [min]="minClosingDate"
+                class="form-control form-control-sm" [min]="form.value.publish_date" [max]="form.value.closing_date"
               />
               <div
                 *ngIf="f['tech_bid_date'].touched && f['tech_bid_date'].invalid"
@@ -922,8 +914,7 @@
               <input
                 formControlName="fin_bid_opening_date"
                 type="date"
-                class="form-control form-control-sm"
-                [min]="minClosingDate"
+                class="form-control form-control-sm" [min]="form.value.publish_date" [max]="form.value.closing_date"
               />
               <!-- <div *ngIf="f['fin_bid_opening_date'].touched && f['fin_bid_opening_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['fin_bid_opening_date'].errors?.['required']">*Required</small>
@@ -1093,7 +1084,7 @@
                   formControlName="securitysubmission_date"
                   type="date"
                   class="form-control form-control-sm"
-                  [min]="minClosingDate"
+                  [min]="form.value.publish_date" [max]="form.value.closing_date"
                 />
                 <div
                   *ngIf="
@@ -1290,7 +1281,7 @@
                   formControlName="emd_submission_date"
                   type="date"
                   class="form-control form-control-sm"
-                  [min]="minClosingDate"
+                  [min]="form.value.publish_date" [max]="form.value.closing_date"
                 />
                 <div
                   *ngIf="
