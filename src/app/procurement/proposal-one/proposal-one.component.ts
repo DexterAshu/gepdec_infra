@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 
@@ -10,14 +11,20 @@ import { environment } from 'src/environments/environment';
 })
 export class ProposalOneComponent {
 
+  private destroy$ = new Subject<void>();
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
   form!: FormGroup;
   isSubmitted: boolean = false;
-  isNotFound:boolean = false;
+  isNotFound: boolean = false;
   dataList: any;
   rowData: any;
+  boqList: any;
+  vendorDetails: any;
+  attachment: any = [];
+  listOfFiles: any = [];
+  vendorPriceDetails: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,23 +33,12 @@ export class ProposalOneComponent {
     private apiService: ApiService,
   ) { }
 
-  ngOnInit(){
-    // this.form = this.formBuilder.group({
-    //   addressFor: [null, Validators.required],
-    //   billingAddress: [null, Validators.required],
-    //   billingDetails: [null],
-    //   code: [null, Validators.required],
-    //   type: [null, Validators.required],
-    //   address: [null, Validators.required],
-    //   country: [null, Validators.required],
-    //   state: [null, Validators.required],
-    //   district: [null, Validators.required],
-    //   city: [null, Validators.required],
-    //   pincode: [null, [Validators.required, Validators.pattern("^[0-9]{6}$")]],
-    // });
-
+  ngOnInit() {
     this.getDataList();
-    // this.getDropdownList()
+
+    this.form = this.formBuilder.group({
+      attachment: ['', Validators.required]
+    })
   }
 
   get f() { return this.form.controls; }
@@ -50,27 +46,84 @@ export class ProposalOneComponent {
   getDataList() {
     this.dataList = [];
     this.isNotFound = false;
-    // let apiLink = "/item/api/v1/getItemList";
-    let apiLink = "";
-    this.apiService.getData(apiLink).subscribe((res:any) => {
-      if (res.status === 200) {
-        this.isNotFound = false;
-        this.dataList = res.result;
-      } else {
+    const apiLink = `/precurement/api/v1/getProposal1`;
+    this.apiService.getData(apiLink).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.isNotFound = false;
+          this.dataList = res.result;
+        } else {
+          this.isNotFound = true;
+          this.dataList = undefined;
+          this.alertService.warning("Looks like no data available!");
+        }
+      }, error: (error: any) => {
         this.isNotFound = true;
         this.dataList = undefined;
-        this.alertService.warning("Looks like no data available!");
+        this.alertService.error(error.error.message);
       }
-    }, (error: any) => {
-      this.isNotFound = true;
-      this.dataList = undefined;
-      // this.alertService.error("Error: Unknown Error!");
     });
   }
 
-  rowListData() {
+  getBOQList(data: any) {
     this.rowData = [];
-    // this.rowData = row;
+    this.boqList = data;
+  }
+
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
+  }
+
+  getBoqItemsList(item: any) {
+    this.vendorDetails = item;
+    this.rowData = item.itemData?.map((mainItem: any) => ({
+      ...mainItem,
+      isVendorSelected: false,
+      isChecked: false,
+      childItemList: mainItem.childItems ? mainItem.childItems.map((childItem: any) => ({
+        ...childItem,
+        isVendorSelected: false,
+        isChecked: false
+      })) : []
+    })) || [];
+  }
+
+  onFileChanged(event: any) {
+    this.listOfFiles = [];
+    this.attachment = [];
+    const fileList = event.target.files;
+    for (let file of fileList) {
+      this.listOfFiles.push(file.name);
+      this.attachment.push(file);
+    }
+  }
+
+  vendorList(item: any) {
+    console.log(item);
+    this.vendorPriceDetails = item;
+  }
+
+  onCheckboxChange(data: any) {
+    console.log(data);
+  }
+
+  onExcelSubmit() {
+    let formData = new FormData();
+    for (let i = 0; i < this.attachment.length; i++) {
+      formData.append("attachment", this.attachment[i]);
+    }
+    this.apiService.vendorProposalOne(formData).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.alertService.success(res.message);
+          this.getDataList();
+          document.getElementById('cancelexcelmodal')?.click();
+        }
+      }, error: (error: any) => {
+        console.log(error.error.message);
+        this.alertService.error(error.error.message);
+      }
+    })
   }
 
   onSubmit() {
@@ -82,7 +135,7 @@ export class ProposalOneComponent {
         // freightRate: this.form.value.freightRate,
         // packingCharges: this.form.value.packingCharges,
         // otherCharges: this.form.value.otherCharges,
-      } 
+      }
 
       // let apiLink = '/Item/api/v1/addItem';
       let apiLink = '';
@@ -98,12 +151,17 @@ export class ProposalOneComponent {
           this.alertService.warning(response.message);
         }
       }, (error) => {
-          this.isSubmitted = false;
-          document.getElementById('cancel')?.click();
-          // this.alertService.error("Error: Unknown Error!");
-        })
+        this.isSubmitted = false;
+        document.getElementById('cancel')?.click();
+        // this.alertService.error("Error: Unknown Error!");
+      })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

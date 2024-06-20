@@ -9,6 +9,7 @@ export class ConfirmModalComponent {
   @Input() title: string = 'Confirm';
   @Input() message: string = 'Are you sure you want to submit the form?';
   @Input() buttonText: string = 'Confirm';
+  @Input() loader: boolean = false;
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
   showModal = false;
@@ -23,7 +24,6 @@ export class ConfirmModalComponent {
 
   onConfirm() {
     this.confirm.emit();
-    this.hide();
   }
 
   onCancel() {
