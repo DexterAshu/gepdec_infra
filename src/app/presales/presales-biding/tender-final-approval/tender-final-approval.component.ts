@@ -5,14 +5,14 @@ import { MasterService, AlertService, ApiService, AccountService, SharedService 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-tender-final-approval',
   templateUrl: './tender-final-approval.component.html',
   styleUrls: ['./tender-final-approval.component.css']
 })
-export class TenderFinalApprovalComponent implements OnDestroy{
+export class TenderFinalApprovalComponent implements OnDestroy {
   form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
@@ -42,7 +42,7 @@ export class TenderFinalApprovalComponent implements OnDestroy{
   rowData: any;
   tendStatus: any = [];
   showWorkingDetails: boolean = false;
-  attachmentDataShow: boolean =false;
+  attachmentDataShow: boolean = false;
   compattachmentDataShow: boolean = false;
   tendattachmentDataShow: boolean = false;
 
@@ -73,11 +73,15 @@ export class TenderFinalApprovalComponent implements OnDestroy{
   tenderID: any;
   attachListData: any = [];
   attachementDetailsData: any = [];
-  attachementTendDetailsData:any = [];
+  attachementTendDetailsData: any = [];
   locationArray: any = [];
   showPreviousDetails: boolean = false;
-  docArray:any = [];
+  docArray: any = [];
   private destroy$ = new Subject<void>();
+  rowIndirectCostData: any;
+  rowDirectCostData: any;
+  totalDirectMargin: number = 0;
+  totalIndirectMargin: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -111,22 +115,6 @@ export class TenderFinalApprovalComponent implements OnDestroy{
     this.sharedService.initializeTooltips(this.elementRef);
   }
 
-  validateInput() {
-    if (this.marginPer === null || this.marginPer === undefined) {
-      this.marginPer = 0;
-    }  else if(this.marginPer < 0) {
-      this.marginPer = 0;
-    } else if(this.marginPer > 100) {
-      this.marginPer = 100;
-    }
-
-    this.totalProjectCost = this.overallDirectCost + this.overallInDirectCost;
-    this.totalMargin = (this.totalProjectCost * this.marginPer) / 100;
-    this.totalProjectCostWithMargin = this.totalProjectCost + this.totalMargin;
-    this.totalProfit = +this.rowData?.ecv - this.totalProjectCostWithMargin;
-    this.profitPer = (this.totalProfit / +this.rowData?.ecv) * 100;
-  }
-
   getBOQItemList(data: any) {
     this.totalDirectCost = 0;
     this.itemList = [];
@@ -144,43 +132,20 @@ export class TenderFinalApprovalComponent implements OnDestroy{
     this.update = true;
   }
   getFormattedRemarks(): string {
-    return (this.rowData?.remarks && Array.isArray(this.rowData.remarks)) 
-        ? this.rowData.remarks.map((remark:any, index:any) => `${index + 1}. ${remark}`).join('<br>') 
-        : '';
-}
+    return (this.rowData?.remarks && Array.isArray(this.rowData.remarks))
+      ? this.rowData.remarks.map((remark: any, index: any) => `${index + 1}. ${remark}`).join('<br>')
+      : '';
+  }
   getFormattedAuditTrail(): string {
-    return (this.rowData?.audit_trail && Array.isArray(this.rowData.audit_trail)) ? this.rowData.audit_trail.map((audit_trail:any, index:any) => `${index + 1}. ${audit_trail}`).join('<br>') 
-    : '';
+    return (this.rowData?.audit_trail && Array.isArray(this.rowData.audit_trail)) ? this.rowData.audit_trail.map((audit_trail: any, index: any) => `${index + 1}. ${audit_trail}`).join('<br>')
+      : '';
   }
 
   rowLocation(rowData: any): void {
     this.masterService.openModal(rowData?.tender_id);
   }
 
-  rowListData(row: any) {
-    this.rowData = row;
-    this.tenderID = row.tender_id;
-    if (this.rowData.directCost.length > 0 && this.rowData?.indirectCost.length > 0) {
-      this.rowData.directCost[0]?.items?.map((el: any) => {
-        this.overallDirectCost += +el?.total_freight_with_GST_value;
-      });
-  
-      this.rowData.indirectCost?.map((el: any) => {
-        this.overallInDirectCost += +el?.all_total;
-      });
-    }
-
-    this.reqList = this.rowData.requestStatus;
-    console.log(this.reqList);
-
-    var roleD = this.roleStatusData.filter((res: any) => {
-      return res.tender_id == this.rowData.tender_id;
-    })
-    this.statusList = roleD[0].roleStatus
-
-  }
-
-  attachmentDetails(){
+  attachmentDetails() {
     this.attachListData = this.rowData.tender_id;
     this.apiService.getAttachmentDetails(this.attachListData).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
@@ -188,39 +153,139 @@ export class TenderFinalApprovalComponent implements OnDestroy{
         this.attachementTendDetailsData = res.tenderDocuments;
         console.log(this.attachementDetailsData);
         console.log(this.attachementTendDetailsData);
-     
-        
-        }, error: (error: any) => {
-          console.error(error);
-          this.isNotFound = true;
-          this.alertService.error("Error: Unknown Error!")
-        }
+
+
+      }, error: (error: any) => {
+        console.error(error);
+        this.isNotFound = true;
+        this.alertService.error("Error: Unknown Error!")
+      }
     });
   }
-
 
   handleCheckboxChange(event: any, data: any) {
     // Initialize docArray if not already done
     if (!this.docArray) {
-        this.docArray = [];
+      this.docArray = [];
     }
 
     if (event.target.checked) {
-        this.docArray.push(data);
+      this.docArray.push(data);
     } else {
-        const index = this.docArray.findIndex((group: any) =>
-            group.DocType === data.DocType
-        );
+      const index = this.docArray.findIndex((group: any) =>
+        group.DocType === data.DocType
+      );
 
-        if (index !== -1) {
-            this.docArray.splice(index, 1);  // Use splice to remove the item at the found index
-        }
+      if (index !== -1) {
+        this.docArray.splice(index, 1);  // Use splice to remove the item at the found index
+      }
     }
     console.log(this.docArray);
-}
+  }
 
 
   get f() { return this.form.controls; }
+
+  // costing start here
+  rowListData(row: any) {
+    debugger
+    this.rowData = row;
+    this.tenderID = row.tender_id;
+    this.rowDirectCostData = [];
+    this.rowIndirectCostData = [];
+
+    this.overallDirectCost = 0;
+    this.overallInDirectCost = 0;
+    this.totalDirectMargin = 0;
+    this.totalIndirectMargin = 0;
+
+    const directCostObservable = this.apiService.getData(`/boq/api/v1/getBoqListForCosting?tender_id=${row.tender_id}`);
+    const indirectCostObservable = this.apiService.getData(`/costing/api/v1/getTenderIndirectCostList?tender_id=${row.tender_id}`);
+
+    forkJoin([directCostObservable, indirectCostObservable]).subscribe(
+      ([directRes, indirectRes]: [any, any]) => {
+        if (directRes?.result?.length > 0) {
+          this.rowDirectCostData = directRes;
+        } else {
+          this.alertService.warning("Direct Cost List Not Found!");
+        }
+
+        if (indirectRes.status === 200) {
+          this.rowIndirectCostData = indirectRes;
+        } else {
+          this.alertService.warning("Indirect Cost List Not Found!");
+        }
+
+        if (this.rowDirectCostData?.result?.length > 0 && this.rowIndirectCostData?.result?.length > 0) {
+          this.rowDirectCostData?.result?.[0]?.boq?.forEach((el: any) => {
+            let boqMarginTotal = 0;
+            let boqAfterMarginTotal = 0;
+            let boqTargetTotal = 0;
+            let boqTargetWQtyTotal = 0;
+
+            el?.items?.forEach((data: any) => {
+              data.marginAmt = +data?.totalWithFreightWithGST * (data?.margin_direct / 100);
+              data.afterMarginAmt = +data?.totalWithFreightWithGST + +data?.margin_direct;
+              boqMarginTotal += +data?.marginAmt;
+              boqAfterMarginTotal += +data?.afterMarginAmt;
+
+              data.targetUnitPrice = +data?.unit_price * (1 - (data?.target_direct / 100));
+              data.targetTotalPrice = +data?.targetUnitPrice * +data.qty;
+              boqTargetTotal += +data?.targetUnitPrice;
+              boqTargetWQtyTotal += +data?.targetTotalPrice;
+
+              data?.childItemList?.forEach((child: any) => {
+                child.marginAmt = +child?.totalWithFreightWithGST * (child?.margin_direct / 100);
+                child.afterMarginAmt = +child?.totalWithFreightWithGST + +child?.margin_direct;
+                boqMarginTotal += +child?.marginAmt;
+                boqAfterMarginTotal += +child?.afterMarginAmt;
+
+                child.targetUnitPrice = +child?.unit_price * (1 - (child?.target_direct / 100));
+                child.targetTotalPrice = +child?.targetUnitPrice * +child.qty;
+                boqTargetTotal += +child?.targetUnitPrice;
+                boqTargetWQtyTotal += +child?.targetTotalPrice;
+              });
+
+            });
+
+            el.totalMargin = boqMarginTotal;
+            el.afterTotalMargin = boqAfterMarginTotal;
+            el.totalTarget = boqTargetTotal;
+            el.totalTargetWQty = boqTargetWQtyTotal;
+            this.overallDirectCost += +el?.totalPurchaseAmount;
+            this.totalDirectMargin += +el?.totalMargin;
+          });
+
+          this.rowIndirectCostData?.result?.[0]?.indirectCost?.forEach((el: any) => {
+            let marginTotal = 0;
+            let postMarginTotal = 0;
+
+            el?.records?.forEach((data: any) => {
+              data.marginAmt = +data?.total * (data?.margin_indirect / 100);
+              data.afterMarginAmt = +data?.total + +data?.marginAmt;
+              marginTotal += +data?.marginAmt;
+              postMarginTotal += +data?.afterMarginAmt;
+            });
+
+            el.totalMargin = marginTotal;
+            el.totalAfterMarginAmt = postMarginTotal;
+            this.overallInDirectCost += +el?.all_total;
+            this.totalIndirectMargin += +el?.totalMargin;
+          });
+        }
+
+        this.reqList = this.rowData.requestStatus;
+        var roleD = this.roleStatusData.filter((res: any) => {
+          return res.tender_id == this.rowData.tender_id;
+        })
+        this.statusList = roleD[0].roleStatus;
+      },
+      (error: any) => {
+        this.alertService.error("Error: Unknown Error!");
+      }
+    );
+  }
+  // costing end here
 
   getTenderData() {
     this.tenderData = [];
@@ -273,35 +338,33 @@ export class TenderFinalApprovalComponent implements OnDestroy{
 
   }
 
- 
-
   sendApproval() {
     if (this.userData.rolename == 'PreSales' || this.userData.rolename == 'Manager') {
       var reqTend = {
         submitted_on: this.form.value.submitted_on,
         working_notes: this.form.value.working_notes,
-        tender_id : this.tenderID,
+        tender_id: this.tenderID,
         document: this.docArray
       }
       this.apiService.addAttachmentCod(reqTend).pipe(takeUntil(this.destroy$)).subscribe(
-        {next: (res: any) => {
-          let response: any = res;
-          document.getElementById('cancel')?.click();
-          this.isSubmitted = false;
-          if (response.status == 200) {
-            this.form.reset();
-            this.getTenderData();
-            this.alertService.success(response.message);
-          } else {
-            this.alertService.warning(response.message);
+        {
+          next: (res: any) => {
+            let response: any = res;
+            document.getElementById('cancel')?.click();
+            this.isSubmitted = false;
+            if (response.status == 200) {
+              this.form.reset();
+              this.getTenderData();
+              this.alertService.success(response.message);
+            } else {
+              this.alertService.warning(response.message);
+            }
+          }, error: (error: any) => {
+            this.isNotFound = false;
+            this.alertService.error("Error: Unknown Error!")
           }
-        }, error: (error: any) => {
-          this.isNotFound = false;
-          this.alertService.error("Error: Unknown Error!")
-        }})
-
+        })
     }
-  
   }
   ngOnDestroy(): void {
     this.destroy$.next();

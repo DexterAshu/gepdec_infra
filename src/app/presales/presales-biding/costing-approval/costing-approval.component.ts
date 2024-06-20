@@ -5,6 +5,7 @@ import { MasterService, AlertService, ApiService, AccountService, SharedService 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-costing-approval',
@@ -73,6 +74,8 @@ export class CostingApprovalComponent {
   isDirectAvl: boolean = false;
   isIndirectAvl: boolean = false;
   showPreviousDetails: boolean = false;
+  rowIndirectCostData: any;
+  rowDirectCostData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -130,8 +133,11 @@ export class CostingApprovalComponent {
     this.update = true;
   }
 
+  // costing start here
   rowListData(row: any) {
     debugger
+    this.rowDirectCostData = [];
+    this.rowIndirectCostData = []
     this.rowData = row;
     this.tenderID = row.tender_id;
 
@@ -142,114 +148,135 @@ export class CostingApprovalComponent {
     this.directClicked = false;
     this.indirectClicked = false;
 
-    if (this.rowData.directCost.length > 0 && this.rowData?.indirectCost.length > 0) {
-      this.rowData.directCost[0]?.boq?.forEach((el: any) => {
-        
-        let boqMarginTotal = 0;
-        let boqAfterMarginTotal = 0;
-        let boqTargetTotal = 0;
-        let boqTargetWQtyTotal = 0;
+    const directCostObservable = this.apiService.getData(`/boq/api/v1/getBoqListForCosting?tender_id=${row.tender_id}`);
+    const indirectCostObservable = this.apiService.getData(`/costing/api/v1/getTenderIndirectCostList?tender_id=${row.tender_id}`);
 
-        el?.items?.forEach((data: any) => {
-          if (data.margin_direct == "0.00") {
-            this.isDirectAvl = false;
-            data.marginDirect = this.marginDirect;
-            data.marginAmt = +data?.totalWithFreightWithGST * (this.marginDirect / 100);
-            data.afterMarginAmt = +data?.totalWithFreightWithGST + +data?.marginAmt;
-            boqMarginTotal += +data?.marginAmt;
-            boqAfterMarginTotal += +data?.afterMarginAmt;
-          } else {
-            this.isDirectAvl = true;
-            data.marginAmt = +data?.totalWithFreightWithGST * (data?.margin_direct / 100);
-            data.afterMarginAmt = +data?.totalWithFreightWithGST + +data?.margin_direct;
-            boqMarginTotal += +data?.marginAmt;
-            boqAfterMarginTotal += +data?.afterMarginAmt;
-          }
+    forkJoin([directCostObservable, indirectCostObservable]).subscribe(
+      ([directRes, indirectRes]: [any, any]) => {
+        if (directRes?.result?.length > 0) {
+          this.rowDirectCostData = directRes;
+        } else {
+          this.alertService.warning("Direct Cost List Not Found!");
+        }
 
-          if (data.target_direct == "0.00") {
-            data.targetDirect = this.targetDirect;
-            data.targetUnitPrice = +data?.unit_price * (1 - (this.targetDirect / 100));
-            data.targetTotalPrice = +data?.targetUnitPrice * +data.qty;
-            boqTargetTotal += +data?.targetUnitPrice;
-            boqTargetWQtyTotal += +data?.targetTotalPrice;
-          } else {
-            data.targetUnitPrice = +data?.unit_price * (1 - (data?.target_direct / 100));
-            data.targetTotalPrice = +data?.targetUnitPrice * +data.qty;
-            boqTargetTotal += +data?.targetUnitPrice;
-            boqTargetWQtyTotal += +data?.targetTotalPrice;
-          }
-          
-          data?.childItemList?.forEach((child: any) => {
-            if (child.margin_direct == "0.00") {
-              child.marginDirect = this.marginDirect;
-              child.marginAmt = +child?.totalWithFreightWithGST * (this.marginDirect / 100);
-              child.afterMarginAmt = +child?.totalWithFreightWithGST + +child?.marginAmt;
-              boqMarginTotal += +child?.marginAmt;
-              boqAfterMarginTotal += +child?.afterMarginAmt;
-            } else {
-              child.marginAmt = +child?.totalWithFreightWithGST * (child?.margin_direct / 100);
-              child.afterMarginAmt = +child?.totalWithFreightWithGST + +child?.margin_direct;
-              boqMarginTotal += +child?.marginAmt;
-              boqAfterMarginTotal += +child?.afterMarginAmt;
-            }
+        if (indirectRes.status === 200) {
+          this.rowIndirectCostData = indirectRes;
+        } else {
+          this.alertService.warning("Indirect Cost List Not Found!");
+        }
 
-            if (child.target_direct == "0.00") {
-              child.targetDirect = this.targetDirect;
-              child.targetUnitPrice = +child?.unit_price * (1 - (this.targetDirect / 100));
-              child.targetTotalPrice = +child?.targetUnitPrice * +child.qty;
-              boqTargetTotal += +child?.targetUnitPrice;
-              boqTargetWQtyTotal += +child?.targetTotalPrice;
-            } else {
-              child.targetUnitPrice = +child?.unit_price * (1 - (child?.target_direct / 100));
-              child.targetTotalPrice = +child?.targetUnitPrice * +child.qty;
-              boqTargetTotal += +child?.targetUnitPrice;
-              boqTargetWQtyTotal += +child?.targetTotalPrice;
-            }
+        if (this.rowDirectCostData?.result?.length > 0 && this.rowIndirectCostData?.result?.length > 0) {
+          this.rowDirectCostData?.result?.[0]?.boq?.forEach((el: any) => {
+            let boqMarginTotal = 0;
+            let boqAfterMarginTotal = 0;
+            let boqTargetTotal = 0;
+            let boqTargetWQtyTotal = 0;
+
+            el?.items?.forEach((data: any) => {
+              if (data.margin_direct == "0.00") {
+                this.isDirectAvl = false;
+                data.marginDirect = this.marginDirect;
+                data.marginAmt = +data?.totalWithFreightWithGST * (this.marginDirect / 100);
+                data.afterMarginAmt = +data?.totalWithFreightWithGST + +data?.marginAmt;
+                boqMarginTotal += +data?.marginAmt;
+                boqAfterMarginTotal += +data?.afterMarginAmt;
+              } else {
+                this.isDirectAvl = true;
+                data.marginAmt = +data?.totalWithFreightWithGST * (data?.margin_direct / 100);
+                data.afterMarginAmt = +data?.totalWithFreightWithGST + +data?.margin_direct;
+                boqMarginTotal += +data?.marginAmt;
+                boqAfterMarginTotal += +data?.afterMarginAmt;
+              }
+
+              if (data.target_direct == "0.00") {
+                data.targetDirect = this.targetDirect;
+                data.targetUnitPrice = +data?.unit_price * (1 - (this.targetDirect / 100));
+                data.targetTotalPrice = +data?.targetUnitPrice * +data.qty;
+                boqTargetTotal += +data?.targetUnitPrice;
+                boqTargetWQtyTotal += +data?.targetTotalPrice;
+              } else {
+                data.targetUnitPrice = +data?.unit_price * (1 - (data?.target_direct / 100));
+                data.targetTotalPrice = +data?.targetUnitPrice * +data.qty;
+                boqTargetTotal += +data?.targetUnitPrice;
+                boqTargetWQtyTotal += +data?.targetTotalPrice;
+              }
+
+              data?.childItemList?.forEach((child: any) => {
+                if (child.margin_direct == "0.00") {
+                  child.marginDirect = this.marginDirect;
+                  child.marginAmt = +child?.totalWithFreightWithGST * (this.marginDirect / 100);
+                  child.afterMarginAmt = +child?.totalWithFreightWithGST + +child?.marginAmt;
+                  boqMarginTotal += +child?.marginAmt;
+                  boqAfterMarginTotal += +child?.afterMarginAmt;
+                } else {
+                  child.marginAmt = +child?.totalWithFreightWithGST * (child?.margin_direct / 100);
+                  child.afterMarginAmt = +child?.totalWithFreightWithGST + +child?.margin_direct;
+                  boqMarginTotal += +child?.marginAmt;
+                  boqAfterMarginTotal += +child?.afterMarginAmt;
+                }
+
+                if (child.target_direct == "0.00") {
+                  child.targetDirect = this.targetDirect;
+                  child.targetUnitPrice = +child?.unit_price * (1 - (this.targetDirect / 100));
+                  child.targetTotalPrice = +child?.targetUnitPrice * +child.qty;
+                  boqTargetTotal += +child?.targetUnitPrice;
+                  boqTargetWQtyTotal += +child?.targetTotalPrice;
+                } else {
+                  child.targetUnitPrice = +child?.unit_price * (1 - (child?.target_direct / 100));
+                  child.targetTotalPrice = +child?.targetUnitPrice * +child.qty;
+                  boqTargetTotal += +child?.targetUnitPrice;
+                  boqTargetWQtyTotal += +child?.targetTotalPrice;
+                }
+              });
+
+            });
+
+            el.totalMargin = boqMarginTotal;
+            el.afterTotalMargin = boqAfterMarginTotal;
+            el.totalTarget = boqTargetTotal;
+            el.totalTargetWQty = boqTargetWQtyTotal;
+            this.overallDirectCost += +el?.totalPurchaseAmount;
+            this.totalDirectMargin += +el?.totalMargin;
           });
 
-        });
+          this.rowIndirectCostData?.result?.[0]?.indirectCost?.forEach((el: any) => {
+            let marginTotal = 0;
+            let postMarginTotal = 0;
 
-        el.totalMargin = boqMarginTotal;
-        el.afterTotalMargin = boqAfterMarginTotal;
-        el.totalTarget = boqTargetTotal;
-        el.totalTargetWQty = boqTargetWQtyTotal;
-        this.overallDirectCost += +el?.totalPurchaseAmount;
-        this.totalDirectMargin += +el?.totalMargin;
-      });
+            el?.records?.forEach((data: any) => {
+              if (data.margin_indirect == "0.00") {
+                this.isIndirectAvl = false;
+                data.marginIndirect = this.marginIndirect;
+                data.marginAmt = +data?.total * (this.marginIndirect / 100);
+                data.afterMarginAmt = +data?.total + +data?.marginAmt;
+                marginTotal += +data?.marginAmt;
+                postMarginTotal += +data?.afterMarginAmt;
+              } else {
+                this.isIndirectAvl = true;
+                data.marginAmt = +data?.total * (data?.margin_indirect / 100);
+                data.afterMarginAmt = +data?.total + +data?.marginAmt;
+                marginTotal += +data?.marginAmt;
+                postMarginTotal += +data?.afterMarginAmt;
+              }
+            });
 
-      this.rowData.indirectCost?.forEach((el: any) => {
-        let marginTotal = 0;
-        let postMarginTotal = 0;
+            el.totalMargin = marginTotal;
+            el.totalAfterMarginAmt = postMarginTotal;
+            this.overallInDirectCost += +el?.all_total;
+            this.totalIndirectMargin += +el?.totalMargin;
+          });
+        }
 
-        el?.records?.forEach((data: any) => {
-          if (data.margin_indirect == "0.00") {
-            this.isIndirectAvl = false;
-            data.marginIndirect = this.marginIndirect;
-            data.marginAmt = +data?.total * (this.marginIndirect / 100);
-            data.afterMarginAmt = +data?.total + +data?.marginAmt;
-            marginTotal += +data?.marginAmt;
-            postMarginTotal += +data?.afterMarginAmt;
-          } else {
-            this.isIndirectAvl = true;
-            data.marginAmt = +data?.total * (data?.margin_indirect / 100);
-            data.afterMarginAmt = +data?.total + +data?.marginAmt;
-            marginTotal += +data?.marginAmt;
-            postMarginTotal += +data?.afterMarginAmt;
-          }
-        });
-
-        el.totalMargin = marginTotal;
-        el.totalAfterMarginAmt = postMarginTotal;
-        this.overallInDirectCost += +el?.all_total;
-        this.totalIndirectMargin += +el?.totalMargin;
-      });
-    }
-
-    this.reqList = this.rowData.requestStatus;
-    var roleD = this.roleStatusData.filter((res: any) => {
-      return res.tender_id == this.rowData.tender_id;
-    })
-    this.statusList = roleD[0].roleStatus
+        this.reqList = this.rowData.requestStatus;
+        var roleD = this.roleStatusData.filter((res: any) => {
+          return res.tender_id == this.rowData.tender_id;
+        })
+        this.statusList = roleD[0].roleStatus;
+      },
+      (error: any) => {
+        this.alertService.error("Error: Unknown Error!");
+      }
+    );
   }
 
   validateInput() {
@@ -262,7 +289,7 @@ export class CostingApprovalComponent {
       this.marginIndirect = 100;
     }
 
-    this.rowData.indirectCost?.forEach((el: any) => {
+    this.rowIndirectCostData?.result?.[0]?.indirectCost?.forEach((el: any) => {
       el?.records?.forEach((data: any) => {
         data.marginAmt = +data?.total * (this.marginIndirect / 100);
         data.afterMarginAmt = +data?.total + +data?.marginAmt;
@@ -274,19 +301,8 @@ export class CostingApprovalComponent {
     });
   }
 
-  getFormattedRemarks(): string {
-    return (this.rowData?.remarks && Array.isArray(this.rowData.remarks)) 
-        ? this.rowData.remarks.map((remark:any, index:any) => `${index + 1}. ${remark}`).join('<br>') 
-        : '';
-}
-  getFormattedAuditTrail(): string {
-    return (this.rowData?.audit_trail && Array.isArray(this.rowData.audit_trail)) ? this.rowData.audit_trail.map((audit_trail:any, index:any) => `${index + 1}. ${audit_trail}`).join('<br>') 
-    : '';
-  }
-  
-  validateInputDirect(val:string) {
-
-    if(val == 'margin') {
+  validateInputDirect(val: string) {
+    if (val == 'margin') {
       if (this.marginDirect === null || this.marginDirect === undefined) {
         this.marginDirect = 0;
       } else if (this.marginDirect < 0) {
@@ -296,7 +312,7 @@ export class CostingApprovalComponent {
       }
       this.totalDirectMargin = 0;
 
-      this.rowData.directCost[0].boq?.forEach((el: any) => {
+      this.rowDirectCostData?.result?.[0].boq?.forEach((el: any) => {
 
         let boqMarginTotal = 0;
         let boqAfterMarginTotal = 0;
@@ -307,7 +323,7 @@ export class CostingApprovalComponent {
           data.afterMarginAmt = +data?.totalWithFreightWithGST + +data?.marginAmt;
           boqMarginTotal += +data?.marginAmt;
           boqAfterMarginTotal += +data?.afterMarginAmt;
-  
+
           data?.childItemList?.forEach((child: any) => {
             child.marginDirect = this.marginDirect;
             child.marginAmt = +child?.totalWithFreightWithGST * (child?.marginDirect / 100);
@@ -331,8 +347,8 @@ export class CostingApprovalComponent {
       } else if (this.targetDirect > 100) {
         this.targetDirect = 100;
       }
-  
-      this.rowData.directCost[0].boq?.forEach((el: any) => {
+
+      this.rowDirectCostData?.result?.[0].boq?.forEach((el: any) => {
         let boqTargetTotal = 0;
         let boqTargetWQtyTotal = 0;
 
@@ -342,7 +358,7 @@ export class CostingApprovalComponent {
           data.targetTotalPrice = +data?.targetUnitPrice * +data.qty;
           boqTargetTotal += +data?.targetUnitPrice;
           boqTargetWQtyTotal += +data?.targetTotalPrice;
-  
+
           data?.childItemList?.forEach((child: any) => {
             child.targetDirect = this.targetDirect;
             child.targetUnitPrice = +child?.unit_price * (1 - (child?.targetDirect / 100));
@@ -358,9 +374,9 @@ export class CostingApprovalComponent {
     }
   }
 
-  recalculatePrices(item: any, val:string) {
+  recalculatePrices(item: any, val: string) {
     debugger
-    if(val == 'direct') {
+    if (val == 'direct') {
       this.totalDirectMargin = 0;
 
       if (item.marginDirect === null || item.marginDirect === undefined) {
@@ -376,7 +392,7 @@ export class CostingApprovalComponent {
       item.targetUnitPrice = +item?.unit_price * (1 - (item?.targetDirect / 100));
       item.targetTotalPrice = +item?.targetUnitPrice * +item.qty;
 
-      this.rowData.directCost[0]?.boq?.forEach((el: any) => {
+      this.rowDirectCostData?.result?.[0]?.boq?.forEach((el: any) => {
 
         let boqMarginTotal = 0;
         let boqAfterMarginTotal = 0;
@@ -426,7 +442,7 @@ export class CostingApprovalComponent {
         el.totalTargetWQty = boqTargetWQtyTotal;
         this.totalDirectMargin += +el?.totalMargin;
       });
-      
+
     } else {
 
       this.totalIndirectMargin = 0;
@@ -438,11 +454,11 @@ export class CostingApprovalComponent {
       } else if (item.marginIndirect > 100) {
         item.marginIndirect = 100;
       }
-      
+
       item.marginAmt = (+item.total * item.marginIndirect) / 100;
       item.afterMarginAmt = +item.total + +item.marginAmt;
-      
-      this.rowData.indirectCost?.forEach((el: any) => {
+
+      this.rowIndirectCostData?.result?.[0]?.indirectCost?.forEach((el: any) => {
         let marginTotal = 0;
         let postMarginTotal = 0;
 
@@ -469,7 +485,7 @@ export class CostingApprovalComponent {
     debugger
     this.directInnerBody = [];
     this.directClicked = true
-    this.rowData.directCost[0].boq?.forEach((el: any) => {
+    this.rowDirectCostData?.result?.[0].boq?.forEach((el: any) => {
       el?.items?.forEach((data: any) => {
 
         let itemData = {
@@ -478,7 +494,7 @@ export class CostingApprovalComponent {
           target_direct: data?.targetDirect,
         }
         this.directInnerBody.push(itemData);
-        
+
         data?.childItemList?.forEach((child: any) => {
           let childData = {
             boqitem_id: child?.boqitem_id,
@@ -490,7 +506,7 @@ export class CostingApprovalComponent {
 
       });
     });
-    
+
     let directBody = {
       boq_id: null,
       directCost: this.directInnerBody
@@ -508,12 +524,12 @@ export class CostingApprovalComponent {
       this.alertService.error("Error: Unknown Error!");
     });
   }
-  
+
   saveIndirectCosting() {
     debugger
     this.indirectInnerBody = [];
     this.indirectClicked = true
-    this.rowData.indirectCost?.forEach((el: any) => {
+    this.rowIndirectCostData?.result?.[0]?.indirectCost?.forEach((el: any) => {
       el?.records?.forEach((data: any) => {
         let innerData = {
           indirectcost_id: data.indirectcost_id,
@@ -538,6 +554,18 @@ export class CostingApprovalComponent {
     }, (error: any) => {
       this.alertService.error("Error: Unknown Error!");
     });
+  }
+
+  // costing end here
+
+  getFormattedRemarks(): string {
+    return (this.rowData?.remarks && Array.isArray(this.rowData.remarks))
+      ? this.rowData.remarks.map((remark: any, index: any) => `${index + 1}. ${remark}`).join('<br>')
+      : '';
+  }
+  getFormattedAuditTrail(): string {
+    return (this.rowData?.audit_trail && Array.isArray(this.rowData.audit_trail)) ? this.rowData.audit_trail.map((audit_trail: any, index: any) => `${index + 1}. ${audit_trail}`).join('<br>')
+      : '';
   }
 
 
