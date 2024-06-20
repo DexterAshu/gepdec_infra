@@ -160,9 +160,7 @@
                           <td>{{ boq?.itemcategory }}</td>
                           <td>{{ boq?.subcategory }}</td>
                           <td>
-                            <a (click)="getItemList(boq)" class="me-1" data-bs-toggle="modal"
-                              data-bs-target="#updateItemModel"><span
-                                class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
+                            <a (click)="getItemList(boq)" class="me-1" data-bs-toggle="modal" data-bs-target="#updateItemModel"><span class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                             <a (click)="getItemList(boq)" class="me-1" data-bs-toggle="modal"
                               data-bs-target="#itemListModel"><span
                                 class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
@@ -313,13 +311,13 @@
                         <td>{{ item?.subcategory }}</td>
                         <td>{{ item?.hsn_code }}</td>
                         <td> <input type="number" class="form-control form-control-sm" style="width: 75px;"
-                            [disabled]="item?.isDisabled" [value]="item?.unit_price" [(ngModel)]="item.unit_price">
+                            [disabled]="item?.isDisabled" [value]="item?.unit_price" [(ngModel)]="item.unit_price" (ngModelChange)="validateInput(item, 'unit_price')">
                         </td>
                         <td>{{ item?.qty }}</td>
                         <td class="text-end">{{ item?.unit_price * item?.qty | currency: 'INR': '' : '1.0-2' }}</td>
                         <td class="text-end">{{ item?.gst }}</td>
                         <td><input type="number" class="form-control form-control-sm" style="width: 75px;"
-                            [disabled]="item?.isDisabled" [value]="item?.freight_charges"></td>
+                            [disabled]="item?.isDisabled" [value]="item?.freight_charges" (ngModelChange)="validateInput(item, 'freight_charges')"></td>
                         <td class="text-center"><input type="checkbox" [checked]="item?.isDisabled"
                             (click)="onItemSelect(item);disableRow(item)"></td>
                       </tr>
@@ -339,13 +337,13 @@
                           <td>{{ childItem?.subcategory }}</td>
                           <td>{{ childItem?.hsn_code }}</td>
                           <td><input type="number" class="form-control form-control-sm" style="width: 75px;"
-                              [disabled]="childItem?.isDisabled" [(ngModel)]="childItem.unit_price"></td>
+                              [disabled]="childItem?.isDisabled" [(ngModel)]="childItem.unit_price" (ngModelChange)="validateInput(childItem, 'cunit_price')"></td>
                           <td>{{ childItem?.qty }}</td>
                           <td class="text-end">{{ childItem?.unit_price * childItem?.qty | currency: 'INR': '' : '1.0-2'
                             }}</td>
                           <td class="text-end">{{ childItem?.gst }}</td>
                           <td><input type="number" class="form-control form-control-sm" style="width: 75px;"
-                              [disabled]="childItem?.isDisabled" [value]="childItem?.freight_charges"></td>
+                              [disabled]="childItem?.isDisabled" [value]="childItem?.freight_charges" (ngModelChange)="validateInput(childItem, 'cfreight_charges')"></td>
                           <td class="text-center"><input type="checkbox" [checked]="childItem?.isDisabled"
                               (click)="onItemSelect(childItem);disableChildRow(item, childItem)"></td>
                         </tr>

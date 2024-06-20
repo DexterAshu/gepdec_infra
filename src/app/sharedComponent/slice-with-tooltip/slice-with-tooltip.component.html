@@ -1,7 +1,7 @@
-<div class="tooltip-container cursor-pointer" [attr.data-tooltip]="text" *ngIf="text.length > 30">
+<div class="tooltip-container cursor-pointer" [attr.data-tooltip]="text" *ngIf="text != null ? text.length > 30 : false">
     {{ text | slice: 0: 30 }}...
     <i class="mdi mdi-information" (click)="copyToClipboard(text)" title="Copy full text"></i>
 </div>
-<div *ngIf="text.length <= 30">
+<div *ngIf="text != null ? text.length <= 30 : false">
     {{ text }}
 </div>
