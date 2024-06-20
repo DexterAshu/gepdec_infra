@@ -29,6 +29,7 @@ export class BoqComponent implements OnInit, OnDestroy {
   modalTitle!: string;
   modalMessage!: string;
   buttonText!: string;
+  loader: boolean = false;
 
   constructor(
     private alertService: AlertService,
@@ -114,8 +115,25 @@ export class BoqComponent implements OnInit, OnDestroy {
   }
 
   onVendorSelect(item: any, event: any) {
-    item.selectedVendor = event;
-    item.isVendorSelected = event && event.length > 0;
+    if (event) {
+      const currentSupplier = event[event.length - 1];
+      this.apiService.validateSupplier(item.item_id, currentSupplier.supplier_id, item.boq_id).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (res: any) => {
+          if (res.status === 409) {
+            this.alertService.error(res.message);
+            item.selectedVendor = [];
+            item.isVendorSelected = false;
+            return;
+          }
+          else {
+            item.selectedVendor = event;
+            item.isVendorSelected = event && event.length > 0;
+          }
+        }, error: (error: any) => {
+          console.log(error);
+        }
+      })
+    }
   }
 
   onCheckboxChange(item: any, event: any) {
@@ -124,7 +142,7 @@ export class BoqComponent implements OnInit, OnDestroy {
 
   sendSelectedItems() {
     this.modalTitle = 'Confirmation!';
-    this.modalMessage = 'Are you sure you want to confirm and send mail?';
+    this.modalMessage = 'Confirm and send emails to esteemed vendors?';
     this.buttonText = 'Confirm';
     const selectedItems: any = this.rowData.reduce((acc: any, item: any) => {
       if (item.isChecked) {
@@ -172,19 +190,23 @@ export class BoqComponent implements OnInit, OnDestroy {
   }
 
   onConfirm() {
+    this.loader = true;
     this.apiService.sendRfq(this.selectedItems).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         if (res.status === 200) {
           this.alertService.success(res.message);
+          this.loader = false;
           this.confirmPopup.hide();
           document.getElementById('cancelitemmodal')?.click();
           this.getDataList();
         } else {
           this.alertService.error(res.message);
+          this.loader = false;
           this.confirmPopup.hide();
         }
       }, error: (error: any) => {
         this.alertService.error(error.error.message);
+        this.loader = false;
         this.confirmPopup.hide();
       }
     })

@@ -486,10 +486,22 @@ export class ApiService {
     return this.http.put(`${environment.apiUrl}/boq/api/v1/updateBOQLocation`, data, httpOptions);
   }
 
+  //validate supplier for items in RFQ
+  validateSupplier(item_id: any, supplier_id: any, boq_id: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.get<any[]>(`${environment.apiUrl}/precurement/api/v1/validateSupplier/${item_id}/${supplier_id}/${boq_id}`, httpOptions);
+  }
+
   //send rfq
   sendRfq(data: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
     return this.http.post(`${environment.apiUrl}/precurement/api/v1/sendRfq`, data, httpOptions);
+  }
+
+  //add vendor price list attachment
+  vendorProposalOne(data: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.post(`${environment.apiUrl}/precurement/api/v1/uploadProposal1`, data, httpOptions);
   }
 
 }
