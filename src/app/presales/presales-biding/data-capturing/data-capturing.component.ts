@@ -457,7 +457,9 @@ removeRow(i: number) {
         this.custDetails = res.result[0];
         this.tendContDetails = res.result[0].tendercontact;
         console.log(this.tendContDetails);
-        this.multiLocation = this.custDetails.tender_location;
+        this.multiLocation = res.result[0].siteAddress;
+        console.log( this.multiLocation);
+        
        
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
@@ -514,6 +516,7 @@ removeRow(i: number) {
           emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
 
         });
+
        
         setTimeout(() => {
           this.getStateData();
@@ -642,9 +645,7 @@ removeRow(i: number) {
     }
   }
 
-  
-
-
+ 
   getCompanyData() {
     this.apiService.getCompanyList().pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
@@ -768,7 +769,13 @@ removeRow(i: number) {
   }
 
   updateTender(): void {
-   
+    // this.form.patchValue({
+    //   qacatagory_id: this.custDetails.qacatagory_id,
+    //   subqacatagory_id: this.custDetails.subqacatagory_id,
+    //   capacity_id: this.custDetails.capacity_id,
+
+    // });
+
     this.form.value.tender_id = this.tenderData.id;
     this.apiService.tenderUpdation(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
