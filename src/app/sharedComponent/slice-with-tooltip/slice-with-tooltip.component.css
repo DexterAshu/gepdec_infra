@@ -14,8 +14,10 @@
     color: #fff;
     padding: 5px;
     border-radius: 5px;
-    white-space: nowrap;
+    white-space: pre-line;
     opacity: 0;
+    max-width: 15vw;
+    min-width: 10vw;
     transition: opacity 0.3s;
     pointer-events: none;
     z-index: 1000;

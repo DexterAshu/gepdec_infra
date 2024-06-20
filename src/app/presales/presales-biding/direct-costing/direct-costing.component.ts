@@ -135,6 +135,35 @@ export class DirectCostingComponent {
     }
   }
 
+  validateInput(item: any, type: string): void {
+    debugger
+    if(type == 'unit_price') {
+      if (item.unit_price === null || item.unit_price === undefined) {
+        item.unit_price = 0;
+      } else if (item.unit_price < 0) {
+        item.unit_price = 0;
+      }
+    } else if(type == 'freight_charges') {
+      if (item.freight_charges === null || item.freight_charges === undefined) {
+        item.freight_charges = 0;
+      } else if (item.freight_charges < 0) {
+        item.freight_charges = 0;
+      }
+    } else if (type == 'cunit_price') {
+      if (item.unit_price === null || item.unit_price === undefined) {
+        item.unit_price = 0;
+      } else if (item.unit_price < 0) {
+        item.unit_price = 0;
+      }
+    } else if (type == 'cfreight_charges') {
+      if (item.freight_charges === null || item.freight_charges === undefined) {
+        item.freight_charges = 0;
+      } else if (item.freight_charges < 0) {
+        item.freight_charges = 0;
+      }
+    }
+  }
+
   onItemSelect(data: any): void {
     const match = this.createMatchObject(data);
     const find = this.checkedDataList.find((item: any) => item.item_id === match.item_id);
