@@ -254,7 +254,7 @@
                       </tbody>
                   </table>
               </div>
-              <h6 class="mt-3 mb-2 text-secondary">Bid Detail</h6>
+              <h6 class="mt-3 mb-2 text-secondary">Bid Details</h6>
               <div class="table-responsive mt-2">
                   <table class="table table-hover table-striped custom-table mt-2 table-bordered">
                       <!-- <thead class="table-primary text-nowrap">
@@ -374,9 +374,9 @@
                           <tr>
                               <th>ECV (INR)</th>
                               <td>{{ rowData?.ecv | currency: 'INR': '' : '1.0-2' }}</td>
-                              <th>Registration Fees</th>
+                              <th>Registration Fee</th>
                               <td>{{ rowData?.tender_fee | currency: 'INR': '' : '1.0-2' }}</td>
-                              <th>Document Cost</th>
+                              <th>Tender Document Cost</th>
                               <td>{{ rowData?.tender_doc_cost | currency: 'INR': '' : '1.0-2' }}</td>
                              
                             
@@ -489,7 +489,7 @@
                               </td>
                           </tr>
                           <tr>
-                              <th>Payment Terms</th>
+                              <th>Payment terms and  Defect liabilities</th>
                               <td colspan="9">
                                   <span
                                       *ngFor="let ph of (rowData?.tenderpayment_terms != null ? (rowData?.tenderpayment_terms.slice(0, -1)).split('\n') : rowData?.tenderpayment_terms.slice(0, -1)), index as i">
@@ -515,7 +515,7 @@
 
                   
                   </div>
-                  <h6 class="my-3 text-secondary">Contact Detail</h6>
+                  <h6 class="my-3 text-secondary">Client Contact Details</h6>
                   <div class="container-fluid mt-2">
                       <div class="row">
                           <div class="col-md-12 p-0">
