@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AlertService, ApiService } from 'src/app/_services';
+import { AlertService, ApiService, MasterService } from 'src/app/_services';
+import { ConfirmModalComponent } from 'src/app/sharedComponent/confirm-modal/confirm-modal.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,6 +12,7 @@ import { environment } from 'src/environments/environment';
 export class BoqComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
+  @ViewChild('confirmPopup') confirmPopup!: ConfirmModalComponent;
   p: number = 1;
   limit = environment.pageLimit;
   searchText: any;
@@ -22,14 +24,25 @@ export class BoqComponent implements OnInit, OnDestroy {
   rowData: any;
   vendorList: any = [];
   selectedVendors: any = [];
+  boqList: any;
+  selectedItems: any = [];
+  modalTitle!: string;
+  modalMessage!: string;
+  buttonText!: string;
+  loader: boolean = false;
 
   constructor(
     private alertService: AlertService,
     private apiService: ApiService,
+    private masterService: MasterService
   ) { }
 
   ngOnInit() {
     this.getDataList();
+  }
+
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   getDataList() {
@@ -55,21 +68,9 @@ export class BoqComponent implements OnInit, OnDestroy {
     );
   }
 
-  getVendorList() {
-    const apiLink = `/supplier/api/v1/getSupplierList`;
-    this.apiService.getData(apiLink).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (res: any) => {
-        if (res.status === 200) {
-          this.vendorList = res.result;
-        } else {
-          this.vendorList = undefined;
-        }
-      }, error: (error: any) => {
-        console.error(error);
-        this.alertService.error("Error: Unknown Error!")
-      }
-    }
-    );
+  getBOQList(data: any) {
+    this.rowData = [];
+    this.boqList = data;
   }
 
   getBoqItemsList(item: any) {
@@ -84,13 +85,55 @@ export class BoqComponent implements OnInit, OnDestroy {
         isChecked: false
       })) : []
     })) || [];
-    // console.log(JSON.stringify(this.rowData));
-    this.getVendorList();
+    this.initializeVendorLists(this.rowData);
+  }
+
+  initializeVendorLists(items: any[]) {
+    items.forEach(item => {
+      this.getVendorList(item.item_id);
+      if (item.childItemList) {
+        this.initializeVendorLists(item.childItemList);
+      }
+    });
+  }
+
+  getVendorList(item_id: any) {
+    this.apiService.getVendorListByItem(item_id).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.vendorList[item_id] = res.result;
+        } else {
+          this.vendorList[item_id] = undefined;
+        }
+      }, error: (error: any) => {
+        console.error(error);
+        this.vendorList[item_id] = [];
+        this.alertService.error("Error: Unknown Error!")
+      }
+    }
+    );
   }
 
   onVendorSelect(item: any, event: any) {
-    item.selectedVendor = event;
-    item.isVendorSelected = event && event.length > 0;
+    if (event) {
+      const currentSupplier = event[event.length - 1];
+      this.apiService.validateSupplier(item.item_id, currentSupplier.supplier_id, item.boq_id).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (res: any) => {
+          if (res.status === 409) {
+            this.alertService.error(res.message);
+            item.selectedVendor = [];
+            item.isVendorSelected = false;
+            return;
+          }
+          else {
+            item.selectedVendor = event;
+            item.isVendorSelected = event && event.length > 0;
+          }
+        }, error: (error: any) => {
+          console.log(error);
+        }
+      })
+    }
   }
 
   onCheckboxChange(item: any, event: any) {
@@ -98,11 +141,20 @@ export class BoqComponent implements OnInit, OnDestroy {
   }
 
   sendSelectedItems() {
+    this.modalTitle = 'Confirmation!';
+    this.modalMessage = 'Confirm and send emails to esteemed vendors?';
+    this.buttonText = 'Confirm';
     const selectedItems: any = this.rowData.reduce((acc: any, item: any) => {
       if (item.isChecked) {
         const selectedItem: any = {
           item_id: item.item_id,
           boq_id: item.boq_id,
+          boqitem_id: item.boqitem_id,
+          description: item.description,
+          itemcode: item.itemcode,
+          unit_id: item.unit_id,
+          uom: item.uom,
+          quantity: item.qty,
           selected_vendors: item.selectedVendor.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
         };
 
@@ -110,8 +162,14 @@ export class BoqComponent implements OnInit, OnDestroy {
           selectedItem['childItems'] = item.childItemList.reduce((childAcc: any, childItem: any) => {
             if (childItem.isChecked) {
               childAcc.push({
-                boq_id: childItem.boq_id,
                 item_id: childItem.item_id,
+                boq_id: childItem.boq_id,
+                boqitem_id: childItem.boqitem_id,
+                description: childItem.description,
+                itemcode: childItem.itemcode,
+                unit_id: childItem.unit_id,
+                uom: childItem.uom,
+                quantity: childItem.qty,
                 selected_vendors: childItem.selectedVendor.map((vendor: any) => ({ supplier_id: vendor.supplier_id }))
               });
             }
@@ -123,7 +181,41 @@ export class BoqComponent implements OnInit, OnDestroy {
       }
       return acc;
     }, []);
-    console.log(selectedItems);
+    if (selectedItems.length == 0) {
+      this.alertService.error("Please select items!")
+      return;
+    }
+    this.selectedItems = selectedItems;
+    this.confirmPopup.show();
+  }
+
+  onConfirm() {
+    this.loader = true;
+    this.apiService.sendRfq(this.selectedItems).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.alertService.success(res.message);
+          this.loader = false;
+          this.confirmPopup.hide();
+          document.getElementById('cancelitemmodal')?.click();
+          this.getDataList();
+        } else {
+          this.alertService.error(res.message);
+          this.loader = false;
+          this.confirmPopup.hide();
+        }
+      }, error: (error: any) => {
+        this.alertService.error(error.error.message);
+        this.loader = false;
+        this.confirmPopup.hide();
+      }
+    })
+    console.log('Form submitted!');
+  }
+
+  onCancel() {
+    this.confirmPopup.hide();
+    console.log('Form submission cancelled');
   }
 
   ngOnDestroy(): void {

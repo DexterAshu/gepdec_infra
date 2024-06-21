@@ -1,0 +1,55 @@
+<table class="table table-hover table-striped custom-table mb-3 table-bordered">
+    <thead class="table-primary text-nowrap">
+        <tr>
+            <th colspan="6" class="text-center">Tender Detail</th>
+        </tr>
+    </thead>
+    <tbody class="text-nowrap">
+        <tr>
+            <th>Client</th>
+            <td>{{ itemList?.company_name }}</td>
+            <th>Tender Title</th>
+            <td>
+                <app-slice-with-tooltip [text]="itemList?.tender_title"></app-slice-with-tooltip>
+                <!-- <div *ngIf="!!itemList?.tender_title; else elseBlock4" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ itemList?.tender_title }}">
+                    {{itemList?.tender_title | slice:0:30}} <span *ngIf="itemList?.tender_title.length > 30">...<i
+                            class="mdi mdi-information"></i></span>
+                </div>
+                <ng-template #elseBlock4>
+                    {{itemList?.tender_title}}
+                </ng-template> -->
+            </td>
+            <th>NIT No</th>
+            <td>
+                <app-slice-with-tooltip [text]="itemList?.tender_ref_no"></app-slice-with-tooltip>
+                <!-- <div *ngIf="!!itemList?.tender_ref_no; else elseBlock3" data-toggle="tooltip" data-placement="bottom"
+                    title="{{ itemList?.tender_ref_no }}">
+                    {{itemList?.tender_ref_no | slice:0:30}}
+                    <span *ngIf="itemList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
+                </div>
+                <ng-template #elseBlock3>
+                    {{itemList?.tender_ref_no}}
+                </ng-template> -->
+            </td>
+        </tr>
+        <tr>
+            <th>Publish Date</th>
+            <td>{{ itemList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
+            <th>Category</th>
+            <td>{{ itemList?.qacatagory }}</td>
+            <th>Sub-Category</th>
+            <td>{{ itemList?.subqacatagory }}</td>
+        </tr>
+        <tr>
+            <th>Capacity</th>
+            <td>{{ itemList?.capacity }}</td>
+            <th>Execution Location</th>
+            <td colspan="3">
+                <!-- <app-location-section-shared [tenderLocation]="itemList?.tender_location" [rowData]="itemList" (locationClick)="rowLocation($event)"></app-location-section-shared> -->
+                <app-location-section-shared [tenderLocation]="itemList?.tender_location?.[0] || ''" [rowData]="itemList" (locationClick)="rowLocation($event)">
+                </app-location-section-shared>
+            </td>
+        </tr>
+    </tbody>
+</table>

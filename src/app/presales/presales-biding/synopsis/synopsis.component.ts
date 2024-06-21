@@ -51,8 +51,9 @@ export class SynopsisComponent {
   statusList: any = [];
   approval: any;
   reqList: any = [];
-  reqStatus: any=''
-  tenderID: any
+  reqStatus: any='';
+  tenderID: any;
+  showPreviousDetails: boolean = false;
   locationArray: any = [];
   constructor(
     private formBuilder: FormBuilder,
@@ -81,8 +82,8 @@ export class SynopsisComponent {
     this.getTenderData();
   }
 
-  rowLocation(row:any) {
-    this.locationArray = row.tender_location;
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   ngAfterViewInit() {
@@ -115,6 +116,8 @@ export class SynopsisComponent {
 
   rowListData(row: any) {
     this.rowData = row;
+    console.log( this.rowData);
+    
     this.reqList  = this.rowData.requestStatus;
     this.tenderID = this.rowData.tender_id;
     console.log( this.reqList);
@@ -133,6 +136,15 @@ export class SynopsisComponent {
 this.statusList=roleD[0].roleStatus
   }
 
+  getFormattedRemarks(): string {
+    return (this.rowData?.remarks && Array.isArray(this.rowData.remarks)) 
+        ? this.rowData.remarks.map((remark:any, index:any) => `${index + 1}. ${remark}`).join('<br>') 
+        : '';
+}
+  getFormattedAuditTrail(): string {
+    return (this.rowData?.audit_trail && Array.isArray(this.rowData.audit_trail)) ? this.rowData.audit_trail.map((audit_trail:any, index:any) => `${index + 1}. ${audit_trail}`).join('<br>') 
+    : '';
+  }
  
   get f() { return this.form.controls; }
 

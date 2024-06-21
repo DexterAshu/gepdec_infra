@@ -1,0 +1,1572 @@
+<div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-12 grid-margin">
+        <div class="d-flex justify-content-between flex-wrap">
+          <div class="d-flex align-items-end flex-wrap">
+            <div class="mr-md-3 mr-xl-5">
+              <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>
+                Tender Report</h4>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-end flex-wrap">
+  
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex my-10 mt-2">
+              <div class="col-lg-4">
+                <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+              </div>
+  
+              <div class="col-lg-4">
+  
+              </div>
+  
+              <div class="col-lg-4">
+                <div class="float-right">
+                  <button class="btn btn-primary btn-fw btn-sm me-2" title="Download List of Data in Excel"
+                    (click)="download()">
+                    <span class="mdi mdi-upload"></span> Export
+                  </button>
+                  <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal"
+                    data-bs-target="#createBulkModal" title="Upload bulk Data">
+                    <span class="mdi mdi-download"></span> Import
+                  </button>
+                  <!-- <button type="button" routerLink="/presales/presales-biding/data-capture"
+                                      class="btn btn-primary btn-fw btn-sm float-right"><span class="mdi mdi-plus"></span> Create</button> -->
+                </div>
+              </div>
+            </div>
+  
+            <app-responsive-table id="export"> <!-- Coming for sharedComponent/responsive-table -->
+              <thead class="table-primary text-nowrap">
+                <tr>
+                  <th>S No</th>
+                  <th>Client</th>
+                  <th>Tender Title</th>
+                  <th>NIT No</th>
+                  <th>Category</th>
+                  <th>Sub-Category</th>
+                  <th>Capacity</th>
+                  <th>Publish Date</th>
+                  <th>Execution Location</th>
+                  <th>ECV (INR)</th>
+                  <th>Submission Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-nowrap">
+                <tr
+                  *ngFor="let a of tenderData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                  <td>{{ limit*(p-1)+i+1 }}</td>
+                  <td>{{ a.company_name }}</td>
+                  <td>
+                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ a.tender_title }}">
+                      {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
+                          class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock1>
+                      {{a.tender_title}}
+                    </ng-template>
+                  </td>
+                  <td>
+                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
+                      title="{{ a?.tender_ref_no }}">
+                      {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i
+                          class="mdi mdi-information"></i></span>
+                    </div>
+                    <ng-template #elseBlock2>
+                      {{a?.tender_ref_no}}
+                    </ng-template>
+                  </td>
+                  <td>{{a.qacatagory}}</td>
+                  <td>{{a.subqacatagory}}</td>
+                  <td>{{a.capacity}}</td>
+                  <td>{{ a.publish_date | date: 'dd/MM/yyyy'}}</td>
+                  <td>
+                    <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
+                        <span *ngIf="i+1 == 1">{{loc}}</span>
+                    </span>...
+                  <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;" data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="{{a?.tender_location}}">
+                 
+                    <!-- <a data-bs-toggle="modal" data-bs-target="#lokModal" (click)="rowLocation(a)" title="Location Details"> <span class="mdi mdi-google-maps text-warning cursor-pointer mdi-18px"></span>
+                    </a> -->
+                </td>
+               
+                  <!-- <td>{{ a.tender_location }}</td> -->
+                  <td class="text-end">{{ a.ecv | currency: 'INR': '' : '1.0-2'}}</td>
+                  <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ a?.tender_status}}</td>
+                  <td>
+                  
+                    <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data"
+                      (click)="rowListData(a);attachmentDetails()"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                    <!-- &nbsp; -->
+                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details"><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+                  </td>
+                </tr>
+                <tr *ngIf="tenderData?.length == 0">
+                  <td colspan="15" class="text-center">
+                    <div class="spinner-border"> </div>
+                  </td>
+                </tr>
+                <tr *ngIf="isNotFound == true">
+                  <td colspan="15" class="text-center">
+                    <div class="text-warning fw-semibold">Looks like no data available!</div>
+                  </td>
+                </tr>
+              </tbody>
+            </app-responsive-table>
+            <div class="pagination-sec text-center">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- list location details -->
+  <div class="modal fade" id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Location Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <table class="table table-hover table-striped custom-table table-bordered">
+                    <thead class="table-primary text-nowrap">
+                        <tr>
+                            <th>S No</th>
+                            <th>Execution Location</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                        <tr *ngFor="let location of locationArray; index as i">
+                            <td>{{limit*(p-1)+i+1}}</td>
+                            <td>
+                                <div *ngIf="!!location; else elseBlock4"
+                                    data-toggle="tooltip" data-placement="bottom"
+                                    title="{{ location }}">
+                                    {{location | slice:0:30}} <span
+                                        *ngIf="location.length > 30">...<i
+                                            class="mdi mdi-information"></i></span>
+                                </div>
+                                <ng-template #elseBlock4>
+                                    {{location}}
+                                </ng-template>
+                            </td>
+
+                        </tr>
+                    </tbody>
+             
+            </table>
+
+            <!-- <div class="modal-body">
+                    <span *ngFor="let location of locationArray; let i = index">
+                        {{ i + 1 }}. {{ location }}
+                    </span>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+
+  <!-- detail modal -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tender/Bid - Costing & Attachment Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cancel"></button>
+        </div>
+        <div class="modal-body p-3">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12 p-0">
+                <div class="table-responsive pt-2" style="min-height: auto;">
+                  <table class="table table-hover table-striped custom-table table-bordered">
+                    <thead class="table-primary text-nowrap">
+                      <tr>
+                        <th colspan="6" class="text-center">Tender Detail</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                      <tr>
+                        <th>Client</th>
+                        <td>{{ rowData?.company_name }}</td>
+                        <th>NIT No</th>
+                        <td>
+                          <div *ngIf="!!rowData?.tender_ref_no; else elseBlock3" data-toggle="tooltip"
+                            data-placement="bottom" title="{{ rowData?.tender_ref_no }}">
+                            {{rowData?.tender_ref_no | slice:0:30}} <span *ngIf="rowData?.tender_ref_no.length > 30">...<i
+                                class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock3>
+                            {{rowData?.tender_ref_no}}
+                          </ng-template>
+                        </td>
+                        <th>Publish Date</th>
+                        <td>{{rowData?.publish_date | date: 'dd/MM/yyyy'}}</td>
+                      </tr>
+                      <tr>
+                        <th>Category</th>
+                        <td>{{rowData?.qacatagory}}</td>
+                        <th>Sub-Category</th>
+                        <td>{{rowData?.subqacatagory}}</td>
+                        <th>Capacity</th>
+                        <td>{{rowData?.capacity}}</td>
+                      </tr>
+                      <tr>
+                        <th>Financial Year</th>
+                        <td> {{rowData?.financialyear}}</td>
+                        <th>Execution Location</th>
+                        <td>
+                          <div *ngIf="!!rowData?.tender_location; else elseBlock4" data-toggle="tooltip"
+                            data-placement="bottom" title="{{ rowData?.tender_location }}">
+                            {{rowData?.tender_location | slice:0:30}} <span
+                              *ngIf="rowData?.tender_location.length > 30">...<i class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock4>
+                            {{rowData?.tender_location}}
+                          </ng-template>
+                        </td>
+  
+                        <th>Tender Title</th>
+                        <td>
+                          <div *ngIf="!!rowData?.tender_title; else elseBlock5" data-toggle="tooltip"
+                            data-placement="bottom" title="{{ rowData?.tender_title }}">
+                            {{rowData?.tender_title | slice:0:30}} <span *ngIf="rowData?.tender_title.length > 30">...<i
+                                class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock5>
+                            {{rowData?.tender_title}}
+                          </ng-template>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <h6 class="mt-3 mb-3 text-secondary">Bid Detail</h6>
+                <div class="table-responsive">
+                  <table class="table table-hover table-striped custom-table table-bordered">
+                    <tbody>
+                      <tr>
+                        <th>Tender Description</th>
+                        <td colspan="7">{{rowData?.tender_description}}</td>
+                      </tr>
+                      <tr>
+                        <th>Country</th>
+                        <td>{{ rowData?.country }}</td>
+                        <th>State</th>
+                        <td>{{ rowData?.state_name }}</td>
+                        <th>District</th>
+                        <td>{{ rowData?.district_name}}</td>
+                        <th>City</th>
+                        <td>
+                          <div *ngIf="!!rowData?.city; else elseCity" data-toggle="tooltip" data-placement="bottom"
+                            title="{{rowData?.city}}">
+                            <span>{{rowData?.city}}</span>
+  
+                          </div>
+                          <ng-template #elseCity>
+                            --
+                          </ng-template>
+                        </td>
+                      </tr>
+  
+                      <tr>
+                        <th>Bidder Company</th>
+                        <td>{{ rowData?.bidder_name }}</td>
+                        <th>Tender Type</th>
+                        <td>{{ rowData?.bidtype }}</td>
+                        <th>Tender Closing Date</th>
+                        <td>{{ rowData?.closing_date | date: 'dd/MM/yyyy'}}</td>
+                        <th>Tender Available Link</th>
+                        <td>
+                          <div *ngIf="!!rowData?.tender_detail_link; else elseBlock6" data-toggle="tooltip"
+                            data-placement="bottom" title="{{ rowData?.tender_detail_link }}">
+                            <a [href]="rowData?.tender_detail_link" target="_blank">{{rowData?.tender_detail_link |
+                              slice:0:20}}
+                              <span *ngIf="rowData?.tender_detail_link.length > 20">...<i
+                                  class="mdi mdi-information"></i></span></a>
+                          </div>
+                          <ng-template #elseBlock6>
+                            --
+                          </ng-template>
+                        </td>
+                      </tr>
+                      <tr>
+  
+                        <th>Soft Copy Submission Date </th>
+                        <td>{{ rowData?.tender_submission_date | date: 'dd/MM/yyyy' }}</td>
+                        <th>Hard Copy Submission Date </th>
+                        <td>
+                          <span *ngIf="!!rowData?.tenderhardcopysubmission_date; else elseBlock7">
+                            {{ rowData?.tenderhardcopysubmission_date | date: 'dd/MM/yyyy'}}
+                          </span>
+                          <ng-template #elseBlock7>
+                            --
+                          </ng-template>
+                        </td>
+                        <th>Pre-bid Meeting</th>
+                        <td>
+                          {{ rowData?.pre_meeting }}
+                        </td>
+                        <th>Pre-bid Meeting Mode</th>
+                        <td>
+                          <span *ngIf="!!rowData?.prebidmeetingmode; else elseBlock8">
+                            {{ rowData?.prebidmeetingmode }}
+                          </span>
+                          <ng-template #elseBlock8>
+                            --
+                          </ng-template>
+                        </td>
+                      </tr>
+  
+                      <tr>
+                        <th>Pre-Bid Meeting Date</th>
+                        <td>
+                          <span *ngIf="!!rowData?.prebid_date; else elseBlock9">
+                            {{ rowData?.prebid_date | date: 'dd/MM/yyyy'}}
+                          </span>
+                          <ng-template #elseBlock9>
+                            --
+                          </ng-template>
+                        </td>
+                        <th>Tech Bid Opening Date </th>
+                        <td>{{ rowData?.tech_bid_date | date:"dd/MM/yyyy"}}</td>
+                        <th>Fin Bid Opening Date</th>
+                        <td>
+                          <span *ngIf="!!rowData?.fin_bid_opening_date; else elseBlock10">
+                            {{ rowData?.fin_bid_opening_date | date: 'dd/MM/yyyy'}}
+                          </span>
+                          <ng-template #elseBlock10>
+                            --
+                          </ng-template>
+                        </td>
+                        <th>ECV (INR)</th>
+                        <td>{{ rowData?.ecv | currency: 'INR': '' : '1.0-2' }}</td>
+                      </tr>
+                      <tr>
+                        <th>Registration Fees</th>
+                        <td>{{ rowData?.tender_fee | currency: 'INR': '' : '1.0-2' }}</td>
+                        <th>Document Cost</th>
+                        <td>{{ rowData?.tender_doc_cost | currency: 'INR': '' : '1.0-2' }}</td>
+                        <th>Bid Validity (Days)</th>
+                        <td>{{ rowData?.bid_validity }}</td>
+                        <th>Completion period (Months)</th>
+                        <td>{{ rowData?.completion_period }}</td>
+                      </tr>
+                      <tr>
+                        <th>Security Deposit</th>
+                        <td>{{ rowData?.securitydeposit }}</td>
+                        <th>Security Amount</th>
+                        <td>
+                          <span *ngIf="!!rowData?.security_amount; else elseBlock11">
+                            {{ rowData?.security_amount | currency: 'INR': '' : '1.0-2' }}
+                          </span>
+                          <ng-template #elseBlock11>
+                            --
+                          </ng-template>
+                        </td>
+                        <th>Security Sub Date</th>
+                        <td>
+                          <span *ngIf="!!rowData?.securitysubmission_date; else elseBlock12">
+                            {{ rowData?.securitysubmission_date | date: 'dd/MM/yyyy' }}
+                          </span>
+                          <ng-template #elseBlock12>
+                            --
+                          </ng-template>
+                        </td>
+                        <th>Performance Guarantee</th>
+                        <td>{{ rowData?.performanceguarantee }}</td>
+                      </tr>
+                      <tr>
+                        <th>Performance Amount (%)</th>
+                        <td>
+                          <span *ngIf="!!rowData?.pg_amount; else elseBlock13">
+                            {{ rowData?.pg_amount }}
+                          </span>
+                          <ng-template #elseBlock13>
+                            --
+                          </ng-template>
+                        </td>
+                        <th>EMD Exemption</th>
+                        <td>{{ rowData?.emdexemption }}</td>
+                        <th>EMD Amount</th>
+                        <td>
+                          <span *ngIf="!!rowData?.emd_ammount; else elseBlock14">
+                            {{ rowData?.emd_ammount | currency: 'INR': '' : '1.0-2' }}
+                          </span>
+                          <ng-template #elseBlock14>
+                            --
+                          </ng-template>
+                        </td>
+                        <th>EMD Payment Mode</th>
+                        <td>
+                          <span *ngIf="!!rowData?.paymentmethod; else elseBlock15">
+                            {{ rowData?.paymentmethod }}
+                          </span>
+                          <ng-template #elseBlock15>
+                            --
+                          </ng-template>
+                        </td>
+  
+                      </tr>
+  
+                      <tr>
+                        <th>EMD Sub Date</th>
+                        <td>
+                          <span *ngIf="!!rowData?.emd_submission_date; else elseBlock16">
+                            {{ rowData?.emd_submission_date | date: 'dd/MM/yyyy'}}
+                          </span>
+                          <ng-template #elseBlock16>
+                            --
+                          </ng-template>
+                        </td>
+                        <th>Forfeiture Condition</th>
+                        <td>
+                          <div *ngIf="!!rowData?.forfeiture_condition; else elseBlock17" data-toggle="tooltip"
+                            data-placement="bottom" title="{{ rowData?.forfeiture_condition }}">
+                            {{rowData?.forfeiture_condition | slice:0:30}} <span
+                              *ngIf="rowData?.forfeiture_condition.length > 30">...<i
+                                class="mdi mdi-information"></i></span>
+                          </div>
+                          <ng-template #elseBlock17>
+                            <!-- {{rowData?.forfeiture_condition}} -->
+                            --
+                          </ng-template>
+                        </td>
+  
+                        <th>Reverse Auction</th>
+                        <td>{{ rowData?.reserve_auction }}</td>
+                        <th>Current Status</th>
+                        <!-- <td class="badge badge-primary mt-2">{{ rowData?.tender_status }}</td> -->
+                        <td class="badge badge-primary mt-2">{{ rowData?.reqTenderStatus }}</td>
+  
+                      </tr>
+                      <tr>
+                        <th>Payment Terms</th>
+                        <td colspan="7">
+                          <span
+                            *ngFor="let ph of (rowData?.tenderpayment_terms != null ? (rowData?.tenderpayment_terms.slice(0, -1)).split('\n') : rowData?.tenderpayment_terms.slice(0, -1)), index as i">
+                            {{ ph }} <br>
+                          </span>
+                        </td>
+                        <!-- <td colspan="5">
+                                                  {{rowData?.tenderpayment_terms }}
+                                              </td> -->
+                      </tr>
+  
+                      <tr>
+  
+                        <th>Created On</th>
+                        <td>{{ rowData?.created | date: 'dd/MM/yyyy' }}</td>
+                        <th>Created By</th>
+                        <td>{{ rowData?.createdby_name }}</td>
+                        <th></th>
+                        <td></td>
+                        <th></th>
+                        <td></td>
+                      </tr>
+  
+                    </tbody>
+                  </table>
+  
+                  <h6 class="mt-3 mb-3 text-secondary">Contact Detail</h6>
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12 p-0">
+                        <div class="table-responsive tableStyle" style="min-height: auto !important;">
+                          <table class="table table-hover table-striped mb-3">
+                            <thead class="table-primary text-nowrap">
+                              <tr>
+                                <th>S No</th>
+                                <th>Contact Person</th>
+                                <th>Designation</th>
+                                <th>Department</th>
+                                <th>Contact No</th>
+                                <th>Email ID</th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-nowrap">
+                              <tr *ngFor="let a of rowData?.contact; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <td>{{ a?.name }}</td>
+                                <td>{{ a?.designationname }}</td>
+                                <td>{{ a?.deptname }}</td>
+                                <td>{{ a?.contactno1}}</td>
+                                <td>{{ a?.email}}</td>
+                              </tr>
+                              <tr *ngIf="rowData?.contact?.length == 0">
+                                <td colspan="15" class="text-center">
+                                  <div class="text-warning fw-semibold">Looks like no data
+                                    available!</div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
+                </div>
+  
+
+                <div class="col-md-12 p-2 card" (click)="showPreviousDetails=!showPreviousDetails">
+                  <div class="row p-1">
+                      <div class="col-md-6">
+                        <h6 class="mb-2 text-primary cursor-pointer">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
+                              <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/>
+                              <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
+                              <path d="M9.979 5.356a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.926-.08L4.69 10H4.5a.5.5 0 0 0 0 1H5a.5.5 0 0 0 .447-.276l.936-1.873 1.138 3.793a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h.5a.5.5 0 0 0 0-1h-.128z"/>
+                            </svg> &nbsp;
+                            Historical Working Notes
+                        </h6>
+    
+                      </div>
+    
+                      <div class="col-md-6">
+                        <div class="float-right" title="Show/Hide Details">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                          </svg>
+    
+                        </div>
+                      </div>
+                    </div>
+                 
+                  <div class="form-group" *ngIf="showPreviousDetails">
+                      <p [innerHTML]="getFormattedRemarks()"></p>
+                  </div>
+              </div>
+
+              <div class="col-md-12 mt-1 p-2 card"  (click)="showWorkingDetails=!showWorkingDetails">
+                  <div class="row p-1">
+                      <div class="col-md-6">
+                      <h6 class="mb-2 text-primary cursor-pointer">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cassette" viewBox="0 0 16 16">
+                              <path d="M4 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2m9-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 6a1 1 0 0 0 0 2h2a1 1 0 1 0 0-2z"/>
+                              <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zM1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-.691l-1.362-2.724A.5.5 0 0 0 12 10H4a.5.5 0 0 0-.447.276L2.19 13H1.5a.5.5 0 0 1-.5-.5zM11.691 11l1 2H3.309l1-2z"/>
+                          </svg> &nbsp;
+                          Activity Log Notes
+                      </h6>
+                      </div>
+  
+                      <div class="col-md-6">
+                      <div class="float-right" title="Show/Hide Details">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-chevron-down" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                          </svg>
+  
+                      </div>
+                      </div>
+                  </div>
+              
+                  <div class="form-group" *ngIf="showWorkingDetails">
+                      <p [innerHTML]="getFormattedAuditTrail()"></p>
+                  </div>
+              </div>
+
+                <!-- qualification details -->
+                <h6 class="mb-3 text-secondary mt-2">Qualification Details</h6>
+                <div class="card p-2" (click)="finDataShow =! finDataShow">
+                  <div class="row p-1">
+                    <div class="col-md-6">
+                      <h6 class="mb-2 text-primary cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                          <path
+                            d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z" />
+                        </svg> &nbsp;
+                        Financial Qualification
+                      </h6>
+  
+                    </div>
+  
+                    <div class="col-md-6">
+                      <div class="float-right" title="Show/Hide Details">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-chevron-down" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                        </svg>
+  
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="table-responsive tableStyle mt-2" *ngIf="finDataShow" style="min-height: auto !important;">
+                    <div class="row p-2" style="background-color: #eceff7; border-radius: 5px;">
+                      <div class="col-md-8 bg-darkblue">Data Required (As Per Tender)</div>
+                      <div class="col-md-1"> | </div>
+                      <div class="col-md-3 bg-darkblue text-center">Our Company Data</div>
+                    </div>
+                    <table class="table table-hover table-striped mb-3" *ngFor="let a of rowData?.tenderfinancials">
+  
+                      <thead class="table-primary text-nowrap">
+                        <tr>
+                          <th>Financial Parameters</th>
+                          <th>Amounts (INR)</th>
+                          <th>Condition</th>
+                          <th>Years</th>
+                          <th>Fin Year</th>
+                          <th>Our Values (INR)</th>
+                          <th>Result</th>
+                        </tr>
+                      </thead>
+  
+                      <tbody class="text-nowrap">
+                        <tr *ngIf=" a?.annual_turnover > 0">
+                          <td>Annual Turnover</td>
+                          <td>{{ a?.annual_turnover }}</td>
+                          <td>
+                            <span *ngIf="!!a?.annual_turnover_check; else elseBlock18">
+                              {{ a?.annual_turnover_check }}
+                            </span>
+                            <ng-template #elseBlock18>
+                              --
+                            </ng-template>
+                          </td>
+                          <!-- <td>{{ a?.annual_turnover_check}}</td> -->
+                          <td>{{ a?.annual_turnover_year }}</td>
+                          <td>{{ a?.financialyear }}</td>
+                          <td>{{ a?.our_annual_turnover | currency: 'INR': '' : '1.0-2'}}</td>
+                          <td>
+                            <div *ngIf=" a?.annual_turnover_status == true; else ifNot2">
+                              <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                            </div>
+                            <ng-template #ifNot2>
+                              <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                            </ng-template>
+                          </td>
+                        </tr>
+  
+                        <!-- Net Profit -->
+                        <tr *ngIf=" a?.net_profit > 0">
+                          <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                          <td>Net Profit</td>
+                          <td>{{ a?.net_profit }}</td>
+                          <td> -- </td>
+                          <td>{{ a?.net_profit_year }}</td>
+                          <td>{{ a?.net_profit_fin }}</td>
+                          <td>{{ a?.our_net_profit | currency: 'INR': '' : '1.0-2'}}</td>
+                          <td>
+                            <div *ngIf=" a?.net_profit_status == true; else ifNot5">
+                              <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                            </div>
+                            <ng-template #ifNot5>
+                              <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                            </ng-template>
+                          </td>
+                        </tr>
+                        <!--  ebidta -->
+                        <tr *ngIf=" a?.ebidta > 0">
+                          <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                          <td>EBIDTA</td>
+                          <td>{{ a?.ebidta }}</td>
+                          <td> -- </td>
+                          <td>{{ a?.ebidta_year }}</td>
+                          <td>{{ a?.ebidta_fin }}</td>
+                          <td>{{ a?.our_ebidta | currency: 'INR': '' : '1.0-2'}}</td>
+                          <td>
+                            <div *ngIf=" a?.ebidta_status == true; else ifNot5">
+                              <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                            </div>
+                            <ng-template #ifNot5>
+                              <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                            </ng-template>
+                          </td>
+                        </tr>
+  
+                        <!-- Net Worth -->
+  
+                        <tr *ngIf=" a?.net_worth > 0">
+                          <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                          <td>Net Worth</td>
+                          <td>{{ a?.net_worth }}</td>
+                          <td> -- </td>
+                          <td>{{ a?.net_worth_year }}</td>
+                          <td>{{ a?.net_worth_fin }}</td>
+                          <td>{{ a?.our_net_worth | currency: 'INR': '' : '1.0-2'}}</td>
+                          <td>
+                            <div *ngIf=" a?.net_worth_status == true; else ifNot3">
+                              <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                            </div>
+                            <ng-template #ifNot3>
+                              <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                            </ng-template>
+                          </td>
+                        </tr>
+                        <!-- Net Working Capital -->
+                        <tr *ngIf=" a?.net_working_capital > 0">
+                          <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                          <td>Net Working Capital</td>
+                          <td>{{ a?.net_working_capital }}</td>
+                          <td> -- </td>
+                          <td>{{ a?.net_working_capital_year }}</td>
+                          <td>{{ a?.net_working_capital_fin }}</td>
+                          <td>{{ a?.our_net_working_capital | currency: 'INR': '' : '1.0-2'}}</td>
+                          <td>
+                            <div *ngIf=" a?.net_working_status == true; else ifNot4">
+                              <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                            </div>
+                            <ng-template #ifNot4>
+                              <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                            </ng-template>
+                          </td>
+                        </tr>
+  
+                        <!--  Total Liability -->
+                        <tr *ngIf=" a?.total_liabilities > 0">
+                          <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                          <td>Total Liability</td>
+                          <td>{{ a?.total_liabilities }}</td>
+                          <td> -- </td>
+                          <td>{{ a?.total_liabilities_year }}</td>
+                          <td>{{ a?.total_liabilities_fin }}</td>
+                          <td>{{ a?.our_total_liabilities | currency: 'INR': '' : '1.0-2'}}</td>
+                          <td>
+                            <div *ngIf=" a?.total_liabilities_status == true; else ifNot5">
+                              <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                            </div>
+                            <ng-template #ifNot5>
+                              <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                            </ng-template>
+                          </td>
+                        </tr>
+                        <!--  Fixed Asset -->
+                        <tr *ngIf="a?.total_fixed_assets > 0">
+                          <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                          <td>Total Fixed Asset</td>
+                          <td>{{a?.total_fixed_assets }}</td>
+                          <td> -- </td>
+                          <td>{{a?.total_fixed_assets_year }}</td>
+                          <td>{{a?.total_fixed_assets_fin }}</td>
+                          <td>{{a?.our_total_fixed_assets | currency: 'INR': '' : '1.0-2'}}</td>
+                          <td>
+                            <div *ngIf="a?.total_fixed_assets_status == true; else ifNot5">
+                              <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                            </div>
+                            <ng-template #ifNot5>
+                              <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                            </ng-template>
+                          </td>
+                        </tr>
+                        <!--  Net Capital -->
+                        <!-- <tr *ngIf=" a?.net_capital > 0">
+                                  <td>Net Capital</td>
+                                  <td>{{ a?.net_capital }}</td>
+                                  <td>{{ a?.net_capital_check}}</td>
+                                  <td>{{ a?.net_capital_year }}</td>
+                                  <td>{{ a?.net_capital_fin }}</td>
+                                  <td>{{ a?.our_net_capital | currency: 'INR': '' : '1.0-2'}}</td>
+                                  <td>
+                                      <div *ngIf=" a?.net_capital_status == true; else ifNot5">
+                                          <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success"
+                                              title="Qualified"></i>
+                                      </div>
+                                      <ng-template #ifNot5>
+                                          <i class="mdi mdi-close-circle text-danger mdi-18px"
+                                              title="Not-Qualified"></i>
+                                      </ng-template>
+                                  </td>
+                              </tr> -->
+                        <!--  reserve_surplus -->
+                        <tr *ngIf=" a?.reserve_surplus > 0">
+                          <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                          <td>Reserve & Surplus</td>
+                          <td>{{ a?.reserve_surplus }}</td>
+                          <td> -- </td>
+                          <td>{{ a?.reserve_surplus_year }}</td>
+                          <td>{{ a?.reserve_surplus_fin }}</td>
+                          <td>{{ a?.our_reserve_surplus | currency: 'INR': '' : '1.0-2'}}</td>
+                          <td>
+                            <div *ngIf=" a?.reserve_surplus_status == true; else ifNot5">
+                              <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                            </div>
+                            <ng-template #ifNot5>
+                              <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                            </ng-template>
+                          </td>
+                        </tr>
+                        <!--  paid_upcapital -->
+                        <tr *ngIf=" a?.paid_upcapital > 0">
+                          <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
+                          <td>Paid Up Capital</td>
+                          <td>{{ a?.paid_upcapital }}</td>
+                          <td> -- </td>
+                          <td>{{ a?.paid_upcapital_year }}</td>
+                          <td>{{ a?.paid_upcapital_fin }}</td>
+                          <td>{{ a?.our_paid_upcapital | currency: 'INR': '' : '1.0-2'}}</td>
+                          <td>
+                            <div *ngIf=" a?.paid_upcapital_status == true; else ifNot5">
+                              <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                            </div>
+                            <ng-template #ifNot5>
+                              <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                            </ng-template>
+                          </td>
+                        </tr>
+  
+  
+                        <tr *ngIf="rowData?.tenderfinancials.length == 0">
+                          <td colspan="15" class="text-center">
+                            <div class="text-warning fw-semibold">Looks like no data available!
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+  
+                    <table class="table table-hover table-striped mb-3" *ngIf="rowData?.tenderfinancials.length == 0">
+                      <thead class="table-primary text-nowrap">
+                        <tr>
+                          <th>Financial Parameters</th>
+                          <th>Amounts (INR)</th>
+                          <th>Condition</th>
+                          <th>Years</th>
+                          <th>Fin Year</th>
+                          <th>Our Values (INR)</th>
+                          <th>Result</th>
+                        </tr>
+                      </thead>
+                      <tbody class="text-nowrap">
+                        <tr>
+                          <td colspan="15" class="text-center">
+                            <div class="text-warning fw-semibold">Looks like no data available!
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+  
+                </div>
+                <div class="card p-2 mt-1" (click)="techDataShow=!techDataShow">
+                  <div class="row p-1">
+                    <div class="col-md-6">
+                      <h6 class="mb-2 text-primary cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-database-up" viewBox="0 0 16 16">
+                          <path
+                            d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.854 1.5 1.5a.5.5 0 0 1-.708.708L13 11.707V14.5a.5.5 0 0 1-1 0v-2.793l-.646.647a.5.5 0 0 1-.708-.708l1.5-1.5a.5.5 0 0 1 .708 0" />
+                          <path
+                            d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4" />
+                        </svg> &nbsp;
+                        Technical Qualification
+                      </h6>
+  
+                    </div>
+  
+                    <div class="col-md-6">
+                      <div class="float-right" title="Show/Hide Details">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-chevron-down" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                        </svg>
+  
+                      </div>
+                    </div>
+  
+                  </div>
+  
+                  <div class="container-fluid mt-1" *ngIf="techDataShow">
+                    <div class="row">
+                      <div class="col-md-12 p-0">
+                        <div class="table-responsive tableStyle" style="min-height: auto !important;">
+                          <table class="table table-hover table-striped mb-3">
+                            <thead class="table-primary text-nowrap">
+                              <tr>
+                                <th>S No</th>
+                                <th>Category</th>
+                                <th>Sub-Category</th>
+                                <th>Capacity</th>
+                                <th>Experience</th>
+                                <th>Completion Period</th>
+                                <th>Resource Used</th>
+                                <th>Completion Year</th>
+                                <th>Technical Point</th>
+                                <th>Result</th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-nowrap">
+                              <tr *ngFor="let a of rowData?.prequalification; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <td>{{ a?.qacatagory }}</td>
+                                <td>{{ a?.subqacatagory }}</td>
+                                <td>{{ a?.capacity }}</td>
+                                <td>{{ a?.total_experience}}</td>
+                                <td>{{ a?.completion_period}}</td>
+                                <td>{{ a?.resource_used}}</td>
+                                <td>{{ a?.completion_year}}</td>
+                                <td>
+                                  <div *ngIf="!!a?.technical_points; else elseBlock19" data-toggle="tooltip" data-placement="bottom"
+                                    title="{{ a?.technical_points }}">
+                                    {{a?.technical_points | slice:0:30}} <span *ngIf="a?.technical_points.length > 30">...<i class="mdi mdi-information"></i></span>
+                                  </div>
+                                  <ng-template #elseBlock19>
+                                    {{a?.technical_points}}
+                                  </ng-template>
+                                </td>
+                                <td>
+                                  <div *ngIf=" a?.qualified == true; else ifNot2">
+                                    <i class="mdi mdi-checkbox-marked-circle mdi-18px text-success" title="Qualified"></i>
+                                  </div>
+                                  <ng-template #ifNot2>
+                                    <i class="mdi mdi-close-circle text-danger mdi-18px" title="Not-Qualified"></i>
+                                  </ng-template>
+                                </td>
+                              </tr>
+  
+                              <tr *ngIf="rowData?.prequalification?.length == 0">
+                                <td colspan="15" class="text-center">
+                                  <div class="text-warning fw-semibold">Looks like no data
+                                    available!</div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <h6 class="mt-3 mb-2 text-secondary">Costing Details</h6>
+                  </div>
+                  <div class="col-md-6" *ngIf="rowData?.directCost.length > 0 || rowData?.indirectCost.length > 0">
+                    <div class="d-flex justify-content-end align-items-center">
+                      <span class="text-secondary me-2">Margin (%)</span>
+                      <input type="number" [(ngModel)]="marginPer" class="form-control form-control-sm" style="width: 70px; height: 0"
+                        (ngModelChange)="validateInput()">
+                    </div>
+                  </div>
+                </div>
+                <div class="card p-2 mt-1" (click)="directDataShow =! directDataShow">
+                  <div class="row p-1">
+                    <div class="col-md-6">
+                      <h6 class="mb-2 text-primary cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-align-start" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5" />
+                          <path d="M3 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
+                        </svg> &nbsp;
+                        Direct Costing
+                      </h6>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="float-right" title="Show/Hide Details">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-chevron-down" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="container-fluid mt-1" *ngIf="directDataShow && (rowData?.directCost.length > 0)">
+                    <div class="row">
+                      <div class="col-md-12 p-0">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-md-12 p-0">
+                              <div class="table-responsive">
+                                <ng-container class="mt-1" *ngFor="let main of rowData?.directCost[0].items">
+                                  <div class="table-responsive pt-2 mb-2" style="min-height: auto;">
+                                    <h6 class="mt-2 mb-1 text-secondary">{{main?.category}} - {{main?.subcategory}}</h6>
+                                    <div class="table-responsive pt-2 mb-2" style="min-height: auto;">
+                                      <table class="table table-hover table-striped">
+                                        <thead class="table-primary text-nowrap">
+                                          <tr>
+                                            <th>S No</th>
+                                            <th>Item Code</th>
+                                            <th>Description</th>
+                                            <th>UOM</th>
+                                            <th>Category</th>
+                                            <th>Sub-Category</th>
+                                            <th>Quantity</th>
+                                            <th>Unit Purchase Cost</th>
+                                            <th>Purchase Cost</th>
+                                            <th>HSN Code</th>
+                                            <th>GST (%)</th>
+                                            <th>Purchase Cost with GST</th>
+                                            <th>Freight</th>
+                                            <th>Purchase Cost with Freight</th>
+                                            <th>Total Purchase Amount</th>
+                                            <th>Margin %</th>
+                                            <th>Margin Amount</th>
+                                            <th>After Margin</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody class="text-nowrap">
+                                          <ng-container *ngFor="let item of main?.items; index as i">
+                                            <tr class="fw-bold">
+                                              <td>{{ i+1 }}</td>
+                                              <td>{{ item?.itemcode }}</td>
+                                              <td>
+                                                <div *ngIf="!!item?.description; else elseBlock20" data-toggle="tooltip" data-placement="bottom"
+                                                  title="{{ item?.description }}"> {{item?.description |
+                                                  slice:0:30}} <span *ngIf="item?.description.length > 30">...<i class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock20> {{item?.description}} </ng-template>
+                                              </td>
+                                              <td>{{ item?.uom }}</td>
+                                              <td>{{ item?.itemcategory }}</td>
+                                              <td>{{ item?.subcategory }}</td>
+                                              <td>{{ item?.qty }}</td>
+                                              <td>{{ item?.unit_price | currency: 'INR': '' : '1.0-2' }}</td>
+                                              <td class="text-end">{{ item?.total_value | currency: 'INR': '' : '1.0-2' }}</td>
+                                              <td>{{ item?.hsn_code }}</td>
+                                              <td>{{ item?.gst }}</td>
+                                              <td class="text-end">{{ item?.totalPriceWithGST | currency: 'INR': '' : '1.0-2' }}</td>
+                                              <td>{{ item?.freight_charges | currency: 'INR': '' : '1.0-2' }}</td>
+                                              <td class="text-end">{{ item?.totalWithFreight | currency: 'INR': '' : '1.0-2' }}</td>
+                                              <td class="text-end">{{ item?.totalWithFreightWithGST | currency: 'INR': '' : '1.0-2' }} </td>
+                                              <td class="text-end">{{ marginPer }} </td>
+                                              <td class="text-end">{{ ((item?.totalWithFreightWithGST * marginPer) / 100) | currency: 'INR': '' : '1.0-2' }} </td>
+                                              <td class="text-end">{{ (((item?.totalWithFreightWithGST * marginPer) / 100) + item?.totalWithFreightWithGST) | currency: 'INR': '' : '1.0-2' }} </td>
+                                            </tr>
+                                            <ng-container *ngIf="item?.childItemList?.length > 0">
+                                              <tr *ngFor="let childItem of item?.childItemList; index as ci">
+                                                <td class="ms-2">&nbsp; &nbsp; &nbsp;{{i+1}}.{{ci+1}}</td>
+                                                <td>{{ childItem?.itemcode }}</td>
+                                                <td>
+                                                  <div *ngIf="!!childItem?.description; else elseBlock21" data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ childItem?.description }}"> {{childItem?.description
+                                                    | slice:0:30}} <span *ngIf="childItem?.description.length > 30">...<i
+                                                        class="mdi mdi-information"></i></span></div>
+                                                  <ng-template #elseBlock21> {{childItem?.description}} </ng-template>
+                                                </td>
+                                                <td>{{ childItem?.uom }}</td>
+                                                <td>{{ childItem?.itemcategory }}</td>
+                                                <td>{{ childItem?.subcategory }}</td>
+                                                <td>{{ childItem?.qty }}</td>
+                                                <td>{{ childItem?.unit_price | currency: 'INR': '' : '1.0-2' }}</td>
+                                                <td class="text-end">{{ childItem?.total_value | currency: 'INR': '' : '1.0-2' }}</td>
+                                                <td>{{ childItem?.hsn_code }}</td>
+                                                <td>{{ childItem?.gst }}</td>
+                                                <td class="text-end">{{ childItem?.totalPriceWithGST | currency: 'INR': '' : '1.0-2' }}
+                                                </td>
+                                                <td>{{ childItem?.freight_charges | currency: 'INR': '' : '1.0-2' }}</td>
+                                                <td class="text-end">{{ childItem?.totalWithFreight | currency: 'INR': '' : '1.0-2' }}
+                                                </td>
+                                                <td class="text-end">{{ childItem?.totalWithFreightWithGST | currency: 'INR': '' : '1.0-2'
+                                                  }}</td>
+                                                <td class="text-end">{{ marginPer }} </td>
+                                                <td class="text-end">{{ ((childItem?.totalWithFreightWithGST * marginPer) / 100) | currency: 'INR': '' : '1.0-2' }} </td>
+                                                <td class="text-end">{{ (((childItem?.totalWithFreightWithGST * marginPer) / 100) + childItem?.totalWithFreightWithGST) | currency: 'INR': '' : '1.0-2' }} </td>
+                                              </tr>
+                                            </ng-container>
+                                          </ng-container>
+                                          <tr class="table-footer fw-bold">
+                                            <td colspan="8">Total Cost</td>
+                                            <td class="text-end">{{ main?.total_price_value | currency: 'INR': '' : '1.0-2' }}</td>
+                                            <td colspan="2"></td>
+                                            <td class="text-end">{{ main?.total_GST_value | currency: 'INR': '' : '1.0-2' }}</td>
+                                            <td></td>
+                                            <td class="text-end">{{ main?.total_freight_value | currency: 'INR': '' : '1.0-2' }}</td>
+                                            <td class="text-end">{{ main?.total_freight_with_GST_value | currency: 'INR': '' : '1.0-2' }} </td>
+                                            
+                                            <td></td>
+                                            <td class="text-end">{{ ((main?.total_freight_with_GST_value * marginPer) / 100) | currency: 'INR': '' : '1.0-2' }} </td>
+                                            <td class="text-end">{{ ((main?.total_freight_with_GST_value * marginPer) / 100) + (+main?.total_freight_with_GST_value) | currency: 'INR': '' : '1.0-2' }} </td>
+                                            
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </ng-container>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center" *ngIf="directDataShow && (rowData?.directCost.length == 0)">
+                    <div class="text-warning fw-semibold text-small">Looks like no data available! </div>
+                  </div>
+                </div>
+  
+                <div class="card p-2 mt-1" (click)="indirectDataShow = !indirectDataShow">
+                  <div class="row p-1">
+                    <div class="col-md-6">
+                      <h6 class="mb-2 text-primary cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-activity" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2" />
+                        </svg> &nbsp;
+                        Indirect Costing
+                      </h6>
+                    </div>
+  
+                    <div class="col-md-6">
+                      <div class="float-right" title="Show/Hide Details">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-chevron-down" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                        </svg>
+  
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="container-fluid mt-1" *ngIf="indirectDataShow && (rowData?.indirectCost.length > 0)">
+                    <div class="row">
+                      <div class="col-md-12 p-0">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-md-12 p-0">
+                              <div class="table-responsive">
+                                <ng-container class="mt-1" *ngFor="let main of rowData?.indirectCost">
+                                  <div class="table-responsive pt-2 mb-2" style="min-height: auto;">
+                                    <tr class="text-center">
+  
+                                      <h6 class="mt-3 mb-2 text-secondary" *ngIf="main?.deptname != null; else elseBlock22">{{main?.costtype}} - {{main?.deptname}}</h6>
+                                      <ng-template #elseBlock22>
+                                        <h6 class="mt-2 mb-1 text-secondary">{{main?.costtype}}</h6>
+                                      </ng-template>
+                                    </tr>
+                                    <table class="table table-hover table-striped">
+                                      <thead class="table-primary text-nowrap">
+                                        <tr>
+                                          <th>S No</th>
+                                          <th>Overhead Type</th>
+                                          <th *ngIf="main?.deptname == null">Expense Type</th>
+                                          <th *ngIf="main?.deptname != null">Department</th>
+                                          <th *ngIf="main?.deptname != null">Designation</th>
+                                          <th *ngIf="main?.deptname != null">Employee Name</th>
+                                          <th>UOM</th>
+                                          <th *ngIf="main?.deptname == null">Unit Cost</th>
+                                          <th *ngIf="main?.deptname != null">Salary</th>
+                                          <th *ngIf="main?.deptname == null">Multiplier</th>
+                                          <th *ngIf="main?.deptname != null">Months</th>
+                                          <th *ngIf="main?.deptname != null">% Involvement</th>
+                                          <th>Total</th>
+                                          <th>Margin %</th>
+                                          <th>Margin Amount</th>
+                                          <th>After Margin</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="text-nowrap">
+                                        <tr *ngFor="let item of main?.records; index as i">
+                                          <td>{{ limit*(p-1)+i+1 }}</td>
+                                          <td>{{ main?.costtype }}</td>
+                                          <td *ngIf="main?.deptname == null">
+                                            <div *ngIf="!!item.expensetype; else elseBlock23" data-toggle="tooltip" data-placement="bottom"
+                                              title="{{ item.expensetype }}">
+                                              {{item.expensetype | slice:0:30}} <span *ngIf="item.expensetype.length > 30">...<i class="mdi mdi-information"></i></span>
+                                            </div>
+                                            <ng-template #elseBlock23>
+                                              {{item.expensetype}}
+                                            </ng-template>
+                                          </td>
+                                          <td *ngIf="main?.deptname != null">{{ item.deptname }}</td>
+                                          <td *ngIf="main?.deptname != null">{{ item.designationname }}</td>
+                                          <td *ngIf="main?.deptname != null">{{ item.employee_name }}</td>
+                                          <td>{{ item.uom }}</td>
+                                          <td>{{ item.unitcost | currency:'INR':'':'1.0-2' }}</td>
+                                          <td>{{ item.multiplier }}</td>
+                                          <td *ngIf="main?.deptname != null">{{ item.percentage_involvment }}
+                                          </td>
+                                          <td class="text-end">{{ item.total | currency:'INR':'':'1.0-2' }}
+                                          </td>
+                                          <td class="text-end">{{ marginPer }} </td>
+                                          <td class="text-end">{{ ((item.total * marginPer) / 100) | currency:'INR':'':'1.0-2' }}
+                                          </td>
+                                          <td class="text-end">{{ (((item.total * marginPer) / 100) + (+item.total)) | currency:'INR':'':'1.0-2' }}
+                                          </td>
+                                        </tr>
+                                        <tr class="table-footer fw-bold" *ngIf="main?.deptname != null; else elseBlock24">
+                                          <td colspan="9">Total Cost</td>
+                                          <td class="text-end">{{ main?.all_total | currency:'INR':'':'1.0-2' }}</td>
+                                          <td></td>
+                                          <td class="text-end">{{ ((main?.all_total * marginPer) / 100) | currency:'INR':'':'1.0-2' }}</td>
+                                          <td class="text-end">{{ ((main?.all_total * marginPer) / 100) + (+main?.all_total)  | currency:'INR':'':'1.0-2' }}</td>
+                                        </tr>
+                                        <ng-template #elseBlock24>
+                                          <tr class="table-footer fw-bold">
+                                            <td colspan="6">Total Cost</td>
+                                            <td class="text-end">{{ main?.all_total | currency:'INR':'':'1.0-2' }}</td>
+                                            <td></td>
+                                            <td class="text-end">{{ ((main?.all_total * marginPer) / 100) | currency:'INR':'':'1.0-2' }}</td>
+                                            <td class="text-end">{{ ((main?.all_total * marginPer) / 100) + (+main?.all_total) | currency:'INR':'':'1.0-2' }}</td>
+                                          </tr>
+                                        </ng-template>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </ng-container>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="d-flex justify-content-center" *ngIf="indirectDataShow && (rowData?.indirectCost.length == 0)">
+                    <div class="text-warning fw-semibold text-small">Looks like no data available! </div>
+                  </div>
+  
+                </div>
+                
+                <!-- Costing Summary -->
+                <div class="mt-3" *ngIf="rowData?.directCost.length > 0 && rowData?.indirectCost.length > 0">
+                  <div class="col-md-12 p-0">
+                    <div class="table-responsive tableStyle" style="min-height: auto;">
+                      <h6 class="mb-2 text-secondary">Costing Summary</h6>
+                      <table class="table table-hover table-striped mb-3">
+                        <thead class="table-primary text-nowrap">
+                          <tr>
+                            <th>Direct Costing (A)</th>
+                            <th>InDirect Costing (B)</th>
+                            <th>Margin % (C)</th>
+                            <th>Margin Cost (D=((A+B)*C)/100)</th>
+                            <th>Total Cost (E=A+B+D)</th>
+                            <th>ECV (F)</th>
+                            <th>Project Profit (G=F-E)</th>
+                            <th>Profit % (H=(G/F)*100)</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-nowrap">
+                          <tr>
+                            <td>{{ overallDirectCost | currency:'INR':'':'1.0-2' }}</td>
+                            <td>{{ overallInDirectCost | currency:'INR':'':'1.0-2' }}</td>
+                            <td>{{ marginPer }}</td>
+                            <td>{{ totalMargin | currency:'INR':'':'1.0-2' }}</td>
+                            <td>{{ totalProjectCostWithMargin | currency:'INR':'':'1.0-2' }}</td>
+                            <td>{{ rowData?.ecv | currency: 'INR': '' : '1.0-2' }}</td>
+                            <td>{{ totalProfit | currency:'INR':'':'1.0-2' }}</td>
+                            <td>{{ profitPer   | currency:'INR':'':'1.0-2' }} %</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- Costing Summary -->
+
+                <!-- ******************************Tender Attachments details ******************************************* -->
+                <div class="col-md-6">
+                    <h6 class="mt-3 mb-2 text-secondary">Attachments</h6>
+                  </div>
+                  <div class="card p-2 mt-1" >
+                    <div class="row p-1" (click)="attachmentDataShow = !attachmentDataShow">
+                      <div class="col-md-6">
+                        <h6 class="mb-2 text-primary cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
+                                <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
+                              </svg> &nbsp;
+                          Attachment Details
+                        </h6>
+                      </div>
+    
+                      <div class="col-md-6">
+                        <div class="float-right" title="Show/Hide Details">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                          </svg>
+    
+                        </div>
+                      </div>
+                    </div>
+    
+                    <div class="container-fluid mt-1" *ngIf="attachmentDataShow">
+                      <div class="row">
+                        <div class="col-md-12 p-0">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12 p-0">
+                                <div class="table-responsive">
+                                  
+                                  <!-- Company attachemnts -->
+                                  <div class="card p-2 mt-1">
+                                    <div class="row p-1"  (click)="compattachmentDataShow = !compattachmentDataShow">
+                                      <div class="col-md-6">
+                                        <h6 class="mb-2 text-primary cursor-pointer">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-buildings" viewBox="0 0 16 16">
+                                            <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z"/>
+                                            <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z"/>
+                                          </svg> &nbsp;
+                                        Company Attachments
+                                        </h6>
+                                      </div>
+                    
+                                      <div class="col-md-6">
+                                        <div class="float-right" title="Show/Hide Details">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                          </svg>
+                    
+                                        </div>
+                                      </div>
+                                    </div>
+                    
+                                    <div class="container-fluid mt-1" *ngIf="compattachmentDataShow">
+                                      <div class="row">
+                                        <div class="col-md-12 p-0">
+                                          <div class="container-fluid">
+                                            <div class="row">
+                                              <div class="col-md-12 p-0">
+                                                <div class="table-responsive">
+                                                  <table class="table table-hover table-striped custom-table table-bordered">
+                                                    <thead class="table-primary text-nowrap">
+                                                        <tr>
+                                                            <th>S No</th>
+                                                            <th>Document Type</th>
+                                                            <th>Document Name</th>
+                                                            <th>No of Document</th>
+                                                            <th>Selection</th>
+                                                        </tr>
+                                                    </thead>
+                        
+                                        
+                                                    <tbody class="text-nowrap">
+                                                        <tr *ngFor="let a of attachementDetailsData; index as j">
+                                                            <td>{{ limit*(p-1)+j+1 }}</td>
+                                                            <td>{{ a?.DocType }}</td>
+                                                            <td>{{ a?.doc }}</td>
+                                                            <td>{{ a?.doc?.length }}</td>
+                                                            <td>
+                                                              <input type="checkbox" name="selectdoc" id="select" (click)="handleCheckboxChange($event, a)">
+                                                        </td>
+                                                        </tr>
+
+                                                        <tr *ngIf="attachementDetailsData?.length == 0">
+                                                            <td colspan="15" class="text-center">
+                                                                <div class="spinner-border"> </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                              
+
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                    
+                                    <div class="d-flex justify-content-center" *ngIf="compattachmentDataShow && (attachementDetailsData.length == 0)">
+                                      <div class="text-warning fw-semibold text-small">Looks like no attachments available! </div>
+                                    </div>
+                    
+                                  </div>
+
+                                  <!-- tender attachments -->
+                                  <div class="card p-2 mt-1" >
+                                    <div class="row p-1" (click)="tendattachmentDataShow = !tendattachmentDataShow">
+                                      <div class="col-md-6">
+                                        <h6 class="mb-2 text-primary cursor-pointer">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-disc" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                            <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0M8 4a4 4 0 0 0-4 4 .5.5 0 0 1-1 0 5 5 0 0 1 5-5 .5.5 0 0 1 0 1m4.5 3.5a.5.5 0 0 1 .5.5 5 5 0 0 1-5 5 .5.5 0 0 1 0-1 4 4 0 0 0 4-4 .5.5 0 0 1 .5-.5"/>
+                                          </svg> &nbsp;
+                                         Tender Attachments
+                                        </h6>
+                                      </div>
+                    
+                                      <div class="col-md-6">
+                                        <div class="float-right" title="Show/Hide Details">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                          </svg>
+                    
+                                        </div>
+                                      </div>
+                                    </div>
+                    
+                                    <div class="container-fluid mt-1" *ngIf="tendattachmentDataShow">
+                                      <div class="row">
+                                        <div class="col-md-12 p-0">
+                                          <div class="container-fluid">
+                                            <div class="row">
+                                              <div class="col-md-12 p-0">
+                                                <div class="table-responsive">
+                                                  <table class="table table-hover table-striped custom-table table-bordered" >
+                                                    <thead class="table-primary text-nowrap">
+                                                        <tr>
+                                                            <th>S No</th>
+                                                            <th>Document Type</th>
+                                                            <th>Document Name</th>
+                                                            <th>No of Documents</th>
+                                                            <th>Selection</th>
+                                                        </tr>
+                                                    </thead>
+                        
+                                        
+                                                    <tbody class="text-nowrap">
+                                                        <tr *ngFor="let a of attachementTendDetailsData; index as i">
+                                                            <td>{{ limit*(p-1)+i+1 }}</td>
+                                                            <td>{{ a?.DocType }}</td>
+                                                            <td>{{ a?.doc }}</td>
+                                                            <td>{{a?.doc?.length}}</td>
+                                                            <td>
+                                                              <input type="checkbox" name="selectdoc" id="select" (change)="handleCheckboxChange($event, a)">
+                                                          </td>
+                                                        </tr>
+                                                        <tr *ngIf="attachementTendDetailsData?.length == 0">
+                                                            <td colspan="15" class="text-center">
+                                                                <div class="spinner-border"> </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                    
+                                    <div class="d-flex justify-content-center" *ngIf="tendattachmentDataShow && (attachementTendDetailsData.length == 0)">
+                                      <div class="text-warning fw-semibold text-small">Looks like no attachments available! </div>
+                                    </div>
+                    
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <!-- <div class="d-flex justify-content-center" *ngIf="attachmentDataShow && (rowData?.indirectCost.length == 0)">
+                      <div class="text-warning fw-semibold text-small">Looks like no attachments available! </div>
+                    </div> -->
+    
+                  </div>
+
+                  <!-- tender attachment details stop -->
+  
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="rowData?.approval_stage != 3">
+                  <div class="row mt-2">
+                      <!-- <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label fl-10">Request Status<span class="required-asterisk">*</span></label>
+                          <select formControlName="tenderstatus_id" class="form-select form-select-sm">
+                            <option [value]="null" disabled selected>Select Status</option>
+                            <option *ngFor="let c of reqList" [value]="c.requeststatus_id">{{
+                              c.request_status }}</option>
+                          </select>
+                          <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
+                            <small class="text-danger" *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
+                          </div>
+                        </div>
+                      </div> -->
+                      
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label fl-10"> Submitted On<span
+                                    class="required-asterisk">*</span></label>
+                            <input formControlName="submitted_on" type="date"
+                                class="form-control form-control-sm">
+                            <div
+                                *ngIf="f['submitted_on'].touched && f['submitted_on'].invalid">
+                            </div>
+                        </div>
+                    </div>
+
+                      <div class="col-md-9">
+                        <div class="form-group">
+                          <label class="form-label fl-10">Remarks<span class="required-asterisk">*</span></label>
+                          <input formControlName="working_notes" type="text" class="form-control form-control-sm">
+                          <div *ngIf="f['working_notes'].touched && f['working_notes'].invalid">
+                            <small class="text-danger" *ngIf="f['working_notes'].errors?.['required']">*Required</small>
+                          </div>
+                        </div>
+                      </div>
+                   
+  
+  
+                    <div class="col-md-12">
+                      <div class="presales" >
+                        <button *ngIf="this.userData.rolename !== 'Manager' && this.userData.rolename !== 'Administrator'"
+                          type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right" [disabled]="form.invalid">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-send" viewBox="0 0 16 16">
+                            <path
+                              d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                          </svg> &nbsp;Submit
+                        </button>
+                      </div>
+  
+                      <ng-container *ngIf="this.userData.rolename === 'Administrator'">
+                        <button *ngIf="this.userData.rolename !== 'Manager' || this.userData.rolename !== 'PreSales'"
+                          type="submit" class="btn btn-primary btn-fw btn-sm me-2 float-right" [disabled]="form.invalid">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-send" viewBox="0 0 16 16">
+                            <path
+                              d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                          </svg> &nbsp;Final Update
+                        </button>
+                      </ng-container>
+                      <ng-container *ngIf="this.userData.rolename === 'Manager'">
+                        <div class="float-right">
+                        
+                          <button type="submit" class="btn btn-primary btn-fw btn-sm me-2 " [disabled]="form.invalid">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                              class="bi bi-save" viewBox="0 0 16 16">
+                              <path
+                                d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
+                            </svg> &nbsp;Approved
+                          </button>
+  
+                        </div>
+                      </ng-container>
+                    </div>
+  
+                  </div>
+                  <!-- <div class="d-flex mt-3" *ngIf="rowData?.directCost.length == 0 && rowData?.indirectCost.length == 0">
+                    <div class="text-warning fw-semibold text-small">*Note: Qualifications, Costing, or Attachments are not available. Therefore, final approval is not possible.</div>
+                  </div> -->
+
+                </form>
+                <!-- tender status modal end-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- detail modal end-->

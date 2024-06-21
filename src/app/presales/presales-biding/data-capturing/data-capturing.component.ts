@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -73,6 +73,13 @@ export class DataCapturingComponent implements OnDestroy {
   selectedUserIds:any = [];
   ecvData:any
   private destroy$ = new Subject<void>();
+  stateListData: any;
+  emdData:any;
+  regFeeData:any;
+  docCostData:any;
+  securityData:any;
+  minClosingDate: any;
+  minAfterDate: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -83,6 +90,11 @@ export class DataCapturingComponent implements OnDestroy {
     private router: Router,
 
   ) {
+
+    this.form = this.formBuilder.group({
+      tender_location: this.formBuilder.array([])
+    });
+
     this.route.params.subscribe((params: Params) => {
       this.tenderData = params;
     });
@@ -91,9 +103,12 @@ export class DataCapturingComponent implements OnDestroy {
       this.userData = JSON.parse(userDataString);
     }
   }
+
   get f() { return this.form.controls; }
-  get f1() { return this.form1.controls }
+  get f1() { return this.form1.controls; }
+  
   ngOnInit() {
+    this.addAnotherRow();
     this.form = this.formBuilder.group({
       company_id: [null, Validators.required],
       tender_title: [null, Validators.required],
@@ -102,7 +117,7 @@ export class DataCapturingComponent implements OnDestroy {
       qacatagory_id: [null],
       subqacatagory_id: [null],
       bidtype_id: [null, Validators.required],
-       tender_location: [null, Validators.required],
+      //  tender_location: [null, Validators.required],
       //  tender_location: new FormArray([]),
       // tender_location_type: [null, Validators.required],
       publish_date: [null, Validators.required],
@@ -133,7 +148,7 @@ export class DataCapturingComponent implements OnDestroy {
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
-      city:[null],
+      city:[null, Validators.required],
       // financialyear_id: [null, Validators.required],
 
       //securitydeposit
@@ -151,7 +166,8 @@ export class DataCapturingComponent implements OnDestroy {
       working_notes: [null],
       audit_trail: [null],
       remarks: [null],
-    });
+      tender_location: this.formBuilder.array([]),
+    }, { validator: this.dateLessThan('publish_date', 'closing_date') });
 
     this.form1 = this.formBuilder.group({
       company_id: [null],
@@ -162,18 +178,80 @@ export class DataCapturingComponent implements OnDestroy {
       emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
 
+    this.addAnotherRow();
     this.getCompanyData();
     this.getCountryData();
     this.getDesignDeptData();
     this.finYearData();
     this.getCategoryData();
+    this.onPublishDateChange();
+    this.onClosingDateChange();
+    
   }
+
+  dateLessThan(startDate: string, endDate: string): ValidatorFn {
+    return (group: AbstractControl): { [key: string]: any } | null => {
+      let start = group.get(startDate)!.value;
+      let end = group.get(endDate)!.value;
+      if (start && end && start > end) {
+        return { 'dateInvalid': true };
+      }
+      return null;
+    };
+  }
+  onPublishDateChange() {
+    this.form.controls['closing_date'].reset();
+  }
+
+  onClosingDateChange(){
+    this.form.controls['tender_submission_date'].reset();
+    this.form.controls['tenderhardcopysubmission_date'].reset();
+    this.form.controls['tech_bid_date'].reset();
+    this.form.controls['fin_bid_opening_date'].reset();
+    this.form.controls['securitysubmission_date'].reset();
+    this.form.controls['emd_submission_date'].reset();
+    this.form.controls['prebid_date'].reset();
+    this.form.controls['securitysubmission_date'].reset();
+  }
+
+
   patchClient() {
     console.log(this.custDetails)
     this.form1.patchValue({
       company_id: this.custDetails[0]?.company_name
     })
   }
+
+//for multi location address
+get tender_location(): FormArray {
+  return this.form.get('tender_location') as FormArray;
+}
+
+loc(): FormArray {
+  return this.tender_location;
+}
+
+newLocation(): FormGroup {  
+  return this.formBuilder.group({  
+    site_location: [null, Validators.required],
+    location_address: [null, Validators.required],
+    state_id: [null, Validators.required],
+    district_id: [null, Validators.required],
+    city: [null, Validators.required],
+    pincode: [null, [Validators.required, Validators.maxLength(6)]],
+    districtData: [[]]  // Add a control to hold district data
+  });  
+}
+
+addAnotherRow() { 
+  this.loc().push(this.newLocation());  
+} 
+
+removeRow(i: number) { 
+  this.loc().removeAt(i);
+}
+
+
 
   getCountryData() {
     this.apiService.getCountryDataList().pipe(takeUntil(this.destroy$)).subscribe(
@@ -211,26 +289,69 @@ export class DataCapturingComponent implements OnDestroy {
     }
     );
   }
-
-  getDistrictData() {
-    this.districtData = [];
-    let data = this.form.value.state_id;
-    let dist = this.form.value.district_id;
-    this.apiService.getDistData(data, dist).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (res: any) => {
+  getStateData1(data:any) {
+    let countrydata = this.form.value.country_id;
+    let statedata = null;
+    this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
+      {next: (res: any) => {
         if (res.status === 200) {
-          this.districtData = res.result;
+          this.stateData = res.result;
         } else {
-          this.alertService.warning(`Looks like no district available related to ${this.form.value.state}.`);
+          this.alertService.warning(`Looks like no state available related to the selected country.`);
         }
       }, error: (error: any) => {
         console.error(error);
         this.isNotFound = true;
         this.alertService.error("Error: Unknown Error!")
       }
+    }
+    );
+  }
+
+  getDistrictData(stateId: number, index: number) {
+    const formGroup = this.loc().at(index) as FormGroup;
+    const dist = formGroup.get('district_id')?.value;
+    this.apiService.getDistData(stateId, dist).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          const districtControl = formGroup.get('districtData');
+          if (districtControl) {
+            districtControl.setValue(res.result);
+          }
+        } else {
+          this.alertService.warning(`Looks like no district available related to the selected state.`);
+        }
+      }, error: (error: any) => {
+        console.error(error);
+        this.alertService.error("Error: Unknown Error!");
+      }
     });
   }
 
+  getDistrictData1(stateId: any){
+    const dist = this.form.value.district_id;
+    this.apiService.getDistData(stateId, dist).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          this.districtData = res.result;
+        } else {
+          this.alertService.warning(`Looks like no district available related to the selected state.`);
+        }
+      }, error: (error: any) => {
+        console.error(error);
+        this.alertService.error("Error: Unknown Error!");
+      }
+    });
+  }
+
+  onStateChange(event: Event, index: number) {
+    const target = event.target as HTMLSelectElement;
+    const stateId = Number(target.value);
+    if (stateId) {
+      this.getDistrictData(stateId, index);
+    }
+  }
+ 
   getDesignDeptData() {
     this.masterService.getUserMaster().pipe(takeUntil(this.destroy$)).subscribe({
       next:(res: any) => {
@@ -248,13 +369,8 @@ export class DataCapturingComponent implements OnDestroy {
     this.isNotFound = true;
     this.masterService.getFinData().pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
-        console.log(res);
-        
         this.financialData = res.result;
-        console.log( this.financialData);
-        
       }, error: (error: any) => {
-        console.error(error);
         this.isNotFound = true;
         this.alertService.error("Error: Unknown Error!")
       }
@@ -341,17 +457,16 @@ export class DataCapturingComponent implements OnDestroy {
         this.custDetails = res.result[0];
         this.tendContDetails = res.result[0].tendercontact;
         console.log(this.tendContDetails);
-        this.multiLocation = this.custDetails.tender_location;
+        this.multiLocation = res.result[0].siteAddress;
+        console.log( this.multiLocation);
+        
        
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
           company_id: this.custDetails.company_id,
           paymentmethod_id: this.custDetails.paymentmethod_id,
-        
-          // opening_date: this.custDetails.opening_date,
           reserve_auction: this.custDetails.reserve_auction,
-     
           pre_meeting: this.custDetails.pre_meeting,
           prebidmeetingmode_id: this.custDetails.prebidmeetingmode_id,
           publish_date: this.custDetails.publish_date ? new Date(this.custDetails.publish_date).toISOString().split('T')[0] : null,
@@ -365,9 +480,9 @@ export class DataCapturingComponent implements OnDestroy {
           tenderpayment_terms: this.custDetails.tenderpayment_terms,
           tender_location: this.custDetails.tender_location,
           tender_ref_no: this.custDetails.tender_ref_no,
-          qacatagory_id: this.custDetails.qacatagory_id,
-          subqacatagory_id: this.custDetails.subqacatagory_id,
-          capacity_id: this.custDetails.capacity_id,
+          qacatagory_id: this.custDetails.qacatagory,
+          subqacatagory_id: this.custDetails.subqacatagory,
+          capacity_id: this.custDetails.capacity,
           tender_status: this.custDetails.tender_status,
           tender_submission_date: this.custDetails.tender_submission_date ? new Date(this.custDetails.tender_submission_date).toISOString().split('T')[0] : null,
           tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date ? new Date(this.custDetails.tenderhardcopysubmission_date).toISOString().split('T')[0] : null,
@@ -393,7 +508,6 @@ export class DataCapturingComponent implements OnDestroy {
           remarks: this.custDetails.remarks ? this.custDetails.remarks.join('\n') : '',
           audit_trail: this.custDetails.audit_trail ? this.custDetails.audit_trail.join('\n') : '',
           contactperson_check: this.custDetails.contactperson_check,
-
           fin_bid_opening_date: this.custDetails.fin_bid_opening_date ? new Date(this.custDetails.fin_bid_opening_date).toISOString().split('T')[0] : null,
           closing_date: this.custDetails.closing_date ? new Date(this.custDetails.closing_date).toISOString().split('T')[0] : null,
           prebid_date: this.custDetails.prebid_date ? new Date(this.custDetails.prebid_date).toISOString().split('T')[0] : null,
@@ -402,22 +516,16 @@ export class DataCapturingComponent implements OnDestroy {
           emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
 
         });
-       
-          // setTimeout(()=>{
-          //   this.form.patchValue({
-          //     subqacatagory_id: this.custDetails.subqacatagory_id,
-          //     capacity_id: this.custDetails.capacity_id,
 
-          //   })
-          // },400);
-        
+       
         setTimeout(() => {
           this.getStateData();
-          this.getDistrictData();
+          // this.getDistrictData();
         }, 500);
       })
     }
   }
+
 
   fileList: File[] = [];
   listOfFiles: any[] = [];
@@ -430,6 +538,7 @@ export class DataCapturingComponent implements OnDestroy {
       this.attachment.push(selectedFile);
     }
   }
+  
   removeSelectedFile(index: any) {
     this.listOfFiles.splice(index, 1);
     this.fileList.splice(index, 1);
@@ -536,6 +645,7 @@ export class DataCapturingComponent implements OnDestroy {
     }
   }
 
+ 
   getCompanyData() {
     this.apiService.getCompanyList().pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
@@ -659,7 +769,13 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   updateTender(): void {
-   
+    // this.form.patchValue({
+    //   qacatagory_id: this.custDetails.qacatagory_id,
+    //   subqacatagory_id: this.custDetails.subqacatagory_id,
+    //   capacity_id: this.custDetails.capacity_id,
+
+    // });
+
     this.form.value.tender_id = this.tenderData.id;
     this.apiService.tenderUpdation(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {

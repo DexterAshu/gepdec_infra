@@ -55,9 +55,9 @@ export class IndirectCostingComponent {
     this.getDropdownList();
   }
   
-  ngAfterViewInit() {
-    this.sharedService.initializeTooltips(this.elementRef);
-  }
+  // ngAfterViewInit() {
+  //   this.sharedService.initializeTooltips(this.elementRef);
+  // }
 
   get f() { return this.form.controls; }
 
@@ -74,8 +74,8 @@ export class IndirectCostingComponent {
     });
   }
 
-  rowLocation(row: any) {
-    this.masterService.openModal(row?.tender_location);
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   getTenderData() {

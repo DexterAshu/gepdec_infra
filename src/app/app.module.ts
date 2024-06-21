@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule} from '@angular/core';
-import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
@@ -145,6 +145,7 @@ import localeIn from '@angular/common/locales/en-IN';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { DraggableModalDirective } from './drag-directive';
 
+
 // Register the locale data for 'en-IN'
 registerLocaleData(localeIn, 'en-IN');
 import { LOCALE_ID } from '@angular/core';
@@ -154,11 +155,19 @@ import { UnderDevelopmentComponent } from './sharedComponent/under-development/u
 import { PreSalesDrawingComponent } from './presales/design/pre-sales-drawing/pre-sales-drawing.component';
 import { PreSalesFinalBOQComponent } from './presales/design/pre-sales-final-boq/pre-sales-final-boq.component';
 import { PreSalesMasterDrawingListComponent } from './presales/design/pre-sales-master-drawing-list/pre-sales-master-drawing-list.component';
+import { FinalReportComponent } from './presales/presales-biding/final-report/final-report.component';
+import { WonLossTenderComponent } from './presales/presales-biding/won-loss-tender/won-loss-tender.component';
 import { LocationModalComponent } from './sharedComponent/location-modal/location-modal.component';
+import { SliceWithTooltipComponent } from './sharedComponent/slice-with-tooltip/slice-with-tooltip.component';
+import { TenderDetailComponent } from './sharedComponent/tender-detail/tender-detail.component';
+import { LocationSectionSharedComponent } from './sharedComponent/location-section-shared/location-section-shared.component';
+import { ConfirmModalComponent } from './sharedComponent/confirm-modal/confirm-modal.component';
+
 
 @NgModule({
   declarations: [
     DraggableModalDirective,
+   
     UsdOnlyDirective,
     AppComponent,
     HeaderComponent,
@@ -203,14 +212,14 @@ import { LocationModalComponent } from './sharedComponent/location-modal/locatio
     L2ScheduleBulkdataComponent,
     WarehouseMasterComponent,
     MyCompanyComponent, VendorMasterComponent, TenderMasterComponent, ItemMasterComponent, DepartmentMasterComponent, DesignationMasterComponent, SpareMasterComponent,
-    TitleMasterComponent,RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
+    TitleMasterComponent, RoleMasterComponent, DesignDashboardComponent, WarehouseDashboardComponent, ExecutionDashboardComponent, QualityDashboardComponent, TicketDashboardComponent, ReportDashboardComponent, AlertDashboardComponent, FinYearComponent,
     ProjectsComponent, ProjectMilestoneComponent, MilestoneTasksComponent, ProjectDocumentsComponent, BidQualifyComponent, HelpSupportComponent, DocumentationComponent, ProjReportsComponent, ResetPasswordComponent, ForgetPasswordComponent, DataCapturingComponent, CaptureDataListComponent,
     CompanyContactsComponent, SupplierComponent, TenderDocumentComponent, BgDocumentComponent, LcDocumentComponent, CommunicationDocumentComponent, OthersDocumentComponent, TechnicalBidComponent, FinancialBidComponent, BankingDetailsComponent, CountryMasterComponent, SupplierComponent, SupplierItemLinkComponent,
     AmendmentsComponent, InitialBoqComponent, L1ScheduleComponent, QualificationDocumentComponent, FinDocumentsComponent, TechDocumentsComponent, OtherDocumentsComponent, FinBalancesheetComponent, FinMaatComponent, FinLiquidAssetComponent, FinBankCertificateComponent,
     FinItrComponent, FinTenderFeesComponent, TechQualificationComponent, ProcurementDocumentComponent, ProjectDocumentComponent, FinanceDocumentComponent, ItemLabelComponent, InventoryComponent, BoqComponent, ProposalOneComponent, ProposalTwoComponent, FinalProposalComponent,
     ApprovalComponent, PoDataComponent, AuditRequestComponent, AuditApprovalComponent, MangagementTenderApprovalComponent, MaterialReceiptComponent, MaterialIssuanceComponent, BoqItemsComponent, SignInComponent, MasterDrawingListComponent, DrawingComponent, FinalBOQComponent, IndirectCostingComponent, SynopsisComponent,
     CompFinanceComponent, DirectCostingComponent, CostingApprovalComponent, TenderFinalApprovalComponent, UnderDevelopmentComponent,
-    PreSalesFinalBOQComponent, PreSalesDrawingComponent, PreSalesMasterDrawingListComponent, LocationModalComponent
+    PreSalesFinalBOQComponent, PreSalesDrawingComponent, PreSalesMasterDrawingListComponent, FinalReportComponent, WonLossTenderComponent, LocationModalComponent, SliceWithTooltipComponent, TenderDetailComponent, LocationSectionSharedComponent, ConfirmModalComponent
   ],
 
   imports: [
@@ -226,7 +235,8 @@ import { LocationModalComponent } from './sharedComponent/location-modal/locatio
     NgSelectModule,
     NgMultiSelectDropDownModule,
     ChartModule,
-    AppRoutingModule
+    AppRoutingModule,
+    // SharedModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-IN' },

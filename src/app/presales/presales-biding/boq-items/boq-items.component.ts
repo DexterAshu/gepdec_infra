@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
-import { AlertService, ApiService, SharedService } from 'src/app/_services';
+import { AlertService, ApiService, MasterService, SharedService } from 'src/app/_services';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -48,7 +48,7 @@ export class BoqItemsComponent implements OnDestroy {
   boqId: any;
   locationArray: any;
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef) { }
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, private apiService: ApiService, private sharedService: SharedService, private elementRef: ElementRef, private masterService: MasterService) { }
 
   ngOnInit() {
     this.formInit();
@@ -229,8 +229,8 @@ export class BoqItemsComponent implements OnDestroy {
     this.boqId = data.boq_id;
   }
 
-  rowLocation(row: any) {
-    this.locationArray = row.tender_location;
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   getBOQItemList(data: any) {

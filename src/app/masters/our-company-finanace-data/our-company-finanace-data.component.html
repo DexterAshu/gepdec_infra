@@ -5,7 +5,7 @@
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
                         <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Company
-                            Attachment </h4>
+                            Documents </h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -50,7 +50,7 @@
                                 <th>Company</th>
                                 <th>Document Name</th>
                                 <th>Issued Date</th>
-                                <th>Attachment</th>
+                                <th>Document</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -102,7 +102,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Attachments</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Documents</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -158,7 +158,7 @@
                                 <input class="mt-2" type="file" class="form-control form-control-sm" formControlName="attachment"
                                     (change)="onFileChanged($event)" />
                             </div>
-                            <div class="modal-btns">
+                            <div class="modal-btns mt-2">
                                 <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid"
                                     class="btn btn-primary  btn-fw btn-sm mr-2">Add</button>
                                 <button type="button" *ngIf="isSubmitted" disabled
@@ -227,7 +227,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Company Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Company Document</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
@@ -238,7 +238,7 @@
                                 <table class="table table-hover table-striped custom-table table-bordered">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                            <th colspan="6" class="text-center">Tender Detail</th>
+                                            <th colspan="6" class="text-center">Company Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
@@ -252,11 +252,8 @@
                                         </tr>
                                         <tr>
                                             <th>Attachment</th>
-                                            <td>{{ rowData?.filename ? formatFilename(rowData.filename) : '' }}</td>
-                                            <th></th>
-                                            <td></td>
-                                            <th></th>
-                                            <td></td>
+                                            <td colspan="7">{{ rowData?.filename ? formatFilename(rowData.filename) : '' }}</td>
+                                         
                                         </tr>
                                         
                                     </tbody>

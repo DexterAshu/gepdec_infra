@@ -72,9 +72,9 @@ export class DashboardComponent implements OnInit {
   yAxisLabelf: string = 'Amount (Cr)';
   //  timelinef: boolean = true;
   // totalOccupied:any;
-  helloData:any=[19, 80, 30, 20, 70, 90, 80, 30, 20, 40]
+  helloData: any = [19, 80, 30, 20, 70, 90, 80, 30, 20, 40]
   // yAxisLabel2 = 'Data Value';
-  arrayData = ['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL', 'RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida']  // totalOccupied:any;
+  arrayData=['Taldihi', 'Jaunpur', 'Noida Sec-45', 'SAIL', 'RECPDCL','RRVPNL Jaipur', 'BSPTCL Patna', 'PSTCL Patiala', 'UPPTCL', 'Noida']  // totalOccupied:any;
 
 
 
@@ -721,8 +721,12 @@ export class DashboardComponent implements OnInit {
       ]
     },
   ];
-
+  
   totalOccupied: number = 1000;
+  lastEbidta: any;
+  lastRevenue: any;
+  currentRevenue: any;
+  currentEbidta: any;
   isPercentageSeries(seriesName: string): boolean {
     return seriesName === 'Rev' || seriesName === 'EBITDA';
   }
@@ -861,7 +865,7 @@ export class DashboardComponent implements OnInit {
     domain: ['#387df3', '#FFBF00', '#FF7F50']
   }
   lineColorSchemeFinance: any = {
-    domain: ['#9370DB', '#87CEFA', '#5e96f7']
+    domain: ['#5e96f7', '#fcbe53', '#90EE90']
   }
   mainColorScheme: any = {
     domain: ['#43e943', '#fad73c', '#9775dc']
@@ -1366,11 +1370,15 @@ export class DashboardComponent implements OnInit {
   lineBarColorScheme: any = {
     // domain: ['#cee27d', '#63830c']
     // domain: ['#d6a974', '#97daa7']
-    domain: ['#90EE90', '#fcbe53']
+    // domain: ['#90EE90', '#ff7f3e']
+    domain: ['#90EE90', '#ffaa80']
   }
   // lineBar chart end
   tenderDetails: any[] = [];
   lineAreaChart: any = [];
+  valueData: any=[]
+  myData: any=[];
+  titleData: any=[]
   constructor(
     private sharedService: SharedService,
     private apiService: ApiService,
@@ -1392,9 +1400,9 @@ export class DashboardComponent implements OnInit {
     // this.getCategoryData();
     this.getCatgData();
     this.getStatusData();
-//     const defaultDuration: number | null = null;
-// const defaultCategory: number | null = null;
-// const defaultCompany: number | null = null;
+    //     const defaultDuration: number | null = null;
+    // const defaultCategory: number | null = null;
+    // const defaultCompany: number | null = null;
     // this.getDashboardData(defaultDuration, defaultCategory, defaultCompany, null);
     this.getDashboardData(null, null, null, null, null, null);
     // this.getCompanyData();
@@ -1422,7 +1430,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res:any) => {
+    this.apiService.getCountryDataList().subscribe((res: any) => {
       if (res.status === 200) {
         this.countryData = res.result;
         const india = this.countryData.find((country: { name: string; }) => country.name === 'India');
@@ -1435,7 +1443,7 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-  
+
   StateData() {
     console.log(this.form.value.country_id);
 
@@ -1531,11 +1539,11 @@ export class DashboardComponent implements OnInit {
     this.selectedProject = event.target.value;
     if (this.selectedProject) {
       this.getDashboardData(
-        this.selectedDuration, 
-        this.selectedCategory, 
-        this.selectedCompany, 
-        this.selectedProject, 
-        this.form.value.state_id, 
+        this.selectedDuration,
+        this.selectedCategory,
+        this.selectedCompany,
+        this.selectedProject,
+        this.form.value.state_id,
         this.form.value.country_id
       );
     }
@@ -1575,26 +1583,32 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ShortNumber(value: number): string {
+  // ShortNumber(value: number, includeCr: boolean = true): string {
   //   if (value >= 10000000) {
-  //     return Math.floor(value / 10000000) + ' Cr';
+  //       if (includeCr) {
+  //           return Math.floor(value / 10000000) + ' Cr';
+  //       } else {
+  //           return Math.floor(value / 1000000) + ' M';
+  //       }
   //   } else if (value >= 100000) {
-  //     return Math.floor(value / 100000) + ' Lakh';
+  //       return Math.floor(value / 100000) + ' Lakh';
   //   } else {
-  //     return Math.floor(value).toString();
+  //       return Math.floor(value).toString();
   //   }
   // }
 
-
   ShortNumber(value: number, includeCr: boolean = true): string {
     if (value >= 10000000) {
-      return Math.floor(value / 10000000) + (includeCr ? ' Cr' : '');
-    } else if (value >= 100000) {
-      return Math.floor(value / 100000) + ' Lakh';
+        if (includeCr) {
+            return Math.floor(value / 10000000) + ' Cr';
+        } else {
+            return Math.floor(value / 1000000) + ' M';
+        }
     } else {
-      return Math.floor(value).toString();
+        return Math.floor(value).toString();
     }
   }
+
 
   formatNumber(value: number): string {
     if (value >= 10000000) {
@@ -1673,109 +1687,259 @@ export class DashboardComponent implements OnInit {
   //     });
   // }
 
-  getDashboardData( duration: number | null, category: number | null, company: number | null, project: number | null, stateId: number | null, countryId: number | null) {
-    // Construct URL with query parameters
-    let apiUrl = `${environment.apiUrl}/dashboard/api/v1/getLandingDashboard`; // Change this to your actual API endpoint
-    const queryParams: string[] = [];
-    if (duration !== null) queryParams.push(`financialyear_id=${duration}`);
-    if (category !== null) queryParams.push(`qacatagory_id=${category}`);
-    if (company !== null) queryParams.push(`bidder_id=${company}`);
-    if (project !== null) queryParams.push(`tender_id=${project}`);
-    if (stateId !== null) queryParams.push(`state_id=${stateId}`);
-    if (countryId !== null) queryParams.push(`country_id=${countryId}`);
-    if (queryParams.length > 0) apiUrl += '?' + queryParams.join('&');
-    this.isNotFound = true;
-    this.loading = true;
-    this.masterService.getDashboard(apiUrl).subscribe((res: any) => {
-      this.isNotFound = false;
-      this.loading = false;
-      this.dashboardData = [];
-      if (res.status === 200) {
-        // this.loading = false;
-        this.dashboardData = res;
+  // async formatIndianNumber(number: number): Promise<string> {
+  //   const denominations = [
+  //     { value: 1e14, label: 'Neel' },
+  //     { value: 1e13, label: 'Kharab' },
+  //     { value: 1e12, label: 'Arab' },
+  //     { value: 1e7, label: 'Cr' },
+  //     { value: 1e5, label: 'Lakh' },
+  //     { value: 1e3, label: 'Thousand' },
+  //     { value: 100, label: 'Hundred' }
+  //   ];
 
-        // Ensure topFiveTender is not null before using it
-        if (res.topFiveTender) {
-          this.topFiveOrder = res.topFiveTender;
-          console.log(this.topFiveOrder);
+  //   let formattedValue = '';
+  //   let maxDenomination = 0;
+  //   let maxLabel = '';
 
-        }
+  //   for (const { value, label } of denominations) {
+  //     const count = Math.floor(number / value);
+  //     if (count > 0) {
+  //       maxDenomination = count;
+  //       maxLabel = label;
+  //       break;
+  //     }
+  //   }
 
-        // Performance bar data mapping with null checks
-        if (this.dashboardData.presalesData) {
-          this.performaceBar = this.dashboardData.presalesData.map((item: any) => {
-            return {
-              name: item.name,
-              series: item.series ? [
-                { name: item.series[0]?.name, value: item.series[0]?.value ? +item.series[0].value : 0 },
-                { name: item.series[1]?.name, value: item.series[1]?.value ? +item.series[1].value : 0 }
-              ] : []
-            };
-          });
-        }
+  //   formattedValue += `${maxDenomination} ${maxLabel}`;
+  //   return formattedValue.trim();
+  // }
 
-        
-      // Map revenueResult to lineChartFinance
-      if (this.dashboardData.revenueResult) {
-        this.lineAreaChart = [
-          {
-            name: "Rev",
-            series: this.dashboardData.revenueResult.map((item: any) => ({
-              name: item.year,
-              value: +item.revenue,
-              formattedValue: this.formatNumber(+item.revenue)
-            }))
-          },
-          {
-            name: "EBITDA",
-            series: this.dashboardData.revenueResult.map((item: any) => ({
-              name: item.year,
-              value: +item.ebidta,
-              formattedValue: this.formatNumber(+item.ebidta)
-            }))
-          }
-        ];
+  formatIndianNumber(number: number): string {
+    const denominations = [
+      { value: 1e14, label: 'Neel' },
+      { value: 1e13, label: 'Kharab' },
+      { value: 1e12, label: 'Arab' },
+      { value: 1e7, label: 'Cr' },
+      { value: 1e5, label: 'Lakh' },
+      { value: 1e3, label: 'Thousand' },
+      { value: 100, label: 'Hundred' }
+    ];
+
+    let formattedValue = '';
+    let maxDenomination = 0;
+    let maxLabel = '';
+
+    for (const { value, label } of denominations) {
+      const count = Math.floor(number / value);
+      if (count > 0) {
+        maxDenomination = count;
+        maxLabel = label;
+        break;
       }
+    }
 
-        // Pie chart data mapping with null checks
-        if (this.dashboardData.topFiveLocationWise) {
-          this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
-            return {
-              name: item.state_name || 'Other',
-              value: item.state_count ? +item.state_count : 0,
-            };
-          });
-        }
-
-        // Progress bar data mapping with null checks
-        if (this.dashboardData.statusProgress) {
-          // All data
-          this.allProgressBar = this.dashboardData.statusProgress.map((item: any) => {
-            return {
-              name: item.tender_title,
-              value: item.progress,
-              // value: [0, 20, 40, 60, 80, 100],
-              tender_id: item.tender_id
-            };
-          });
-
-          // Top 10 data
-          this.progressBar = this.allProgressBar.slice(0, 10);
-
-          this.progressBar2 = this.dashboardData.statusProgress; // Keeping original data for logging
-          console.log('progressBar2-->', this.progressBar2);
-        }
-      } else {
-        this.alertService.warning("Looks like no data available!");
-      }
-    }, (error: any) => {
-      console.error(error);
-      this.dashboardData = [];
-      this.isNotFound = false;
-      this.loading = false;
-      this.alertService.error("Error: " + error.statusText);
-    });
+    formattedValue += `${maxDenomination} ${maxLabel}`;
+    return formattedValue.trim();
   }
+
+    getDashboardData( duration: number | null, category: number | null, company: number | null, project: number | null, stateId: number | null, countryId: number | null) {
+      // Construct URL with query parameters
+      let apiUrl = `${environment.apiUrl}/dashboard/api/v1/getLandingDashboard`; // Change this to your actual API endpoint
+      const queryParams: string[] = [];
+      if (duration !== null) queryParams.push(`financialyear_id=${duration}`);
+      if (category !== null) queryParams.push(`qacatagory_id=${category}`);
+      if (company !== null) queryParams.push(`bidder_id=${company}`);
+      if (project !== null) queryParams.push(`tender_id=${project}`);
+      if (stateId !== null) queryParams.push(`state_id=${stateId}`);
+      if (countryId !== null) queryParams.push(`country_id=${countryId}`);
+      if (queryParams.length > 0) apiUrl += '?' + queryParams.join('&');
+      this.isNotFound = true;
+      this.loading = true;
+      this.masterService.getDashboard(apiUrl).subscribe(async (res: any) => {
+        this.isNotFound = false;
+        this.loading = false;
+        this.dashboardData = [];
+        if (res.status === 200) {
+          // this.loading = false;
+          this.dashboardData = res;
+          // top card data
+          this.currentRevenue = this.dashboardData.revenueData.current_revenue/1e7;
+          this.currentEbidta = Math.floor(this.dashboardData.ebitdaData.current_ebidta/1e7);
+          this.lastRevenue = this.dashboardData.revenueData.last_revenue/1e7;
+          this.lastEbidta = Math.floor(this.dashboardData.ebitdaData.last_ebidta/ 1e7);
+
+          // Ensure topFiveTender is not null before using it
+          if (res.topFiveTender) {
+            this.topFiveOrder = res.topFiveTender;
+            console.log(this.topFiveOrder);
+
+          }
+
+          // Performance bar data mapping with null checks
+          if (this.dashboardData.presalesData) {
+            this.performaceBar = this.dashboardData.presalesData.map((item: any) => {
+              return {
+                name: item.name,
+                series: item.series ? [
+                  { name: item.series[0]?.name, value: item.series[0]?.value ? +item.series[0].value : 0 },
+                  { name: item.series[1]?.name, value: item.series[1]?.value ? +item.series[1].value : 0 }
+                ] : []
+              };
+            });
+          }
+
+          
+        // Map revenueResult to lineChartFinance
+        // if (this.dashboardData.revenueResult) {
+        //   this.lineAreaChart = [
+        //     {
+        //       name: "Rev",
+        //       series: this.dashboardData.revenueResult.map((item: any) => ({
+        //         name: item.year,
+        //         value: +item.revenue,
+        //         // formattedValue: this.ShortNumber(+item.revenue)
+        //       }))
+        //     },
+        //     {
+        //       name: "EBITDA",
+        //       series: this.dashboardData.revenueResult.map((item: any) => ({
+        //         name: item.year,
+        //         value: +item.ebidta,
+        //         // formattedValue: this.ShortNumber(+item.ebidta)
+        //       }))
+        //     }
+        //   ];
+        // }
+
+        // if (this.dashboardData.revenueResult) {
+        //   this.lineAreaChart = [
+        //     {
+        //       name: "Rev",
+        //       series: await Promise.all(this.dashboardData.revenueResult.map(async (item: any) => ({
+        //         name: item.year,
+        //         value: +item.revenue/1e7,
+        //         formattedValue: await this.formatIndianNumber(+item.revenue)
+        //       })))
+        //     },
+        //     {
+        //       name: "EBITDA",
+        //       series: await Promise.all(this.dashboardData.revenueResult.map(async (item: any) => ({
+        //         name: item.year,
+        //         value: +item.ebidta/1e7,
+        //         formattedValue: await this.formatIndianNumber(+item.ebidta)
+        //       })))
+        //     }
+        //   ];
+        // }
+
+        if (this.dashboardData.revenueResult) {
+          this.lineAreaChart = [
+            {
+              name: "Rev",
+              series: this.dashboardData.revenueResult.map((item: any) => ({
+                name: item.year,
+                value: +item.revenue / 1e7,
+                formattedValue: this.formatIndianNumber(+item.revenue),
+                isEbidta: false // Identifies this as a revenue value
+              }))
+            },
+            {
+              name: "EBITDA",
+              series: this.dashboardData.revenueResult.map((item: any) => ({
+                name: item.year,
+                value: +item.ebidta / 1e7,
+                formattedValue: this.formatIndianNumber(+item.ebidta),
+                isEbidta: true // Identifies this as an EBITDA value
+              }))
+            }
+          ];
+        }
+          // Pie chart data mapping with null checks
+          if (this.dashboardData.topFiveLocationWise) {
+            this.pieChartData2 = this.dashboardData.topFiveLocationWise.map((item: any) => {
+              // Handle null or undefined state_name and default to 'Other'
+              const stateName = item.state_name ? item.state_name : 'Other';
+              const label = `${stateName} (${item.state_count})`;
+              return {
+                // name: item.state_name || 'Other',
+                name: label,
+                value: item.state_count ? +item.state_count : 0,
+              };
+            });
+          }
+
+          // Progress bar data mapping with null checks
+          if (this.dashboardData.statusProgress) {
+            // All data
+            this.myData=this.dashboardData.statusProgress
+            for(let i=0;i<this.myData.length;i++)
+                {
+                    this.valueData.push({
+                      name:this.myData[i].check,
+                      y:this.myData[i].progress
+                    })
+                }
+                // var Progressdata  = this.dashboardData.statusProgress.map((item: any) => {
+                //   return {
+                //     check:item.check ,
+                //     value: item.progress,
+                //     tender_title: item.tender_title
+                //   };
+                // });
+                var Progressdata = this.dashboardData.statusProgress.map((item: any) => {
+                  let truncatedTitle = item.tender_title.length > 20 ? item.tender_title.substring(0, 20) + '...' : item.tender_title;
+                  return {
+                    check: item.check,
+                    value: item.progress,
+                    tender_title: truncatedTitle
+                  };
+                });
+
+                if(Progressdata.length!=0){
+                  for(let i=0;i<Progressdata.length;i++)
+                    {
+                      this.titleData.push(Progressdata[i].tender_title)
+                
+                    }
+              
+              
+              
+                    console.log('this.titleData -->', this.titleData);
+                    console.log('this.valueData -->', this.valueData);
+              
+                }
+              console.log(this.valueData);
+       
+              // ngx chart
+              console.log(this.progressBar);
+            this.allProgressBar = this.dashboardData.statusProgress.map((item: any) => {
+              return {
+                name: item.tender_title,
+                value: item.progress,
+                // value: [0, 20, 40, 60, 80, 100],
+                tender_id: item.tender_id
+              };
+            });
+
+            // Top 10 data
+            this.progressBar = this.allProgressBar.slice(0, 10);
+
+            this.progressBar2 = this.dashboardData.statusProgress; // Keeping original data for logging
+            console.log('progressBar2-->', this.progressBar2);
+          }
+        } else {
+          this.alertService.warning("Looks like no data available!");
+        }
+      }, (error: any) => {
+        console.error(error);
+        this.dashboardData = [];
+        this.isNotFound = false;
+        this.loading = false;
+        this.alertService.error("Error: " + error.statusText);
+      });
+    }
+  
   
   // onPageChange(page: number) {
   //   this.currentPage = page;
@@ -1787,7 +1951,7 @@ export class DashboardComponent implements OnInit {
   //   const endIndex = startIndex + this.itemsPerPage;
   //   this.pagedProgressBar = this.allProgressBar.slice(startIndex, endIndex);
   // }
-  
+
   onBarClick(event: any) {
     const clickedBar = this.allProgressBar.find(bar => bar.name === event.name);
     console.log('clickedBar', clickedBar)
@@ -1889,127 +2053,253 @@ export class DashboardComponent implements OnInit {
   }
 
   chartOptions: any;
+  // Highcharts = new Chart({
+  //   chart: {
+  //     type: 'bar'
+  //   },
+  //   title: {
+  //     text: '',
+  //     align: 'right'
+  //   },
+  //   xAxis: {
+  //     categories:this.arrayData ,
+  //     title: {
+  //       text: null
+  //     },
+  //     gridLineWidth: 1,
+  //     lineWidth: 0,
+  //     labels: {
+  //       useHTML: true,
+     
+  //   }
+  //   },
+  //   yAxis: {
+  //     min: 0,
+  //     title: {
+  //       text: ""
+  //     },
+  //     labels: {
+  //       enabled: true, // Disable numeric labels on the y-axis
+  //       overflow: 'justify'
+  //     },
+  //     gridLineWidth: 0,
+  //   },
+  //   tooltip: {
+  //     valueSuffix: ''
+  //   },
+  //   plotOptions: {
+  //     bar: {
+  //       borderRadius: '50%',
+  //       borderColor:'red',
+  //       dataLabels: {
+  //         enabled: true
+  //       },
+  //       groupPadding: 0.1,
+  //       colorByPoint: true, // Assign different colors to each point
+  //       colors: ['#c0fec2', '#fd8383bd', '#fdda9b'] // Define three colors for the gradient
+  //     }
+  //   },
+  //   legend: {
+  //     layout: 'vertical',
+  //     align: 'right',
+  //     verticalAlign: 'top',
+  //     x: 10,
+  //     y: -10,
+  //     floating: true,
+  //     borderWidth: 1,
+  //     backgroundColor: Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
+  //     shadow: true
+  //   },
+  //   credits: {
+  //     enabled: false
+  //   },
+  //   series: [{
+  //     type: 'bar', // Specify the type of chart series
+  //     name: 'Actual',
+     
+  //     data:this.helloData ,
+   
+  //     dataLabels: {
+  //       enabled: true,
+  //       useHTML: true,
+  //       inside: true,
+  //       align: 'right',
+  //       formatter: function() {
+  //         // return this.data > 130 ? this.y + ' mm' : null;
+ 
+  //       if((this as Point).y<=20)
+  //         {
+  //        return `<div style="width: 10px;
+  //               height: 10px;
+  //                box-shadow: 2px 2px 3px #696969;
+  //                border-radius: 5px;
+  //                background-color: green;"></div> `  
+  //         }else if((this as Point).y>20 && ((this as Point).y<50))
+  //           {
+  //             return `<div style="width:10px;height:10px;background-color:orange;
+  //             box-shadow: 2px 2px 3px #696969;
+  //                border-radius: 5px;"></div> `  
+ 
+  //           }else if((this as Point).y>50)
+  //             {
+  //               return `<div style="width:10px;height:10px;background-color:red;
+  //               box-shadow: 2px 2px 3px #696969;
+  //                border-radius: 5px;"></div> `  
+ 
+  //             }else
+  //             {
+  //               return ''
+ 
+  //             }
+  // // return ''
+           
+  //         // if((this as Point).x<20)
+  //         //   {
+  //         //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
+  //         //   }else if((this as Point).x>20)
+  //         //   {
+  //         //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
+  //         //   }
+  //         // return ((this as Point).x<20?`<div style="width:10px;height:10px;background-color:red;" ></div>`:`<div style="width:10px;height:10px;background-color:red;" ></div>`)
+  //     }
+  //       // formatter: function() {
+  //       //  if(this.point.name=='')
+         
+  //       // //   return this.colorIndex
+  //       // // return `<div class="hii" style="width:10px;height:10px;background-color:red;"></div>`
+  //       // //   // return `<img src="https://findicons.com/files/icons/2315/default_icon/256/arrow_down.png" style="width: 30px;margin-top:-10px"><img>`;
+  //       // }
+  //     }
+  //   }],
+ 
+  //   colors: ['#49b59a', '#FF6067', '#f9d84a'] // Assign three different colors to the bars
+  // });
+
   Highcharts = new Chart({
-    chart: {
-      type: 'bar'
-    },
+  chart: {
+    type: 'bar'
+  },
+  title: {
+    text: '',
+    align: 'right'
+  },
+  xAxis: {
+    categories: this.titleData,
     title: {
-      text: '',
-      align: 'right'
+      text: null
     },
-    xAxis: {
-      categories: this.arrayData,
-      title: {
-        text: null
-      },
-      gridLineWidth: 1,
-      lineWidth: 0,
-      labels: {
-        useHTML: true,
+    gridLineWidth: 1,
+    lineWidth: 0,
+    labels: {
+      useHTML: true,
+    }
+  },
+  yAxis: {
+    min: 0,
+    max: 100,
+    title: {
+      text: ""
+    },
+    labels: {
+      enabled: false,
+      overflow: 'justify'
+    },
+    gridLineWidth: 0,
+  },
+  tooltip: {
+    valueSuffix: '',
+    useHTML: true,
+    positioner: function (labelWidth, labelHeight, point) {
+      var chart = this.chart,
+        pointX = point.plotX + chart.plotLeft,
+        pointY = point.plotY + chart.plotTop;
 
+      if (point.shapeArgs) {
+        pointX += point.shapeArgs['width'];
       }
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: ""
-      },
-      labels: {
-        enabled: true, // Disable numeric labels on the y-axis
-        overflow: 'justify'
-      },
-      gridLineWidth: 0,
-    },
-    tooltip: {
-      valueSuffix: ''
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: '50%',
-        borderColor: 'red',
-        dataLabels: {
-          enabled: true
-        },
-        groupPadding: 0.1,
-        colorByPoint: true, // Assign different colors to each point
-        colors: ['#c0fec2', '#fd8383bd', '#fdda9b'] // Define three colors for the gradient
+
+      if (pointX + labelWidth > chart.chartWidth) {
+        pointX = chart.chartWidth - labelWidth;
       }
-    },
-    legend: {
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'top',
-      x: 10,
-      y: -10,
-      floating: true,
-      borderWidth: 1,
-      backgroundColor: Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
-      shadow: true
-    },
-    credits: {
-      enabled: false
-    },
-    series: [{
-      type: 'bar', // Specify the type of chart series
-      name: 'Actual',
 
-      data: this.helloData,
+      if (pointY - labelHeight / 2 < 0) {
+        pointY = labelHeight / 2;
+      } else if (pointY + labelHeight / 2 > chart.chartHeight) {
+        pointY = chart.chartHeight - labelHeight / 2;
+      }
 
+      return {
+        x: pointX,
+        y: pointY - labelHeight / 2
+      };
+    },
+    shadow: true,
+    borderWidth: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    style: {
+      color: '#FFFFFF',
+      padding: '8px',
+      zIndex: 1000 // Ensure tooltip is above other elements
+    }
+  },
+  plotOptions: {
+    bar: {
+      borderRadius: '10%',
+      borderColor: '',
       dataLabels: {
         enabled: true,
         useHTML: true,
         inside: true,
         align: 'right',
         formatter: function () {
-          // return this.data > 130 ? this.y + ' mm' : null;
+          let data: any = this as Point;
+          let color = '';
+          let leftPosition = 10;
 
-          if ((this as Point).y <= 20) {
-            return `<div style="width: 10px;
-                height: 10px;
-                 box-shadow: 2px 2px 3px #696969;
-                 border-radius: 5px;
-                 background-color: green;"></div> `
-          } else if ((this as Point).y > 20 && ((this as Point).y < 50)) {
-            return `<div style="width:10px;height:10px;background-color:orange;
-              box-shadow: 2px 2px 3px #696969;
-                 border-radius: 5px;"></div> `
-
-          } else if ((this as Point).y > 50) {
-            return `<div style="width:10px;height:10px;background-color:red;
-                box-shadow: 2px 2px 3px #696969;
-                 border-radius: 5px;"></div> `
-
-          } else {
-            return ''
-
+          if (data.key < 0) {
+            color = 'green';
+          } else if (data.key > 0 && data.key <= 30) {
+            color = 'yellow';
+          } else if (data.key > 30) {
+            color = 'red';
           }
-          // return ''
 
-          // if((this as Point).x<20)
-          //   {
-          //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
-          //   }else if((this as Point).x>20)
-          //   {
-          //     return `<div style="width:10px;height:10px;background-color:red;" ></div>`
-          //   }
-          // return ((this as Point).x<20?`<div style="width:10px;height:10px;background-color:red;" ></div>`:`<div style="width:10px;height:10px;background-color:red;" ></div>`)
+          if (data.y == 100) {
+            leftPosition = 5;
+          }
+
+          // Adjust z-index and positioning to ensure the colored squares do not overlap with the tooltip
+          let style = `width:10px;height:10px;background-color:${color};position:absolute;left:${leftPosition}px;top:-4px;pointer-events:none;z-index: 999;`;
+
+          return `<div style="${style}"></div>`;
         }
-        // formatter: function() {
-        //  if(this.point.name=='')
-
-        // //   return this.colorIndex
-        // // return `<div class="hii" style="width:10px;height:10px;background-color:red;"></div>`
-        // //   // return `<img src="https://findicons.com/files/icons/2315/default_icon/256/arrow_down.png" style="width: 30px;margin-top:-10px"><img>`;
-        // }
-      }
-    }],
-
-    colors: ['#49b59a', '#FF6067', '#f9d84a'] // Assign three different colors to the bars
-  });
-
-
-
-
+      },
+      groupPadding: 0.1, // Apply groupPadding for bar plotOptions
+      colorByPoint: true, // Assign different colors to each point
+      colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define colors for bars
+    }
+  },
+  legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'top',
+    x: 10,
+    y: -10,
+    floating: true,
+    borderWidth: 1,
+    backgroundColor: Highcharts?.defaultOptions?.legend?.backgroundColor || '#FFFFFF',
+    shadow: true
+  },
+  credits: {
+    enabled: false
+  },
+  series: [{
+    type: 'bar',
+    name: 'Actual',
+    data: this.valueData,
+  }],
+  colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define colors for bars
+});
 
 
 
@@ -2144,21 +2434,6 @@ export class DashboardComponent implements OnInit {
         }
       }, 105, 80, 100, 95, 100, 90, 110, 105, 95, 95, 110]
     },
-      //   {
-      //     type: 'spline',
-      //      name: 'Comparison',
-      //      marker: {
-      //          symbol: 'circle'
-      //      },
-
-      //      data: [{
-      //          y: 5,
-
-      //          accessibility: {
-      //              description: ''
-      //          }
-      //      }, 20, 0, 50, 5, 50, 20, 30, 40, 20, 25, 70]
-      //  }
     ],
     colors: [
       '#d6a974', '#97daa7'

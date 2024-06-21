@@ -49,26 +49,19 @@
               <tr *ngFor="let a of itemData | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>
-                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_title }}">
-                    {{a?.tender_title | slice:0:30}} <span *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span>
-                  </div>
-                  <ng-template #elseBlock1>
-                      {{a?.tender_title}}
-                  </ng-template>
+                  <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
                 </td>
                 <td>
-                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                      {{a?.tender_ref_no | slice:0:30}} <span *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span>
-                  </div>
-                  <ng-template #elseBlock2>
-                      {{a?.tender_ref_no}}
-                  </ng-template>
+                  <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                 </td>
                 <td>{{ a?.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
                 <td>{{ a?.qacatagory }}</td>
                 <td>{{ a?.subqacatagory }}</td>
                 <td>{{ a?.capacity }}</td>
-                <td>{{ a?.tender_location }}</td>
+                <td>
+                  <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a" (locationClick)="rowLocation($event)">
+                  </app-location-section-shared>
+                </td>
                 <td>{{ a?.warehouse_code }}</td>
                 <td>{{ a?.location_code }}</td>
                 <td>{{ a?.itemcode }}</td>

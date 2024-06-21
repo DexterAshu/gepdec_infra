@@ -1,0 +1,15 @@
+<!-- <div *ngIf="!!tenderLocation; else tenderLocationElse" data-toggle="tooltip" data-placement="bottom">
+    {{tenderLocation?.join(',') | slice:0:30}} <span>...<img src="../../../../assets/images/lo.png" class="cursor-pointer" style="width:15px; height:15px;"
+        (click)="handleClick()"></span>
+</div>
+<ng-template #tenderLocationElse>
+    --
+</ng-template> -->
+
+<div *ngIf="tenderLocation; else tenderLocationElse" data-toggle="tooltip" data-placement="bottom">
+    {{ tenderLocation | slice:0:30 }} <span>...<img src="../../../../assets/images/lo.png" class="cursor-pointer" style="width:15px; height:15px;"
+        (click)="handleClick()"></span>
+</div>
+<ng-template #tenderLocationElse>
+    --
+</ng-template>

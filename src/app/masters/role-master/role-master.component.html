@@ -36,8 +36,6 @@
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
                                     class="btn btn-primary btn-fw btn-sm s"><span class="mdi mdi-plus"></span>
                                     Create</button>
-
-
                             </div>
                         </div>
                     </div>
@@ -47,9 +45,7 @@
                                 <th>S No</th>
                                 <th>Role Name</th>
                                 <th>Description</th>
-                                <th>Created By</th>
-                                <th>Created On</th>
-                                <th>Action</th>
+                                <!-- <th>Action</th> -->
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
@@ -67,19 +63,17 @@
                                         {{a?.description}}
                                     </ng-template>
                                 </td>
-                                <td>{{a.createdby_name}}</td>
-                                <td>{{a.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-                                <td>
+                              
+                                <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#createModal"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
                                     <a  data-bs-toggle="modal" data-bs-target="#detailModal"
                                        ><span
                                             class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
-                                    <!-- &nbsp; -->
-                                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
+                                   
 
-                                </td>
+                                </td> -->
                             </tr>
                             <tr *ngIf="rolData?.length == 0">
                                 <td colspan="15" class="text-center">

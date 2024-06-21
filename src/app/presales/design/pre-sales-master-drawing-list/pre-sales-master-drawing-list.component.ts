@@ -1,6 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ApiService, AlertService, SharedService } from 'src/app/_services';
+import { ApiService, AlertService, SharedService, MasterService } from 'src/app/_services';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
@@ -23,7 +23,7 @@ export class PreSalesMasterDrawingListComponent {
   isSubmitted: boolean = false;
   isNotFound: boolean = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private elementRef: ElementRef, private sharedService: SharedService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private elementRef: ElementRef, private sharedService: SharedService, private masterService: MasterService) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -78,6 +78,9 @@ export class PreSalesMasterDrawingListComponent {
     this.selectMDLRow = data;
   }
 
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
+  }
   getMDLList(): void {
     this.mdlData = [];
     this.isNotFound = false;

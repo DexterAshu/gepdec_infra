@@ -59,7 +59,6 @@
                                 <th>Sub-Category</th>
                                 <th>Capacity</th>
                                 <th>Technical Points</th> -->
-                                <th>Attachments</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -89,26 +88,11 @@
                                 <!-- <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
-                                <td>{{a.technical_points}}</td> -->
+                                <td>{{a.technical_points}}</td> -->  
                                 <td>
-                                    ({{a.filecount}}) 
-                                    <span class="me-1" *ngFor="let img of a.images; index as i">
-                                        <a title="Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(img)">
-                                          <span style="color: #17a2b8;" class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
-                                        </a>
-                                    </span>
-                                    <span *ngFor="let pdf of a.pdfs; index as i" class="me-1">
-                                        <a (click)="showPdf(pdf)" title="PDF" data-bs-toggle="modal" data-bs-target="#pdfModal">
-                                            <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
-                                        </a>
-                                    </span>
-                                    <span *ngFor="let excel of a.excels; index as i" class="me-1">
-                                        <a (click)="downloadExcel(excel)" title="Excel Download">
-                                            <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
-                                        </a>
-                                    </span>
-                                </td>
-                                <td>
+                                    <a (click)="rowListData(a)" data-bs-toggle="modal" data-bs-target="#docModal" title="Document List">
+                                        <span style="color: #2196f3;" class="mdi mdi-format-list-bulleted cursor-pointer mdi-18px"></span>
+                                    </a>&nbsp;
                                     <a  data-bs-toggle="modal" data-bs-target="#viewPDF" title="View PDF File" (click)="showPdf(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                 </td>
                             </tr>
@@ -486,7 +470,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="imgModalLabel">View Image</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#docModal"></button>
             </div>
             <div class="modal-body">
                 <div id="carouselExampleIndicators" data-bs-interval="false" class="carousel slide carousel-fade"
@@ -506,11 +490,11 @@
 <!-- image view modal end-->
 <!-- pdf view modal start-->
 <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="pdfModalLabel">View PDF</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#docModal"></button>
         </div>
         <div class="modal-body">
           <iframe [src]="pdfFile" width="100%" height="600px"></iframe>
@@ -520,3 +504,63 @@
   </div>
 
 <!-- pdf view modal end-->
+
+<!-- doc modal -->
+<div class="modal fade" id="docModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tender Documents</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0">
+                            <h6 class="mb-2 text-secondary">Document List</h6>
+                            <div class="table-responsive table-height-auto pt-2">
+                                <table class="table table-hover table-striped">
+                                    <thead class="table-primary text-nowrap">
+                                        <tr>
+                                        <th>S No</th>
+                                        <th>File Name</th>
+                                        <th>Document Attachment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-nowrap">
+                                        <tr *ngFor="let doc of processedDocuments; index as i">
+                                        <td>{{doc.index}}</td>
+                                        <td>{{doc.document}}</td>
+                                        <td> 
+                                            <span *ngIf="doc.type === 'image'">
+                                                <a title="View Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(doc.fullPath)">
+                                                  <span style="color: #17a2b8;" class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
+                                                </a>
+                                            </span>
+                                            <span *ngIf="doc.type === 'pdf'">
+                                                <a title="View PDF" data-bs-toggle="modal" data-bs-target="#pdfModal" (click)="showPdf2(doc.fullPath)">
+                                                    <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
+                                                </a>
+                                            </span>
+                                            <span *ngIf="doc.type === 'excel'">
+                                                <a title="Excel Download" (click)="downloadExcel(doc.fullPath)">
+                                                    <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
+                                                </a>
+                                            </span>                                    
+                                        </td>
+                                        </tr>
+                                        <tr *ngIf="processedDocuments.length === 0" class="text-center">
+                                            <td colspan="5" class="text-warning">Looks like no data available!</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- doc modal end-->

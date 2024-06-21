@@ -63,22 +63,19 @@
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.company_name }}</td>
                 <td>
-                  <div *ngIf="!!a?.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ a?.tender_title }}">{{a?.tender_title | slice:0:30}} <span
-                      *ngIf="a?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                  <ng-template #elseBlock1>{{a?.tender_title}}</ng-template>
+                  <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
                 </td>
                 <td>
-                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span
-                      *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                  <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
+                  <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                 </td>
                 <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                 <td>{{ a.qacatagory }}</td>
                 <td>{{ a.subqacatagory}}</td>
                 <td>{{ a.capacity }}</td>
-                <td>{{ a.tender_location }}</td>
+                <td>
+                  <app-location-section-shared [tenderLocation]="a?.tender_location?.[0] || ''" [rowData]="a" (locationClick)="rowLocation($event)">
+                  </app-location-section-shared>
+                </td>
                 <td>{{ a.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>{{ a.schedule_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                 <td>{{ a.tender_completion_period }}</td>
@@ -1039,9 +1036,14 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="table-responsive" style="min-height: 300px">
-            <h6 class="mt-2 mb-3 text-secondary">Tender Detail</h6>
+            <!-- <h6 class="mt-2 mb-3 text-secondary">Tender Detail</h6> -->
             <table class="table table-hover table-striped custom-table table-bordered">
-              <thead class="hidden-thead"></thead>
+              <!-- <thead class="hidden-thead"></thead> -->
+              <thead class="table-primary text-nowrap">
+                <tr>
+                    <th colspan="6" class="text-center">Tender Detail</th>
+                </tr>
+            </thead>
               <tbody>
                 <tr>
                   <th>Tender Title</th>
@@ -1073,7 +1075,10 @@
                 </tr>
                 <tr>
                   <th>Execution Location</th>
-                  <td>{{ selectedRowData?.tender_location }}</td>
+                  <td>
+                    <app-location-section-shared [tenderLocation]="selectedRowData?.tender_location?.[0] || ''" [rowData]="selectedRowData" (locationClick)="rowLocation($event)">
+                    </app-location-section-shared>
+                  </td>
                   <th>L2 Start Date</th>
                   <td>{{ selectedRowData?.schedule_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                   <th>L2 End Date</th>

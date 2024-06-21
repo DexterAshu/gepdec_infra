@@ -8,14 +8,14 @@ import { MasterService } from 'src/app/_services';
 })
 export class LocationModalComponent implements OnInit {
   isOpen = false;
-  locationArray:any = [];
+  locationArray:any[] = [];
 
   constructor(private masterService: MasterService) { }
 
   ngOnInit(): void {
-    this.masterService.modalState$.subscribe((state) => {
+    this.masterService.modalState$.subscribe((state:any) => {
       this.isOpen = state.isOpen;
-      this.locationArray = state.locationArray || [];
+      this.locationArray = state.locationArray?.result || [];
     });
   }
 

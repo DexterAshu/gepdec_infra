@@ -65,16 +65,10 @@
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a.company_name}}</td>
                 <td>
-                  <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ a.tender_title }}">{{a.tender_title | slice:0:30}} <span
-                      *ngIf="a.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                  <ng-template #elseBlock1>{{a.tender_title}}</ng-template>
+                  <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
                 </td>
                 <td>
-                  <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ a?.tender_ref_no }}">{{a?.tender_ref_no | slice:0:30}} <span
-                      *ngIf="a?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                  <ng-template #elseBlock2>{{a?.tender_ref_no}}</ng-template>
+                  <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                 </td>
                 <td>{{ a.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
                 <td>{{ a.qacatagory }}</td>
@@ -82,12 +76,8 @@
                 <td>{{ a.capacity }}</td>
                 <!-- <td>{{ a.tender_location }}</td> -->
                 <td>
-                  <span *ngFor="let loc of a?.tender_location; let i = index" title="{{a?.tender_location}}">
-                    <span *ngIf="i+1 == 1">{{loc}}</span>
-                  </span>...
-                  <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png"
-                    style="width:25px; height:25px;" data-bs-toggle="modal" data-bs-target="#lokModal"
-                    (click)="rowLocation(a)" title="{{a.tender_location}}">
+                  <app-location-section-shared [tenderLocation]="a?.tender_location?.[0] || ''" [rowData]="a" (locationClick)="rowLocation($event)">
+                  </app-location-section-shared>
                 </td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#boqListModel" (click)="getEditBOQList(a)"><span
@@ -257,91 +247,51 @@
         <h5 class="modal-title" id="exampleModalLabel">{{ update ? 'Edit' : 'View' }} BOQ List</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-3">
         <div class="container-fluid">
-          <div class="row px-2">
-            <table class="table table-hover table-striped custom-table table-bordered">
-              <thead class="table-primary text-nowrap">
-                <tr>
-                  <th colspan="6" class="text-center">Tender Detail</th>
-                </tr>
-              </thead>
-              <tbody class="text-nowrap">
-                <tr>
-                  <th>Client</th>
-                  <td>{{ boqList?.company_name }}</td>
-                  <th> NIT No</th>
-                  <td>
-                    <div *ngIf="!!boqList?.tender_ref_no; else elseBlock6" data-toggle="tooltip" data-placement="bottom"
-                      title="{{ boqList?.tender_ref_no }}"> {{boqList?.tender_ref_no | slice:0:30}} <span
-                        *ngIf="boqList?.tender_ref_no.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock6>{{boqList?.tender_ref_no}}</ng-template>
-                  </td>
-                  <th>Tender Title</th>
-                  <td>
-                    <div *ngIf="!!boqList?.tender_title; else elseBlock13" data-toggle="tooltip" data-placement="bottom"
-                      title="{{ boqList?.tender_title }}">{{boqList?.tender_title | slice:0:30}} <span
-                        *ngIf="boqList?.tender_title.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                    <ng-template #elseBlock13>{{boqList?.tender_title}}</ng-template>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Publish Date</th>
-                  <td>{{ boqList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                  <th>Category</th>
-                  <td>{{ boqList?.qacatagory }}</td>
-                  <th>Sub-Category</th>
-                  <td>{{ boqList?.subqacatagory }}</td>
-                </tr>
-                <tr>
-                  <th>Capacity</th>
-                  <td>{{ boqList?.capacity }}</td>
-                  <th>Execution Location</th>
-                  <td colspan="3">{{ boqList?.tender_location }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
           <div class="row">
-            <app-responsive-table class="mt-2 px-2">
-              <thead class="table-primary text-nowrap">
-                <tr>
-                  <th>S No</th>
-                  <th>BOQ Code</th>
-                  <th>BOQ Category</th>
-                  <th>BOQ Sub Category</th>
-                  <th>Remarks</th>
-                  <th>Created By</th>
-                  <th>Created Date</th>
-                  <th>Status</th>
-                  <th>Execution Location</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody class="text-nowrap">
-                <tr *ngFor="let boq of boqList?.boq; index as i">
-                  <td>{{ limit*(p-1)+i+1 }}</td>
-                  <td>{{ boq?.boq_code }}</td>
-                  <td>{{ boq?.itemcategory }}</td>
-                  <td>{{ boq?.subcategory }}</td>
-                  <td>{{ boq?.remarks }}</td>
-                  <td>{{ boq?.createdby_name }}</td>
-                  <td>{{ boq?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
-                  <td>{{ boq?.status }}</td>
-                  <td>{{ boq?.site_location ? boq.site_location : '--' }}</td>
-                  <td>
-                    <a *ngIf="update && locationList?.length" (click)="linkLocation(boq)" data-bs-toggle="modal"
-                      data-bs-target="#linkModal" title="Link location"><span
-                        class="mdi mdi-link-variant text-primary cursor-pointer mdi-18px"></span></a>&nbsp;
-                    <a *ngIf="update" (click)="getBOQItemList(boq)" data-bs-toggle="modal"
-                      data-bs-target="#itemListModel"><span
-                        class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
-                    <a (click)="getBOQItemList(boq)" data-bs-toggle="modal" data-bs-target="#itemListModel"><span
-                        class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
-                  </td>
-                </tr>
-              </tbody>
-            </app-responsive-table>
+            <div class="col-md-12 p-0">
+              <app-tender-detail [itemList]="boqList"></app-tender-detail>
+              <app-responsive-table class="mt-1 px-2">
+                <thead class="table-primary text-nowrap">
+                  <tr>
+                    <th>S No</th>
+                    <th>BOQ Code</th>
+                    <th>BOQ Category</th>
+                    <th>BOQ Sub Category</th>
+                    <th>Remarks</th>
+                    <th>Created By</th>
+                    <th>Created Date</th>
+                    <th>Status</th>
+                    <th>Execution Location</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody class="text-nowrap">
+                  <tr *ngFor="let boq of boqList?.boq; index as i">
+                    <td>{{ limit*(p-1)+i+1 }}</td>
+                    <td>{{ boq?.boq_code }}</td>
+                    <td>{{ boq?.itemcategory }}</td>
+                    <td>{{ boq?.subcategory }}</td>
+                    <td>{{ boq?.remarks }}</td>
+                    <td>{{ boq?.createdby_name }}</td>
+                    <td>{{ boq?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
+                    <td>{{ boq?.status }}</td>
+                    <td>{{ boq?.site_location ? boq.site_location : '--' }}</td>
+                    <td>
+                      <a *ngIf="update && locationList?.length" (click)="linkLocation(boq)" data-bs-toggle="modal"
+                        data-bs-target="#linkModal" title="Link location"><span
+                          class="mdi mdi-link-variant text-primary cursor-pointer mdi-18px"></span></a>&nbsp;
+                      <a *ngIf="update" (click)="getBOQItemList(boq)" data-bs-toggle="modal"
+                        data-bs-target="#itemListModel"><span
+                          class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>&nbsp;
+                      <a (click)="getBOQItemList(boq)" data-bs-toggle="modal" data-bs-target="#itemListModel"><span
+                          class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </app-responsive-table>
+            </div>
           </div>
         </div>
       </div>

@@ -1,34 +1,36 @@
 <!-- centralized-modal.component.html -->
-<div class="modal fade" [class.show]="isOpen" [style.display]="isOpen ? 'block' : 'none'" [style.background-color]="isOpen ? '#000000ab' : ''" id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div appDraggableModal class="modal fade" [class.show]="isOpen" [style.display]="isOpen ? 'block' : 'none'"
+    id="lokModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Location Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Execution Location Details</h5>
                 <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
             </div>
-            <div class="table-responsive tab-hei">
+            <div class="table-responsive location-table">
                 <table class="table table-hover table-striped custom-table table-bordered table-styled">
                     <thead class="table-primary text-nowrap">
                         <tr>
                             <th>S No</th>
-                            <th>Execution Location</th>
+                            <th>Location Name</th>
+                            <th>Location Address</th>
+                            <th>City</th>
+                            <th>District</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>Pincode</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let location of locationArray; index as i">
+                        <tr *ngFor="let a of locationArray; index as i">
                             <td class="sn-col">{{ i + 1 }}</td>
-                            <td>
-                                <div class="loc-col" *ngIf="!!location; else elseBlock4" data-toggle="tooltip"
-                                    data-placement="bottom" title="{{ location }}">
-                                    {{ location | slice: 0: 30 }}
-                                    <span *ngIf="location.length > 30">...
-                                        <i class="mdi mdi-information"></i>
-                                    </span>
-                                </div>
-                                <ng-template #elseBlock4>
-                                    {{ location }}
-                                </ng-template>
-                            </td>
+                            <td> {{ a?.site_location }} </td>
+                            <td>{{ a?.location_address }}</td>
+                            <td>{{ a?.city }}</td>
+                            <td>{{ a?.district_name }}</td>
+                            <td>{{ a?.state_name }}</td>
+                            <td>{{ a?.country }}</td>
+                            <td>{{ a?.pincode }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -36,3 +38,4 @@
         </div>
     </div>
 </div>
+<div class="modal-backdrop" [ngClass]="{'show': isOpen}" *ngIf="isOpen"></div>

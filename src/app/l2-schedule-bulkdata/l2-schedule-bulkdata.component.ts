@@ -1,7 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { AlertService, ApiService, SharedService } from 'src/app/_services';
+import { AlertService, ApiService, MasterService, SharedService } from 'src/app/_services';
 import * as XLSX from 'xlsx';
 import { catchError, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -40,7 +40,7 @@ export class L2ScheduleBulkdataComponent {
   attachment: any = [];
   attachmentName: any = [];
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService: SharedService, private elementRef: ElementRef) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService, private alertService: AlertService, private sharedService: SharedService, private elementRef: ElementRef, private masterService: MasterService) { }
 
   ngOnInit() {
     this.formInit();
@@ -49,6 +49,10 @@ export class L2ScheduleBulkdataComponent {
 
   ngAfterViewInit() {
     this.sharedService.initializeTooltips(this.elementRef);
+  }
+
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   formInit(): void {

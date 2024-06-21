@@ -18,6 +18,8 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <!-- <h3 class="card-title">Company</h3>
+                    <hr> -->
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
                             <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
@@ -49,42 +51,24 @@
                                 <td>{{limit*(p-1)+i+1}}</td>
                                 <td>{{a.company_name}}</td>
                                 <td>
-                                    <div *ngIf="!!a.tender_title; else elseBlock1" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a.tender_title }}">
-                                        {{a.tender_title | slice:0:30}} <span *ngIf="a.tender_title.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock1>
-                                        {{a.tender_title}}
-                                    </ng-template>
+                                    <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
                                 </td>
 
                                 <td>
-                                    <div *ngIf="!!a?.tender_ref_no; else elseBlock2" data-toggle="tooltip"
-                                        data-placement="bottom" title="{{ a?.tender_ref_no }}">
-                                        {{a?.tender_ref_no | slice:0:30}} <span
-                                            *ngIf="a?.tender_ref_no.length > 30">...<i
-                                                class="mdi mdi-information"></i></span>
-                                    </div>
-                                    <ng-template #elseBlock2>
-                                        {{a?.tender_ref_no}}
-                                    </ng-template>
+                                    <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
                                 </td>
                                 <td>{{a.publish_date | date: 'dd/MM/yyyy' : 'GMT'}}</td>
                                 <td>{{ a.qacatagory }}</td>
                                 <td>{{ a.subqacatagory }}</td>
                                 <td>{{ a.capacity }}</td>
                                 <td>
-                                    <span *ngFor="let loc of a?.tender_location; let i = index"
-                                        title="{{a?.tender_location}}">
-                                        <span *ngIf="i+1 == 1">{{loc}}</span>
-                                    </span>...
-                                    <img *ngIf="a?.tender_location?.length > 0" src="../../../../assets/images/lo.png" style="width:15px; height:15px;"  (click)="rowLocation(a)" title="{{a.tender_location}}">
+                                    <app-location-section-shared [tenderLocation]="a?.tender_location?.[0] || ''" [rowData]="a" (locationClick)="rowLocation($event)">
+                                    </app-location-section-shared>
                                 </td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#detailModal"
-                                        (click)="rowListData(a)"><span
-                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#detailModal" (click)="rowListData(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                    <!-- &nbsp; -->
+                                    <!-- <a data-bs-toggle="modal" data-bs-target="#allDataModal" title="Delete Details" ><span class="mdi mdi-delete-circle text-danger cursor-pointer mdi-18px"></span></a> -->
                                 </td>
                             </tr>
                             <tr *ngIf="dataList?.length == 0">
@@ -217,7 +201,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div class="col-md-2" *ngIf="isShowModal">
                                 <div class="form-group">
                                     <label class="form-label">Department<span class="required-asterisk">*</span></label>
@@ -363,7 +347,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">In-direct Cost Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Indirect Cost Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
@@ -371,66 +355,11 @@
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped custom-table mb-3 table-bordered">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th colspan="6" class="text-center">Tender Detail</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <tr>
-                                            <th>Client</th>
-                                            <td>{{ itemList?.company_name }}</td>
-                                            <th>Tender Title</th>
-                                            <td>
-                                                <div *ngIf="!!itemList?.tender_title; else elseBlock4"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="{{ itemList?.tender_title }}">
-                                                    {{itemList?.tender_title | slice:0:30}} <span
-                                                        *ngIf="itemList?.tender_title.length > 30">...<i
-                                                            class="mdi mdi-information"></i></span>
-                                                </div>
-                                                <ng-template #elseBlock4>
-                                                    {{itemList?.tender_title}}
-                                                </ng-template>
-                                            </td>
-                                            <th>NIT No</th>
-                                            <td>
-                                                <div *ngIf="!!itemList?.tender_ref_no; else elseBlock3"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="{{ itemList?.tender_ref_no }}"> {{itemList?.tender_ref_no |
-                                                    slice:0:30}}
-                                                    <span *ngIf="itemList?.tender_ref_no.length > 30">...<i
-                                                            class="mdi mdi-information"></i></span>
-                                                </div>
-                                                <ng-template #elseBlock3>
-                                                    {{itemList?.tender_ref_no}}
-                                                </ng-template>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Publish Date</th>
-                                            <td>{{ itemList?.publish_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
-                                            <th>Category</th>
-                                            <td>{{ itemList?.qacatagory }}</td>
-                                            <th>Sub-Category</th>
-                                            <td>{{ itemList?.subqacatagory }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Capacity</th>
-                                            <td>{{ itemList?.capacity }}</td>
-                                            <th>Execution Location</th>
-                                            <td>{{ itemList?.tender_location }}</td>
-                                            <th>Total In-direct Cost</th>
-                                            <td colspan="3">{{ indirectCostTotal | currency: 'INR': '' : '1.0-2' }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <!-- Use the TenderDetailTable component -->
+                                <app-tender-detail [itemList]="itemList"></app-tender-detail>
 
                                 <ng-container class="mt-1" *ngFor="let main of itemList?.indirectCost">
-                                    <h6 class="mt-3 mb-2 text-secondary"
-                                        *ngIf="main?.deptname != null; else elseBlock10">{{main?.costtype}} -
-                                        {{main?.deptname}}</h6>
+                                    <h6 class="mt-3 mb-2 text-secondary" *ngIf="main?.deptname != null; else elseBlock10">{{main?.costtype}} - {{main?.deptname}}</h6>
                                     <ng-template #elseBlock10>
                                         <h6 class="mt-3 mb-2 text-secondary">{{main?.costtype}}</h6>
                                     </ng-template>

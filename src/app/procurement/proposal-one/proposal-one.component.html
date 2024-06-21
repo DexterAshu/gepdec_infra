@@ -1,99 +1,81 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-          <div class="d-flex justify-content-between flex-wrap">
-            <div class="d-flex align-items-end flex-wrap">
-              <div class="mr-md-3 mr-xl-5">
-                <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Proposal 1</h4>
-              </div>
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                    <div class="mr-md-3 mr-xl-5">
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Proposal 1
+                        </h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap"></div>
             </div>
-            <div class="d-flex justify-content-between align-items-end flex-wrap">
-                
-            </div>
-          </div>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <!-- <h3 class="card-title">Company</h3>
-                    <hr> -->
                     <div class="d-flex my-10">
                         <div class="col-lg-4">
-                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="Search">
+                            <input type="search" class="form-control form-control-sm" [(ngModel)]="searchText"
+                                placeholder="Search">
                         </div>
                         <div class="col-lg-8">
-                            <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm float-right">+ Create</button> -->
                         </div>
                     </div>
-                    <app-responsive-table> <!-- Coming for sharedComponent/responsive-table -->
+                    <app-responsive-table>
                         <thead class="table-primary text-nowrap">
                             <tr>
                                 <th>S No</th>
-                                <th>BOQ Code</th>
-                                <th>Description</th>
-                                <th>Client Name</th>
-                                <th>Site Address</th>
-                                <th>No of Items</th>
-                                <th>Status</th>
-                                <!-- <th>Action</th> -->
+                                <th>Client</th>
+                                <th>Tender Title</th>
+                                <th>NIT No</th>
+                                <th>Publish Date</th>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Capacity </th>
+                                <th>Execution Location</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            <!-- <tr *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i"> -->
-                            <tr>
-                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                <td>1</td>
-                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="BOQ Items List" (click)="rowListData()" class="cursor-pointer text-primary text-decoration-underline">TD00101</td>
-                                <td>Demo</td>
-                                <td>Power</td>
-                                <td>Noida</td>
-                                <td>10</td>
-                                <td>Pending</td>
-                                <!-- <td>
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                        <span class="mdi mdi-format-align-bottom"></span>
-                                      </button>
-                                </td> -->
-                                <!-- <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
-                                </td> -->
-                            </tr>
-                            <!-- <td colspan="15" id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                <tr>
-                                    <td class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</td>
-                                </tr>
-                                <tr>
-                                    <td class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</td>
-                                </tr>
-                                <tr>
-                                    <td class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</td>
-                                </tr>
-                            </td> -->
-                            <tr>
-                                <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                <td>2</td>
-                                <td data-bs-toggle="modal" data-bs-target="#detailModal" title="BOQ Items List" (click)="rowListData()" class="cursor-pointer text-primary text-decoration-underline">TD00101</td>
-                                <td>Demo</td>
-                                <td>Power</td>
-                                <td>Noida</td>
-                                <td>10</td>
-                                <td>Pending</td>
-                                <!-- <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#createModal" title="Update Item"><span class="mdi mdi-pencil cursor-pointer mdi-18px"></span></a>
-                                </td> -->
-                            </tr>
-                            <tr *ngIf="dataList?.length == 0">
-                                <td colspan="15" class="text-center">
-                                    <div class="spinner-border"> </div>
+                            <tr
+                                *ngFor="let a of dataList | filter: searchText| paginate: { itemsPerPage: limit, currentPage: p }; index as i">
+                                <td>{{ limit*(p-1)+i+1 }}</td>
+                                <td>{{ a.company_name}}</td>
+                                <td>
+                                    <app-slice-with-tooltip [text]="a?.tender_title"></app-slice-with-tooltip>
+                                </td>
+                                <td>
+                                    <app-slice-with-tooltip [text]="a?.tender_ref_no"></app-slice-with-tooltip>
+                                </td>
+                                <td>{{ a.publish_date ? (a.publish_date | date:'dd/MM/yyyy' : 'GMT') : '--' }}</td>
+                                <td>{{ a.qacatagory ? a.qacatagory : '--' }}</td>
+                                <td>{{ a.subqacatagory ? a.subqacatagory : '--' }}</td>
+                                <td>{{ a.capacity ? a.capacity : '--' }}</td>
+                                <td>
+                                    <!-- {{ a.tender_location ? a.tender_location : '--' }} -->
+                                    <app-location-section-shared [tenderLocation]="a?.tender_location" [rowData]="a"
+                                        (locationClick)="rowLocation($event)">
+                                    </app-location-section-shared>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#boqListModel" title="View Details"
+                                        (click)="getBOQList(a)"><span
+                                            class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
                                 </td>
                             </tr>
-                            <!-- <tr *ngIf="isNotFound == true">
+                            <tr *ngIf="isNotFound == true">
                                 <td colspan="15" class="text-center">
                                     <div class="text-warning fw-semibold">Looks like no data available!</div>
                                 </td>
-                            </tr> -->
+                            </tr>
+                            <tr *ngIf="dataList?.length == 0">
+                                <td colspan="15" class="text-center">
+                                    <div class="spinner-border"></div>
+                                </td>
+                            </tr>
                         </tbody>
                     </app-responsive-table>
                     <div class="pagination-sec text-center">
@@ -105,156 +87,67 @@
     </div>
 </div>
 
-<!-- create modal -->
-<!-- <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<!--boq detail modal-->
+<div class="modal fade" id="boqListModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Shipping Address</h5>
+                <h5 class="modal-title" id="exampleModalLabel">View BOQ List</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Address For<span class="required-asterisk">*</span></label>
-                                    <select formControlName="addressFor" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
-                                        <option>Purchaser</option>
-                                        <option>Vendor</option>
-                                    </select>
-                                    <div *ngIf="f['addressFor'].touched && f['addressFor'].invalid">
-                                        <small class="text-danger" *ngIf="f['addressFor'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Billing Address Code<span class="required-asterisk">*</span></label>
-                                    <select formControlName="billingAddress" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Code</option>
-                                        <option>Demo Address</option>
-                                    </select>
-                                    <div *ngIf="f['billingAddress'].touched && f['billingAddress'].invalid">
-                                        <small class="text-danger" *ngIf="f['billingAddress'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Billing Address Details<span class="required-asterisk">*</span></label>
-                                    <input formControlName="billingDetails" type="text" class="form-control form-control-sm" readonly>
-                                    <div *ngIf="f['billingDetails'].touched && f['billingDetails'].invalid">
-                                        <small class="text-danger" *ngIf="f['billingDetails'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="form-label">Address Code<span class="required-asterisk">*</span></label>
-                                    <input formControlName="code" type="text" class="form-control form-control-sm">
-                                    <div *ngIf="f['code'].touched && f['code'].invalid">
-                                        <small class="text-danger" *ngIf="f['code'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="form-label">Type<span class="required-asterisk">*</span></label>
-                                    <select formControlName="type" class="form-select form-select-sm">
-                                        <option [selected]="true" [disabled]="true" [value]="null">Select Type</option>
-                                        <option>Warehouse</option>
-                                        <option>On-site</option>
-                                    </select>
-                                    <div *ngIf="f['type'].touched && f['type'].invalid">
-                                        <small class="text-danger" *ngIf="f['type'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Address (House/Flat No, Street No & Area)<span class="required-asterisk">*</span></label>
-                                    <input formControlName="address" type="text" class="form-control form-control-sm">
-                                    <div *ngIf="f['address'].touched && f['address'].invalid">
-                                        <small class="text-danger" *ngIf="f['address'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="form-label">Country<span class="required-asterisk">*</span></label>
-                                    <select class="form-select form-select-sm" formControlName="country" (change)="getStateData()">
-                                        <option [selected]="true" [disabled]="true">Select Country</option>
-                                        <option *ngFor="let t of countryData" [value]="t.country_id">{{ t.name }}</option>
-                                    </select>
-                                    <div *ngIf="f['country'].touched && f['country'].invalid">
-                                        <small class="text-danger" *ngIf="f['country'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">State<span class="required-asterisk">*</span></label>
-                                    <select class="form-select form-select-sm" formControlName="state" (change)="getDistrictData()">
-                                        <option [selected]="true" [disabled]="true">Select State</option>
-                                        <option *ngFor="let t of stateData" [value]="t.state_id">{{ t.state_name }}</option>
-                                    </select>
-                                    <div *ngIf="f['state'].touched && f['state'].invalid">
-                                        <small class="text-danger" *ngIf="f['state'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">District<span class="required-asterisk">*</span></label>
-                                    <select class="form-select form-select-sm" formControlName="district" (change)="getCityData()">
-                                        <option [selected]="true" [disabled]="true">Select District</option>
-                                        <option *ngFor="let t of districtData" [value]="t.district_id">{{ t.district_name }}</option>
-                                    </select>
-                                    <div *ngIf="f['district'].touched && f['district'].invalid">
-                                        <small class="text-danger" *ngIf="f['district'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">City<span class="required-asterisk">*</span></label>
-                                    <select class="form-select form-select-sm" formControlName="city">
-                                    <option [selected]="true" [disabled]="true">Select City</option>
-                                        <option *ngFor="let t of cityData" [value]="t.city_id">{{ t.city }}</option>
-                                    </select>
-                                    <div *ngIf="f['city'].touched && f['city'].invalid">
-                                        <small class="text-danger" *ngIf="f['city'].errors?.['required']">*Required</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Pincode<span class="required-asterisk">*</span></label>
-                                    <input formControlName="pincode" type="text" class="form-control form-control-sm" appNoSpace appNumberOnly maxlength="6" minlength="6">
-                                    <div *ngIf="f['pincode'].touched && f['pincode'].invalid">
-                                        <small class="text-danger" *ngIf="f['pincode'].errors?.['required']">*Required</small>
-                                        <small class="text-danger" *ngIf="f['pincode'].errors?.['pattern']">*Please enter 6 digit code.</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-btns">
-                                <button type="submit" *ngIf="!isSubmitted" [disabled]="!form.valid" class="btn btn-primary btn-fw btn-sm mr-2">Submit</button>
-                                <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button>
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
-                                data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="row">
+                        <app-tender-detail [itemList]="boqList"></app-tender-detail>
+                    </div>
+                    <div class="row">
+                        <app-responsive-table class="">
+                            <thead class="table-primary text-nowrap">
+                                <tr>
+                                    <th>S No</th>
+                                    <th>BOQ Code</th>
+                                    <th>BOQ Category</th>
+                                    <th>BOQ Sub Category</th>
+                                    <th>Remarks</th>
+                                    <th>Created By</th>
+                                    <th>Created Date</th>
+                                    <th>Status</th>
+                                    <th>Execution Location</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-nowrap">
+                                <tr *ngFor="let boq of boqList?.boqData; index as i">
+                                    <td>{{ limit*(p-1)+i+1 }}</td>
+                                    <td>{{ boq?.boq_code }}</td>
+                                    <td>{{ boq?.itemcategory }}</td>
+                                    <td>{{ boq?.subcategory }}</td>
+                                    <td>{{ boq?.remarks ? boq?.remarks : '--' }}</td>
+                                    <td>{{ boq?.createdby_name ? boq?.createdby_name : '--' }}</td>
+                                    <td>{{ boq?.created ? (boq?.created | date: 'dd/MM/yyyy hh:mm a' : 'GMT') : '--' }}
+                                    </td>
+                                    <td>{{ boq?.status }}</td>
+                                    <td>{{ boq?.site_location ? boq.site_location : '--' }}</td>
+                                    <td>
+                                        <a (click)="getBoqItemsList(boq)" data-bs-toggle="modal"
+                                            data-bs-target="#detailModal"><span
+                                                class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </app-responsive-table>
+                    </div>
                 </div>
+            </div>
+            <div class="modal-btns p-3">
+                <button type="button" id="cancelboqmodal" class="btn btn-secondary btn-fw btn-sm"
+                    data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-</div> -->
-<!-- create modal end-->
+</div>
+<!--boq detail modal end-->
 
 <!-- item modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -262,127 +155,135 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">BOQ Items List</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">View Item List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                    data-bs-target="#boqListModel" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12 p-0">
-                            <div class="table-responsive tableStyle">
-                                <table class="table table-hover table-striped mb-3">
-                                    <thead class="table-primary text-nowrap">
-                                        <tr>
-                                            <th>S No</th>
-                                            <th>Item Code</th>
-                                            <th>Item Description</th>
-                                            <th>Quantity</th>
-                                            <th>Item UOM</th>
-                                            <th>Vendors Details</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-nowrap">
-                                        <!-- <tr *ngFor="let a of rowData?.item; index as i"> -->
-                                        <tr>
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>1</td>
-                                            <td>ITM0001</td>
-                                            <td>Demo Item 1</td>
-                                            <td>50</td>
-                                            <td>KG</td>
-                                            <td>
-                                                <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#venodrModal" title="Vendor List">
-                                                    <span class="mdi mdi-format-list-bulleted mdi-18px"></span>
-                                                  </a>
-                                            </td>
-                                            <td> <input type="checkbox"> </td>
-                                            <!-- <td>
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                    <span class="mdi mdi-format-align-bottom"></span>
-                                                  </button>
-                                            </td> -->
-                                        </tr>
-                                        <!-- <td colspan="15" id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <app-tender-detail [itemList]="boqList"></app-tender-detail>
+                            <ng-container class="mt-4">
+                                <div class="pt-2 mb-2" style="min-height: auto;">
+                                    <table class="table table-hover table-striped custom-table mb-3 table-bordered">
+                                        <thead class="table-primary text-nowrap">
+                                            <tr>
+                                                <th colspan="6" class="text-center">BOQ Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-nowrap">
+                                            <tr>
+                                                <th>BOQ Code</th>
+                                                <td>{{ vendorDetails?.boq_code }}</td>
+                                                <th>Category</th>
+                                                <td>{{vendorDetails?.itemcategory}}</td>
+                                                <th>Sub Category</th>
+                                                <td>{{vendorDetails?.subcategory}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <h6 class="mt-3 mb-2 text-secondary">Item Details</h6>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <button class="btn btn-primary btn-fw btn-sm me-2 float-end"
+                                            data-bs-toggle="modal" data-bs-target="#excelupload" title="Upload"
+                                            (click)="form.reset();"><span class="mdi mdi-download"></span>&nbsp;
+                                            Import</button>
+                                    </div>
+                                </div>
+                                <div class="table-responsive pt-2 mb-2" style="min-height: auto;">
+                                    <table class="table table-hover table-striped">
+                                        <thead class="table-primary text-nowrap">
                                             <tr>
                                                 <th>S No</th>
-                                                <th>Item Name</th>
-                                                <th>Qty</th>
-                                                <th>Price</th>
-                                                <th>Type</th>
+                                                <th>Item Code</th>
+                                                <th>Description</th>
+                                                <th>UOM</th>
+                                                <th>Category</th>
+                                                <th>Sub-Category</th>
+                                                <th>Quantity</th>
+                                                <th>Vendors Details</th>
+                                                <th>Action</th>
                                             </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Sub Item 1</td>
-                                                <td>20</td>
-                                                <td>500</td>
-                                                <td>Non-Billable</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Sub Item 2</td>
-                                                <td>10</td>
-                                                <td>20</td>
-                                                <td>Non-Billable</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Sub Item 3</td>
-                                                <td>10</td>
-                                                <td>20</td>
-                                                <td>Non-Billable</td>
-                                            </tr>
-                                        </td> -->
-                                        <tr>
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>2</td>
-                                            <td>ITM0002</td>
-                                            <td>Demo Item 2</td>
-                                            <td>150</td>
-                                            <td>KG</td>
-                                            <td>
-                                                <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#venodrModal" title="Vendor List">
-                                                    <span class="mdi mdi-format-list-bulleted mdi-18px"></span>
-                                                  </a>
-                                            </td>
-                                            <td> <input type="checkbox"> </td>
-                                        </tr>
-                                        <tr>
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>3</td>
-                                            <td>ITM0003</td>
-                                            <td>Demo Item 3</td>
-                                            <td>30</td>
-                                            <td>KG</td>
-                                            <td>
-                                                <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#venodrModal" title="Vendor List">
-                                                    <span class="mdi mdi-format-list-bulleted mdi-18px"></span>
-                                                  </a>
-                                            </td>
-                                            <td> <input type="checkbox"> </td>
-                                        </tr>
-                                        <!-- <tr *ngIf="rowData?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="spinner-border"> </div>
-                                            </td>
-                                        </tr> -->
-                                        <!-- <tr *ngIf="verificationData?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
-                                            </td>
-                                        </tr> -->
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="modal-btns">
-                                <button type="button" class="btn btn-primary btn-fw btn-sm mr-2">Send Counter</button>
-                                <!-- <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button> -->
-                                <button type="button" id="cancel" class="btn btn-secondary btn-fw btn-sm"
-                                data-bs-dismiss="modal">Close</button>
-                            </div>
+                                        </thead>
+                                        <tbody class="text-nowrap">
+                                            <ng-container *ngFor="let main of rowData; index as i">
+                                                <tr class="fw-bold">
+                                                    <td>{{ i+1 }}</td>
+                                                    <td>{{ main?.itemcode }}</td>
+                                                    <td>
+                                                        <div *ngIf="!!main?.description; else elseBlock5"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="{{ main?.description }}"> {{main?.description |
+                                                            slice:0:30}} <span
+                                                                *ngIf="main?.description.length > 30">...<i
+                                                                    class="mdi mdi-information"></i></span></div>
+                                                        <ng-template #elseBlock5> {{main?.description}}
+                                                        </ng-template>
+                                                    </td>
+                                                    <td>{{ main?.uom }}</td>
+                                                    <td>{{ main?.itemcategory }}</td>
+                                                    <td>{{ main?.subcategory }}</td>
+                                                    <td>{{ main?.quantity }}</td>
+                                                    <td>
+                                                        <a class="cursor-pointer" data-bs-toggle="modal"
+                                                            data-bs-target="#venodrModal" title="Vendor List"
+                                                            (click)="vendorList(main)">
+                                                            <span class="mdi mdi-format-list-bulleted mdi-18px"></span>
+                                                        </a>
+                                                    </td>
+                                                    <td> <input type="checkbox" [disabled]="!main.isVendorSelected">
+                                                    </td>
+                                                </tr>
+                                                <ng-container *ngIf="main?.childItemList?.length > 0">
+                                                    <tr *ngFor="let childItem of main?.childItemList; index as ci">
+                                                        <td class="ms-2">&nbsp; &nbsp; &nbsp;{{i+1}}.{{ci+1}}</td>
+                                                        <td>{{ childItem?.itemcode }}</td>
+                                                        <td>
+                                                            <div *ngIf="!!childItem?.description; else elseBlock5"
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="{{ childItem?.description }}">
+                                                                {{childItem?.description | slice:0:30}} <span
+                                                                    *ngIf="childItem?.description.length > 30">...<i
+                                                                        class="mdi mdi-information"></i></span>
+                                                            </div>
+                                                            <ng-template #elseBlock5> {{childItem?.description}}
+                                                            </ng-template>
+                                                        </td>
+                                                        <td>{{ childItem?.uom }}</td>
+                                                        <td>{{ childItem?.itemcategory }}</td>
+                                                        <td>{{ childItem?.subcategory }}</td>
+                                                        <td>{{ childItem?.quantity }}</td>
+                                                        <td>
+                                                            <a class="cursor-pointer" data-bs-toggle="modal"
+                                                                data-bs-target="#venodrModal" title="Vendor List">
+                                                                <span
+                                                                    class="mdi mdi-format-list-bulleted mdi-18px"></span>
+                                                            </a>
+                                                        </td>
+                                                        <td> <input type="checkbox"
+                                                                [disabled]="!childItem.isVendorSelected"> </td>
+                                                    </tr>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="modal-btns p-3">
+                <button type="button" id="submitItems" class="btn btn-primary btn-fw btn-sm mr-2"
+                    data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Submit</button>
+                <button type="button" id="cancelitemmodal" class="btn btn-secondary btn-fw btn-sm"
+                    data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
             </div>
         </div>
     </div>
@@ -396,11 +297,50 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Vendor List</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#detailModal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    data-bs-toggle="modal" data-bs-target="#detailModal"></button>
             </div>
             <div class="modal-body p-3">
                 <div class="container-fluid">
                     <div class="row">
+                        <div class="table-responsive" style="min-height: auto;">
+                            <app-tender-detail [itemList]="boqList"></app-tender-detail>
+                        </div>
+                        <table class="table table-hover table-striped custom-table mb-3 table-bordered">
+                            <thead class="table-primary text-nowrap">
+                                <tr>
+                                    <th colspan="6" class="text-center">BOQ Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-nowrap">
+                                <tr>
+                                    <th>BOQ Code</th>
+                                    <td>{{ vendorDetails?.boq_code }}</td>
+                                    <th>Category</th>
+                                    <td>{{vendorDetails?.itemcategory}}</td>
+                                    <th>Sub Category</th>
+                                    <td>{{vendorDetails?.subcategory}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-hover table-striped custom-table mb-3 table-bordered">
+                            <thead class="table-primary text-nowrap">
+                                <tr>
+                                    <th colspan="6" class="text-center">Item Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-nowrap">
+                                <tr>
+                                    <th>Item Code</th>
+                                    <td>{{ vendorPriceDetails?.itemcode }}</td>
+                                    <th>Description</th>
+                                    <td>
+                                        <app-slice-with-tooltip
+                                            [text]="vendorPriceDetails?.description ? vendorPriceDetails?.description : ''"></app-slice-with-tooltip>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <div class="col-md-12 p-0">
                             <div class="table-responsive tableStyle">
                                 <table class="table table-hover table-striped mb-3">
@@ -411,97 +351,85 @@
                                             <th rowspan="2">Quantity</th>
                                             <th colspan="3" class="text-center">Vendor Proposed Price</th>
                                             <th rowspan="2">Item UOM</th>
-                                            <!-- <th colspan="3" class="text-center">Counter Price</th> -->
-                                            <!-- <th rowspan="2">Sub Items</th> -->
                                             <th rowspan="2">Action</th>
                                         </tr>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Contact</th>
+                                            <th>Contact number</th>
                                             <th>Unit Price</th>
                                             <th>Total Price With GST</th>
                                             <th>Total Price Without GST</th>
-                                            <!-- <th>Unit Price</th>
-                                            <th>Total Price With GST</th>
-                                            <th>Total Price Without GST</th> -->
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
-                                        <!-- <tr *ngFor="let a of rowData?.item; index as i"> -->
-                                        <tr>
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>1</td>
-                                            <td>Demo Vendor</td>
-                                            <td>8808987678</td>
-                                            <td>50</td>
-                                            <td>10</td>
-                                            <td>530</td>
-                                            <td>500</td>
-                                            <td>KG</td>
-                                            <!-- <td> <input type="text" class="form-control form-control-sm"> </td>
-                                            <td> <input type="text" class="form-control form-control-sm"> </td>
-                                            <td> <input type="text" class="form-control form-control-sm"> </td> -->
-                                            <!-- <td>
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                    <span class="mdi mdi-format-align-bottom"></span>
-                                                  </button>
-                                            </td> -->
-                                            <td> <input type="checkbox"> </td>
-                                        </tr>
-                                        <tr>
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>2</td>
-                                            <td>Demo Vendor 2</td>
-                                            <td>9909897766</td>
-                                            <td>150</td>
-                                            <td>10</td>
-                                            <td>1550</td>
-                                            <td>1500</td>
-                                            <td>KG</td>
-                                            <!-- <td> <input type="text" class="form-control form-control-sm"> </td>
-                                            <td> <input type="text" class="form-control form-control-sm"> </td>
-                                            <td> <input type="text" class="form-control form-control-sm"> </td> -->
-                                            <td> <input type="checkbox"> </td>
-                                        </tr>
-                                        <tr>
-                                            <!-- <td>{{ limit*(p-1)+i+1 }}</td> -->
-                                            <td>3</td>
-                                            <td>Demo Vendor</td>
-                                            <td>8808987678</td>
-                                            <td>30</td>
-                                            <td>20</td>
-                                            <td>630</td>
-                                            <td>600</td>
-                                            <td>KG</td>
-                                            <!-- <td> <input type="text" class="form-control form-control-sm"> </td>
-                                            <td> <input type="text" class="form-control form-control-sm"> </td>
-                                            <td> <input type="text" class="form-control form-control-sm"> </td> -->
-                                            <td> <input type="checkbox"> </td>
-                                        </tr>
-                                        <!-- <tr *ngIf="rowData?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="spinner-border"> </div>
+                                        <tr *ngFor="let detail of vendorPriceDetails?.selected_vendors; let i = index">
+                                            <td>{{i + 1}}</td>
+                                            <td>{{detail.suppliername ? detail.suppliername : '--'}}</td>
+                                            <td>{{detail.contactno ? detail.contactno : '--'}}</td>
+                                            <td>{{vendorPriceDetails.quantity ? vendorPriceDetails.quantity : '--'}}
                                             </td>
-                                        </tr> -->
-                                        <!-- <tr *ngIf="verificationData?.length == 0">
-                                            <td colspan="15" class="text-center">
-                                                <div class="text-warning fw-semibold">Looks like no data available!</div>
+                                            <td>{{detail.unit_price ? detail.unit_price : '--'}}</td>
+                                            <td>{{detail.total_cost_withgst ? detail.total_cost_withgst : '--'}}</td>
+                                            <td>{{detail.total_cost_withoutgst ? detail.total_cost_withoutgst : '--'}}
                                             </td>
-                                        </tr> -->
+                                            <td>{{vendorPriceDetails.uom ? vendorPriceDetails.uom : '--'}}</td>
+                                            <td> <input type="checkbox" (change)="onCheckboxChange(detail)"> </td>
+                                        </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                            <div class="modal-btns">
-                                <!-- <button type="button" class="btn btn-primary btn-fw btn-sm mr-2">Send Counter</button> -->
-                                <!-- <button type="button" *ngIf="isSubmitted" disabled class="btn btn-primary btn-fw btn-sm mr-2"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...</button> -->
-                                <button type="button" id="cancel" class="btn btn-primary btn-fw btn-sm"
-                                data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#detailModal">Submit</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="modal-btns p-3">
+                <button type="button" id="cancel" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-dismiss="modal"
+                    data-bs-toggle="modal" data-bs-target="#detailModal">Submit</button>
+                <button type="button" id="cancelvendormodal" class="btn btn-secondary btn-fw btn-sm"
+                    data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#detailModal">Close</button>
+            </div>
         </div>
     </div>
 </div>
 <!-- vendor modal end-->
+
+<!--excel upload modal start-->
+<div class="modal fade" id="excelupload" tabindex="-1" aria-labelledby="bulkModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">RFQ Items</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                    data-bs-target="#detailModal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="onExcelSubmit()">
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="form-label fl-10">RFQ item template file<span
+                                        class="required-asterisk">*</span></label>
+                                <input class="mt-2" type="file" class="form-control form-control-sm"
+                                    formControlName="attachment" (change)="onFileChanged($event)"
+                                    accept=".xlsx, .xls" />
+                            </div>
+                        </div>
+                        <div class="float-right my-2">
+                            <button type="submit" *ngIf="!isSubmitted" class="btn btn-primary btn-fw btn-sm me-2"
+                                [disabled]="form.invalid"> Upload</button>
+                            <button type="button" *ngIf="isSubmitted" disabled
+                                class="btn btn-primary btn-fw btn-sm mr-2"><span
+                                    class="spinner-border spinner-border-sm"
+                                    aria-hidden="true"></span>Uploading...</button>
+                            <button type="button" id="cancelexcelmodal" class="btn btn-secondary btn-fw btn-sm"
+                                data-bs-dismiss="modal" data-bs-toggle="modal"
+                                data-bs-target="#detailModal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--excel upload modal end-->
