@@ -48,6 +48,7 @@ export class DataCapturingComponent implements OnDestroy {
   emdExp: any;
   selectedEmdexemption: boolean = false;
   selectSecurityField: boolean = false;
+  showTenderLocationCard: boolean = true;
   selectPGField: boolean = false;
   selectPrebidField: boolean = false;
   tenderData: any
@@ -178,6 +179,7 @@ export class DataCapturingComponent implements OnDestroy {
       emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
 
+
     this.addAnotherRow();
     this.getCompanyData();
     this.getCountryData();
@@ -186,7 +188,7 @@ export class DataCapturingComponent implements OnDestroy {
     this.getCategoryData();
     this.onPublishDateChange();
     this.onClosingDateChange();
-    
+   
   }
 
   dateLessThan(startDate: string, endDate: string): ValidatorFn {
@@ -240,7 +242,7 @@ newLocation(): FormGroup {
     district_id: [null, Validators.required],
     city: [null, Validators.required],
     pincode: [null, [Validators.required, Validators.maxLength(6)]],
-    districtData: [[]]  // Add a control to hold district data
+    districtData: [null, Validators.required]  // Add a control to hold district data
   });  
 }
 
@@ -251,8 +253,6 @@ addAnotherRow() {
 removeRow(i: number) { 
   this.loc().removeAt(i);
 }
-
-
 
   getCountryData() {
     this.apiService.getCountryDataList().pipe(takeUntil(this.destroy$)).subscribe(
@@ -459,10 +459,24 @@ removeRow(i: number) {
         console.log(this.tendContDetails);
         this.multiLocation = res.result[0].siteAddress;
         console.log( this.multiLocation);
+
+        this.multiLocation.forEach((location: any) => {
+          const locationFormGroup = this.formBuilder.group({
+            site_location: [location.site_location, Validators.required],
+            location_address: [location.location_address, Validators.required],
+            state_id: [location.state_id, Validators.required],
+            district_id: [location.district_id, Validators.required],
+            city: [location.city, Validators.required],
+            pincode: [location.pincode, [Validators.required, Validators.maxLength(6)]],
+            districtData: [location.districtData]
+          });
+          
+          this.tender_location.push(locationFormGroup);
+          console.log(locationFormGroup);
+        });
+      
      
-       
-
-
+        // this.form.get('tender_location')?.setValue(this.multiLocation);
         this.getSubData(this.custDetails.qacatagory_id)
         this.getCapacityData(this.custDetails.subqacatagory_id)
        
@@ -521,9 +535,6 @@ removeRow(i: number) {
           emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
 
         });
-
-      //  this.tender_location = this.multiLocation
-       
         setTimeout(() => {
           this.getStateData();
           // this.getDistrictData();
@@ -781,7 +792,7 @@ removeRow(i: number) {
     //   capacity_id: this.custDetails.capacity_id,
 
     // });
-
+    this.form.value.site_id = this.multiLocation.site_id;
     this.form.value.tender_id = this.tenderData.id;
     this.apiService.tenderUpdation(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
