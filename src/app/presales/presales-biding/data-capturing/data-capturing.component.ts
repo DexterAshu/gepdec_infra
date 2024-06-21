@@ -229,6 +229,7 @@ get tender_location(): FormArray {
 
 loc(): FormArray {
   return this.tender_location;
+
 }
 
 newLocation(): FormGroup {  
@@ -451,7 +452,6 @@ removeRow(i: number) {
       this.update = true;
 
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-
         console.log(res);
         this.tendContDetails = [];
         this.custDetails = res.result[0];
@@ -459,7 +459,12 @@ removeRow(i: number) {
         console.log(this.tendContDetails);
         this.multiLocation = res.result[0].siteAddress;
         console.log( this.multiLocation);
-        
+     
+       
+
+
+        this.getSubData(this.custDetails.qacatagory_id)
+        this.getCapacityData(this.custDetails.subqacatagory_id)
        
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
@@ -480,9 +485,9 @@ removeRow(i: number) {
           tenderpayment_terms: this.custDetails.tenderpayment_terms,
           tender_location: this.custDetails.tender_location,
           tender_ref_no: this.custDetails.tender_ref_no,
-          qacatagory_id: this.custDetails.qacatagory,
-          subqacatagory_id: this.custDetails.subqacatagory,
-          capacity_id: this.custDetails.capacity,
+          qacatagory_id: this.custDetails.qacatagory_id,
+          subqacatagory_id: this.custDetails.subqacatagory_id,
+          capacity_id: this.custDetails.capacity_id,
           tender_status: this.custDetails.tender_status,
           tender_submission_date: this.custDetails.tender_submission_date ? new Date(this.custDetails.tender_submission_date).toISOString().split('T')[0] : null,
           tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date ? new Date(this.custDetails.tenderhardcopysubmission_date).toISOString().split('T')[0] : null,
@@ -517,6 +522,7 @@ removeRow(i: number) {
 
         });
 
+      //  this.tender_location = this.multiLocation
        
         setTimeout(() => {
           this.getStateData();
@@ -525,7 +531,7 @@ removeRow(i: number) {
       })
     }
   }
-
+ 
 
   fileList: File[] = [];
   listOfFiles: any[] = [];
