@@ -105,7 +105,7 @@ export class DataCapturingComponent implements OnDestroy {
       // debugger
       this.tenderData = params;
       // if(this.tenderData == null){
-        
+
       // }
 
     });
@@ -191,7 +191,7 @@ export class DataCapturingComponent implements OnDestroy {
       contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
-  
+
     this.getCompanyData();
     this.getCountryData();
     this.getDesignDeptData();
@@ -240,26 +240,26 @@ export class DataCapturingComponent implements OnDestroy {
     return this.form.get('tender_location') as FormArray;
   }
 
-loc(): FormArray {
-  return this.tender_location;
+  loc(): FormArray {
+    return this.tender_location;
 
-}
+  }
 
-newLocation(): FormGroup {  
-  return this.formBuilder.group({  
-    site_location: [null, Validators.required],
-    location_address: [null, Validators.required],
-    state_id: [null, Validators.required],
-    district_id: [null, Validators.required],
-    city: [null, Validators.required],
-    pincode: [null, [Validators.required, Validators.maxLength(6)]],
-    districtData: [null, Validators.required]  // Add a control to hold district data
-  });  
-}
+  newLocation(): FormGroup {
+    return this.formBuilder.group({
+      site_location: [null, Validators.required],
+      location_address: [null, Validators.required],
+      state_id: [null, Validators.required],
+      district_id: [null, Validators.required],
+      city: [null, Validators.required],
+      pincode: [null, [Validators.required, Validators.maxLength(6)]],
+      districtData: [null, Validators.required]  // Add a control to hold district data
+    });
+  }
 
-addAnotherRow() {  
-  this.loc().push(this.newLocation());  
-} 
+  addAnotherRow() {
+    this.loc().push(this.newLocation());
+  }
 
 
   removeRow(i: number) {
@@ -295,22 +295,24 @@ addAnotherRow() {
   matchCompany(bidder_id: any) {
     this.form.controls['secondary_company'].reset();
     let allComp = this.allCompanies;
-    this.filteredCompanies = allComp.filter((el:any) => el.bidder_id != bidder_id);
+    this.filteredCompanies = allComp.filter((el: any) => el.bidder_id != bidder_id);
   }
 
   getCountryData() {
     this.apiService.getCountryDataList().pipe(takeUntil(this.destroy$)).subscribe(
-      {next: (res: any) => {
-        if (res.status === 200) {
-          this.countryData = res.result;
-          const defaultCountry = this.countryData.find((country:any )=> country.name === 'India');
-          if (defaultCountry) {
-            this.selectedCountryId = defaultCountry.country_id;
-            this.form.get('country_id')?.setValue(this.selectedCountryId);
-            this.getStateData1(this.selectedCountryId);
+      {
+        next: (res: any) => {
+          if (res.status === 200) {
+            this.countryData = res.result;
+            const defaultCountry = this.countryData.find((country: any) => country.name === 'India');
+            if (defaultCountry) {
+              this.selectedCountryId = defaultCountry.country_id;
+              this.form.get('country_id')?.setValue(this.selectedCountryId);
+              this.getStateData1(this.selectedCountryId);
+            }
+          } else {
+            this.alertService.warning("Looks like no data available in country data.");
           }
-        } else {
-          this.alertService.warning("Looks like no data available in country data.");
         }
       });
   }
@@ -337,11 +339,12 @@ addAnotherRow() {
     );
   }
 
-    getStateData1(data:any) {
-      let countrydata =  this.selectedCountryId;
-      let statedata = null;
-      this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
-        {next: (res: any) => {
+  getStateData1(data: any) {
+    let countrydata = this.selectedCountryId;
+    let statedata = null;
+    this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
+      {
+        next: (res: any) => {
           if (res.status === 200) {
             this.stateData = res.result;
           } else {
@@ -353,8 +356,8 @@ addAnotherRow() {
           this.alertService.error("Error: Unknown Error!")
         }
       }
-      );
-    }
+    );
+  }
 
   getDistrictData(stateId: number, index: number) {
     const formGroup = this.loc().at(index) as FormGroup;
@@ -494,11 +497,11 @@ addAnotherRow() {
   ngAfterViewInit(): void {
     this.button = 'Save & Continue';
     this.update = false;
-  
+
     if (this.tenderData?.id) {
       this.button = 'Update';
       this.update = true;
-  
+
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
 
         this.tendContDetails = [];
@@ -508,10 +511,10 @@ addAnotherRow() {
         console.log(this.multiLocation);
         this.getSubData(this.custDetails.qacatagory_id)
         this.getCapacityData(this.custDetails.subqacatagory_id)
-  
+
         for (let index = 0; index < this.multiLocation.length; index++) {
           const location = this.multiLocation[index];
-  
+
           const locationFormGroup = this.formBuilder.group({
             site_location: [location.site_location],
             location_address: [location.location_address],
@@ -524,7 +527,7 @@ addAnotherRow() {
           });
           this.tender_location.push(locationFormGroup);
           console.log(locationFormGroup);
-  
+
           // Call onStateChange to update district data
           this.getDistrictData(location.state_id, index);
         }
@@ -588,7 +591,7 @@ addAnotherRow() {
           securitysubmission_date: this.custDetails.securitysubmission_date ? new Date(this.custDetails.securitysubmission_date).toISOString().split('T')[0] : null,
           emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
         });
-        
+
         setTimeout(() => {
           this.getStateData();
         }, 500);
@@ -597,7 +600,7 @@ addAnotherRow() {
       this.addAnotherRow();
     }
   }
- 
+
 
   fileList: File[] = [];
   listOfFiles: any[] = [];
@@ -623,7 +626,7 @@ addAnotherRow() {
     this.addressDetails = []
     this.apiService.companyDetails(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
-     
+
         if (res.status === 200) {
           this.custDetails = res.result;
           const arr = this.custDetails[0].contact;
@@ -638,7 +641,7 @@ addAnotherRow() {
           this.addressDetails = res.result[0].adderss;
           this.isContactFound = false;
         } else {
-         
+
           this.isContactFound = true;
           this.custDetails = undefined;
           this.contactDetails = undefined;
