@@ -295,38 +295,34 @@
 
           <div class="col-md-4">
             <div class="form-group">
-              <label class="form-label"
-                >Country<span class="required-asterisk">*</span></label
-              >
+              <label class="form-label">
+                Country<span class="required-asterisk">*</span>
+              </label>
               <select
                 formControlName="country_id"
                 class="form-select form-select-sm"
+                [(ngModel)]="selectedCountryId"
                 (ngModelChange)="getStateData1($event)"
               >
                 <option [selected]="true" [disabled]="true" [value]="null">
                   Select Country
                 </option>
-                <option
-                  *ngFor="let c of countryData"
-                  value="{{ c.country_id }}"
-                >
+                <option *ngFor="let c of countryData" [value]="c.country_id">
                   {{ c.name }}
                 </option>
               </select>
               <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
-                <small
-                  class="text-danger"
-                  *ngIf="f['country_id'].errors?.['required']"
-                  >*Required</small
-                >
+                <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">
+                  *Required
+                </small>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label class="form-label"
-                >State<span class="required-asterisk">*</span></label
-              >
+              <label class="form-label">
+                State<span class="required-asterisk">*</span>
+              </label>
               <select
                 formControlName="state_id"
                 class="form-select form-select-sm"
@@ -335,19 +331,18 @@
                 <option [selected]="true" [disabled]="true" [value]="null">
                   Select State
                 </option>
-                <option *ngFor="let s of stateData" value="{{ s.state_id }}">
+                <option *ngFor="let s of stateData" [value]="s.state_id">
                   {{ s.state_name }}
                 </option>
               </select>
               <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
-                <small
-                  class="text-danger"
-                  *ngIf="f['state_id'].errors?.['required']"
-                  >*Required</small
-                >
+                <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">
+                  *Required
+                </small>
               </div>
             </div>
           </div>
+          
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label"
@@ -1380,7 +1375,7 @@
                         <input
                           formControlName="contactperson_check"
                           type="checkbox"
-                          [checked]="a.isChecked == true"
+                          [(ngModel)]="a.isChecked"
                           (click)="handleCheckboxChange($event, a)"
                         />
                       </td>
