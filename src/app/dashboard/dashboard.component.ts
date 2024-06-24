@@ -104,6 +104,7 @@ export class DashboardComponent implements OnInit {
   categoryData: any;
   companyData: any;
   projectData: any;
+  isFiltering: boolean = false;
   statusData: any;
   projectData2: any;
   single = [
@@ -1225,6 +1226,7 @@ export class DashboardComponent implements OnInit {
   ];
   changeData: any;
   form!: FormGroup;
+  filterForm!: FormGroup;
   countryData: any;
   stateData: any;
   fiveYear: any;
@@ -1407,7 +1409,7 @@ export class DashboardComponent implements OnInit {
     this.getDashboardData(null, null, null, null, null, null);
     // this.getCompanyData();
 
-    this.form = this.formBuilder.group({
+    this.filterForm = this.formBuilder.group({
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       duration: [null, Validators.required],
@@ -1450,7 +1452,7 @@ export class DashboardComponent implements OnInit {
       this.countryData = country.result;
       const india = this.countryData.find((c: { name: string }) => c.name === 'India');
       if (india) {
-        this.form.patchValue({ country_id: india.country_id });
+        this.filterForm.patchValue({ country_id: india.country_id });
         this.StateData(); // Automatically fetch state data for India
       }
     } else {
@@ -1467,7 +1469,7 @@ export class DashboardComponent implements OnInit {
         return currentDate >= startDate && currentDate <= endDate;
       });
       if (currentFinYear) {
-        this.form.patchValue({ duration: currentFinYear.financialyear_id });
+        this.filterForm.patchValue({ duration: currentFinYear.financialyear_id });
         this.selectedDuration = currentFinYear.financialyear_id;
       }
     } else {
@@ -1478,7 +1480,7 @@ export class DashboardComponent implements OnInit {
     if (company.status === 200) {
       this.companyData = company.result.reverse();
       if (this.companyData.length > 0) {
-        this.form.patchValue({ company: this.companyData[0].bidder_id });
+        this.filterForm.patchValue({ company: this.companyData[0].bidder_id });
         this.selectedCompany = this.companyData[0].bidder_id;
       }
     } else {
@@ -1498,48 +1500,96 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  // StateData() {
+  //   console.log(this.filterForm.value.country_id);
+
+  //   let countrydata = this.filterForm.value.country_id;
+  //   // let statedata = null;
+  //   this.apiService.getStateData(countrydata, null).subscribe((res: any) => {
+  //     if (res.status === 200) {
+  //       this.stateData = res.result;
+  //     } else {
+  //       this.alertService.warning(`Looks like no state available related to the selected country.`);
+  //     }
+  //   });
+  // }
+
   StateData() {
-    console.log(this.form.value.country_id);
-
-    let countrydata = this.form.value.country_id;
-    // let statedata = null;
-    this.apiService.getStateData(countrydata, null).subscribe((res: any) => {
-      if (res.status === 200) {
-        this.stateData = res.result;
-      } else {
-        this.alertService.warning(`Looks like no state available related to the selected country.`);
-      }
-    });
+    const countryId = this.filterForm.value.country_id;
+    if (countryId) {
+      this.apiService.getStateData(countryId, null).subscribe(
+        (res: any) => {
+          if (res.status === 200) {
+            this.stateData = res.result;
+            console.log('State Data:', this.stateData); // Debug: Log the state data
+          } else {
+            this.alertService.warning(`No states available for the selected country.`);
+          }
+        },
+        (error: any) => {
+          console.error('Error fetching state data:', error);
+          this.alertService.error(`Error fetching state data: ${error.statusText}`);
+        }
+      );
+    }
   }
+  
 
+  // getProjData(financialyearId: number, categoryId: number, companyId: number) {
+  //   this.isNotFound = true;
+  //   this.masterService.getProjectData(financialyearId, categoryId, companyId).subscribe((res: any) => {
+  //     this.isNotFound = false;
+  //     if (res.status == 200) {
+  //       this.projectData = res.result;
+  //     } else {
+  //       this.alertService.warning("No project data available!");
+  //     }
+  //   }, (error: any) => {
+  //     console.error(error);
+  //     this.isNotFound = false;
+  //     this.alertService.error("Error: " + error.statusText);
+  //   });
+  // }
   getProjData(financialyearId: number, categoryId: number, companyId: number) {
     this.isNotFound = true;
     this.masterService.getProjectData(financialyearId, categoryId, companyId).subscribe((res: any) => {
       this.isNotFound = false;
       if (res.status == 200) {
         this.projectData = res.result;
+        if (this.isFiltering && (!this.projectData || this.projectData.length === 0)) {
+          this.alertService.warning("No project data available!");
+        }
       } else {
-        this.alertService.warning("No project data available!");
+        if (this.isFiltering) {
+          this.alertService.warning("No project data available!");
+        }
       }
     }, (error: any) => {
       console.error(error);
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText);
+      if (this.isFiltering) {
+        this.alertService.error("Error: " + error.statusText);
+      }
+    }).add(() => {
+      this.isFiltering = false; // Reset the filtering flag after the request completes
     });
   }
 
   onDurationChange(event: any) {
     this.selectedDuration = event.target.value;
+    this.isFiltering = true;
     this.callProjectApiIfReady();
   }
 
   onCategoryChange(event: any) {
     this.selectedCategory = event.target.value;
+    this.isFiltering = true;
     this.callProjectApiIfReady();
   }
 
   onCompanyChange(event: any) {
     this.selectedCompany = event.target.value;
+    this.isFiltering = true;
     this.callProjectApiIfReady();
   }
 
@@ -1551,8 +1601,8 @@ export class DashboardComponent implements OnInit {
     //     this.selectedCategory,
     //     this.selectedCompany,
     //     this.selectedProject,
-    //     this.form.value.state_id,
-    //     this.form.value.country_id
+    //     this.filterForm.value.state_id,
+    //     this.filterForm.value.country_id
     //   );
     // }
   }
@@ -1592,7 +1642,7 @@ export class DashboardComponent implements OnInit {
   // }
 
   submitForm() {
-    const formData = this.form.value;
+    const formData = this.filterForm.value;
     this.getDashboardData(
       formData.duration,
       formData.category,
