@@ -77,7 +77,7 @@ export class CaptureDataListComponent {
       working_notes: ['', Validators.required],
       audit_trail: [null],
     });
-
+   
     this.getTenderData();
   }
 
@@ -105,6 +105,7 @@ export class CaptureDataListComponent {
     } else {
       this.router.navigate(['/presales/presales-biding/data-capture']);
     }
+  
     this.button = 'Update';
     this.update = true;
   }

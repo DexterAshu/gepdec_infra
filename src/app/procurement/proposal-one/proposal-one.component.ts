@@ -23,7 +23,6 @@ export class ProposalOneComponent {
   boqList: any;
   vendorDetails: any;
   attachment: any = [];
-  listOfFiles: any = [];
   vendorPriceDetails: any;
 
   constructor(
@@ -80,7 +79,7 @@ export class ProposalOneComponent {
       ...mainItem,
       isVendorSelected: false,
       isChecked: false,
-      childItemList: mainItem.childItems ? mainItem.childItems.map((childItem: any) => ({
+      childItems: mainItem.childItems ? mainItem.childItems.map((childItem: any) => ({
         ...childItem,
         isVendorSelected: false,
         isChecked: false
@@ -89,11 +88,9 @@ export class ProposalOneComponent {
   }
 
   onFileChanged(event: any) {
-    this.listOfFiles = [];
     this.attachment = [];
     const fileList = event.target.files;
     for (let file of fileList) {
-      this.listOfFiles.push(file.name);
       this.attachment.push(file);
     }
   }
@@ -103,12 +100,43 @@ export class ProposalOneComponent {
     this.vendorPriceDetails = item;
   }
 
-  onCheckboxChange(data: any) {
-    console.log(data);
+  onCheckboxChange(event: any, mainItem: any, childItem?: any) {
+    if (childItem) {
+      childItem.isChecked = !childItem.isChecked;
+
+      if (childItem.isChecked) {
+        mainItem.isChecked = true;
+      } else {
+        const allChildItemsUnchecked = mainItem.childItems.every((item: any) => !item.isChecked);
+        if (allChildItemsUnchecked) {
+          mainItem.isChecked = false;
+        }
+      }
+    } else {
+      mainItem.isChecked = !mainItem.isChecked;
+
+      if (!mainItem.isChecked && mainItem.childItems) {
+        mainItem.childItems.forEach((item: any) => item.isChecked = false);
+      }
+    }
+  }
+
+  onVendorCheckboxChange(vendor: any) {
+    vendor.isVendorSelected = !vendor.isVendorSelected;
+  }
+
+  submitVendorSelection() {
+    // Update the item with selected vendors
+    this.vendorPriceDetails.selected_vendors.forEach((vendor: any) => {
+      if (vendor.isVendorSelected) {
+        this.vendorPriceDetails.isChecked = true;
+      }
+    });
+    console.log(this.vendorPriceDetails);
   }
 
   onExcelSubmit() {
-    let formData = new FormData();
+    const formData: any = new FormData();
     for (let i = 0; i < this.attachment.length; i++) {
       formData.append("attachment", this.attachment[i]);
     }
@@ -118,12 +146,26 @@ export class ProposalOneComponent {
           this.alertService.success(res.message);
           this.getDataList();
           document.getElementById('cancelexcelmodal')?.click();
+        } else {
+          this.alertService.error(res.message);
         }
       }, error: (error: any) => {
         console.log(error.error.message);
         this.alertService.error(error.error.message);
       }
     })
+  }
+
+  sendSelectedItems() {
+    const selectedItems = this.rowData.filter((item: any) => item.isChecked).map((item: any) => ({
+      ...item,
+      selected_vendors: item.selected_vendors.filter((vendor: any) => vendor.isVendorSelected),
+      childItems: item.childItems ? item.childItems.filter((childItem: any) => childItem.isChecked).map((childItem: any) => ({
+        ...childItem,
+        selected_vendors: childItem.selected_vendors.filter((vendor: any) => vendor.isVendorSelected)
+      })) : []
+    }));
+    console.log(selectedItems);
   }
 
   onSubmit() {
