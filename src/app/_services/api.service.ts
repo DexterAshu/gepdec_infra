@@ -499,9 +499,9 @@ export class ApiService {
   }
 
   //add vendor price list attachment
-  vendorProposalOne(data: any) {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
-    return this.http.post(`${environment.apiUrl}/precurement/api/v1/uploadProposal1`, data, httpOptions);
+  vendorProposalOne(data: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'auth-token': JSON.parse(localStorage.getItem('user') || '').token }) };
+    return this.http.put(`${environment.apiUrl}/precurement/api/v1/uploadProposal1`, data, httpOptions);
   }
 
 }
