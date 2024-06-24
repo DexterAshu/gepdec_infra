@@ -537,6 +537,8 @@ export class DataCapturingComponent implements OnDestroy {
 
 
         this.form.patchValue({
+          bidder_id: this.custDetails.bidder_id,
+          ecvtype_id: this.custDetails.ecvtype_id, 
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
           company_id: this.custDetails.company_id,
