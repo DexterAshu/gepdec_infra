@@ -472,9 +472,9 @@ removeRow(i: number) {
             district_id: [location.district_id],
             city: [location.city],
             pincode: [location.pincode],
-            districtData: [location.districtData]
+            districtData: [],
+            site_id: [location.site_id]
           });
-  
           this.tender_location.push(locationFormGroup);
           console.log(locationFormGroup);
   
