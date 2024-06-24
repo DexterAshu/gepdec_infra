@@ -262,7 +262,8 @@
                                                         <td>{{ childItem?.quantity }}</td>
                                                         <td>
                                                             <a class="cursor-pointer" data-bs-toggle="modal"
-                                                                data-bs-target="#venodrModal" title="Vendor List">
+                                                                data-bs-target="#venodrModal" title="Vendor List"
+                                                                (click)="vendorList(childItem)">
                                                                 <span
                                                                     class="mdi mdi-format-list-bulleted mdi-18px"></span>
                                                             </a>
