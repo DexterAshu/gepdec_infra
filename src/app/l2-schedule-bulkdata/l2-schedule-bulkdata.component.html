@@ -518,7 +518,9 @@
                     [style.color]="row?.is_added ? 'green' : (row?.is_updated ? 'blue' : 'black')">
                     <ng-container *ngIf="!row.is_deleted">
                       <td>{{ i+1 }}</td>
-                      <td>{{ row.task }}</td>
+                      <td>
+                        <app-slice-with-tooltip [text]="row.task"></app-slice-with-tooltip>
+                      </td>
                       <td>{{ row.task_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{ row.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                       <td>{{ row.days_difference }}</td>
@@ -535,7 +537,9 @@
                             [style.color]="ct?.is_added ? 'green' : (ct?.is_updated ? 'blue' : 'black')">
                             <ng-container *ngIf="!ct.is_deleted">
                               <td>{{i+1}}.{{ ci+1 }}</td>
-                              <td>{{ ct.task }}</td>
+                              <td>
+                                <app-slice-with-tooltip [text]="ct.task"></app-slice-with-tooltip>
+                              </td>
                               <td>{{ ct.task_start_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                               <td>{{ ct.task_end_date | date: 'dd/MM/yyyy hh:mm a' : 'GMT' }}</td>
                               <td>{{ ct.days_difference }}</td>

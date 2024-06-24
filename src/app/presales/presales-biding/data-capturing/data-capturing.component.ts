@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormArray, ValidatorFn
 import { environment } from 'src/environments/environment';
 import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {NgSelectModule, NgOption} from '@ng-select/ng-select';
+import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -69,18 +69,22 @@ export class DataCapturingComponent implements OnDestroy {
   capacityData: any;
   apiLink: any;
   tendContDetails: any;
-  multiLocation:any;
+  multiLocation: any;
   // addCustomLocation:any;
-  selectedUserIds:any = [];
-  ecvData:any
+  selectedUserIds: any = [];
+  ecvData: any
   private destroy$ = new Subject<void>();
   stateListData: any;
-  emdData:any;
-  regFeeData:any;
-  docCostData:any;
-  securityData:any;
+  emdData: any;
+  regFeeData: any;
+  docCostData: any;
+  securityData: any;
   minClosingDate: any;
   minAfterDate: any;
+  tenderDropdownData: any;
+  myCompanyData: any;
+  allCompanies: any;
+  filteredCompanies: any;
   selectedCountryId: number | null = null;  // Default selected country ID
 
   constructor(
@@ -113,9 +117,12 @@ export class DataCapturingComponent implements OnDestroy {
 
   get f() { return this.form.controls; }
   get f1() { return this.form1.controls; }
-  
+
   ngOnInit() {
     this.form = this.formBuilder.group({
+      bidder_type: [null, Validators.required],
+      bidder_id: [null, Validators.required],
+      secondary_company: [null],
       company_id: [null, Validators.required],
       tender_title: [null, Validators.required],
       tender_ref_no: [null, Validators.required],
@@ -147,6 +154,7 @@ export class DataCapturingComponent implements OnDestroy {
       tenderpayment_terms: [null, Validators.required],
       exemption_id: [null, Validators.required],
       ecv: [null, Validators.required],
+      ecvtype_id: [null, Validators.required],
       emd_ammount: [null],
       paymentmethod_id: [null],
       emd_submission_date: [null],
@@ -154,7 +162,7 @@ export class DataCapturingComponent implements OnDestroy {
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
-      city:[null, Validators.required],
+      city: [null, Validators.required],
       // financialyear_id: [null, Validators.required],
 
       //securitydeposit
@@ -191,7 +199,7 @@ export class DataCapturingComponent implements OnDestroy {
     this.getCategoryData();
     this.onPublishDateChange();
     this.onClosingDateChange();
-   
+    this.getMyCompanyData();
   }
 
   dateLessThan(startDate: string, endDate: string): ValidatorFn {
@@ -208,7 +216,7 @@ export class DataCapturingComponent implements OnDestroy {
     this.form.controls['closing_date'].reset();
   }
 
-  onClosingDateChange(){
+  onClosingDateChange() {
     this.form.controls['tender_submission_date'].reset();
     this.form.controls['tenderhardcopysubmission_date'].reset();
     this.form.controls['tech_bid_date'].reset();
@@ -227,10 +235,10 @@ export class DataCapturingComponent implements OnDestroy {
     })
   }
 
-//for multi location address
-get tender_location(): FormArray {
-  return this.form.get('tender_location') as FormArray;
-}
+  //for multi location address
+  get tender_location(): FormArray {
+    return this.form.get('tender_location') as FormArray;
+  }
 
 loc(): FormArray {
   return this.tender_location;
@@ -253,9 +261,42 @@ addAnotherRow() {
   this.loc().push(this.newLocation());  
 } 
 
-removeRow(i: number) { 
-  this.loc().removeAt(i);
-}
+
+  removeRow(i: number) {
+    this.loc().removeAt(i);
+  }
+
+  bidderType(type: any) {
+    if (type == '2003') {
+      this.form.get('secondary_company')!.setValidators([Validators.required]);
+      this.form.controls['secondary_company'].reset();
+    }
+    else {
+      this.form.controls['secondary_company'].clearValidators();
+      this.form.controls['secondary_company'].reset();
+    }
+  }
+
+  getMyCompanyData() {
+    debugger
+    this.myCompanyData = [];
+    this.allCompanies = [];
+    const apiLink = `/mycompany/api/v1/getMyComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.allCompanies = res.result;
+        this.myCompanyData = res.result.filter((el: any) => el.companytype_id == '2000');
+      } else {
+        this.alertService.warning("Looks like no data available in company data.");
+      }
+    });
+  }
+
+  matchCompany(bidder_id: any) {
+    this.form.controls['secondary_company'].reset();
+    let allComp = this.allCompanies;
+    this.filteredCompanies = allComp.filter((el:any) => el.bidder_id != bidder_id);
+  }
 
   getCountryData() {
     this.apiService.getCountryDataList().pipe(takeUntil(this.destroy$)).subscribe(
@@ -271,34 +312,31 @@ removeRow(i: number) {
         } else {
           this.alertService.warning("Looks like no data available in country data.");
         }
-      }, error: (error: any) => {
-        console.error(error);
-        this.isNotFound = true;
-        this.alertService.error("Error: Unknown Error!")
-      }
-    });
+      });
   }
 
-  addCustomLocation = (term:any) => ({id: term, tender_location: term});
+  addCustomLocation = (term: any) => ({ id: term, tender_location: term });
 
   getStateData() {
     let countrydata = this.form.value.country_id;
     let statedata = null;
     this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
-      {next: (res: any) => {
-        if (res.status === 200) {
-          this.stateData = res.result;
-        } else {
-          this.alertService.warning(`Looks like no state available related to the selected country.`);
+      {
+        next: (res: any) => {
+          if (res.status === 200) {
+            this.stateData = res.result;
+          } else {
+            this.alertService.warning(`Looks like no state available related to the selected country.`);
+          }
+        }, error: (error: any) => {
+          console.error(error);
+          this.isNotFound = true;
+          this.alertService.error("Error: Unknown Error!")
         }
-      }, error: (error: any) => {
-        console.error(error);
-        this.isNotFound = true;
-        this.alertService.error("Error: Unknown Error!")
       }
-    }
     );
   }
+
     getStateData1(data:any) {
       let countrydata =  this.selectedCountryId;
       let statedata = null;
@@ -338,7 +376,7 @@ removeRow(i: number) {
     });
   }
 
-  getDistrictData1(stateId: any){
+  getDistrictData1(stateId: any) {
     const dist = this.form.value.district_id;
     this.apiService.getDistData(stateId, dist).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
@@ -361,14 +399,13 @@ removeRow(i: number) {
       this.getDistrictData(stateId, index);
     }
   }
-  
- 
+
   getDesignDeptData() {
     this.masterService.getUserMaster().pipe(takeUntil(this.destroy$)).subscribe({
-      next:(res: any) => {
+      next: (res: any) => {
         this.design = res.designation;
         this.departMent = res.department;
-      },error: (error: any) => {
+      }, error: (error: any) => {
         console.error(error);
         this.isNotFound = true;
         this.alertService.error("Error: Unknown Error!")
@@ -463,11 +500,14 @@ removeRow(i: number) {
       this.update = true;
   
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
+
         this.tendContDetails = [];
         this.custDetails = res.result[0];
         this.tendContDetails = res.result[0].tendercontact;
         this.multiLocation = res.result[0].siteAddress;
         console.log(this.multiLocation);
+        this.getSubData(this.custDetails.qacatagory_id)
+        this.getCapacityData(this.custDetails.subqacatagory_id)
   
         for (let index = 0; index < this.multiLocation.length; index++) {
           const location = this.multiLocation[index];
@@ -491,7 +531,7 @@ removeRow(i: number) {
         this.getSubData(this.custDetails.qacatagory_id)
         this.getCapacityData(this.custDetails.subqacatagory_id)
         console.log(this.custDetails.tenderstatus_id);
-        
+
 
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
@@ -524,6 +564,7 @@ removeRow(i: number) {
           //Security Details
           securitydeposit_id: this.custDetails.securitydeposit_id,
           security_amount: this.custDetails.security_amount,
+
           //performance Details
           performanceguarantee_id: this.custDetails.performanceguarantee_id,
           pg_amount: this.custDetails.pg_amount,
@@ -547,7 +588,7 @@ removeRow(i: number) {
           securitysubmission_date: this.custDetails.securitysubmission_date ? new Date(this.custDetails.securitysubmission_date).toISOString().split('T')[0] : null,
           emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
         });
-  
+        
         setTimeout(() => {
           this.getStateData();
         }, 500);
@@ -569,7 +610,7 @@ removeRow(i: number) {
       this.attachment.push(selectedFile);
     }
   }
-  
+
   removeSelectedFile(index: any) {
     this.listOfFiles.splice(index, 1);
     this.fileList.splice(index, 1);
@@ -587,12 +628,12 @@ removeRow(i: number) {
           this.custDetails = res.result;
           const arr = this.custDetails[0].contact;
           console.log(this.custDetails[0].contact);
-           arr.forEach((data:any) => {
-           data.isChecked = true;
+          arr.forEach((data: any) => {
+            data.isChecked = true;
           });
           this.contactDetails = arr;
-          console.log( this.contactDetails);
-          
+          console.log(this.contactDetails);
+
           // this.contactDetails = res.result[0].contact;
           this.addressDetails = res.result[0].adderss;
           this.isContactFound = false;
@@ -604,13 +645,13 @@ removeRow(i: number) {
           this.addressDetails = undefined;
           this.alertService.warning(res.message);
         }
-      },error: (error: any) => {
+      }, error: (error: any) => {
         this.isContactFound = true;
         this.custDetails = undefined;
         this.contactDetails = undefined;
         this.addressDetails = undefined;
         this.alertService.error("Error: Unknown Error!");
-    }
+      }
     });
   }
 
@@ -632,12 +673,12 @@ removeRow(i: number) {
     });
   }
 
-  getSubData(data:any) {
+  getSubData(data: any) {
     this.subCategoryData = [];
     this.capacityData = [];
     this.form.controls['subqacatagory_id'].setValue(null);
     this.form.controls['capacity_id'].setValue(null);
-    if(data == '1002' || data == '1003') {
+    if (data == '1002' || data == '1003') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).pipe(takeUntil(this.destroy$)).subscribe({
         next: (res: any) => {
@@ -647,19 +688,19 @@ removeRow(i: number) {
           this.alertService.error("Error: Unknown Error!");
         }
       });
-    } else if(data == '1001') {
-        this.getCapacityData(data);
+    } else if (data == '1001') {
+      this.getCapacityData(data);
     }
   }
-  
-  getCapacityData(data:any) {
+
+  getCapacityData(data: any) {
     this.capacityData = [];
-    if(data == '2001' || data == '2002') {
+    if (data == '2001' || data == '2002') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?subqacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).pipe(takeUntil(this.destroy$)).subscribe({
         next: (res: any) => {
           this.capacityData = res.capacity;
-        }, error:  (error: any) => {
+        }, error: (error: any) => {
           this.capacityData = undefined;
           this.alertService.error("Error: Unknown Error!");
         }
@@ -678,22 +719,23 @@ removeRow(i: number) {
     }
   }
 
- 
+
   getCompanyData() {
     this.apiService.getCompanyList().pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
-        if(res.status == 200) {
+        if (res.status == 200) {
           this.companyData = res.result;
         } else {
           this.alertService.warning(res.message);
         }
-      }, error:  (error: any) => { 
+      }, error: (error: any) => {
         this.alertService.error("Error: Unknown Error!");
       }
     })
-   
+
     this.apiService.getTenderType().pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
+        this.tenderDropdownData = res
         this.tenderType = res.bidtype;
         this.meetingMode = res.mettingmode;
         this.emdExp = res.emdexemption;
@@ -701,7 +743,7 @@ removeRow(i: number) {
         this.securityDeposit = res.securitydeposit;
         this.payment = res.paymentmethod;
         this.tendStatus = res.tenderstatus;
-      }, error:  (error: any) => { 
+      }, error: (error: any) => {
         this.alertService.error("Error: Unknown Error!");
       }
     });
@@ -715,7 +757,7 @@ removeRow(i: number) {
       contactArray.push(this.formBuilder.group({ contact_id: contactId }));
     } else {
       // Checkbox is unchecked, remove item from contact array
-      const index = contactArray.controls.findIndex((x:any) => x.value.contact_id === contactId);
+      const index = contactArray.controls.findIndex((x: any) => x.value.contact_id === contactId);
       if (index !== -1) {
         contactArray.removeAt(index);
       }
@@ -782,6 +824,10 @@ removeRow(i: number) {
   addTender() {
     this.button = 'Save & Continue';
     this.update = false;
+    let updatedSecComp = [];
+    updatedSecComp = this.form.value.secondary_company == null ? [] : this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x }));
+    this.form.get('secondary_company')?.setValue(updatedSecComp);
+
     this.apiService.createTender(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         let response: any = res;
@@ -794,7 +840,7 @@ removeRow(i: number) {
         } else {
           this.alertService.warning(response.message);
         }
-      }, error:  (error: any) => {
+      }, error: (error: any) => {
         this.alertService.error("Error: Unknown Error!");
       }
     });
@@ -815,7 +861,7 @@ removeRow(i: number) {
         } else {
           this.alertService.error('Error, Something went wrong please check');
         }
-      }, error: (error: any) => { 
+      }, error: (error: any) => {
         console.error(error);
         this.alertService.error("Error: Unknown Error!");
       }
