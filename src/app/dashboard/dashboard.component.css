@@ -497,3 +497,33 @@
 .custom-tooltip .tooltip-label {
   margin: 0;
 }
+
+.custom-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center; /* -- Align items vertically centered */
+}
+
+.custom-grid-item {
+  flex: 1 1 auto; /* Allow items to grow and shrink as needed */
+  min-width: 0; /* Allow items to shrink to fit */
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-grid-item label {
+  margin-bottom: 0.5rem;
+}
+
+.custom-grid-item .form-select {
+  margin-bottom: 0.5rem;
+}
+
+.custom-grid-item:last-child {
+  flex: 0 0 auto; /* Ensure button does not grow and keeps its width */
+}
+.cust-form-label{
+  font-size: 0.8rem;
+}
+

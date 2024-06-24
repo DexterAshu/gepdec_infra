@@ -9,97 +9,62 @@
 
   <!-- filter data country state project wise -->
 
-  <div class="row module-wise ">
-    <!-- <div class="col-md-1" style="font-size: 14px; margin-top: 6px; font-family:'Times New Roman', Times, serif"> 
-      <i class="mdi mdi-filter-outline mdi-26px "></i> Filter 
-        </div> -->
+  <div class="row module-wise">
     <div class="col-md-12" style="font-family:'Times New Roman', Times, serif">
-      <form [formGroup]="form">
-        <div class="row">
-          <div class="col-md-2">
-            <!-- <i class="mdi mdi-filter-outline mdi-26px"></i> &nbsp; -->
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label">Country</label>
-              <div class="col-sm-8">
-                <select class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
-                  <option [value]="null" [disabled]="true" [value]="null">Select</option>
-                  <option *ngFor="let c of countryData" value="{{c.country_id}}">{{ c.name }}</option>
-                </select>
-
-              </div>
-            </div>
+      <form [formGroup]="filterForm" (ngSubmit)="submitForm()">
+        <div class="custom-grid">
+          <div class="custom-grid-item">
+            <label class="cust-form-label">Country</label>
+            <select class="form-select form-select-sm" formControlName="country_id" (ngModelChange)="StateData()">
+              <option [value]="null" [disabled]="true">Select</option>
+              <option *ngFor="let c of countryData" [value]="c.country_id">{{ c.name }}</option>
+            </select>
           </div>
-          <div class="col-md-2">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">State</label>
-              <div class="col-sm-9">
-                <select formControlName="state_id" class="form-select form-select-sm">
-                  <option [selected]="true" [disabled]="true" [value]="null">All</option>
-                  <option *ngFor="let s of stateData" value="{{s.state_id}}">{{ s.state_name }}</option>
-                </select>
-              </div>
-            </div>
+          <div class="custom-grid-item">
+            <label class="cust-form-label">State</label>
+            <select formControlName="state_id" class="form-select form-select-sm">
+              <option [selected]="true" [disabled]="true" [value]="null">All</option>
+              <option *ngFor="let s of stateData" [value]="s.state_id">{{ s.state_name }}</option>
+            </select>
           </div>
-          <div class="col-md-2">
-            <div class="form-group row">
-              <label class="col-sm-5 col-form-label">Duration</label>
-              <div class="col-sm-7">
-                <select formControlName="duration" class="form-select form-select-sm"
-                  (change)="onDurationChange($event)">
-                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                  <option *ngFor="let f of financialData" value="{{f.financialyear_id}}">{{ f.financialyear }}</option>
-
-                </select>
-              </div>
-            </div>
+          <div class="custom-grid-item">
+            <label class="cust-form-label">Duration</label>
+            <select formControlName="duration" class="form-select form-select-sm" (change)="onDurationChange($event)">
+              <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+              <option *ngFor="let f of financialData" [value]="f.financialyear_id">{{ f.financialyear }}</option>
+            </select>
           </div>
-          <div class="col-md-2">
-            <div class="form-group row">
-              <label class="col-sm-5 col-form-label">Company</label>
-              <div class="col-sm-7">
-                <select formControlName="company" class="form-select form-select-sm" (change)="onCompanyChange($event)">
-                  <option [selected]="true" [disabled]="true" [value]="null">Select</option>
-                  <!-- <option *ngFor="let f of projData" value="{{f.company_id}}">{{f.company_name}}</option> -->
-                  <option *ngFor="let c of companyData" value="{{c.bidder_id}}">{{ c.bidder_name }}</option>
-                </select>
-              </div>
-            </div>
-
+          <div class="custom-grid-item">
+            <label class="cust-form-label">Company</label>
+            <select formControlName="company" class="form-select form-select-sm" (change)="onCompanyChange($event)">
+              <option [selected]="true" [disabled]="true" [value]="null">Select</option>
+              <option *ngFor="let c of companyData" [value]="c.bidder_id">{{ c.bidder_name }}</option>
+            </select>
           </div>
-          <div class="col-md-2">
-            <div class="form-group row">
-              <label class="col-sm-5 col-form-label"> Category</label>
-              <div class="col-sm-7">
-                <select formControlName="category" class="form-select form-select-sm"
-                  (change)="onCategoryChange($event)">
-                  <!-- <option>All</option>
-                          <option>Meter</option>
-                          <option>220/33kV, 80MVA Power Transformer</option> -->
-                  <option [selected]="true" [disabled]="true" [value]="null">All</option>
-                  <option *ngFor="let c of categoryData" value="{{c.qacatagory_id}}">{{ c.qacatagory }}</option>
-                </select>
-              </div>
-            </div>
+          <div class="custom-grid-item">
+            <label class="cust-form-label">Category</label>
+            <select formControlName="category" class="form-select form-select-sm" (change)="onCategoryChange($event)">
+              <option [selected]="true" [disabled]="true" [value]="null">All</option>
+              <option *ngFor="let c of categoryData" [value]="c.qacatagory_id">{{ c.qacatagory }}</option>
+            </select>
+          </div> 
+          <div class="custom-grid-item">
+            <label class="cust-form-label">Project</label>
+            <select formControlName="project" class="form-select form-select-sm" (change)="onProjectChange($event)">
+              <option [selected]="true" [disabled]="true" [value]="null">All</option>
+              <option *ngFor="let c of projectData" [value]="c.tender_id">{{ c.tender_title }}</option>
+            </select>
           </div>
-          <div class="col-md-2">
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label">Project</label>
-              <div class="col-sm-8">
-                <select formControlName="project" class="form-select form-select-sm" (change)="onProjectChange($event)">
-                  <!-- <option>All</option>
-                          <option>Jaunpur Project</option>
-                          <option>Noida project</option> -->
-                  <option [selected]="true" [disabled]="true" [value]="null">All</option>
-                  <option *ngFor="let c of projectData" value="{{c.tender_id}}">{{ c.tender_title }}</option>
-                </select>
-              </div>
-            </div>
+          <div class="custom-grid-item">
+            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
           </div>
         </div>
       </form>
     </div>
-
   </div>
+  
+  
+  
 
 
   <div class="row m-0">
@@ -786,8 +751,6 @@
   </div>
 
 </div>
-
-
 <!-- create modal L1 -->
 <!-- create modal L1 -->
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"

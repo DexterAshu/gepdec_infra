@@ -48,6 +48,7 @@ export class DataCapturingComponent implements OnDestroy {
   emdExp: any;
   selectedEmdexemption: boolean = false;
   selectSecurityField: boolean = false;
+  showTenderLocationCard: boolean = true;
   selectPGField: boolean = false;
   selectPrebidField: boolean = false;
   tenderData: any
@@ -84,6 +85,7 @@ export class DataCapturingComponent implements OnDestroy {
   myCompanyData: any;
   allCompanies: any;
   filteredCompanies: any;
+  selectedCountryId: number | null = null;  // Default selected country ID
 
   constructor(
     private formBuilder: FormBuilder,
@@ -100,7 +102,12 @@ export class DataCapturingComponent implements OnDestroy {
     });
 
     this.route.params.subscribe((params: Params) => {
+      // debugger
       this.tenderData = params;
+      // if(this.tenderData == null){
+        
+      // }
+
     });
     const userDataString = localStorage.getItem('gdUserData');
     if (userDataString) {
@@ -112,7 +119,6 @@ export class DataCapturingComponent implements OnDestroy {
   get f1() { return this.form1.controls; }
 
   ngOnInit() {
-    this.addAnotherRow();
     this.form = this.formBuilder.group({
       bidder_type: [null, Validators.required],
       bidder_id: [null, Validators.required],
@@ -185,8 +191,7 @@ export class DataCapturingComponent implements OnDestroy {
       contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
-
-    this.addAnotherRow();
+  
     this.getCompanyData();
     this.getCountryData();
     this.getDesignDeptData();
@@ -235,26 +240,27 @@ export class DataCapturingComponent implements OnDestroy {
     return this.form.get('tender_location') as FormArray;
   }
 
-  loc(): FormArray {
-    return this.tender_location;
+loc(): FormArray {
+  return this.tender_location;
 
-  }
+}
 
-  newLocation(): FormGroup {
-    return this.formBuilder.group({
-      site_location: [null, Validators.required],
-      location_address: [null, Validators.required],
-      state_id: [null, Validators.required],
-      district_id: [null, Validators.required],
-      city: [null, Validators.required],
-      pincode: [null, [Validators.required, Validators.maxLength(6)]],
-      districtData: [[]]  // Add a control to hold district data
-    });
-  }
+newLocation(): FormGroup {  
+  return this.formBuilder.group({  
+    site_location: [null, Validators.required],
+    location_address: [null, Validators.required],
+    state_id: [null, Validators.required],
+    district_id: [null, Validators.required],
+    city: [null, Validators.required],
+    pincode: [null, [Validators.required, Validators.maxLength(6)]],
+    districtData: [null, Validators.required]  // Add a control to hold district data
+  });  
+}
 
-  addAnotherRow() {
-    this.loc().push(this.newLocation());
-  }
+addAnotherRow() {  
+  this.loc().push(this.newLocation());  
+} 
+
 
   removeRow(i: number) {
     this.loc().removeAt(i);
@@ -294,17 +300,17 @@ export class DataCapturingComponent implements OnDestroy {
 
   getCountryData() {
     this.apiService.getCountryDataList().pipe(takeUntil(this.destroy$)).subscribe(
-      {
-        next: (res: any) => {
-          if (res.status === 200) {
-            this.countryData = res.result;
-          } else {
-            this.alertService.warning("Looks like no data available in country data.");
+      {next: (res: any) => {
+        if (res.status === 200) {
+          this.countryData = res.result;
+          const defaultCountry = this.countryData.find((country:any )=> country.name === 'India');
+          if (defaultCountry) {
+            this.selectedCountryId = defaultCountry.country_id;
+            this.form.get('country_id')?.setValue(this.selectedCountryId);
+            this.getStateData1(this.selectedCountryId);
           }
-        }, error: (error: any) => {
-          console.error(error);
-          this.isNotFound = true;
-          this.alertService.error("Error: Unknown Error!")
+        } else {
+          this.alertService.warning("Looks like no data available in country data.");
         }
       });
   }
@@ -330,12 +336,12 @@ export class DataCapturingComponent implements OnDestroy {
       }
     );
   }
-  getStateData1(data: any) {
-    let countrydata = this.form.value.country_id;
-    let statedata = null;
-    this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
-      {
-        next: (res: any) => {
+
+    getStateData1(data:any) {
+      let countrydata =  this.selectedCountryId;
+      let statedata = null;
+      this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
+        {next: (res: any) => {
           if (res.status === 200) {
             this.stateData = res.result;
           } else {
@@ -347,8 +353,8 @@ export class DataCapturingComponent implements OnDestroy {
           this.alertService.error("Error: Unknown Error!")
         }
       }
-    );
-  }
+      );
+    }
 
   getDistrictData(stateId: number, index: number) {
     const formGroup = this.loc().at(index) as FormGroup;
@@ -488,24 +494,44 @@ export class DataCapturingComponent implements OnDestroy {
   ngAfterViewInit(): void {
     this.button = 'Save & Continue';
     this.update = false;
+  
     if (this.tenderData?.id) {
       this.button = 'Update';
       this.update = true;
-
+  
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-        console.log(res);
+
         this.tendContDetails = [];
         this.custDetails = res.result[0];
         this.tendContDetails = res.result[0].tendercontact;
-        console.log(this.tendContDetails);
         this.multiLocation = res.result[0].siteAddress;
         console.log(this.multiLocation);
-
-
-
-
         this.getSubData(this.custDetails.qacatagory_id)
         this.getCapacityData(this.custDetails.subqacatagory_id)
+  
+        for (let index = 0; index < this.multiLocation.length; index++) {
+          const location = this.multiLocation[index];
+  
+          const locationFormGroup = this.formBuilder.group({
+            site_location: [location.site_location],
+            location_address: [location.location_address],
+            state_id: [location.state_id],
+            district_id: [location.district_id],
+            city: [location.city],
+            pincode: [location.pincode],
+            districtData: [],
+            site_id: [location.site_id]
+          });
+          this.tender_location.push(locationFormGroup);
+          console.log(locationFormGroup);
+  
+          // Call onStateChange to update district data
+          this.getDistrictData(location.state_id, index);
+        }
+        this.getSubData(this.custDetails.qacatagory_id)
+        this.getCapacityData(this.custDetails.subqacatagory_id)
+        console.log(this.custDetails.tenderstatus_id);
+
 
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
@@ -534,6 +560,7 @@ export class DataCapturingComponent implements OnDestroy {
           tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date ? new Date(this.custDetails.tenderhardcopysubmission_date).toISOString().split('T')[0] : null,
           tender_title: this.custDetails.tender_title,
           ecv: this.custDetails.ecv,
+          tenderstatus_id: this.custDetails.tenderstatus_id,
           //Security Details
           securitydeposit_id: this.custDetails.securitydeposit_id,
           security_amount: this.custDetails.security_amount,
@@ -560,19 +587,17 @@ export class DataCapturingComponent implements OnDestroy {
           prebid_submission_date: this.custDetails.prebid_submission_date ? new Date(this.custDetails.prebid_submission_date).toISOString().split('T')[0] : null,
           securitysubmission_date: this.custDetails.securitysubmission_date ? new Date(this.custDetails.securitysubmission_date).toISOString().split('T')[0] : null,
           emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
-
         });
-
-        //  this.tender_location = this.multiLocation
-
+        
         setTimeout(() => {
           this.getStateData();
-          // this.getDistrictData();
         }, 500);
-      })
+      });
+    } else {
+      this.addAnotherRow();
     }
   }
-
+ 
 
   fileList: File[] = [];
   listOfFiles: any[] = [];
@@ -598,6 +623,7 @@ export class DataCapturingComponent implements OnDestroy {
     this.addressDetails = []
     this.apiService.companyDetails(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
+     
         if (res.status === 200) {
           this.custDetails = res.result;
           const arr = this.custDetails[0].contact;
@@ -612,6 +638,7 @@ export class DataCapturingComponent implements OnDestroy {
           this.addressDetails = res.result[0].adderss;
           this.isContactFound = false;
         } else {
+         
           this.isContactFound = true;
           this.custDetails = undefined;
           this.contactDetails = undefined;
@@ -725,7 +752,6 @@ export class DataCapturingComponent implements OnDestroy {
   handleCheckboxChange(event: any, data: any) {
     const contactArray = this.form.get('contact') as FormArray;
     const contactId = data.contact_id;
-
     if (event.target.checked) {
       // Checkbox is checked, add item to contact array
       contactArray.push(this.formBuilder.group({ contact_id: contactId }));
@@ -821,13 +847,7 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   updateTender(): void {
-    // this.form.patchValue({
-    //   qacatagory_id: this.custDetails.qacatagory_id,
-    //   subqacatagory_id: this.custDetails.subqacatagory_id,
-    //   capacity_id: this.custDetails.capacity_id,
-
-    // });
-
+    this.form.value.site_id = this.multiLocation.site_id;
     this.form.value.tender_id = this.tenderData.id;
     this.apiService.tenderUpdation(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {

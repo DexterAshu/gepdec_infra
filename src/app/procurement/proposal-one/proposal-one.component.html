@@ -237,11 +237,12 @@
                                                             <span class="mdi mdi-format-list-bulleted mdi-18px"></span>
                                                         </a>
                                                     </td>
-                                                    <td> <input type="checkbox" [disabled]="!main.isVendorSelected">
+                                                    <td> <input type="checkbox" [checked]="main.isChecked"
+                                                            (change)="onCheckboxChange(null, main)">
                                                     </td>
                                                 </tr>
-                                                <ng-container *ngIf="main?.childItemList?.length > 0">
-                                                    <tr *ngFor="let childItem of main?.childItemList; index as ci">
+                                                <ng-container *ngIf="main?.childItems?.length > 0">
+                                                    <tr *ngFor="let childItem of main?.childItems; index as ci">
                                                         <td class="ms-2">&nbsp; &nbsp; &nbsp;{{i+1}}.{{ci+1}}</td>
                                                         <td>{{ childItem?.itemcode }}</td>
                                                         <td>
@@ -261,13 +262,15 @@
                                                         <td>{{ childItem?.quantity }}</td>
                                                         <td>
                                                             <a class="cursor-pointer" data-bs-toggle="modal"
-                                                                data-bs-target="#venodrModal" title="Vendor List">
+                                                                data-bs-target="#venodrModal" title="Vendor List"
+                                                                (click)="vendorList(childItem)">
                                                                 <span
                                                                     class="mdi mdi-format-list-bulleted mdi-18px"></span>
                                                             </a>
                                                         </td>
-                                                        <td> <input type="checkbox"
-                                                                [disabled]="!childItem.isVendorSelected"> </td>
+                                                        <td> <input type="checkbox" [checked]="childItem.isChecked"
+                                                                (change)="onCheckboxChange(null, null, childItem)">
+                                                        </td>
                                                     </tr>
                                                 </ng-container>
                                             </ng-container>
@@ -281,7 +284,8 @@
             </div>
             <div class="modal-btns p-3">
                 <button type="button" id="submitItems" class="btn btn-primary btn-fw btn-sm mr-2"
-                    data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Submit</button>
+                    data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel"
+                    (click)="sendSelectedItems()">Submit</button>
                 <button type="button" id="cancelitemmodal" class="btn btn-secondary btn-fw btn-sm"
                     data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#boqListModel">Close</button>
             </div>
@@ -373,7 +377,8 @@
                                             <td>{{detail.total_cost_withoutgst ? detail.total_cost_withoutgst : '--'}}
                                             </td>
                                             <td>{{vendorPriceDetails.uom ? vendorPriceDetails.uom : '--'}}</td>
-                                            <td> <input type="checkbox" (change)="onCheckboxChange(detail)"> </td>
+                                            <td> <input type="checkbox" [checked]="detail.isVendorSelected"
+                                                    (change)="onVendorCheckboxChange(detail)"> </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -384,7 +389,8 @@
             </div>
             <div class="modal-btns p-3">
                 <button type="button" id="cancel" class="btn btn-primary btn-fw btn-sm mr-2" data-bs-dismiss="modal"
-                    data-bs-toggle="modal" data-bs-target="#detailModal">Submit</button>
+                    data-bs-toggle="modal" data-bs-target="#detailModal"
+                    (click)="submitVendorSelection()">Submit</button>
                 <button type="button" id="cancelvendormodal" class="btn btn-secondary btn-fw btn-sm"
                     data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#detailModal">Close</button>
             </div>

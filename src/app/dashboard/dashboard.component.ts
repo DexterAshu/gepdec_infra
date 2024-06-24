@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
 import * as shape from 'd3-shape';
 import { Point } from 'chart.js';
-
+import { forkJoin } from 'rxjs';
 interface ProgressBarItem {
   tender_id: any;
   name: string;
@@ -104,6 +104,7 @@ export class DashboardComponent implements OnInit {
   categoryData: any;
   companyData: any;
   projectData: any;
+  isFiltering: boolean = false;
   statusData: any;
   projectData2: any;
   single = [
@@ -1225,6 +1226,7 @@ export class DashboardComponent implements OnInit {
   ];
   changeData: any;
   form!: FormGroup;
+  filterForm!: FormGroup;
   countryData: any;
   stateData: any;
   fiveYear: any;
@@ -1392,13 +1394,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.fiveYear = this.sharedService.lastFiveYears();
-    this.getCountryData();
+    // this.getCountryData();
     this.getSegmentData();
-    this.finYearData();
+    // this.finYearData();
     // this.getFinancialData();
-    this.getCompanyData();
+    // this.getCompanyData();
     // this.getCategoryData();
-    this.getCatgData();
+    // this.getCatgData();
     this.getStatusData();
     //     const defaultDuration: number | null = null;
     // const defaultCategory: number | null = null;
@@ -1407,7 +1409,7 @@ export class DashboardComponent implements OnInit {
     this.getDashboardData(null, null, null, null, null, null);
     // this.getCompanyData();
 
-    this.form = this.formBuilder.group({
+    this.filterForm = this.formBuilder.group({
       country_id: [null, Validators.required],
       state_id: [null, Validators.required],
       duration: [null, Validators.required],
@@ -1415,7 +1417,22 @@ export class DashboardComponent implements OnInit {
       company: [null, Validators.required],
       project: [null, Validators.required],
     })
-    this.getCountryData();
+    // this.getCountryData();
+    // Fetch initial data and set defaults
+    forkJoin({
+      country: this.apiService.getCountryDataList(),
+      financialYear: this.masterService.getFinData(),
+      company: this.masterService.getCompData(),
+      category: this.masterService.getCategoryData(),
+    }).subscribe(
+      ({ country, financialYear, company, category }) => {
+        this.handleInitialData(country, financialYear, company, category);
+      },
+      error => {
+        console.error(error);
+        this.alertService.error("Error fetching initial data");
+      }
+    );
   }
 
   ngAfterViewInit() {
@@ -1429,124 +1446,165 @@ export class DashboardComponent implements OnInit {
     return (completedValue / totalValue) * 100;
   }
 
-  getCountryData() {
-    this.apiService.getCountryDataList().subscribe((res: any) => {
-      if (res.status === 200) {
-        this.countryData = res.result;
-        const india = this.countryData.find((country: { name: string; }) => country.name === 'India');
-        if (india) {
-          this.form.patchValue({ country_id: india.country_id });
-          this.StateData(); // Automatically fetch state data for India
-        }
-      } else {
-        this.alertService.warning("Looks like no data available in country data.");
+  handleInitialData(country: any, financialYear: any, company: any, category: any) {
+    // Handle country data
+    if (country.status === 200) {
+      this.countryData = country.result;
+      const india = this.countryData.find((c: { name: string }) => c.name === 'India');
+      if (india) {
+        this.filterForm.patchValue({ country_id: india.country_id });
+        this.StateData(); // Automatically fetch state data for India
       }
-    });
+    } else {
+      this.alertService.warning("No country data available.");
+    }
+
+    // Handle financial year data
+    if (financialYear.status === 200) {
+      this.financialData = financialYear.result;
+      const currentDate = new Date();
+      const currentFinYear = this.financialData.find((f: any) => {
+        const startDate = new Date(f.start_date);
+        const endDate = new Date(f.end_date);
+        return currentDate >= startDate && currentDate <= endDate;
+      });
+      if (currentFinYear) {
+        this.filterForm.patchValue({ duration: currentFinYear.financialyear_id });
+        this.selectedDuration = currentFinYear.financialyear_id;
+      }
+    } else {
+      this.alertService.warning("No financial year data available.");
+    }
+
+    // Handle company data
+    if (company.status === 200) {
+      this.companyData = company.result.reverse();
+      if (this.companyData.length > 0) {
+        this.filterForm.patchValue({ company: this.companyData[0].bidder_id });
+        this.selectedCompany = this.companyData[0].bidder_id;
+      }
+    } else {
+      this.alertService.warning("No company data available.");
+    }
+
+    // Handle category data
+    if (category.status === 200) {
+      this.categoryData = category.catagory;
+    } else {
+      this.alertService.warning("No category data available.");
+    }
+
+    // Fetch dependent project data based on default values
+    if (this.selectedDuration && this.selectedCompany) {
+      this.getProjData(this.selectedDuration, this.selectedCategory ?? -1, this.selectedCompany);
+    }
   }
+
+  // StateData() {
+  //   console.log(this.filterForm.value.country_id);
+
+  //   let countrydata = this.filterForm.value.country_id;
+  //   // let statedata = null;
+  //   this.apiService.getStateData(countrydata, null).subscribe((res: any) => {
+  //     if (res.status === 200) {
+  //       this.stateData = res.result;
+  //     } else {
+  //       this.alertService.warning(`Looks like no state available related to the selected country.`);
+  //     }
+  //   });
+  // }
 
   StateData() {
-    console.log(this.form.value.country_id);
-
-    let countrydata = this.form.value.country_id;
-    // let statedata = null;
-    this.apiService.getStateData(countrydata, null).subscribe((res: any) => {
-      if (res.status === 200) {
-        this.stateData = res.result;
-      } else {
-        this.alertService.warning(`Looks like no state available related to the selected country.`);
-      }
-    });
+    const countryId = this.filterForm.value.country_id;
+    if (countryId) {
+      this.apiService.getStateData(countryId, null).subscribe(
+        (res: any) => {
+          if (res.status === 200) {
+            this.stateData = res.result;
+            console.log('State Data:', this.stateData); // Debug: Log the state data
+          } else {
+            this.alertService.warning(`No states available for the selected country.`);
+          }
+        },
+        (error: any) => {
+          console.error('Error fetching state data:', error);
+          this.alertService.error(`Error fetching state data: ${error.statusText}`);
+        }
+      );
+    }
   }
+  
 
-  finYearData() {
+  // getProjData(financialyearId: number, categoryId: number, companyId: number) {
+  //   this.isNotFound = true;
+  //   this.masterService.getProjectData(financialyearId, categoryId, companyId).subscribe((res: any) => {
+  //     this.isNotFound = false;
+  //     if (res.status == 200) {
+  //       this.projectData = res.result;
+  //     } else {
+  //       this.alertService.warning("No project data available!");
+  //     }
+  //   }, (error: any) => {
+  //     console.error(error);
+  //     this.isNotFound = false;
+  //     this.alertService.error("Error: " + error.statusText);
+  //   });
+  // }
+  getProjData(financialyearId: number, categoryId: number, companyId: number) {
     this.isNotFound = true;
-    this.masterService.getFinData().subscribe((res: any) => {
+    this.masterService.getProjectData(financialyearId, categoryId, companyId).subscribe((res: any) => {
       this.isNotFound = false;
       if (res.status == 200) {
-        this.financialData = res.result;
-        // const currentDate = new Date();
-        // const currentFinYear = this.financialData.find((f: any) => {
-        //   const startDate = new Date(f.start_date);
-        //   const endDate = new Date(f.end_date);
-        //   return currentDate >= startDate && currentDate <= endDate;
-        // });
-
-        // if (currentFinYear) {
-        //   this.form.patchValue({ duration: currentFinYear.financialyear_id });
-        // }
+        this.projectData = res.result;
+        if (this.isFiltering && (!this.projectData || this.projectData.length === 0)) {
+          this.alertService.warning("No project data available!");
+        }
       } else {
-        this.alertService.warning("Looks like no financial year data available!");
+        if (this.isFiltering) {
+          this.alertService.warning("No project data available!");
+        }
       }
     }, (error: any) => {
       console.error(error);
       this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText);
-    });
-  }
-
-  getCatgData() {
-    this.isNotFound = true;
-    this.masterService.getCategoryData().subscribe((res: any) => {
-      this.isNotFound = false;
-      if (res.status == 200) {
-        this.categoryData = res.catagory;
-      } else {
-        this.alertService.warning("Looks like no category data available!");
+      if (this.isFiltering) {
+        this.alertService.error("Error: " + error.statusText);
       }
-    }, (error: any) => {
-      console.error(error);
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText);
-    });
-  }
-
-  getCompanyData() {
-    this.isNotFound = true;
-    this.masterService.getCompData().subscribe((res: any) => {
-      this.isNotFound = false;
-      if (res.status == 200) {
-        this.companyData = res.result.reverse();
-        // const company = this.companyData.find((company: any) => company.bidder_name === 'Gepdec Infratech Limited');
-        // if (company) {
-        //   this.form.patchValue({ company: company.bidder_id });
-        // }
-      } else {
-        this.alertService.warning("Looks like no company data available!");
-      }
-    }, (error: any) => {
-      console.error(error);
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText);
+    }).add(() => {
+      this.isFiltering = false; // Reset the filtering flag after the request completes
     });
   }
 
   onDurationChange(event: any) {
     this.selectedDuration = event.target.value;
+    this.isFiltering = true;
     this.callProjectApiIfReady();
   }
 
   onCategoryChange(event: any) {
     this.selectedCategory = event.target.value;
+    this.isFiltering = true;
     this.callProjectApiIfReady();
   }
 
   onCompanyChange(event: any) {
     this.selectedCompany = event.target.value;
+    this.isFiltering = true;
     this.callProjectApiIfReady();
   }
 
   onProjectChange(event: any) {
     this.selectedProject = event.target.value;
-    if (this.selectedProject) {
-      this.getDashboardData(
-        this.selectedDuration,
-        this.selectedCategory,
-        this.selectedCompany,
-        this.selectedProject,
-        this.form.value.state_id,
-        this.form.value.country_id
-      );
-    }
+    // if (this.selectedProject) {
+    //   this.getDashboardData(
+    //     this.selectedDuration,
+    //     this.selectedCategory,
+    //     this.selectedCompany,
+    //     this.selectedProject,
+    //     this.filterForm.value.state_id,
+    //     this.filterForm.value.country_id
+    //   );
+    // }
   }
 
   callProjectApiIfReady() {
@@ -1567,20 +1625,32 @@ export class DashboardComponent implements OnInit {
   //   }
   // }
 
-  getProjData(financialyearId: number, categoryId: number, companyId: number) {
-    this.isNotFound = true;
-    this.masterService.getProjectData(financialyearId, categoryId, companyId).subscribe((res: any) => {
-      this.isNotFound = false;
-      if (res.status == 200) {
-        this.projectData = res.result;
-      } else {
-        this.alertService.warning("Looks like no project data available!");
-      }
-    }, (error: any) => {
-      console.error(error);
-      this.isNotFound = false;
-      this.alertService.error("Error: " + error.statusText);
-    });
+  // getProjData(financialyearId: number, categoryId: number, companyId: number) {
+  //   this.isNotFound = true;
+  //   this.masterService.getProjectData(financialyearId, categoryId, companyId).subscribe((res: any) => {
+  //     this.isNotFound = false;
+  //     if (res.status == 200) {
+  //       this.projectData = res.result;
+  //     } else {
+  //       this.alertService.warning("Looks like no project data available!");
+  //     }
+  //   }, (error: any) => {
+  //     console.error(error);
+  //     this.isNotFound = false;
+  //     this.alertService.error("Error: " + error.statusText);
+  //   });
+  // }
+
+  submitForm() {
+    const formData = this.filterForm.value;
+    this.getDashboardData(
+      formData.duration,
+      formData.category,
+      formData.company,
+      formData.project,
+      formData.state_id,
+      formData.country_id
+    );
   }
 
   // ShortNumber(value: number, includeCr: boolean = true): string {
@@ -2276,7 +2346,9 @@ export class DashboardComponent implements OnInit {
       },
       groupPadding: 0.1, // Apply groupPadding for bar plotOptions
       colorByPoint: true, // Assign different colors to each point
-      colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define colors for bars
+      // colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define colors for bars
+      // ffd1a9 b8e0cf
+      colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#9ec0fa', '#aeddc5', '#f397ca'] // Define colors for bars
     }
   },
   legend: {

@@ -142,44 +142,7 @@
             </div>
           </div>
 
-          <!-- <ng-container *ngIf="update">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="form-label fl-10">Category</label>
-                <input
-                  formControlName="qacatagory_id"
-                  class="form-control form-control-sm"
-                  #cat
-                  readonly 
-                />
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="form-label fl-10"
-                  >Sub-Category {{ custDetails?.subqacatagory }}</label
-                >
-                <input
-                  formControlName="subqacatagory_id"
-                  class="form-control form-control-sm"
-                  #sub
-                  readonly 
-                />
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="form-label fl-10">Capacity </label>
-                <input formControlName="capacity_id" 
-                value="capacity_id"
-                class="form-control form-control-sm"
-                readonly
-              />
-              </div>
-            </div>
-          </ng-container> -->
-          <ng-container>
+          <ng-container >
             <div class="col-md-4">
               <div class="form-group">
                 <label class="form-label fl-10">Category<span class="required-asterisk">*</span></label>
@@ -258,38 +221,59 @@
 
           <div class="col-md-4">
             <div class="form-group">
-              <label class="form-label">Country<span class="required-asterisk">*</span></label>
-              <select formControlName="country_id" class="form-select form-select-sm"
-                (ngModelChange)="getStateData1($event)">
+
+              <label class="form-label">
+                Country<span class="required-asterisk">*</span>
+              </label>
+              <select
+                formControlName="country_id"
+                class="form-select form-select-sm"
+                [(ngModel)]="selectedCountryId"
+                (ngModelChange)="getStateData1($event)"
+              >
                 <option [selected]="true" [disabled]="true" [value]="null">
                   Select Country
                 </option>
-                <option *ngFor="let c of countryData" value="{{ c.country_id }}">
+                <option *ngFor="let c of countryData" [value]="c.country_id">
+
                   {{ c.name }}
                 </option>
               </select>
               <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
-                <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">*Required</small>
+
+                <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">
+                  *Required
+                </small>
+
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label class="form-label">State<span class="required-asterisk">*</span></label>
-              <select formControlName="state_id" class="form-select form-select-sm"
-                (ngModelChange)="getDistrictData1($event)">
+
+              <label class="form-label">
+                State<span class="required-asterisk">*</span>
+              </label>
+              <select
+                formControlName="state_id"
+                class="form-select form-select-sm"
+                (ngModelChange)="getDistrictData1($event)"
+              >
                 <option [selected]="true" [disabled]="true" [value]="null">
                   Select State
                 </option>
-                <option *ngFor="let s of stateData" value="{{ s.state_id }}">
+                <option *ngFor="let s of stateData" [value]="s.state_id">
                   {{ s.state_name }}
                 </option>
               </select>
               <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
-                <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">*Required</small>
+                <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">
+                  *Required
+                </small>
               </div>
             </div>
           </div>
+          
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label">District<span class="required-asterisk">*</span></label>
@@ -318,18 +302,41 @@
 
           <ng-container formArrayName="tender_location">
             <div class="col-md-12">
-              <div class="card">
-                <div class="p-2">
+              <div class="card p-2">
+
+                <div class="row" (click)="showTenderLocationCard = !showTenderLocationCard"
+                style="cursor: pointer">
+                <div class="col-6">
                   <h6>
                     <img src="../../../../assets/images/lok.gif" style="width: 30px; height: 25px" />
                     Tender Execution Location
                   </h6>
                 </div>
+                <div class="col-6">
+                  <div class="float-right" title="Show/Hide Details">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-chevron-down"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
 
-                <div class="card-body">
+
+                <div class="card-body" *ngIf="showTenderLocationCard">
                   <div class="container-fluid">
 
-                    <div class="row" *ngFor="let quantity of loc().controls; let i = index" [formGroupName]="i">
+                    <div class="row" *ngFor="let quantity of loc().controls; let i = index"
+                      [formGroupName]="i" >
                       <div class="col-md-2">
                         <div class="form-group">
                           <label class="form-label">Location Name
@@ -362,9 +369,14 @@
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label class="form-label">District<span class="required-asterisk">*</span></label>
+
+                          <label class="form-label">District<span class="required-asterisk" >*</span></label>
                           <select formControlName="district_id" class="form-select form-select-sm">
-                            <option [selected]="true" [disabled]="true" [value]="null">
+                            <option
+                              [selected]="true"
+                              [disabled]="true"
+                              [value]="null"
+                            >
                               Select District
                             </option>
                             <option *ngFor="
@@ -396,7 +408,10 @@
                         </div>
                       </div>
                     </div>
-                    <span type="button" (click)="addAnotherRow()"
+
+                    <span 
+                      type="button"
+                      (click)="addAnotherRow()"
                       class="text-light bg-success float-right p-1 rounded-circle"
                       title="Click to add multiple location details"><span class="mdi mdi-plus"></span></span>
                   </div>
@@ -612,11 +627,23 @@
 
           <div class="col-md-3">
             <div class="form-group">
-              <label class="form-label fl-10">Registration Fee<span class="required-asterisk">*</span>
-                <span *ngIf="form.value.tender_fee" class="p-1 bg-light rounded-pill">{{ regFeeData | currency : "INR" :
-                  "" : "1.0-2" }}</span></label>
-              <input type="text" class="form-control form-control-sm" formControlName="tender_fee"
-                [(ngModel)]="regFeeData" placeholder="Enter '0' if not applicable" appNumberOnly />
+
+              <label class="form-label fl-10"
+                >Registration Fee<span class="required-asterisk">*</span>
+                <span
+                  *ngIf="form.value.tender_fee"
+                  class="p-1 bg-light rounded-pill"
+                  >{{ regFeeData | currency : "INR" : "" : "1.0-2" }}</span
+                ></label
+              >
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="tender_fee"
+                [(ngModel)]="regFeeData"
+                placeholder="Enter '0' if not applicable"
+                appNumberOnly
+              />
               <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
                 <small class="text-danger" *ngIf="f['tender_fee'].errors?.['required']">*Required</small>
               </div>
@@ -626,11 +653,23 @@
           <div class="col-md-3">
             <div class="form-group">
               <label class="form-label fl-10">Tender Document Cost<span class="required-asterisk">*</span>
-                <span *ngIf="form.value.tender_doc_cost" class="p-1 bg-light rounded-pill">{{ docCostData | currency :
-                  "INR" : "" : "1.0-2" }}</span></label>
-              <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost"
-                [(ngModel)]="docCostData" placeholder="Enter '0' if not applicable" appNumberOnly />
-              <div *ngIf="
+
+                <span
+                  *ngIf="form.value.tender_doc_cost"
+                  class="p-1 bg-light rounded-pill"
+                  >{{ docCostData | currency : "INR" : "" : "1.0-2" }}</span
+                ></label
+              >
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="tender_doc_cost"
+                [(ngModel)]="docCostData"
+                placeholder="Enter '0' if not applicable"
+                appNumberOnly
+              />
+              <div
+                *ngIf="
                   f['tender_doc_cost'].touched && f['tender_doc_cost'].invalid
                 ">
                 <small class="text-danger" *ngIf="f['tender_doc_cost'].errors?.['required']">*Required</small>
@@ -813,9 +852,15 @@
 
           <div class="col-md-12">
             <div class="form-group">
-              <label class="form-label fl-10">Payment terms and Defect liabilities<span
-                  class="required-asterisk">*</span></label>
-              <textarea type="text" class="form-control form-control-sm" formControlName="tenderpayment_terms">
+
+              <label class="form-label fl-10"
+                >Payment terms and  Defect liabilities<span class="required-asterisk">*</span></label
+              >
+              <textarea
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="tenderpayment_terms"
+              >
               </textarea>
               <div *ngIf="
                   f['tenderpayment_terms'].touched &&
@@ -873,8 +918,12 @@
                       <td>{{ a.contactno1 }}</td>
                       <td>{{ a.email }}</td>
                       <td>
-                        <input formControlName="contactperson_check" type="checkbox" [checked]="a.isChecked == true"
-                          (click)="handleCheckboxChange($event, a)" />
+                        <input
+                          formControlName="contactperson_check"
+                          type="checkbox"
+                          [(ngModel)]="a.isChecked"
+                          (click)="handleCheckboxChange($event, a)"
+                        />
                       </td>
                     </tr>
                     <tr *ngIf="isContactFound == true">

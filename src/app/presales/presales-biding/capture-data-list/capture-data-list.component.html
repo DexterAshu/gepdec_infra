@@ -131,9 +131,7 @@
                                 <td>{{ a.tender_submission_date | date: 'dd/MM/yyyy' : 'GMT' }}</td>
                                 <td>{{ a?.tender_status}}</td>
                                 <td>
-                                    <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal"
-                                        data-bs-target="#createModal"
-                                        (click)="getDetails(a.tender_id)"><span
+                                    <a *ngIf="this.userData.rolename !== 'Manager'" data-bs-toggle="modal" data-bs-target="#createModal" (click)="getDetails(a.tender_id)"><span
                                             class="mdi mdi-pencil text-secondary cursor-pointer mdi-18px"></span></a>
                                     &nbsp;
                                     <a data-bs-toggle="modal" data-bs-target="#detailModal" title="Tender Detailed Data"
@@ -621,7 +619,7 @@
            </svg> &nbsp;
            Historical Working Notes
        </h6>
-
+     
      </div>
 
      <div class="col-md-6">
@@ -638,6 +636,7 @@
 
  <div class="form-group" *ngIf="showPreviousDetails">
      <p [innerHTML]="getFormattedRemarks()"></p>
+    
  </div>
            </div>
 
