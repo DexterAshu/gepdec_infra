@@ -97,7 +97,12 @@ export class DataCapturingComponent implements OnDestroy {
     });
 
     this.route.params.subscribe((params: Params) => {
+      // debugger
       this.tenderData = params;
+      // if(this.tenderData == null){
+        
+      // }
+
     });
     const userDataString = localStorage.getItem('gdUserData');
     if (userDataString) {
@@ -109,7 +114,6 @@ export class DataCapturingComponent implements OnDestroy {
   get f1() { return this.form1.controls; }
   
   ngOnInit() {
-    this.addAnotherRow();
     this.form = this.formBuilder.group({
       company_id: [null, Validators.required],
       tender_title: [null, Validators.required],
@@ -178,9 +182,7 @@ export class DataCapturingComponent implements OnDestroy {
       contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
-
-
-    this.addAnotherRow();
+  
     this.getCompanyData();
     this.getCountryData();
     this.getDesignDeptData();
@@ -246,7 +248,7 @@ newLocation(): FormGroup {
   });  
 }
 
-addAnotherRow() { 
+addAnotherRow() {  
   this.loc().push(this.newLocation());  
 } 
 
@@ -352,6 +354,7 @@ removeRow(i: number) {
       this.getDistrictData(stateId, index);
     }
   }
+  
  
   getDesignDeptData() {
     this.masterService.getUserMaster().pipe(takeUntil(this.destroy$)).subscribe({
@@ -447,39 +450,42 @@ removeRow(i: number) {
   ngAfterViewInit(): void {
     this.button = 'Save & Continue';
     this.update = false;
+  
     if (this.tenderData?.id) {
       this.button = 'Update';
       this.update = true;
-
+  
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-        console.log(res);
         this.tendContDetails = [];
         this.custDetails = res.result[0];
         this.tendContDetails = res.result[0].tendercontact;
-        console.log(this.tendContDetails);
         this.multiLocation = res.result[0].siteAddress;
-        console.log( this.multiLocation);
-
-        this.multiLocation.forEach((location: any) => {
+        console.log(this.multiLocation);
+  
+        for (let index = 0; index < this.multiLocation.length; index++) {
+          const location = this.multiLocation[index];
+  
           const locationFormGroup = this.formBuilder.group({
-            site_location: [location.site_location, Validators.required],
-            location_address: [location.location_address, Validators.required],
-            state_id: [location.state_id, Validators.required],
-            district_id: [location.district_id, Validators.required],
-            city: [location.city, Validators.required],
-            pincode: [location.pincode, [Validators.required, Validators.maxLength(6)]],
+            site_location: [location.site_location],
+            location_address: [location.location_address],
+            state_id: [location.state_id],
+            district_id: [location.district_id],
+            city: [location.city],
+            pincode: [location.pincode],
             districtData: [location.districtData]
           });
-          
+  
           this.tender_location.push(locationFormGroup);
           console.log(locationFormGroup);
-        });
-      
-     
-        // this.form.get('tender_location')?.setValue(this.multiLocation);
+  
+          // Call onStateChange to update district data
+          this.getDistrictData(location.state_id, index);
+        }
         this.getSubData(this.custDetails.qacatagory_id)
         this.getCapacityData(this.custDetails.subqacatagory_id)
-       
+        console.log(this.custDetails.tenderstatus_id);
+        
+
         this.form.patchValue({
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
@@ -507,10 +513,10 @@ removeRow(i: number) {
           tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date ? new Date(this.custDetails.tenderhardcopysubmission_date).toISOString().split('T')[0] : null,
           tender_title: this.custDetails.tender_title,
           ecv: this.custDetails.ecv,
+          tenderstatus_id: this.custDetails.tenderstatus_id,
           //Security Details
           securitydeposit_id: this.custDetails.securitydeposit_id,
           security_amount: this.custDetails.security_amount,
-       
           //performance Details
           performanceguarantee_id: this.custDetails.performanceguarantee_id,
           pg_amount: this.custDetails.pg_amount,
@@ -519,7 +525,7 @@ removeRow(i: number) {
           exemption_id: this.custDetails.exemption_id,
           emd_ammount: this.custDetails.emd_ammount,
           forfeiture_condition: this.custDetails.forfeiture_condition,
-          city:this.custDetails.city,
+          city: this.custDetails.city,
           country_id: this.custDetails.country_id,
           state_id: this.custDetails.state_id,
           district_id: this.custDetails.district_id,
@@ -533,13 +539,14 @@ removeRow(i: number) {
           prebid_submission_date: this.custDetails.prebid_submission_date ? new Date(this.custDetails.prebid_submission_date).toISOString().split('T')[0] : null,
           securitysubmission_date: this.custDetails.securitysubmission_date ? new Date(this.custDetails.securitysubmission_date).toISOString().split('T')[0] : null,
           emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
-
         });
+  
         setTimeout(() => {
           this.getStateData();
-          // this.getDistrictData();
         }, 500);
-      })
+      });
+    } else {
+      this.addAnotherRow();
     }
   }
  
@@ -786,12 +793,6 @@ removeRow(i: number) {
   }
 
   updateTender(): void {
-    // this.form.patchValue({
-    //   qacatagory_id: this.custDetails.qacatagory_id,
-    //   subqacatagory_id: this.custDetails.subqacatagory_id,
-    //   capacity_id: this.custDetails.capacity_id,
-
-    // });
     this.form.value.site_id = this.multiLocation.site_id;
     this.form.value.tender_id = this.tenderData.id;
     this.apiService.tenderUpdation(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
