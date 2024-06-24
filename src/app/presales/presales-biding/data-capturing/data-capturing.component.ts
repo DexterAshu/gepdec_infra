@@ -81,6 +81,7 @@ export class DataCapturingComponent implements OnDestroy {
   securityData:any;
   minClosingDate: any;
   minAfterDate: any;
+  selectedCountryId: number | null = null;  // Default selected country ID
 
   constructor(
     private formBuilder: FormBuilder,
@@ -261,6 +262,12 @@ removeRow(i: number) {
       {next: (res: any) => {
         if (res.status === 200) {
           this.countryData = res.result;
+          const defaultCountry = this.countryData.find((country:any )=> country.name === 'India');
+          if (defaultCountry) {
+            this.selectedCountryId = defaultCountry.country_id;
+            this.form.get('country_id')?.setValue(this.selectedCountryId);
+            this.getStateData1(this.selectedCountryId);
+          }
         } else {
           this.alertService.warning("Looks like no data available in country data.");
         }
@@ -292,24 +299,24 @@ removeRow(i: number) {
     }
     );
   }
-  getStateData1(data:any) {
-    let countrydata = this.form.value.country_id;
-    let statedata = null;
-    this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
-      {next: (res: any) => {
-        if (res.status === 200) {
-          this.stateData = res.result;
-        } else {
-          this.alertService.warning(`Looks like no state available related to the selected country.`);
+    getStateData1(data:any) {
+      let countrydata =  this.selectedCountryId;
+      let statedata = null;
+      this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
+        {next: (res: any) => {
+          if (res.status === 200) {
+            this.stateData = res.result;
+          } else {
+            this.alertService.warning(`Looks like no state available related to the selected country.`);
+          }
+        }, error: (error: any) => {
+          console.error(error);
+          this.isNotFound = true;
+          this.alertService.error("Error: Unknown Error!")
         }
-      }, error: (error: any) => {
-        console.error(error);
-        this.isNotFound = true;
-        this.alertService.error("Error: Unknown Error!")
       }
+      );
     }
-    );
-  }
 
   getDistrictData(stateId: number, index: number) {
     const formGroup = this.loc().at(index) as FormGroup;
@@ -575,6 +582,7 @@ removeRow(i: number) {
     this.addressDetails = []
     this.apiService.companyDetails(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
+     
         if (res.status === 200) {
           this.custDetails = res.result;
           const arr = this.custDetails[0].contact;
@@ -589,6 +597,7 @@ removeRow(i: number) {
           this.addressDetails = res.result[0].adderss;
           this.isContactFound = false;
         } else {
+         
           this.isContactFound = true;
           this.custDetails = undefined;
           this.contactDetails = undefined;
@@ -701,7 +710,6 @@ removeRow(i: number) {
   handleCheckboxChange(event: any, data: any) {
     const contactArray = this.form.get('contact') as FormArray;
     const contactId = data.contact_id;
-
     if (event.target.checked) {
       // Checkbox is checked, add item to contact array
       contactArray.push(this.formBuilder.group({ contact_id: contactId }));
