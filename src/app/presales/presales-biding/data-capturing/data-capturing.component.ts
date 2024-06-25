@@ -72,13 +72,8 @@ export class DataCapturingComponent implements OnDestroy {
   multiLocation: any;
   // addCustomLocation:any;
   selectedUserIds: any = [];
-  ecvData: any
   private destroy$ = new Subject<void>();
   stateListData: any;
-  emdData: any;
-  regFeeData: any;
-  docCostData: any;
-  securityData: any;
   minClosingDate: any;
   minAfterDate: any;
   tenderDropdownData: any;
@@ -86,7 +81,8 @@ export class DataCapturingComponent implements OnDestroy {
   allCompanies: any;
   filteredCompanies: any;
   selectedCountryId: number | null = null;  // Default selected country ID
-
+  contactId: any = [];
+  contactArray: any
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -102,7 +98,6 @@ export class DataCapturingComponent implements OnDestroy {
     });
 
     this.route.params.subscribe((params: Params) => {
-      // debugger
       this.tenderData = params;
       // if(this.tenderData == null){
 
@@ -122,7 +117,7 @@ export class DataCapturingComponent implements OnDestroy {
     this.form = this.formBuilder.group({
       bidder_type: [null, Validators.required],
       bidder_id: [null, Validators.required],
-      secondary_company: [null],
+      secondary_company: [[]],
       company_id: [null, Validators.required],
       tender_title: [null, Validators.required],
       tender_ref_no: [null, Validators.required],
@@ -174,7 +169,7 @@ export class DataCapturingComponent implements OnDestroy {
       pg_amount: [null],
       // pgsubmission_date:[null],
 
-      contactperson_check: [null, Validators.required],
+      // contactperson_check: [null, Validators.required],
       termscheckbox: [false, Validators.required],
       tenderstatus_id: [null],
       working_notes: [null],
@@ -191,6 +186,8 @@ export class DataCapturingComponent implements OnDestroy {
       contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
+
+    this.contactArray = this.form.get('contact') as FormArray;
 
     this.getCompanyData();
     this.getCountryData();
@@ -247,6 +244,7 @@ export class DataCapturingComponent implements OnDestroy {
 
   newLocation(): FormGroup {
     return this.formBuilder.group({
+      site_id: [null],
       site_location: [null, Validators.required],
       location_address: [null, Validators.required],
       state_id: [null, Validators.required],
@@ -278,7 +276,6 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   getMyCompanyData() {
-    debugger
     this.myCompanyData = [];
     this.allCompanies = [];
     const apiLink = `/mycompany/api/v1/getMyComapanyList`;
@@ -507,6 +504,12 @@ export class DataCapturingComponent implements OnDestroy {
         this.tendContDetails = [];
         this.custDetails = res.result[0];
         this.tendContDetails = res.result[0].tendercontact;
+
+        this.tendContDetails.forEach((el: any) => {
+          this.contactId.push(el.contact_id)
+          this.contactArray.push(this.formBuilder.group({ contact_id: el.contact_id }));
+        })
+
         this.multiLocation = res.result[0].siteAddress;
         console.log(this.multiLocation);
         this.getSubData(this.custDetails.qacatagory_id)
@@ -538,7 +541,7 @@ export class DataCapturingComponent implements OnDestroy {
 
         this.form.patchValue({
           bidder_id: this.custDetails.bidder_id,
-          ecvtype_id: this.custDetails.ecvtype_id, 
+          ecvtype_id: this.custDetails.ecvtype_id,
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
           company_id: this.custDetails.company_id,
@@ -585,7 +588,6 @@ export class DataCapturingComponent implements OnDestroy {
           // financialyear_id: this.custDetails.financialyear_id,
           remarks: this.custDetails.remarks ? this.custDetails.remarks.join('\n') : '',
           audit_trail: this.custDetails.audit_trail ? this.custDetails.audit_trail.join('\n') : '',
-          contactperson_check: this.custDetails.contactperson_check,
           fin_bid_opening_date: this.custDetails.fin_bid_opening_date ? new Date(this.custDetails.fin_bid_opening_date).toISOString().split('T')[0] : null,
           closing_date: this.custDetails.closing_date ? new Date(this.custDetails.closing_date).toISOString().split('T')[0] : null,
           prebid_date: this.custDetails.prebid_date ? new Date(this.custDetails.prebid_date).toISOString().split('T')[0] : null,
@@ -628,14 +630,13 @@ export class DataCapturingComponent implements OnDestroy {
     this.addressDetails = []
     this.apiService.companyDetails(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
-
         if (res.status === 200) {
           this.custDetails = res.result;
           const arr = this.custDetails[0].contact;
-          console.log(this.custDetails[0].contact);
-          arr.forEach((data: any) => {
-            data.isChecked = true;
-          });
+
+          // arr.forEach((data: any) => {
+          //   data.isChecked = true;
+          // });
           this.contactDetails = arr;
           console.log(this.contactDetails);
 
@@ -643,7 +644,6 @@ export class DataCapturingComponent implements OnDestroy {
           this.addressDetails = res.result[0].adderss;
           this.isContactFound = false;
         } else {
-
           this.isContactFound = true;
           this.custDetails = undefined;
           this.contactDetails = undefined;
@@ -755,21 +755,22 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   handleCheckboxChange(event: any, data: any) {
-    const contactArray = this.form.get('contact') as FormArray;
+    debugger
+    // const contactArray = this.form.get('contact') as FormArray;
     const contactId = data.contact_id;
     if (event.target.checked) {
       // Checkbox is checked, add item to contact array
-      contactArray.push(this.formBuilder.group({ contact_id: contactId }));
+      this.contactArray.push(this.formBuilder.group({ contact_id: contactId }));
     } else {
       // Checkbox is unchecked, remove item from contact array
-      const index = contactArray.controls.findIndex((x: any) => x.value.contact_id === contactId);
+      const index = this.contactArray.controls.findIndex((x: any) => x.value.contact_id === contactId);
       if (index !== -1) {
-        contactArray.removeAt(index);
+        this.contactArray.removeAt(index);
       }
     }
 
     // Reset contact control if array is empty
-    if (contactArray.length === 0) {
+    if (this.contactArray.length === 0) {
       this.form.controls['contact'].reset;
     }
   }
@@ -787,17 +788,19 @@ export class DataCapturingComponent implements OnDestroy {
     modID.module_id = "409";
     let match = this.form1.value;
     match.Action = "add";
-    var custID = this.custDetails[0].company_id;
-    console.log(custID);
+    var compID = this.custDetails[0].company_id;
+    console.log(compID);
 
     this.form1.value.company_id = this.custDetails[0].company_id;
+
     this.apiService.createContacts(match).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         let response: any = res;
         document.getElementById('cancel1')?.click();
         this.isSubmitted = false;
         if (response.status == 200) {
-          this.getDetails(custID);
+          this.getDetails(compID);
+          this.form1.reset();
           this.alertService.success(response.message);
         } else {
           this.alertService.warning(response.message);
@@ -827,11 +830,18 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   addTender() {
+    debugger
     this.button = 'Save & Continue';
     this.update = false;
-    let updatedSecComp = [];
-    updatedSecComp = this.form.value.secondary_company == null ? [] : this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x }));
+
+    // Update secondary_company to an array of objects or an empty array
+    let updatedSecComp = this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x })) || [];
     this.form.get('secondary_company')?.setValue(updatedSecComp);
+
+    // Ensure that secondary_company is set to an empty array if it has no data
+    if (updatedSecComp.length === 0) {
+      this.form.get('secondary_company')?.setValue([]);
+    }
 
     this.apiService.createTender(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
