@@ -1373,7 +1373,7 @@ export class DashboardComponent implements OnInit {
     // domain: ['#cee27d', '#63830c']
     // domain: ['#d6a974', '#97daa7']
     // domain: ['#90EE90', '#ff7f3e']
-    domain: ['#90EE90', '#ffaa80']
+    domain: ['#90EE90', '#fbb662']
   }
   // lineBar chart end
   tenderDetails: any[] = [];
@@ -2333,6 +2333,7 @@ export class DashboardComponent implements OnInit {
           } else if (data.key > 30) {
             color = 'red';
           }
+         
 
           if (data.y == 100) {
             leftPosition = 5;
@@ -2348,7 +2349,7 @@ export class DashboardComponent implements OnInit {
       colorByPoint: true, // Assign different colors to each point
       // colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define colors for bars
       // ffd1a9 b8e0cf
-      colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#9ec0fa', '#aeddc5', '#f397ca'] // Define colors for bars
+      colors: ['#c0a6f4', '#b5d0ff', '#ffc3ae', '#9ec0fa', '#aeddc5', '#f397ca'] // Define colors for bars
     }
   },
   legend: {
@@ -2370,7 +2371,7 @@ export class DashboardComponent implements OnInit {
     name: 'Actual',
     data: this.valueData,
   }],
-  colors: ['#bb9ff5', '#b5d0ff', '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define colors for bars
+  colors: ['#c0a6f4', '#b5d0ff', '#ffc3ae', '#7dabf9', '#aeddc5', '#f397ca'] // Define colors for bars
 });
 
 

@@ -263,75 +263,79 @@
                                             <label class="form-label fl-10 ">Annual Turnover</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="annual.value" class="p-1 bg-light rounded-pill">{{atData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="annual.value" class="p-1 bg-light rounded-pill">{{form.value.annual_turnover | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="annual_turnover" #annual type="text"
                                                 class="form-control form-control-sm"
-                                                (keyup)="comparisonData(annual.value)" [(ngModel)]="atData" appNumberOnly>
+                                                (keyup)="comparisonData(annual.value)" appNumberOnly>
                                         </div>
 
-                                       
-                                        <div class="col-md-2" *ngIf="form.value.annual_turnover != ''">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="annual_turnover_check" #condition
-                                                    class="form-select form-select-sm"
-                                                    (change)="annuvalTurnVal(form.value.annual_turnover_year, form.value.annual_turnover_check, annual.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                    </option>
-                                                    <option value="1">Previous Year</option>
-                                                    <option value="MIN">Minimum</option>
-                                                    <option value="AVG">Average</option>
-                                                    <option value="MAX">Any</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                      
 
-                                            <div class="col-md-2" *ngIf="form.value.annual_turnover_check == '1'">
-                                                <label class="form-label fl-10 text-small">Fin Year</label>
-                                                <input class="form-control form-control-sm"
-                                                    formControlName="annual_turnover_fin" readonly value="{{data?.date }}">
-                                            </div>
-    
-                                            <div class="col-md-2"
-                                                *ngIf="form.value.annual_turnover_check != '1' && form.value.annual_turnover_check != ''">
-                                                <div class="form-group">
-                                                    <label class="form-label fl-10 text-small">Years</label>
-                                                    <select formControlName="annual_turnover_year" #year
-                                                        class="form-select form-select-sm"
-                                                        (change)="annuvalTurnVal(year.value, form.value.annual_turnover_check, annual.value)">
-                                                        <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                            Year</option>
-                                                        <!-- <option value="0">Current Year</option> -->
-                                                        <!-- <option value="1">Previous Year</option> -->
-                                                        <option value="2">Last 2 Year</option>
-                                                        <option value="3">Last 3 Years</option>
-                                                        <option value="4">Last 4 Years</option>
-                                                        <option value="5">Last 5 Years</option>
-                                                        <option value="7">Last 7 Years</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-    
-                                            <div class="col-md-2"
-                                                *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
-                                                <label class="form-label fl-10 text-small">Our Values (INR)</label>
-                                                <input class="form-control form-control-sm"
-                                                    formControlName="our_annual_turnover" readonly
-                                                    [value]="data?.result | currency: 'INR':'':'1.0-2'">
-                                            </div>
-                                            <div class="col-md-2"
-                                                *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
-                                                <br>
-                                                <div class="status-icon mt-2">
-                                                    <ng-container *ngIf="isSuccess == true; else lowData">
-                                                        <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
-                                                    </ng-container>
-                                                    <ng-template #lowData>
-                                                        <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
-                                                    </ng-template>
-                                                </div>
-    
-                                            </div>
+                                           <div class="col-md-2" *ngIf="form.value.annual_turnover != ''">
+                                               <div class="form-group">
+                                                   <label class="form-label fl-10 text-small">Condition</label>
+                                                   <select formControlName="annual_turnover_check" #condition
+                                                       class="form-select form-select-sm"
+                                                       (change)="annuvalTurnVal(form.value.annual_turnover_year, form.value.annual_turnover_check, annual.value)">
+                                                       <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                       </option>
+                                                       <option value="1">Previous Year</option>
+                                                       <option value="MIN">Minimum</option>
+                                                       <option value="AVG">Average</option>
+                                                       <option value="MAX">Any</option>
+                                                   </select>
+                                               </div>
+                                           </div>
+   
+                                          
+                                               <div class="col-md-2" *ngIf="form.value.annual_turnover_check == '1'">
+                                                   <label class="form-label fl-10 text-small">Fin Year</label>
+                                                   <input class="form-control form-control-sm"
+                                                       formControlName="annual_turnover_fin" readonly value="{{data?.date }}">
+                                               </div>
+       
+                                             
+                                                   <div class="col-md-2"
+                                                       *ngIf="form.value.annual_turnover_check != '1' && form.value.annual_turnover_check != ''">
+                                                       <div class="form-group">
+                                                           <label class="form-label fl-10 text-small">Years</label>
+                                                           <select formControlName="annual_turnover_year" #year
+                                                               class="form-select form-select-sm"
+                                                               (change)="annuvalTurnVal(year.value, form.value.annual_turnover_check, annual.value)">
+                                                               <option [selected]="true" [disabled]="true" [value]="null">Select
+                                                                   Year</option>
+                                                               <!-- <option value="0">Current Year</option> -->
+                                                               <!-- <option value="1">Previous Year</option> -->
+                                                               <option value="2">Last 2 Year</option>
+                                                               <option value="3">Last 3 Years</option>
+                                                               <option value="4">Last 4 Years</option>
+                                                               <option value="5">Last 5 Years</option>
+                                                               <option value="7">Last 7 Years</option>
+                                                           </select>
+                                                       </div>
+                                                   </div>
+           
+                                                   <div class="col-md-2"
+                                                       *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
+                                                       <label class="form-label fl-10 text-small">Our Values (INR)</label>
+                                                       <input class="form-control form-control-sm"
+                                                           formControlName="our_annual_turnover" readonly
+                                                           [value]="data?.result | currency: 'INR':'':'1.0-2'">
+                                                   </div>
+                                                   <div class="col-md-2"
+                                                       *ngIf="form.value.annual_turnover_check == '1' || form.value.annual_turnover_year != ''">
+                                                       <br>
+                                                       <div class="status-icon mt-2">
+                                                           <ng-container *ngIf="isSuccess == true; else lowData">
+                                                               <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
+                                                           </ng-container>
+                                                           <ng-template #lowData>
+                                                               <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
+                                                           </ng-template>
+                                                       </div>
+           
+                                                   </div>
+                                              
 
                                     </div>
 
@@ -340,10 +344,10 @@
                                             <label class="form-label fl-10">Net Profit</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="netprofit.value" class="p-1 bg-light rounded-pill">{{netPData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="netprofit.value" class="p-1 bg-light rounded-pill">{{form.value.net_profit | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="net_profit" type="text"
                                                 class="form-control form-control-sm" #netprofit
-                                                (keyup)="comparisonNetProfitData(netprofit.value)" [(ngModel)]="netPData" appNumberOnly>
+                                                (keyup)="comparisonNetProfitData(netprofit.value)" appNumberOnly>
 
                                         </div>
 
@@ -418,10 +422,10 @@
                                             <label class="form-label fl-10">EBITDA</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="ebdt.value" class="p-1 bg-light rounded-pill">{{ebdtData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="ebdt.value" class="p-1 bg-light rounded-pill">{{form.value.ebidta | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="ebidta" type="text"
                                                 class="form-control form-control-sm" #ebdt
-                                                (keyup)="comparisonEbidtaData(ebdt.value)"  [(ngModel)]="ebdtData" appNumberOnly>
+                                                (keyup)="comparisonEbidtaData(ebdt.value)" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.ebidta != ''">
@@ -494,10 +498,10 @@
                                             <label class="form-label fl-10">Net Worth</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="networth.value" class="p-1 bg-light rounded-pill">{{netWData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="networth.value" class="p-1 bg-light rounded-pill">{{form.value.net_worth | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="net_worth" type="text"
                                                 class="form-control form-control-sm" #networth
-                                                (keyup)="comparisonNetWorthData(networth.value)" [(ngModel)]="netWData" appNumberOnly>
+                                                (keyup)="comparisonNetWorthData(networth.value)" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.net_worth != ''">
@@ -571,10 +575,10 @@
                                             <label class="form-label fl-10">Net Working Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="networkCap.value" class="p-1 bg-light rounded-pill">{{netWortData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="networkCap.value" class="p-1 bg-light rounded-pill">{{form.value.net_working_capital | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="net_working_capital" type="text"
                                                 class="form-control form-control-sm" #networkCap
-                                                (keyup)="comparisonNetWorkData(networkCap.value)" [(ngModel)]="netWortData" appNumberOnly>
+                                                (keyup)="comparisonNetWorkData(networkCap.value)" appNumberOnly>
 
                                         </div>
 
@@ -641,10 +645,10 @@
                                             <label class="form-label fl-10">Total Liabilities</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="libi.value" class="p-1 bg-light rounded-pill">{{libbData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="libi.value" class="p-1 bg-light rounded-pill">{{form.value.total_liabilities | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="total_liabilities" type="text"
                                                 class="form-control form-control-sm" #libi
-                                                (keyup)="comparisonLibData(libi.value)" [(ngModel)]="libbData" appNumberOnly>
+                                                (keyup)="comparisonLibData(libi.value)" appNumberOnly>
                                         </div>
 
                                         <!-- <div class="col-md-2" *ngIf="form.value.total_liabilities != ''">
@@ -715,10 +719,10 @@
                                             <label class="form-label fl-10">Total Fixed Assets</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="fixedasset.value" class="p-1 bg-light rounded-pill">{{astData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="fixedasset.value" class="p-1 bg-light rounded-pill">{{form.value.total_fixed_assets | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="total_fixed_assets" type="text"
                                                 class="form-control form-control-sm" #fixedasset
-                                                (keyup)="comparisonAssetData(fixedasset.value)" [(ngModel)]="astData" appNumberOnly>
+                                                (keyup)="comparisonAssetData(fixedasset.value)" appNumberOnly>
 
                                         </div>
 
@@ -786,78 +790,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="row mt-1">
-                                        <div class="col-md-2">
-                                            <label class="form-label fl-10">Net Capital</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR)</label>
-                                            <input formControlName="net_capital" type="text"
-                                                class="form-control form-control-sm" #netcapital
-                                                (keyup)="comparisonNetCapitalData(netcapital.value)" appNumberOnly>
-
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Years</label>
-                                                <select formControlName="net_capital_year" #year6
-                                                    class="form-select form-select-sm"
-                                                    (change)="natCapitalData(year6.value, form.value.net_capital_check, netcapital.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                        Year</option>
-                                                    <option value="0">Current Year</option>
-                                                    <option value="1">Previous Year</option>
-                                                    <option value="2">Last 2 Year</option>
-                                                    <option value="3">Last 3 Years</option>
-                                                    <option value="4">Last 4 Years</option>
-                                                    <option value="5">Last 5 Years</option>
-                                                    <option value="7">Last 7 Years</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year6.value">
-                                            <div class="form-group">
-                                                <label class="form-label fl-10 text-small">Condition</label>
-                                                <select formControlName="net_capital_check"
-                                                    class="form-select form-select-sm"
-                                                    (change)="natCapitalData(year6.value, form.value.net_capital_check, netcapital.value)">
-                                                    <option [selected]="true" [disabled]="true" [value]="null">Select
-                                                    </option>
-                                                    <option value="MIN">Minimum</option>
-                                                    <option value="AVG">Average</option>
-                                                    <option value="MAX">Any</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2" *ngIf="year6.value">
-                                            <label class="form-label fl-10 text-small">Our Values (INR)</label>
-                                            <input class="form-control form-control-sm"
-                                                formControlName="our_net_capital" readonly [value]="netCapitalVal">
-
-                                        </div>
-                                        <div class="col-md-2" *ngIf="form.value.net_capital_check != ''">
-                                            <br>
-                                            <div class="status-icon mt-2">
-                                                <ng-container *ngIf="isNetCapital == true; else netCap">
-                                                    <i class="mdi mdi-checkbox-marked-circle mdi-24px text-success"></i>
-                                                </ng-container>
-                                                <ng-template #netCap>
-                                                    <i class="mdi mdi-close-circle mdi-24px text-danger"></i>
-                                                </ng-template>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                  
                                     <div class="row mt-1">
                                         <div class="col-md-2">
                                             <label class="form-label fl-10">Reserve & Surplus</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="rsVal.value" class="p-1 bg-light rounded-pill">{{rssData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="rsVal.value" class="p-1 bg-light rounded-pill">{{form.value.reserve_surplus | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="reserve_surplus" type="text"
                                                 class="form-control form-control-sm" #rsVal
-                                                (keyup)="comparisonRSData(rsVal.value)" [(ngModel)]="rssData" appNumberOnly>
+                                                (keyup)="comparisonRSData(rsVal.value)" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.reserve_surplus != ''">
@@ -927,10 +869,10 @@
                                             <label class="form-label fl-10">Paid Up Capital</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="paiupcapi.value" class="p-1 bg-light rounded-pill">{{paidCData | currency: 'INR': '' : '1.0-2'}}</span></label>
+                                            <label class="form-label fl-10 text-small">Amount (INR) <span *ngIf="paiupcapi.value" class="p-1 bg-light rounded-pill">{{form.value.paid_upcapital | currency: 'INR': '' : '1.0-2'}}</span></label>
                                             <input formControlName="paid_upcapital" type="text"
                                                 class="form-control form-control-sm" #paiupcapi
-                                                (keyup)="comparisonPaidupData(paiupcapi.value)" [(ngModel)]="paidCData" appNumberOnly>
+                                                (keyup)="comparisonPaidupData(paiupcapi.value)" appNumberOnly>
 
                                         </div>
                                         <!-- <div class="col-md-2" *ngIf="form.value.paid_upcapital != ''">
