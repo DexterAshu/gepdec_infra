@@ -88,15 +88,15 @@ export class FinancialBidComponent {
   rsDate: any;
   paidDate: any;
   annuvalTDate: any;
-  atData:any;
-  netPData:any;
-  ebdtData:any;
-  netWData:any;
-  netWortData:any;
-  libbData:any;
-  astData:any;
-  rssData:any;
-  paidCData:any;
+  // atData:any;
+  // netPData:any;
+  // ebdtData:any;
+  // netWData:any;
+  // netWortData:any;
+  // libbData:any;
+  // astData:any;
+  // rssData:any;
+  // paidCData:any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -252,7 +252,7 @@ export class FinancialBidComponent {
 
   //Annuval data
   annuvalTurnVal(year: any, check: any, annual: any) {
-    debugger
+   
     this.data = null;
     this.annuvalTDate = null;
     if (check) {
@@ -269,6 +269,7 @@ export class FinancialBidComponent {
         this.comparisonData(annual);
       })
     }
+   
   }
 
   comparisonData(annual: any) {

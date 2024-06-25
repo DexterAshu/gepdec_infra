@@ -89,8 +89,8 @@
           <div class="col-md-4" *ngIf="bidder.value == '2003'">
             <div class="form-group">
               <label class="form-label fl-10">Secondary Company<span class="required-asterisk">*</span> </label>
-              <ng-select formControlName="secondary_company" [items]="filteredCompanies" [multiple]="true"
-                bindLabel="bidder_name" bindValue="bidder_id" [closeOnSelect]="false">
+              <ng-select formControlName="secondary_company" [items]="filteredCompanies" [multiple]="true" bindLabel="bidder_name" bindValue="bidder_id"
+                [closeOnSelect]="false">
                 <ng-template ng-label-tmp let-item="item">
                   {{ item.bidder_name }}
                 </ng-template>
