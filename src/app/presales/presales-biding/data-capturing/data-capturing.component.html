@@ -85,19 +85,12 @@
           <div class="col-md-4" *ngIf="bidder.value == '2003'">
             <div class="form-group">
               <label class="form-label fl-10">Secondary Company<span class="required-asterisk">*</span> </label>
-              <!-- <select formControlName="secondary_company" class="form-select form-select-sm">
-                <option [value]="null" disabled selected>Select Company</option>
-                <option *ngFor="let c of allCompanies" [value]="c?.bidder_id">
-                  {{ c?.bidder_name }}
-                </option>
-              </select> -->
               <ng-select formControlName="secondary_company" [items]="filteredCompanies" [multiple]="true" bindLabel="bidder_name" bindValue="bidder_id"
                 [closeOnSelect]="false">
                 <ng-template ng-label-tmp let-item="item">
                   {{ item.bidder_name }}
                 </ng-template>
               </ng-select>
-              <!-- {{ form.value.secondary_company | json }} -->
               <div *ngIf="f['secondary_company'].touched && f['secondary_company'].invalid">
                 <small class="text-danger" *ngIf="f['secondary_company'].errors?.['required']">*Required</small>
               </div>
