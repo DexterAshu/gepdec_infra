@@ -5,7 +5,6 @@ import { MasterService, AlertService, ApiService } from 'src/app/_services';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 import { Subject, takeUntil } from 'rxjs';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-data-capturing',
@@ -81,7 +80,7 @@ export class DataCapturingComponent implements OnDestroy {
   myCompanyData: any;
   allCompanies: any;
   filteredCompanies: any;
-  // selectedCountryId: number | null = null;  // Default selected country ID
+  selectedCountryId: number | null = null;  // Default selected country ID
   contactId: any = [];
   contactArray: any = [];
   invalidFields: string[] = []; // Array to store invalid field names
@@ -94,7 +93,6 @@ export class DataCapturingComponent implements OnDestroy {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private datePipe: DatePipe
 
   ) {
 
@@ -104,6 +102,9 @@ export class DataCapturingComponent implements OnDestroy {
 
     this.route.params.subscribe((params: Params) => {
       this.tenderData = params;
+      // if(this.tenderData == null){
+
+      // }
 
     });
     const userDataString = localStorage.getItem('gdUserData');
@@ -129,7 +130,7 @@ export class DataCapturingComponent implements OnDestroy {
       subqacatagory_id: [null],
       bidtype_id: [null, Validators.required],
       publish_date: [null, Validators.required],
-      contact: [[]],
+      contact: this.formBuilder.array([]),
       prebid_date: [null],
       completion_period: [null, Validators.required],
       pre_meeting: [null, Validators.required],
@@ -184,6 +185,8 @@ export class DataCapturingComponent implements OnDestroy {
       contactno1: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       emailid: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
+
+    this.contactArray = this.form.get('contact') as FormArray;
 
     this.getCompanyData();
     this.getCountryData();
@@ -299,9 +302,10 @@ export class DataCapturingComponent implements OnDestroy {
             this.countryData = res.result;
             const defaultCountry = this.countryData.find((country: any) => country.name === 'India');
             if (defaultCountry) {
-              // this.selectedCountryId = defaultCountry.country_id;
-              this.form.controls['country_id'].setValue(defaultCountry?.country_id);
-              this.getStateData1(defaultCountry?.country_id);
+              this.selectedCountryId = defaultCountry.country_id;
+              this.form.get('country_id')?.setValue(this.selectedCountryId);
+              this.getStateData1(this.selectedCountryId);
+             
             }
           } else {
             this.alertService.warning("Looks like no data available in country data.");
@@ -332,32 +336,52 @@ export class DataCapturingComponent implements OnDestroy {
     );
   }
 
+  // getStateData1(data: any) {
+  //   let countrydata = this.selectedCountryId;
+  //   let statedata = null;
+  //   this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
+  //     {
+  //       next: (res: any) => {
+  //         if (res.status === 200) {
+  //           this.stateData = res.result;
+  //         } else {
+  //           this.alertService.warning(`Looks like no state available related to the selected country.`);
+  //         }
+  //       }, error: (error: any) => {
+  //         console.error(error);
+  //         this.isNotFound = true;
+  //         this.alertService.error("Error: Unknown Error!")
+  //       }
+  //     }
+  //   );
+  // }
+
+  // getDistrictData(stateId: number, index: number) {
+  //   const formGroup = this.loc().at(index) as FormGroup;
+  //   const dist = formGroup.get('district_id')?.value;
+  //   this.apiService.getDistData(stateId, dist).pipe(takeUntil(this.destroy$)).subscribe({
+  //     next: (res: any) => {
+  //       if (res.status === 200) {
+  //         const districtControl = formGroup.get('districtData');
+  //         if (districtControl) {
+  //           districtControl.setValue(res.result);
+  //         }
+  //       } else {
+  //         this.alertService.warning(`Looks like no district available related to the selected state.`);
+  //       }
+  //     }, error: (error: any) => {
+  //       console.error(error);
+  //       this.alertService.error("Error: Unknown Error!");
+  //     }
+  //   });
+  // }
+
   getDistrictData1(stateId: any) {
     const dist = this.form.value.district_id;
     this.apiService.getDistData(stateId, dist).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         if (res.status === 200) {
           this.districtData = res.result;
-        } else {
-          this.alertService.warning(`Looks like no district available related to the selected state.`);
-        }
-      }, error: (error: any) => {
-        console.error(error);
-        this.alertService.error("Error: Unknown Error!");
-      }
-    });
-  }
-
-  getDistrictData(stateId: number, index: number) {
-    const formGroup = this.loc().at(index) as FormGroup;
-    const dist = formGroup.get('district_id')?.value;
-    this.apiService.getDistData(stateId, dist).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (res: any) => {
-        if (res.status === 200) {
-          const districtControl = formGroup.get('districtData');
-          if (districtControl) {
-            districtControl.setValue(res.result);
-          }
         } else {
           this.alertService.warning(`Looks like no district available related to the selected state.`);
         }
@@ -468,7 +492,6 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    debugger
     this.button = 'Save & Continue';
     this.update = false;
 
@@ -495,12 +518,12 @@ export class DataCapturingComponent implements OnDestroy {
         })
 
         this.multiLocation = res.result[0].siteAddress;
+        console.log(this.multiLocation);
+ this.getSubData(this.custDetails.qacatagory_id)
+          this.getCapacityData(this.custDetails.subqacatagory_id)
+       
 
-        this.getSubData(this.custDetails.qacatagory_id)
-        this.getCapacityData(this.custDetails.subqacatagory_id)
-
-
-        this.multiLocation.forEach((location: any, index: any) => {
+        this.multiLocation.forEach((location:any, index:any) => {
           const locationFormGroup = this.formBuilder.group({
             site_location: [location.site_location],
             location_address: [location.location_address],
@@ -534,8 +557,8 @@ export class DataCapturingComponent implements OnDestroy {
           reserve_auction: this.custDetails.reserve_auction,
           pre_meeting: this.custDetails.pre_meeting,
           prebidmeetingmode_id: this.custDetails.prebidmeetingmode_id,
-          publish_date: this.datePipe.transform(this.custDetails?.publish_date, 'yyyy-MM-dd') || null,
-          tech_bid_date: this.datePipe.transform(this.custDetails?.tech_bid_date, 'yyyy-MM-dd') || null,
+          publish_date: this.custDetails.publish_date ? new Date(this.custDetails.publish_date).toISOString().split('T')[0] : null,
+          tech_bid_date: this.custDetails.tech_bid_date ? new Date(this.custDetails.tech_bid_date).toISOString().split('T')[0] : null,
           tender_description: this.custDetails.tender_description,
           completion_period: this.custDetails.completion_period,
           bid_validity: this.custDetails.bid_validity,
@@ -549,8 +572,8 @@ export class DataCapturingComponent implements OnDestroy {
           subqacatagory_id: this.custDetails.subqacatagory_id,
           capacity_id: this.custDetails.capacity_id,
           tender_status: this.custDetails.tender_status,
-          tender_submission_date: this.datePipe.transform(this.custDetails?.tender_submission_date, 'yyyy-MM-dd') || null,
-          tenderhardcopysubmission_date: this.datePipe.transform(this.custDetails?.tenderhardcopysubmission_date, 'yyyy-MM-dd') || null,
+          tender_submission_date: this.custDetails.tender_submission_date ? new Date(this.custDetails.tender_submission_date).toISOString().split('T')[0] : null,
+          tenderhardcopysubmission_date: this.custDetails.tenderhardcopysubmission_date ? new Date(this.custDetails.tenderhardcopysubmission_date).toISOString().split('T')[0] : null,
           tender_title: this.custDetails.tender_title,
           ecv: this.custDetails.ecv,
           tenderstatus_id: this.custDetails.tenderstatus_id,
@@ -573,12 +596,12 @@ export class DataCapturingComponent implements OnDestroy {
           // financialyear_id: this.custDetails.financialyear_id,
           remarks: this.custDetails.remarks ? this.custDetails.remarks.join('\n') : '',
           audit_trail: this.custDetails.audit_trail ? this.custDetails.audit_trail.join('\n') : '',
-          fin_bid_opening_date: this.datePipe.transform(this.custDetails?.fin_bid_opening_date, 'yyyy-MM-dd') || null,
-          closing_date: this.datePipe.transform(this.custDetails?.closing_date, 'yyyy-MM-dd') || null,
-          prebid_date: this.datePipe.transform(this.custDetails?.prebid_date, 'yyyy-MM-dd') || null,
-          prebid_submission_date: this.datePipe.transform(this.custDetails?.prebid_submission_date, 'yyyy-MM-dd') || null,
-          securitysubmission_date: this.datePipe.transform(this.custDetails?.securitysubmission_date, 'yyyy-MM-dd') || null,
-          emd_submission_date: this.datePipe.transform(this.custDetails?.emd_submission_date, 'yyyy-MM-dd') || null,
+          fin_bid_opening_date: this.custDetails.fin_bid_opening_date ? new Date(this.custDetails.fin_bid_opening_date).toISOString().split('T')[0] : null,
+          closing_date: this.custDetails.closing_date ? new Date(this.custDetails.closing_date).toISOString().split('T')[0] : null,
+          prebid_date: this.custDetails.prebid_date ? new Date(this.custDetails.prebid_date).toISOString().split('T')[0] : null,
+          prebid_submission_date: this.custDetails.prebid_submission_date ? new Date(this.custDetails.prebid_submission_date).toISOString().split('T')[0] : null,
+          securitysubmission_date: this.custDetails.securitysubmission_date ? new Date(this.custDetails.securitysubmission_date).toISOString().split('T')[0] : null,
+          emd_submission_date: this.custDetails.emd_submission_date ? new Date(this.custDetails.emd_submission_date).toISOString().split('T')[0] : null
         });
       });
     } else {
@@ -748,14 +771,15 @@ export class DataCapturingComponent implements OnDestroy {
       this.contactId.push(contactId);
     } else {
       // Checkbox is unchecked, remove item from contact array
-      this.contactArray = this.contactArray?.filter((el: any) => el.contact_id != contactId);
-      this.contactId = this.contactId?.filter((el: any) => el != contactId);
+      const index = this.contactArray.controls.findIndex((x: any) => x.value.contact_id === contactId);
+      if (index !== -1) {
+        this.contactArray.removeAt(index);
+      }
     }
 
     // Reset contact control if array is empty
     if (this.contactArray.length === 0) {
       this.form.controls['contact'].reset;
-      this.contactId = [];
     }
   }
 
@@ -823,7 +847,6 @@ export class DataCapturingComponent implements OnDestroy {
     // Update secondary_company to an array of objects or an empty array
     let updatedSecComp = this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x })) || [];
     this.form.get('secondary_company')?.setValue(updatedSecComp);
-    this.form.get('contact')?.setValue(this.contactArray);
 
     // Ensure that secondary_company is set to an empty array if it has no data
     if (updatedSecComp.length === 0) {
