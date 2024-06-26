@@ -216,79 +216,65 @@
             </div>
           </div>
 
-          <div class="col-md-4">
-            <div class="form-group">
+       <div class="col-md-4">
+    <div class="form-group">
+        <label class="form-label">
+            Country<span class="required-asterisk">*</span>
+        </label>
+        <select formControlName="country_id" class="form-select form-select-sm" [(ngModel)]="selectedCountryId" (ngModelChange)="getStateData1($event)">
+            <option [selected]="true" [disabled]="true" [value]="null">
+                Select Country
+            </option>
+            <option *ngFor="let c of countryData" [value]="c.country_id">
+                {{ c.name }}
+            </option>
+        </select>
+        <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
+            <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">
+                *Required
+            </small>
+        </div>
+    </div>
+</div>
 
-              <label class="form-label">
-                Country<span class="required-asterisk">*</span>
-              </label>
-              <select formControlName="country_id" class="form-select form-select-sm" [(ngModel)]="selectedCountryId"
-                (ngModelChange)="getStateData1($event)">
-                <option [selected]="true" [disabled]="true" [value]="null">
-                  Select Country
-                </option>
-                <option *ngFor="let c of countryData" [value]="c.country_id">
+<div class="col-md-4">
+    <div class="form-group">
+        <label class="form-label">
+            State<span class="required-asterisk">*</span>
+        </label>
+        <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData1($event)">
+            <option [selected]="true" [disabled]="true" [value]="null">
+                Select State
+            </option>
+            <option *ngFor="let s of stateData" [value]="s.state_id">
+                {{ s.state_name }}
+            </option>
+        </select>
+        <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
+            <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">
+                *Required
+            </small>
+        </div>
+    </div>
+</div>
 
-                  {{ c.name }}
-                </option>
-              </select>
-              <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
+<div class="col-md-4">
+    <div class="form-group">
+        <label class="form-label">District<span class="required-asterisk">*</span></label>
+        <select formControlName="district_id" class="form-select form-select-sm">
+            <option [selected]="true" [disabled]="true" [value]="null">
+                Select District
+            </option>
+            <option *ngFor="let d of districtData" value="{{ d.district_id }}">
+                {{ d.district_name }}
+            </option>
+        </select>
+        <div *ngIf="f['district_id'].touched && f['district_id'].invalid">
+            <small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small>
+        </div>
+    </div>
+</div>
 
-                <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">
-                  *Required
-                </small>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-
-              <label class="form-label">
-                State<span class="required-asterisk">*</span>
-              </label>
-              <select formControlName="state_id" class="form-select form-select-sm"
-                (ngModelChange)="getDistrictData1($event)">
-                <option [selected]="true" [disabled]="true" [value]="null">
-                  Select State
-                </option>
-                <option *ngFor="let s of stateData" [value]="s.state_id">
-                  {{ s.state_name }}
-                </option>
-              </select>
-              <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
-                <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">
-                  *Required
-                </small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="form-group">
-              <label class="form-label">District<span class="required-asterisk">*</span></label>
-              <select formControlName="district_id" class="form-select form-select-sm">
-                <option [selected]="true" [disabled]="true" [value]="null">
-                  Select District
-                </option>
-                <option *ngFor="let d of districtData" value="{{ d.district_id }}">
-                  {{ d.district_name }}
-                </option>
-              </select>
-              <div *ngIf="f['district_id'].touched && f['district_id'].invalid">
-                <small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label class="form-label">City <span class="required-asterisk">*</span></label>
-              <input type="text" formControlName="city" class="form-control form-control-sm" appWordCapitalize />
-            </div>
-            <div *ngIf="f['city'].touched && f['city'].invalid">
-              <small class="text-danger" *ngIf="f['city'].errors?.['required']">*Required</small>
-            </div>
-          </div>
 
           <ng-container formArrayName="tender_location">
             <div class="col-md-12">
@@ -351,7 +337,7 @@
                         <div class="form-group">
 
                           <label class="form-label">District<span class="required-asterisk">*</span></label>
-                          <select formControlName="district_id" class="form-select form-select-sm">
+                          <select formControlName="district_id" class="form-select form-select-sm"  >
                             <option [selected]="true" [disabled]="true" [value]="null">
                               Select District
                             </option>
