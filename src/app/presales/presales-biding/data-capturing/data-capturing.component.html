@@ -89,8 +89,8 @@
           <div class="col-md-4" *ngIf="bidder.value == '2003'">
             <div class="form-group">
               <label class="form-label fl-10">Secondary Company<span class="required-asterisk">*</span> </label>
-              <ng-select formControlName="secondary_company" [items]="filteredCompanies" [multiple]="true" bindLabel="bidder_name" bindValue="bidder_id"
-                [closeOnSelect]="false">
+              <ng-select formControlName="secondary_company" [items]="filteredCompanies" [multiple]="true"
+                bindLabel="bidder_name" bindValue="bidder_id" [closeOnSelect]="false">
                 <ng-template ng-label-tmp let-item="item">
                   {{ item.bidder_name }}
                 </ng-template>
@@ -216,64 +216,65 @@
             </div>
           </div>
 
-       <div class="col-md-4">
-    <div class="form-group">
-        <label class="form-label">
-            Country<span class="required-asterisk">*</span>
-        </label>
-        <select formControlName="country_id" class="form-select form-select-sm" [(ngModel)]="selectedCountryId" (ngModelChange)="getStateData1($event)">
-            <option [selected]="true" [disabled]="true" [value]="null">
-                Select Country
-            </option>
-            <option *ngFor="let c of countryData" [value]="c.country_id">
-                {{ c.name }}
-            </option>
-        </select>
-        <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
-            <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">
-                *Required
-            </small>
-        </div>
-    </div>
-</div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="form-label">
+                Country<span class="required-asterisk">*</span>
+              </label>
+              <select formControlName="country_id" class="form-select form-select-sm" (change)="getStateData1($event)">
+                <option [selected]="true" [disabled]="true" [value]="null">
+                  Select Country
+                </option>
+                <option *ngFor="let c of countryData" [value]="c.country_id">
+                  {{ c.name }}
+                </option>
+              </select>
+              <div *ngIf="f['country_id'].touched && f['country_id'].invalid">
+                <small class="text-danger" *ngIf="f['country_id'].errors?.['required']">
+                  *Required
+                </small>
+              </div>
+            </div>
+          </div>
 
-<div class="col-md-4">
-    <div class="form-group">
-        <label class="form-label">
-            State<span class="required-asterisk">*</span>
-        </label>
-        <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData1($event)">
-            <option [selected]="true" [disabled]="true" [value]="null">
-                Select State
-            </option>
-            <option *ngFor="let s of stateData" [value]="s.state_id">
-                {{ s.state_name }}
-            </option>
-        </select>
-        <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
-            <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">
-                *Required
-            </small>
-        </div>
-    </div>
-</div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="form-label">
+                State<span class="required-asterisk">*</span>
+              </label>
+              <select formControlName="state_id" class="form-select form-select-sm"
+                (ngModelChange)="getDistrictData1($event)">
+                <option [selected]="true" [disabled]="true" [value]="null">
+                  Select State
+                </option>
+                <option *ngFor="let s of stateData" [value]="s.state_id">
+                  {{ s.state_name }}
+                </option>
+              </select>
+              <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
+                <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">
+                  *Required
+                </small>
+              </div>
+            </div>
+          </div>
 
-<div class="col-md-4">
-    <div class="form-group">
-        <label class="form-label">District<span class="required-asterisk">*</span></label>
-        <select formControlName="district_id" class="form-select form-select-sm">
-            <option [selected]="true" [disabled]="true" [value]="null">
-                Select District
-            </option>
-            <option *ngFor="let d of districtData" value="{{ d.district_id }}">
-                {{ d.district_name }}
-            </option>
-        </select>
-        <div *ngIf="f['district_id'].touched && f['district_id'].invalid">
-            <small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small>
-        </div>
-    </div>
-</div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="form-label">District<span class="required-asterisk">*</span></label>
+              <select formControlName="district_id" class="form-select form-select-sm">
+                <option [selected]="true" [disabled]="true" [value]="null">
+                  Select District
+                </option>
+                <option *ngFor="let d of districtData" value="{{ d.district_id }}">
+                  {{ d.district_name }}
+                </option>
+              </select>
+              <div *ngIf="f['district_id'].touched && f['district_id'].invalid">
+                <small class="text-danger" *ngIf="f['district_id'].errors?.['required']">*Required</small>
+              </div>
+            </div>
+          </div>
 
 
           <ng-container formArrayName="tender_location">
@@ -337,13 +338,11 @@
                         <div class="form-group">
 
                           <label class="form-label">District<span class="required-asterisk">*</span></label>
-                          <select formControlName="district_id" class="form-select form-select-sm"  >
+                          <select formControlName="district_id" class="form-select form-select-sm">
                             <option [selected]="true" [disabled]="true" [value]="null">
                               Select District
                             </option>
-                            <option *ngFor="
-                                let d of loc().at(i).get('districtData')?.value
-                              " [value]="d.district_id">
+                            <option *ngFor="let d of loc().at(i).get('districtData')?.value" [value]="d.district_id">
                               {{ d.district_name }}
                             </option>
                           </select>
@@ -574,10 +573,11 @@
           <div class="col-md-3">
             <div class="form-group">
               <label class="form-label fl-10">ECV (INR)<span class="required-asterisk">*</span><span
-                  *ngIf="form.value.ecv" class="p-1 bg-light rounded-pill">{{ form.value.ecv | currency : "INR" : "" : "1.0-2"
+                  *ngIf="form.value.ecv" class="p-1 bg-light rounded-pill">{{ form.value.ecv | currency : "INR" : "" :
+                  "1.0-2"
                   }}</span>
               </label>
-              <input formControlName="ecv" type="text" class="form-control form-control-sm" appNumberOnly/>
+              <input formControlName="ecv" type="text" class="form-control form-control-sm" appNumberOnly />
               <div *ngIf="f['ecv'].touched && f['ecv'].invalid">
                 <small class="text-danger" *ngIf="f['ecv'].errors?.['required']">*Required</small>
               </div>
@@ -588,9 +588,11 @@
             <div class="form-group">
 
               <label class="form-label fl-10">Registration Fee<span class="required-asterisk">*</span>
-                <span *ngIf="form.value.tender_fee" class="p-1 bg-light rounded-pill">{{ form.value.tender_fee | currency : "INR" :
+                <span *ngIf="form.value.tender_fee" class="p-1 bg-light rounded-pill">{{ form.value.tender_fee |
+                  currency : "INR" :
                   "" : "1.0-2" }}</span></label>
-              <input type="text" class="form-control form-control-sm" formControlName="tender_fee" placeholder="Enter '0' if not applicable" appNumberOnly />
+              <input type="text" class="form-control form-control-sm" formControlName="tender_fee"
+                placeholder="Enter '0' if not applicable" appNumberOnly />
               <div *ngIf="f['tender_fee'].touched && f['tender_fee'].invalid">
                 <small class="text-danger" *ngIf="f['tender_fee'].errors?.['required']">*Required</small>
               </div>
@@ -601,9 +603,11 @@
             <div class="form-group">
               <label class="form-label fl-10">Tender Document Cost<span class="required-asterisk">*</span>
 
-                <span *ngIf="form.value.tender_doc_cost" class="p-1 bg-light rounded-pill">{{ form.value.tender_doc_cost | currency :
+                <span *ngIf="form.value.tender_doc_cost" class="p-1 bg-light rounded-pill">{{ form.value.tender_doc_cost
+                  | currency :
                   "INR" : "" : "1.0-2" }}</span></label>
-              <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost" placeholder="Enter '0' if not applicable" appNumberOnly />
+              <input type="text" class="form-control form-control-sm" formControlName="tender_doc_cost"
+                placeholder="Enter '0' if not applicable" appNumberOnly />
               <div *ngIf="
                   f['tender_doc_cost'].touched && f['tender_doc_cost'].invalid
                 ">
@@ -635,10 +639,11 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label class="form-label fl-10">Security Amount<span class="required-asterisk">*</span>
-                  <span *ngIf="form.value.security_amount" class="p-1 bg-light rounded-pill">{{ form.value?.security_amount | currency
+                  <span *ngIf="form.value.security_amount" class="p-1 bg-light rounded-pill">{{
+                    form.value?.security_amount | currency
                     : "INR" : "" : "1.0-2" }}</span></label>
-                <input formControlName="security_amount" type="text"
-                  class="form-control form-control-sm" appNumberOnly />
+                <input formControlName="security_amount" type="text" class="form-control form-control-sm"
+                  appNumberOnly />
                 <div *ngIf="
                     f['security_amount'].touched && f['security_amount'].invalid
                   ">
@@ -728,10 +733,11 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label class="form-label fl-10">EMD Amount<span class="required-asterisk">*</span>
-                  <span *ngIf="form.value.emd_ammount" class="p-1 bg-light rounded-pill">{{ form.value?.emd_ammount | currency : "INR" :
+                  <span *ngIf="form.value.emd_ammount" class="p-1 bg-light rounded-pill">{{ form.value?.emd_ammount |
+                    currency : "INR" :
                     "" : "1.0-2" }}</span>
                 </label>
-                <input formControlName="emd_ammount" type="text" class="form-control form-control-sm" appNumberOnly/>
+                <input formControlName="emd_ammount" type="text" class="form-control form-control-sm" appNumberOnly />
                 <div *ngIf="f['emd_ammount'].touched && f['emd_ammount'].invalid">
                   <small class="text-danger" *ngIf="f['emd_ammount'].errors?.['required']">*Required</small>
                 </div>
