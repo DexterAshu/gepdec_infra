@@ -54,7 +54,7 @@
         </div>
 
         <div class="row" *ngIf="showTenderDetails">
-          <!-- <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Bidder Type<span class="required-asterisk">*</span> </label>
               <select formControlName="biddertype_id" #bidder class="form-select form-select-sm"
@@ -69,14 +69,14 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4" *ngIf="bidder.value">
+          <div class="col-md-4" *ngIf="form.value.biddertype_id != null">
             <div class="form-group">
-              <label class="form-label fl-10"> {{ bidder.value != '2000' ? 'Lead Company' : 'Company Name'}}<span
+              <label class="form-label fl-10"> {{ bidder.value == '2003' || bidder.value == '2004' ? 'Lead Company' : 'Company Name'}}<span
                   class="required-asterisk">*</span> </label>
               <select formControlName="bidder_id" #bidder_name class="form-select form-select-sm"
                 (change)="matchCompany(bidder_name.value)">
                 <option [value]="null" disabled selected>Select Company</option>
-                <option *ngFor="let c of (bidder.value == '2000' ? myCompanyData : allCompanies)"
+                <option *ngFor="let c of (bidder.value == '2003' || bidder.value == '2004' ? allCompanies : myCompanyData)"
                   [value]="c?.bidder_id"> {{ c?.bidder_name }} </option>
               </select>
               <div *ngIf="f['bidder_id'].touched && f['bidder_id'].invalid">
@@ -84,7 +84,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4" *ngIf="bidder.value != '2000'">
+          <div class="col-md-4" *ngIf="bidder.value == '2003' || bidder.value == '2004'">
             <div class="form-group">
               <label class="form-label fl-10">Secondary Company<span class="required-asterisk">*</span> </label>
               <ng-select formControlName="secondary_company" [items]="filteredCompanies" [multiple]="true"
@@ -97,7 +97,7 @@
                 <small class="text-danger" *ngIf="f['secondary_company'].errors?.['required']">*Required</small>
               </div>
             </div>
-          </div> -->
+          </div>
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
@@ -235,26 +235,27 @@
             </div>
           </div>
 
-<div class="col-md-4">
-    <div class="form-group">
-        <label class="form-label">
-            State<span class="required-asterisk">*</span>
-        </label>
-        <select formControlName="state_id" class="form-select form-select-sm" (ngModelChange)="getDistrictData1($event)">
-            <option [selected]="true" [disabled]="true" [value]="null">
-                Select State
-            </option>
-            <option *ngFor="let s of stateData" [value]="s.state_id">
-                {{ s.state_name }}
-            </option>
-        </select>
-        <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
-            <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">
-                *Required
-            </small>
-        </div>
-    </div>
-</div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="form-label">
+                State<span class="required-asterisk">*</span>
+              </label>
+              <select formControlName="state_id" class="form-select form-select-sm"
+                (ngModelChange)="getDistrictData1($event)">
+                <option [selected]="true" [disabled]="true" [value]="null">
+                  Select State
+                </option>
+                <option *ngFor="let s of stateData" [value]="s.state_id">
+                  {{ s.state_name }}
+                </option>
+              </select>
+              <div *ngIf="f['state_id'].touched && f['state_id'].invalid">
+                <small class="text-danger" *ngIf="f['state_id'].errors?.['required']">
+                  *Required
+                </small>
+              </div>
+            </div>
+          </div>
 
           <div class="col-md-4">
             <div class="form-group">
@@ -544,7 +545,7 @@
             <div class="form-group">
               <label class="form-label fl-10">Technical Bid Opening Date<span class="required-asterisk">*</span></label>
               <input formControlName="tech_bid_date" type="date" class="form-control form-control-sm"
-                 [min]="form.value.closing_date" />
+                [min]="form.value.closing_date" />
               <div *ngIf="f['tech_bid_date'].touched && f['tech_bid_date'].invalid">
                 <small class="text-danger" *ngIf="f['tech_bid_date'].errors?.['required']">*Required</small>
               </div>
@@ -782,7 +783,8 @@
 
           <div class="col-md-12">
             <div class="form-group">
-              <label class="form-label fl-10">Payment terms and Defect liabilities<span class="required-asterisk">*</span></label>
+              <label class="form-label fl-10">Payment terms and Defect liabilities<span
+                  class="required-asterisk">*</span></label>
               <textarea type="text" class="form-control form-control-sm" formControlName="tenderpayment_terms">
               </textarea>
               <div *ngIf="f['tenderpayment_terms'].touched && f['tenderpayment_terms'].invalid">
@@ -827,7 +829,7 @@
                   </thead>
                   <tbody class="text-nowrap">
                     <tr
-                      *ngFor="let a of contactDetails | paginate : { itemsPerPage: limit, currentPage: p }; index as i">
+                      *ngFor="let a of contactDetails; index as i">
                       <td>{{ limit * (p - 1) + i + 1 }}</td>
                       <td>{{ a.name }}</td>
                       <td>{{ a.designationname }}</td>
@@ -835,7 +837,8 @@
                       <td>{{ a.contactno1 }}</td>
                       <td>{{ a.email }}</td>
                       <td>
-                        <input type="checkbox" [checked]="contactId?.includes(a?.contact_id)" (change)="handleCheckboxChange($event, a)" />
+                        <input type="checkbox" [checked]="contactId?.includes(a?.contact_id)"
+                          (change)="handleCheckboxChange($event, a)" />
                       </td>
                     </tr>
                     <tr *ngIf="isContactFound == true">
