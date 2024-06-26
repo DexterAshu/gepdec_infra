@@ -84,6 +84,8 @@ export class DataCapturingComponent implements OnDestroy {
   // selectedCountryId: number | null = null;  // Default selected country ID
   contactId: any = [];
   contactArray: any = [];
+  invalidFields: string[] = []; // Array to store invalid field names
+
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -788,6 +790,9 @@ export class DataCapturingComponent implements OnDestroy {
         this.form.controls['working_notes'].clearValidators();
         this.form.controls['working_notes'].reset();
       }
+    } else {
+      this.markFormGroupTouched(this.form);
+      this.getInvalidFields();
     }
   }
 
@@ -844,10 +849,32 @@ export class DataCapturingComponent implements OnDestroy {
           this.alertService.error('Error, Something went wrong please check');
         }
       }, error: (error: any) => {
-        console.error(error);
         this.alertService.error("Error: Unknown Error!");
+        this.markFormGroupTouched(this.form);
+        this.getInvalidFields();
       }
     });
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach((control: any) => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
+  getInvalidFields() {
+    this.invalidFields = [];
+    Object.keys(this.form.controls).forEach(key => {
+      const control = this.form.get(key);
+      if (control && control.invalid) {
+        this.invalidFields.push(key);
+      }
+    });
+    console.log('Invalid Fields:', this.invalidFields);
   }
 
   ngOnDestroy(): void {

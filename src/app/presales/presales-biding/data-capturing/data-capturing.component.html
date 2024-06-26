@@ -275,6 +275,15 @@
               </div>
             </div>
           </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label class="form-label">City <span class="required-asterisk">*</span></label>
+              <input type="text" formControlName="city" class="form-control form-control-sm" appWordCapitalize />
+            </div>
+            <div *ngIf="f['city'].touched && f['city'].invalid">
+              <small class="text-danger" *ngIf="f['city'].errors?.['required']">*Required</small>
+            </div>
+          </div>
 
 
           <ng-container formArrayName="tender_location">
@@ -698,16 +707,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label fl-10">PG Submission Date<span class="required-asterisk">*</span></label>
-                                <input formControlName="pgsubmission_date" type="date" class="form-control form-control-sm">
-                                <div *ngIf="f['pgsubmission_date'].touched && f['pgsubmission_date'].invalid">
-                                    <small class="text-danger" *ngIf="f['pgsubmission_date'].errors?.['required']">*Required</small>
-                                </div>
-                            </div>
-                        </div> -->
           </ng-container>
 
           <!-- Performance Guarantee End -->
@@ -756,10 +755,7 @@
                     {{ p.paymentmethod }}
                   </option>
                 </select>
-                <div *ngIf="
-                    f['paymentmethod_id'].touched &&
-                    f['paymentmethod_id'].invalid
-                  ">
+                <div *ngIf="f['paymentmethod_id'].touched && f['paymentmethod_id'].invalid">
                   <small class="text-danger" *ngIf="f['paymentmethod_id'].errors?.['required']">*Required</small>
                 </div>
               </div>
@@ -770,10 +766,7 @@
                 <label class="form-label fl-10">EMD Submission Date<span class="required-asterisk">*</span></label>
                 <input formControlName="emd_submission_date" type="date" class="form-control form-control-sm"
                   [min]="form.value.publish_date" [max]="form.value.closing_date" />
-                <div *ngIf="
-                    f['emd_submission_date'].touched &&
-                    f['emd_submission_date'].invalid
-                  ">
+                <div *ngIf="f['emd_submission_date'].touched && f['emd_submission_date'].invalid">
                   <small class="text-danger" *ngIf="f['emd_submission_date'].errors?.['required']">*Required</small>
                 </div>
               </div>
@@ -792,15 +785,10 @@
 
           <div class="col-md-12">
             <div class="form-group">
-
-              <label class="form-label fl-10">Payment terms and Defect liabilities<span
-                  class="required-asterisk">*</span></label>
+              <label class="form-label fl-10">Payment terms and Defect liabilities<span class="required-asterisk">*</span></label>
               <textarea type="text" class="form-control form-control-sm" formControlName="tenderpayment_terms">
               </textarea>
-              <div *ngIf="
-                  f['tenderpayment_terms'].touched &&
-                  f['tenderpayment_terms'].invalid
-                ">
+              <div *ngIf="f['tenderpayment_terms'].touched && f['tenderpayment_terms'].invalid">
                 <small class="text-danger" *ngIf="f['tenderpayment_terms'].errors?.['required']">*Required</small>
               </div>
             </div>
@@ -865,19 +853,6 @@
               </div>
             </div>
           </div>
-
-          <!-- <div class="col-md-3" *ngIf="update">
-                                        <div class="form-group">
-                                            <label class="form-label fl-10">Tender Status<span class="required-asterisk">*</span></label>
-                                            <select formControlName="tenderstatus_id" class="form-select form-select-sm">
-                                                <option [value]="null" disabled selected>Select Status</option>
-                                                <option *ngFor="let c of tendStatus" [value]="c.tenderstatus_id">{{ c.tender_status }}</option>
-                                            </select>
-                                            <div *ngIf="f['tenderstatus_id'].touched && f['tenderstatus_id'].invalid">
-                                                <small class="text-danger" *ngIf="f['tenderstatus_id'].errors?.['required']">*Required</small>
-                                            </div>
-                                        </div>
-                                    </div> -->
           <div class="col-md-12" *ngIf="update">
             <div class="form-group">
               <label class="form-label fl-10">Remarks<span class="required-asterisk">*</span></label>
@@ -918,8 +893,7 @@
               <input class="mt-1" type="checkbox" id="termscheckbox" formControlName="termscheckbox" />
               &nbsp;
               <label for="termscheckbox">
-                I accept that the selected fields and input data given by me are
-                correct.</label>
+                I accept that the selected fields and input data given by me are correct.</label>
             </div>
           </div>
           <div class="modal-btns mt-3">
