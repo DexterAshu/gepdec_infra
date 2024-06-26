@@ -125,12 +125,8 @@ export class DataCapturingComponent implements OnDestroy {
       qacatagory_id: [null],
       subqacatagory_id: [null],
       bidtype_id: [null, Validators.required],
-      //  tender_location: [null, Validators.required],
-      //  tender_location: new FormArray([]),
-      // tender_location_type: [null, Validators.required],
       publish_date: [null, Validators.required],
       contact: this.formBuilder.array([]),
-      // prebid_submission_date:[null, Validators.required],
       prebid_date: [null],
       completion_period: [null, Validators.required],
       pre_meeting: [null, Validators.required],
@@ -158,7 +154,6 @@ export class DataCapturingComponent implements OnDestroy {
       state_id: [null, Validators.required],
       district_id: [null, Validators.required],
       city: [null, Validators.required],
-      // financialyear_id: [null, Validators.required],
 
       //securitydeposit
       securitydeposit_id: [null, Validators.required],
@@ -176,7 +171,7 @@ export class DataCapturingComponent implements OnDestroy {
       audit_trail: [null],
       remarks: [null],
       tender_location: this.formBuilder.array([]),
-    }, { validator: this.dateLessThan('publish_date', 'closing_date') });
+    });
 
     this.form1 = this.formBuilder.group({
       company_id: [null],
@@ -199,16 +194,16 @@ export class DataCapturingComponent implements OnDestroy {
     this.getMyCompanyData();
   }
 
-  dateLessThan(startDate: string, endDate: string): ValidatorFn {
-    return (group: AbstractControl): { [key: string]: any } | null => {
-      let start = group.get(startDate)!.value;
-      let end = group.get(endDate)!.value;
-      if (start && end && start > end) {
-        return { 'dateInvalid': true };
-      }
-      return null;
-    };
-  }
+  // dateLessThan(startDate: string, endDate: string): ValidatorFn {
+  //   return (group: AbstractControl): { [key: string]: any } | null => {
+  //     let start = group.get(startDate)!.value;
+  //     let end = group.get(endDate)!.value;
+  //     if (start && end && start > end) {
+  //       return { 'dateInvalid': true };
+  //     }
+  //     return null;
+  //   };
+  // }
   onPublishDateChange() {
     this.form.controls['closing_date'].reset();
   }
@@ -306,6 +301,7 @@ export class DataCapturingComponent implements OnDestroy {
               this.selectedCountryId = defaultCountry.country_id;
               this.form.get('country_id')?.setValue(this.selectedCountryId);
               this.getStateData1(this.selectedCountryId);
+             
             }
           } else {
             this.alertService.warning("Looks like no data available in country data.");
@@ -500,24 +496,21 @@ export class DataCapturingComponent implements OnDestroy {
       this.update = true;
 
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-
         this.tendContDetails = [];
         this.custDetails = res.result[0];
         this.tendContDetails = res.result[0].tendercontact;
-
         this.tendContDetails.forEach((el: any) => {
-          this.contactId.push(el.contact_id)
-          this.contactArray.push(this.formBuilder.group({ contact_id: el.contact_id }));
+        this.contactId.push(el.contact_id)
+        this.contactArray.push(this.formBuilder.group({ contact_id: el.contact_id }));
         })
 
         this.multiLocation = res.result[0].siteAddress;
         console.log(this.multiLocation);
         this.getSubData(this.custDetails.qacatagory_id)
         this.getCapacityData(this.custDetails.subqacatagory_id)
+       
 
-        for (let index = 0; index < this.multiLocation.length; index++) {
-          const location = this.multiLocation[index];
-
+        this.multiLocation.forEach((location:any, index:any) => {
           const locationFormGroup = this.formBuilder.group({
             site_location: [location.site_location],
             location_address: [location.location_address],
@@ -529,15 +522,8 @@ export class DataCapturingComponent implements OnDestroy {
             site_id: [location.site_id]
           });
           this.tender_location.push(locationFormGroup);
-          console.log(locationFormGroup);
-
-          // Call onStateChange to update district data
           this.getDistrictData(location.state_id, index);
-        }
-        this.getSubData(this.custDetails.qacatagory_id)
-        this.getCapacityData(this.custDetails.subqacatagory_id)
-        console.log(this.custDetails.tenderstatus_id);
-
+        });
 
         this.form.patchValue({
           bidder_id: this.custDetails.bidder_id,
@@ -598,6 +584,7 @@ export class DataCapturingComponent implements OnDestroy {
 
         setTimeout(() => {
           this.getStateData();
+         
         }, 500);
       });
     } else {
