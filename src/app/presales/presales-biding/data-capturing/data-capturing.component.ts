@@ -86,6 +86,7 @@ export class DataCapturingComponent implements OnDestroy {
   contactArray: any = [];
   invalidFields: string[] = []; // Array to store invalid field names
   clientDetails: any;
+  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -176,6 +177,7 @@ export class DataCapturingComponent implements OnDestroy {
       tender_location: this.formBuilder.array([]),
     });
 
+ 
     this.form1 = this.formBuilder.group({
       company_id: [null],
       name: [null, Validators.required],
@@ -222,9 +224,8 @@ export class DataCapturingComponent implements OnDestroy {
 
 
   patchClient() {
-    console.log(this.custDetails)
     this.form1.patchValue({
-      company_id: this.custDetails[0]?.company_name
+      company_id: this.clientDetails[0]?.company_name
     })
   }
 
@@ -755,10 +756,8 @@ export class DataCapturingComponent implements OnDestroy {
     modID.module_id = "409";
     let match = this.form1.value;
     match.Action = "add";
-    var compID = this.custDetails[0].company_id;
-    console.log(compID);
-
-    this.form1.value.company_id = this.custDetails[0].company_id;
+   match.company_id=this.clientDetails[0]?.company_id
+ var  compID=this.clientDetails[0]?.company_id
 
     this.apiService.createContacts(match).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
