@@ -126,7 +126,6 @@ export class ProposalOneComponent {
   }
 
   submitVendorSelection() {
-    // Update the item with selected vendors
     this.vendorPriceDetails.selected_vendors.forEach((vendor: any) => {
       if (vendor.isVendorSelected) {
         this.vendorPriceDetails.isChecked = true;
@@ -165,7 +164,25 @@ export class ProposalOneComponent {
         selected_vendors: childItem.selected_vendors.filter((vendor: any) => vendor.isVendorSelected)
       })) : []
     }));
+
     console.log(selectedItems);
+    if (selectedItems.length == 0) {
+      this.alertService.error("Please select items!");
+    }
+
+    const itemsWithoutVendors = selectedItems.filter((item: any) => {
+      if (item.selected_vendors.length === 0) {
+        return true;
+      }
+      const childItemsWithoutVendors = item.childItems.some((childItem: any) => childItem.selected_vendors.length === 0);
+      return childItemsWithoutVendors;
+    }).map((item: any) => item.description);
+
+    if (itemsWithoutVendors.length > 0) {
+      this.alertService.error(`Vendors not selected for items: ${itemsWithoutVendors.join(', ')}`);
+      return;
+    }
+
   }
 
   onSubmit() {

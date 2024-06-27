@@ -102,6 +102,7 @@
                         <app-tender-detail [itemList]="boqList"></app-tender-detail>
                     </div>
                     <div class="row">
+                        <h6 class="mt-3 mb-2 text-secondary">BOQ Detail</h6>
                         <app-responsive-table class="">
                             <thead class="table-primary text-nowrap">
                                 <tr>
@@ -166,12 +167,8 @@
                             <app-tender-detail [itemList]="boqList"></app-tender-detail>
                             <ng-container class="mt-4">
                                 <div class="pt-2 mb-2" style="min-height: auto;">
+                                    <h6 class="mt-3 mb-2 text-secondary">BOQ Detail</h6>
                                     <table class="table table-hover table-striped custom-table mb-3 table-bordered">
-                                        <thead class="table-primary text-nowrap">
-                                            <tr>
-                                                <th colspan="6" class="text-center">BOQ Detail</th>
-                                            </tr>
-                                        </thead>
                                         <tbody class="text-nowrap">
                                             <tr>
                                                 <th>BOQ Code</th>
@@ -187,7 +184,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-12 col-md-6">
-                                        <h6 class="mt-3 mb-2 text-secondary">Item Details</h6>
+                                        <h6 class="mt-3 mb-2 text-secondary">Item Detail</h6>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <button class="btn btn-primary btn-fw btn-sm me-2 float-end"
@@ -310,12 +307,8 @@
                         <div class="table-responsive" style="min-height: auto;">
                             <app-tender-detail [itemList]="boqList"></app-tender-detail>
                         </div>
+                        <h6 class="mt-3 mb-2 text-secondary">BOQ Detail</h6>
                         <table class="table table-hover table-striped custom-table mb-3 table-bordered">
-                            <thead class="table-primary text-nowrap">
-                                <tr>
-                                    <th colspan="6" class="text-center">BOQ Detail</th>
-                                </tr>
-                            </thead>
                             <tbody class="text-nowrap">
                                 <tr>
                                     <th>BOQ Code</th>
@@ -327,12 +320,8 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <h6 class="mt-3 mb-2 text-secondary">Item Detail</h6>
                         <table class="table table-hover table-striped custom-table mb-3 table-bordered">
-                            <thead class="table-primary text-nowrap">
-                                <tr>
-                                    <th colspan="6" class="text-center">Item Detail</th>
-                                </tr>
-                            </thead>
                             <tbody class="text-nowrap">
                                 <tr>
                                     <th>Item Code</th>
@@ -351,7 +340,7 @@
                                     <thead class="table-primary text-nowrap">
                                         <tr>
                                             <th rowspan="2">S No</th>
-                                            <th colspan="2" class="text-center">Vender Details</th>
+                                            <th colspan="3" class="text-center">Vender Details</th>
                                             <th rowspan="2">Quantity</th>
                                             <th colspan="3" class="text-center">Vendor Proposed Price</th>
                                             <th rowspan="2">Item UOM</th>
@@ -359,6 +348,7 @@
                                         </tr>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Contact Person</th>
                                             <th>Contact number</th>
                                             <th>Unit Price</th>
                                             <th>Total Price With GST</th>
@@ -369,6 +359,7 @@
                                         <tr *ngFor="let detail of vendorPriceDetails?.selected_vendors; let i = index">
                                             <td>{{i + 1}}</td>
                                             <td>{{detail.suppliername ? detail.suppliername : '--'}}</td>
+                                            <td>{{detail.contactperson ? detail.contactperson : '--'}}</td>
                                             <td>{{detail.contactno ? detail.contactno : '--'}}</td>
                                             <td>{{vendorPriceDetails.quantity ? vendorPriceDetails.quantity : '--'}}
                                             </td>
