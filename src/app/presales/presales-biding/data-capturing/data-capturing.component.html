@@ -54,7 +54,7 @@
         </div>
 
         <div class="row" *ngIf="showTenderDetails">
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Bidder Type<span class="required-asterisk">*</span> </label>
               <select formControlName="biddertype_id" #bidder class="form-select form-select-sm"
@@ -97,7 +97,7 @@
                 <small class="text-danger" *ngIf="f['secondary_company'].errors?.['required']">*Required</small>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
@@ -274,6 +274,7 @@
             </div>
           </div>
           <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-group">
               <label class="form-label">City <span class="required-asterisk">*</span></label>
               <input type="text" formControlName="city" class="form-control form-control-sm" appWordCapitalize />
@@ -439,6 +440,7 @@
           </div>
 
           <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Soft Copy Submission Date<span class="required-asterisk">*</span></label>
               <input formControlName="tender_submission_date" type="date" class="form-control form-control-sm"
@@ -452,6 +454,7 @@
             </div>
           </div>
           <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Hard Copy Submission Date</label>
               <input formControlName="tenderhardcopysubmission_date" type="date" class="form-control form-control-sm"
@@ -459,6 +462,7 @@
             </div>
           </div>
 
+          <div class="col-md-4">
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Comp Period (Months)<span class="required-asterisk">*</span></label>
@@ -473,6 +477,7 @@
             </div>
           </div>
           <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Bid Validity (Days)<span class="required-asterisk">*</span></label>
               <input formControlName="bid_validity" type="text" class="form-control form-control-sm" minlength="1"
@@ -483,6 +488,7 @@
             </div>
           </div>
 
+          <div class="col-md-4">
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Reverse Auction<span class="required-asterisk">*</span></label>
@@ -495,6 +501,7 @@
               </select>
             </div>
           </div>
+          <div class="col-md-4">
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Pre-bid Meeting<span class="required-asterisk">*</span></label>
@@ -509,6 +516,7 @@
             </div>
           </div>
 
+          <div class="col-md-4" *ngIf="prebid_meeting.value == 'Yes'">
           <div class="col-md-4" *ngIf="prebid_meeting.value == 'Yes'">
             <div class="form-group">
               <label class="form-label fl-10">
@@ -531,6 +539,7 @@
           </div>
 
           <div class="col-md-4" *ngIf="prebid_meeting.value == 'Yes' && 'selectPrebidField'">
+          <div class="col-md-4" *ngIf="prebid_meeting.value == 'Yes' && 'selectPrebidField'">
             <div class="form-group">
               <label class="form-label fl-10">Pre-Bid Meeting Date<span class="required-asterisk">*</span></label>
               <input formControlName="prebid_date" type="date" class="form-control form-control-sm"
@@ -542,10 +551,12 @@
           </div>
 
           <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Technical Bid Opening Date<span class="required-asterisk">*</span></label>
               <input formControlName="tech_bid_date" type="date" class="form-control form-control-sm"
                 [min]="form.value.closing_date" />
+                 [min]="form.value.closing_date" />
               <div *ngIf="f['tech_bid_date'].touched && f['tech_bid_date'].invalid">
                 <small class="text-danger" *ngIf="f['tech_bid_date'].errors?.['required']">*Required</small>
               </div>
@@ -553,9 +564,11 @@
           </div>
 
           <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Financial Bid Opening Date</label>
               <input formControlName="fin_bid_opening_date" type="date" class="form-control form-control-sm"
+                [min]="form.value.closing_date" />
                 [min]="form.value.closing_date" />
               <!-- <div *ngIf="f['fin_bid_opening_date'].touched && f['fin_bid_opening_date'].invalid">
                                                 <small class="text-danger" *ngIf="f['fin_bid_opening_date'].errors?.['required']">*Required</small>
@@ -563,6 +576,7 @@
             </div>
           </div>
 
+          <div class="col-md-4">
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">ECV Type<span class="required-asterisk">*</span> </label>
@@ -578,6 +592,7 @@
             </div>
           </div>
           <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">ECV (INR)<span class="required-asterisk">*</span><span
                   *ngIf="form.value.ecv" class="p-1 bg-light rounded-pill">{{ form.value.ecv | currency : "INR" : "" :
@@ -591,6 +606,7 @@
             </div>
           </div>
 
+          <div class="col-md-4">
           <div class="col-md-4">
             <div class="form-group">
 
@@ -606,6 +622,7 @@
             </div>
           </div>
 
+          <div class="col-md-4">
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Tender Document Cost<span class="required-asterisk">*</span>
