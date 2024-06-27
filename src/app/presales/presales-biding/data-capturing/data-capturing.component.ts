@@ -85,6 +85,7 @@ export class DataCapturingComponent implements OnDestroy {
   contactId: any = [];
   contactArray: any = [];
   invalidFields: string[] = []; // Array to store invalid field names
+  clientDetails: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -312,7 +313,6 @@ export class DataCapturingComponent implements OnDestroy {
   addCustomLocation = (term: any) => ({ id: term, tender_location: term });
 
   getStateData1(data: any) {
-    debugger
     let countrydata = data;
     let statedata = null;
     this.apiService.getStateData(countrydata, statedata).pipe(takeUntil(this.destroy$)).subscribe(
@@ -514,10 +514,18 @@ export class DataCapturingComponent implements OnDestroy {
           this.tender_location.push(locationFormGroup);
           this.getDistrictData(location.state_id, index);
         });
+        this.bidderType(this.custDetails.biddertype_id);
+        this.matchCompany(this.custDetails.bidder_id);
 
+        let secComp = this.custDetails.secondary_company;
+        if (secComp) {
+          secComp = secComp.map((el:any) => el = el.bidder_id)
+        }
 
         this.form.patchValue({
+          biddertype_id: this.custDetails.biddertype_id,
           bidder_id: this.custDetails.bidder_id,
+          secondary_company: secComp || [],
           ecvtype_id: this.custDetails.ecvtype_id,
           bidder_name: this.custDetails.bidder_name,
           bidtype_id: this.custDetails.bidtype_id,
@@ -598,14 +606,14 @@ export class DataCapturingComponent implements OnDestroy {
 
   getDetails(data: any) {
     this.isContactFound = false;
-    this.custDetails = []
+    this.clientDetails = []
     this.contactDetails = []
     this.addressDetails = []
     this.apiService.companyDetails(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         if (res.status === 200) {
-          this.custDetails = res.result;
-          const arr = this.custDetails[0].contact;
+          this.clientDetails = res.result;
+          const arr = this.clientDetails[0].contact;
 
           // arr.forEach((data: any) => {
           //   data.isChecked = true;
@@ -618,14 +626,14 @@ export class DataCapturingComponent implements OnDestroy {
           this.isContactFound = false;
         } else {
           this.isContactFound = true;
-          this.custDetails = undefined;
+          this.clientDetails = undefined;
           this.contactDetails = undefined;
           this.addressDetails = undefined;
           this.alertService.warning(res.message);
         }
       }, error: (error: any) => {
         this.isContactFound = true;
-        this.custDetails = undefined;
+        this.clientDetails = undefined;
         this.contactDetails = undefined;
         this.addressDetails = undefined;
         this.alertService.error("Error: Unknown Error!");
@@ -728,7 +736,6 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   handleCheckboxChange(event: any, data: any) {
-    debugger
     // const contactArray = this.form.get('contact') as FormArray;
     const contactId = data.contact_id;
     
@@ -810,7 +817,6 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   addTender() {
-    debugger
     this.button = 'Save & Continue';
     this.update = false;
 
@@ -843,10 +849,28 @@ export class DataCapturingComponent implements OnDestroy {
   }
 
   updateTender(): void {
-    debugger
     this.form.get('tender_id')?.setValue(this.tenderData.id);
     this.form.get('contact')?.setValue(this.contactArray);
-    let updatedSecComp = this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x })) || [];
+
+    const secondaryCompanyFormValue = this.form.value.secondary_company;
+    const secondaryCompanyDetails = this.custDetails.secondary_company;
+
+    const updatedSecComp = secondaryCompanyFormValue.map((bidder_id: string) => {
+      const matchedDetail = secondaryCompanyDetails.find((detail: any) => detail.bidder_id === bidder_id);
+
+      if (matchedDetail) {
+        return {
+          tenderjv_id: matchedDetail.tenderjv_id,
+          bidder_id: matchedDetail.bidder_id
+        };
+      } else {
+        return {
+          tenderjv_id: null,
+          bidder_id: bidder_id
+        };
+      }
+    }) || [];
+
     this.form.get('secondary_company')?.setValue(updatedSecComp);
 
     this.apiService.tenderUpdation(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
