@@ -117,9 +117,9 @@ export class DataCapturingComponent implements OnDestroy {
   ngOnInit() {
     this.form = this.formBuilder.group({
       tender_id: [null],
-      // bidder_type: [null, Validators.required],
-      // bidder_id: [null, Validators.required],
-      // secondary_company: [[]],
+      biddertype_id: [null, Validators.required],
+      bidder_id: [null, Validators.required],
+      secondary_company: [[]],
       company_id: [null, Validators.required],
       tender_title: [null, Validators.required],
       tender_ref_no: [null, Validators.required],
@@ -191,7 +191,7 @@ export class DataCapturingComponent implements OnDestroy {
     this.getCategoryData();
     this.onPublishDateChange();
     this.onClosingDateChange();
-    // this.getMyCompanyData();
+    this.getMyCompanyData();
   }
 
   // dateLessThan(startDate: string, endDate: string): ValidatorFn {
@@ -259,36 +259,36 @@ export class DataCapturingComponent implements OnDestroy {
     this.loc().removeAt(i);
   }
 
-  // bidderType(type: any) {
-  //   if (type == '2003') {
-  //     this.form.get('secondary_company')!.setValidators([Validators.required]);
-  //     this.form.controls['secondary_company'].reset();
-  //   }
-  //   else {
-  //     this.form.controls['secondary_company'].clearValidators();
-  //     this.form.controls['secondary_company'].reset();
-  //   }
-  // }
+  bidderType(type: any) {
+    if (type != '2000') {
+      this.form.get('secondary_company')!.setValidators([Validators.required]);
+      this.form.controls['secondary_company'].reset();
+    }
+    else {
+      this.form.controls['secondary_company'].clearValidators();
+      this.form.controls['secondary_company'].reset();
+    }
+  }
 
-  // getMyCompanyData() {
-  //   this.myCompanyData = [];
-  //   this.allCompanies = [];
-  //   const apiLink = `/mycompany/api/v1/getMyComapanyList`;
-  //   this.apiService.getData(apiLink).subscribe((res: any) => {
-  //     if (res.status === 200) {
-  //       this.allCompanies = res.result;
-  //       this.myCompanyData = res.result.filter((el: any) => el.companytype_id == '2000');
-  //     } else {
-  //       this.alertService.warning("Looks like no data available in company data.");
-  //     }
-  //   });
-  // }
+  getMyCompanyData() {
+    this.myCompanyData = [];
+    this.allCompanies = [];
+    const apiLink = `/mycompany/api/v1/getMyComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.allCompanies = res.result;
+        this.myCompanyData = res.result.filter((el: any) => el.companytype_id == '2000');
+      } else {
+        this.alertService.warning("Looks like no data available in company data.");
+      }
+    });
+  }
 
-  // matchCompany(bidder_id: any) {
-  //   this.form.controls['secondary_company'].reset();
-  //   let allComp = this.allCompanies;
-  //   this.filteredCompanies = allComp.filter((el: any) => el.bidder_id != bidder_id);
-  // }
+  matchCompany(bidder_id: any) {
+    this.form.controls['secondary_company'].reset();
+    let allComp = this.allCompanies;
+    this.filteredCompanies = allComp.filter((el: any) => el.bidder_id != bidder_id);
+  }
 
   getCountryData() {
     this.apiService.getCountryDataList().pipe(takeUntil(this.destroy$)).subscribe(
@@ -484,7 +484,7 @@ export class DataCapturingComponent implements OnDestroy {
         this.tendContDetails = res.result[0].tendercontact;
         this.tendContDetails.forEach((el: any) => {
           this.contactId.push(el.contact_id)
-          this.contactId.push(el.tendercontact_id)
+          this.contactId.push()
           this.contactArray.push({ 
             contact_id: el.contact_id,
             tendercontact_id: el.tendercontact_id,
@@ -734,7 +734,10 @@ export class DataCapturingComponent implements OnDestroy {
     
     if (event.target.checked) {
       // Checkbox is checked, add item to contact array
-      this.contactArray.push({ contact_id: contactId});
+      this.contactArray.push({ 
+        contact_id: contactId,
+        tendercontact_id: null,
+      });
       this.contactId.push(contactId);
     } else {
       // Checkbox is unchecked, remove item from contact array
@@ -812,14 +815,14 @@ export class DataCapturingComponent implements OnDestroy {
     this.update = false;
 
     // Update secondary_company to an array of objects or an empty array
-    // let updatedSecComp = this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x })) || [];
-    // this.form.get('secondary_company')?.setValue(updatedSecComp);
+    let updatedSecComp = this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x })) || [];
+    this.form.get('secondary_company')?.setValue(updatedSecComp);
     this.form.get('contact')?.setValue(this.contactArray);
 
     // Ensure that secondary_company is set to an empty array if it has no data
-    // if (updatedSecComp.length === 0) {
-    //   this.form.get('secondary_company')?.setValue([]);
-    // }
+    if (updatedSecComp.length === 0) {
+      this.form.get('secondary_company')?.setValue([]);
+    }
 
     this.apiService.createTender(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
@@ -843,8 +846,8 @@ export class DataCapturingComponent implements OnDestroy {
     debugger
     this.form.get('tender_id')?.setValue(this.tenderData.id);
     this.form.get('contact')?.setValue(this.contactArray);
-    // let updatedSecComp = this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x })) || [];
-    // this.form.get('secondary_company')?.setValue(updatedSecComp);
+    let updatedSecComp = this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x })) || [];
+    this.form.get('secondary_company')?.setValue(updatedSecComp);
 
     this.apiService.tenderUpdation(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {

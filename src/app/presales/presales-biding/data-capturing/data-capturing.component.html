@@ -54,39 +54,37 @@
         </div>
 
         <div class="row" *ngIf="showTenderDetails">
-          <!-- <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Bidder Type<span class="required-asterisk">*</span> </label>
-              <select formControlName="bidder_type" #bidder class="form-select form-select-sm"
+              <select formControlName="biddertype_id" #bidder class="form-select form-select-sm"
                 (change)="bidderType(bidder.value)">
                 <option [value]="null" disabled selected>Select type</option>
                 <option *ngFor="let c of tenderDropdownData?.companytype" [value]="c?.companytype_id">
                   {{ c?.companytype }}
                 </option>
               </select>
-              <div *ngIf="f['bidder_type'].touched && f['bidder_type'].invalid">
-                <small class="text-danger" *ngIf="f['bidder_type'].errors?.['required']">*Required</small>
+              <div *ngIf="f['biddertype_id'].touched && f['biddertype_id'].invalid">
+                <small class="text-danger" *ngIf="f['biddertype_id'].errors?.['required']">*Required</small>
               </div>
             </div>
           </div>
-          <div class="col-md-4" *ngIf="bidder.value == '2003' || bidder.value == '2000'">
+          <div class="col-md-4" *ngIf="bidder.value">
             <div class="form-group">
-              <label class="form-label fl-10"> {{ bidder.value == '2003' ? 'Lead Company' : 'Company Name'}}<span
+              <label class="form-label fl-10"> {{ bidder.value != '2000' ? 'Lead Company' : 'Company Name'}}<span
                   class="required-asterisk">*</span> </label>
               <select formControlName="bidder_id" #bidder_name class="form-select form-select-sm"
                 (change)="matchCompany(bidder_name.value)">
                 <option [value]="null" disabled selected>Select Company</option>
                 <option *ngFor="let c of (bidder.value == '2000' ? myCompanyData : allCompanies)"
-                  [value]="c?.bidder_id">
-                  {{ c?.bidder_name }}
-                </option>
+                  [value]="c?.bidder_id"> {{ c?.bidder_name }} </option>
               </select>
               <div *ngIf="f['bidder_id'].touched && f['bidder_id'].invalid">
                 <small class="text-danger" *ngIf="f['bidder_id'].errors?.['required']">*Required</small>
               </div>
             </div>
           </div>
-          <div class="col-md-4" *ngIf="bidder.value == '2003'">
+          <div class="col-md-4" *ngIf="bidder.value != '2000'">
             <div class="form-group">
               <label class="form-label fl-10">Secondary Company<span class="required-asterisk">*</span> </label>
               <ng-select formControlName="secondary_company" [items]="filteredCompanies" [multiple]="true"
@@ -99,7 +97,7 @@
                 <small class="text-danger" *ngIf="f['secondary_company'].errors?.['required']">*Required</small>
               </div>
             </div>
-          </div> -->
+          </div>
           <div class="col-md-4">
             <div class="form-group">
               <label class="form-label fl-10">Client<span class="required-asterisk">*</span></label>
