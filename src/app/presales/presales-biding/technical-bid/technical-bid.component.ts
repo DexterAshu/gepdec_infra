@@ -14,7 +14,7 @@ import { SharedService } from 'src/app/_services';
   styleUrls: ['./technical-bid.component.css']
 })
 export class TechnicalBidComponent {
-  
+
   form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
@@ -36,7 +36,7 @@ export class TechnicalBidComponent {
   techData: any = [];
   filterTenderDetailsData: any = [];
   uploadFile: any;
-    categoryData: any;
+  categoryData: any;
   subCategoryData: any;
   capacityData: any;
   apiLink: any;
@@ -97,9 +97,9 @@ export class TechnicalBidComponent {
         this.alertService.warning(res.message);
       }
     }, (error: any) => {
-        this.isNotFound = true;
-        this.docListData = undefined;
-        this.alertService.error("Error: Unknown Error!");
+      this.isNotFound = true;
+      this.docListData = undefined;
+      this.alertService.error("Error: Unknown Error!");
     });
   }
 
@@ -119,12 +119,12 @@ export class TechnicalBidComponent {
     });
   }
 
-  getSubData(data:any) {
+  getSubData(data: any) {
     this.subCategoryData = [];
     this.capacityData = [];
     this.form.controls['subqacatagory_id'].setValue(null);
     this.form.controls['capacity_id'].setValue(null);
-    if(data == '1002' || data == '1003') {
+    if (data == '1002' || data == '1003') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.subCategoryData = res.subcatagory;
@@ -132,14 +132,14 @@ export class TechnicalBidComponent {
         this.subCategoryData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
-    } else if(data == '1001') {
-        this.getCapacityData(data);
+    } else if (data == '1001') {
+      this.getCapacityData(data);
     }
   }
-  
-  getCapacityData(data:any) {
+
+  getCapacityData(data: any) {
     this.capacityData = [];
-    if(data == '2001' || data == '2002') {
+    if (data == '2001' || data == '2002') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?subqacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.capacityData = res.capacity;
@@ -158,7 +158,7 @@ export class TechnicalBidComponent {
 
     }
   }
-  
+
   getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
@@ -168,9 +168,13 @@ export class TechnicalBidComponent {
     });
   }
 
-  rowListData(row:any) {
+  rowListData(row: any) {
     this.rowData = [];
     this.rowData = row;
+  }
+
+  rowLocation(rowData: any): void {
+    this.masterService.openModal(rowData?.tender_id);
   }
 
   getrefData(tender_id: any) {
@@ -179,7 +183,7 @@ export class TechnicalBidComponent {
   }
 
   //button dropdown
- 
+
   // getDetails(event:any) {
   //   this.data1 = this.clientList; // Assuming this assignment is necessary
   //   this.apiService.tenderDetails(this.data1).subscribe((res: any) => {
@@ -188,39 +192,39 @@ export class TechnicalBidComponent {
   //   });
   // }
 
-   download(): void {
-    let wb = XLSX.utils.table_to_book(document.getElementById('export'), {display: false, raw: true});
+  download(): void {
+    let wb = XLSX.utils.table_to_book(document.getElementById('export'), { display: false, raw: true });
     XLSX.writeFile(wb, 'Export Excel File.xlsx');
   }
 
   getCompanyData() {
     this.apiService.getCompanyList().subscribe((res: any) => {
-      if(res.status == 200) {
+      if (res.status == 200) {
         this.companyData = res.result;
       } else {
         this.alertService.warning(res.message);
       }
     }),
-    (error: any) => { 
-      console.error(error);
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        console.error(error);
+        this.alertService.error("Error: Unknown Error!");
+      }
     this.apiService.getTenderType().subscribe((res: any) => {
-      if(res.status == 200) {
+      if (res.status == 200) {
         this.tenderType = res.bidtype;
       } else {
         this.alertService.warning(res.message);
       }
     }),
-    (error: any) => { 
-      console.error(error);
-      this.alertService.error("Error: Unknown Error!");
-    }
+      (error: any) => {
+        console.error(error);
+        this.alertService.error("Error: Unknown Error!");
+      }
 
   }
 
   addMultiTechPoints() {
-    let formData = {... this.form.value };
+    let formData = { ... this.form.value };
     this.addTech.push(formData);
     this.form.controls['qacatagory_id'].reset();
     this.form.controls['subqacatagory_id'].reset();
@@ -255,7 +259,7 @@ export class TechnicalBidComponent {
       this.loading = true;
       let data = this.addTech;
       this.addTech = [];
-      this.apiService.addTechData(data).subscribe((res:any) => {
+      this.apiService.addTechData(data).subscribe((res: any) => {
         document.getElementById('cancel')?.click();
         this.getData();
         this.isSubmitted = false;
@@ -267,10 +271,10 @@ export class TechnicalBidComponent {
           this.alertService.warning(res.message);
         }
       }, (error) => {
-          this.isSubmitted = false;
-          document.getElementById('cancel')?.click();
-          this.alertService.error("Error: Unknown Error!");
-        })
+        this.isSubmitted = false;
+        document.getElementById('cancel')?.click();
+        this.alertService.error("Error: Unknown Error!");
+      })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }

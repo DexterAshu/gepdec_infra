@@ -4,7 +4,8 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Technical Documents</h4>
+                        <h4 class="page-title" onclick="goBack()"><i class="mdi mdi-chevron-left mdi-2"></i>Technical
+                            Accomplishments</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
@@ -88,12 +89,14 @@
                                 <!-- <td>{{a.qacatagory}}</td>
                                 <td>{{a.subqacatagory}}</td>
                                 <td>{{a.capacity}}</td>
-                                <td>{{a.technical_points}}</td> -->  
+                                <td>{{a.technical_points}}</td> -->
                                 <td>
-                                    <a (click)="rowListData(a)" data-bs-toggle="modal" data-bs-target="#docModal" title="Document List">
-                                        <span style="color: #2196f3;" class="mdi mdi-format-list-bulleted cursor-pointer mdi-18px"></span>
+                                    <a (click)="rowListData(a)" data-bs-toggle="modal" data-bs-target="#docModal"
+                                        title="Document List">
+                                        <span style="color: #2196f3;"
+                                            class="mdi mdi-format-list-bulleted cursor-pointer mdi-18px"></span>
                                     </a>&nbsp;
-                                    <a  data-bs-toggle="modal" data-bs-target="#viewPDF" title="View PDF File" (click)="showPdf(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a>
+                                    <!-- <a  data-bs-toggle="modal" data-bs-target="#viewPDF" title="View PDF File" (click)="showPdf(a)"><span class="mdi mdi-eye text-success cursor-pointer mdi-18px"></span></a> -->
                                 </td>
                             </tr>
                             <tr *ngIf="docListData?.length == 0">
@@ -200,7 +203,8 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label fl-10">Total Experience (Years)</label>
-                                    <input formControlName="experience" type="text" class="form-control form-control-sm" appNumWithDot>
+                                    <input formControlName="experience" type="text" class="form-control form-control-sm"
+                                        appNumWithDot>
                                     <div *ngIf="f['experience'].touched && f['experience'].invalid">
                                         <small class="text-danger"
                                             *ngIf="f['experience'].errors?.['required']">*Required</small>
@@ -367,7 +371,7 @@
 <!-- Technical modal end-->
 
 <!-- Pdf Modal -->
-<div class="modal fade" id="viewPDF" tabindex="-1" data-bs-toggle="modal" data-bs-target="#editModal"
+<!-- <div class="modal fade" id="viewPDF" tabindex="-1" data-bs-toggle="modal" data-bs-target="#editModal"
     data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
@@ -440,7 +444,8 @@
                                         </tr>
                                         <tr>
                                             <th>Publish Date</th>
-                                            <td colspan="5">{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}</td>
+                                            <td colspan="5">{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -460,7 +465,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Pdf Modal end-->
 
 <!-- image view modal start-->
@@ -470,7 +475,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="imgModalLabel">View Image</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#docModal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    data-bs-toggle="modal" data-bs-target="#docModal"></button>
             </div>
             <div class="modal-body">
                 <div id="carouselExampleIndicators" data-bs-interval="false" class="carousel slide carousel-fade"
@@ -489,19 +495,21 @@
 
 <!-- image view modal end-->
 <!-- pdf view modal start-->
-<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="pdfModalLabel">View PDF</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" data-bs-target="#docModal"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">View PDF</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    data-bs-toggle="modal" data-bs-target="#docModal"></button>
+            </div>
+            <div class="modal-body">
+                <iframe [src]="pdfFile" width="100%" height="600px"></iframe>
+            </div>
         </div>
-        <div class="modal-body">
-          <iframe [src]="pdfFile" width="100%" height="600px"></iframe>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 <!-- pdf view modal end-->
 
@@ -511,44 +519,119 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tender Documents</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Technical Qualification Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12 p-0">
+                            <div class="table-responsive" style="min-height: auto;">
+                                <h6 class="mb-3 text-secondary">Qualification Detail</h6>
+                                <table class="table table-hover table-striped custom-table table-bordered">
+                                    <thead class="hidden-thead"></thead>
+                                    <tbody class="text-nowrap">
+                                        <tr>
+                                            <th>Company</th>
+                                            <td>{{ itemList?.bidder_name }}</td>
+                                            <th>Category</th>
+                                            <td>{{ itemList?.qacatagory }}</td>
+                                            <th>Sub-category</th>
+                                            <td>{{ itemList?.subqacatagory }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Capacity</th>
+                                            <td>{{ itemList?.capacity }}</td>
+                                            <th>Total Experience</th>
+                                            <td>{{ itemList?.total_experience }}</td>
+                                            <th>Completion Period</th>
+                                            <td>{{ itemList?.completion_period }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Completion Year</th>
+                                            <td>{{ itemList?.completion_year }}</td>
+                                            <th>Resource Used</th>
+                                            <td>{{ itemList?.resource_used }}</td>
+                                            <th>Technical Remarks</th>
+                                            <td>{{ itemList?.technical_points }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Client</th>
+                                            <td>{{ itemList?.company_name }}</td>
+                                            <th> NIT No</th>
+                                            <td>
+                                                <div *ngIf="!!itemList?.tender_ref_no; else elseBlock3"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ itemList?.tender_ref_no }}">
+                                                    {{itemList?.tender_ref_no | slice:0:30}} <span
+                                                        *ngIf="itemList?.tender_ref_no.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock3>
+                                                    {{itemList?.tender_ref_no}}
+                                                </ng-template>
+                                            </td>
+                                            <th>Tender Title</th>
+                                            <td>
+                                                <div *ngIf="!!itemList?.tender_title; else elseBlock4"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    title="{{ itemList?.tender_title }}">
+                                                    {{itemList?.tender_title | slice:0:30}} <span
+                                                        *ngIf="itemList?.tender_title.length > 30">...<i
+                                                            class="mdi mdi-information"></i></span>
+                                                </div>
+                                                <ng-template #elseBlock4>
+                                                    {{itemList?.tender_title}}
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Publish Date</th>
+                                            <td colspan="5">{{ itemList?.publish_date | date:'dd/MM/yyyy' : 'GMT' }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-0 mt-2">
                             <h6 class="mb-2 text-secondary">Document List</h6>
                             <div class="table-responsive table-height-auto pt-2">
                                 <table class="table table-hover table-striped">
                                     <thead class="table-primary text-nowrap">
                                         <tr>
-                                        <th>S No</th>
-                                        <th>File Name</th>
-                                        <th>Document Attachment</th>
+                                            <th>S No</th>
+                                            <th>File Name</th>
+                                            <th>Document Attachment</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-nowrap">
                                         <tr *ngFor="let doc of processedDocuments; index as i">
-                                        <td>{{doc.index}}</td>
-                                        <td>{{doc.document}}</td>
-                                        <td> 
-                                            <span *ngIf="doc.type === 'image'">
-                                                <a title="View Image" data-bs-toggle="modal" data-bs-target="#viewImageModal" (click)="showImage(doc.fullPath)">
-                                                  <span style="color: #17a2b8;" class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
-                                                </a>
-                                            </span>
-                                            <span *ngIf="doc.type === 'pdf'">
-                                                <a title="View PDF" data-bs-toggle="modal" data-bs-target="#pdfModal" (click)="showPdf2(doc.fullPath)">
-                                                    <span class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
-                                                </a>
-                                            </span>
-                                            <span *ngIf="doc.type === 'excel'">
-                                                <a title="Excel Download" (click)="downloadExcel(doc.fullPath)">
-                                                    <span class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
-                                                </a>
-                                            </span>                                    
-                                        </td>
+                                            <td>{{doc.index}}</td>
+                                            <td>{{doc.document}}</td>
+                                            <td>
+                                                <span *ngIf="doc.type === 'image'">
+                                                    <a title="View Image" data-bs-toggle="modal"
+                                                        data-bs-target="#viewImageModal"
+                                                        (click)="showImage(doc.fullPath)">
+                                                        <span style="color: #17a2b8;"
+                                                            class="mdi mdi-file-image cursor-pointer mdi-18px"></span>
+                                                    </a>
+                                                </span>
+                                                <span *ngIf="doc.type === 'pdf'">
+                                                    <a title="View PDF" data-bs-toggle="modal"
+                                                        data-bs-target="#pdfModal" (click)="showPdf2(doc.fullPath)">
+                                                        <span
+                                                            class="mdi mdi-file-pdf text-danger cursor-pointer mdi-18px"></span>
+                                                    </a>
+                                                </span>
+                                                <span *ngIf="doc.type === 'excel'">
+                                                    <a title="Excel Download" (click)="downloadExcel(doc.fullPath)">
+                                                        <span
+                                                            class="mdi mdi-file-excel text-success cursor-pointer mdi-18px"></span>
+                                                    </a>
+                                                </span>
+                                            </td>
                                         </tr>
                                         <tr *ngIf="processedDocuments.length === 0" class="text-center">
                                             <td colspan="5" class="text-warning">Looks like no data available!</td>

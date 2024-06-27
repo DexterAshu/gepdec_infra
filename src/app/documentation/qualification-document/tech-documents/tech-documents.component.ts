@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./tech-documents.component.css']
 })
 export class TechDocumentsComponent {
-  
+
   form!: FormGroup;
   p: number = 1;
   limit = environment.pageLimit;
@@ -34,7 +34,7 @@ export class TechDocumentsComponent {
   techData: any = [];
   filterTenderDetailsData: any = [];
   uploadFile: any;
-    categoryData: any;
+  categoryData: any;
   subCategoryData: any;
   capacityData: any;
   apiLink: any;
@@ -54,7 +54,7 @@ export class TechDocumentsComponent {
     private router: Router,
     private elementRef: ElementRef,
     private sharedService: SharedService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -127,14 +127,15 @@ export class TechDocumentsComponent {
         this.alertService.warning(res.message);
       }
     }, (error: any) => {
-        this.isNotFound = true;
-        this.docListData = undefined;
-        this.alertService.error("Error: Unknown Error!");
+      this.isNotFound = true;
+      this.docListData = undefined;
+      this.alertService.error("Error: Unknown Error!");
     });
   }
-  
+
   rowListData(row: any) {
     this.processedDocuments = [];
+    this.itemList = row;
     const documentList = this.extractFileDetails(row.document);
     documentList.forEach((doc, index) => {
       const type = this.getDocumentType(doc.name);
@@ -145,17 +146,17 @@ export class TechDocumentsComponent {
         type: type
       });
       console.log('processedDocuments -->', this.processedDocuments);
-      
+
     });
   }
 
   extractFileDetails(filePaths: string): { name: string, path: string }[] {
     return filePaths.split(',').map(path => {
-        const parts = path.split('/');
-        const fullFileName = parts[parts.length - 1];
-        // Remove leading numbers and dashes
-        const fileName = fullFileName.replace(/^\d+-*/, '');
-        return { name: fileName, path: path };
+      const parts = path.split('/');
+      const fullFileName = parts[parts.length - 1];
+      // Remove leading numbers and dashes
+      const fileName = fullFileName.replace(/^\d+-*/, '');
+      return { name: fileName, path: path };
     });
   }
 
@@ -187,7 +188,7 @@ export class TechDocumentsComponent {
     console.log('excel file-->', data);
     this.excelFile = `${environment.apiUrl}/${data}`;
     console.log('this.excelFile -->', this.excelFile);
-    
+
     const link = document.createElement('a');
     link.href = this.excelFile;
     const fileName = data.split('/').pop();
@@ -219,12 +220,12 @@ export class TechDocumentsComponent {
     });
   }
 
-  getSubData(data:any) {
+  getSubData(data: any) {
     this.subCategoryData = [];
     this.capacityData = [];
     this.form.controls['subqacatagory_id'].setValue(null);
     this.form.controls['capacity_id'].setValue(null);
-    if(data == '1002' || data == '1003') {
+    if (data == '1002' || data == '1003') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?qacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.subCategoryData = res.subcatagory;
@@ -232,14 +233,14 @@ export class TechDocumentsComponent {
         this.subCategoryData = undefined;
         this.alertService.error("Error: Unknown Error!");
       });
-    } else if(data == '1001') {
-        this.getCapacityData(data);
+    } else if (data == '1001') {
+      this.getCapacityData(data);
     }
   }
-  
-  getCapacityData(data:any) {
+
+  getCapacityData(data: any) {
     this.capacityData = [];
-    if(data == '2001' || data == '2002') {
+    if (data == '2001' || data == '2002') {
       this.apiLink = `/biding/api/v1/getQualificationDropdown?subqacatagory_id=${data}`;
       this.apiService.getData(this.apiLink).subscribe((res: any) => {
         this.capacityData = res.capacity;
@@ -258,7 +259,7 @@ export class TechDocumentsComponent {
 
     }
   }
-  
+
   getDetails(event: any) {
     const company_id = event?.target ? (event.target as HTMLInputElement).value : event;
     this.clientListData = company_id;
@@ -272,11 +273,11 @@ export class TechDocumentsComponent {
   }
 
   //button dropdown
- 
-  showPdf(a:any) {
-    this.itemList = a
-    this.showAsPdf = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.apiUrl}${a?.document}`);
-  }
+
+  // showPdf(a:any) {
+  //   this.itemList = a
+  //   this.showAsPdf = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.apiUrl}${a?.document}`);
+  // }
 
   // download(): void {
   //   let wb = XLSX.utils.table_to_book(document.getElementById('export'), {
@@ -330,7 +331,7 @@ export class TechDocumentsComponent {
       formData.append(`attachment`, this.uploadFile);
 
       let apiLink = '/mycompany/api/v1/addMyComapanyQualification'
-      this.apiService.postDataFD(apiLink ,formData).subscribe((res:any) => {
+      this.apiService.postDataFD(apiLink, formData).subscribe((res: any) => {
         document.getElementById('cancel')?.click();
         this.getData();
         this.isSubmitted = false;
@@ -343,10 +344,10 @@ export class TechDocumentsComponent {
           this.alertService.warning(res.message);
         }
       }, (error) => {
-          this.isSubmitted = false;
-          document.getElementById('cancel')?.click();
-          this.alertService.error("Error: Unknown Error!");
-        })
+        this.isSubmitted = false;
+        document.getElementById('cancel')?.click();
+        this.alertService.error("Error: Unknown Error!");
+      })
     } else {
       this.alertService.warning("Form is invalid, Please fill the form correctly.");
     }
