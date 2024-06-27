@@ -23,7 +23,8 @@
               <div class="float-right">
                 <!-- <button class="btn btn-primary btn-fw btn-sm me-2" type="button" (click)="download()"><span class="mdi mdi-arrow-down-bold-box-outline"></span>&nbsp;Export</button>
                 <button class="btn btn-primary btn-fw btn-sm me-2" data-bs-toggle="modal" data-bs-target="#createBulkModal" title="Upload bulk Data"><span class="mdi mdi-download"></span>&nbsp; Import</button> -->
-                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary btn-fw btn-sm">+ Create</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createModal"
+                  class="btn btn-primary btn-fw btn-sm">+ Create</button>
               </div>
             </div>
           </div>
@@ -46,10 +47,7 @@
                 <td>{{ limit*(p-1)+i+1 }}</td>
                 <td>{{ a?.itemcode }}</td>
                 <td>
-                  <div *ngIf="!!a?.description; else elseBlock1" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ a?.description }}">{{a?.description | slice:0:30}} <span
-                      *ngIf="a?.description.length > 30">...<i class="mdi mdi-information"></i></span></div>
-                  <ng-template #elseBlock1>{{a?.description}}</ng-template>
+                  <app-slice-with-tooltip [text]="a?.description"></app-slice-with-tooltip>
                 </td>
                 <td>{{ a?.itemcategory }}</td>
                 <td>{{ a?.subcategory }}</td>
