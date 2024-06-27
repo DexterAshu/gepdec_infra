@@ -99,11 +99,7 @@
                     <td>{{ selectedRow?.itemcode }}</td>
                     <th>Description</th>
                     <td>
-                      <div *ngIf="!!selectedRow?.description; else elseBlock1" data-toggle="tooltip"
-                        data-placement="bottom" title="{{ selectedRow?.description }}"> {{selectedRow?.description |
-                        slice:0:30}} <span *ngIf="selectedRow?.description.length > 30">...<i
-                            class="mdi mdi-information"></i></span>
-                      </div>
+                      <app-slice-with-tooltip [text]="selectedRow?.description"></app-slice-with-tooltip>
                       <ng-template #elseBlock1>
                         {{selectedRow?.description}}
                       </ng-template>
