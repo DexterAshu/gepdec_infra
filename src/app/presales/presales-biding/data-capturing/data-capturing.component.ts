@@ -194,7 +194,7 @@ export class DataCapturingComponent implements OnDestroy {
     this.getCategoryData();
     this.onPublishDateChange();
     this.onClosingDateChange();
-    // this.getMyCompanyData();
+    this.getMyCompanyData();
   }
 
   // dateLessThan(startDate: string, endDate: string): ValidatorFn {
@@ -274,25 +274,25 @@ export class DataCapturingComponent implements OnDestroy {
     }
   }
 
-  // getMyCompanyData() {
-  //   this.myCompanyData = [];
-  //   this.allCompanies = [];
-  //   const apiLink = `/mycompany/api/v1/getMyComapanyList`;
-  //   this.apiService.getData(apiLink).subscribe((res: any) => {
-  //     if (res.status === 200) {
-  //       this.allCompanies = res.result;
-  //       this.myCompanyData = res.result.filter((el: any) => el.companytype_id == '2000');
-  //     } else {
-  //       this.alertService.warning("Looks like no data available in company data.");
-  //     }
-  //   });
-  // }
+  getMyCompanyData() {
+    this.myCompanyData = [];
+    this.allCompanies = [];
+    const apiLink = `/mycompany/api/v1/getMyComapanyList`;
+    this.apiService.getData(apiLink).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.allCompanies = res.result;
+        this.myCompanyData = res.result.filter((el: any) => el.companytype_id == '2000');
+      } else {
+        this.alertService.warning("Looks like no data available in company data.");
+      }
+    });
+  }
 
-  // matchCompany(bidder_id: any) {
-  //   this.form.controls['secondary_company'].reset();
-  //   let allComp = this.allCompanies;
-  //   this.filteredCompanies = allComp.filter((el: any) => el.bidder_id != bidder_id);
-  // }
+  matchCompany(bidder_id: any) {
+    this.form.controls['secondary_company'].reset();
+    let allComp = this.allCompanies;
+    this.filteredCompanies = allComp.filter((el: any) => el.bidder_id != bidder_id);
+  }
 
   getCountryData() {
     this.apiService.getCountryDataList().pipe(takeUntil(this.destroy$)).subscribe(
@@ -480,8 +480,6 @@ export class DataCapturingComponent implements OnDestroy {
       this.update = true;
 
       this.apiService.tenderDetails(this.tenderData.id).subscribe((res: any) => {
-        console.log(res);
-        
         this.tendContDetails = [];
         this.custDetails = res.result[0];
         this.tendContDetails = res.result[0].tendercontact;
@@ -491,7 +489,6 @@ export class DataCapturingComponent implements OnDestroy {
             contact_id: el.contact_id,
             tendercontact_id: el.tendercontact_id,
           });
-          console.log(this.tendContDetails);
         })
 
         this.multiLocation = res.result[0].siteAddress;
@@ -819,14 +816,14 @@ export class DataCapturingComponent implements OnDestroy {
     this.update = false;
 
     // Update secondary_company to an array of objects or an empty array
-    // let updatedSecComp = this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x })) || [];
-    // this.form.get('secondary_company')?.setValue(updatedSecComp);
+    let updatedSecComp = this.form.value.secondary_company?.map((x: any) => ({ bidder_id: x })) || [];
+    this.form.get('secondary_company')?.setValue(updatedSecComp);
     this.form.get('contact')?.setValue(this.contactArray);
 
     // Ensure that secondary_company is set to an empty array if it has no data
-    // if (updatedSecComp.length === 0) {
-    //   this.form.get('secondary_company')?.setValue([]);
-    // }
+    if (updatedSecComp.length === 0) {
+      this.form.get('secondary_company')?.setValue([]);
+    }
 
     this.apiService.createTender(this.form.value).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
